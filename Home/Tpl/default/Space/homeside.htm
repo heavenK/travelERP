@@ -1,0 +1,51 @@
+<div class="contenter">
+    <{$hook['home_side_top']}>
+    <div class="sect first-sect" style="margin-bottom:0px">
+        <div>
+        <div class="fleft" style="width:60px"><a href="<{:SITE_URL}>/Setting/face" title="<{:L('change_face')}>"><img src="<{:sethead($my[user_head])}>" width="50px" height="50px" alt="<{$my[nickname]}>" class="imgborder"></a></div>
+        <div class="fleft">
+            <div class="sidename"><span class="<{:setvip($my[user_auth])}>" <{:viptitle($val[user_auth])}>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/profile"><{$my[nickname]}></a></span></div>
+            <div><php>if($my[live_city]){</php><{$my[live_city]}><php>}else{</php><a href="<{:SITE_URL}>/Setting"><{:L('input_your_loca')}></a><php>}</php></div>
+        </div>
+        </div>
+        <div class="clearline"></div>
+        <{$hook['home_side_mid1']}>
+        <table class="sidetable">
+            <tr style="line-height:100%">
+                <td class="tz"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/follower"><p><b><{$my[followme_num]}></b></p><p><{:L('follower')}></p></a></td>
+                <td class="st"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/following"><p><b><{$my[follow_num]}></b></p><p><{:L('follow')}></p></a></td>
+                <td class="gb"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/mine"><p><b id="mymsgnum"><{$my[msg_num]}></b></p><p><{:L('talk')}></p></a></td>
+            </tr>
+        </table>
+        <{$hook['home_side_mid2']}>
+    </div>
+
+    <div class="homestabs">
+        <ul class="menu">
+            <li><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>" class="home<php>if($type=='home'){</php> curt<php>}</php>"><{:L('my_page')}></a><b class="arr<php>if($type=='home'){</php> arrCurt<php>}</php>"></b></li>
+            <li><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/mine" class="mytalk<php>if($type=='mine'){</php> curt<php>}</php>"><{:L('my_talk_side')}></a><b class="arr<php>if($type=='mine'){</php> arrCurt<php>}</php>"></b></li>
+            <li><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/at" class="at<php>if($type=='at'){</php> curt<php>}</php>"><{:L('at_mytalk')}><span id="atnum"><php>if($my[atnum]>0){</php>(<{$my[atnum]}>)<php>}</php></span></a><b class="arr<php>if($type=='at'){</php> arrCurt<php>}</php>"></b></li>
+            <li><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/favor" class="favor<php>if($type=='favor'){</php> curt<php>}</php>"><{:L('my_favtalks')}></a><b class="arr<php>if($type=='favor'){</php> arrCurt<php>}</php>"></b></li>
+            <li><a href="<{:SITE_URL}>/Comments" class="comments<php>if($type=='comments'){</php> curt<php>}</php>"><{:L('my_comments')}><span id="commentstip"><php>if($my[comments]>0){</php>(<{$my[comments]}>)<php>}</php></span></a><b class="arr<php>if($type=='comments'){</php> arrCurt<php>}</php>"></b></li>
+            <li><a href="<{:SITE_URL}>/Message/inbox" class="pmsg<php>if($type=='message'){</php> curt<php>}</php>"><{:L('message')}><span id="msgtip"><php>if($my[priread]>0){</php>(<{$my[priread]}>)<php>}</php></span></a><b class="arr<php>if($type=='message'){</php> arrCurt<php>}</php>"></b></li>
+        </ul>
+    </div>
+
+    <div class="clearline"></div>
+    
+    <php>if($usertopic){</php>
+    <div class="sect">
+        <h2><{:L('attention_topic')}><em>(<{:count($usertopic)}>)</em></h2>
+        <ul class="ulist" id="mytopic">
+        <php>foreach($usertopic as $val){</php>
+        <li><span class="fleft"><a href="<{:SITE_URL}>/k/<{:rawurlencode($val['topicname'])}>"><{$val['topicname']}></a></span><span class="num" style="display:none"><a href="javascript:void(0);" onclick="fltopic('<{$val['topicname']}>','<{:L('is_cancle_attention_topic')}>','jc',this.parentNode.parentNode)" title="<{:L('cancle_attention_topic')}>">x</a></span><span class="clearline"></span></li>
+        <php>}</php>
+        </ul>
+    </div>
+    <php>}</php>
+
+    <!-- 用户侧边 -->
+    <{$userside}>
+
+    <{$hook['home_side_bottom']}>
+</div>

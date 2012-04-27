@@ -1,0 +1,10 @@
+<include file="header" />
+<h2><{:L('wap_sendmessage')}></h2>
+TO：<{$user['nickname']}><small>(@<{$user['user_name']}>)</small>
+<form method='post' action='<{:SITE_URL}>/Wap/dosendprimsg'>
+    <p><input type='text' name='content' value='' maxlength='140'/></p>
+    <p><input type="hidden" name="nickname" value="<{$user['nickname']}>">
+    <input type="hidden" name="from" value="<{:base64_encode($from)}>">
+    <input type='submit' value='<{:L('wap_send')}>' /> or <a href="<{:SITE_URL}>/Wap/<{$from}>"><{:L('go_back_a')}></a></p>
+</form>
+<include file="footer" />

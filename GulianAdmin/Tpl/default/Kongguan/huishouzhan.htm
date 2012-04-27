@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+</head>
+
+<body>
+
+
+<div id="hlt_fit_view">
+    <div class="szwz" style="color:#FFF;">
+      <ul>
+        <li> <span>您所在的位置: </span><{$navlist}></li>
+      </ul>
+    </div>
+    <div class="fanye">
+      <div id="hlt_fit_search" style="width:900px;"><!--查询-->
+      	<div class="search_one">
+            
+            <div id="hlt_fit_search_a_s"><span>团号：</span>
+              <input type="text" id="tuanhao" name="tuanhao" value="<{$tuanhao}>"/>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团队名称：</span>
+              <input type="text" id="mingcheng" name="mingcheng" value="<{$mingcheng}>"/>
+            </div>
+            <div id="hlt_fit_search_b_s"> <span>出团日期：</span>
+              <input type="text" onfocus="WdatePicker()" id="chutuanriqi" name="chutuanriqi" value="<{$chutuanriqi}>"/>
+             </div>
+          </div>
+         <div class="search_one">
+            <div id="hlt_fit_search_a_s" style="width:431px;"> <span>关键字：</span>
+              <input style="width:90px;" type="text" id="keyword" name="keyword" value="<{$keyword}>"/>
+              <span>出发地：</span>
+              <input style="width:90px;" type="text" id="chufadi" value="<{$chufadi}>"/>
+              <span>目的地：</span>
+              <input style="width:90px;" type="text" id="mudidi" value="<{$mudidi}>"/>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>天数：</span>
+              <input type="text" id="tianshu" value="<{$tianshu}>" />
+            </div>
+            <div id="hlt_fit_search_g_s" style="width:200px;">
+              <input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /><input type="button" value="" alt="返回" style="background:url('<{:__PUBLIC__}>/gulianstyle/images/search_btn_02.png') no-repeat; margin:0 0 0 5px; display:inline;" onclick="window.parent.location = '<{:SITE_ADMIN}>Index/index_chanpin'" />
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="fanye">
+  <div class="nr">
+    <table width="313" border="0">
+      <tbody>
+        <tr>
+          <td class="wbx" width="58" align="center"><a href="javascript:reback()" onclick="return confirm('确定要还原吗？');" class="yyxxl">还原</a></td>
+          <td class="wbx" width="58" align="center"></td>
+          <td class="wbx" width="58" align="center"></td>
+          <td class="wbx" width="58" align="center"></td>
+          <td class="wbx" width="58" align="center"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div  style="float:left;width:100%">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+      <tbody>
+        <tr>
+          <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+          <th height="32" align="center">序号</th>
+          <th height="32" align="center">团号</th>
+          <th height="32" align="center">团队名称</th>
+          <th height="32" align="center">出团日期</th>
+          
+          <php>if($xianlutype == '自由人'){</php>
+          <php>}else{</php>
+          <th height="32" align="center">成本(成人/儿童)</th>
+          <php>}</php>
+          <th height="32" align="center">修正值</th>
+          <th height="32" align="center">名额</th>
+          <th height="32" align="center">确认/占位</th>
+          <th height="32" align="center">剩余</th>
+          <th height="32" align="center">状态</th>
+          <th height="32" align="center">锁定</th>
+          <th height="32" align="center">报账</th>
+          <th height="32" align="center">轨迹</th>
+        </tr>
+      <form name="form" method="post" id="form">
+        <input type="hidden" name="guojing" id="guojing" value="<{$guojing}>" >
+        <input type="hidden" name="kind" id="kind" value="<{$kind}>" >
+        <php>$i=-1; foreach($zituanAll as $zituan){ $i++;</php>
+        <tr class="tr<php>echo $i%2</php>">
+          <td height="32" align="center" ><span>
+            <input value="<{$zituan['zituanID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]">
+            </span></td>
+          <td height="32" align="center" ><span>
+            <php>echo $i+1</php>
+          <td height="32" align="center" ><a href="javascript:showzituan(<{$zituan['zituanID']}>);"><{$zituan['tuanhao']}></a></td>
+          <td height="32" align="center" ><span><a href="javascript:showzituan(<{$zituan['zituanID']}>);"><{$zituan['mingcheng']}></a></span></td>
+          <td height="32" align="center" ><{$zituan['chutuanriqi']}> </td>
+          
+          <php>if($xianlutype == '自由人'){</php>
+          <php>}else{</php>
+          <td height="32" align="center" ><{$zituan['adult_shoujia']}>/<{$zituan['child_shoujia']}> </td>
+          <php>}</php>
+          
+          <td height="32" align="center" ><{$zituan['adultxiuzheng']}>/<{$zituan['childxiuzheng']}> </td>
+          <td height="32" align="center" ><{$zituan['renshu']}> </td>
+          <td height="32" align="center" ><{$zituan['querennum']}>/<{$zituan['zhanweinum']}> </td>
+          <td height="32" align="center" ><{$zituan['shengyu']}> </td>
+          <td height="32" align="center" ><{$zituan['zhuangtai']}> </td>
+          <td height="32" align="center" ><{$zituan['islock']}> </td>
+          <td height="32" align="center" ><{$zituan['bzd_status']}> </td>
+          <td align="center" ><img onclick="GetcheckBack('<{$zituan['zituanID']}>','子团','操作记录',this)" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" /></td>
+        </tr>
+        <php> }</php>
+      </form>
+        </tbody>
+      
+    </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+    <div class="page"><{$page}></div>
+  </div>
+</div>
+</body>
+</html>
+<div id="divrili2"  style="display: none; position:absolute; left:0px; top:200px;">
+  <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+<script type="text/javascript">
+<!--
+function reback() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Kongguan/rebackzituan';
+        document.getElementById('form').submit();
+}
+
+// -->
+
+function dosearch() {
+        
+		var tuanhao = document.getElementById('tuanhao').value;
+		var mingcheng = document.getElementById('mingcheng').value;
+		
+		var keyword = document.getElementById('keyword').value;
+		var chufadi = document.getElementById('chufadi').value;
+		var mudidi = document.getElementById('mudidi').value;
+		var tianshu = document.getElementById('tianshu').value;
+		var chutuanriqi = document.getElementById('chutuanriqi').value;
+		var guojing = document.getElementById('guojing').value;
+		var kind = document.getElementById('kind').value;
+		
+		window.location = '<{:SITE_ADMIN}>Kongguan/huishouzhan/keyword/'+keyword+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/tianshu/'+tianshu+'/chutuanriqi/'+chutuanriqi+'/guojing/'+guojing+'/kind/'+kind+'/tuanhao/'+tuanhao+'/mingcheng/'+mingcheng;
+		
+		
+}
+
+function GetcheckBack(id,tbname,type,obj)
+{
+	var offset = $(obj).offset();
+	var objtop = offset.top + 16;
+	var objleft = offset.left - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+</script>
+<script>
+
+function openSub(idname,idid,ids)
+{
+	var obname=document.getElementById(idname + ids);
+	var url = "<{:SITE_ADMIN}>Liandong/getAgencys/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid;
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+
+function showzituan(zituanID)
+{
+    var url = '<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/'+zituanID;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+
+
+</script>
+<include file="Index:footer" />

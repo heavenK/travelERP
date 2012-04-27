@@ -1,0 +1,39 @@
+<include file="Common:header" />
+<div class="infomation" style="color:red"><b>说明：</b>请慎重安装第三方微博插件，安装第三方插件可能导致数据丢失或者其他安全隐患。过多的安装插件可能导致程序运行缓慢以及效率低下。</div><br/>
+<h3>添加插件</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="150px">插件名称</td>
+    <td width="120px">插件目录</td>
+    <td width="120px">插件作者</td>
+    <td width="100px">插件版本</td>
+    <td width="170px" style="text-indent:0px">插件介绍</td>
+    <td>&nbsp;</td>
+</tr>
+<php>foreach($plugins as $key=>$val){</php>
+    <tr>
+        <td><b><{$val[name]}></b></td>
+        <td><{$key}></td>
+        <td>
+        <php>if($val[weburi]){</php>
+            <a href="<{$val[weburi]}>" target="_blank"><{$val[author]}></a>
+        <php>}else{</php>
+            <{$val[author]}>
+        <php>}</php>
+        </td>
+        <td><{$val[version]}></td>
+        <td style="text-indent:0px"><div style="white-space:normal;word-wrap:break-word;_overflow:hidden;width:170px"><{$val[info]}></div></td>
+        <td>
+        <php>if(strtolower($val[etversion])!=strtolower(ET_VESION) && strtolower($val[etversion])!='all'){</php>
+            <a href='##' onclick="if(confirm('该插件所适用的EasyTalk版本与目前的不符合，是否确定安装？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Plugins/install/appname/<{$key}>'}">安装插件</a>
+        <php>}else{</php> 
+            <a href='<{:SITE_URL}>/admin.php?s=/Plugins/install/appname/<{$key}>'>安装插件</a>
+        <php>}</php>
+        | <a href="##" onclick="if(confirm('是否确定删除该插件的所有文件？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Plugins/delapp/appname/<{$key}>'}">删除插件</a></td>
+    </tr>
+<php>}</php>
+</table>
+<php>if(!$plugins){</php>
+<div style="margin-left:20px">您还没有上传插件，插件项目请上传至“/Plugin”目录下！</div>
+<php>}</php>
+<include file="Common:foot" />

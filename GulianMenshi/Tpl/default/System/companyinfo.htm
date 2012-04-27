@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0039)<{:SITE_URL}>Main/msAdd.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	互动旅游-添加用户
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css"><script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Utility.js"></script><script type="text/javascript">
+function Checkdata()
+{
+    var agentname=document.getElementById("companyname");
+    if(Trim(agentname.value)=="")
+    {
+        alert("公司名称不能为空!");
+        agentname.focus();
+        return false;
+    }
+    
+	
+    var email=document.getElementById("email");
+    if(Trim(email.value)=="")
+    {
+        alert("电子邮箱不能为空!");
+        email.focus();
+        return false;
+    }
+    var tbOfficeTel=document.getElementById("officetel");
+    if(Trim(tbOfficeTel.value)=="")
+    {
+        alert("办公电话不能为空!");
+        tbOfficeTel.focus();
+        return false;
+    }
+     return true;
+}
+
+</script></head>
+
+
+
+<form name="form" id="form" method="post" action="<{:SITE_ADMIN}>Kehuguanli/doposteditlvxingshe" >
+
+<input type="hidden" name="lvxingsheID" id="lvxingsheID" value="<{$postdata['lvxingsheID']}>"  >
+
+</div>
+
+        <div class="hdlyRight">
+            <div id="content_bb">
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置：</span></li>
+    </ul>
+</div>
+                <div class="zc">
+                    <span class="zc1"></span>&nbsp;</div>
+                <div class="clear">
+                </div>
+                <div class="zcxx">
+                    <table width="597" border="0">
+                        <tbody><tr>
+                            <td>&nbsp;
+                                </td>
+                            <td style="width: 165px">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif">
+                                为必填项</td>
+                            <td>&nbsp;
+                                </td>
+                            <td colspan="3">&nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                公司名称：</td>
+                            <td style="width: 165px">
+                                <label for="textfield">
+                                </label>
+                                
+                                <input name="companyname" id="companyname" value="<{$postdata[companyname]}>" style="width:166px;"  />
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                <span style="font-family: Arial">公司地址</span>：</td>
+                            <td colspan="3">
+                                <input name="addr" type="text" id="addr" style="width:166px;" value="<{$postdata['addr']}>"></td>
+                        </tr>
+                        
+                        <php>if($postdata['admintype'] != '系统'){
+                        </php>
+                        <tr>
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                类型<span style="font-family: Arial"></span>：</td>
+                            <td style="width: 165px">
+                                <select name="type" id="type">
+                                	<php> if($postdata['type']){
+                                    </php>
+                                    <option value="<{$postdata['type']}>"><{$postdata['type']}></option>
+                                	<php> }
+                                    </php>
+                                	<php> if($kehutype == "门市"){
+                                    </php>
+                                    <option value="门市">门市</option>
+                                	<php> }
+                                    </php>
+                                	<php> if($kehutype == "同业"){
+                                    </php>
+                                    <option value="同业">同业</option>
+                                	<php> }
+                                    </php>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                级别：</td>
+                            <td style="width: 165px">
+                                <select name="jibie" id="jibie">
+                                
+                                	<php> if($postdata['jibie']){
+                                    </php>
+                                    <option value="<{$postdata['jibie']}>"><{$postdata['jibie']}></option>
+                                	<php> }
+                                    </php>
+                                
+                                    <option value="">请选择级别</option>
+                                    <option value="全部">全部</option>
+                                    <option value="二级">二级</option>
+                                    <option value="一级">一级</option>
+                                    <option value="三级">三级</option>
+                                
+                                </select></td>
+                        </tr>
+                        
+                        <php>}
+                        </php>
+                        
+                        
+                        <tr>
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                <span style="font-family: Arial">联系人</span>：</td>
+                            <td style="width: 165px">
+                                <input name="lianxiren" type="text" id="lianxiren" style="width:167px;" value="<{$postdata['lianxiren']}>"></td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                <span style="font-family: Arial">电子邮箱</span>：</td>
+                            <td colspan="3" style="font-family: Times New Roman">
+                                <input name="email" type="text" id="email" style="width:166px;" value="<{$postdata['email']}>">
+                                
+                                </td>
+                        </tr>
+                        
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                办公电话：</td>
+                            <td style="width: 165px">
+                                <input name="officetel" type="text" id="officetel" style="width:166px;" value="<{$postdata['officetel']}>"></td>
+                            <td align="right">
+                                <span>
+                                    <img src="<{:__PUBLIC__}>/gulianstyle/styles/xh.gif" alt="">
+                                    传真电话：</span></td>
+                            <td colspan="3">
+                                <input name="fax" type="text" id="fax" style="width:166px;" value="<{$postdata['fax']}>"></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                邮政编码：</td>
+                            <td style="width: 165px">
+                                <input name="postal" type="text" id="postal" style="width:167px;" value="<{$postdata['postal']}>"></td>
+                            <td align="right">
+                                网址：</td>
+                            <td colspan="3">
+                                <input name="web" type="text" id="web" style="width:166px;" value="<{$postdata['web']}>"></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                QQ：</td>
+                            <td style="width: 165px">
+                                <input name="qq" type="text" id="qq" style="width:166px;" value="<{$postdata['qq']}>"></td>
+                            <td align="right">
+                                MSN：</td>
+                            <td colspan="3">
+                                <input name="msn" type="text" id="msn" style="width:166px;" value="<{$postdata['msn']}>"></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                其它联系方式：</td>
+                            <td style="width: 165px">
+                                <input name="other" type="text" id="other" style="width:166px;" value="<{$postdata['other']}>"></td>
+                            <td align="right">
+                            </td>
+                            <td colspan="3">
+                            </td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                备注 ：</td>
+                            <td colspan="5">
+                                <textarea name="beizhu" rows="5" cols="45" id="beizhu"><{$postdata['beizhu']}></textarea></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">&nbsp;
+                                </td>
+                            <td colspan="3">&nbsp;
+                                </td>
+                            <td>&nbsp;
+                                </td>
+                            <td style="width: 21px">&nbsp;
+                                </td>
+                        </tr>
+                        
+                        
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">&nbsp;
+                                </td>
+                            <td style="width: 165px">&nbsp;
+                                </td>
+                            <td>&nbsp;
+                                </td>
+                            <td>&nbsp;
+                                </td>
+                            <td>&nbsp;
+                                </td>
+                            <td style="width: 21px">&nbsp;
+                                </td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                创建人：</td>
+                            <td >
+                                <{$postdata['addusername']}></td>
+                            <td>
+                            </td>
+                            <td>
+                                创建时间：</td>
+                            <td>
+                                <php>echo date('Y-m-d H:i:s',$postdata['time']);</php></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">
+                                修改人：</td>
+                            <td>
+                                <{$postdata['editusername']}></td>
+                            <td>
+                            </td>
+                            <td>
+                                修改时间：</td>
+                            <td>
+                                <{$postdata['timestamp']}></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">&nbsp;
+                                </td>
+                            <td>&nbsp;
+                                </td>
+                            <td>
+                                <input type="submit" name="Submit" value="确 认" onclick="return Checkdata();" id="Submit" class="anu"></td>
+                            <td>&nbsp;
+                                </td>
+                            <td>
+                            </td>
+                            <td>&nbsp;
+                                </td>
+                        </tr>
+                        
+                        
+                        
+                    </tbody></table>
+                    <span style="font-family: Arial"></span>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+</div></form>
+
+
+</body></html>
+<include file="Index:footer" />

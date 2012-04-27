@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+
+</head>
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置</span> <{$navlist}></li>
+                </ul>
+            </div>
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <th width="5%" height="32" align="center">
+                                        姓名
+                                    </th>
+                                    <th width="5%" height="32" align="center">
+                                        帐户
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        联系电话
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        部门
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        QQ
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        添加日期</th>
+                                    <th width="5%" height="32" align="center">
+                                        状态
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                                <tr class="tr1">
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['realname']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['user_name']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['mobiletel']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['department']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['qq']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                         <php>echo date('Y-m-d',$kehu['time'])</php>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['islock']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        [<a href="<{:SITE_DIJIE}>System/editkehu/kehuID/<{$kehu['kehuID']}>">修改信息</a>]
+                                    </td>
+                                </tr>
+                            
+                            
+                    </tbody></table>
+                </div>
+                
+                <div class="clear" style=" height:30px;">
+                </div>
+                
+                <form name="form" method="post" action="<{:SITE_DIJIE}>System/dopostSystemguanli/" >
+                <input type="hidden" value="<{$kehu['user_name']}>" name="user_name" />
+                <div class="fanye" >
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <th height="32" align="center">
+                                        栏目
+                                    </th>
+                                    <th height="32" align="center">
+                                        分类
+                                    </th>
+                                    <th height="32" align="center">
+                                        权限列表
+                                    </th>
+                                </tr>
+                                
+                                <php>$cn = 0; foreach($appAll as $app){
+                                </php>
+                                <tr class="tr2">
+                                    <td width="10%" height="27" align="center">
+                                       <input onclick="classselect(this,'<{$cn}>')" type="checkbox" /><{$app['menutitle']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center" style="line-height:30px;">
+                                        <php>$cm = 0; foreach($app['classlist'] as $class){
+                                        </php>
+                                                <input onchange="actionelect(this,'<{$cn}>','<{$cm}>')" onclick="actionelect(this,'<{$cn}>','<{$cm}>')" id="item_<{$cn}>_<{$cm}>" type="checkbox" /><{$class['classtitle']}><br />
+                                        <php>$cm ++;}
+                                        </php>    
+                                    </td>
+                                    <td width="80%" height="27" style="line-height:30px;">
+                                        <php>$cm = 0; foreach($app['classlist'] as $class){
+                                        </php>
+                                                <php>$ci = 0;foreach($class['actionlist'] as $action){ 
+                                                </php>
+                                                
+                                                <php> $c=explode($action['methodlist'],$adminpool);if(count($c)>1){
+                                                
+                                                </php>
+                                                
+                                                
+<input checked="checked" style="margin-left:10px" name="itemlist[]" id="item_<{$cn}>_<{$cm}>_<{$ci}>" type="checkbox" value="<{$action['methodlist']}>" /><font color="#FF6633"><{$action['actiontitle']}></font>
+                                                <php>}else{</php>
+<input style="margin-left:10px" name="itemlist[]" id="item_<{$cn}>_<{$cm}>_<{$ci}>" type="checkbox" value="<{$action['methodlist']}>" /><{$action['actiontitle']}>
+                                                <php>}</php>
+
+                                                <php>$ci++;}
+                                                </php>
+                                                <br />
+                                        <php>$cm ++;}
+                                        </php>    
+                                    </td>
+                                </tr>
+                                    
+                                <php>$cn++;}
+                                </php>    
+                                    
+                    </tbody></table>
+                </div>
+                
+                
+                
+                
+                <div class="zcxx">
+                    <table width="597" border="0">
+                        <tbody>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">修改人：</td>
+                            <td><{$adminuser['edituser']}></td>
+                            <td></td>
+                            <td>修改时间：</td>
+                            <td><{$adminuser['timestamp']}></td>
+                        </tr>
+                        <tr style="font-family: Times New Roman">
+                            <td align="right">&nbsp;</td>
+                            <td><input type="submit" value="确 认" onclick="return Checkdata();" class="anu"></td>
+                        </tr>
+                    </tbody></table>
+                    <span style="font-family: Arial"></span>
+                </div>
+                
+                </form>
+                
+                
+            </div>
+    </div>
+
+</body></html>
+
+
+<script type="text/javascript" language="javascript">
+function classselect(o,tip)
+{
+    var tip = 'item_'+tip+'_';
+    var i = 0;
+    for(;;)
+    {
+        id = tip + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.click();
+        else
+            break;
+        i ++;
+    }
+}
+function actionelect(o,tipa,tipb)
+{
+    var tip = 'item_'+tipa+'_'+tipb+'_';
+    var i = 0;
+    for(;;)
+    {
+        id = tip + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+

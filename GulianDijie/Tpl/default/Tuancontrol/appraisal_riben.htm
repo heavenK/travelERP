@@ -1,0 +1,713 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable_riben.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/json.js" language="javascript" ></script>
+</head>
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                <div style="text-align:center; margin-top:20px;" >
+                	<h2>見　積　書</h2>
+                </div>
+                <form name="form1" id="form1" method="post" >
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                <div class="fanye">
+                
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6" style="width:60%;">
+                                <strong>団体名(旅程)：</strong></td>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>期间：</strong></td>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>人数：</strong></td>
+                        </tr>
+                        
+                        <tr >
+                            <td height="27" >
+                                <input name="tuantitle" style="width:90%" type="text" value="<{$tuan['tuantitle']}>" >
+                                </td>
+                            <td height="27" >
+                                <input name="appraisal_time" type="text" value="<{$tuan['appraisal_time']}>"  onfocus="WdatePicker()" >
+                                </td>
+                            <td height="27" >
+                                <input name="renshu" type="text" value="<{$tuan['renshu']}>" >
+                                </td>
+                        </tr>
+                    </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a onclick="return checkdata();" id="Submit" class="yyxxl" href="javascript:dosave();">保 存</a>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                </div>
+                </form>
+                
+                
+                <style>
+					.fanye input{ width:90% }
+					.fanye a:hover{ text-decoration:underline }
+					.fanye { margin: 0 5px;}
+				</style>
+                
+                <div class="fanye" style="width:30%; float:left;">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>日次：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="hoteltable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#e6f2f2"><strong>日次</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>都市</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>服务费</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>餐费</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>$i = -1;foreach($appraisalAll as $item){$i++; if($item['type'] != '日次') continue;
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","hoteltable")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_1_rmb'><{$price_1_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_1_usa'><{$price_1_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(1,'日次')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_1('日次','hoteltable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+
+                
+                <div class="fanye" style="width:25%; float:left;">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>国内航空運賃(机票)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="eattable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>起FM</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>到TO</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '机票') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","eattable")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_2_rmb'><{$price_2_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_2_usa'><{$price_2_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(2,'机票')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_2('机票','eattable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                    
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>国内鉄道運賃(火車)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="tickettable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>FM</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>TO</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '火车') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","tickettable")' >删除</a>
+                            </td>
+                        </tr>
+                        
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_3_rmb'><{$price_3_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_3_usa'><{$price_3_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(3,'火车')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_2('火车','tickettable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                </div>
+                
+                
+                
+                
+                
+                <div class="fanye" style="width:20%; float:left;">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>入場料(門票)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="cartable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>箇所</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '门票') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","cartable")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_4_rmb'><{$price_4_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_4_usa'><{$price_4_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(4,'门票')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_3('门票','cartable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+                
+                
+                
+                <div class="fanye" style="width:20%; float:left;">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>超公里費(超過距離)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="daoyoutable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>地址</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '公路') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","daoyoutable")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_5_rmb'><{$price_5_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_5_usa'><{$price_5_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(5,'公路')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_3('公路','daoyoutable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                    
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>風味追加費(料理)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="othertable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>菜名</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '料理') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","othertable")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_6_rmb'><{$price_6_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_6_usa'><{$price_6_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(6,'料理')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_3('料理','othertable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                    
+                    
+                    
+                </div>
+                
+                
+                <div class="fanye" style="width:75%; float:left;">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>酒店：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="dushiming" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>宿泊地(都市名)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>飯店名称(HOTEL)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>星級(ｸﾗｽ)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>預訂(手配)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>房費(料金)元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>早餐(朝食)元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '酒店') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>"  />
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","dushiming")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_7_rmb'><{$price_7_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_7_usa'><{$price_7_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(7,'酒店')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_4('酒店','dushiming'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+                
+                
+                
+                <div class="fanye" style="width:22%; float:left;">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>専門活動費(特別費)：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="tebiefen" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>名称</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>元(RMB)</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '特别费') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","tebiefen")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" align="left">
+                                <strong style="float:left; line-height:20px;" id='price_8_rmb'><{$price_8_rmb}>(RMB)</strong>
+                                <strong style="float:left; line-height:20px;" id='price_8_usa'><{$price_8_usa}>(美元)</strong>
+                                <a style="float:left" class="yyxxl" href="javascript:price_count(8,'特别费')">合計</a></td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_3('特别费','tebiefen'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+                
+                
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>杂项：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="zaxiang" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>地上費計</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>16人免費</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>単人房差</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>備考</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05" width="60"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '杂项') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="hidden" value="<{$item[titleID]}>" name="titleID" id="titleID_<{$item[appraisalID]}>" />
+                            <input type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>"  />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="remark" id="remark_<{$item[appraisalID]}>"  value="<{$item[remark]}>" />
+                            </td>
+                            
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[appraisalID]}>");'>修改</a>&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[appraisalID]}>","zaxiang")' >删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertappraisal_5('杂项','zaxiang'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+                
+                
+                
+                
+                
+                
+            </div>
+
+	
+
+</body>
+</html>
+<script language="javascript">
+function openSub(idname,idid,ids,type)
+{
+	var obname=document.getElementById(idname + ids);
+	var url = "<{:SITE_DIJIE}>Supplier/getresource/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid + "/type/" + type;
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+function cancelsub(idname,idid,ids)
+{
+	var obname=document.getElementById(idname + ids).value = '';
+	var obname=document.getElementById(idid + ids).value = '';
+	var obname=document.getElementById(idname + ids).disabled = false;
+}
+
+</script>
+
+
+<script>
+
+function dosave()
+{
+    var url='<{:SITE_DIJIE}>Tuancreate/dopostNewtuan';
+	document.getElementById('form1').action = url;
+	document.getElementById('form1').submit();
+	
+}
+
+
+
+function additem(id,tablename){
+	var djtuanID = $("#djtuanID").val();
+	var type = $("#type"+id).val();
+	var title = $("#title"+id).val();
+	var titleID = $("#titleID"+id).val();
+	var description = $("#description"+id).val();
+	var timestart = $("#timestart"+id).val();
+	var timeend = $("#timeend"+id).val();
+	var renshu = $("#renshu"+id).val();
+	var price = $("#price"+id).val();
+	var remark = $("#remark_"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancreate/addappraisalitem",
+		data:	"title="+title+"&type="+type+"&djtuanID="+djtuanID+"&description="+description+"&remark="+remark+"&timestart="+timestart+"&timeend="+timeend+"&renshu="+renshu+"&price="+price+"&titleID="+titleID,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！');
+					}
+					else{
+						alert('添加成功！');
+						var edit_button = "<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"edititem_2('" + id + "','" + msg + "');\">修改</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"deleteitem(this,'" + msg + "','"+tablename+"')\">删除</a>";
+						$("#operator"+id).parent().html(edit_button);
+					}
+				  }
+	});
+}
+
+
+function edititem(id){
+	var title = $("#title_"+id).val();
+	var titleID = $("#titleID_"+id).val();
+	var description = $("#description_"+id).val();
+	var timestart = $("#timestart_"+id).val();
+	var timeend = $("#timeend_"+id).val();
+	var renshu = $("#renshu_"+id).val();
+	var price = $("#price_"+id).val();
+	var remark = $("#remark_"+id).val();
+	
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancreate/editappraisalitem",
+		data:	"title="+title+"&appraisalID="+id+"&description="+description+"&timestart="+timestart+"&timeend="+timeend+"&remark="+remark+"&renshu="+renshu+"&price="+price+"&titleID="+titleID,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+function edititem_2(id,msg){
+	var title = $("#title"+id).val();
+	var description = $("#description"+id).val();
+	var timestart = $("#timestart"+id).val();
+	var timeend = $("#timeend"+id).val();
+	var renshu = $("#renshu"+id).val();
+	var price = $("#price"+id).val();
+	var remark = $("#remark_"+id).val();
+	
+	var appraisalID = msg;
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancreate/editappraisalitem",
+		data:	"title="+title+"&appraisalID="+appraisalID+"&description="+description+"&remark="+remark+"&timestart="+timestart+"&timeend="+timeend+"&renshu="+renshu+"&price="+price,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+function deleteitem(obj, id, tablename){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancreate/deleteappraisalitem",
+		data:	"appraisalID=" + id,
+		success:	function(msg){
+					if(msg){
+						alert('删除成功！');
+						deletetablerow(obj, id, tablename);
+					}
+				  }
+	});
+}
+	
+
+function price_count(mark,type){
+	var djtuanID = $("#djtuanID").val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancreate/price_count",
+		data:	"djtuanID="+djtuanID+"&type="+type,
+		success:	function(msg){
+					if(msg){
+						var obj = msg.parseJSON();
+						
+						$("#price_"+mark+"_rmb").html(obj.rmb+'(RMB)');
+						$("#price_"+mark+"_usa").html(obj.usa+'(美元)');
+					}
+				  }
+	});
+	
+}
+	
+
+
+
+</script>

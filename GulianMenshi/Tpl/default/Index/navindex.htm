@@ -1,0 +1,544 @@
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script>
+	function show_msg(){
+		var url = '<{:SITE_ADMIN}>Public/newsnoticelist';
+		window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+	}
+</script>
+
+  <dl id="glfx_box_a">
+    <dt><a href="<{:SITE_MENSHI}>">首 页</a> | <php>if(!strstr($this->tVar['adminuser']['adminlevel'],'联合体') && !strstr($this->tVar['adminuser']['adminlevel'],'办事处')){</php><a style="cursor:pointer;" onclick="show_msg();">新闻公告</a>|<php>}</php> <a href="<php>if(!checkByadminlevel_v('联合体成员',$this->tVar) && !checkByadminlevel_v('办事处管理员',$this->tVar)){</php><{:SITE_MENSHI}>Dingdan<php>}else if(checkByadminlevel_v('联合体成员',$this->tVar)){</php><{:SITE_ADMIN}>Tongye<php>}else{</php><{:SITE_ADMIN}>Banshichu<php>}</php>">进入后台</a></dt>
+    <dd><span>欢迎 <{$company['companyname']}> <strong><{$roleuser['realname']}></strong></span><span>[<a href="<{:SITE_ADMIN}>Login/logout">退出</a>]</span></dd>
+  </dl>
+  
+  <style>
+  <php>if(checkByadminlevel_v('联合体成员,联合体管理员',$this->tVar)){</php>
+  #glfx_box_b_gp	{ width:100%; float:left; margin-top:10px; }
+  <php>}else{</php>
+  #glfx_box_b_gp	{ width:100%; height:90px; float:left; margin-top:10px; background:url(<{:__PUBLIC__}>/gulianstyle/images/newmark.jpg) no-repeat;}
+  <php>}</php>
+  #glfx_box_c_gp	{ width:100%; float:left;}
+	.preview_gp		{ width:560px; overflow:hidden; float:left;}
+  
+  </style>
+  <div id="glfx_box_b_gp" ></div>
+  
+  <div id="glfx_box_c_gp">
+  
+        <div id="tb_" class="tb_" style=" width:880px;">
+          <ul>
+            <li id="tb_5" <php>if($marktab == '境外') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(5);">出 境</li>
+            <li id="tb_1" <php>if($marktab == '国内') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(1);">国 内</li>
+            <li id="tb_2" <php>if($marktab == '酒店') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(2);">酒 店</li>
+            <li id="tb_3" <php>if($marktab == '机票') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(3);">机 票</li>
+            <li id="tb_4" <php>if($marktab == '自由人') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(4);">自由人</li>
+            <li id="tb_6" <php>if($marktab == '联合体') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(6);">联合体</li>
+            <li id="tb_7" <php>if($marktab == '办事处') echo 'class="hovertab"'; else echo 'class="normaltab"';</php> onClick="xgz:HoverLi(7);">办事处</li>
+            <li><a href="<{:SITE_MENSHI}>Index/search/companytype/全部" style=" font-size:12px; font-weight:normal;">全部线路</a></li>
+          </ul>
+        </div>
+    
+        <div class="ctt">
+        
+          <div <php>if($marktab == '境外') echo 'class="dis"'; else echo 'class="undis"';</php>  id="tbc_05" style="padding:20px 0 0 120px;">
+                    <div id="glfx_box_c_tbc_01">
+                    <input name="chujingsankesearch" id="chujingsankesearch" type="text" value="" size="" class="glfx_box_c_text" onkeypress="if(event.keyCode==13) {dochujingsankeearch();}" />
+                    <input onclick="dochujingsankeearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                    </div>
+                    
+                    <div id="glfx_box_c_tbc_02" style="margin-bottom:10px;">
+                    <div class="preview_gp">
+                        <div class="scrolldoorFrame" >
+                            <ul class="scrollUl">
+                                <li class="sd01" id="m01">高级搜索</li>
+                            </ul>
+                                <div class="bor03">
+                                   <div id="c01">
+                                        <div class="hdm_a">
+                                            <dl class="hdm_a_dla">
+                                                <dt>出团日期</dt>
+                                                <dd>
+                                                    <span>出团日期</span><input type="text" name="chujingchutuanriqi" id="chujingchutuanriqi" value="" onfocus="WdatePicker()" size="" />
+                                                </dd>
+                                            </dl>
+<!--                                            <dl class="hdm_a_dlb">
+                                                <dt>价格范围</dt>
+                                                <dd>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>2千以下</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>2千-3千</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>3千-4千</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>4千-6千</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>6千-8千</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>8千以上</span>
+                                                </dd>
+                                            </dl>
+                                            <dl class="hdm_a_dlc">
+                                                <dt>酒店</dt>
+                                                <dd>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>二星级</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>三星级</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>四星级</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>五星级</span>
+                                                </dd>
+                                            </dl>
+                                            <dl class="hdm_a_dld">
+                                                <dt>天数</dt>
+                                                <dd>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>1-3天</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>4-6天</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>7-10天</span>
+                                                    <input type="radio" name="radio" id="radio" value="radio" /><span>10天以上</span>
+                                                </dd>
+                                            </dl>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+          </div>
+        
+          <div <php>if($marktab == '国内') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_01" style="padding:20px 0 0 120px;">
+                <div id="glfx_box_c_tbc_01" > 
+                <input name="sankesearch" id="sankesearch" type="text" class="glfx_box_c_text" onfocus="javascript:doshow();" value=""  onkeypress="if(event.keyCode==13) {dosankesearch();}" />
+                <input onclick="dosankesearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                </div>
+                
+                <div id="glfx_box_c_tbc_02" style="margin-bottom:10px;">
+                    <div class="preview_gp">
+                        <div class="scrolldoorFrame" >
+                            <ul class="scrollUl">
+                                <li class="sd01" id="m01">高级搜索</li>
+                                <!--<li class="sd02" id="m02">区域搜索</li>
+                                <li style="float:right;"><a href="javascript:void(0)" onclick="javascript:dohiden();" style=" color:#F00">关闭</a></li>-->
+                            </ul>
+                            <div class="bor03">
+                               <div id="c01">
+                                    <div class="hdm_a">
+                                        <dl class="hdm_a_dla">
+                                            <dt>出团日期</dt>
+                                            <dd>
+                                                <span>出团日期</span><input type="text" name="chutuanriqi" id="chutuanriqi" value="" onfocus="WdatePicker()" size="" />
+                                            </dd>
+                                        </dl>
+<!--                                        <dl class="hdm_a_dlb">
+                                            <dt>价格范围</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>2千以下</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>2千-3千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>3千-4千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>4千-6千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>6千-8千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>8千以上</span>
+                                            </dd>
+                                        </dl>
+                                        <dl class="hdm_a_dlc">
+                                            <dt>酒店</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>二星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>三星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>四星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>五星级</span>
+                                            </dd>
+                                        </dl>
+                                        <dl class="hdm_a_dld">
+                                            <dt>天数</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>1-3天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>4-6天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>7-10天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>10天以上</span>
+                                            </dd>
+                                        </dl>-->
+                                    </div>
+                                </div>
+                                <!--<div id="c02" class="hidden">
+                                <div class="hdm_b">
+                                    <a href="#">黑龙江 (0)</a>
+                                    <a href="#">内蒙古 (0)</a> 
+                                    <a href="#">河南 (0) </a> 
+                                    <a href="#">云南 (0) </a> 
+                                    <a href="#">福建 (0) </a> 
+                                    <a href="#">四川 (0) </a> 
+                                    <a href="#">澳门 (0) </a> 
+                                    <a href="#">天津 (0) </a> 
+                                    <a href="#">陕西 (0) </a> 
+                                    <a href="#">北京 (1) </a> 
+                                    <a href="#">新疆 (0) </a> 
+                                    <a href="#">湖南 (0) </a> 
+                                    <a href="#">湖北 (0) </a> 
+                                    <a href="#">江苏 (0) </a> 
+                                    <a href="#">海南 (0) </a> 
+                                    <a href="#">广东 (0) </a> 
+                                    <a href="#">上海 (0) </a> 
+                                    <a href="#">河北 (1) </a> 
+                                    <a href="#">贵州 (0) </a> 
+                                    <a href="#">辽宁 (0) </a> 
+                                    <a href="#">重庆 (0) </a> 
+                                    <a href="#">江西 (0) </a> 
+                                    <a href="#">宁夏 (0) </a> 
+                                    <a href="#">甘肃 (0) </a> 
+                                    <a href="#">安徽 (0) </a> 
+                                    <a href="#">浙江 (0) </a> 
+                                    <a href="#">广西 (0) </a> 
+                                    <a href="#">山西 (0) </a> 
+                                    <a href="#">青海 (0) </a> 
+                                    <a href="#">西藏 (0) </a> 
+                                    <a href="#">吉林 (0) </a> 
+                                    <a href="#">香港 (0) </a> 
+                                    <a href="#">山东 (0) </a> 
+                                </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>	
+          
+          <div <php>if($marktab == '酒店') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_02" style="padding:20px 0 0 120px;">
+            <div id="glfx_box_c_tbc_b">
+                <div id="glfx_box_c_tbc_b_cont">
+                    <ul>
+                        <li class="glfx_box_c_tbc_b_lia"><span>目的城市：</span><input name="tbDestionCity1" id="tbDestionCity1" type="text"  class="glfx_box_c_tbc_b_text_a"/></li>
+                        <li class="glfx_box_c_tbc_b_lia"><span>关键字：</span><input name="tbHotelKeyword" id="tbHotelKeyword" type="text"  class="glfx_box_c_tbc_b_text_a"/></li>
+                        <li class="glfx_box_c_tbc_b_lib"><span>入住日期：</span><input name="tbCheckInDate" id="tbCheckInDate" type="text" onfocus="WdatePicker()" class="glfx_box_c_tbc_b_text_a"/></li>
+                        <li class="glfx_box_c_tbc_b_lib"><span>离开日期：</span><input name="tbDepartDate" id="tbDepartDate" type="text" onfocus="WdatePicker()"  class="glfx_box_c_tbc_b_text_a"/></li>
+                    </ul>
+                    <input  onclick="dohotelsearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                </div>
+            </div>
+          </div>
+          
+          <div <php>if($marktab == '机票') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_03" style="padding:20px 0 0 120px;">
+            <div id="glfx_box_c_tbc_b">
+                <div id="glfx_box_c_tbc_b_cont">
+                    <ul>
+                        <li class="glfx_box_c_tbc_b_lia"><span>出发城市：</span><input name="tbDepartcity2" id="tbDepartcity2"  type="text"  class="glfx_box_c_tbc_b_text_a"/></li>
+                        <li class="glfx_box_c_tbc_b_lia"><span>到达城市：</span><input name="tbDestioncity2" id="tbDestioncity2"  type="text"  class="glfx_box_c_tbc_b_text_a"/></li>
+                        <li class="glfx_box_c_tbc_b_lic"><span>方式：</span>
+                        
+    <input id="rblPlyType_0" type="radio" name="rblPlyType" value="Oneway" onclick="return GetPlyDay(this);" style=" margin-top:10px;margin-left:10px;" ><label for="rblPlyType_0" >单程</label>
+    
+    <input id="rblPlyType_1" type="radio" name="rblPlyType" value="Ply" onclick="return GetPlyDay(this);"  style=" margin-left:10px;" ><label for="rblPlyType_1">往返</label>                    
+                        </li>
+                        <li class="glfx_box_c_tbc_b_lib"><span>出发日期：</span><input name="tbStartDate" id="tbStartDate" onfocus="WdatePicker()" type="text"  class="glfx_box_c_tbc_b_text_a"/></li>
+                    </ul>
+                    <input onclick="doairsearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                </div>
+            </div>
+          </div>
+          
+          <div <php>if($marktab == '自由人') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_04" style="padding:20px 0 0 120px;">
+                <div id="glfx_box_c_tbc_01">
+                <input name="ziyourensearch"  id="ziyourensearch" type="text" value="" size="" class="glfx_box_c_text"  onkeypress="if(event.keyCode==13) {ziyourensearch();}" />
+                <input onclick="ziyourensearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                </div>
+                
+                <div id="glfx_box_c_tbc_02">
+                    <div class="preview">
+                        <div class="scrolldoorFrame">
+                            <ul class="scrollUl">
+                                <li class="sd01" id="mm01">高级搜索</li>
+                                <!--<li class="sd02" id="mm02">区域搜索</li>-->
+                            </ul>
+                            <div class="bor03">
+                               <div id="cc01">
+                                    <div class="hdm_a">
+                                        <dl class="hdm_a_dla">
+                                            <dt>出团日期</dt>
+                                            <dd>
+                                            	<span>出团日期</span><input type="text" name="ziyourenchutuanriqi" id="ziyourenchutuanriqi" value="" onfocus="WdatePicker()" size="" />
+                                                <!--<span>最早出发日期</span><input type="text" value="2011-06-06" size="" />
+                                                <span>最晚出发日期</span><input name="" type="text" value="" size=""/>-->
+                                            </dd>
+                                        </dl>
+<!--                                        <dl class="hdm_a_dlb">
+                                            <dt>价格范围</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>2千以下</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>2千-3千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>3千-4千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>4千-6千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>6千-8千</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>8千以上</span>
+                                            </dd>
+                                        </dl>
+                                        <dl class="hdm_a_dlc">
+                                            <dt>酒店</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>二星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>三星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>四星级</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>五星级</span>
+                                            </dd>
+                                        </dl>
+                                        <dl class="hdm_a_dld">
+                                            <dt>天数</dt>
+                                            <dd>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>1-3天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>4-6天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>7-10天</span>
+                                                <input type="radio" name="radio" id="radio" value="radio" /><span>10天以上</span>
+                                            </dd>
+                                        </dl>-->
+                                    </div>
+                                </div>
+                                <!--<div id="cc02" class="hidden">
+                                <div class="hdm_b">
+                                    <a href="#">黑龙江 (0)</a>
+                                    <a href="#">内蒙古 (0)</a> 
+                                    <a href="#">河南 (0) </a> 
+                                    <a href="#">云南 (0) </a> 
+                                    <a href="#">福建 (0) </a> 
+                                    <a href="#">四川 (0) </a> 
+                                    <a href="#">澳门 (0) </a> 
+                                    <a href="#">天津 (0) </a> 
+                                    <a href="#">陕西 (0) </a> 
+                                    <a href="#">北京 (1) </a> 
+                                    <a href="#">新疆 (0) </a> 
+                                    <a href="#">湖南 (0) </a> 
+                                    <a href="#">湖北 (0) </a> 
+                                    <a href="#">江苏 (0) </a> 
+                                    <a href="#">海南 (0) </a> 
+                                    <a href="#">广东 (0) </a> 
+                                    <a href="#">上海 (0) </a> 
+                                    <a href="#">河北 (1) </a> 
+                                    <a href="#">贵州 (0) </a> 
+                                    <a href="#">辽宁 (0) </a> 
+                                    <a href="#">重庆 (0) </a> 
+                                    <a href="#">江西 (0) </a> 
+                                    <a href="#">宁夏 (0) </a> 
+                                    <a href="#">甘肃 (0) </a> 
+                                    <a href="#">安徽 (0) </a> 
+                                    <a href="#">浙江 (0) </a> 
+                                    <a href="#">广西 (0) </a> 
+                                    <a href="#">山西 (0) </a> 
+                                    <a href="#">青海 (0) </a> 
+                                    <a href="#">西藏 (0) </a> 
+                                    <a href="#">吉林 (0) </a> 
+                                    <a href="#">香港 (0) </a> 
+                                    <a href="#">山东 (0) </a> 
+                                </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+          
+          <div <php>if($marktab == '联合体') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_06" style="padding:20px 0 0 120px;">
+                    <div id="glfx_box_c_tbc_01">
+                    <input name="lianhetisankesearch" id="lianhetisankesearch" type="text" value="" size="" class="glfx_box_c_text"   onkeypress="if(event.keyCode==13) {dolianhetisearch();}"/>
+                    <input onclick="dolianhetisearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                    </div>
+                    
+                    <div id="glfx_box_c_tbc_02">
+                    <div class="preview">
+                        <div class="scrolldoorFrame">
+                            <ul class="scrollUl">
+                                <li class="sd01" id="mm01">高级搜索</li>
+                            </ul>
+                            <div class="bor03">
+                               <div id="cc01">
+                                    <div class="hdm_a">
+                                        <dl class="hdm_a_dla">
+                                            <dt>出团日期</dt>
+                                            <dd>
+                                            	<span>出团日期</span><input type="text" name="lianhetichutuanriqi" id="lianhetichutuanriqi" value="" onfocus="WdatePicker()" size="" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+          <div <php>if($marktab == '办事处') echo 'class="dis"'; else echo 'class="undis"';</php> id="tbc_07" style="padding:20px 0 0 120px;">
+                    <div id="glfx_box_c_tbc_01">
+                    <input name="banshichusankesearch" id="banshichusankesearch" type="text" value="" size="" class="glfx_box_c_text"  onkeypress="if(event.keyCode==13) {dobanshichusearch();}"/>
+                    <input onclick="dobanshichusearch()" type="button" value="搜索一下" onmouseout="this.className='glfx_box_c_button'" onmousedown="this.className='glfx_box_c_button glfx_box_c_button_h'"  class="glfx_box_c_button" />
+                    </div>
+                    <div id="glfx_box_c_tbc_02">
+                    <div class="preview">
+                        <div class="scrolldoorFrame">
+                            <ul class="scrollUl">
+                                <li class="sd01" id="mm01">高级搜索</li>
+                            </ul>
+                            <div class="bor03">
+                               <div id="cc01">
+                                    <div class="hdm_a">
+                                        <dl class="hdm_a_dla">
+                                            <dt>出团日期</dt>
+                                            <dd>
+                                            	<span>出团日期</span><input type="text" name="banshichuchutuanriqi" id="banshichuchutuanriqi" value="" onfocus="WdatePicker()" size="" />
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    
+  </div>
+
+
+
+<script type="text/javascript" language="javascript"> 
+function g(o){return document.getElementById(o);} 
+function HoverLi(n){ 
+for(var i=1;i<=7;i++){g('tb_'+i).className='normaltab';g('tbc_0'+i).className='undis';}g('tbc_0'+n).className='dis';g('tb_'+n).className='hovertab'; 
+} 
+</script>
+<script type="text/javascript">
+function scrollDoor(){
+}
+scrollDoor.prototype = {
+ sd : function(menus,divs,openClass,closeClass){
+  var _this = this;
+  if(menus.length != divs.length)
+  {
+   alert("菜单层数量和内容层数量不一样!");
+   return false;
+  }    
+  for(var i = 0 ; i < menus.length ; i++)
+  { 
+   _this.$(menus[i]).value = i;    
+   _this.$(menus[i]).onclick = function(){
+     
+    for(var j = 0 ; j < menus.length ; j++)
+    {      
+     _this.$(menus[j]).className = closeClass;
+     _this.$(divs[j]).style.display = "none";
+    }
+    _this.$(menus[this.value]).className = openClass; 
+    _this.$(divs[this.value]).style.display = "block";    
+   }
+  }
+  },
+ $ : function(oid){
+  if(typeof(oid) == "string")
+  return document.getElementById(oid);
+  return oid;
+ }
+}
+window.onload = function(){
+ var SDmodel = new scrollDoor();
+ SDmodel.sd(["m01","m02"],["c01","c02"],"sd01","sd02");
+ SDmodel.sd(["mm01","mm02"],["cc01","cc02"],"sd01","sd02");
+ SDmodel.sd(["mmm01","mmm02","mmm03","mmm04","mmm05"],["ccc01","ccc02","ccc03","ccc04","ccc05"],"sd01","sd02");
+}
+</script>
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+
+<script>
+function doshow(){
+	//$('#glfx_box_c_tbc_02').show();
+	}
+
+function dohiden(){
+	$('#glfx_box_c_tbc_02').hide();
+	}
+
+</script>
+
+  
+  
+<script>
+function dobanshichusearch()
+{
+       var keyword = document.getElementById("banshichusankesearch").value;
+	   var chutuanriqi = document.getElementById("banshichuchutuanriqi").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/companytype/办事处/keyword/'+keyword+'/chutuanriqi/'+chutuanriqi;
+}
+function dolianhetisearch()
+{
+       var keyword = document.getElementById("lianhetisankesearch").value;
+	   var chutuanriqi = document.getElementById("lianhetichutuanriqi").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/companytype/同业/keyword/'+keyword+'/chutuanriqi/'+chutuanriqi;
+}
+function dosearch()
+{
+       var keyword = document.getElementById("sankesearch").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/keyword/'+keyword;
+}
+function dosankesearch()
+{
+       var keyword = document.getElementById("sankesearch").value;
+	   var chutuanriqi = document.getElementById("chutuanriqi").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/xianlutype/散客产品/guojing/国内/keyword/'+keyword+'/chutuanriqi/'+chutuanriqi;
+}
+function ziyourensearch()
+{
+       var keyword = document.getElementById("ziyourensearch").value;
+	   var chutuanriqi = document.getElementById("ziyourenchutuanriqi").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/xianlutype/自由人/keyword/'+keyword+'/chutuanriqi/'+chutuanriqi;
+}
+function dochujingsankeearch()
+{
+       var keyword = document.getElementById("chujingsankesearch").value;
+	   var chutuanriqi = document.getElementById("chujingchutuanriqi").value;
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/xianlutype/散客产品/guojing/境外/keyword/'+keyword+'/chutuanriqi/'+chutuanriqi;
+}
+
+function dohotelsearch()
+{
+		var from_city = document.getElementById("tbDestionCity1").value;
+		var keyword = document.getElementById("tbHotelKeyword").value;
+		var start_date = document.getElementById("tbCheckInDate").value;
+		var end_date = document.getElementById("tbDepartDate").value;
+		
+	    window.location.href = '<{:SITE_MENSHI}>Hotel/search/keyword/'+keyword+'/from_city/'+from_city+'/start_date/'+start_date+'/end_date/'+end_date;
+}
+
+function doairsearch()
+{
+		var from_city = document.getElementById("tbDepartcity2").value;
+		var to_city = document.getElementById("tbDestioncity2").value;
+		
+		var travel_type = $("input[name=rblPlyType]:checked").val();
+		if (travel_type == 'Oneway') {
+			travel_type = '单程';
+			var end_date = '';
+		}
+		else if(travel_type == 'Ply') {
+			travel_type = '往返';
+			var end_date = document.getElementById("tbBackDate").value;
+		}
+		else{
+			travel_type = '';
+			var end_date = '';
+		}
+		var start_date = document.getElementById("tbStartDate").value;
+		
+		
+	   	window.location.href = '<{:SITE_MENSHI}>Airticket/search/from_city/'+from_city+'/to_city/'+to_city+'/start_date/'+start_date+'/end_date/'+end_date+'/travel_type/'+travel_type;
+	   
+}
+
+
+
+</script>
+
+<script type="text/javascript">
+function GetPlyDay(o)
+{
+    if(o.value=="Oneway")
+    {
+        document.getElementById("divply1").style.display='none';
+        document.getElementById("divply2").style.display='none';
+    }
+    else
+    {
+        document.getElementById("divply1").style.display='';
+        document.getElementById("divply2").style.display='';
+    }
+}
+</script>

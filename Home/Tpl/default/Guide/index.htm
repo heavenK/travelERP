@@ -1,0 +1,140 @@
+<include file="Common:header" />
+<table id="login" border="0" width="100%" style="padding:20px 20px 40px 20px">
+<tr><td>
+    <div class="guideline">
+        <div class="g1 curent"><{:L('firststep')}><br/><{:L('firstbody')}></div>
+        <div class="g2"><{:L('secondstep')}><br/><{:L('secondbody')}></div>
+        <div class="g2"><{:L('thirdstep')}><br/><{:L('thirdbody')}></div>
+    </div>
+    <div class="guidebody">
+        <script src="<{:__PUBLIC__}>/js/city.js" type="text/javascript"></script>
+        <span class="title"><{:L('firsttitle')}></span>
+        <table border="0" width="100%" style="margin-top:20px">
+        <tr height="50px">
+            <td align="right" valign="top" width="160px">
+            <php>if(ET_UC==TRUE){</php>
+            <img src="<{:UC_API}>/avatar.php?uid=<{$my['user_head']}>&size=middle" alt="<{$my[nickname]}>" style="border:1px solid #999999;padding:1px;width:50px;height:50px;margin-right:18px">
+            <php>}else{</php>
+            <img src="<{:sethead($my[user_head])}>?<{:time()}>" alt="<{$my[nickname]}>" style="border:1px solid #999999;padding:1px;width:50px;height:50px;margin-right:18px"/>
+            <php>}</php>
+            </td>
+            <td>
+            <php>if(ET_UC==TRUE){</php>
+            <{:uc_avatar($my[user_head])}>
+            <php>}else{</php>
+            <script src="<{:__PUBLIC__}>/js/jcrop/jquery.Jcrop.min.js" type="text/javascript"></script>
+            <link rel="stylesheet" href="<{:__PUBLIC__}>/js/jcrop/jquery.Jcrop.css" type="text/css" />
+            <script language="Javascript">
+            function faceinit(wid) {
+                $('#ysw').val(wid);
+                $(document).ready(function(){
+                    $('#cropbox').Jcrop({
+                        minSize: [30,30],
+                        maxSize: [300,300],        			 
+                        aspectRatio: 1,
+                        setSelect: [0,0,120,120],
+                        onChange: showCoords,
+                        onSelect: showCoords,
+                        allowSelect: 0
+                    });
+                });
+                function showCoords(c) {
+                    $('#x').val(c.x);
+                    $('#y').val(c.y);
+                    $('#w').val(c.w);
+                    $('#h').val(c.h);
+                };
+            }
+            </script>
+            <iframe id="uploadface" name="uploadface" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank"></iframe>
+            <span id="picpath">
+            <form method="post" action="<{:SITE_URL}>/Guide/doface" enctype="multipart/form-data" name="faceform" target="uploadface" id="faceform">
+            <input name="face" type="file" onchange="$('#faceform').submit();$('#loadpic').show()"/><img src="<{:__PUBLIC__}>/images/loading.gif" id="loadpic" style="display:none;margin-left:10px;width:20px">
+            </form>
+            </span>
+            <p style="color:#999;margin-top:10px"><{:L('limit_2m')}></p>
+            <div style="margin-top:10px;width:460px;display:none" id="cropboxdiv">
+            <img src="" id="cropbox" class="Image"/><br/>
+            <form action="<{:SITE_URL}>/Guide/doface2" method="post">
+                <input type="hidden" id="ysw" name="ysw" />
+                <input type="hidden" id="x" name="x" />
+                <input type="hidden" id="y" name="y" />
+                <input type="hidden" id="w" name="w" />
+                <input type="hidden" id="h" name="h" />
+                <input type="hidden" id="imgpath" name="imgpath"/>
+                <input type="submit" value="<{:L('sure_cut')}>" class="button2"/>
+                <input type="button" value="<{:L('cancel')}>" class="button3" onclick="updateavatar()" style="margin-left:50px"/>
+            </form>
+            </div>
+            <php>}</php>
+            </td>
+        </tr>
+        <form method="post" action="<{:SITE_URL}>/Guide/doset">
+        <tr height="50px">
+            <td align="right"><font color="red">*</font> <{:L('set_name')}>：&nbsp;&nbsp;&nbsp;</td>
+            <td>
+            <input type="text" id="nickname" name="nickname" value="<{$my[nickname]}>" class="input_text" style="width:130px" maxlength="12"><span class="setgray"><{:L('set_name_length')}></span>
+            </td>
+        </tr>
+        <tr height="50px">
+            <td align="right"><font color="red">*</font> <{:L('set_gender')}>：&nbsp;&nbsp;&nbsp;</td>
+            <td>
+            <input type="radio" class="radio" name="gender" id="gender1" value="<{:L('male')}>" checked><label for="gender1">&nbsp;<{:L('male')}></label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="radio" name="gender" id="gender0" value="<{:L('female')}>"><label for="gender0">&nbsp;<{:L('female')}></label>
+            </td>
+        </tr>
+        <tr height="50px">
+            <td align="right"><font color="red">*</font> <{:L('live_city')}>：&nbsp;&nbsp;&nbsp;</td>
+            <td><select name="livesf" id="livesf" onchange="loadcity('livesf','livecity')">
+                <option value="">选择省份</option>
+                <php>foreach($province as $val){</php>
+                    <option value="<{$val[name]}>" pid="<{$val[id]}>"><{$val[name]}></option>
+                <php>}</php>
+               </select>
+               <select name="livecity" id="livecity"><option value="">选择城市</option></select>
+             </td>
+        </tr>
+        <tr height="100px">
+            <td align="right" valign="top"><{:L('my_info')}>：&nbsp;&nbsp;&nbsp;</td>
+            <td valign="top">
+            <textarea name="info" id="infomsg" class="input_text" style="width:350px;height:100px"><{$my[user_info]}></textarea>
+            <div class="followtime"><{:L('also_can_input')}> <span id="nums">200</span> <{:L('words_num')}></div>
+            </td>
+        </tr>
+        <tr height="60px">
+            <td>&nbsp;</td>
+            <td><input type="submit" class="button2" value="<{:L('nextstep')}>" /></td>
+        </tr>
+        </form>
+        </table>
+    </div>
+</div>
+</td></tr>
+</table>
+<script type="text/javascript">
+    <php>$ct=explode(' ',$my[live_city]);</php>
+    $('#livesf').val("<{$ct[0]}>");
+    loadcity('livesf','livecity',1);
+    function mycity(){
+        $('#livecity').val("<{$ct[1]}>");
+    }
+    <php>if($my[user_gender]==L('male')){</php>
+        $('#gender1').attr("checked",true);
+    <php>}else{</php>
+        $('#gender0').attr("checked",true);
+    <php>}</php>
+    $("#infomsg").keyup(function(){
+        var len=$.trim($('#infomsg').val()).length;
+        len=200-len;
+        if (len<0) {
+            $('#infomsg').val($.trim($('#infomsg').val()).slice(0,200));
+            len=0;
+        }
+        $('#nums').html(len);
+    });
+    $('#nums').html(200-$.trim($('#infomsg').val()).length);
+    function updateavatar() {
+        window.location.href='<{:SITE_URL}>/Guide';
+    }
+</script>
+<include file="Common:foot" />

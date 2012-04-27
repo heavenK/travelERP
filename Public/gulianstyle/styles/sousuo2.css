@@ -1,0 +1,148 @@
+@charset "utf-8";
+/* CSS Document */
+body{ font-size:12px; font-family:"宋体";}
+body, h1, h2, h3, h4, h5, h6, h7, ul, li, form, input, select, ol, p {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+a{ text-decoration:none;}
+.jpss{ width:978px; margin:0 auto;}
+     .jp_banner{ width:810px; height:174px; margin:0 auto;}
+	 
+/*********搜索内容********************/	
+	.xclx_tab{ width:621px; margin:0 auto;}
+	ul {
+		list-style:none;
+	}
+	.dd_maintabss td{ line-height:25px;}
+	.tabnr01,.tabnr02{ margin-top:17px;}
+	.tabnr01{ margin-bottom:27px;}
+	.dd_maintab ul{ padding:0 10px;}
+	.dd_maintab li {
+		text-indent:18px;
+		line-height:29px;
+	}
+	.dd_maintab li a {
+		color:#6c6c6c;
+	}
+	#tabs0 {
+		min-height:200px;
+		width: 621px;
+	}
+	.menu001 {
+		background:url(../images/A_xxktu-02.jpg) repeat-x;
+		width:615px;
+		padding-left:6px;
+		height:20px;
+	}
+	.menu001 li {
+		color:#333333;
+		font-size:14px;
+		font-weight:bold;
+		display:block;
+		float: left;
+		width:84px;
+		height:20px;
+		line-height:20px;
+		text-align: center;
+		cursor:pointer;
+		background: url(../images/A_xxktu.jpg) no-repeat;
+		margin-right:3px;
+	}
+	.menu001 li.hover {
+		background: url(../images/A_xxktu.jpg) no-repeat;
+		width:84px;
+		height:20px;
+		color:#ff9831;
+	}
+	#main0 ul.tabnr01 {
+		display:block;
+		padding-left:20px;
+	}
+	#main0 ul{
+		display: none;
+		padding-left:20px;
+	}
+	#main0 ul.block {
+		display: block;
+	}
+
+/**********************************订单管理**************************************/
+clear{clear:both;}
+img{ border:none;}
+.dingdanguanliye{ width:1002px; margin:0 auto;}
+		.zbde{ width:186px; float:left; margin-left:10px;}
+		.ddgl_dqy{ margin-top:15px; height:28px; line-height:28px; border-bottom:#c9d3d4 solid 1px;}
+		.dq01{ color:#2f45b4;}
+		.dq02{ color:#000000;}
+		.ybde{ width:350px; float:right;}
+/*******订单管理左边�?********/
+.ddgl_zbde{ width:205px; min-height:600px; _height:600px; float:left;}
+.ddgl_ybde{ width:788px; float:right; min-height:600px; padding-top:10px;}	
+		.ddgl_zynr{ width:621px; float:left;}	
+		.ycdtu{ width:152px; float:right;}
+		/**********国内参团搜索********/
+		.gnctss{ margin-top:10px; background:#ffe8b6;}
+		.gnctss table{ background:#FFF;}
+		.gnctss .cantuan{ font-size:14px; color:#7d3215; font-weight:bold; background:#ffb854; text-align:center; height:23px; line-height:23px; margin-bottom:10px;}
+		.cfrq{ width:90px; height:20px; border:#999999 solid 1px;}
+		.yusuan{ width:130px; height:20px; border:#999999 solid 1px;}
+		.rili img{ position:absolute; margin-left:-22px; margin-top:3px;}
+		/********该区热门产品********/
+		.gqyrmxp{ margin-bottom:15px;}
+		.gqrmcp{ margin-top:20px;}
+		.remenchanpin{ color:#5a6167;}
+		.remenchanpin a{ color:#5a6167;}
+		.xlt{ color:#ca9956;}
+		.gqrmcp td.qycp{ color:#0a5690; font-weight:bold; text-indent:10px;}
+		/******基本信息*******/
+		.jbxx_BT{background: url(../images/A_jbxx_BJ.jpg) no-repeat; width:621px; height:30px; margin-top:20px; font-size:12px; line-height:30px; margin-bottom:10px;}
+		.jbxx_BT img{ position:absolute; margin-top:-5px; margin-left:10px;}
+		.jbxxbg{ color:#666;}
+		.teshuz{ font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:bold; color:#ff5000;}
+		.fh{ font-size:12px;}
+		.lvse{ color:#0cb000;}
+		.dls{ color:#0cb000; font-size:18px; font-family:Arial, Helvetica, sans-serif; font-weight:bold;}
+		.jibenxinxi td{ border-bottom:#c8c8c8 dashed 1px;}
+		/*******滚动*******/
+		.dd_gundong{ width:603px; height:140px; margin:0 auto; margin-top:20px; margin-bottom:20px; background: url(../images/Ab_gundong.jpg) no-repeat;}
+/******************最右边***************/		
+.shipinzhanshi{background: url(../images/A_jbxx_BJ.jpg) no-repeat; width:153px; height:30px; font-size:14px; font-weight:bold; color:#333; line-height:30px; text-indent:24px; margin-top:20px;  }
+.pianming{ font-size:12px; color:#2f45b2; font-weight:normal; line-height:1.6; margin-top:10px; text-indent:15px;}
+.cstb{ font-size:12px; color:#808080; font-weight:normal; line-height:1.5; text-indent:15px;}
+/***********选项�?***********/
+.tian{ color:#0cb101; font-weight:bold; text-indent:18px;}
+.hancan{ color:#434343;}
+.xxxx{ color:#787878; padding:0 18px;}		
+/******************************测试线路001*************************************/
+.dijiebumein{background: url(../images/C_top_BJ.jpg) repeat-x top; min-height:600px; _height:600px;}
+.ceshixianlu{ height:84px; margin-bottom:26px;}
+.cshi_logo{ width:100%; height:63px; margin:0 auto; text-align:center;}
+.szgl_djb{ color:#c4110b; padding-top:35px;}
+.cshi_logo001{width:132px;}
+.xlctrq{ text-align:center; border-bottom:1px solid #CCC;border-left:1px solid #CCC;border-right:1px solid #CCC;}
+.xlctrq001{ line-height:50px; vertical-align:middle;}
+.ctrq{ font-size:14px;}
+.dijiebuxx{ margin-top:36px;}
+.cttz{ font-size:12px; font-weight:normal; text-indent:10px; line-height:27px; margin-bottom:10px;}
+.djb_sh{background: url(../images/C_xx_topbj.jpg) repeat-x; height:32px; color:#FFF; font-weight:bold;} 
+.djb_BG td{ border-bottom:#e5e5e5 solid 1px;}
+.shuangshu{ background:#f3f3f3;}
+.dibuxinxi{ text-align:center;}
+.dibuxinxi p{ line-height:27px;}
+.dbBG{ height:20px; width:218px; margin:0 auto; margin-top:30px;}
+/******************地接�?02*****************/
+.ttbh,.ttmc{ font-size:12px; font-weight:normal; line-height:27px; text-indent:27px;}
+.ceshi{ margin-bottom:2px;}
+.ceshi td{ border-left:#e5e5e5 solid 1px;border-bottom:1px solid #CCC;}
+.bg002{ border-left:none; border-bottom:1px solid #CCC}
+.fxk{ margin-bottom:14px;}
+.fxk td{ text-indent:5px;}
+.ctzt{ width:214px; margin-left:60px;}
+.ctztxz{ width:150px; height:22px;}
+
+/* Table - ��ӡ���� */
+.printTable { border-collapse: collapse; }
+.printTable td { padding-top: 3px; padding-bottom: 3px; border: 1px solid #000000; }
+.printHR { height: 1px; color: #000000; }

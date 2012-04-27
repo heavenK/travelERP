@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增频道</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+-->
+</style>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>	
+
+	
+	jquery(document).ready(function(){
+									pid = jquery('#pos2').val();
+									change_jingshe(pid);
+									
+									mudidi = "<{$postdata[mudidi]}>";
+									mudidi_arr = mudidi.split(',');
+									
+									if (!mudidi_arr[0]) {
+										mudidi_arr[0] = '请选择';
+									}else{
+										jquery("#pos2").attr('disabled','true');
+										jquery("#pos3").attr('disabled','true');
+									}
+									jquery("#pos1").find("option:selected").text(mudidi_arr[0]); 
+									jquery("#pos2").find("option:selected").text(mudidi_arr[1]); 
+									jquery("#pos3").find("option:selected").text(mudidi_arr[2]); 
+									jquery("#pos_name1").val(mudidi_arr[0]);
+									jquery("#pos_name2").val(mudidi_arr[1]);
+									jquery("#pos_name3").val(mudidi_arr[2]);
+									
+									
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=0&type=pos_go",
+										  success:	function(msg){
+														jquery("#chufashengfen_id").empty();
+														jquery(msg).appendTo("#chufashengfen_id");
+													}
+									  });
+									  
+									  
+									jquery("#chufashengfen_id").prepend("<option selected='selected' value='0'>请选择</option>");
+									 
+									chufadi = "<{$postdata[chufadi]}>";
+									chufadi_arr = chufadi.split(',');
+									
+									if (!chufadi_arr[0]) {
+										chufadi_arr[0] = '请选择';
+									}else{
+										jquery("#chufachengshi_id").attr('disabled','true');
+									}
+									
+									jquery("#chufashengfen_id").find("option:selected").text(chufadi_arr[0]); 
+									jquery("#chufachengshi_id").find("option:selected").text(chufadi_arr[1]); 
+									jquery("#chufashengfen").val(chufadi_arr[0]);
+									jquery("#chufachengshi").val(chufadi_arr[1]);
+									
+								});
+
+	function change_pos(sid){
+			
+			
+			var maxIndex = jquery("#pos1 option:last").attr("index");
+			if (sid=='1' && maxIndex >= '7'){
+				
+				jquery("#pos1 option:first").remove();
+				jquery("#pos2").attr('disabled',false);
+				jquery("#pos3").attr('disabled',false);
+			}
+			
+			while (sid <= '3')
+			{
+				jquery('#pos_name' + sid).val(jquery('#pos' + sid).find("option:selected").text());
+				
+				pid = jquery('#pos' + sid).val();
+				sid++;
+				nexts = 'pos' + sid;				
+				change(pid ,nexts);
+			}
+			
+			jquery('#chengshi_name').val(jquery('#pos3').find("option:selected").text());
+			
+				  
+		}
+		
+	function change_pos_go(){
+			
+			var maxIndex = jquery("#chufashengfen_id option:last").attr("index");
+			if ( maxIndex >= '33'){
+				
+				jquery("#chufashengfen_id option:first").remove();
+				jquery("#chufachengshi_id").attr('disabled',false);
+			}
+			
+			jquery('#chufashengfen').val(jquery('#chufashengfen_id').find("option:selected").text());
+			
+			pid = jquery('#chufashengfen_id').val();
+			nexts = 'chufachengshi_id';				
+			change(pid ,nexts);
+			jquery('#chufachengshi').val(jquery('#chufachengshi_id').find("option:selected").text());
+				  
+	}	
+		
+		
+	function change(pid ,nexts){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=pos",
+					  success:	function(msg){
+									jquery("#" + nexts).empty();
+									jquery(msg).appendTo("#" +nexts);
+								}
+				  });
+	}
+</script>
+
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+  <form name="form1" action="<{:SITE_ADMIN}>Basedata/add_hotel" method="post" enctype="multipart/form-data">
+    <tbody>
+	<tr height="24" align="center" bgcolor="#FBFCE2"> 
+		<td>带*号的为必选项！</td>
+		<td></td>
+   </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*所在城市：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+										<select name="guojing" id="guojing" >
+										<option selected="selected" value="国内">国内</option>
+                                        </select>
+                                        
+                                        <!-- 三级联动开始 -->
+										
+										<select name="daqu_id" id="pos1" onchange="change_pos('1')">
+											<option selected="selected" value="1">华北地区</option>
+											<option value="2">东北地区</option>
+											<option value="3">华东地区</option>
+                                            <option value="4">中南地区</option>
+											<option value="5">西南地区</option>
+                                            <option value="6">西北地区</option>
+											<option value="7">港澳地区</option>
+										</select>
+										
+                                        <select name="shengfen_id" id="pos2" onchange="change_pos('2')">
+											<option selected="selected" value="101">北京</option>
+											<option value="102">河北</option>
+											<option value="103">内蒙古</option>
+											<option value="104">山西</option>
+											<option value="105">天津</option>
+										</select>
+										
+                                        <select name="chengshi_id" id="pos3" onchange="change_pos('3')">
+											<option selected="selected" value="101001">北京</option>
+										</select>
+										
+										<input type='hidden' name='chengshi_name' id="chengshi_name" value='北京' />
+      </td>
+    </tr>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*中文名称：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="title" size="25" value="" class="pubinputs" style="width: 120px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*英文名称：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="en_title" size="25" value="" class="pubinputs" style="width: 120px;" type="text">
+      </td>
+    </tr>
+    <tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	星级<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select name="star">
+			<option selected="selected" value="1">一星</option>
+			<option value="2">二星</option>
+			<option value="3">三星</option>
+			<option value="4">四星</option>
+			<option value="5">五星</option>
+			<option value="6">六星</option>
+			<option value="7">七星</option>
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td height="40" align="left" bgcolor="#FFFFFF">
+      	图片<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+	    <input name="url" id="url" style="width: 180px;" value="" type="file">
+     </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	电话：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="telephone" size="40" value="" class="pubinputs" style="width: 180px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	地址：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="address" size="80" value="" class="pubinputs" style="width: 260px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	离机场的距离：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="fly_distance" size="60" value="" class="pubinputs" style="width: 260px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	离火车站的距离：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="train_distance" size="60" value="" class="pubinputs" style="width: 260px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	离市中心的距离：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="center_distance" size="60" value="" class="pubinputs" style="width: 260px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	酒店描述：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<textarea name="hotel_info" class="ckeditor" cols="80" id="hotel_info" rows="20"></textarea>
+				<script type="text/javascript">
+                    CKEDITOR.replace( 'hotel_info',
+                        {
+                            extraPlugins : 'uicolor',
+                            toolbar :
+                            [
+                                    ['Source','-','Save','NewPage','Preview','-','Templates'],
+									['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+									['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+									['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+									['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['BidiLtr', 'BidiRtl'],
+									['Link','Unlink','Anchor'],
+									'/',
+									['Styles','Format','Font','FontSize'],
+									['TextColor','BGColor'],
+									['Maximize', 'ShowBlocks','-','About']
+                            ]
+                        });
+                </script>
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	周边服务：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<textarea name="hotel_around" class="ckeditor" cols="80" id="hotel_around" rows="10"></textarea>
+				<script type="text/javascript">
+                    CKEDITOR.replace( 'hotel_around',
+                        {
+                            extraPlugins : 'uicolor',
+                            toolbar :
+                            [
+                                    ['Source','-','Save','NewPage','Preview','-','Templates'],
+									['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+									['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+									['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+									['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['BidiLtr', 'BidiRtl'],
+									['Link','Unlink','Anchor'],
+									'/',
+									['Styles','Format','Font','FontSize'],
+									['TextColor','BGColor'],
+									['Maximize', 'ShowBlocks','-','About']
+                            ]
+                        });
+                </script>
+      </td>
+    </tr>
+    <tr bgcolor="#F9FCEF"> 
+      <td colspan="2" height="28">
+      	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr> 
+            <td height="45" width="26%">&nbsp;</td>
+            <td width="15%">
+            	<input value="提交" type="submit">
+            </td>
+            <td width="59%">
+            	<input name="按钮" class="np coolbg" id="button2" onclick="javascript:history.back(-1);" value="返回" type="button">
+            </td>
+          </tr>
+        </tbody></table>
+       </td>
+    </tr>
+  </form>
+</tbody></table>
+
+</body></html>

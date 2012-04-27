@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+门市管理
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+
+</head>
+
+
+
+<body>
+    <div class="hdlyRight">
+
+
+            <div id="content_bb">
+                
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置:</span><{$kehutype}></li>
+                </ul>
+            </div>
+                <div class="ss">
+                    <table class="test1" width="85%" border="0" style="padding-top: 20px;">
+                        <tbody><tr>
+                            <form action="<{:SITE_ADMIN}>Kehuguanli/<{$guanli_type}>" method='post'>
+							<input type="hidden" name="type" value="search">
+                            <td width="50" height="18" align="right">
+                                关键字</td>
+                            <td width="187">
+                                <input name="tbKeyword" type="text" id="tbKeyword"></td>
+                            <td>
+                                <input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                            </td>
+                            </form>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="nr">
+                    <table width="313" border="0">
+                        <tbody><tr>
+                        	<php>if($kehutype == '同业'){</php>
+                            <td width="58" align="center">
+                                <a id="lbkOpen" class="yyxxl" href="<{:SITE_ADMIN}>Kehuguanli/addmenshi/type/同业" >创建</a>
+                            </td>
+                        	<php>}</php>
+                        	<php>if($kehutype == '门市'){</php>
+                            <td width="58" align="center">
+                                <a id="lbkOpen" class="yyxxl" href="<{:SITE_ADMIN}>Kehuguanli/addmenshi/type/门市" >创建</a>
+                            </td>
+                        	<php>}</php>
+							<php>if($kehutype == '办事处'){</php>
+                            <td width="58" align="center">
+                                <a id="lbkOpen" class="yyxxl" href="<{:SITE_ADMIN}>Kehuguanli/addmenshi/type/办事处" >创建</a>
+                            </td>
+                        	<php>}</php>
+                            <td width="59" align="center">
+                                <a id="lbkOpen" class="yyxxl"  href="javascript:deletecompany();" onclick="return confirm('确认删除吗？');">删除</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a id="lbkOpen" class="yyxxl"  href="javascript:doislock('已锁定');" onclick="return confirm('确定锁定？');">锁定</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a id="lbkOpen" class="yyxxl" href="javascript:doislock('未锁定');" onclick="return confirm('确认解锁吗？');">解锁</a>
+                            </td>
+                            <td width="59" align="center">
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                                    <th height="32" align="center">
+                                        公司名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系人
+                                    </th>
+                                    <th height="32" align="center">
+                                        办公电话
+                                    </th>
+                                    <th height="32" align="center">
+                                        公司地址
+                                    </th>
+                                    <th height="32" align="center">
+                                        添加日期</th>
+                                    <th height="32" align="center">
+                                        状态
+                                    </th>
+                                    <th height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                            
+        <form name="form" method="post" id="form">
+                            <php> $i=-1; foreach($companyAll as $company){$i++;
+                            </php>
+                            
+                                <tr class="tr1">
+                                    <td width="3%" height="27" align="center">
+                                        <label for="checkbox">
+                                          <span><input value="<{$company['lvxingsheID']}>" id="tuanitem_<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                                        </label>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$company['companyname']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$company['lianxiren']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$company['officetel']}>
+                                    </td>
+                                    <td width="20%" height="27" align="center">
+                                        <{$company['addr']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                         <php>echo date('Y-m-d',$company['time'])</php>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$company['islock']}>
+                                    </td>
+                                    <td width="12%" height="27" align="center">
+                                        [<a href="<{:SITE_ADMIN}>Kehuguanli/addmenshi/lvxingsheID/<{$company['lvxingsheID']}>/type/<{$company['type']}>">修改信息</a>]
+                                    </td>
+                                </tr>
+                            
+                            <php>}
+                            </php>
+        </form>
+                    </tbody></table>
+                </div>
+            </div>
+    </div>
+
+
+</body></html>
+
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'tuanitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'tuanitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+<script type="text/javascript">
+function deletecompany() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Kehuguanli/deletecompany';
+        document.getElementById('form').submit();
+}
+</script>

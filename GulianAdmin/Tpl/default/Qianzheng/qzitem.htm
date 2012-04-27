@@ -1,0 +1,219 @@
+<style>
+	.hlt_fit_price_cost_lib_a	{ width:350px;}
+	.hlt_fit_price_cost_lib_a input	{ width:330px;}
+	.hlt_fit_price_cost_lic_a	{ width:80px;}
+	.hlt_fit_price_cost_lic_a input	{ width:60px;}
+	.hlt_fit_price_cost_lig_a	{ width:150px;}
+</style>
+
+			<div id="hlt_fit_price"><!--应收费用-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">应收费用</div>
+                	<ol id="hlt_fit_price_cost_b" class="ysfy">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_cost_lia_a">序号</li>
+                            <li class="hlt_fit_price_cost_lib_a">名称</li>
+                            <li class="hlt_fit_price_cost_lic_a">应收</li>
+                            <li class="hlt_fit_price_cost_lic_a">状态</li>
+                            <li class="hlt_fit_price_cost_lig_a">操作</li>
+                        </ul>
+                        <input type="hidden" id="tem1" value="<{$num1}>" />
+                        <php>$i = 0;$j2=0;foreach($itemAll as $item){$i++;$j2++;</php>
+                        
+                        <ul id="a_tab_<{$i}>" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_a"><input type="hidden" id="qzitemID_<{$i}>" value="<{$item[qzitemID]}>" /><{$j2}></li>
+                            <li class="hlt_fit_price_cost_lib_a"><input type="text" id="title_<{$i}>" value="<{$item[title]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><input type="text" id="value_<{$i}>" value="<{$item[value]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><{$item[status]}></li>
+                            <li class="hlt_fit_price_cost_lig_a">
+                            <php>if(checkByadminlevel_v('计调经理,地接经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务操作员,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务总监,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('总经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}</php>
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                            <a href="javascript:additem('应收费用','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+            <php>}else{</php>
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过' || $item['status'] == '总经理通过' || $item['status'] == '财务总监通过' || $item['status'] == '财务通过' || $item['status'] == '经理通过'){</php>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="修改">修改</a>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="删除">删除</a>
+                       		<php>}else{</php>
+                            <a href="javascript:additem('应收费用','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+                       		<php>}</php>
+                       		<php>}</php>
+                            </li>
+                        </ul>
+                        
+                        <php>}</php>
+                        
+                    </ol>
+                    
+                	<ol id="hlt_fit_price_cost_b" >
+                        <ul id="hlt_fit_price_cost_lih">
+                        
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                        	<li><a href="javascript:insert_row('.ysfy','应收费用','#tem1');" title="添加"></a></li>
+            <php>}else{</php>
+                        
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过'){</php>
+                        	<li><a href="javascript:alert('已经审核通过，不能修改和删除');" title="添加"></a></li>
+                       		<php>}else{</php>
+                        	<li><a href="javascript:insert_row('.ysfy','应收费用','#tem1');" title="添加"></a></li>
+                       		<php>}</php>
+                       		<php>}</php>
+                            <li><span>总收入：<label id="total_1"><{$total_1}></label></span></li>
+                        </ul>
+                    </ol>
+                    
+                </div>
+            </div>
+            <div id="hlt_fit_price"><!--费用明细-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">费用明细</div>
+                	<ol id="hlt_fit_price_cost_b" class="fymx">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_cost_lia_a">序号</li>
+                            <li class="hlt_fit_price_cost_lib_a">所用费用名</li>
+                            <li class="hlt_fit_price_cost_lic_a">应付</li>
+                            <li class="hlt_fit_price_cost_lic_a">状态</li>
+                            <li class="hlt_fit_price_cost_lig_a">操作</li>
+                        </ul>
+                        <input type="hidden" id="tem2" value="<{$num2}>" />
+                        <php>$j = 0;foreach($itemAll2 as $item){ $i++;$j++;</php>
+                        
+                        <ul id="a_tab_<{$i}>" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_a"><input type="hidden" id="qzitemID_<{$i}>" value="<{$item[qzitemID]}>" /><{$j}></li>
+                            <li class="hlt_fit_price_cost_lib_a"><input type="text" id="title_<{$i}>" value="<{$item[title]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><input type="text" id="value_<{$i}>" value="<{$item[value]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><{$item[status]}></li>
+                            <li class="hlt_fit_price_cost_lig_a">
+                            <php>if(checkByadminlevel_v('计调经理,地接经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务操作员,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务总监,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('总经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}</php>
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                            <a href="javascript:additem('费用明细','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+            <php>}else{</php>
+                            
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过' || $item['status'] == '总经理通过' || $item['status'] == '财务总监通过' || $item['status'] == '财务通过' || $item['status'] == '经理通过'){</php>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="修改">修改</a>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="删除">删除</a>
+                       		<php>}else{</php>
+                            <a href="javascript:additem('费用明细','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+                       		<php>}</php>
+                       		<php>}</php>
+                            </li>
+                        </ul>
+                        
+                        <php>}</php>
+                        
+                    </ol>
+                	<ol id="hlt_fit_price_cost_b">
+                        <ul id="hlt_fit_price_cost_lih">
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                        	<li><a href="javascript:insert_row('.fymx','费用明细','#tem2');" title="添加"></a></li>
+            <php>}else{</php>
+                        
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过'){</php>
+                        	<li><a href="javascript:alert('已经审核通过，不能修改和删除');" title="添加"></a></li>
+                       		<php>}else{</php>
+                        	<li><a href="javascript:insert_row('.fymx','费用明细','#tem2');" title="添加"></a></li>
+                       		<php>}</php>
+                       		<php>}</php>
+                            <li><span>合计：<label id="total_2"><{$total_2}></label></span></li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>
+            
+            
+            <div id="hlt_fit_price"><!--部门利润-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">部门利润</div>
+                	<ol id="hlt_fit_price_cost_b" class="bmlr">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_cost_lia_a">序号</li>
+                            <li class="hlt_fit_price_cost_lib_a">名称</li>
+                            <li class="hlt_fit_price_cost_lic_a">利润</li>
+                            <li class="hlt_fit_price_cost_lic_a">状态</li>
+                            <li class="hlt_fit_price_cost_lig_a">操作</li>
+                        </ul>
+                        <input type="hidden" id="tem3" value="<{$num3}>" />
+                        <php>$k = 0;foreach($itemAll3 as $item){ $i++;$k++;</php>
+                        
+                        <ul id="a_tab_<{$i}>" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_a"><input type="hidden" id="qzitemID_<{$i}>" value="<{$item[qzitemID]}>" /><{$k}></li>
+                            <li class="hlt_fit_price_cost_lib_a"><input type="text" id="title_<{$i}>" value="<{$item[title]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><input type="text" id="value_<{$i}>" value="<{$item[value]}>" ></li>
+                            <li class="hlt_fit_price_cost_lic_a"><{$item[status]}></li>
+                            <li class="hlt_fit_price_cost_lig_a">
+                            <php>if(checkByadminlevel_v('计调经理,地接经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务操作员,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('财务总监,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/财务总监/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}elseif(checkByadminlevel_v('总经理,网管',$this->tVar)){</php>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核通过?');" title="审核成功">审核通过</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengitemshenhe/roletype/总经理/dotype/审核不通过/qzitemID/<{$item[qzitemID]}>" onclick="return confirm('确定要审核不通过?');" title="审核不通过">不通过</a>
+                            <php>}</php>
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                            <a href="javascript:additem('部门利润','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+            <php>}else{</php>
+                            
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过' || $item['status'] == '总经理通过' || $item['status'] == '财务总监通过' || $item['status'] == '财务通过' || $item['status'] == '经理通过'){</php>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="修改">修改</a>
+                            <a href="javascript:alert('已经审核通过，不能修改和删除');" title="删除">删除</a>
+                       		<php>}else{</php>
+                            <a href="javascript:additem('部门利润','<{$i}>')" title="修改">修改</a>
+                            <a href="javascript:deleteitem('#a_tab_<{$i}>','<{$i}>')" title="删除">删除</a>
+                       		<php>}</php>
+                       		<php>}</php>
+                            </li>
+                        </ul>
+                        
+                        <php>}</php>
+                        
+                    </ol>
+                	<ol id="hlt_fit_price_cost_b">
+                        <ul id="hlt_fit_price_cost_lih">
+            <php>if(checkByadminlevel_v('财务操作员,财务总监,网管',$this->tVar)){</php>
+                        	<li><a href="javascript:insert_row('.bmlr','部门利润','#tem3');" title="添加"></a></li>
+            <php>}else{</php>
+                        
+                            <php>if($qianzheng['status'] == '总经理通过' || $qianzheng['status'] == '财务总监通过' || $qianzheng['status'] == '财务通过' || $qianzheng['status'] == '经理通过'){</php>
+                        	<li><a href="javascript:alert('已经审核通过，不能修改和删除');" title="添加"></a></li>
+                       		<php>}else{</php>
+                        	<li><a href="javascript:insert_row('.bmlr','部门利润','#tem3');" title="添加"></a></li>
+                       		<php>}</php>
+                       		<php>}</php>
+                            <li><span>合计：<label id="total_3"><{$total_3}></label></span></li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>

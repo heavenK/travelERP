@@ -1,0 +1,109 @@
+<include file="Common:header" />
+<h3>网站开关</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/webset' method="POST">
+<table class="table" style="margin:5px 0 20px 0;line-height:250%">
+<tr>
+    <td width="150px">网站注册方式</td>
+    <td width="330px">
+    <input type="radio" name="site[closereg]" value="2" <php>if($site['closereg']['contents']==2){</php>checked<php>}</php>> 正常注册&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[closereg]" value="3" <php>if($site['closereg']['contents']==3){</php>checked<php>}</php>> 邀请注册&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[closereg]" value="1" <php>if($site['closereg']['contents']==1){</php>checked<php>}</php>> 关闭注册
+    </td>
+    <td class="info">● <{$site['closereg']['description']}></td>
+</tr>
+<tr>
+    <td>网站URL设置</td>
+    <td>
+    <select name="site[openrewrite]">
+    <option value="2" <php>if($site['openrewrite']['contents']==2){</php>selected<php>}</php>>使用兼容模式</option>
+    <option value="0" <php>if($site['openrewrite']['contents']==0){</php>selected<php>}</php>>使用标准模式</option>
+    <option value="1" <php>if($site['openrewrite']['contents']==1){</php>selected<php>}</php>>使用伪静态</option>
+    </select>
+    </td>
+    <td class="info">● 如果您的服务器不能使用标准模式请设置为兼容模式<br/>● 兼容模式：http://yourdomain/index.php?s=/hjoeson<br/>● 标准模式：http://yourdomain/index.php/hjoeson<br/>● 伪静态：http://yourdomain/hjoeson（需服务器支持）</td>
+</tr>
+<tr>
+    <td>是否关闭网站</td>
+    <td>
+    <input type="radio" name="site[webclose]" value="0" <php>if($site['webclose']['contents']==0){</php>checked<php>}</php>> 开启网站&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[webclose]" value="1" <php>if($site['webclose']['contents']==1){</php>checked<php>}</php>> 关闭网站
+    </td>
+    <td class="info">● <{$site['webclose']['description']}></td>
+</tr>
+<tr>
+    <td>默认主页</td>
+    <td>
+    <input type="radio" name="site[loginindex]" value="home" <php>if($site['loginindex']['contents']=='home'){</php>checked<php>}</php>> 用户主页&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[loginindex]" value="pub" <php>if($site['loginindex']['contents']=='pub'){</php>checked<php>}</php>> 广播大厅
+    </td>
+    <td class="info">● <{$site['loginindex']['description']}></td>
+</tr>
+<tr>
+    <td>底栏简洁模式</td>
+    <td>
+    <input type="radio" name="site[footsimple]" value="1" <php>if($site['footsimple']['contents']==1){</php>checked<php>}</php>> 简洁模式&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[footsimple]" value="0" <php>if($site['footsimple']['contents']==0){</php>checked<php>}</php>> 一般模式
+    </td>
+    <td class="info">● <{$site['footsimple']['description']}></td>
+</tr>
+<tr>
+    <td>注册邮箱激活</td>
+    <td>
+    <input type="radio" name="site[regmailauth]" value="1" <php>if($site['regmailauth']['contents']==1){</php>checked<php>}</php>> 开启&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[regmailauth]" value="0" <php>if($site['regmailauth']['contents']==0){</php>checked<php>}</php>> 关闭
+    </td>
+    <td class="info">● <{$site['regmailauth']['description']}></td>
+</tr>
+<tr>
+    <td>水印开关</td>
+    <td>
+    <input type="radio" name="site[wateropen]" value="1" <php>if($site['wateropen']['contents']==1){</php>checked<php>}</php>> 开启水印&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[wateropen]" value="0" <php>if($site['wateropen']['contents']==0){</php>checked<php>}</php>> 关闭水印
+    </td>
+    <td class="info">● <{$site['wateropen']['description']}></td>
+</tr>
+<tr>
+    <td>广场广播过滤</td>
+    <td>
+    <input type="radio" name="site[pubusersx]" value="1" <php>if($site['pubusersx']['contents']==1){</php>checked<php>}</php>> 开启过滤&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[pubusersx]" value="0" <php>if($site['pubusersx']['contents']==0){</php>checked<php>}</php>> 关闭过滤
+    </td>
+    <td class="info">● <{$site['pubusersx']['description']}></td>
+</tr>
+<tr>
+    <td>开启注册欢迎私信</td>
+    <td>
+    <input type="radio" name="site[openwelpri]" value="0" <php>if($site['openwelpri']['contents']==0){</php>checked<php>}</php>> 关闭&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[openwelpri]" value="1" <php>if($site['openwelpri']['contents']==1){</php>checked<php>}</php>> 开启
+    </td>
+    <td class="info">● <{$site['openwelpri']['description']}></td>
+</tr>
+<tr>
+    <td>开启自动刷新</td>
+    <td>
+    <input type="radio" name="site[autorefresh]" value="0" <php>if($site['autorefresh']['contents']==0){</php>checked<php>}</php>> 关闭&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[autorefresh]" value="1" <php>if($site['autorefresh']['contents']==1){</php>checked<php>}</php>> 开启
+    </td>
+    <td class="info">● <{$site['autorefresh']['description']}></td>
+</tr>
+<tr>
+    <td>开启博客挂件</td>
+    <td>
+    <input type="radio" name="site[widgetopen]" value="0" <php>if($site['widgetopen']['contents']==0){</php>checked<php>}</php>> 关闭&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[widgetopen]" value="1" <php>if($site['widgetopen']['contents']==1){</php>checked<php>}</php>> 开启
+    </td>
+    <td class="info">&nbsp;</td>
+</tr>
+<tr>
+    <td>开启手机WAP</td>
+    <td>
+    <input type="radio" name="site[wapopen]" value="0" <php>if($site['wapopen']['contents']==0){</php>checked<php>}</php>> 关闭&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[wapopen]" value="1" <php>if($site['wapopen']['contents']==1){</php>checked<php>}</php>> 开启
+    </td>
+    <td class="info">&nbsp;</td>
+</tr>
+</table>
+<input type="hidden" name="reurl" value="Setting/switchs">
+<input type="submit" class="button1 submit" value="保存提交">
+</form>
+<include file="Common:foot" />

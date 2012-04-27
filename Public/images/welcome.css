@@ -1,0 +1,61 @@
+* { margin:0; padding:0;}
+body {font:12px/1.75 Tahoma,Arial;background: #9fdfe9 url('wel_bg.jpg') no-repeat center top;background-attachment: fixed; color:#333; line-height:180%;}
+img {border:0px; vertical-align:middle;}
+.fleft { float: left; }
+.input_text { border:#74c9e6 1px solid;font-size:12px; height:18px; padding:3px 4px; line-height:18px;color:#999}
+a {color:#247aac;text-decoration:none}
+a:hover {text-decoration:underline;}
+
+.main {width:950px; margin:0 auto 20px auto}
+.main #header {background:url('logo.png') no-repeat;width:200px;height:65px;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='corp', src='Public/images/logo.png');_background:none;margin:10px 0px;}
+.main .weltop {background:url('wel_top.jpg') no-repeat;width:950px;height:274px;}
+.main .welbody {background:#ffffff url('theme-titlebg.gif') repeat-x;width:950px;height:540px;padding-top:15px}
+.main .welbottom {background:url('wel_bottom.gif') no-repeat;width:950px;height:16px;}
+.main .rightbox {width:270px;height:550px;position:absolute;margin-left:680px;}
+.main .rightbox .rightbox_1 {background:transparent url('wel_right_1.gif') no-repeat;width:242px;height:346px;padding:40px 0 0 28px}
+.main .rightbox .rightbox_2 {border-left:1px solid #dadada;width:220px;height:412px;padding:10px 0 0 20px;margin-top:10px}
+.main .rightbox .rightbox_2 p{line-height:250%}
+.hotuser {width:265px;height:530px;float:left;border-right:1px solid #dadada;margin-left:20px;_margin-left:10px}
+.hottalk {width:365px;float:left}
+.userlist {width:255px;padding-left:3px}
+.userlist ul{list-style:none;}
+.userlist ul li {float:left;width:52px;height:75px;margin-right:10px;overflow:hidden;text-decoration:none;text-align:center}
+.userlist ul li img {width:48px;height:48px;border:1px solid #ccc;padding:1px}
+.userlist ul li a img { display:block;}
+.userlist ul li a {text-decoration:none;}
+.loginbanner {width:680px;height:236px}
+.hottopic{padding:8px 0 0 140px;color:#ffffff;font-size:12px;width:530px;height:25px;overflow:hidden;}
+.hottopic a {color:#ffffff}
+.hottopic ul {list-style:none;overflow:hidden;}
+.hottopic ul li {float:left;margin-right:10px}
+.hotuserico {background:url('laba.gif') no-repeat 0 3px;font-size:14px;border-bottom:1px dashed #cccccc;font-weight:bold;width:245px;margin-bottom:10px;padding-bottom:5px;text-indent:20px}
+.theysay {background:url('homeview1.gif') no-repeat 0 3px;font-size:14px;border-bottom:1px dashed #cccccc;font-weight:bold;width:365px;margin-left:15px;margin-bottom:10px;padding-bottom:5px;text-indent:20px}
+.marqueegb {width:365px; height:492px; overflow:hidden;margin-left:15px}
+.marqueegb ul {list-style:none;}
+.marqueegb ul li {margin-bottom:10px}
+.indexgbli {width:365px;border-bottom:1px dashed #999999;padding-bottom:10px}
+.indexgbli img {border:1px solid #cccccc;width:50px;height:50px}
+.indexgbli .sp {color:#999999;margin-top:5px}
+.indexgbli .sp a {color:#999999}
+.clearline {clear:both}
+.button1 {border:0;background:url('button-send.gif') no-repeat;width:115px;height:32px;text-align:center;font-size:14px;cursor:pointer;color:#000;}
+img.emo {width:20px;height:20px;border:0px}
+#indexbottom {width:950px;color:#2c5e65;text-align:center;margin-top:10px}
+.btn-reg {background:transparent url('index_reg.gif') no-repeat left top;}
+.btn-reg {background-position:0 0; display:block;height:55px; width:196px;overflow:hidden;line-height:48px;color:#fff;font-size:24px;font-weight:bold;text-align:center;text-indent:-20px}
+.btn-reg:hover { background-position:0 -55px; text-decoration:none;}
+.btn-reg:active { background-position:0 -110px; }
+.followtop{list-style:none;margin-top:20px;width:230px;height:270px;}
+.followtop li{border-bottom:1px solid #d8f1f6;height:25px;margin-bottom:2px}
+.followtop li em{background:url('numbg.gif') no-repeat;width:20px;height:25px;}
+.followtop li span{float:right;color:#666666;font-size:12px}
+.followtop li .num1{background-position:0 3px;}
+.followtop li .num2{background-position:0 -24px;}
+.followtop li .num3{background-position:0 -51px;}
+.followtop li .num4{background-position:0 -78px;}
+.followtop li .num5{background-position:0 -104px;}
+.followtop li .num6{background-position:0 -131px;}
+.followtop li .num7{background-position:0 -158px;}
+.followtop li .num8{background-position:0 -185px;}
+.followtop li .num9{background-position:0 -212px;}
+.followtop li .num10{background-position:0 -240px;}

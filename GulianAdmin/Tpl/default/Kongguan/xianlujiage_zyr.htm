@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>价格</title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+</head>
+</head>
+
+<body >
+<div id="hlt_fit_view">
+  <div id="hlt_fit_location"><!--所在位置--> 
+    <b>您所在的位置:</b> <{$navlist}> </div>
+</div>
+<div id="hlt_fit_published">
+<!--发布新线路页面-->
+<div id="control_domestic_order_over"> <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a> </div>
+<include file="Kongguan:navlist" />
+<div class="ss"> </div>
+<!--订单管理内容-->
+<div id="ddgl_main">
+  <div class="ddgl_content">
+    <div id="basic-accordian">
+      <table width="100%" border="1" bordercolor="#CCCCCC" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+        <tbody>
+          <tr>
+            <td height="27" colspan="4" align="left" class="xinxi"> 机票信息： </td>
+          </tr>
+          <tr>
+            <td height="27" align="center">序号</td>
+            <td height="27" align="center"> 机票编号</td>
+            <td height="27" align="center"> 航空公司</td>
+            <td height="27" align="center"> 往返类型</td>
+          </tr>
+            <php>
+        for($i=0;$i < $postdata['rowspaly'];$i++){ $j = $i + 1;
+          </php>
+        
+        <tr>
+          <td height="27" align="center"><{$j}></td>
+          <td height="27" align="center"><php>echo $postdata['ticket_id0'.$i]</php></td>
+          <td height="27" align="center"><php>echo $postdata['fly_company0'.$i]</php></td>
+          <td height="27" align="center"><php>echo $postdata['travel_type0'.$i]</php></td>
+        </tr>
+        <php>} </php>
+          </tbody>
+        
+      </table>
+      <table width="100%" border="1" bordercolor="#CCCCCC" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+        <tbody>
+          <tr>
+            <td height="27" colspan="4" align="left" class="xinxi"> 酒店信息： </td>
+          </tr>
+          <tr>
+            <td height="27" align="center">序号</td>
+            <td height="27" align="center"> 房型</td>
+            <td height="27" align="center"> 酒店名称</td>
+            <td height="27" align="center"> 周期</td>
+          </tr>
+            <php>
+        for($i=0;$i < $postdata['rowshotel'];$i++){ $j = $i + 1;
+          </php>
+        
+        <tr>
+          <td height="27" align="center"><{$j}></td>
+          <td height="27" align="center"><php>echo $postdata['room1'.$i]</php></td>
+          <td height="27" align="center"><php>echo $postdata['hotelname1'.$i]</php></td>
+          <td height="27" align="center"><php>echo $postdata['stayday1'.$i]</php></td>
+        </tr>
+        <php>} </php>
+          </tbody>
+        
+      </table>
+      <table width="100%" border="1" bordercolor="#CCCCCC" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+        <tbody>
+          <tr>
+            <td height="27" colspan="5" align="left" class="xinxi"> 一日游信息： </td>
+          </tr>
+          <tr>
+            <td height="27" align="center">序号</td>
+            <td height="27" align="center"> 名称</td>
+            <td height="27" align="center"> 售价</td>
+            <td height="27" align="center"> 佣金</td>
+            <td height="27" align="center"> 状态</td>
+          </tr>
+            <php>
+        $i = -1; foreach($yiriyouAll as $yiriyou){ $i++; $j = $i + 1;
+          </php>
+        
+        <tr>
+          <td height="27" align="center"><{$j}></td>
+          <td height="27" align="center"><{$yiriyou['title']}></td>
+          <td height="27" align="center"><{$yiriyou['price']}></td>
+          <td height="27" align="center"><{$yiriyou['yongjin']}></td>
+          <td height="27" align="center"><{$yiriyou['zhuangtai']}></td>
+        </tr>
+        <php>} </php>
+          </tbody>
+        
+      </table>
+    </div>
+  </div>
+</div>
+<div>
+
+<!--代理商销售价格-->
+<div id="hlt_fit_price_cost">
+<div id="hlt_fit_price_cost_a">
+  <div style="float:left"> 代理商销售价格 </div>
+  <div style="float:right"> 代理商选择类别：
+    <select disabled="disabled" name="ddlAgentType" id="ddlAgentType" onchange="GetCaoZuoType(this)">
+      <php>if($postdata['ddlAgentType'] == 'Batch'){</php>
+      <option value="Batch" selected="selected">批量</option>
+      <php>}else{</php>
+      <option value="Batch" >批量</option>
+      <php>}</php>
+      <php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+      <option value="MultipleChoice"  selected="selected">多选</option>
+      <php>}else{</php>
+      <option value="MultipleChoice">多选</option>
+      <php>}</php>
+    </select>
+  </div>
+</div>
+<php>if($postdata['ddlAgentType'] != 'MultipleChoice'){</php>
+<ol id="hlt_fit_price_cost_b" class="batchdiv">
+<php>}else{</php>
+<ol id="hlt_fit_price_cost_b" style="display:none"  class="batchdiv">
+  <php>}</php>
+  <ul class="hlt_fit_price_cost_b_ol">
+    <li class="hlt_fit_price_agents_lia">代理商类型</li>
+    <li class="hlt_fit_price_agents_lib">级别</li>
+    <li class="hlt_fit_price_agents_lie">佣金</li>
+    <li class="hlt_fit_price_agents_lig">利润</li>
+  </ul>
+  <php> for($i = 0; $i <= $postdata['rowsnum1']; $i++) {</php>
+  <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv1<{$i}>">
+    <li class="hlt_fit_price_agents_lia">
+      <select disabled="disabled" id="<php> echo 'slAgentType1'.$i</php>" name="<php> echo 'slAgentType1'.$i</php>" onchange="GetAgentType(this)">
+        <php>if($postdata['slAgentType1'.$i]){</php>
+        <option value="<php>echo $postdata['slAgentType1'.$i]</php>">
+        <php>echo $postdata['slAgentType1'.$i]</php>
+        </option>
+        <php>}</php>
+      </select>
+    </li>
+    <li class="hlt_fit_price_agents_lib">
+      <select disabled="disabled" id="<php> echo 'slClass1'.$i</php>" name="<php> echo 'slClass1'.$i</php>">
+        <php>if($postdata['slAgentType1'.$i] == '门市'){</php>
+        <option value="<php>echo $postdata['slClass1'.$i]</php>">
+        <php>echo $postdata['slClass1'.$i]</php>
+        </option>
+        <php>}else{</php>
+        <option value="全部">全部</option>
+        <php>}</php>
+      </select>
+    </li>
+    <li class="hlt_fit_price_agents_lie">
+      <input disabled="disabled" id="<php> echo 'tbAdultCommission1'.$i</php>" type="text" name="<php> echo 'tbAdultCommission1'.$i</php>" value="<php> echo $postdata['tbAdultCommission1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+    </li>
+    <li class="hlt_fit_price_agents_lig">
+      <input disabled="disabled" id="<php> echo 'tbAdultProfit1'.$i</php>" type="text" name="<php> echo 'tbAdultProfit1'.$i</php>" value="<php> echo $postdata['tbAdultProfit1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" >
+    </li>
+  </ul>
+  <php>}</php>
+</ol>
+<php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+<ol id="hlt_fit_price_cost_b" class="multiplediv">
+<php>}else{</php>
+<ol id="hlt_fit_price_cost_b" style="display: none;" class="multiplediv">
+  <php>}</php>
+  <ul class="hlt_fit_price_cost_b_ol">
+    <li class="hlt_fit_price_agents_lia">代理商</li>
+    <li class="hlt_fit_price_agents_lib">选择</li>
+    <li class="hlt_fit_price_agents_lie">佣金</li>
+    <li class="hlt_fit_price_agents_lig">利润</li>
+  </ul>
+  <php> for($i = 0; $i <= $postdata['rowsnum2']; $i++) {</php>
+  <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv2<{$i}>">
+    <li class="hlt_fit_price_agents_lia">
+      <input disabled="disabled" style="width:80px;" id="<php> echo 'AgentName2'.$i</php>" name="<php> echo 'AgentName2'.$i</php>" value="<php> echo $postdata['AgentName2'.$i]</php>" type="text" readonly="readonly">
+      <input disabled="disabled" id="<php> echo 'AgentID2'.$i</php>" name="<php> echo 'AgentID2'.$i</php>" type="hidden" value="<php> echo $postdata['AgentID2'.$i]</php>">
+    </li>
+    <li class="hlt_fit_price_agents_lib"> <a id="aChoiceCom" href="javascript:openSub('AgentName2','AgentID2','<php> echo $i</php>');">选择</a> </li>
+    <li class="hlt_fit_price_agents_lie">
+      <input disabled="disabled" id="<php> echo 'tbAdultCommission2'.$i</php>" type="text" name="<php> echo 'tbAdultCommission2'.$i</php>" value="<php> echo $postdata['tbAdultCommission2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+    </li>
+    <li class="hlt_fit_price_agents_lig">
+      <input disabled="disabled" id="<php> echo 'tbAdultProfit2'.$i</php>" type="text" name="<php> echo 'tbAdultProfit2'.$i</php>" value="<php> echo $postdata['tbAdultProfit2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" >
+    </li>
+  </ul>
+  <php>}</php>
+</ol>
+</div>
+</body>
+</html>

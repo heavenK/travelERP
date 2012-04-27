@@ -1,0 +1,108 @@
+<include file="Common:header" />
+<script type="text/javascript">
+var my_theme_bgcolor="<{$my[theme_bgcolor]}>";
+var my_theme_text="<{$my[theme_text]}>";
+var my_theme_link="<{$my[theme_link]}>";
+var my_theme_sidebar="<{$my[theme_sidebar]}>";
+var my_theme_sidebox="<{$my[theme_sidebox]}>";
+var my_user_id="<{$my[user_id]}>";
+var temp_dir="default";
+var my_bgurl="<{$my[theme_bgurl]}>"
+if (!my_theme_bgcolor) {my_theme_bgcolor="#d3edfa";}
+if (!my_theme_text) {my_theme_text="#222222";}
+if (!my_theme_link) {my_theme_link="#0066CC";}
+if (!my_theme_sidebar) {my_theme_sidebar="#e2f2da";}
+if (!my_theme_sidebox) {my_theme_sidebox="#b2d1a3";}
+</script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/colorpicker/colorpicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/theme.js"></script>
+<table id="columns">
+<tr>
+<td id="main" style="-moz-border-radius-bottomleft:5px;">
+<div class="contenter">
+<div class="indexh">
+    <div class="taboff"><a href="<{:SITE_URL}>/Setting"><{:L('change_setting')}></a></div>
+    <div class="taboff"><a href="<{:SITE_URL}>/Setting/face"><{:L('change_face')}></a></div>
+    <div class="taboff"><a href="<{:SITE_URL}>/Setting/account"><{:L('change_pass')}></a></div>
+    <div class="taboff"><a href="<{:SITE_URL}>/Setting/mailauth"><{:L('email_checking')}></a></div>
+    <div class="tabon"><a href="<{:SITE_URL}>/Setting/theme"> <{:L('theme')}></a></div>
+</div>
+<div class="settings-theme">
+    <form id="form-setting-theme" enctype="multipart/form-data" action="<{:SITE_URL}>/Setting/dotheme" method="POST" onsubmit="if($('#file').val()==''){$('#file').remove()}">
+    <h3 class="title"><{:L('select_theme')}> &raquo;</h3>
+    <div id="settings-theme-list" class="list">
+    <div id="alltheme">
+    <php>foreach($theme as $val){</php>
+        <a title="<{:L('theme')}><{$val[ut_id]}>" href="javascript:void(0)" onclick="usertheme('<{$val[theme_bgcolor]}>,<{$val[theme_text]}>,<{$val[theme_link]}>,<{$val[theme_sidebar]}>,<{$val[theme_sidebox]}>,<{$val[theme_upload]}>,<{$val[theme_pictype]}>,<{$val[ut_id]}>')"><php>if($val[theme_upload]==1){</php><img src="<{:__PUBLIC__}>/attachments/usertemplates/<{$val[ut_id]}>/thumb_themebg.jpg"/><php>}else{</php><div style="background:<{$val[theme_bgcolor]}>;width:112px;height:72px"></div><php>}</php></a>
+    <php>}</php>
+    </div>
+    <div class="clearline"></div>
+    <div class="shoppage">
+        <div id="pageleft" class="pageleft"></div>
+        <div id="pagenum" class="pagenum">1/1</div>
+        <div id="pageright" class="pageright"></div>
+    </div>
+    </div>
+    <h3 id="tab-bg" class="tab-bg show"><{:L('change_theme_bgpic')}> &raquo;</h3>
+    <h3 id="tab-color" class="tab-color show current"><{:L('change_theme_color')}> &raquo;</h3>
+    <div id="settings-background" class="background" style="display:none;">
+        <div class="upload"><{:L('uoload_theme_bgpic')}>：<input id="file" name="bgpicture" class="input_file" size="30" type="file"></div>
+        <div class="images" id="themeimages">
+            <php>if(file_exists("./Public/attachments/".$my[theme_bgurl])){</php>
+            <a href="javascript:void(0);" id="setbgyes" style="background-image: url(<{:__PUBLIC__}>/attachments/<{$my[theme_bgurl]}>);"></a>
+            <a href="javascript:void(0);" class="nobg" id="setbgno"><img src="<{:__PUBLIC__}>/images/theme-nobg.gif" alt="">&nbsp;<span><{:L('no_theme_bgpic')}></span></a>
+            <p><label for="user-background-repeat"><input id="user-background-repeat" name="pictype" onclick='repeatclick()' type="radio" class="radio" value="repeat" <php>if($my[theme_pictype]=="repeat"){</php>checked<php>}</php>> <{:L('all_theme_bgpic')}></label>&nbsp;&nbsp;
+            <label for="user-background-center"><input id="user-background-center" name="pictype" onclick='centerclick()' type="radio" class="radio" value="center" <php>if($my[theme_pictype]=="center"){</php>checked<php>}</php>> <{:L('center_theme_bgpic')}></label>&nbsp;&nbsp;
+            <label for="user-background-left"><input id="user-background-left" name="pictype" onclick='leftclick()' type="radio" class="radio" value="left" <php>if($my[theme_pictype]=="left"){</php>checked<php>}</php>> <{:L('left_theme_bgpic')}></label></p>
+            <php>}</php>
+        </div>
+    </div>
+    <div id="settings-color" class="color">
+        <div id="color-inputs" class="inputs">
+            <table>
+                <tr>
+                    <td><label for="color-background"><{:L('theme_bgpic')}></label></td>
+                    <td><label for="color-text"><{:L('theme_text')}></label></td>
+                </tr>
+                <tr>
+                    <td><input class="themeinput" id="color-background" name="bg" value="" type="text"></td>
+                    <td><input class="themeinput" id="color-text" name="text" value="" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="color-links"><{:L('theme_link')}></label></td> 
+                    <td><label for="color-sidebar"><{:L('theme_side')}></label></td> 
+                </tr>
+                <tr>
+                    <td><input class="themeinput" id="color-links" name="links" value="" type="text"></td>
+                    <td><input class="themeinput" id="color-sidebar" name="sidebarcl" value="" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="color-sidebox"><{:L('theme_sidebox')}></label></td> 
+                    <td></td> 
+                </tr>
+                <tr>
+                    <td><input class="themeinput" id="color-sidebox" name="sidebox" value="" type="text"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="colorpicker" style="margin-left:270px"></div>
+        <div style="clear:both;"></div>
+    </div>
+    <p class="act">
+        <input type="hidden" name="newbgurl" id="newbgurl" value="<{$my[theme_bgurl]}>">
+        <input type="submit" class="button2" id="save" value="<{:L('save_theme')}>" />&nbsp;&nbsp;&nbsp;
+        <input type="button" class="button2" onclick="jsop('<{:SITE_URL}>/Setting/dltheme','<{:L('is_dl_theme')}>')" value="<{:L('dl_theme')}>" />&nbsp;&nbsp;&nbsp;
+        <input type="button" class="button3" id="cencel" value="<{:L('cancel')}>"/>
+    </p>
+    </form>
+</div>
+</div>
+</td>
+<td id="sidebar"><include file="Space:homeside"/></td>
+</tr>
+</table>
+<script>
+allthemeload();
+</script>
+<include file="Common:foot" />

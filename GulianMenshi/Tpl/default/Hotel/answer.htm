@@ -1,0 +1,13 @@
+<php>foreach($answer as $val){</php>
+<tr class="tr1">
+    <td height="27" width="20%" align="center">
+        <{$val[username]}>
+    </td>
+    <td height="27" width="60%" align="center">
+        <{$val[content]}>
+    </td>
+    <td height="27" width="20%" align="center">
+        <{$val[pubdate]|date='Y-m-d H:i:s',###}>
+    </td>
+</tr>
+<php>}</php>

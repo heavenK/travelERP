@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	无标题页
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<div>
+
+
+
+
+        <div class="hdlyRight">
+            <div id="content_bb">
+                
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$navlist}> </li>
+                    </ul>
+                </div>
+                <div class="ss">
+                	<form name="form1" method="post" action="<{:SITE_MENSHI}>Airticket/dingdan" id="form1">
+   					<input type="hidden" name="type" value="search">
+                    <table class="test1" style="padding-top: 20px;" width="85%" border="0">
+                        <tbody><tr>
+                            
+                            <td height="18" width="50" align="right">
+                                订单号</td>
+                            <td width="187">
+                                <input name="tbKeyword" id="tbKeyword" type="text"></td>
+                            <td height="18" width="50" align="right">
+                                状态</td>
+                            <td width="187">
+                                <select name="dlState" id="dlState">
+                                    <option selected="selected" value="0">-请选择-</option>
+                                    <option value="占位">占位</option>
+                                    <option value="确认">确认</option>
+                                    <option value="候补">候补</option>
+                                    <option value="取消">取消</option>
+                                
+                                </select>
+                            </td>
+                            <td>
+                                <input name="SearchBtn" value="搜 索" id="SearchBtn" class="anu" type="submit">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    </form>
+                </div>
+                <div class="fanye1">
+                    <table height="30" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e5e5e5" >
+                    </table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td align="center">
+                                <table style="text-align: left;" width="96%" border="0" cellpadding="0" cellspacing="0">
+                                    
+                                        
+                                            <tbody>
+                                            <php>foreach($dingdans as $val){</php>
+                                            <tr>
+                                                <td colspan="3" height="15">
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td width="5%">
+                                                </td>
+                                                <td height="27">
+                                                    订单编号：<a style="color:blue" href="<{:SITE_MENSHI}>Airticket/dingdan_info/bid/<{$val[bid]}>"><{$val[bid]}></a>
+                                                    航线：<a style="color:blue" href="<{:SITE_MENSHI}>Airticket/dingdan_info/bid/<{$val[bid]}>"><{$val['from']}> - <{$val['gooo']}> </a>
+                                                </td>
+                                                <td>
+                                                    订单状态：<label style="color:#F00"><{$val[status]}></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td height="27">
+                                                    出发时间：<strong><{$val[start_date]|date='Y-m-d',###}></strong>
+                                                </td>
+                                                <td>
+                                                   <label style="color:#F00"> <{$val[islock]}> </lable>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr class="bottomline">
+                                                <td>
+                                                </td>
+                                                <td height="27">
+                                                    机票数：<strong><{$val[re_num]}></strong>	
+                                                    联系人：<strong><{$val[linkman]}></strong>
+                                                    下单日期：<strong><{$val[pubdate]|date='Y-m-d H:i:s',###}> </strong>
+                                                </td>
+                                                <td height="27">
+                                                </td>
+                                            </tr>
+                                       		<php>}</php>
+                                            
+                                        
+                                    <tr>
+                                        <td colspan="3" height="15">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    
+                    <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                         <div class="page"><{$page}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</body>
+</html>
+
+
+<include file="Index:footer" />

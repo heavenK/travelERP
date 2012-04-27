@@ -1,0 +1,158 @@
+<include file="Common:header" />
+<php>if(ACTION_NAME=='index'){</php>
+<h3>搜索用户</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Users/search' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="150px">用户帐号</td>
+    <td><input type="text" name="user_name" class="txt_input">&nbsp;&nbsp;&nbsp;● 支持模糊搜索</td>
+</tr>
+<tr>
+    <td width="150px">用户分组</td>
+    <td>
+        <select name="group" class="txt_input" style="width:100px">
+        <option value="all">所有用户</option>
+        <option value="admin1">总管理员</option>
+        <option value="admin2">前台管理</option>
+        <option value="public">普通用户</option>
+        <{$sgroup}>
+        <option value="lock">锁定用户</option>
+        <option value="close">禁言用户</option>
+        </select>
+    </td>
+</tr>
+</table>
+<input type="submit" class="button1 submit" value="搜索用户">
+</form>
+<php>}else if (ACTION_NAME=='search'){</php>
+<h3>用户管理</h3>
+<div style="background:#f1f7fd;padding:5px 10px"><b>共搜索到 <{$count}> 名符合条件的用户</b>&nbsp;&nbsp;&nbsp;<a href="<{:SITE_URL}>/admin.php?s=/Users">重新搜索</a></div>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="40px">&nbsp;</td>
+    <td width="150px"><b>用户帐号</b></td>
+    <td width="150px"><b>用户昵称</b></td>
+    <td style="text-indent:0px" width="100px"><b>用户分组</b></td>
+    <td width="200px"><b>注册时间</b></td>
+    <td>&nbsp;</td>
+</tr>
+<php>foreach($user as $val){</php>
+<tr>
+    <td><img src="<{:sethead($val[user_head])}>" style="width:30px;height:30px"></td>
+    <td><{$val[user_name]}></td>
+    <td><{$val[nickname]}></td>
+    <td style="text-indent:0px"><php>
+    if ($val[isadmin]==1) {
+        echo '总管理员';
+    } else if ($val[isadmin]==2) {
+        echo '前台管理员';
+    } else if ($val[userlock]==1) {
+        echo '锁定用户';
+    } else if ($val[userlock]==2) {
+        echo '禁言用户';
+    } else {
+        echo '普通用户';
+    }
+    if ($val[user_auth]>0) {
+        echo '<br/><font color="red">'.$sgroup2[$val[user_auth]].'</font>';
+    }
+    </php></td>
+    <td><{:date('Y-m-d H:i:s',$val['signupdate'])}></td>
+    <td><input type="button" class="button1" value="编辑用户" onclick="window.location.href='<{:SITE_URL}>/admin.php?s=/Users/edit/user_name/<{$val[user_name]}>'"></td>
+</tr>
+<php>}</php>
+</table>
+<div class="page"><{$page}></div>
+<php>}</php>
+<php>if($user && ACTION_NAME=='edit'){</php>
+<h3>编辑用户&nbsp;&nbsp;&nbsp;<span style="font-size:12px;font-weight:normal"><a href="<{:SITE_URL}>/admin.php?s=/Users">(重新搜索)</a></span></h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Users/edituser' method="POST" onsubmit="if($('#delmsg').val()==1){if(confirm('你是否要确定删除该用户的广播？')){return true;}else{return false;}}">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="150px">用户帐号</td>
+    <td width="330px"><input type="text" name="user_name" class="readonly" value="<{$user['user_name']}>" readonly='true'></td>
+    <td></td>
+</tr>
+<tr>
+    <td>注册时间</td>
+    <td><{:date('Y-m-d H:i:s',$user['signupdate'])}></td>
+    <td></td>
+</tr>
+<tr>
+    <td>用户昵称</td>
+    <td><input type="text" name="user[nickname]" class="txt_input" value="<{$user['nickname']}>"></td>
+    <td></td>
+</tr>
+<tr>
+    <td>用户密码</td>
+    <td><input type="text" name="user[password]" class="txt_input" value=""></td>
+    <td class="info">● 如果不修改密码请留空</td>
+</tr>
+<tr>
+    <td>用户邮箱</td>
+    <td><input type="text" name="user[mailadres]" class="txt_input" value="<{$user['mailadres']}>"></td>
+    <td></td>
+</tr>
+<tr>
+    <td valign="top">认证说明</td>
+    <td><textarea type="text" name="user[auth_info]" style="font-size:12px;border:1px solid #cccccc;height:80px;width:300px;padding:1px 3px"><{$user['auth_info']}></textarea></td>
+    <td class="info" valign="top">● 用户认证信息，支持HTML</td>
+</tr>
+<tr>
+    <td>用户认证</td>
+    <td><select name="user[user_auth]"><{$vgroup}></select></td>
+    <td class="info" valign="top">● 用户认证分组请<a href="admin.php?s=/Vipgroup">点击这里</a></td>
+</tr>
+<tr>
+    <td>管理员组</td>
+    <td>
+    <php>if($user[user_id]!=ADMIN_UID){</php>
+    <select name="user[isadmin]">
+    <option value="0" <php>if($user['isadmin']==0){</php>selected<php>}</php>>普通用户</option>
+    <option value="1" <php>if($user['isadmin']==1){</php>selected<php>}</php>>总管理员</option>
+    <option value="2" <php>if($user['isadmin']==2){</php>selected<php>}</php>>前台管理</option>
+    </select>
+    <php>}else{</php>
+    默认管理员无法修改
+    <php>}</php>
+    </td>
+    <td class="info">● 总管理员拥有所有权限，前台管理员仅拥有网站广播的审核权限</td>
+</tr>
+<tr>
+    <td>广场用户榜</td>
+    <td><select name="pubtop">
+    <option value="0" <php>if($pubtop[$user[user_id]]==0){</php>selected<php>}</php>>下榜</option>
+    <option value="1" <php>if($pubtop[$user[user_id]]==1){</php>selected<php>}</php>>上榜</option>
+    </select></td>
+    <td></td>
+</tr>
+<tr>
+    <td>注册邮件认证</td>
+    <td><select name="regmailauth">
+    <option value="0" <php>if($user[regmailauth]==0){</php>selected<php>}</php>>否</option>
+    <option value="1" <php>if($user[regmailauth]==1){</php>selected<php>}</php>>是</option>
+    </select></td>
+    <td></td>
+</tr>
+<tr>
+    <td>禁止类型</td>
+    <td><select name="user[userlock]">
+    <option value="0" <php>if($user['userlock']==0){</php>selected<php>}</php>>正常状态</option>
+    <option value="1" <php>if($user['userlock']==1){</php>selected<php>}</php>>锁定状态</option>
+    <option value="2" <php>if($user['userlock']==2){</php>selected<php>}</php>>禁言状态</option>
+    </select></td>
+    <td class="info">● 用户锁定后将不能登陆，其他用户也不可浏览其主页</td>
+</tr>
+<tr>
+    <td>删除用户广播</td>
+    <td><select id="delmsg" name="delmsg">
+    <option value="0" selected>不删除</option>
+    <option value="1">删除</option>
+    </select></td>
+    <td class="info">● 选择此项提交后将删除用户的所有广播</td>
+</tr>
+</table>
+<input type="submit" class="button1 submit" value="保存提交">
+</form>
+<php>}</php>
+<include file="Common:foot" />

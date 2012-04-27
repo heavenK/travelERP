@@ -1,0 +1,63 @@
+<include file="Common:header" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.autocomplete.js"></script>
+<table id="columns">
+<tr>
+<td id="main">
+<div class="contenter">
+<{$hook['inbox_left_top']}>
+<div class="mestitle"><div class="sx"><{:L('message')}></div><div class="info"><{:L('message')}><{:L('message_send_need')}></div></div>
+<div class="indexh">
+    <div class="fleft">
+        <div class="tabon"><{:L('message_inbox')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Message/sendbox"><{:L('message_sendbox')}></a></div>
+    </div>
+    <div class="message">
+        <{:L('message_total_receive')}> <{$count}> <{:L('message_unit')}><{:L('message')}>&nbsp;&nbsp
+        <input class="button5" onclick="sendprimsgbox()" value="<{:L('send_message')}>">
+    </div>
+    <div class="clearline"></div>
+</div>
+<{$hook['inbox_left_mid']}>
+<div id="stream" class="message">
+    <ol class="wa">
+    <php>if($count>0){</php>
+        <php>foreach($data as $val){</php>
+        <li class="unlight">
+            <php>if($val[senduid]==0){</php>
+            <a title="<{:L('system_message')}>" class="avatar"><img src="<{:__PUBLIC__}>/images/system.gif" alt="<{:L('system_message')}>" /></a>
+            <php>}else{</php>
+            <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="avatar"><img src="<{:sethead($val[user_head])}>" alt="<{$val[nickname]}>" /></a>
+            <php>}</php>
+            <div class="content">
+            <php>if($val[senduid]==0){</php>
+            <span class="grey"><{:L('system_message')}></span>
+            <php>}else{</php>
+            <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="author <{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a>
+            <php>}</php>
+            <h6>:</h6><div class="msgimg"><{:$ctent->ubb($val[messagebody])}><php>if($val[isread]==0){</php><font color="red" size="1"><{:L('message_new')}></font><php>}</php></div></div>
+            <span class="stamp fleft"><{:timeop($val[sendtime])}></span> 
+            <span class="stamp op fright">
+            <php>if($my[user_id]!=$val[uid] && $val[senduid]!=0){</php>
+            <a href="javascript:void(0);" onclick="sendprimsgbox('<{$val['nickname']}>')" title="<{:L('reply')}><{$val[nickname]}>"><{:L('reply_message')}></a>&nbsp;|&nbsp;
+            <php>}</php>
+            <a href="javascript:void(0);" onclick="delmsg('<{:SITE_URL}>/Message/delmsg/mid/<{$val[message_id]}>','<{:L('delete_this_yes')}><{:L('message')}><{:L('ma')}>',this.parentNode.parentNode)"><{:L('delete')}></a>
+            </span>
+            <div class="clearline"></div>
+        </li>
+        <php>}</php>
+    <php>}else{</php>
+        <li class="unlight" id='nonemsg'><{:L('no_recieve_message')}></li>
+    <php>}</php>
+    </ol>
+</div>
+</div>
+</td>
+<td id="sidebar" rowspan="2"><include file="Space:homeside" /></td></tr>
+<tr>
+    <td height="36px">
+        <div id="indexpage" class="page"><{$page}></div>
+    </td>
+</tr>
+</table>
+<script type="text/javascript">$(document).ready(function(){$("#msgtip").remove();closetip("t_msg");});</script>
+<include file="Common:foot" />

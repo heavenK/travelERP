@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>权限</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+</head>
+<style>
+.fanye th{ background:url("<{:__PUBLIC__}>/gulianstyle/images/search_topbav_bg_02.gif") repeat-x;}
+</style>
+<body>
+
+<div class="hdlyRight">
+  <div id="content_bb">
+    <div class="szwz">
+      <ul>
+        <li> <span>您所在的位置</span> 权限</li>
+      </ul>
+    </div>
+    <div class="fanye">
+      <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th height="32" align="center"> 姓名 </th>
+            <th height="32" align="center"> 帐户 </th>
+            <th height="32" align="center"> 电子邮箱 </th>
+            <th height="32" align="center"> 办公电话 </th>
+            <th height="32" align="center"> 手机 </th>
+            <th height="32" align="center"> 隶属公司 </th>
+            <th height="32" align="center"> 部门 </th>
+            <th height="32" align="center"> 职位 </th>
+            <th height="32" align="center"> QQ </th>
+            <th height="32" align="center"> 添加日期</th>
+            <th height="32" align="center"> 状态 </th>
+            <th height="32" align="center"> 操作 </th>
+          </tr>
+          <tr class="tr1">
+            <td height="32" align="center"><{$kehu['realname']}> </td>
+            <td height="32" align="center"><{$kehu['user_name']}> </td>
+            <td height="32" align="center"><{$kehu['email']}> </td>
+            <td height="32" align="center"><{$kehu['officetel']}> </td>
+            <td height="32" align="center"><{$kehu['mobiletel']}> </td>
+            <td height="32" align="center"><{$companyinfo['companyname']}> </td>
+            <td height="32" align="center"><{$kehu['department']}> </td>
+            <td height="32" align="center"><{$kehu['role']}> </td>
+            <td height="32" align="center"><{$kehu['qq']}> </td>
+            <td height="32" align="center"><php>echo date('Y-m-d',$kehu['time'])</php></td>
+            <td height="32" align="center"><{$kehu['islock']}> </td>
+            <td height="32" align="center"> [<a href="<{:SITE_ADMIN}>Systemguanli/edituser/kehuID/<{$kehu['kehuID']}>">修改信息</a>]
+              [<a href="<{:SITE_ADMIN}>Systemguanli/powermanage/user_name/<{$kehu['user_name']}>">权限管理</a>] </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="szwz">
+      <ul>
+        <li> <span>内容：</span><strong> 分管部门，内容包括线路，子团及报账单以及订单</strong></li>
+      </ul>
+    </div>
+    <form name="form" method="post" action="<{:SITE_ADMIN}>Systemguanli/dopostadminlevel/" >
+    <input type="hidden" value="<{$kehu['user_name']}>" name="user_name" />
+    <div class="fanye" >
+      <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th height="32" align="center"> 分管部门(适用于计调经理，计调操作员) </th>
+          </tr>
+          <tr class="tr1">
+            <td height="32" align="left"><php>$i = -1;foreach($departmentAll as $v){ $i++;</php>
+              <div style="margin:10px 20px; float:left; width:100px;"> <input 
+                <php>if(in_array($v['id'],$department_list)){</php>
+                checked="checked"
+                <php>}</php>
+                type="checkbox" name="department_list[]" id="department_list<{$i}>" value="<{$v['id']}>"  ><{$v[title]}> </div>
+              <php>}</php></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style=" width:1200px; float:left; overflow:hidden">
+        <div class="szwz" style="width:300px;;float:left; margin:0px; margin-right:10px;">
+          <ul>
+            <li> <span>内容：</span> rbac用户权限</li>
+          </ul>
+        </div>
+        <div class="szwz" style="width:800px; float:left; margin:0px; overflow:hidden">
+          <ul>
+            <li> <span>内容：</span> 提示信息，角色权限</li>
+          </ul>
+        </div>
+    </div>
+    <div style=" width:1200px; float:left; overflow:hidden">
+    
+        <div class="fanye" style="width:300px;float:left; height:400px;margin:0px;margin-right:10px;">
+        <iframe scrolling="no" style="height:100%" src="<{:ET_URL}>RbacAdmin.php/User/role/id/<{$kehu['user_id']}>" ></iframe>
+        </div>
+    
+    <form name="form" method="post" action="<{:SITE_ADMIN}>Systemguanli/dopostadminlevel/" >
+      <input type="hidden" value="<{$kehu['user_name']}>" name="user_name" />
+      <div class="fanye" style="width:800px; float:left;margin:0px;">
+        <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+          
+            <tr>
+              <th height="32" align="center" width="120">权限类型</th>
+              <th height="32" align="center">描述</th>
+            </tr>
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('门市操作员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" type="checkbox" value="门市操作员" />
+                
+                门市操作员<br />
+                </td>
+              <td height="32" align="left" >
+                订单操作信息提示 </td>
+            </tr>
+            
+            <tr class="tr1">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('地接操作员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="地接操作员" type="checkbox" />
+                地接操作员<br />
+                </td>
+              <td height="32" align="left" >
+                地接报账单操作信息提示 </td>
+            </tr>
+            
+            <tr class="tr1">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('地接经理',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="地接经理" type="checkbox" />
+                地接经理<br />
+                </td>
+              <td height="32" align="left" >
+                地接报账单操作信息提示 </td>
+            </tr>
+            
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('计调操作员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="计调操作员" type="checkbox" />
+                计调操作员<br />
+                </td>
+              <td height="32" align="left" >
+                线路子团操作信息，订单操作信息提示，报账单提交经理<br />
+            </tr>
+            
+            <tr class="tr1">
+              <td height="32" align="left" ><input 
+                <input 
+                <php> $c=explode('计调经理',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="计调经理" type="checkbox" />
+                计调经理<br />
+                </td>
+              <td height="32" align="left" >
+                线路子团操作审核，订单操作信息提示，报账单提交财务 </td>
+            </tr>
+            
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('财务操作员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="财务操作员" type="checkbox" />
+                财务操作员<br />
+                </td>
+              <td height="32" align="left" >
+                订单操作信息，报账单审核 </td>
+            </tr>
+            
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('财务总监',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="财务总监" type="checkbox" />
+                财务总监<br />
+                </td>
+              <td height="32" align="left" >
+                订单操作信息，报账单审核 </td>
+            </tr>
+            
+            <tr class="tr1">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('网管',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="网管" type="checkbox" />
+                网管<br />
+                </td>
+              <td height="32" align="left" >
+                全局查看 </td>
+            </tr>
+            
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('总经理',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="总经理" type="checkbox" />
+                总经理<br />
+                </td>
+              <td height="32" align="left" >
+                全局查看 </td>
+            </tr>
+            
+            <tr class="tr1">
+              <td height="32" align="left" ><input 
+                <php> $c=explode('联合体成员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="联合体成员" type="checkbox" />
+                联合体成员<br />
+                </td>
+              <td height="32" align="left" >
+                限制权限，用户将允许发布线路，修改，删除，查看订单，控管团队，查看团队人员名单。选择该权限将限制用户查询非联合体内线路数据,非该权限用户将不被允许查看。<br />
+            </tr>
+            
+            <tr class="tr2">
+              <td height="32" align="left" ><input 
+                <input 
+                <php> $c=explode('联合体管理员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="联合体管理员" type="checkbox" />
+                联合体管理员<br />
+                </td>
+              <td height="32" align="left" >
+                额外权限，审核联合体发布的线路，可控是否公开到门市，同业，联合体成员。该权限运行用户审核联合体内线路数据。 </td>
+            </tr>
+			
+			<!--办事处，同业管理员 by gaoyang-->
+			<tr class="tr2">
+              <td height="32" align="left" ><input 
+                <input 
+                <php> $c=explode('办事处管理员',$adminlevel);if(count($c)>1){</php>
+                checked="checked"
+                <php>}</php>
+                name="itemlist[]" value="办事处管理员" type="checkbox" />
+                办事处管理员<br />
+                </td>
+              <td height="32" align="left" >
+                额外权限，审核办事处发布的线路，可控是否公开到门市以及内部其他部门。该权限运行用户审核办事处内线路数据。 </td>
+            </tr>
+            
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+      
+      <div class="zcxx">
+        <table width="100%" border="0">
+          <tbody>
+            <tr style="font-family: Times New Roman">
+              <td width="40%" align="right">修改人：<{$adminuserkehu['realname']}></td>
+              <td width="10%"></td>
+              <td width="40%">修改时间：<{$adminuser['timestamp']}></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="zcxx">
+        <table width="100%" border="0">
+          <tbody>
+            <tr style="font-family: Times New Roman">
+              <td colspan="5" align="center"><input type="submit" value="确 认" onclick="return Checkdata();" class="anu"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" language="javascript">
+function classselect(o,tip)
+{
+    var tip = 'item_'+tip+'_';
+    var i = 0;
+    for(;;)
+    {
+        id = tip + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.click();
+        else
+            break;
+        i ++;
+    }
+}
+function actionelect(o,tipa,tipb)
+{
+    var tip = 'item_'+tipa+'_'+tipb+'_';
+    var i = 0;
+    for(;;)
+    {
+        id = tip + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>

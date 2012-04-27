@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>签证费用结算报告表</title>
+<style>
+.gl_jsb_box		{ width:1000px; margin:10px auto; overflow:hidden;}
+*	{ font-size:14px; line-height:24px;}
+td	{ padding:3px 0;}
+.gl_jsb_td		{ border-bottom:#000000 1px solid; border-right:#000000 1px solid;}
+.gl_jsb_td td	{ border-top:#000000 1px solid; border-left:#000000 1px solid;}
+.gl_jsb_bottom	{ border-bottom:#000000 1px solid;}
+</style>
+
+<SCRIPT language=javascript>
+function printpr()   //预览函数
+{
+document.getElementById("qingkongyema").click();//打印之前去掉页眉，页脚
+document.getElementById("dayinDiv").style.display="none"; //打印之前先隐藏不想打印输出的元素（此例中隐藏“打印”和“打印预览”两个按钮）
+var OLECMDID = 7;
+var PROMPT = 1; 
+var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
+WebBrowser1.ExecWB(OLECMDID, PROMPT);
+WebBrowser1.outerHTML = "";
+document.getElementById("dayinDiv").style.display="";//打印之后将该元素显示出来（显示出“打印”和“打印预览”两个按钮，方便别人下次打印）
+} 
+function printTure()   //打印函数
+{
+    document.getElementById('qingkongyema').click();//同上
+    document.getElementById("dayinDiv").style.display="none";//同上
+    window.print();
+    document.getElementById("dayinDiv").style.display="";
+}
+function doPage()
+{
+    layLoading.style.display = "none";//同上
+}
+</SCRIPT>
+<script language="VBScript">
+dim hkey_root,hkey_path,hkey_key
+hkey_root="HKEY_CURRENT_USER"
+hkey_path="\Software\Microsoft\Internet Explorer\PageSetup"
+'//设置网页打印的页眉页脚为空
+function pagesetup_null()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+end function
+'//设置网页打印的页眉页脚为默认值
+function pagesetup_default()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&w&b页码，&p/&P"
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&u&b&d"
+end function
+</script>
+</head>
+
+<body>
+<div class="gl_jsb_box">
+<table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9D8" id="dayinDiv" name="dayinDiv">
+  <tr>
+    <td height="20">
+    <input type="button" class="tab" value="打印" onclick="printTure();">  
+<input  type="button" class="tab" value="打印预览" onclick="printpr();">
+<input type="hidden" name="qingkongyema" id="qingkongyema" class="tab" value="清空页码" onclick="pagesetup_null()">  
+<input type="hidden" class="tab" value="恢复页码" onclick="pagesetup_default()">    </td>
+  </tr>
+</table>
+</div>
+<div id="h" class="gl_jsb_box">
+
+<table width="1000" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td width="250" height="50" align="center" valign="bottom" style="padding: 10px 0pt 0pt;"><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_p.gif" border="0" height="37" width="223"></td>
+    <td align="center" style="padding: 10px 0pt 0pt;"><span style=" border-bottom:#000000 1px solid; font-size:26px; font-weight:bold; font-family:'黑体'">订房费用结算报告表</span>&nbsp;</td>
+    <td style="padding: 10px 0pt 0pt;" valign="bottom" width="250" align="right"><span style=" font-size:12px; height:20px; overflow:hidden;">填送日期:<php>if($qianzheng['inputdate']){$needdate = strtotime($qianzheng['inputdate']); echo date("Y年m月d日",$needdate) ;}</php>&nbsp;&nbsp;&nbsp;&nbsp;单位：元</span></td>
+  </tr>
+  </tbody></table>
+
+<table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td" style="margin-bottom:4px;">
+  <tr>
+    <td width="250" bgcolor="#FFFFFF">&nbsp;标题：<{$qianzheng['title']}></td>
+    <td width="250" bgcolor="#FFFFFF">&nbsp;名称：<{$qianzheng['title_ext']}></td>
+    <td width="250" bgcolor="#FFFFFF">&nbsp;联系电话：<{$qianzheng['quanchengpeitong']}></td>
+    <td width="250" bgcolor="#FFFFFF">&nbsp;人数： <{$qianzheng['renshu']}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;时间：<php>if($qianzheng['arrivetime']){echo $qianzheng['arrivetime'];}</php></td>
+    <td bgcolor="#FFFFFF">&nbsp;结算时间：<php>if($qianzheng['arrivetime']){echo $qianzheng['leavetime'];}</php></td>
+    <td bgcolor="#FFFFFF"></td>
+    <td bgcolor="#FFFFFF"></td>
+  </tr>
+  
+  
+  
+</table>
+
+
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="1000">
+  <tbody>
+    <tr>
+      <td align="left" valign="top">
+      <style>
+	  	.gl_table_nn	{ margin:3px 0 0 0; display:inline; float:left;}
+      	.gl_table_n		{ border:#000000 1px solid;}
+		.gl_table_x		{ word-break:break-all; border-bottom:#000000 1px solid; border-left:#000000 1px solid;}
+		.gl_table_y		{ word-break:break-all;border-right:#000000 1px solid; border-bottom:#000000 1px solid; border-left:#000000 1px solid;}
+      </style>
+      <table class="gl_table_nn" border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td width="495" height="30" colspan="3" align="center" class="gl_table_n"><b class="gl_gn_tdfont">应  收  款  项</b></td>
+            <td width="4" height="30" align="center"></td>
+            <td width="497" height="30" align="center" class="gl_table_n"><b class="gl_gn_tdfont">应  付  款  项</b></td>
+          </tr>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td width="30"  align="center" class="gl_table_x">序号 </td>
+          <td width="400" align="center" class="gl_table_x">项 目</td>
+          <td width="60" align="center" class="gl_table_y">金额</td>
+          <td width="4" height="30" align="center"></td>
+          <td width="30"  align="center" class="gl_table_x">序号 </td>
+          <td width="400" align="center" class="gl_table_x">项 目</td>
+          <td width="60" align="center" class="gl_table_y">金额</td>
+        </tr>
+      </table>
+      
+      
+                        <php>$sum_price_shou=0;$sum_price_pay=0;$th = 7;$num = $num1 > $num2 ? $num1 : $num2 ; if($num > $th ) $th = $num;$i=0; for($i;$i<$th;$i++){
+                        </php>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td width="30"  align="center" class="gl_table_x"><php>echo $i + 1;</php></td>
+          <td width="400" align="center" class="gl_table_x"><{$itemAll[$i][title]}></td>
+          <td width="60" align="center" class="gl_table_y"><{$itemAll[$i][value]}></td>
+          <td width="4" height="30" align="center"></td>
+          <td width="30"  align="center" class="gl_table_x"><php>echo $i + 1;</php></td>
+          <td width="400" align="center" class="gl_table_x"><{$itemAll2[$i][title]}></td>
+          <td width="60" align="center" class="gl_table_y"><{$itemAll2[$i][value]}></td>
+        </tr>
+      </table>
+      <php>}</php>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td width="30"  align="center" class="gl_table_x">合计</td>
+          <td width="400" align="center" class="gl_table_x">&nbsp;</td>
+          <td width="60" align="center" class="gl_table_y"><{$total_1}></td>
+          <td width="4" height="30" align="center"></td>
+          <td width="30"  align="center" class="gl_table_x">合计</td>
+          <td width="400" align="center" class="gl_table_x">&nbsp;</td>
+          <td width="60" align="center" class="gl_table_y"><{$total_2}></td>
+        </tr>
+      </table>
+      
+      </td>
+      </tr>
+  </tbody>
+</table>
+
+	  <style>
+		.gl_table_ll	{ width:100%; border:#000000 1px solid; }
+		.gl_table_l		{ float:left;}
+		.gl_table_l td	{ width:90px; height:28px; line-height:28px; border-right:#000 1px solid;  overflow:hidden; text-align:center; float:left;}
+		.gl_table_h		{ float:left;}
+		.gl_table_h td	{ width:90px; height:28px; line-height:28px; border-right:#000 1px solid; overflow:hidden; text-align:center; float:left;}
+	</style>
+<div id="h" class="gl_jsb_box" style="margin-top:4px;">
+  <table class="gl_table_ll" border="0" cellpadding="0" cellspacing="0" width="1000" align="center">
+    <tr >
+      <td align="left" bgcolor="#FFFFFF">
+     
+        <table  border="0" cellspacing="0" cellpadding="0" class="gl_table_l">
+          <tr>
+            <td>本团利润</td>
+            <td><{$lirun}></td>
+            </tr>
+        </table>
+        
+                        <php>$i=0;foreach($itemAll3 as $item){
+                        </php>
+        <table  border="0" cellspacing="0" cellpadding="0" class="gl_table_h">
+          <tr>
+            <td><{$item['title']}></td>
+            <td><{$item['value']}></td>
+            </tr>
+        </table>
+                        <php>}
+                        </php>
+        
+        </td>
+      </tr>
+</table>
+</div>  
+
+
+<table width="1000" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+        <td width="300" align="left">总经理：<{$qianzheng[bigmanager]}>　　　　　　　　财务总监：<{$qianzheng[caiwu_manager]}></td>
+        <td width="407" align="left">财务审核：<{$qianzheng[check_user]}>　　　　　　　　部门经理：<{$qianzheng[manager]}>　　　　　　　　经办人：<{$qianzheng[username]}></td>
+  </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

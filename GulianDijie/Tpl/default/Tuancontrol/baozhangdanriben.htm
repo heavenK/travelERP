@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                
+                <div style="text-align:center; margin-top:20px;" >
+                	<h2>团队结算及报账单</h2>
+                </div>
+                
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				.textgpc{width:98%; height:80%;}
+				</style>
+                
+                <form name="form1" id="form1" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                <input type="hidden" name="forward" id="forward" value="<{:SITE_DIJIE}>Tuancontrol/baozhangdanjw/djtuanID/<{$tuan['djtuanID']}>" />
+                
+                <php>if($baozhang){</php>
+                <input type="hidden" name="baozhangID" id="baozhangID" value="<{$baozhang['baozhangID']}>" />
+                <php>}</php>
+                
+                <div class="jbxxy" >
+                    <table width="99%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody >
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>团号：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <label style="text-decoration:underline"><{$tuan['tuannumber']}></label></td>
+                                
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>组团社：</td>
+                            <td align="left" colspan="1" width="10%">
+                                 <label style="text-decoration:underline"><{$tuan['fromcompany']}></label></td>
+                                
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>人数：</td>
+                            <td align="left" colspan="2" width="10%">
+                                 <label style="text-decoration:underline"><{$tuan['renshu']}></label></td>
+                            <td align="left" colspan="2" width="10%"></td>
+                        </tr>
+                        
+                        <tr  class="t1gp">
+                                
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>联系人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                 <label style="text-decoration:underline"><{$tuan['contact']}></label></td>
+                                
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>TEL：</td>
+                            <td align="left" colspan="1" width="10%">
+                                 <label style="text-decoration:underline"><{$tuan['contactphone']}></label></td>
+                                
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>FAX：</td>
+                            <td align="left" colspan="2" width="10%">
+                                 <label style="text-decoration:underline"><{$tuan['contactfax']}></label></td>
+                            <td align="left" colspan="1" width="10%"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>TO：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="to" id="to" class="textgp" value="<{$baozhang[to]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>组团人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="zutuanren" id="zutuanren" class="textgp" value="<{$baozhang[zutuanren]}>"></td>
+                                
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>结算人数：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="jiesuanrenshu" id="jiesuanrenshu" class="textgp" value="<{$baozhang[jiesuanrenshu]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>成人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="chengren" id="chengren" class="textgp" value="<{$baozhang[chengren]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>儿童：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="ertong" id="ertong" class="textgp" value="<{$baozhang[ertong]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>婴儿：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="yinger" id="yinger" class="textgp" value="<{$baozhang[yinger]}>"></td>
+                                
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>综合服务费：</td>
+                            <td align="left" colspan="7" width="10%">
+                            
+                            <textarea name="zonghefuwufei" id="zonghefuwufei" style=" width:99%; height:200px;"><{$baozhang[zonghefuwufei]}></textarea>
+                            
+                            </td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>实际结算金额：</td>
+                            <td align="left" colspan="7" width="10%">
+                                <input style="width:99%" name="jiesuanjine" id="operateperson" class="textgp" value="<{$baozhang[jiesuanjine]}>"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>备注：</td>
+                            <td align="left" colspan="7" width="10%">
+                                <input style="width:99%" name="jiesuanremark" id="jiesuanremark" value="<{$baozhang[jiesuanremark]}>"></td>
+                            <td align="left" colspan="4" width="10%"></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>合计（人民币）：</td>
+                            <td align="left" colspan="7" width="10%">
+                                <input style="width:99%" name="hejijine" id="hejijine" class="textgp" value="<{$baozhang[hejijine]}>"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>备注：</td>
+                            <td align="left" colspan="7" width="10%">
+                                <input style="width:99%" name="hejiremark" id="hejiremark" value="<{$baozhang[hejiremark]}>"></td>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                </form>
+            </div>
+
+
+                
+</body>
+</html>
+<script>
+
+function dosave()
+{
+    var url='<{:SITE_DIJIE}>Tuancontrol/dopostbaozhangdanjw';
+	document.getElementById('form1').action = url;
+	document.getElementById('form1').submit();
+	
+}
+
+	
+</script>

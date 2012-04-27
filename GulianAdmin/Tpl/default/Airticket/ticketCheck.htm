@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>互动旅游-机票管理</title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+    <link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+    <link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+
+
+
+<script>
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>
+
+
+
+
+
+
+
+<body>
+
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                <div class="ss">
+                	<form action="<{:SITE_ADMIN}>Airticket/ticketCheck" method='post'>
+						<input type="hidden" name="type" value="search">
+                    <table class="test1" style="padding-top: 20px;" width="88%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="81" align="right">
+                                出发城市：</td>
+                            <td height="18" width="179">
+                                <input name="from_city" id="tbDepartCity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" style="width: 95%;" type="text">
+                            </td>
+                            <td style="width: 119px;" height="18" align="right">
+                                目的地城市：</td>
+                            <td height="18" width="179">
+                                <input name="to_city" id="tbmddcity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" type="text">
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                </td>
+                            <td height="18" width="80">
+                            </td>
+                            <td>&nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                            <td height="18" width="81" align="right">
+                                关键字：</td>
+                            <td height="18" width="179">
+                                <input name="keyword" id="tbKeyword" style="width: 95%;" type="text"></td>
+                            <td style="width: 119px;" align="right">
+                                航空公司：</td>
+                            <td width="60">
+                                <select name="fly_company" id="dlCompany" style="width:152px;">
+	<option selected="selected" value="0">全部</option>
+	<option value="北航">北航</option>
+	<option value="南航">南航</option>
+</select>
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                日期：</td>
+                            <td width="60">
+                                <input name="start_date" id="tbLineDate" class="Wdate" onfocus="WdatePicker()" style="width: 101px;" type="text">
+                            </td>
+                            <td width="60" align="right">
+                                <input name="SearchBtn" value="搜 索" id="SearchBtn" class="anu" type="submit"></td>
+                            <td style="width: 7px;">&nbsp;
+                                </td>
+                        </tr>
+                    </tbody></table>
+                    </form>
+                </div>
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center">
+                                        机票编号</th>
+                                    <th height="32" align="center">
+                                        机票名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        航班号</th>
+                                    <th height="32" align="center">
+                                        航段
+                                    </th>
+                                    <th height="32" align="center">
+                                        往返类型</th>
+                                    <th height="32" align="center">
+                                        天数</th>
+                                    <th height="32" align="center">
+                                        状态</th>
+                                    <th height="32" align="center">
+                                        航空公司</th>
+                                    <th height="32" align="center">
+                                        价格</th>
+                                    <th height="32" align="center">
+                                        机票数量</th>
+                                    <th height="32" align="center">
+                                        出发日期</th>
+                                    <th align="center">
+                                        类型</th>
+                                </tr>
+                                <div id="divrili2"  style="display: none; position:absolute; left:240px; top:130px;">
+                                    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                                </div>
+                            <php>foreach($list as $val){</php>
+                                <tr class="tr1">
+                                    <td height="27" align="center">
+                                        <a href="<{:SITE_ADMIN}>Airticket/ticketCheck/id/<{$val[id]}>"><{$val[ticket_id]}></a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <a href="<{:SITE_ADMIN}>Airticket/ticketCheck/id/<{$val[id]}>"><{$val[title]}></a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_id]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_area]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[travel_type]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[days]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[status]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_company]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[price][cost_price]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[ticket_num]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <div style="position: relative; width: 80px;">
+                                       
+                                            <img src="<{:__PUBLIC__}>/gulianstyle/styles/rq.gif" alt="" onclick="WdatePicker({el:'aaa',opposite:true,doubleCalendar:true,specialDates:[<{$val[start_date]}>]});">
+                                            <input type="hidden" id="aaa">
+
+                                        </div>
+                                    </td>
+                                    <td width="56" align="center">
+                                        <img src="<{:__PUBLIC__}>/gulianstyle/styles/xcz-03.gif" style="" onclick="GetcheckBack('<{$val[id]}>','机票产品','操作记录')" alt="点击查看轨迹">
+                                    </td>
+                                </tr>
+							<php>}</php>
+                    </tbody></table>
+                    <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                         <div class="page"><{$page}></div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+        
+    </div>
+
+</div></body></html>
+<include file="Index:footer" />

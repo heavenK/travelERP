@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0117)<{:SITE_URL}>Main/Free/OndayPublish.aspx?productid=e5a87de6-9637-4bae-b62a-ffd822c4755d&date=1303199050515 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	互动旅游-发布一日游
+</title>
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/prototype.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Utility.js"></script>
+
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script type="text/javascript">
+function insertyiriyou()
+{
+	 // if(CheckData())
+	  if(1)
+	  {
+		  var title=document.getElementById("title").value;
+		  var price=document.getElementById("price").value;
+		  var yongjin=document.getElementById("yongjin").value;
+		  var zhuangtai=document.getElementById("zhuangtai").value;
+		  var anpai=document.getElementById("anpai").value;
+		  var num = window.opener.document.getElementById("rowspaly").value;
+		  var htmlcontent = '<div id="divyiriyou0'+num+'" class="divyiriyouclass"><div>'+title+'</div><div>'+price+'</div><div>'+yongjin+'</div><div>'+zhuangtai+'</div><div><a href="javascript:alert(\'保存后修改\')">修改</a></div><div><a href="javascript:delete_row(\'divhotel0'+num+'\')">删除</a></div></div>'
+		  $(window.opener.document).find("#divyiriyoulist").append(htmlcontent);
+		  window.opener.document.getElementById("rowspaly").value++;
+		  
+		  document.getElementById("form").action = '<{:SITE_ADMIN}>Ziyouren/dopostaddyiriyou';
+		  document.getElementById("form").submit();
+//		  window.close();
+	  }
+}
+
+function baocun()
+{
+	 // if(CheckData())
+	  if(1)
+	  {
+		  
+		  document.getElementById("form").action = '<{:SITE_ADMIN}>Ziyouren/dopostaddyiriyou';
+		  document.getElementById("form").submit();
+//		  window.close();
+	  }
+}
+
+function CheckData()
+{
+    var title=document.getElementById("title");
+    if(Trim(title.value)=="")
+    {
+        alert("名称不能为空！");
+        title.focus();
+        return false;
+    }
+   
+    var price=document.getElementById("price");
+    if(Trim(price.value)=="")
+    {
+        alert("外卖价不能为空！");
+        price.focus();
+        return false;
+    }    
+    else if(!IsNumber(price.value))
+    {
+        alert("外卖价应为数字！");
+        price.focus();
+        return false;
+    }
+    var yongjin=document.getElementById("yongjin");
+    if(Trim(yongjin.value)=="")
+    {
+        alert("佣金不能为空！");
+        yongjin.focus();
+        return false;
+    }
+    else if(!IsNumber(yongjin.value))
+    {
+        alert("佣金应为数字！");
+        yongjin.focus();
+        return false;
+    }
+    return true;
+}
+</script>
+
+</head>
+
+
+
+<script language="javascript">
+	function sendValue(){
+		
+		var num = window.opener.document.getElementById("rowshotel").value;
+		
+		var htmlcontent = '<div id="divhotel0'+num+'" class="divHotelcss"><div>房型</div><div>酒店</div><div>周期</div><div><a href="javascript:delete_row(\'divhotel0'+num+'\')">删除</a></div></div>'
+		
+		$(window.opener.document).find("#divHotellist").append(htmlcontent);
+		
+		window.opener.document.getElementById("rowshotel").value++;
+		
+	}
+</script>
+
+
+
+<body>
+    <form name="form" method="post" id="form">
+    <input type="hidden" name="xianluID" id="xianluID" value="<{$xianluID}>" >
+    <input type="hidden" name="jiageID" id="jiageID" value="<{$jiageID}>" >
+    <input type="hidden" name="yiriyouID" id="yiriyouID" value="<{$yiriyou['yiriyouID']}>" >
+        <div id="container" style="width: 90%;">
+            <table width="90%" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td width="15%" height="42" align="right">
+                        <font color="red">*</font>名称：
+                    </td>
+                    <td align="left" colspan="3">
+                        <input name="title" type="text" id="title" style="width:80%;" value="<{$yiriyou['title']}>">
+                    </td>
+                    <td rowspan="6" width="5%">
+                    </td>
+                </tr>
+                <tr>
+                    <td height="42" align="right">
+                        <font color="red">*</font>外卖价：
+                    </td>
+                    <td align="left" colspan="3">
+                        <input name="price" type="text" id="price" style="width:80%;" value="<{$yiriyou['price']}>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" height="42">
+                        <font color="red">*</font>佣金：
+                    </td>
+                    <td align="left" colspan="3">
+                        <input name="yongjin" type="text" id="yongjin" style="width:80%;" value="<{$yiriyou['yongjin']}>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" height="42">
+                        <font color="red">*</font>行程安排：
+                    </td>
+                    <td align="left" colspan="3">
+                    
+                    <textarea id="anpai" name="anpai" ><{$yiriyou['anpai']}></textarea>
+                                <script>
+								CKEDITOR.replace( 'anpai',    //设置ckeditor的属性
+								   {
+										  width : '600'             //设置高度
+									});								
+								</script>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" height="42">
+                        <font color="red">*</font>状态：
+                    </td>
+                    <td align="left" colspan="3">
+                        <select name="zhuangtai" id="zhuangtai">
+                        	
+                            <php>if($yiriyou['zhuangtai']){
+                            </php>
+                            <option value="<{$yiriyou['zhuangtai']}>"><{$yiriyou['zhuangtai']}></option>
+                            <php>}
+                            </php>
+                            <option value="正常">正常</option>
+                            <option value="停售">停售</option>
+                        
+                        </select>
+                    </td>
+                </tr>
+            </tbody></table>
+            <table width="60%" border="0" cellpadding="0" cellspacing="0" >
+                <tbody><tr>
+                    <td width="15%">
+                    </td>
+                    <td align="right">
+                    
+                    
+                        
+                        
+                        <php>if($yiriyou){
+                        </php>
+                        	<li><a id="Submit" class="yyxxl" href="javascript:baocun()">保存</a></li>
+                        <php>}else{
+                        </php>
+                        	<li><a id="Submit" class="yyxxl" href="javascript:insertyiriyou()">添加并保存</a></li>
+                        <php>}
+                        </php>
+                        
+                    </td>
+                    <td width="40">
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    
+<div>
+
+</div></form>
+
+
+
+
+</body></html>

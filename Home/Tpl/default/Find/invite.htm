@@ -1,0 +1,25 @@
+<include file="Common:header" />
+<div class="friends">
+    <div class="indexh">
+        <div class="taboff"><a href="<{:SITE_URL}>/Find"><{:L('find')}></a></div>
+        <div class="tabon"><{:L('invite_friend')}></div>
+    </div>
+    <div id="stream" class="message">
+        <div class="finder_block">
+            <h3><{:L('invite_model1')}></h3>
+            <textarea id="method1" onfocus="ETCopy('method1')" style="height:50px;margin-top:10px;width:505px;*margin-left:-80px;*margin-right:-80px"><{$site[inviteword]}> <{:SITE_URL}>/register/<{$my[user_name]}></textarea>
+            <input type="button" style="float:right;margin:10px auto;*margin-left:420px;*margin-right:-85px" class="button2" onclick="ETCopy('method1')" value="<{:L('copy_link')}>" />
+            <div class="clearline"></div>
+        </div>
+        <div class="finder_block">
+        <h3><{:L('invite_model2')}></h3>
+        <form action="<{:SITE_URL}>/Find/doinvite" method="POST">
+            <p><{:L('input_friend_email')}></p>
+            <textarea name="email" style="height:40px;margin-top:10px;width:505px;font-size:14px"></textarea>
+            <input type="submit" style="float:right;margin:10px auto" class="button2" value="<{:L('send_invite')}>" />
+        </form>
+        <div class="clearline"></div>
+        </div>
+    </div>
+</div>
+<include file="Common:foot" />

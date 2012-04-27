@@ -1,0 +1,56 @@
+<include file="Common:header" />
+<h3>用户认证分组管理</h3>
+<div class="infomation"><b>说明：</b>添加，编辑或删除操作后<b>需要点击“确认提交”按钮才生效</b></div>
+<form method="POST" action="<{:SITE_URL}>/admin.php?s=/Vipgroup/edit">
+<table class="table" style="margin:5px 0 20px 0">
+    <tr style="font-weight:bold">
+        <td width="40px">ID</td>
+        <td width="170px">分组名称</td>
+        <td width="200px">图标地址(16X16)</td>
+        <td width="290px">用户主页图标地址(110X25)</td>
+        <td>&nbsp;</td>
+    </tr>
+    <php>foreach($data as $val){</php>
+        <tr id="tr<{$val['id']}>">
+            <td><{$val['id']}></td>
+            <td><input type="text" id="name<{$val['id']}>" name="edit[<{$val['id']}>][name]" value="<{$val['name']}>" class="readonly" readonly style="width:150px"></td>
+            <td><input type="text" id="icon<{$val['id']}>" name="edit[<{$val['id']}>][iconurl]" value="<{$val['iconurl']}>" class="readonly" readonly style="width:150px">&nbsp;<img src="<{$val['iconurl']}>" width="16px" height="16px"></td>
+            <td><input type="text" id="title<{$val['id']}>" name="edit[<{$val['id']}>][titleurl]" value="<{$val['titleurl']}>" class="readonly" readonly  style="width:150px">&nbsp;<img src="<{$val['titleurl']}>" width="110px" height="25px"></td>
+            <td><a href="javascript:void(0)" onclick="editname(<{$val['id']}>)">编辑</a> | <a href="javascript:void(0)" onclick="delname(<{$val['id']}>)">删除</a></td>
+        </tr>
+    <php>}</php>
+    <tr id="addbtn">
+        <td colspan="4"><a href="javascript:void(0)" onclick="addname()">+ 添加</a></td>
+    </tr>
+    <tr>
+        <td colspan="4"><input type="hidden" name="level" value="<{$level}>"><input type="hidden" name="pid" value="<{$pid}>"><input type="submit" class="button1" value="确认提交"></td>
+    </tr>
+</table>
+</form>
+<script type="text/javascript">
+$('#sprovince').change(function(){
+    var pid=$('#sprovince').val();
+    if (parseInt(pid)>0) {
+        window.location.href="admin.php?s=/District/index/type/loadcity/pid/"+pid+"/level/2";
+    } else {
+        window.location.href="admin.php?s=/District";
+    }
+});
+function editname(id){
+    $('#name'+id).attr('class','txt_input');
+    $('#name'+id).removeAttr('readonly');
+    $('#icon'+id).attr('class','txt_input');
+    $('#icon'+id).removeAttr('readonly');
+    $('#title'+id).attr('class','txt_input');
+    $('#title'+id).removeAttr('readonly');
+}
+function delname(id){
+    if (confirm('是否确定要删除该分组？')) {
+        $('#tr'+id).remove();
+    }
+}
+function addname() {
+    $('#addbtn').before('<tr><td>&nbsp;</td><td><input type="text" name="newgroup[name][]" value="" class="txt_input" style="width:150px"></td><td><input type="text" name="newgroup[iconurl][]" value="" class="txt_input" style="width:150px"></td><td><input type="text" name="newgroup[titleurl][]" value="" class="txt_input" style="width:150px"></td><td></td></tr>');
+}
+</script>
+<include file="Common:foot" />

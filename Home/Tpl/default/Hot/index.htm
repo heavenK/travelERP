@@ -1,0 +1,82 @@
+<include file="Common:header" />
+<div class="friends">
+<div id="stream">
+    <div class="itemtitle">
+        <div class="titleline">
+            <div class="line"></div>
+            <div class="h4"> <{:L('daren_zb')}></div>
+			<div class="h5"><select id="topcity">
+            <option value="">不限</option>
+            <php>foreach($province as $val){</php>
+                <option value="<{$val[name]}>"><{$val[name]}></option>
+            <php>}</php>
+            </select></div>
+        </div>
+    </div>
+    <div class="ranklist">
+        <h4><span class="more"> <{:L('follower_num')}></span><{:L('vip_zb')}></h4>
+        <ul class="top_list">
+        <php>foreach($top1 as $key=>$val){</php>
+            <php>if($key<=2){</php>
+            <li>
+                <div class="topavatar"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><img src="<{:sethead($val[user_head])}>"/></a></div>
+                <p><em><{$val[followme_num]}></em><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="vip"><{$val[nickname]}></a></p>
+            </li>
+            <php>}else{</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[followme_num]}></em>
+                <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="vip"><{$val[nickname]}></a>
+            </li>
+            <php>}</php>
+        <php>}</php>
+        </ul>
+    </div>
+    <div class="ranklist">
+        <h4><span class="more"><{:L('follower_num')}></span><{:L('hotuser_zb')}></h4>
+        <ul class="top_list">
+        <php>foreach($top2 as $key=>$val){</php>
+            <php>if($key<=2){</php>
+            <li>
+                <div class="topavatar"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><img src="<{:sethead($val[user_head])}>"/></a></div>
+                <p><em><{$val[followme_num]}></em><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><{$val[nickname]}></a></p>
+            </li>
+            <php>}else{</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[followme_num]}></em>
+                <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><{$val[nickname]}></a>
+            </li>
+            <php>}</php>
+        <php>}</php>
+        </ul>
+    </div>
+    <div class="ranklist" style="margin-right:0px">
+        <h4><span class="more"><{:L('talk_number')}></span>	<{:L('weibodaren_zb')}></h4>
+        <ul class="top_list">
+        <php>foreach($top3 as $key=>$val){</php>
+            <php>if($key<=2){</php>
+            <li>
+                <div class="topavatar"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><img src="<{:sethead($val[user_head])}>"/></a></div>
+                <p><em><{$val[msg_num]}></em><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a></p>
+            </li>
+            <php>}else{</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[msg_num]}></em>
+                <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a>
+            </li>
+            <php>}</php>
+        <php>}</php>
+        </ul>
+    </div>
+    <div class="clearline"></div>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#topcity').val('<{$topcity}>');
+    hotbanglay();
+});
+</script>
+<include file="Common:foot" />

@@ -1,0 +1,52 @@
+<include file="Common:header" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.autocomplete.js"></script>
+<table id="columns">
+<tr>
+<td id="main">
+<div class="contenter">
+<{$hook['sendbox_left_top']}>
+<div class="mestitle"><div class="sx"><{:L('message')}></div><div class="info"><{:L('message')}><{:L('message_send_need')}></div></div>
+<div class="indexh">
+    <div class="fleft">
+        <div class="taboff"><a href="<{:SITE_URL}>/Message/inbox"><{:L('message_inbox')}></a></div>
+        <div class="tabon"><{:L('message_sendbox')}></div>
+    </div>
+    <div class="message">
+        <{:L('message_total_send')}> <{$count}> <{:L('message_unit')}><{:L('message')}>&nbsp;&nbsp
+        <input class="button5" onclick="sendprimsgbox()" value="<{:L('send_message')}>">
+    </div>
+    <div class="clearline"></div>
+</div>
+<{$hook['sendbox_left_mid']}>
+<div id="stream" class="message">
+    <ol>
+    <php>if($count>0){</php>
+        <php>foreach($data as $val){</php>
+        <li class="unlight">
+            <div class="contentl"><h6><{:L('sendto_message')}></h6><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="author <{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a><h6>:</h6><p><img src="<{:__PUBLIC__}>/images/pmsg.gif">&nbsp;<{:$ctent->ubb($val[messagebody])}></p></div>
+            <span class="stamp"><{:timeop($val[sendtime])}></span> 
+            <span class="stamp op fright">
+                <font color="#000000"><php>if($val[isread]==0){</php><{:L('no_read_message')}><php>}else{</php><font color="red"><{:L('yes_read_message')}></font><php>}</php></font>&nbsp;|&nbsp;
+                <php>if($my[user_id]!=$val[uid]){</php>
+                <a href="javascript:void(0);" onclick="sendprimsgbox('<{$val[nickname]}>')" title="<{:L('reply')}><{$val[nickname]}>"><{:L('reply_message')}></a>&nbsp;|&nbsp;
+                <php>}</php>
+                <a href="javascript:void(0);" onclick="delmsg('<{:SITE_URL}>/Message/delmsg/mid/<{$val[message_id]}>','<{:L('delete_this_yes')}><{:L('message')}><{:L('ma')}>',this.parentNode.parentNode)"><{:L('delete')}></a>
+            </span>
+        </li>
+        <php>}</php>
+    <php>}else{</php>
+        <li class="unlight" id='nonemsg'><{:L('no_send_message')}></li>
+    <php>}</php>
+    </ol>
+</div>
+</div>
+</td>
+<td id="sidebar" rowspan="2"><include file="Space:homeside" /></td></tr>
+<tr>
+    <td height="36px">
+        <div id="indexpage" class="page"><{$page}></div>
+    </td>
+</tr>
+</table>
+<script type="text/javascript">$(document).ready(function(){$("#msgtip").remove();closetip("t_msg");});</script>
+<include file="Common:foot" />

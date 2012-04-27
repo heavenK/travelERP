@@ -1,0 +1,54 @@
+<include file="Common:header" />
+<h3>网站设置</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/webset' method="POST">
+<table class="table" style="margin:5px 0 20px 0;line-height:250%">
+<tr>
+    <td width="150px">网站名称</td>
+    <td width="330px"><input type="text" name="site[sitename]" class="txt_input" value="<{$site['sitename']['contents']}>"></td>
+    <td class="info">● <{$site['sitename']['description']}></td>
+</tr>
+<tr>
+    <td>网站副标题</td>
+    <td><input type="text" name="site[subtitle]" class="txt_input" value="<{$site['subtitle']['contents']}>"></td>
+    <td class="info">● <{$site['subtitle']['description']}></td>
+</tr>
+<tr>
+    <td>网站备案号</td>
+    <td><input type="text" name="site[miibeian]" class="txt_input" value="<{$site['miibeian']['contents']}>"></td>
+    <td class="info">● <{$site['miibeian']['description']}></td>
+</tr>
+<tr>
+    <td>网站关键词</td>
+    <td><input type="text" name="site[seokey]" class="txt_input" value="<{$site['seokey']['contents']}>"></td>
+    <td class="info">● <{$site['seokey']['description']}></td>
+</tr>
+<tr>
+    <td>网站描述</td>
+    <td><input type="text" name="site[seodescription]" class="txt_input" value="<{$site['seodescription']['contents']}>"></td>
+    <td class="info">● <{$site['seodescription']['description']}></td>
+</tr>
+<tr>
+    <td>客服邮箱</td>
+    <td><input type="text" name="site[servicemail]" class="txt_input" value="<{$site['servicemail']['contents']}>"></td>
+    <td class="info">● <{$site['servicemail']['description']}></td>
+</tr>
+<tr>
+    <td>邀请用户说明</td>
+    <td><input type="text" name="site[inviteword]" class="txt_input" value="<{$site['inviteword']['contents']}>"></td>
+    <td class="info">● <{$site['inviteword']['description']}></td>
+</tr>
+<tr>
+    <td>注册欢迎私信</td>
+    <td><input type="text" name="site[welcomemsg]" class="txt_input" value="<{$site['welcomemsg']['contents']}>" maxlength="140"></td>
+    <td class="info">● <{$site['welcomemsg']['description']}></span></td>
+</tr>
+<tr>
+    <td>添加统计代码</td>
+    <td><textarea name="site[foottongji]" class="txt_input" style="height:60px;font-size:12px"><{:stripslashes($site['foottongji']['contents'])}></textarea></td>
+    <td class="info">● <{$site['foottongji']['description']}></td>
+</tr>
+</table>
+<input type="hidden" name="reurl" value="Setting/index">
+<input type="submit" class="button1 submit" value="保存提交">
+</form>
+<include file="Common:foot" />

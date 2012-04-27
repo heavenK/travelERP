@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckfinder/ckfinder.js"></script>
+<script>
+function baocunbingxiayibu()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+</script>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>
+	function openCalenderDetail(objID,url) {
+		url = url + '?oid='+objID+'&selectdates=' + document.getElementById(objID).value;
+		if(navigator.userAgent.toLowerCase().indexOf('msie')>=0)
+		{
+			window.showModalDialog(url,window,'dialogHeight=270px;dialogWidth=405px;top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+		else		
+		{
+			window.open(url,'','height=230, width=450, top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+	}
+	function cleanCalender() {
+			
+			document.getElementById('chutuanriqi').value = '';
+
+	}
+</script>
+<script>
+function checkdatasmple()
+{
+	
+    var LineName=document.getElementById("mingcheng");
+    if(LineName.value=="")
+    {
+        alert("线路名称不能为空!");
+        LineName.focus();
+        return false;
+    }
+
+    if(jquery('#pos1').find('option:selected').text() == "请选择")
+    {
+        alert("目的地不能为空！");
+        return false;
+    }
+
+	if(jquery('#tianshu').val() > 30){
+		alert("行程天数不能超过30天！");
+        return false;
+	}
+}
+
+
+function checkdata()
+{
+	
+    var LineName=document.getElementById("mingcheng");
+    if(LineName.value=="")
+    {
+        alert("线路名称不能为空!");
+        LineName.focus();
+        return false;
+    }
+    var Prefix=document.getElementById("bianhao");
+    if(Prefix.value=="")
+    {
+        alert("线路编号不能为空!");
+        Prefix.focus();
+        return false;
+    }
+   var KeyWords=document.getElementById("guanjianzi");
+    if(KeyWords.value=="")
+    {
+        alert("线路关键字不能为空!");
+        KeyWords.focus();
+        return false;
+    }
+	
+    var ApplyEndDay=document.getElementById("baomingjiezhi");
+    if(ApplyEndDay.value=="")
+    {
+        alert("报名截止日期不能为空!");
+        ApplyEndDay.focus();
+        return false;
+    }
+	
+    var PayAllday=document.getElementById("quankuanriqi");
+    if(PayAllday.value=="")
+    {
+        alert("全款日期不能为空!");
+        PayAllday.focus();
+        return false;
+    }
+   
+    var PersonNum=document.getElementById("renshu");
+    if(PersonNum.value=="")
+    {
+        alert("计划人数不能为空!");
+        PersonNum.focus();
+        return false;
+    }
+    var Totalday=document.getElementById("tianshu");
+    if(Totalday.value=="")
+    {
+        alert("行程天数不能为空!");
+        Totalday.focus();
+        return false;
+    }
+    var LineDate=document.getElementById("chutuanriqi");
+    if(LineDate.value=="")
+    {
+        alert("出团日期不能为空!");
+        LineDate.focus();
+        return false;
+    }
+    var Theis=document.getElementById("zhuti");
+    if(Theis.value=="")
+    {
+        alert("请选择主题不能为空!");
+        Theis.focus();
+        return false;
+     }
+    var tuanduileixing=document.getElementById("tuanduileixing");
+    if(tuanduileixing.value=="")
+    {
+        alert("团队类型不能为空!");
+        tuanduileixing.focus();
+        return false;
+     }
+//    var tuanduileixing=document.getElementById("xingchengtese");
+//    if(tuanduileixing.value=="")
+//    {
+//        alert("行程特色不能为空!");
+//        tuanduileixing.focus();
+//        return false;
+//     }
+    return confirm('确定要提交审核吗？');
+}
+
+
+function GetcheckBack(id,tbname,type)
+
+{
+	
+/*	objtop = getPosTop(obj) + 500;
+	objleft = getPosLeft(obj) - 600;
+	jquery("#divrili2").css({top:objtop , left:objleft });*/
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+</script>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+<div id="hlt_fit_location"><!--所在位置--> 
+  <b>您所在的位置:</b> <{$navlist}> </div>
+<div id="hlt_fit_published">
+<!--发布新线路页面-->
+<div id="hlt_fit_published_button"><!--步骤 按钮-->
+  <ul>
+    <li class="hlt_fit_published_button_lia">基本信息</li>
+    
+    <php>if($xianluID){ </php>
+    <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+    <php>}else{ </php>
+    <li class="hlt_fit_published_button_lib">子团管理</li>
+    <php>} </php>
+    
+    <php>if($xianluID){ </php>
+    <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+    <php>}else{ </php>
+    <li class="hlt_fit_published_button_lib">行　程</li>
+    <php>} </php>
+    <php>if($xianluID){ </php>
+    <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/renyuanbianji/xianluID/<{$xianluID}>">人　员</a></li>
+    <php>}else{ </php>
+    <li class="hlt_fit_published_button_lib">人　员</li>
+    <php>} </php>
+    <php>if($xianluID){ </php>
+    <!--<li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>-->
+    <php>}else{ </php>
+    <!--<li class="hlt_fit_published_button_lib">价　格</li>-->
+    <php>} </php>
+  </ul>
+  <div> 
+    <php>if($xianluID){ </php>
+    <a href="javascript:GetcheckBack('<{$xianluID}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a> 
+    <a class="hlt_fit_published_button_b" title="提交审核" onclick="return checkdata();" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>" ></a>
+    <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_d" title="保存" onclick="return checkdatasmple();"></a>
+    <php>}else{ </php>
+    <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_c" title="保存 下一步" onclick="return checkdatasmple();"></a>
+    <php>} </php>
+    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:90px;">
+      <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+    </div>
+  </div>
+</div>
+
+<form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostFabulvyouxianlu" enctype="multipart/form-data"  id="form">
+  <php>if($postdata[xianluID]){</php>
+  <input name="xianluID" id="xianluID" type="hidden" value="<{$postdata['xianluID']}>" >
+  <input name="kind" type="hidden" id="kind" value="<{$postdata['kind']}>" >
+  <input name="xianlutype" id="xianlutype" type="hidden" value="<{$postdata['xianlutype']}>" >
+  <php>}else{</php>
+  <input name="kind" type="hidden" id="kind" value="<{$kind}>" >
+  <input name="xianlutype" id="xianlutype" type="hidden" value="<{$xianlutype}>">
+  <php>}</php>
+  <div id="hlt_fit_published_cont"><!--内容-->
+    <dl id="hlt_fit_published_a">
+      <dt><span>*</span>线路名称：</dt>
+      <dd >
+      	<input type="hidden" name="guojing" value="国内" />
+        <input name="mingcheng" type="text" id="mingcheng" value="<{$postdata['mingcheng']}>" >
+        <input type="hidden" name="openMenshi" type="text" id="mingcheng" value="0" >
+        <input type="hidden" name="openTongye" type="text" id="mingcheng" value="0" >
+        
+      </dd> 
+    </dl>
+    
+	<dl style="width:220px; float:left; margin-left:36px; background-color:#e5f2f1">
+        人数：<input style="width:100px;" name="renshu" type="text" id="renshu" value="<{$postdata['renshu']}>">
+        
+    </dl>
+	<dl style="width:220px; float:left; background-color:#e5f2f1">
+        天数：<input style="width:100px;" name="tianshu" type="text" id="tianshu" value="<{$postdata['tianshu']}>">
+        
+    </dl>
+	<dl style="width:220px; float:left; background-color:#e5f2f1">
+      全陪：<input style="width:100px;" name="quanpeiren" type="text" id="quanpeiren" value="<{$postdata['quanpeiren']}>">
+        
+    </dl>
+    
+    <dl id="hlt_fit_published_i">
+      <dt>出团日期：</dt>
+      <dd>
+        <textarea readonly="readonly" name="chutuanriqi" id="chutuanriqi" style="height:70px; " onclick="openCalenderDetail(this.id,'<{:__PUBLIC__}>/gulianstyle/date.html');"><{$postdata['chutuanriqi']}></textarea>
+        <img width="24" height="22" onclick="openCalenderDetail(this.id.replace('imgbtnSelectDay','chutuanriqi'),'<{:__PUBLIC__}>/gulianstyle/date.html');" alt="选择出团日期" style="cursor: pointer;" id="imgbtnSelectDay" src="<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg"> <img width="24" height="22" onclick="cleanCalender();" alt="清空日期" style="cursor: pointer;" id="imgbtnSelectDay" src="<{:__PUBLIC__}>/gulianstyle/styles/mydel.jpeg"> </dd>
+    </dl>   
+
+    <dl id="hlt_fit_published_j">
+      <dt>包团单位：</dt>
+      <dd id="line_themes">
+        <input type="text" name="baotuan_uni" value="<{$postdata['baotuan_uni']}>" />
+      </dd>
+    </dl>
+<script>
+	jquery(document).ready(function(){
+		
+		 jquery("#baotuan_departID").val("<{$postdata['baotuan_departID']}>");
+	});
+</script>
+    <dl id="hlt_fit_published_k">
+      <dt>包团部门：</dt>
+      <dd id="goods_type">
+           <select name="baotuan_departID" id="baotuan_departID" style="width:100px;">
+                <php>foreach($departmentAll as $temp){</php>
+                <option value="<{$temp[id]}>"><{$temp[title]}></option> 
+                <php>}</php>
+            </select>
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_l">
+
+    </dl>
+    <dl id="hlt_fit_published_m">
+      <dt>价格：</dt>
+      <dd>
+        <textarea name="price_big" id="price_big" style="height:200px; width:580px; margin-top:4px;" ><{$postdata['price_big']}></textarea>
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_j">
+      <dt>成人价：</dt>
+      <dd id="line_themes">
+        <input type="text" name="chengren_price" style="width:100px" value="<{$postdata['chengren_price']}>" />
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_k">
+      <dt>儿童价：</dt>
+      <dd id="goods_type">
+           <input type="text" name="ertong_price" style="width:100px" value="<{$postdata['ertong_price']}>" />
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_l">
+		<dt>总价：</dt>
+      	<dd id="goods_type">
+           <input type="text" style="width:100px" name="sum_price" value="<{$postdata['sum_price']}>" />
+      	</dd>
+    </dl>
+  </div>
+  </div>
+  </div>
+</form>
+</body>
+</html>

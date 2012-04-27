@@ -1,0 +1,29 @@
+<include file="header" />
+<h2 style="padding-bottom:2px">
+<php>if($tab==1){</php>
+<span class="on"> <{:L('who_i_follow')}></span><span class="off"><a href="<{:SITE_URL}>/Wap/follow/tab/2"><{:L('who_follow_me')}></a></span>
+<php>}else{</php>
+<span class="off"><a href="<{:SITE_URL}>/Wap/follow"> <{:L('who_i_follow')}></a></span><span class="on"><{:L('who_follow_me')}></span>
+<php>}</php>
+</h2>
+<ul>
+<php>if($my['follow_num']>0){</php>
+    <php>foreach($data as $val){</php>
+    <li>
+        <div><a href="<{:SITE_URL}>/Wap/space/user_name/<{:rawurlencode($val['user_name'])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val['nickname']}></a><small>(@<{$val['user_name']}>)</small>
+        <span style="margin-left:10px">
+            <php>if($val[user_id]!=$my[user_id]){</php>
+                <php>if($isfollower[$val[user_id]]==1 || $isfollower[$val[user_id]]==3){</php><a href="<{:SITE_URL}>/Wap/delfollow/user_name/<{:rawurlencode($val[user_name])}>/from/<{:base64_encode('follow')}>"><{:L('yes_cancel_follow')}></a>
+                <php>}else{</php><a href="<{:SITE_URL}>/Wap/addfollow/user_name/<{:rawurlencode($val[user_name])}>/from/<{:base64_encode('follow')}>"><{:L('have_a_follow')}></a><php>}</php>
+            <php>}</php>
+        </span>
+        </div>
+        <div class="stamp"><{:L('follow')}> <b><{$val['follow_num']}></b> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;<{:L('follower')}> <b><{$val['followme_num']}></b> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;<{:L('talk')}> <b><{$val['msg_num']}></b> <{:L('talk_unit')}></div>
+    </li>
+    <php>}</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('no_any_info')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

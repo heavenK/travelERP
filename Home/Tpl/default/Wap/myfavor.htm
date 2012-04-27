@@ -1,0 +1,14 @@
+<include file="header" />
+<h2><{:L('my_favtalks')}></h2>
+<ul>
+<php>if(count($content)>0){</php>
+    <php>foreach($content as $val){
+        echo $ctent->wapli($val,$my['user_id'],'myfavor',1,1,1);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"> <{:L('wap_no_favtalk')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+</div>
+<include file="footer" />

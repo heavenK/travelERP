@@ -1,0 +1,135 @@
+<include file="Common:header" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.tools.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/js/date/date.css"/>
+<table id="columns">
+<tr>
+<td id="main">
+    <div id="infohead">
+        <div class="hometip">
+            <span class="fleft">
+            <php>if($hook['index_post_top1']){</php>
+                <{$hook['index_post_top1']}>
+            <php>}else{</php>
+                <{:L('inputbox_up')}>：
+            <php>}</php>
+            </span>
+            <span class="fright"><{$hook['index_post_top2']}></span>
+        </div>
+        <textarea id="contentbox" class="input_text headtextarea" onkeydown="javascript:return ctrlEnter_st(event);"><php>if(!$my[lastconttime]){</php>#<{:L('the_frist_topic')}>#<{:L('the_frist_topic_c1')}>@<{$my[nickname]}> <{:L('the_frist_topic_c2')}><php>}</php></textarea>
+        <div class="sendbox">
+        <div id="uploadbox">
+            <div id="emotion"></div>
+            <div class="topic"><a href="javascript:void(0);" onclick="Sharetopic()"><{:L('topic')}></a>
+            <div id="sharetopic">
+                <div class="topicbox">
+                <ul id="tabnav2"> 
+                    <a id="topic1" onclick="topicajax(1);" href="javascript:void(0)"><{:L('who_i_attation')}></a>
+                    <a id="topic2" onclick="topicajax(2);" href="javascript:void(0)"><{:L('recommend_topics')}></a>
+                </ul> 
+                <ul class="tagB"></ul>
+                </div>
+            </div>
+            </div>
+            <div class="video"><a href="javascript:void(0);"><{:L('video')}></a>
+            <div id="sharevideo">
+                <p><{:L('video_info')}></p>
+	            <p><{:L('video_s')}>：<a href="http://video.sina.com.cn/" rel="nofollow" target="_blank"><{:L('sina')}></a>、<a href="http://www.youku.com/" rel="nofollow" target="_blank"><{:L('youku')}></a>、<a href="http://v.blog.sohu.com/" rel="nofollow" target="_blank"><{:L('sohu')}></a>、<a href="http://www.ku6.com/" rel="nofollow" target="_blank"><{:L('ku6')}></a>、<a href="http://www.tudou.com/" rel="nofollow" target="_blank"><{:L('tudou')}></a>、<a href="http://tv.mofile.com/" rel="nofollow" target="_blank"><{:L('mofang')}></a></p>
+            </div></div>
+            <div class="emos"><a href="javascript:void(0);" onclick="showemotion('emotion','contentbox')"><{:L('emtion')}></a></div>
+            <div class="photo">
+                <div id="loadform" style="display:block">
+                    <form class="picForm" target="imageUpload" method="post" enctype="multipart/form-data" action="<{:SITE_URL}>/Space/uploadpic" id="upform">
+                        <input type="file" id="uploadbtn" class="uploadbtn" name="image" title="<{:L('photo_info3')}>"/>
+                    </form>
+                    <span id="photoico">&nbsp;</span>
+                    <a href="javascript:void(0);"><{:L('photo')}></a>
+                </div>
+                <div id="priviewbtn"></div>
+                <div id="uploading"><img src='<{:__PUBLIC__}>/images/spinner.gif'> <{:L('photo_info2')}> <a onclick='cencelUpload();' class='greyclose'>x</a></div>
+                <div id="priviewpoic"></div>
+                <div class="photobox">
+                    <span id="photoico2">&nbsp;</span>
+                    <a href="javascript:void(0);" onclick="$('.outphotobox').show();$('.photobox').hide();"><{:L('link')}></a>
+                </div>
+            </div>
+            <div class="clearline"></div>
+            <div class="outphotobox">
+                <p><div class="fleft"><{:L('picout')}></div><div class="fright close1" onclick="$('.outphotobox').hide()"></div></p>
+                <p><input class="input_text" type="text" id="outphotourl">&nbsp;&nbsp;<button class="button5" onclick="uploadouturl()"><{:L('sure')}></button></p>
+            </div>
+            <iframe style="display:none;" src="about:blank" name="imageUpload" id="imageUpload"></iframe>
+            <span id="morecontent" style="display:none;"></span>
+        </div>
+        <div class="fright">
+            <div class="sendtip"><span class="sendsp"><{:L('also_can_input')}><span id="nums">140</span><{:L('word_zi')}></span></div>
+            <input type="button" class="sendbutton" onclick="sendTalk()" value="<{:L('sendtalkbtn')}>"/>
+        </div>
+        </div>
+    </div>
+    <div class="contenter">
+        <{$hook['index_left_mid1']}>
+        <div class="ad3"><{:stripslashes($site['ad3'])}></div>
+        <{$hook['index_left_mid2']}>
+        <div class="hometitle">
+        <php>if($type=='home'){</php>
+            <div class="indextab">
+                <div <php>if($group==0){</php>class="select"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>"><{:L('my_page')}></a></div>
+                <div <php>if($group==1){</php>class="select"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>?group=1"><{:L('follow_followed')}></a></div>
+                <div <php>if($group==2){</php>class="select"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>?group=2"><{:L('yes_attention_topic')}></a></div>
+            </div>
+        <php>}else if($type=='mine'){</php>
+            <span class="mine"><{:L('my_talk_side')}></span>
+        <php>}else if($type=='at'){</php>
+            <span class="at"><{:L('at_mytalk')}></span>
+        <php>}else if($type=='favor'){</php>
+            <span class="favor"><{:L('my_favtalks')}></span>
+        <php>}</php>
+        <div class="fright"><php>if($_GET['dt']){</php><{:L('show')}> <{:date("Y-m-d",strtotime($_GET['dt']))}> <{:L('talk')}><php>}</php>&nbsp;&nbsp;<input type="button" class="date" max="<{:date('Y-m-d')}>"></div>
+        </div>
+        <div class="wbtype">
+            <div class="fleft">
+                <a <php>if($t=='a'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>/<{$type}>/a<php>if($type=='home'){</php>?group=<{$group}><php>}</php>"><{:L('all_talks')}></a>
+                <a <php>if($t=='p'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>/<{$type}>/p<php>if($type=='home'){</php>?group=<{$group}><php>}</php>"><{:L('all_talks_photo')}></a>
+                <a <php>if($t=='m'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>/<{$type}>/m<php>if($type=='home'){</php>?group=<{$group}><php>}</php>"><{:L('all_talks_video')}></a>
+                <a <php>if($t=='o'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>/<{$type}>/o<php>if($type=='home'){</php>?group=<{$group}><php>}</php>"><{:L('all_talks_byself')}></a>
+                <a <php>if($t=='r'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>/<{$type}>/r<php>if($type=='home'){</php>?group=<{$group}><php>}</php>"><{:L('all_talks_forward')}></a>
+            </div>
+            <div class="fright">
+                <input type="text" onfocus="if($(this).val()=='输入关键词搜索广播'){$(this).val('')}" onblur="if($(this).val()==''){$(this).val('输入关键词搜索广播')}" value="<php>if($_GET['hq']){</php><{$_GET['hq']}><php>}else{</php>输入关键词搜索广播<php>}</php>" name="hq" id="sinput">
+                <input type="button" onclick="homesearch('<{$t}>');" value="搜 索" id="searchr-submit">
+            </div>
+            <div class="clearline"></div>
+        </div>
+        <div id="stream" class="message">
+            <ol class="wa">
+            <div class="homeautotip" style="display:none"></div>
+            <php>if(count($content)>0){</php>
+                <php>foreach($content as $val){
+                    if ($type=='favor') echo $ctent->loadoneli($val,0);
+                    else echo $ctent->loadoneli($val);
+                }</php>
+            <php>}else{</php>
+                <li class="unlight" id="nonemsg"><{:L('nothing_here')}></li>
+            <php>}</php>
+            </ol>
+        </div>
+    </div>
+</td>
+<td id="sidebar" rowspan="2"><include file="Space:homeside" /></td>
+</tr>
+<tr>
+<td height="36px">
+    <div id="indexpage" class="page"><{$page}></div>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#contentbox").focus(function(){$("#contentbox").css({border: "1px solid #7bd6f6" });});
+    $("#contentbox").blur(function(){$("#contentbox").css({border: "1px solid #b3b3b3" });});
+    $("#contentbox").focus();
+    <php>if($type=='at'){</php>$(document).ready(function(){$("#atnum").remove();closetip("t_at");});<php>}</php>
+    $(".date").dateinput({format:'yyyymmdd',change: function() {homedate('<{$t}>',this.getValue('yyyymmdd'));}});
+});
+</script>
+<include file="Common:foot" />

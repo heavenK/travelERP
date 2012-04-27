@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0087)<{:SITE_URL}>Agent/Hotel/HotelSearch.aspx?keyword=&begintime=&endtime=&city= -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>酒店产品搜索</title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css">
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/content.css">
+    
+
+		
+
+</script>
+    <style>
+/*公用*/
+body, ul, li, p, from, select, input, a, h1, h2, h3, h4, h5, h6, h7 {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+from {
+	clear:both;
+}
+body {
+	font-size:12px;
+}
+a img {
+	border:0;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+.clear {
+	width:0;
+	height:0;
+	margin:0;
+	padding:0;
+	font-size:0;
+	line-height:0;
+	clear:both;
+}
+/*订单管理*/
+#ddgl_main {
+	width:930px;
+	margin:0 auto;
+}
+.dnagqianye a {
+	font-size:12px;
+	font-weight:normal;
+}
+.dnagqianye h1 {
+	font-size:12px;
+	height:30px;
+	line-height:30px;
+	background:#f3f7f8;
+	padding-left:46px;
+}
+.sy{ color:#333333; }
+.dqy {
+	color:#cc6601;
+}
+/*logo*/
+    .logo {
+	float:left;
+	margin-top:24px;
+}
+/*右边搜索*/
+	.ddgltop_right {
+	width:500px;
+	float:right;
+}
+.ssk {
+	width:465px;
+	height:85px;
+	margin-top:10px;
+	padding:12px 28px 0 9px;
+}
+.ssk table {
+	width:467px;
+}
+.csxz {
+	width:169px;
+	height:18px;
+	border:#a5b3b6 solid 1px;
+}
+.ggxw {
+	width:476px;
+	margin-top:11px;
+	height:27px;
+	padding-right:24px;
+}
+.ggxw td{ text-indent:24px; color:#333335;}
+/*订单管理内容*/
+.ddgl_content{ margin-top:12px; padding:0 24px; padding-bottom:33px; border-bottom:#bfcdd0 solid 1px;}
+    .ddgl_content .jiudian{ background:url(<{:__PUBLIC__}>/gulianstyle/styles/ddgl_BJ.jpg) repeat-x; height:42px; border-left: #cccccc solid 1px; border-right: #cccccc solid 1px; padding-right:24px;}
+	.jiudian .jiudianxx{ padding-left:20px; float:left; min-width:500px; margin-top:15px;}
+	.jiudianxx li{ float:left; margin-right:33px;}
+	.jiudianming{ color:#0254a8; font-size:14px; font-weight:bold; background:url(<{:__PUBLIC__}>/gulianstyle/styles/ddgl_bj_tb-02.jpg) no-repeat left center; text-indent:32px;}
+	.jiudianming span,.szcs span{ color:#acadaf;}
+	.xingji { color:#333333; font-weight:bold; width:163px;}
+	.jiudian .ckfx{ float:right; margin-top:8px;}
+	.szcs{ color:#szcs; font-weight:bold;}
+	.jdxxxx{ margin-bottom:5px;}
+	.jdxxxx th{ color:#353334;}
+	.jdxxxx td{ color:#0056ad; border-bottom:#FFF solid 1px;}
+	.jiudian{ margin-top:5px;}
+	
+/*分页*/
+.fenye{ margin:0 auto; margin-top:5px; margin-bottom:52px; width:520px;}
+.syy{ display:block; width:53px; height:21px; text-align:center; border:#dfdfdf solid 1px; color:#dfdfdf; padding-top:5px;}
+.xyy{ display:block; width:53px; height:21px; text-align:center; border:#bebebe solid 1px; color:#0055a9; padding-top:5px;}
+.fenye a{ float:left; margin-left:5px; padding-top:5px;}
+.fenye span{ height:26px; line-height:26px;}
+.dq{ display:block; width:26px; height:23px; background:#0054aa; color:#FFF; text-align:center;}
+.wx{ display:block; width:24px; height:21px; border:#bdbdbd solid 1px; color:#0355ab; text-align:center;}
+</style>
+
+    <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/accordian.pack.js"></script>
+
+    <script src="<{:__PUBLIC__}>/gulianstyle/styles/Function.js" type="text/javascript"></script>
+
+    <script src="<{:__PUBLIC__}>/gulianstyle/styles/SortFilter.js" type="text/javascript"></script>
+
+    <script src="<{:__PUBLIC__}>/gulianstyle/styles/prototype.js" type="text/javascript"></script>
+
+    <script src="<{:__PUBLIC__}>/gulianstyle/styles/httpXML.js" type="text/javascript"></script>
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+</head>
+<body onload="new Accordian('basic-accordian',5,'header_highlight');"><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none; "><iframe src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker.htm" frameborder="0" border="0" scrolling="no" style="width: 186px; height: 199px; "></iframe></div>
+    <div id="ddgl_main">
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/WebResource.axd" type="text/javascript"></script>
+
+            <div class="dnagqianye">
+                <h1>
+                    
+
+<table border="0" cellspacing="0" cellpadding="0" class="TopTab">
+    <tbody><tr>
+        <td width="81" align="center"><a href="<{:SITE_URL}>Agent/Index.aspx" class="txtcolor">首 页</a></td>
+        <td width="456" align="left"><a href="<{:SITE_MENSHI}>Dingdan" class="txtcolor">进入后台</a></td>
+        <td width="48" align="center" style="font-weight:normal">欢迎</td>
+        <td width="73" align="center"><a href="<{:SITE_URL}>Agent/Hotel/HotelSearch.aspx?keyword=&begintime=&endtime=&city=#" class="txtcolor" onclick="document.getElementById('divPassmd').style.display='';">修改密码</a>
+            <div id="divPassmd" style="background-color:#FFFDDD; position:absolute;display:none;">
+                <table border="1" cellspacing="0" cellpadding="0">
+                    <tbody><tr><td>原始密码：</td><td><input name="header1$tbOldPassWord" type="password" id="header1_tbOldPassWord"></td></tr>
+                    <tr><td>新密码：</td><td><input name="header1$tbNewPassWord" type="password" id="header1_tbNewPassWord"></td></tr>
+                    <tr><td>重复新密码：</td><td><input name="header1$tbNewPassWord2" type="password" id="header1_tbNewPassWord2"></td></tr>
+                    <tr><td align="center" colspan="2"><input type="submit" name="header1$Submit" value="提交" onclick="return CheckData();" id="header1_Submit">&nbsp;&nbsp;&nbsp;<input type="submit" name="header1$Button1" value="关闭" onclick="document.getElementById('divPassmd').style.display='none';return false;" id="header1_Button1"></td></tr>
+                </tbody></table>
+            </div>
+        </td>
+        <td width="49" align="center"><a id="header1_lbLogout" class="txtcolor" href="javascript:__doPostBack('header1$lbLogout','')">退出</a></td>
+    </tr>
+</tbody></table>
+<script type="text/javascript">
+function CheckData()
+{
+    var OldPassWord=document.getElementById("header1_tbOldPassWord");
+    if(OldPassWord.value=="")
+    {
+        alert("原始密码不能为空！");
+        OldPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord=document.getElementById("header1_tbNewPassWord");
+    if(NewPassWord.value=="")
+    {
+        alert("新密码不能为空！");
+        NewPassWord.focus();
+        return false;
+    }
+    else if(NewPassWord.value.length>20||NewPassWord.value.length<6)
+    {
+        alert("密码长度应为6-20个字符!");
+        NewPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord2=document.getElementById("header1_tbNewPassWord2");
+    if(NewPassWord2.value!=NewPassWord.value)
+    {
+        alert("两次输入的密码不一样！");
+        NewPassWord2.focus();
+        return false;
+    }
+    
+    return true;
+}
+</script>
+                </h1>
+            </div>
+            
+            <form action="<{:SITE_MENSHI}>Hotel/search" method='post'>
+				<input type="hidden" name="type" value="search">
+            
+            <div class="ddgl_Top">
+                <a class="logo" href="###">
+                    <img src="<{:__PUBLIC__}>/gulianstyle/styles/logo.jpg" width="389" height="125"></a>
+                <div class="ddgltop_right">
+                    <div class="ssk">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td width="18%" align="right" style="height: 27px">
+                                    城市:</td>
+                                <td width="30%" align="right" style="height: 27px">
+                                    <input name="city" type="text" id="agencyname" style="width: 130;" class="btn">
+                                </td>
+                                <td width="12%" align="right" style="height: 27px">
+                                    酒店星级:</td>
+                                <td width="31%" align="right" style="height: 27px">
+                                    <select name="star" id="ddlStar" style="width:130px;">
+                                        <option value="">全部</option>
+                                        <option value="1">一星</option>
+                                        <option value="2">二星</option>
+                                        <option value="3">三星</option>
+                                        <option value="4">四星</option>
+                                        <option value="5">五星</option>
+                                        <option value="6">六星</option>
+                                        <option value="7">七星</option>
+                                    
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td width="18%" align="right" style="height: 27px">
+                                    开始日期:</td>
+                                <td width="30%" align="right" style="height: 27px">
+                                    <input name="start_date" type="text" id="tbBeginDate" class="Wdate" onfocus="WdatePicker()" style="width:150px;"></td>
+                                <td width="12%" align="right" style="height: 27px">
+                                    结束日期:</td>
+                                <td width="31%" align="right" style="height: 27px">
+                                    <input name="end_date" type="text" id="tbEndDate" class="Wdate" onfocus="WdatePicker()" style="width:130px;"></td>
+                            </tr>
+                            <tr>
+                                <td height="30" align="right">&nbsp;
+                                    </td>
+                                <td height="30" align="right">&nbsp;
+                                    </td>
+                                <td height="30" align="right">&nbsp;
+                                    </td>
+                                <td height="30" align="right">
+                                    <input type="image" name="btnSearch" id="btnSearch" src="<{:__PUBLIC__}>/gulianstyle/styles/ss.jpg" style="border-width:0px;"></td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    </form>
+                    <div class="ggxw">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td height="28" bgcolor="#e2e7ea">
+                                    <marquee direction="left" onmouseover="this.stop()" onmouseout="this.start()">
+                                        
+                                                <a href="<{:SITE_URL}>Agent/News.aspx?ID=1" target="_blank">开会通知</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            
+                                    </marquee>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <br>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <!--订单管理内容-->
+            <div class="ddgl_content">
+                <div id="basic-accordian">
+                    <!--Parent of the Accordion-->
+                    
+                            <!--Start of each accordion item-->
+                            <php>foreach($list as $key=>$val){</php>
+                            
+                            <div id="test<{$key}>-header" class="accordion_headings">
+                                <div class="jiudian">
+                                    <ul class="jiudianxx">
+                                        <li class="jiudianming">
+                                            <{$val[hotel_title]}>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span></li>
+                                        <li class="xingji">星级：<IMG border=0 src="<{:__PUBLIC__}>/gulianstyle/styles/Star<{$val[star]}>.jpg"></li>
+                                        <li class="szcs"><span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在城市：<{$val[city_name]}></li>
+                                    </ul>
+                                    <ul class="ckfx">
+                                        <li><a href="javascript:void(0)">
+                                            <img src="<{:__PUBLIC__}>/gulianstyle/styles/ddgl_bj_tb.jpg" width="96" height="26"></a></li>
+                                    </ul>
+                                    <br class="clear">
+                                </div>
+                            </div>
+                            <!--Heading of the accordion ( clicked to show n hide ) -->
+                            <!--Prefix of heading (the DIV above this) and content (the DIV below this) to be same... eg. foo-header & foo-content-->
+                            <div id="test<{$key}>-content">
+                                <!--DIV which show/hide on click of header-->
+                                <!--This DIV is for inline styling like padding...-->
+                                <table class="jdxxxx" width="100%" border="0" cellspacing="0" cellpadding="0">
+                               	 <tbody>
+                                    <tr>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">房型名称</th>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">房型类别</th>
+                                        <th width="13%" height="33" bgcolor="#e2e8e8">开始日期</th>
+                                        <th width="16%" height="33" bgcolor="#e2e8e8">结束日期</th>
+                                        <th width="14%" height="33" bgcolor="#e2e8e8">入住周期</th>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">投放数量</th>
+                                        <th width="10%" height="33" bgcolor="#e2e8e8">价格</th>
+                                        <td width="11%" height="33" align="left" bgcolor="#e2e8e8">&nbsp;</td>
+                                    </tr>
+                                    <php>foreach($data_line[$key] as $house){</php>
+                                	<tr>
+                                        <td height="29" align="center" bgcolor="#f2f2f2" onclick="aa();"><{$house[house_title]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[room]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[start_date]|date='Y-m-d',###}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[end_date]|date='Y-m-d',###}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[stay_day]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[room_num]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[price]}></td> 
+                                        <td height="29" align="left" bgcolor="#f2f2f2"><input type="image" name="imageField2" id="imageField2" src="<{:__PUBLIC__}>/gulianstyle/styles/ddgl_bj_tb-04.jpg" onclick="openSub(<{$house[house_id]}>);"></td>
+                                    </tr>
+                                     <php>}</php>
+                                   </tbody>
+                                 </table>
+                            </div>
+                             <php>}</php>
+                            <!--End of each accordion item-->
+                       
+                        
+                    <div class="calendar" style="display: none; position: absolute;" id="divCalendar">
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="tdborder">
+                                <{$page}>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        
+    </div>
+    <div id="divPoiFilter" style="width: 236px; display: 'none'; z-index: 9999; display: block;
+        position: absolute; background: #FFFFFF" onmouseout="PoiFilter.mouseFalse();" onmouseover="PoiFilter.mouseTrue();">
+    </div>
+
+
+
+<script language="javascript">
+function openSub(ID)
+{
+
+	var url = "<{:SITE_MENSHI}>Hotel/ajax/house_id/" + ID;
+		
+	window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>
+
+
+
+</body></html>

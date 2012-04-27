@@ -1,0 +1,3 @@
+<php>$i=0;foreach($noticeAll as $message){ $i++;</php>
+      <em id='em_<{$message[messageID]}>'><{$i}>. <a style=" color:#000; cursor:pointer;" target="_blank" onclick="showmessages('<{$message[url]}>','<{$message[messageID]}>');"><{$message['content']}></a><i>(<php>echo date('Y-m-d H:i',$message['time'])</php>)</i></em>
+<php>}</php>

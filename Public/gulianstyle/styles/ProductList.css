@@ -1,0 +1,162 @@
+BODY {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+LI {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+P {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+from {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+SELECT {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+INPUT {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+A {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H1 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H4 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H5 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H6 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+h7 {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+from {
+	CLEAR: both
+}
+BODY {
+	FONT-SIZE: 12px
+}
+A IMG {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+A {
+	TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: none
+}
+.clear {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 0; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 0px; PADDING-RIGHT: 0px; HEIGHT: 0px; CLEAR: both; FONT-SIZE: 0px; PADDING-TOP: 0px
+}
+#ddgl_main {
+	MARGIN: 0px auto; WIDTH: 100%
+}
+.dnagqianye A {
+	FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.dnagqianye H1 {
+	LINE-HEIGHT: 30px; PADDING-LEFT: 46px; BACKGROUND: #f3f7f8; HEIGHT: 30px; FONT-SIZE: 12px
+}
+.sy {
+	COLOR: #333333
+}
+.dqy {
+	COLOR: #cc6601
+}
+.logo {
+	MARGIN-TOP: 24px; FLOAT: left
+}
+.ddgltop_right {
+	WIDTH: 500px; FLOAT: right
+}
+.ssk {
+	PADDING-BOTTOM: 0px; MARGIN-TOP: 10px; PADDING-LEFT: 9px; WIDTH: 465px; PADDING-RIGHT: 28px; HEIGHT: 85px; PADDING-TOP: 12px
+}
+.ssk TABLE {
+	WIDTH: 467px
+}
+.csxz {
+	BORDER-BOTTOM: #a5b3b6 1px solid; BORDER-LEFT: #a5b3b6 1px solid; WIDTH: 169px; HEIGHT: 18px; BORDER-TOP: #a5b3b6 1px solid; BORDER-RIGHT: #a5b3b6 1px solid
+}
+.ggxw {
+	MARGIN-TOP: 11px; WIDTH: 476px; PADDING-RIGHT: 24px; HEIGHT: 27px
+}
+.ggxw TD {
+	TEXT-INDENT: 24px; COLOR: #333335
+}
+.ddgl_content {
+	BORDER-BOTTOM: #bfcdd0 1px solid; PADDING-BOTTOM: 33px; MARGIN-TOP: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.ddgl_content .jiudian {
+	BORDER-LEFT: #cccccc 1px solid; PADDING-RIGHT: 24px; BACKGROUND: url(../images/ddgl_BJ.jpg) repeat-x; HEIGHT: 42px; BORDER-RIGHT: #cccccc 1px solid
+}
+.jiudian .jiudianxx {
+	MIN-WIDTH: 500px; MARGIN-TOP: 15px; PADDING-LEFT: 20px; FLOAT: left
+}
+.jiudianxx LI {
+	FLOAT: left; MARGIN-RIGHT: 33px
+}
+.jiudianming {
+	TEXT-INDENT: 32px; BACKGROUND: url(../images/ddgl_bj_tb-02.jpg) no-repeat left center; COLOR: #0254a8; FONT-SIZE: 14px; FONT-WEIGHT: bold
+}
+.jiudianming SPAN {
+	COLOR: #acadaf
+}
+.szcs SPAN {
+	COLOR: #acadaf
+}
+.xingji {
+	WIDTH: 163px; COLOR: #333333; FONT-WEIGHT: bold
+}
+.jiudian .ckfx {
+	MARGIN-TOP: 8px; FLOAT: right
+}
+.szcs {
+	FONT-WEIGHT: bold
+}
+.jdxxxx {
+	MARGIN-BOTTOM: 5px
+}
+.jdxxxx TH {
+	COLOR: #353334
+}
+.jdxxxx TD {
+	BORDER-BOTTOM: #fff 1px solid; COLOR: #0056ad
+}
+.jiudian {
+	MARGIN-TOP: 5px
+}
+.fenye {
+	MARGIN: 5px auto 52px; WIDTH: 520px
+}
+.syy {
+	BORDER-BOTTOM: #dfdfdf 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #dfdfdf 1px solid; WIDTH: 53px; DISPLAY: block; HEIGHT: 21px; COLOR: #dfdfdf; BORDER-TOP: #dfdfdf 1px solid; BORDER-RIGHT: #dfdfdf 1px solid; PADDING-TOP: 5px
+}
+.xyy {
+	BORDER-BOTTOM: #bebebe 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #bebebe 1px solid; WIDTH: 53px; DISPLAY: block; HEIGHT: 21px; COLOR: #0055a9; BORDER-TOP: #bebebe 1px solid; BORDER-RIGHT: #bebebe 1px solid; PADDING-TOP: 5px
+}
+.fenye A {
+	FLOAT: left; MARGIN-LEFT: 5px; PADDING-TOP: 5px
+}
+.fenye SPAN {
+	LINE-HEIGHT: 26px; HEIGHT: 26px
+}
+.dq {
+	TEXT-ALIGN: center; WIDTH: 26px; DISPLAY: block; BACKGROUND: #0054aa; HEIGHT: 23px; COLOR: #fff
+}
+.wx {
+	BORDER-BOTTOM: #bdbdbd 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #bdbdbd 1px solid; WIDTH: 24px; DISPLAY: block; HEIGHT: 21px; COLOR: #0355ab; BORDER-TOP: #bdbdbd 1px solid; BORDER-RIGHT: #bdbdbd 1px solid
+}

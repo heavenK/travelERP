@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>互动旅游-线路管理</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+
+	function select_all(obj){
+		$("input[name=selected]").attr('checked',$(obj).attr('checked'));	
+
+	}
+	
+	function select_val(){
+		var idList = "";
+		
+		var check_obj = $("input[name='selected']");
+			
+		for (var i = 0; i < check_obj.length; i++) {
+
+			if(check_obj.get(i).checked == true)
+			{
+				idList+=check_obj.get(i).value+",";
+			}
+		}
+		 
+		idList = idList.substring(0, idList.length - 1);	
+		
+		return idList;
+	}
+	
+	function confirmAct(){
+		var idList = "";
+		
+		if(confirm('此操作不可逆，确定要删除吗？'))
+		{
+			idList = select_val();
+			
+			$.ajax({
+				type:	"POST",
+				url:	"<{:SITE_ADMIN}>Airticket/delete",
+				data:	"type=ticketDate_ajax&idlist=" + idList,
+				success:	function(msg){
+							if(msg){
+								alert('删除成功！');
+								window.location.href = '<{:SITE_ADMIN}>Airticket/ticketControl';
+							}
+						  }
+			});
+			 
+		}
+		return false;
+	
+	}
+	
+	function Jiezhi(){
+			var idList = "";
+
+			idList = select_val();
+			
+			$.ajax({
+				type:	"POST",
+				url:	"<{:SITE_ADMIN}>Airticket/delete",
+				data:	"type=overtime_ajax&idlist=" + idList,
+				success:	function(msg){
+							if(msg){
+								alert('处理成功！');
+								window.location.href = '<{:SITE_ADMIN}>Airticket/ticketControl';
+							}
+						  }
+			});
+			 
+	}
+	
+	function CheckPrice(){
+		
+			var idList = "";
+
+			idList = select_val();
+			
+			var flag = $("input[name=price_type]:checked").val();
+			var val = $("#tbPrice").val();
+			
+			$.ajax({
+				type:	"POST",
+				url:	"<{:SITE_ADMIN}>Airticket/delete",
+				data:	"type=price_ajax&add=" + flag + "&val=" + val + "&idlist=" + idList,
+				success:	function(msg){
+							if(msg){
+								alert('处理成功！');
+								window.location.href = '<{:SITE_ADMIN}>Airticket/ticketControl';
+							}
+						  }
+			});
+			
+	}
+	
+	
+	function CheckPrice1(){
+		
+			var idList = "";
+
+			idList = select_val();
+
+			var val = $("#tbNum").val();
+			
+			$.ajax({
+				type:	"POST",
+				url:	"<{:SITE_ADMIN}>Airticket/delete",
+				data:	"type=num_ajax&val=" + val + "&idlist=" + idList,
+				success:	function(msg){
+							if(msg){
+								alert('处理成功！');
+								window.location.href = '<{:SITE_ADMIN}>Airticket/ticketControl';
+							}
+						  }
+			});
+			
+	}
+	
+	function PriceModify(){
+		if ($('#priceModify').css('display') == 'none') {
+			$("#priceModify").show();
+			$("#priceModify1").hide();
+		}
+		else 	$("#priceModify").hide();
+	}
+	
+	function PriceModify1(){
+		if ($('#priceModify1').css('display') == 'none') {
+			$("#priceModify1").show();
+			$("#priceModify").hide();
+		}
+		else 	$("#priceModify1").hide();
+	}
+</script>
+
+
+
+<script>
+function GetcheckBack(id,tbname,type,obj)
+{
+	var offset = $(obj).offset();
+	var objtop = offset.top + 16;
+	var objleft = offset.left - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>
+
+
+
+
+
+
+
+<body>
+    <div class="hdlyRight">
+       
+
+            <div id="content_bb">
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                
+                
+                <div class="ss">
+                    <table class="test1" style="padding-top: 20px;" width="88%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="81" align="right">
+                                出发城市：</td>
+                            <td height="18" width="179">
+                                <input name="from_city" id="from_city" class="inp02" style="width: 95%;" type="text" value="<{$from_city}>">
+                            </td>
+                            <td style="width: 119px;" height="18" align="right">
+                                目的地城市：</td>
+                            <td height="18" width="179">
+                                <input name="to_city" id="to_city" class="inp02" type="text" value="<{$to_city}>">
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                状态：</td>
+                            <td height="18" width="80">
+                                <select name="status" id="status" style="width:103px;">
+                                
+                                    <php> if($status){</php>
+                                    <option value="<{$status}>"><php>if($status == ''){ echo '全部';}else{ echo $status;} </php></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                
+                                    <option value="">全部</option>
+                                    <option value="报名">报名</option>
+                                    <option value="截止">截止</option>
+                                
+                                </select>
+                            </td>
+                            <td>&nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                            <td height="18" width="81" align="right">
+                                机票名称：</td>
+                            <td height="18" width="179">
+                                <input name="title" id="title" style="width: 95%;" type="text" value="<{$title}>"></td>
+                            <td style="width: 119px;" align="right">
+                                航空公司：</td>
+                            <td width="60">
+                                <select name="fly_company" id="fly_company" style="width:152px;">
+                                
+                                    <php> if($fly_company){</php>
+                                    <option value="<{$fly_company}>"><php>if($fly_company == ''){ echo '全部';}else{ echo $fly_company;} </php></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                
+                                    <option  value="">全部</option>
+                                    <option value="北航">北航</option>
+                                    <option value="南航">南航</option>
+                                </select>
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                日期：</td>
+                            <td width="60">
+                                <input name="start_date" id="start_date" class="Wdate" onfocus="WdatePicker()" style="width: 101px;" type="text" value="<{$start_date}>">
+                            </td>
+                            <td width="60" align="right">
+                                <input name="SearchBtn" value="搜 索" class="anu" type="submit" onclick="dosearch();"></td>
+                            <td style="width: 7px;">&nbsp;
+                                </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                
+                
+                <div class="fanye">
+                    <div class="nr">
+                        <table width="313" border="0">
+                            <tbody><tr>
+                                
+                                <td class="wbx" width="58" align="center">
+                                    <a onclick="confirmAct('确认删除吗？');" id="lkBtnDelete" class="yyxxl" href="javascript:void(0)">删 除</a>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    <a onclick="Jiezhi();" id="lbtAddLine" class="yyxxl" href="javascript:void(0)">批量截止</a>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    <a id="lkbPirceModify" class="yyxxl" style="" onclick="PriceModify(this)">
+                                        更新价格</a>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    <a id="lkbNumModify" class="yyxxl" style="" onclick="PriceModify1(this)">
+                                        更新票数</a>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    
+                                </td>
+                                <td class="wbx" align="left">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div id="priceModify" style="display: none; position: absolute;">
+                        <table bgcolor="#E6E6E6" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td>
+                                    价格：</td>
+                                <td>
+                                    <input name="tbPrice" value="0" id="tbPrice" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <table id="rblAddCut" border="0">
+        <tbody><tr>
+            <td><input id="rblAddCut_0" name="price_type" value="add" checked="checked" type="radio"><label for="rblAddCut_0">增加</label></td><td><input id="rblAddCut_1" name="price_type" value="cut" type="radio"><label for="rblAddCut_1">减少</label></td>
+        </tr>
+    </tbody></table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input name="btnAdd" value="提 交" onclick="CheckPrice();" id="btnAdd" type="button">&nbsp;&nbsp;&nbsp;<input name="Button1" value="关 闭" onclick="document.getElementById('priceModify').style.display='none';return false;" id="Button1" type="button"></td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div id="priceModify1" style="display: none; position: absolute;">
+                        <table bgcolor="#E6E6E6" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td>
+                                    数量：</td>
+                                <td>
+                                    <input name="tbNum" id="tbNum" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input name="btnAdd1" value="提 交" onclick="CheckPrice1();" id="btnAdd1" type="button">&nbsp;&nbsp;&nbsp;<input name="Button5" value="关 闭" onclick="document.getElementById('priceModify1').style.display='none';return false;" id="Button5" type="button"></td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="page">
+                    </div>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <th style="width: 33px;" height="32" align="center">
+                                <input name="checkbox" onclick="select_all(this);" type="checkbox">
+                                <label for="checkbox">
+                                </label>
+                            </th>
+                            <th height="32" align="center">
+                                机票编号</th>
+                            <th height="32" align="center">
+                                机票名称</th>
+                            <th height="32" align="center">
+                                航班号</th>
+                            <th height="32" align="center">
+                                航段</th>
+                            <th height="32" align="center">
+                                往返类型</th>
+                            <th height="32" align="center">
+                                天数</th>
+                            <th height="32" align="center">
+                                状态</th>
+                            <th height="32" align="center">
+                                航空公司</th>
+                            <th height="32" align="center">
+                                价格修正</th>
+                            <th height="32" align="center">
+                                机票数量</th>
+                            <th height="32" align="center">
+                                确认</th>
+                            <th height="32" align="center">
+                                占位</th>
+                            <th height="32" align="center">
+                                剩余</th>
+                            <th height="32" align="center">
+                                出发日期
+                            </th>
+                            <th height="32" align="center">
+                                轨迹</th>
+                        </tr>
+                        <div id="divrili2"  style="display: none; position:absolute; left:240px; top:130px;">
+                            <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                        </div>
+                        	<php>foreach($list as $val){</php>
+                                <tr class="tr1">
+                                    <td height="27" width="3%" align="center">
+                                        <span title="299b1186-c536-4d05-97c6-ca526edce246"><input name="selected" type="checkbox" value="<{$val[id]}>"></span>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <a href="<{:SITE_ADMIN}>Airticket/ticketControlShow/id/<{$val[id]}>">
+                                            <{$val[ticket_id]}>
+                                        </a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <a href="<{:SITE_ADMIN}>Airticket/ticketControlShow/id/<{$val[id]}>">
+                                            <{$val[title]}>
+                                        </a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_id]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_area]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[travel_type]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[days]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <span>
+                                            <{$val[status]}>
+                                        </span>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_company]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[price]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <a href="#" >
+                                             <{$val[sum_num]}>
+                                        </a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[queren_num]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[zhanwei_num]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[sum_num]-$val[queren_num]-$val[zhanwei_num]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[start_date]|date='Y-m-d',###}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <img src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" style="" onclick="GetcheckBack('<{$val[id]}>','机票子团','操作记录',this)" alt="点击查看轨迹">
+                                    </td>
+                                </tr>
+                            <php>}</php>
+                                
+                            
+                    </tbody></table>
+
+					<div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                         <div class="page"><{$page}></div>
+                    </div>
+                    
+                </div>
+                                    
+            </div>
+        
+    </div>
+    
+
+</body>
+</html>
+
+
+<script>
+
+function dosearch() {
+        
+		var from_city = document.getElementById('from_city').value;
+		var to_city = document.getElementById('to_city').value;
+		var status = document.getElementById('status').value;
+		var title = document.getElementById('title').value;
+		var start_date = document.getElementById('start_date').value;
+		var fly_company = document.getElementById('fly_company').value;
+		
+		
+		window.location = '<{:SITE_ADMIN}>Airticket/ticketControl/from_city/'+from_city+'/to_city/'+to_city+'/status/'+status+'/title/'+title+'/start_date/'+start_date+'/fly_company/'+fly_company;
+		
+}
+
+</script>
+
+<include file="Index:footer" />

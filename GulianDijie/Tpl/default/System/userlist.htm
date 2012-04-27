@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+<{$navlist}>
+</title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+
+    var id = 'rpRoleList_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+
+
+</script></head>
+
+
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置</span> <{$navlist}> </li>
+    </ul>
+</div>
+                <div class="ss">
+                    <table class="test1" width="85%" border="0" style="padding-top: 20px;">
+                        <tbody><tr>
+                            
+                            <td width="50" height="18" align="right">
+                                关键字</td>
+                            <td width="187">
+                                <input name="tbKeyword" type="text" id="tbKeyword"></td>
+                            <td>
+                                <input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="nr">
+                    <table width="313" border="0">
+                        <tbody><tr>
+                            <td width="58" align="center">
+                            </td>
+                            <td width="58" align="center">
+                            </td>
+                            <td width="58" align="center">
+                                <a id="lkbSetPassWord" class="yyxxl" href="javascript:addnew()">添加新用户</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要重置吗？');" id="lkbSetPassWord" class="yyxxl" href="javascript:reset()">密码重置</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要锁定选择帐户吗？');" id="lbkLocked" class="yyxxl" href="javascript:dolock('已锁定'))">锁定帐户</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要解锁选中帐户吗？');" id="lbkOpen" class="yyxxl" href="javascript:dolock('未锁定')">解锁帐户</a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th width="3%" width="33" height="32" align="center">
+                                        <input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)">
+                                        <label for="checkbox">
+                                        </label>
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        公司名称
+                                    </th>
+                                    <th width="5%" height="32" align="center">
+                                        姓名
+                                    </th>
+                                    <th width="5%" height="32" align="center">
+                                        帐户
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        添加日期</th>
+                                    <th width="10%" height="32" align="center">
+                                        部门
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        联系电话
+                                    </th>
+                                    <th width="5%" height="32" align="center">
+                                        是否锁定
+                                    </th>
+                                    <th width="10%" height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                            
+                            
+                            <php> foreach($kehuAll as $kehu){
+                            </php>
+                            
+                                <tr class="tr1">
+                                    <td width="3%" height="27" align="center">
+                                        <label for="checkbox">
+                                            <span title="9"><input id="rpRoleList_ctl01_cbItem" type="checkbox" name="rpRoleList$ctl01$cbItem"></span>
+                                        </label>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$lvxingshe['companyname']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['realname']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['user_name']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                         <php>echo date('Y-m-d',$kehu['time'])</php>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['department']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['mobiletel']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['islock']}>
+                                    </td>
+                                    <td width="10" height="27" align="center">
+                                        [<a href="<{:SITE_DIJIE}>System/editkehu/kehuID/<{$kehu['kehuID']}>">修改信息</a>]
+                                        [<a href="<{:SITE_DIJIE}>System/powermanage/user_name/<{$kehu['user_name']}>">权限控制</a>]
+                                    </td>
+                                </tr>
+                            
+                            <php>}
+                            </php>
+                            
+                    </tbody></table>
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td bgcolor="#e5e5e5" width="8">&nbsp;
+                                </td>
+                            <td bgcolor="#e5e5e5">
+                                <table width="185" height="30" border="0" align="left" cellpadding="0" cellspacing="0" bgcolor="#e5e5e5">
+                                    <tbody><tr>
+                                        <td width="117" align="right" valign="middle">
+                                            每页显示数量：</td>
+                                        <td width="8">&nbsp;
+                                            </td>
+                                        <td id="td201" width="18" align="center" valign="middle" class="num2">
+                                            <a id="lnkbtnTop201" class="num_11" href="javascript:__doPostBack('lnkbtnTop201','')">20</a></td>
+
+                                        <td width="8">&nbsp;
+                                            </td>
+                                        <td id="td401" width="18" align="center" valign="middle" class="num1">
+                                            <a id="lnkbtnTop401" class="num_11" href="javascript:__doPostBack('lnkbtnTop401','')">40</a></td>
+
+                                        <td width="8">&nbsp;
+                                            </td>
+                                        <td id="td601" width="18" align="center" valign="middle" class="num2">
+                                            <a id="lnkbtnTop601" class="num_11" href="javascript:__doPostBack('lnkbtnTop601','')">60</a></td>
+
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table width="329" height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#e5e5e5">
+                                    <tbody><tr>
+                                        <td width="42" align="right" valign="middle">
+                                            
+                                        </td>
+                                        <td width="42" align="center" valign="middle">
+                                            </td>
+                                        <td width="42" align="center" valign="middle">
+                                            </td>
+                                        <td width="42" align="left" valign="middle">
+                                            </td>
+                                        <td width="73" align="right" valign="middle">
+                                            </td>
+                                        <td width="58" align="right" valign="middle">
+                                            
+                                        </td>
+                                        <td width="19" align="right" valign="middle">
+                                            </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table width="165" height="30" border="0" align="right" cellpadding="0" cellspacing="0" bgcolor="#e5e5e5">
+                                    <tbody><tr>
+                                        <td width="40" align="right">
+                                            分页</td>
+                                        <td width="40" align="left">
+                                            <span id="lbCurrentPage1">1</span>/<span id="lbTotalPage1">1</span></td>
+                                        <td width="40" align="right">
+                                            记录数</td>
+                                        <td width="21" align="left">
+                                            <span id="lblRecordCount1">7</span></td>
+                                        <td width="5" align="right">&nbsp;
+                                            </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--居中大的box-->
+    <!--居中大的box END-->
+
+
+</body></html>

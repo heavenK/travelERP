@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>
+	订单控管-酒店订单
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css"></head>
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+
+<body>
+
+<div>
+
+        <div class="hdlyRight">
+            <div id="content_bb">
+                
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+
+                <div class="ss">
+                    <table class="test1" style="padding-top: 20px;" width="88%" border="0">
+                        <tbody><tr>
+                            <td height="18" align="right">
+                                订单编号：</td>
+                            <td height="18" >
+                                <input name="bid" id="bid" class="inp02" type="text" value="<{$bid}>">
+                            </td>
+                            <td height="18" align="right">
+                                机票编号：</td>
+                            <td height="18">
+                                <input name="ticket_id" id="ticket_id" class="inp02" type="text" value="<{$ticket_id}>">
+                            </td>
+                            <td height="18" align="right">
+                                状态：</td>
+                            <td height="18">
+                                <select name="status" id="status" style="width:103px;">
+                                
+                                    <php> if($status){</php>
+                                    <option value="<{$status}>"><php>if($status == ''){ echo '全部';}else{ echo $status;} </php></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                
+                                    <option value="">全部</option>
+                                    <option value="占位">占位</option>
+                                    <option value="确认">确认</option>
+                                
+                                </select>
+                            </td>
+                            <td height="18" align="right">
+                                门市付款：</td>
+                            <td height="18">
+                                <select name="money" id="money" style="width:103px;">
+                                
+                                    <php> if($money){</php>
+                                    <option value="<{$status}>"><php>if($money == ''){ echo '全部';}else{ echo $money;} </php></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                
+                                    <option value="">全部</option>
+                                    <option value="已付款">已付款</option>
+                                    <option value="未付款">未付款</option>
+                                
+                                </select>
+                            </td>
+                            
+                            <td>&nbsp;
+                            </td>    
+                        </tr>
+                        <tr>
+                                
+                            <td height="18" align="right">
+                                出发地：</td>
+                            <td height="18" >
+                                <input name="from" id="from" class="inp02" type="text" value="<{$from}>"></td>
+                            <td height="18" align="right">
+                                目的地：</td>
+                            <td height="18" >
+                                <input name="gooo" id="gooo" class="inp02" type="text" value="<{$gooo}>"></td>
+                            <td height="18" align="right">
+                                日期：</td>
+                            <td>
+                                <input name="start_date" id="start_date" class="Wdate" onfocus="WdatePicker()" style="width: 101px;" type="text" value="<{$start_date}>">
+                            </td>
+                            
+                            <td height="18" align="right">
+                                财务付款：</td>
+                            <td height="18">
+                                <select name="moneycw" id="moneycw" style="width:103px;">
+                                
+                                    <php> if($moneycw){</php>
+                                    <option value="<{$moneycw}>"><php>if($moneycw == ''){ echo '全部';}else{ echo $moneycw;} </php></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                    <option value="">全部</option>
+                                    <option value="已付款">已付款</option>
+                                    <option value="未付款">未付款</option>
+                                
+                                </select>
+                            </td>
+                            
+                            <td align="right">
+                                <input name="SearchBtn" value="搜 索" class="anu" type="submit" onclick="dosearch();"></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+
+
+                
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center">
+                                        订单编号</th>
+                                    <th height="32" align="center">
+                                        机票编号</th>
+                                    <th height="32" align="center">
+                                        航班号</th>
+                                    <th height="32" align="center">
+                                        航段 </th>
+                                    <th height="32" align="center">
+                                        往返类型</th>
+                                    <th height="32" align="center">
+                                        航空公司</th>
+                                    <th height="32" align="center">
+                                        状态</th>
+                                    <th height="32" align="center">
+                                        价格</th>
+                                    <th height="32" align="center">
+                                        数量</th>
+                                    <th height="32" align="center">
+                                        出发日期</th>
+                                    <th height="32" align="center">
+                                        是否锁定</th>
+                                    <th height="32" align="center">
+                                        门市付款</th>
+                                    <th height="32" align="center">
+                                        财务付款</th>
+                                </tr>
+                            
+                            	<php>foreach($dingdans as $val){</php>
+                                <tr class="tr1">
+                                    <td height="27" align="center" width="15%">
+                                        <a href="<{:SITE_ADMIN}>Airticket/dingdan_info/bid/<{$val[bid]}>">
+                                            <{$val[bid]}>
+                                        </a>
+                                    </td>
+                                    <td height="27" align="center" width="10%">
+                                        <{$val[ticket_id]}>
+                                    </td>
+                                    <td height="27" align="center" width="5%">
+                                        <{$ticket_info[$val[id]][fly_id]}>
+                                    </td>
+                                    <td height="27" align="center" width="5%">
+                                        <{$ticket_info[$val[id]][fly_area]}>
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$ticket_info[$val[id]][ticket_type]}>
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$ticket_info[$val[id]][fly_company]}>
+                                    </td>
+                                    
+                                    <td height="27" align="center" width="3%">
+                                        <{$val[status]}>
+                                    </td>
+                                    <td height="27" align="center" width="5%">
+                                        <{$val[ticket_date][price]}>
+                                    </td>
+                                    <td height="27" align="center" width="3%">
+                                        <{$val[re_num]}> 
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$val[start_date]|date='Y-m-d',###}>
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$val[islock]}>
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$val[money]}>
+                                    </td>
+                                    <td height="27" align="center" width="7%">
+                                        <{$val[moneycw]}>
+                                    </td>
+                                </tr>
+                            	<php>}</php>
+                            
+                                
+                            
+                    </tbody>
+                    </table>
+                    
+                    <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                         <div class="page"><{$page}></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
+
+
+<script>
+
+function dosearch() {
+        
+		var bid = document.getElementById('bid').value;
+		var ticket_id = document.getElementById('ticket_id').value;
+		var status = document.getElementById('status').value;
+		var money = document.getElementById('money').value;
+		var from = document.getElementById('from').value;
+		var gooo = document.getElementById('gooo').value;
+		var moneycw = document.getElementById('moneycw').value;
+		var start_date = document.getElementById('start_date').value;
+		
+		
+		window.location = '<{:SITE_ADMIN}>Airticket/dingdan/bid/'+bid+'/ticket_id/'+ticket_id+'/status/'+status+'/money/'+money+'/from/'+from+'/gooo/'+gooo+'/moneycw/'+moneycw+'/start_date/'+start_date;
+		
+}
+
+</script>
+<include file="Index:footer" />

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fitqianzheng.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/json.js" language="javascript" ></script>
+<title><{$navtile}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+  <div id="hlt_fit_location"><!--所在位置--> 
+    <b>您所在的位置:</b> <{$navtile}> </div>
+  <div id="hlt_fit_published">
+  <!--发布新线路页面-->
+        <include file="Kongguan:navlist" /> 
+  <div id="hlt_fit_published_cont" style="margin-top:30px;">
+  <!--内容-->
+  <div class="plan_jh_fb"> <a href="javascript:addsave()" class="plan_jh_fb_link_b_qz" title="保存"></a>
+  
+ <div style="text-align:center"> <h1><{$navtile}></h1></div>
+   </div>
+  <form method="post" enctype="multipart/form-data" name="form" id="form">
+    <input type="hidden" name="zituanID" value="<{$zituan[zituanID]}>" >
+    <php>if($fenfang){</php>
+    <input type="hidden" name="fenfangID" value="<{$fenfang[fenfangID]}>" >
+    <php>}</php>
+    <div id="plan_jh">
+      <div class="plan_jh_b"> <{$zituan['mingcheng']}>/<{$zituan['tuanhao']}>/<{$zituan['chutuanriqi']}> </div>
+      <div id="plan_jh_a">
+        <div class="plan_jh_f_a"><span>标题：</span>
+          <input type="text" name="title" value="<{$fenfang[title]}>" />
+        </div>
+        <div class="plan_jh_f_a"><span>备注：</span>
+          <textarea name="remark" style="width:70%; height:50px;"><{$fenfang[remark]}></textarea>
+        </div>
+        <div class="plan_jh_f_a"><span>详细内容：</span>
+          <textarea name="content" style="width:70%; height:200px;"><{$fenfang[content]}></textarea>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
+<script>
+
+function addsave()
+{
+    var url='<{:SITE_ADMIN}>Kongguan/dopostfenfang';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+function addsave_b()
+{
+    var url='<{:SITE_ADMIN}>Qianzheng/dopostbaozhangfenfang/dotype/等待审核';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+
+</script>

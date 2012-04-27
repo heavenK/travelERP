@@ -1,0 +1,374 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" /> 
+<title>datepicker</title> 
+<link href="css/rqys.css" type="text/css" rel="stylesheet" /> 
+</head> 
+<script language="javascript" type="text/javascript"> 
+var str = '', i, j, yy, mm, openbound, callback;
+var fld1, fld2;
+var date1;
+var wp = window.dialogArguments?window.dialogArguments:window.opener;
+var days = '';
+var po = null;
+var fld, curday, today = new Date();
+today.setHours(0);
+today.setMinutes(0);
+today.setSeconds(0);
+today.setMilliseconds(0);
+var ie = (document.all) ? 1 : 0;
+function QueryString()
+{
+    var name,value,i;
+    var str=window.location.href;
+    var num=str.indexOf("?")
+    str=str.substr(num+1);
+    var arrtmp=str.split("&");
+    for(i=0;i < arrtmp.length;i++)
+    {
+        num=arrtmp[i].indexOf("=");
+        if(num>0)
+        {
+            name=arrtmp[i].substring(0,num);
+            value=arrtmp[i].substr(num+1);
+            this[name]=value;
+        }
+    }
+}
+function parseDate(s) {
+	var reg = new RegExp("[^0-9-]", "")
+	if(s.search(reg) >= 0) {
+        return today;
+    }
+	var ss = s.split("-");
+	if(ss.length != 3) {
+        return today;
+    }
+	if(isNaN(ss[0]) || isNaN(ss[1]) || isNaN(ss[2])) {
+        return today;
+    }
+	return new Date(parseFloat(ss[0]), parseFloat(ss[1]) - 1, parseFloat(ss[2]));
+}
+function initCalendar() {
+    var Request= new QueryString();
+	try{
+	days = Request["selectdates"];
+	}
+	catch(err){days='';}
+	po=wp.document.getElementById(Request["oid"]);
+	if(fld1 && fld1.value.length > 0) {
+        curday = parseDate(fld1.value);
+    } else if(fld2 && fld2.value.length > 0) {
+        curday = parseDate(fld2.value);
+    } else {
+        curday = today;
+    }
+	var tmpy = curday.getFullYear();
+    var tmpm = curday.getMonth();
+	if(tmpm == 12) {
+        tmpm = 1;
+        tmpy = tmpy + 1;
+    } else {
+        tmpm = tmpm + 1;
+    }
+	drawTitle(curday.getFullYear(), tmpm);
+	drawCalendar(tmpy, tmpm, "d", date1);
+	drawCalendar(curday.getFullYear(), curday.getMonth(), "b", date1);
+	ClearInput();
+}
+function drawTitle(y,m){
+	if(y > today.getFullYear() || (y == today.getFullYear() && m > today.getMonth() + 1)) {
+        document.getElementById('minfo').style.width  = "280px";
+		document.getElementById('prev').innerHTML     = '<a href=\'javascript:void(0)\' onclick=\'drawTitle(yy,mm);drawCalendar(yy,mm,"d");drawCalendar(yy,mm-1,"b");return false;\'><img class="left" src="./image/rq_bg1.gif" /></a>';
+	} else {
+        document.getElementById('prev').innerHTML     = '<img class="left" src="./image/blank_bg.gif" />';
+		document.getElementById('minfo').style.width  = "280px";
+		
+	}
+		//edit by gaopeng		
+		document.getElementById('prev').innerHTML     = '<a href=\'javascript:void(0)\' onclick=\'drawTitle(yy,mm);drawCalendar(yy,mm,"d");drawCalendar(yy,mm-1,"b");return false;\'><img class="left" src="./image/rq_bg1.gif" /></a>';
+	
+	showx = new Date(y, m, 1);
+	showy = showx.getFullYear();
+	showmm = showx.getMonth();
+	if(showmm == 0) {
+		showmm = 12;
+		nextmm = 1;
+		preshowy = new Date(y-1,m,1).getFullYear();
+	} else {
+		nextmm = showmm + 1;
+		preshowy = showy;
+	}
+    document.getElementById("minfo").innerHTML = preshowy + "." + (showmm > 9 ? showmm : "0" + showmm) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + showy + "." + (nextmm > 9 ? nextmm : "0" + nextmm)
+}
+function drawCalendar(y, m, id, startdate) {
+    if(startdate != null) {
+        var dateArr = startdate.split('-'); 
+        startdate = new Date(parseInt(dateArr[0], 10), parseInt(dateArr[1] - 1, 10), parseInt(dateArr[2]), 10);
+        startdate.setHours(0);
+        startdate.setMinutes(0);
+        startdate.setSeconds(0);
+        startdate.setMilliseconds(0);
+    } else {
+        startdate = today;
+    }
+    var cdate;
+    if(today.getTime() < startdate.getTime()) {
+        cdate = startdate;
+    } else {
+        cdate = today;
+    }
+	var x  =  new Date(y, m, 1);
+    var mv = x.getDay();
+    var d  = x.getDate();
+    var de;
+	yy=x.getFullYear();
+	mm=x.getMonth();
+	for(var i = 1; i <= mv; i++) {
+		de = document.getElementById(id + i);
+		de.innerHTML = "";
+		de.bgColor   = "";
+	}
+	var i=1;
+	while(x.getMonth() == mm) {
+	i++;
+	
+		de = document.getElementById(id + (d + mv));
+		if(x.getTime() == curday.getTime()) {
+			de.bgColor = "#dddddd";
+        } 
+        else {
+			de.bgColor = "white";
+        }
+		if(x.getFullYear() == today.getFullYear() && x.getMonth() == today.getMonth() && x.getDate() == today.getDate()) {
+            if(today.getTime() >= startdate.getTime() || startdate == null) {            
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+            } 
+            else {            
+                de.innerHTML = "<font color=#888888>" + d + "</font>";
+            }
+		//edit by gaopeng		
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+        } 
+        else if(x.getTime() < cdate.getTime()) {
+        //灰色部分
+                de.innerHTML = "<font color=#888888>" + d + "</font>";
+		//edit by gaopeng		
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+				
+        } 
+        else {
+			var dm = x.getMonth()+1;
+			var sm ='';
+			if(dm<10)
+			{
+				sm = '0' + dm;
+			}
+			else
+			{
+				sm = dm;
+			}
+			var dday = x.getDate();
+			var sdday='';
+			if(dday<10)
+			{
+				sdday = '0' + dday;
+			}
+			else
+			{
+				sdday = dday;
+			}
+		    var dd = x.getFullYear() + '-' + sm + '-' + sdday;
+			if(days.indexOf(dd)>=0)
+			{
+				de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\" style='color:#FF6600'>"+d+"</a>";
+			}
+			else
+			{
+				de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\">"+d+"</a>";
+			}
+        }
+		x.setDate(++d);
+		
+	}
+	while(d + mv <= 42) {	
+		de = document.getElementById(id + (d + mv));
+		de.innerHTML = "";
+		de.bgColor = "";
+		d++;
+	}
+}
+function setDate(o, d, id) {
+	//wp.hideCalendar();
+	var dstr;
+	if(d<10) d = '0'+d;
+	if(id == "b"){
+		if(mm >= 9) {
+			if(mm > 11){
+				dstr = (yy + 1) + "-0" + (mm + 1 - 12) + "-" + d;
+			} else {
+				dstr = yy + "-" + (mm + 1) + "-" + d;
+			}
+		}	
+		else dstr = yy +"-0"+(mm+1)+"-"+d;
+	} else if(id == "d") {
+		if(mm >= 8) {
+			if(mm > 10){
+                dstr = (yy + 1) +"-0" +(mm + 2 - 12) + "-" + d;
+			} else {
+				dstr = yy + "-" + (mm + 2) + "-" + d;
+			}
+        } else {
+            dstr = yy + "-0" + (mm + 2) + "-" + d;
+        }
+	}
+	if(days.indexOf(dstr)>=0)
+	{
+		days = days.replace(dstr,'').replace(';;',';').replace(/^;|;$/g,'');
+		o.style.color = 'blue';
+	}
+	else
+	{
+		if(days=='')
+		{
+			days = dstr;
+		}
+		else
+		{
+			days = days + ';' + dstr;
+			days = days.replace(';;',';').replace(/^;|;$/g,'');
+		}
+		o.style.color = '#FF6600';
+	}
+    if(days==';')
+        days='';
+	po.value = days;
+	//alert(dstr);
+}
+ 
+function SetWeak(trid,type) 
+{
+	var tr=document.getElementById(trid);
+	
+	if(tr)
+	{
+	    var a=tr.getElementsByTagName("a");
+	    //alert(tds.length)
+	    if(a.length>0)
+	    {
+	        for(var i=0;i<a.length;i++)
+	        {
+	            setDate(a[i], a[i].innerHTML, type)
+	        }
+	    }
+	}
+}
+function ClearInput()
+{
+    var tr=document.getElementsByTagName("tr");
+    //alert(tr.length)
+    if(tr.length>0)
+    {
+        for(var i=0;i<tr.length;i++)
+        {
+            var a=tr[i].getElementsByTagName("a");
+            if(a.length<=0)
+            {
+                tr[i].getElementsByTagName("input")[0].style.display="none";
+            }
+        }
+    }
+}
+</script> 
+<body> 
+<div id="yiying"> 
+	<div id="rq"> 
+		<div class="title"> 
+			<em id="prev"><img class="left" src="./image/blank_bg.gif" alt="" /></em> 
+			<span id="minfo" style="width:280px;"></span> 
+			<a href='javascript:void(0)' onclick='drawTitle(yy,mm+2);drawCalendar(yy,mm+2,"d");drawCalendar(yy,mm-1,"b");return false;'><img alt="" class="left" src="./image/rq_bg2.gif" /></a> 
+			<a href="javascript:void(0);" onclick="window.close();return false;"><img alt="" class="right" src="./image/rq_bg3.gif"/></a> 
+		</div> 
+		<div class="yue"> 
+			<div class="week"> 
+				<font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> 
+            </div> 
+			
+			
+			<script language="javascript" type="text/ecmascript"> 
+			<!--//
+			document.write("<table width='100%'>");
+			var str = "";
+			for(i = 0; i < 6; i++) {			    
+				for(j = 1; j <= 8; j++) {
+				    if(j==8)
+				    {
+				        str += "<td id='bL" + i + "'><input type='checkbox' onclick=\"SetWeak('btr"+i+"','b')\" /></td></tr>";//"<var id=b" + (i * 8 + j) + "></var>";
+				    }
+				    else
+				    {
+				        if(j==1)
+				        {
+				            str += "<tr id='btr"+i+"'><td id='b" + (i * 7 + j) + "'></td>";
+				        }
+				        else
+				        {
+                            str += "<td id='b" + (i * 7 + j) + "'></td>";
+                        }
+                    }
+                }
+			}
+			document.write(str);
+			document.write("</table>");
+			//-->
+			</script> 
+			</div> 
+		<div class="yue border"> 
+			<div class="week"> 
+                <font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> 
+			</div> 
+			
+			<table width="100%"> 
+			<script language="javascript" type="text/javascript"> 
+			<!--//
+			document.write("<table width='100%'>");
+			var str = "";
+			for(i = 0; i < 6; i++) {
+				for(j = 1; j <= 8; j++) {
+				    if(j==8)
+				    {
+				        str += "<td id='dL" + i + "'><input type='checkbox' onclick=\"SetWeak('dtr"+i+"','d')\" /></td></tr>";
+				    }
+				    else
+				    {
+				        if(j==1)
+				        {
+				            str += "<tr id='dtr"+i+"'><td id='d" + (i * 7 + j) + "'></td>";
+				        }
+				        else
+				        {
+                            str += "<td id='d" + (i * 7 + j) + "'></td>";
+                        }
+                    }
+                }
+			}
+			document.write(str);
+			document.write("</table>");
+			//-->
+			</script> 
+		</div> 
+	</div> 
+</div> 
+<div style="position:absolute;left:50px;top:190px; width:40px; text-align:center;vertical-align:middle;border:solid 1px gray;line-height:18px; height:18px;cursor:pointer;" onmouseover="this.style.backgroundColor='#dddddd';" onmouseout="this.style.backgroundColor='#ffffff';" onclick="window.close();return false;">确定</div> 
+ 
+<script language="javascript" type="text/javascript"> 
+<!--//
+var bCalLoaded = true;
+//-->
+initCalendar();
+</script> 
+</body> 
+ 
+</html> 

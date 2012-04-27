@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大连古莲国际旅行社结算单</title>
+<style>
+.gl_jsb_box		{ width:700px; margin:10px auto; overflow:hidden;}
+*	{ font-size:14px; line-height:17px;}
+td	{ height:15px; padding:3px 3px 0 3px;}
+.gl_jsb_td		{ margin:5px 0 0 0; border-bottom:#000000 1px solid; border-right:#000000 1px solid;}
+.gl_jsb_td td	{ border-top:#000000 1px solid; border-left:#000000 1px solid;}
+.gl_jsb_bottom	{ border-bottom:#000000 1px solid;}
+.gl_td_line		{ line-height:20px;}
+.STYLE1 {font-size: 12px}
+</style>
+<SCRIPT language=javascript>
+function printpr()   //预览函数
+{
+document.all("qingkongyema").click();//打印之前去掉页眉，页脚
+document.all("dayinDiv").style.display="none"; //打印之前先隐藏不想打印输出的元素（此例中隐藏“打印”和“打印预览”两个按钮）
+var OLECMDID = 7;
+var PROMPT = 1; 
+var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
+WebBrowser1.ExecWB(OLECMDID, PROMPT);
+WebBrowser1.outerHTML = "";
+document.all("dayinDiv").style.display="";//打印之后将该元素显示出来（显示出“打印”和“打印预览”两个按钮，方便别人下次打印）
+} 
+function printTure()   //打印函数
+{
+    document.all('qingkongyema').click();//同上
+    document.all("dayinDiv").style.display="none";//同上
+    window.print();
+    document.all("dayinDiv").style.display="";
+}
+function doPage()
+{
+    layLoading.style.display = "none";//同上
+}
+</SCRIPT>
+<script language="VBScript">
+dim hkey_root,hkey_path,hkey_key
+hkey_root="HKEY_CURRENT_USER"
+hkey_path="\Software\Microsoft\Internet Explorer\PageSetup"
+'//设置网页打印的页眉页脚为空
+function pagesetup_null()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+end function
+'//设置网页打印的页眉页脚为默认值
+function pagesetup_default()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&w&b页码，&p/&P"
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&u&b&d"
+end function
+</script>
+</head>
+
+<body>
+<div class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9D8" id="dayinDiv" name="dayinDiv">
+  <tr>
+    <td height="20">
+    <input type="button" class="tab" value="打印" onclick="printTure();">  
+<input  type="button" class="tab" value="打印预览" onclick="printpr();">
+<input type="hidden" name="qingkongyema" id="qingkongyema" class="tab" value="清空页码" onclick="pagesetup_null()">  
+<input type="hidden" class="tab" value="恢复页码" onclick="pagesetup_default()">    </td>
+  </tr>
+</table>
+</div>
+<div id="h" class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_bottom">
+  <tr>
+    <td colspan="2" align="center"><strong>見　積　書</strong></td>
+    </tr>
+  <tr>
+    <td width="64" align="center" class="gl_td_line">TO：</td>
+    <td width="636" align="left" class="gl_td_line"><{$tuan['fromcompany']}></td>
+  </tr>
+  <tr>
+    <td align="center" class="gl_td_line"> FM：</td>
+    <td align="left" class="gl_td_line">大連古蓮国際旅行社</td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  
+  <tr>
+    <td width="9%" rowspan="2" align="center" bgcolor="#CCCCCC">団体名<br />
+  (旅程) </td>
+    <td width="46%" rowspan="2"><{$tuan['tuantitle']}></td>
+    <td width="7%" rowspan="2" align="center" bgcolor="#CCCCCC">期間</td>
+    <td width="24%" rowspan="2"><{$tuan['appraisal_time']}></td>
+    <td width="7%" align="center" bgcolor="#CCCCCC">人数</td>
+    <td width="7%" align="center"><{$tuan['renshu']}></td>
+  </tr>
+  
+  <tr>
+    <td align="center" bgcolor="#CCCCCC">汇率</td>
+    <td align="center"><{$huilv['price_ext2']}></td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr>
+    <td width="60" height="15" align="center" valign="middle" bgcolor="#CCCCCC">日次</td>
+    <td width="60" align="center" valign="middle" bgcolor="#CCCCCC">都市</td>
+    <td width="60" align="center" valign="middle" bgcolor="#CCCCCC">服務費</td>
+    <td width="60" align="center" valign="middle" bgcolor="#CCCCCC">餐費</td>
+    <td colspan="3" align="center" valign="middle" bgcolor="#CCCCCC">国内航空運賃(机票)</td>
+    <td colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">入場料(門票)</td>
+    <td colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">超公里費(超過距離)</td>
+  </tr>
+  <tr>
+    <td height="18" align="center" valign="middle">&nbsp;</td>
+    <td align="center" valign="middle">&nbsp;</td>
+    <td align="center" valign="middle">&nbsp;</td>
+    <td align="center" valign="middle">&nbsp;</td>
+    <td height="22" align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">起FM</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">到TO</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+    <td height="22" align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">箇所</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+    <td height="22" align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">地址</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22" width="72">元合計</td>
+    <td width="72">→→→</td>
+    <td width="72" align="right">0 </td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22" width="73">元合計</td>
+    <td width="72" align="right">0 </td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22">US$合計</td>
+    <td>→→→</td>
+    <td align="right">0.0 </td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22">US$合計</td>
+    <td align="right">0.0 </td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22" colspan="3" align="center" bgcolor="#CCCCCC">　国内鉄道運賃(火車)　</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22" colspan="2" align="center" bgcolor="#CCCCCC">風味追加費(料理)　</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22" align="center" bgcolor="#CCCCCC" class="STYLE1">FM</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">TO</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22" align="center" bgcolor="#CCCCCC" class="STYLE1">菜名</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22">　</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22">　</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22" width="72">元合計</td>
+    <td width="72">→→→</td>
+    <td width="72" align="right">0 </td>
+    <td height="22" width="72">元合計</td>
+    <td width="72" align="right">0 </td>
+    <td height="22">元合計</td>
+    <td align="right">0 </td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td height="22">US$合計</td>
+    <td>→→→</td>
+    <td align="right">0.0 </td>
+    <td height="22">US$合計</td>
+    <td>→→→</td>
+    <td align="right">0.0 </td>
+    <td height="22">US$合計</td>
+    <td align="right">0.0 </td>
+    <td height="22">US$合計</td>
+    <td align="right">0.0 </td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr>
+    <td width="70" height="32" align="center" bgcolor="#CCCCCC">宿泊地</td>
+    <td width="126" align="center" valign="middle" bgcolor="#CCCCCC">飯店名称</td>
+    <td width="60" align="center" valign="middle" bgcolor="#CCCCCC">星級</td>
+    <td width="72" align="center" bgcolor="#CCCCCC">預訂</td>
+    <td colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">房費(料金)</td>
+    <td colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">早餐(朝食)</td>
+    <td colspan="2" align="center" valign="middle" bgcolor="#CCCCCC">専門活動費(特別費)</td>
+  </tr>
+  <tr>
+    <td bgcolor="#CCCCCC" class="STYLE1">(都市名)</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">(HOTEL)</td>
+    <td align="center" valign="middle" bgcolor="#CCCCCC" class="STYLE1">(ｸﾗｽ)</td>
+    <td height="22" align="center" bgcolor="#CCCCCC" class="STYLE1">(手配)</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">美元<span class="STYLE1">(US$)</span></td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">美元<span class="STYLE1">(US$)</span></td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">名称</td>
+    <td align="center" bgcolor="#CCCCCC" class="STYLE1">元(RMB)</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22" width="72">合計</td>
+    <td width="72">0 </td>
+    <td width="72">　</td>
+    <td width="72">0 </td>
+    <td width="72">　</td>
+    <td width="73">元合計</td>
+    <td width="72">0 </td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td height="22">US＄換算</td>
+    <td>0.0 </td>
+    <td>　</td>
+    <td>0.0 </td>
+    <td>　</td>
+    <td>US$合計</td>
+    <td>0.0 </td>
+  </tr>
+  <tr>
+    <td height="22" align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td bgcolor="#FFFFFF">総合計</td>
+    <td height="22">→→→</td>
+    <td>→→→</td>
+    <td>→→→</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td height="22" colspan="2">★不含各地空港税★</td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr height="22">
+    <td height="22" class="STYLE1">地上費計</td>
+    <td width="60">　</td>
+    <td width="60">　</td>
+    <td width="60">→協力</td>
+    <td width="72">　</td>
+    <td width="72">　</td>
+    <td width="72">　</td>
+    <td width="72">　</td>
+    <td width="72">　</td>
+    <td width="73">　</td>
+    <td width="72">　</td>
+  </tr>
+  <tr height="22">
+    <td height="22" class="STYLE1">16人免費</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>無し</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+  </tr>
+  <tr height="22">
+    <td height="22" class="STYLE1">単人房差</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+  </tr>
+  
+  <tr>
+    <td width="60" height="22" align="center" class="STYLE1">備考</td>
+    <td colspan="10" align="center">&nbsp;</td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

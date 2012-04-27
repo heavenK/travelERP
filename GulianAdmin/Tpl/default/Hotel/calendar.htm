@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	酒店产品发布-日历
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css">
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+	
+	function events(dates, num, price ,id){
+		var arr = dates.split('-');
+		
+		var new_td_room = "<td title='sum' name='" + id + "' class='mm' id='room"  + arr[0] + '-' + arr[1] + '-' + arr[2] +  "' bgcolor='#d1e7e1' align='center'>" + num + "</td>";
+		var new_td_price = "<td title='price' name='" + id + "' class='mm' id='price" + arr[0] + '-' + arr[1] + '-' + arr[2] + "' bgcolor='#d1e7e1' align='center'>" + price + "</td>";
+		$("#room" + dates).replaceWith(new_td_room);
+		$("#price" + dates).replaceWith(new_td_price);
+	}
+
+	function change_month(){
+		var y = $("#ddlYear").val();
+		var m = $("#ddlMonth").find("option:selected").text(); 
+		var head = $('#date_event tr').first().html();
+		head = '<tr>' + head + '</tr>';
+		
+		$('#date_event').html(head);
+		draw_calendar(y+'-'+m);
+		
+	}
+
+	$(document).ready(function(){
+		draw_calendar();
+		
+	});
+	function draw_calendar(t){
+
+		if (t) var date = new Date(t);
+		else var date = new Date();
+		
+		var d = date.getDate();
+		date.setDate(1);
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		var months = m+1;
+		
+		start = date.getDay();    //获取本月1号的星期数
+		
+		var days = new Date(y,m+1,0);   
+        var n = days.getDate();       //获取本月有多少天
+		
+		var lines = '';
+		
+		$("#ddlMonth").val(months);
+		$("#ddlYear").val(y);
+		
+		for (j = 1, odd = 1; j <= n; odd++){
+			var lines_2 = '';
+			var lines_3 = '';
+			lines += "<tr class='tr1'><td colspan='2' height='27' align='center'></td>";
+			lines_2 += '<tr class="tr2"><td rowspan="2" width="86" align="center" bgcolor="#f3f3f3"><{$room[title]}></td><td height="27" width="79" align="center" bgcolor="#f3f3f3">投放间数</td>';
+			lines_3 += '<tr class="tr1"><td height="27" align="center" bgcolor="#f3f3f3">成本价</td>';
+			
+			for (i = 0; i < 7; i++){
+				if (i < start && j == 1) {
+					lines += "<td></td>";
+					lines_2 += '<td height="27" align="center" bgcolor="#FFFFFF"></td>';
+					lines_3 += '<td height="27" align="center" bgcolor="#FFFFFF"></td>';
+				}
+				else if(j == d) {
+					lines += "<td bgcolor='#53678c' align='center' style='font-size:18px;color:red'>" + j + "</td>";
+					lines_2 += "<td id='room" + y + '-' + months + '-' + j + "' bgcolor='#f3f4d7' align='center' >" + "无" + "</td>";
+					lines_3 += "<td id='price" + y + '-' + months + '-' + j + "' bgcolor='#f3f4d7' align='center' >" + "无" + "</td>";
+					j++;
+				} 
+				else if(j > n){
+					lines += "<td></td>";
+					lines_2 += '<td height="27" align="center" bgcolor="#FFFFFF"></td>';
+					lines_3 += '<td height="27" align="center" bgcolor="#FFFFFF"></td>';
+				}
+				else {
+					lines += "<td bgcolor='#53678c' style='color:#fff' align='center'>" + j + "</td>";
+					lines_2 += "<td id='room" + y + '-' + months + '-' + j + "' height='27' align='center' bgcolor='#f3f4d7'>" + "无" + "</td>";
+					lines_3 += "<td id='price" + y + '-' + months + '-' + j + "' height='27' align='center' bgcolor='#f3f4d7'>" + "无" + "</td>";
+					j++;
+				}
+			}
+			lines += "</tr>";
+			lines_2 += "</tr>";
+			lines_3 += "</tr>";
+			
+			lines += lines_2;
+			lines += lines_3;
+			
+			lines += '<tr><td colspan="9" style="border-right: medium none;" height="10"></td></tr>';
+			
+		}
+		$('#date_event').append(lines);
+		
+		
+		//获取活动日期，内容和链接
+		//events('22','天气不错',  '今天天气好情郎，处处好风光，好风光！', 'http://www.baidu.com'); 
+		//events('24','太阳号',  '太阳天气照，花儿对我笑，小鸟说早早早，你为什么背上炸药包！', 'http://www.google.com'); 
+		
+		<php>
+			foreach($calendar as $val){
+		</php>
+				
+				events('<{$val[date]|date='Y-n-j',###}>','<{$val[sum_num]}>','<{$val[price]}>','<{$val[id]}>');
+		<php>
+			}
+		</php>	
+	}
+
+</script>
+
+
+<script>
+$(function() {
+//给页面中有bigclassname类的标签上加上click函数
+$(".mm").click(function() {
+
+var objTD = $(this);
+
+//先将老的类别名称保存起来,并用trim方法去掉左右多余的空格
+var oldText = $.trim(objTD.text());
+
+//构造一个input的标签对象（作用是为了让这个input失效，不然点击多次后，文字会消失）
+var input = $("<input type='text' value='" + oldText + "' />");
+
+//当前td的内容变为文本框，并且把老类别名放进去
+objTD.html(input);
+
+//设置文本框的点击事件失效
+input.click(function() {
+return false;
+});
+
+//设置文本框样式，让界面显示的人性化点
+input.css("font-size", "16px");
+input.css("text-align", "center");
+input.css("background-color", "#ffffff");
+input.width("120px");
+
+//自动选中文本框中的文字
+input.select();
+
+//文本框失去焦点时重新变为文本
+input.blur(function() {
+
+//获得新输入的类别名
+var newText = $(this).val();
+
+//用新的类别名文字替换之前变过来的输入框状态
+objTD.html(newText);
+
+//获取该类别名所对应的ID(bigclassid)
+var hl_id = objTD.attr('name');
+var hl_title = objTD.attr('title');
+
+
+//将新的类别名进行转码，不然界面以及数据库显示的都是"???"这样的乱码
+newText = escape(newText);
+
+		$.ajax({
+			type:	"POST",
+			url:	"<{:SITE_ADMIN}>Hotel/modify/",
+			async: false,
+			data:	"id=" + hl_id + "&type=" + hl_title + "&val=" + newText,
+			success:	function(msg){
+						  //alert(msg);
+						  //$("#pos1").empty();
+						  //$(msg).appendTo("#pos1");
+					  }
+		});
+});
+});
+});
+</script>
+ 
+</head>
+
+
+
+
+
+
+
+
+<body>
+
+
+
+    <div class="hdlyRight">
+
+            <div id="Updatep">
+	
+                    <div id="content_bb">
+						<div class="szwz">
+                            <ul>
+                              <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                            </ul>
+                        </div>
+                        <div class="ss">
+                            <table class="riliss" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody><tr>
+                                    <td height="30" width="7%" align="right">
+                                        查询日期：
+                                    </td>
+                                    <td height="30" width="7%" align="right">
+                                        <select name="ddlYear" id="ddlYear" class="cxnf">
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+
+	</select>
+                                    </td>
+                                    <td class="sj" height="30" width="1%" align="left">
+                                        年
+                                    </td>
+                                    <td height="30" width="6%" align="right">
+                                        <select name="ddlMonth" onchange="change_month();" id="ddlMonth" class="cxnf">
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+
+	</select>
+                                    </td>
+                                    <td class="sj" height="30" width="2%" align="left">
+                                        月
+                                    </td>
+                                    <td height="30" width="5%" align="right">
+                                        
+                                    </td>
+                                    <td height="30" width="56%" align="left">
+                                        
+                                    </td>
+                                    <td height="30" width="8%">
+                                       
+                                    </td>
+                                    
+                                    <td width="8%">
+                                         <a id="Submit" class="yyxxl" style="cursor:pointer" href="javascript:GetcheckBack('<{$data[id]}>','酒店','需求应答')">审核不通过记录</a>  
+                                    </td>
+                                    <td height="30" width="8%">
+                                    </td>
+                                    <td height="30" width="8%">
+                                        <a onclick="return confirm('确定要提交审核吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Hotel/send/type/wait_check/id/<{$house_id}>'>提交审核</a>
+                                    </td>
+                                    
+                                    
+                    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:130px;">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                   </div>
+                                    
+                                    
+                                </tr>
+                            </tbody></table>
+                        </div>
+
+                       
+                        <div class="fanye">
+                            <table id="date_event" class="bg001" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody>
+                            	<tr><th colspan="2" height="32" width="13%" align="center"><label for="checkbox"></label></th><th height="32" width="11%" align="center">周日</th><th height="32" width="11%" align="center">周一</th><th height="32" width="11%" align="center">周二</th><th height="32" width="11%" align="center">周三</th><th height="32" width="11%" align="center">周四</th><th height="32" width="11%" align="center">周五</th><th height="32" width="11%" align="center">周六</th>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                        
+                    </div>
+                
+</div>
+</body>
+</html>
+
+
+<script>
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>

@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<div id="register">
+    <div class="indexh" style="margin-bottom:20px">
+        <div class="tabon"><{:L('fast_reg')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/login"><{:L('login_in')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/reset"><{:L('forget_pass')}></a></div>
+    </div>
+    <form action="<{:SITE_URL}>/register" method="POST">
+    <table border="0" style="width:90%;margin-left:40px;margin-bottom:20px">
+    <tr><td valign="top">
+    <h3 class="tt"><{:L('welcome_join')}><{$site[sitename]}><{:L('need_activation')}></h3>
+    <table class="regtb">
+        <tr height="50px">
+            <th><{:L('activation')}>：</th>
+            <td width="210px"><{$activeuser}></td>
+        </tr>
+        <tr height="50px">
+            <th><{:L('input_pass')}>：</th>
+            <td width="210px"><input type="password" name="password" class="input_text"/></td>
+        </tr>
+        <tr height="50px">
+            <td></td>
+            <td colspan="1"><input type="hidden" name="activation" value="<{$activeuser}>">
+            <input type="hidden" name="auth" value="<{:urlencode($auth)}>">
+            <input type="submit" class="button1" value="<{:L('now_activation')}>"/></td>
+        </tr>
+    </table>
+    </td></tr>
+    </table>
+    </form>
+</div>
+<include file="Common:foot" />

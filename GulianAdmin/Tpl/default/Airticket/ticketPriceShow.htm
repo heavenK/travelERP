@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游-价格编辑
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/price/css.css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/price/addTable.js" type="text/javascript"></script>
+
+
+<script>		
+	$(document).ready(function(){
+
+						$("input").attr('disabled','disabled');
+						$("select").attr('disabled','disabled');
+						$("textarea").attr('disabled','disabled');			
+	});
+	function add_price(id){
+
+		var type = $("#ddlAgentType").val();
+		
+		
+
+		
+		
+		var agent_type = $("#slAgentType"+id).val();
+		var level = $("#slClass"+id).val();
+
+		var price = $("#tbSettlementPrice"+id).val();
+		var yongjin = $("#tbCommission"+id).val();
+		var lirun = $("#tbProfit"+id).val();
+		var pid = '<{$pid}>';
+		
+		$.ajax({
+					type:	"POST",
+					url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+					data:	"post_type=add&pid=" + pid + "&type=" + type + "&agent_type=" + agent_type +"&level=" + level +"&price=" + price +"&yongjin=" + yongjin +"&lirun=" + lirun,
+					success:	function(msg){
+								if(msg){
+									alert('添加成功！');
+									var edit_button = "<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"save_price('" + id + "','" + msg + "');\">修改</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"delete_agent(this," + id + ",'" + msg + "')\">删除</a>";
+									$("#prices"+id).parent().html(edit_button);
+								}
+							  }
+				});
+	}
+	
+	function save_price(id,msg){
+		
+		var type = $("#ddlAgentType").val();
+		
+		var agent_type = $("#slAgentType"+id).val();
+		var level = $("#slClass"+id).val();
+
+		var price = $("#tbSettlementPrice"+id).val();
+		var yongjin = $("#tbCommission"+id).val();
+		var lirun = $("#tbProfit"+id).val();
+		var id = msg;
+		
+		$.ajax({
+					type:	"POST",
+					url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+					data:	"post_type=save&id=" + id + "&type=" + type + "&agent_type=" + agent_type +"&level=" + level +"&price=" + price +"&yongjin=" + yongjin +"&lirun=" + lirun,
+					success:	function(msg){
+								if(msg){
+									alert('修改成功！');
+								}
+							  }
+				});
+	}
+	
+	function delete_agent(obj, id ,msg){
+		$.ajax({
+			type:	"POST",
+			url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+			data:	"post_type=del&id=" + msg,
+			success:	function(msg){
+						if(msg){
+							alert('删除成功！');
+							delete_rows(obj,id);
+						}
+					  }
+		});
+	}
+	
+	
+	function add_price2(id){
+
+		var type = $("#ddlAgentType").val();
+		
+		
+
+		
+		
+		var agent_type = $("#AgentName2"+id).val();
+
+		var price = $("#tbSettlementPrice2"+id).val();
+		var yongjin = $("#tbCommission2"+id).val();
+		var lirun = $("#tbProfit2"+id).val();
+		var pid = '<{$pid}>';
+		
+		$.ajax({
+					type:	"POST",
+					url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+					data:	"post_type=add&pid=" + pid + "&type=" + type + "&agent_type=" + agent_type +"&price=" + price +"&yongjin=" + yongjin +"&lirun=" + lirun,
+					success:	function(msg){
+								if(msg){
+									alert('添加成功！');
+									var edit_button = "<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"save_price2('" + id + "','" + msg + "');\">修改</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"delete_agent2(this," + id + ",'" + msg + "')\">删除</a>";
+									$("#agents"+id).parent().html(edit_button);
+								}
+							  }
+				});
+	}
+	
+	function save_price2(id,msg){
+		
+		var type = $("#ddlAgentType").val();
+		
+		var agent_type = $("#AgentName2"+id).val();
+
+		var price = $("#tbSettlementPrice2"+id).val();
+		var yongjin = $("#tbCommission2"+id).val();
+		var lirun = $("#tbProfit2"+id).val();
+		var id = msg;
+		
+		$.ajax({
+					type:	"POST",
+					url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+					data:	"post_type=save&id=" + id + "&type=" + type + "&agent_type=" + agent_type +"&price=" + price +"&yongjin=" + yongjin +"&lirun=" + lirun,
+					success:	function(msg){
+								if(msg){
+									alert('修改成功！');
+								}
+							  }
+				});
+	}
+	
+	function delete_agent2(obj, id ,msg){
+		$.ajax({
+			type:	"POST",
+			url:	"<{:SITE_ADMIN}>Airticket/agent_price",
+			data:	"post_type=del&id=" + msg,
+			success:	function(msg){
+						if(msg){
+							alert('删除成功！');
+							delete_row2(obj,id);
+						}
+					  }
+		});
+	}
+</script>
+
+<script type="text/javascript">
+
+function GetAgentType(obj)
+{
+
+  var opts = '<option value="全部">全部</option><option value="一级">一级</option><option value="二级">二级</option><option value="三级">三级</option>';
+  var biaoshi=obj.id.replace("slAgentType","")
+  var slclass=document.getElementById("slClass"+biaoshi);
+  if(obj.value=="门市")
+  {
+	  	
+		$("#slClass" + biaoshi).empty();
+		$(opts).appendTo("#slClass" + biaoshi);
+  }
+  else
+  {
+    	$("#slClass" + biaoshi).empty();
+		$('<option value="全部">全部</option>').appendTo("#slClass" + biaoshi);
+  }
+}
+
+</script>
+<script language="javascript">
+function openSub(idname,idid,ids)
+{
+	
+	var obname=document.getElementById(idname + ids);
+	
+	var url = "<{:SITE_ADMIN}>Liandong/getAgencys/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid;
+	
+	
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+    <div class="hdlyRight">
+        <form name="form" method="post" action="<{:SITE_ADMIN}>Airticket/ticketPrice" id="form">
+        <input type="hidden" name="id" value="<{$ticket_price[id]}>" />
+        <input type="hidden" name="pid" value="<{$ticket_price[pid]}>" />
+        <input type="hidden" name="type" value="save" />
+
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+            <div id="content_bb">
+            	<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+
+                <div class="ss">
+                    <table class="jbxx" width="90%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="91" align="center">
+                                <a id="lkbBase" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketCheck/id/<{$pid}>">基本信息</a>
+                            </td>
+                            <td>
+                                <a id="lkbSubLine" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketDateShow/pid/<{$pid}>">子团管理</a></td>
+                            </td>
+                            <td width="91">
+                                <a id="lkbPrice" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketPriceShow/pid/<{$pid}>" style="color: Blue;">价 格</a>
+                            </td>
+                            <td width="70%">
+                            </td>
+                            <td align="right" bgcolor="#E6E6E6">
+                                     <a onclick="return confirm('确定审核成功吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Airticket/send/type/success/id/<{$pid}>'>审核成功</a>
+                                     </td>
+                                <td bgcolor="#E6E6E6">
+                                <a onclick="return confirm('确定审核不通过吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Airticket/send/type/fail/id/<{$pid}>'>审核不通过</a>
+                                </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="fanye">
+                    <div class="page">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                    <strong>成本项：</strong></td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <table id="lineprice" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr class="fenlei">
+                            <td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>成本价</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>机票全价</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>票面价</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>折扣</strong></td>
+                            <!-- <td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>外卖价</strong></td>-->
+                        </tr>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                                <input name="tbCostPrice" value="<{$ticket_price[cost_price]}>" id="tbCostPrice" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+                            <td style="height: 27px;" align="center">
+                                <input name="tbAllPrice" value="<{$ticket_price[all_price]}>" id="tbAllPrice" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+                            <td style="height: 27px;" align="center">
+                                <input name="tbTicketPrice" value="<{$ticket_price[out_price]}>" id="tbTicketPrice" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+                            <td style="height: 27px;" align="center">
+                                <input name="tbDiscount" value="<{$ticket_price[cut_price]}>" id="tbDiscount" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+                            <!-- <td align="center" style="height: 27px">
+                                <input name="tbOutSidePrice" type="text" value="0" id="tbOutSidePrice" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" />
+                            </td>-->
+                        </tr>
+                    </tbody></table>
+                    <table id="Table1" style="text-align: center;" width="50%" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr class="fenlei">
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>内部结算价</strong></td>
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>内部利润</strong></td>
+	</tr>
+	<tr>
+		<td height="27" align="center">
+                                <input name="tbInnerPrice" value="<{$ticket_price[inner_price]}>" id="tbInnerPrice" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+		<td height="27" align="center">
+                                <input name="tbInnerProfit" value="<{$ticket_price[inner_lirun]}>" id="tbInnerProfit" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+	</tr>
+</tbody></table>
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>代理商销售价：</strong></td>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                代理商选择类别：<select name="ddlAgentType" id="ddlAgentType" onchange="GetCaoZuoType(this)">
+	<option selected="selected" value="Batch">批量</option>
+	<option value="MultipleChoice">多选</option>
+</select><script type="text/javascript"> document.getElementById('ddlAgentType').value='<{$ticket_price[agent_type]}>';</script></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="AgentPrice" style="text-align: center;<php>if ($ticket_price[agent_type]=='MultipleChoice') echo 'display: none;';</php>" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr class="fenlei">
+		<td height="27" align="Center" bgcolor="#ff8c05"><strong>代理商类型</strong></td>
+		<td height="27" align="Center" bgcolor="#ff8c05"><strong>级别</strong></td>
+		<td height="27" align="Center" bgcolor="#ff8c05"><strong>外卖价</strong></td>
+		<td height="27" align="Center" bgcolor="#ff8c05"><strong>佣金</strong></td>
+		<td height="27" align="Center" bgcolor="#ff8c05"><strong>利润</strong></td>
+	</tr>
+    <php>foreach($ticket_agent as $key=>$val){</php>
+	<tr>
+		<td height="27" align="Center"><select id="slAgentType<{$key}>" name="slAgentType" onchange="GetAgentType(this)"><option value="门市">门市</option><option value="同业">同业</option></select>
+        <script type="text/javascript"> document.getElementById('slAgentType<{$key}>').value='<{$val[agent_type]}>';</script>
+        </td>
+		<td height="27" align="Center"><select id="slClass<{$key}>" name="slClass"><option selected="selected" value="全部">全部</option></select>
+        <script type="text/javascript"> var sltype<{$key}> = document.getElementById('slAgentType<{$key}>'); if(sltype<{$key}>.value=='门市'){ var sclass<{$key}> = document.getElementById('slClass<{$key}>'); GetAgentType(sltype<{$key}>);sclass<{$key}>.value='<{$val[level]}>' }</script>
+        </td>
+		<td height="27" align="Center"><input id="tbSettlementPrice<{$key}>" name="tbSettlementPrice" style="width: 100px;" value="<{$val[price]}>" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly" type="text"></td>
+		<td height="27" align="Center"><input id="tbCommission<{$key}>" name="tbCommission" style="width: 100px;" value="<{$val[yongjin]}>" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text"></td>
+		<td height="27" align="Center"><input id="tbProfit<{$key}>" name="tbProfit" style="width: 100px;" value="<{$val[lirun]}>" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text"></td>
+
+	</tr>
+	<php>}</php>
+</tbody></table>
+
+                    <table id="AgentPrice2" style="text-align: center;<php>if ($ticket_price[agent_type]=='Batch') echo 'display: none;';</php>" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr class="fenlei">
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>代理商</strong></td>
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>外卖价</strong></td>
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>佣金</strong></td>
+		<td height="27" align="center" bgcolor="#ff8c05">
+                                <strong>利润</strong></td>
+	</tr>
+    <php>foreach($ticket_agent2 as $key=>$val){</php>
+	<tr>
+		<td id="Td3" height="27" align="center">
+                                <input id="AgentName2<{$key}>" name="AgentName2" readonly="readonly" value="<{$val[agent_type]}>" type="text"><input id="AgentID2<{$key}>" name="AgentID2" type="hidden">
+                            </td>
+		<td height="27" align="center">
+                                <input id="tbSettlementPrice2<{$key}>" value="<{$val[price]}>" name="tbSettlementPrice2" style="width: 100px;" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly" type="text">
+                            </td>
+		<td height="27" align="center">
+                                <input id="tbCommission2<{$key}>" name="tbCommission2" style="width: 100px;" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text" value="<{$val[yongjin]}>">
+                            </td>
+		<td height="27" align="center">
+                                <input id="tbProfit2<{$key}>" value="<{$val[lirun]}>" name="tbProfit2" style="width: 100px;" onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" type="text">
+                            </td>
+	</tr>
+	<php>}</php>
+</tbody></table>
+
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr class="tr2">
+                            <td class="wbx" height="5">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+    </div></form>
+
+</div></body></html>

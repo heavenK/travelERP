@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0058)<{:SITE_URL}>Main/Hotel/HotelProductManage.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>互动旅游-酒店产品管理</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css"><LINK 
+rel=stylesheet type=text/css href="<{:__PUBLIC__}>/gulianstyle/styles/ProductList.css">
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/accordian.pack.js"></SCRIPT>
+<SCRIPT language=javascript type=text/javascript 
+src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js"></SCRIPT>
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/prototype.js"></SCRIPT>
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+function GetCheckContent(id,o)
+{
+    var url = 'ajax.aspx?AjaxType=GetCheckContent&ProductID='+id+'&date=' + new Date().getTime();
+    var response=httpRequest('get',null,url);
+    if(response!='No')
+    {
+        var x = GapsX(o);
+        var y = GapsY(o);
+        var div=document.getElementById("divcontent");
+        div.style.left = (x-0) + 'px';
+        div.style.top = y + 'px';		
+		if(div.style.display =="none")
+		{
+		    var content=document.getElementById("Content");
+		    content.innerHTML=response;
+		    div.style.display = '';	    
+		}
+		else
+		{
+		    div.style.display = 'none';	
+		}
+    }
+    else
+    {
+       alert(response);
+    }
+}
+function deleteRoomType(id)
+{
+    var url="HotelAjax.aspx?hotelid="+id+"&date"+new Date().getTime();
+    var response=httpRequest('get',null,url);
+    if(response=='ok')
+    {
+        window.location.href="HotelProductManage.aspx";
+    }
+    else
+    {
+       alert(response);
+    }
+}
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7600.16722"></HEAD>
+<BODY onLoad="new Accordian('basic-accordian',5,'header_highlight');">
+<DIV 
+style="Z-INDEX: 250; BORDER-BOTTOM: #000 1px solid; POSITION: absolute; TEXT-ALIGN: left; BORDER-LEFT: #000 1px solid; BACKGROUND: #ffffff; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid; LEFT: -999em" 
+id=divPoiFilter onmouseover=PoiFilter.mouseTrue(); 
+onmouseout=PoiFilter.mouseFalse();></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/WebResource.axd"></SCRIPT>
+
+<DIV id=content_bb>
+<DIV class=szwz>
+<UL>
+</UL>
+</DIV>
+<DIV class=ss>
+<form action="<{:SITE_ADMIN}>Hotel/" method='post'>
+<input type="hidden" name="type" value="search">
+<TABLE style="PADDING-TOP: 20px" class=test1 border=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD height=18 width=81 align=right>酒店名称：</TD>
+    <TD height=18 width=179><INPUT id=tbHotelname name=hotel></TD>
+    <TD height=18 width=81 align=right>所在城市：</TD>
+    <TD height=18 width=219><INPUT id=tbCity class=inp02 name=city> </TD>
+    <TD height=18 width=47 align=right>状态：</TD>
+    <TD colSpan=3><SELECT style="WIDTH: 103px" id=ddlSates name=status> 
+        <OPTION selected value="全部">全部</OPTION> <OPTION value='准备'>准备</OPTION> 
+        <OPTION value='等待审核'>等待审核</OPTION> <OPTION value='审核不通过'>审核不通过</OPTION> <OPTION 
+        value='报名'>报名</OPTION> <OPTION value='截止'>截止</OPTION></SELECT> </TD>
+    <TD>&nbsp;</TD></TR>
+  <TR>
+    <TD height=18 width=81 align=right>房型：</TD>
+    <TD height=18 width=179><INPUT id=tbChamber name=room> </TD>
+    <TD height=18 width=47 align=right>日期：</TD>
+    <TD height=18 width=174><INPUT style="WIDTH: 81px" id=tbBeginTime 
+      class=Wdate onfocus=WdatePicker() readonly name=start_date>到<INPUT 
+      style="WIDTH: 81px" readonly id=tbEndTime class=Wdate onfocus=WdatePicker() 
+      name=end_date> </TD>
+    <TD width=61>&nbsp;</TD>
+    <TD width=60 align=right><INPUT id=SearchBtn class=anu value="搜　索" type=submit name=SearchBtn> 
+    </TD>
+    <TD width=200>&nbsp;</TD></TR></TBODY></TABLE>
+</form>
+</DIV>
+<DIV class=nr>
+<TABLE border=0 width=313>
+  <TBODY>
+  <TR>
+    <TD class=wbx width=58 align=middle><A id=lbtAddProduct class=yyxxl 
+      href="<{:SITE_ADMIN}>Hotel/add">发布新产品</A></TD>
+    <TD class=wbx align=left></TD></TR></TBODY></TABLE></DIV>
+<DIV id=ddgl_main>
+<DIV class=ddgl_content>
+<DIV id=basic-accordian><!--Parent of the Accordion--><!--Start of each accordion item-->
+
+<php>foreach($list as $key=>$val){</php>
+
+<DIV id=test<{$key+1}>-header class="accordion_headings <php> if ($key == '0') {</php>header_highlight<php>}</php>">
+<DIV id=44406442-a9d8-466e-a9f3-e417b24d943a class=jiudian>
+
+
+<UL class=jiudianxx>
+  <LI class=jiudianming><{$val[hotel_title]}>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN>|</SPAN> 
+  </LI>
+  <LI class=xingji>星级：<IMG border=0 src="<{:__PUBLIC__}>/gulianstyle/styles/Star<{$val[star]}>.jpg"> </LI>
+  <LI 
+  class=szcs><SPAN>|</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在城市：<{$val[city_name]}> 
+  </LI></UL>
+<BR class=clear></DIV></DIV>
+<DIV id=test<{$key+1}>-content>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function inserthotel(room,hotel,stayday,id){
+		
+		
+		var num = window.opener.document.getElementById("rowshotel").value++;
+		
+		var htmlcontent = '<div id="divhotel0'+num+'" class="divHotelcss"><div>'+room+'</div><div>'+hotel+'</div><div>'+stayday+'</div><div><a href="javascript:deletehotelrow(\'divhotel0'+num+'\')">删除</a></div><input type="hidden" name="ticketID1'+num+'" id="ticketID1'+num+'" value="'+id+'"/><input type="hidden" name="tickettype1'+num+'" id="tickettype1'+num+'" value="酒店"/><input type="hidden" name="hotelcaozuoID[]" value="'+num+'"/></div>'
+		
+		$(window.opener.document).find("#divHotellist").append(htmlcontent);
+		
+		
+//		alert('adf');
+//		window.opener.document.getElementById("divHotel").value='adf';
+//		window.opener.document.getElementById("<{$idid}>" + $("#ids").attr("value")).value=idds;
+//		window.close();
+
+	}
+      
+</script>
+
+
+
+<TABLE class=jdxxxx border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TH bgColor=#e2e8e8 height=33 width="12%">选择</TH>
+    <TH bgColor=#e2e8e8 height=33 width="12%">房型名</TH>
+    <TH bgColor=#e2e8e8 height=33 width="12%">房型类别</TH>
+    <TH bgColor=#e2e8e8 height=33 width="13%">开始日期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="16%">结束日期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="14%">状态</TH>
+    <TH bgColor=#e2e8e8 height=33 width="14%">入住周期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="12%">剩余房间数</TH>
+    <TH bgColor=#e2e8e8 height=33 width="10%">价格</TH>
+    <TD bgColor=#e2e8e8 height=33 width="11%" align=left>&nbsp;</TD></TR>
+  <php>foreach($data_line[$key] as $house){</php>
+  <TR>
+    <TD bgColor=#f2f2f2 height=29 align=middle><a href="javascript:inserthotel('<{$house[room]}>','<{$val[hotel_title]}>','<{$house[stay_day]}>','<{$house[id]}>')" >选择</a></TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><php>if ($house[status] != '等待审核') {</php><A 
+      href="<{:SITE_ADMIN}>Hotel/edit/id/<{$house[id]}>"><php>}</php><{$house[house_title]}><php>if ($house[status] != '等待审核') {</php></A> <php>}</php>
+    </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[room]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[start_date]|date='Y-m-d',###}></TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[end_date]|date='Y-m-d',###}></TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[status]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[stay_day]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[room_num]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[price]}> </TD></TR>
+
+  <php>}</php>
+
+</TBODY></TABLE></DIV>
+
+<php>}</php>
+
+<{$page}></DIV></DIV>
+<DIV 
+style="BORDER-BOTTOM: #ccc 1px solid; POSITION: absolute; BORDER-LEFT: #ccc 1px solid; WIDTH: 200px; DISPLAY: none; BACKGROUND: #fff; HEIGHT: 100px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid" 
+id=divcontent>
+<DIV id=Content></DIV>
+<DIV style="POSITION: absolute; BOTTOM: 0px; RIGHT: 0px"><A 
+onclick="document.getElementById('divcontent').style.display='none';return false;" 
+href="<{:SITE_URL}>Main/Hotel/HotelProductManage.aspx#">关闭</A></DIV></DIV></DIV></DIV>
+</DIV>
+<SCRIPT type=text/javascript> 
+var currentLineID = "";
+function setRiliDisplay(divID,id) {
+	var divline = document.getElementById(divID);
+	var divRili = document.getElementById("divrili"); 
+	var divRili2 = document.getElementById("divrili2"); 
+	divRili2.style.display = 'none';
+	var ifCalFrame = document.getElementById("CalFrame");  
+	if(divRili) {
+		if(divRili.style.display=='' && currentLineID == divID.replace("divline",""))
+			divRili.style.display = 'none';
+		else {
+			divRili.style.display = '';  
+			ifCalFrame.setAttribute("src","/calendar2.html?lineid="+id);
+			divline.appendChild(divRili); 
+		}
+	}
+	currentLineID = divID.replace("divline","");
+}
+
+function GetGuiJi(o,lineid)
+{
+    var x = GapsX(o);
+    var y = GapsY(o);
+	var divRili2 = document.getElementById("divrili2"); 
+	var divRili = document.getElementById("divrili"); 
+	divRili.style.display = 'none';
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display==''&&currentLineID==lineid)
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {
+		    divRili2.style.left = (x-680) + 'px';
+	        divRili2.style.top = y + 'px';
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src","GuijiManage.aspx?lineid="+lineid+"&date="+new Date().getTime());
+		}
+	}
+	currentLineID=lineid;
+	
+}
+
+function GapsX(elem){
+    return !elem.offsetParent ? elem.offsetLeft : ( elem.offsetLeft + GapsX(elem.offsetParent) ); 
+}
+function GapsY(elem){
+    return !elem.offsetParent ? elem.offsetTop : ( elem.offsetTop + GapsY(elem.offsetParent) ); 
+}
+</SCRIPT>
+</BODY></HTML>

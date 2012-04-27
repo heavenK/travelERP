@@ -1,0 +1,14 @@
+<include file="header" />
+<h2><{:L('welcome_join')}><{$site[sitename]}></h2>
+<form method='post' action='<{:SITE_URL}>/Wap/doreg' >
+<php>if($site['closereg']==3){</php>
+<h3><{:L('invitecode')}>：</h3><p><input type='text' name='invitecode' /></p>
+<php>}</php>
+<h3><{:L('user_account')}>：</h3><p><input type='text' name='uname' maxlength="12"/><br/><font color="#999"><{:L('reg_account_info')}></font></p>
+<h3><{:L('reg_emali')}>：</h3><p><input type='text' name='mail' /><br/><font color="#999"><{:L('reg_emali_info')}></font></p>
+<h3><{:L('reg_password')}>：</h3><p><input type='password' name='pass1' maxlength="20"/><br/><font color="#999"><{:L('reg_password_info')}></font></p>
+<h3><{:L('makesure_pass')}>：</h3><p><input type='password' name='pass2' maxlength="20"/><br/><font color="#999"><{:L('makesure_pass_info')}></font></p>
+<p><input type='submit' value='<{:L('register')}>' /> or <a href="<{:SITE_URL}>/m"><{:L('go_back_a')}></a></p>
+</form>
+</ul>
+<include file="footer" />

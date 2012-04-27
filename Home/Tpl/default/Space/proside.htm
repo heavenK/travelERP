@@ -1,0 +1,39 @@
+<div class="contenter">
+    <{$hook['profile_side_top']}>
+    <div class="sect first-sect">
+        <h2><{:L('self_info')}></h2>
+        <php>if($user[user_gender]){</php><{$user[user_gender]}>，<php>}</php>
+        <php>if($user[live_city]){</php><{$user[live_city]}><php>}</php>
+        <p class="userurl"><{:L('user_info')}>：<{:$ctent->ubb($user[user_info]?$user[user_info]:L('nothing_write'))}></p>
+        
+        <{$hook['profile_side_mid']}>
+    
+        <php>if($user[user_auth]>=1 && $vipgroup[$user[user_auth]][name]){</php>
+        <div style="border:1px solid <{:$user[theme_sidebox]?$user[theme_sidebox]:'#99dbf2'}>;background:<{:alphacolor($user[theme_sidebar]?$user[theme_sidebar]:'#c9f1ff',50)}>;padding:10px;width:150px">
+        <a href="<{:SITE_URL}>/Index/vip"><img src="<{:$vipgroup[$user[user_auth]][titleurl]}>" style="margin-bottom:5px"/></a>
+        <php>if($user[auth_info]){</php><br/><{$user[auth_info]}><php>}</php>
+        </div>
+        <php>}</php>
+    </div>
+    <php>if($usertopic){</php>
+    <div class="sect">
+        <h2><{:L('attention_topic')}><em>(<{:count($usertopic)}>)</em></h2>
+        <ul class="ulist">
+        <php>foreach($usertopic as $val){</php>
+        <li><a href="<{:SITE_URL}>/k/<{$val['topicname']}>"><{$val['topicname']}></a></li>
+        <php>}</php>
+        </ul>
+    </div>
+    <php>}</php>
+
+    <!-- 用户侧边 -->
+    <{$userside}>
+
+    <{$hook['profile_side_bottom']}>
+    
+    <php>if ($my['user_id']!=$user['user_id']) {</php>
+        <php>if (!$isblack) {</php>
+            <span class="blackico"><a href="javascript:void(0)" onclick="add2black('<{$user[user_id]}>','<{$user[user_name]}>')"><{:L('add2black')}></a></span>
+        <php>}</php>
+    <php>}</php>
+</div>

@@ -1,0 +1,23 @@
+<include file="header" />
+<h2><{:L('forward_to_main')}></h2>
+<form method='post' action='<{:SITE_URL}>/Wap/doret'>
+<p><textarea rows="3" name="scont" maxlength="140" style="width:99%"></textarea></p>
+<p>
+    <input type='hidden' name='cid' value='<{$content[content_id]}>' />
+    <input type='submit' value='<{:L('forwarding')}>' /> or <a href='<{:SITE_URL}>/Wap/<{:base64_decode($_GET[from])}>'><{:L('go_back_a')}></a>
+</p>
+</form>
+<h2><{:L('talks_concent')}></h2>
+<{:$ctent->wapli($content,$my['user_id'],'',1,0)}>
+<h2> <{:L('all_forwarding_talk')}>(<{$cont}>)</h2>
+<ul>
+<php>if(count($ret)>0){</php>
+    <php>foreach($ret as $val){
+        echo $ctent->wapli($val,$my['user_id'],'',1,0);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('no_forwarding')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

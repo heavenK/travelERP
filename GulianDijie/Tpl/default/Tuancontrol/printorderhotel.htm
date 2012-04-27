@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大连古莲国际旅行社结算单</title>
+<style>
+.gl_jsb_box		{ width:700px; margin:10px auto; overflow:hidden;}
+*	{ font-size:14px; line-height:24px;}
+td	{ padding:7px 0;}
+.gl_jsb_td		{ border-bottom:#000000 1px solid; border-right:#000000 1px solid;}
+.gl_jsb_td td	{ border-top:#000000 1px solid; border-left:#000000 1px solid;}
+.gl_jsb_bottom	{ border-bottom:#000000 1px solid;}
+.gl_td_line		{ line-height:20px;}
+</style>
+<SCRIPT language=javascript>
+function printpr()   //预览函数
+{
+document.all("qingkongyema").click();//打印之前去掉页眉，页脚
+document.all("dayinDiv").style.display="none"; //打印之前先隐藏不想打印输出的元素（此例中隐藏“打印”和“打印预览”两个按钮）
+var OLECMDID = 7;
+var PROMPT = 1; 
+var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
+WebBrowser1.ExecWB(OLECMDID, PROMPT);
+WebBrowser1.outerHTML = "";
+document.all("dayinDiv").style.display="";//打印之后将该元素显示出来（显示出“打印”和“打印预览”两个按钮，方便别人下次打印）
+} 
+function printTure()   //打印函数
+{
+    document.all('qingkongyema').click();//同上
+    document.all("dayinDiv").style.display="none";//同上
+    window.print();
+    document.all("dayinDiv").style.display="";
+}
+function doPage()
+{
+    layLoading.style.display = "none";//同上
+}
+</SCRIPT>
+<script language="VBScript">
+dim hkey_root,hkey_path,hkey_key
+hkey_root="HKEY_CURRENT_USER"
+hkey_path="\Software\Microsoft\Internet Explorer\PageSetup"
+'//设置网页打印的页眉页脚为空
+function pagesetup_null()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+end function
+'//设置网页打印的页眉页脚为默认值
+function pagesetup_default()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&w&b页码，&p/&P"
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&u&b&d"
+end function
+</script>
+</head>
+
+<body>
+<div class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9D8" id="dayinDiv" name="dayinDiv">
+  <tr>
+    <td height="20">
+    <input type="button" class="tab" value="打印" onclick="printTure();">  
+<input  type="button" class="tab" value="打印预览" onclick="printpr();">
+<input type="hidden" name="qingkongyema" id="qingkongyema" class="tab" value="清空页码" onclick="pagesetup_null()">  
+<input type="hidden" class="tab" value="恢复页码" onclick="pagesetup_default()">    </td>
+  </tr>
+</table>
+</div>
+<div id="h" class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_bottom">
+  <tr>
+    <td align="center"><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_p.gif" width="480" height="80" border="0" /></td>
+    </tr>
+  <tr>
+    <td align="center" class="gl_td_line">处联系人：<{$kehuuser['realname']}>&nbsp;&nbsp; 联系电话：<{$kehuuser['mobiletel']}>   
+MSN：<{$kehuuser['msn']}><br />
+公司地址：<{$company['addr']}>     
+邮政编码：<{$company['postal']}> 
+公司电话：<{$company['officetel']}></td>
+    </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="100%" height="150" align="center" style=" padding:20px 0 0 0;"><p>&nbsp;</p>
+      <p><span style=" border-bottom:#000000 1px solid; font-size:26px; font-weight:bold; ">与　<{$orderhotel[hotelname]}>　定房确认单</span><br />
+          <br />
+          <span style=" border-bottom:#000000 1px solid; font-size:18px; font-weight:bold; "><{$orderhotel[title]}>　　酒店</span><br />
+        </p></td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr>
+    <td width="100" bgcolor="#FFFFFF">&nbsp;收件单位：</td>
+    <td width="249" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[recivecompany]}></td>
+    <td width="96" bgcolor="#FFFFFF">&nbsp;发件单位：</td>
+    <td width="254" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[sendcompany]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;收件人：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[reciveperson]}></td>
+    <td bgcolor="#FFFFFF">&nbsp;发件人：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[sendperson]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;电话</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[recivetelnum]}></td>
+    <td bgcolor="#FFFFFF">&nbsp;电话</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[sendtelnum]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;传真：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[recivefax]}></td>
+    <td bgcolor="#FFFFFF">&nbsp;传真：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[senfax]}></td>
+  </tr>
+</table>
+<p align="center">经理您好！按双方合作协议，我社订房详情如下，请确认。</p>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr>
+    <td width="98" bgcolor="#FFFFFF">&nbsp;订房时间：</td>
+    <td bgcolor="#FFFFFF"><div align="right"><php>$needdate = strtotime($orderhotel['orderdate']); if($needdate) echo date("Y年m月d日",$needdate) ;</php>　</div></td>
+    <td bgcolor="#FFFFFF">&nbsp;入住时间：</td>
+    <td bgcolor="#FFFFFF"><div align="right"><php>$needdate = strtotime($orderhotel['livedate']); if($needdate) echo date("Y年m月d日",$needdate) ;</php>　</div></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;结算时间：</td>
+    <td bgcolor="#FFFFFF"><div align="right"><php>$needdate = strtotime($orderhotel['jiesuandate']); if($needdate) echo date("Y年m月d日",$needdate) ;</php>　</div></td>
+    <td bgcolor="#FFFFFF">&nbsp;退房时间：</td>
+    <td bgcolor="#FFFFFF"><div align="right"><php>$needdate = strtotime($orderhotel['checkoutdate']); if($needdate) echo date("Y年m月d日",$needdate) ;</php>　</div></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;人数：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[renshu]}></td>
+    <td bgcolor="#FFFFFF">&nbsp;订房标准：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[roomstd]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;房间价格：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[roomprice]}></td>
+    <td bgcolor="#FFFFFF">&nbsp;陪同房：</td>
+    <td bgcolor="#FFFFFF">&nbsp;<{$orderhotel[peitongroom]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;早餐标准：</td>
+    <td width="252" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[breakfaststd]}></td>
+    <td width="95" bgcolor="#FFFFFF">&nbsp;早餐人数：</td>
+    <td width="254" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[breakrenshu]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;应付金额：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[meetamount]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;备      注：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$orderhotel[remark]}></td>
+  </tr>
+  <tr>
+    <td height="170" colspan="2" align="left" valign="top" bgcolor="#FFFFFF"><p>&nbsp;旅行社经办人签字：<{$orderhotel[handler]}></p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>　　　　　　　　　　　　　　时间：<php>$needdate = strtotime($orderhotel['handlertime']);if($needdate) echo date("Y年m月d日",$needdate) ;</php></p></td>
+    <td height="170" colspan="2" align="left" valign="top" bgcolor="#FFFFFF"><p>&nbsp;酒店经办人签字：<{$orderhotel[hotelhandler]}></p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>　　　　　　　　　　　　　　时间：<php>$needdate = strtotime($orderhotel['hotelhandlertime']);if($needdate) echo date("Y年m月d日",$needdate) ;</php></p></td>
+</table>
+</div>
+</body>
+</html>

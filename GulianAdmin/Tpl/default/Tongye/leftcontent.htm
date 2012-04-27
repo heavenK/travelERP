@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>目录</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript"> 
+<!-- 
+function g(o){return document.getElementById(o);} 
+function HoverLi(n){ 
+for(var i=1;i<=3;i++){g('tb_'+i).className='normaltab';g('tbc_0'+i).className='undis';}g('tbc_0'+n).className='dis';g('tb_'+n).className='hovertab'; 
+} 
+//--> 
+</script> 
+</head>
+
+<body style="overflow:hidden">
+
+<div id="hlt_left">
+     <div id="tb_" class="tb_"> 
+             <ul> 
+                 <li id="tb_1" class="hovertab" onClick ="xgz:HoverLi(1);">发布产品</li> 
+                 <li id="tb_2" class="normaltab" onClick="xgz:HoverLi(2);">产品控管</li> 
+                 <li id="tb_3" class="normaltab" onClick="xgz:HoverLi(3);">订单控管</li> 
+<!--                 <li id="tb_4" class="normaltab" onClick="xgz:HoverLi(4);">客户管理</li> 
+-->             </ul> 
+     </div> 
+     <div class="ctt"> 
+         <div class="dis" id="tbc_01">
+         	<ul class="hlt_menu">
+            
+            	<li>
+                	<dl>
+                    	<dt>我的导航</dt>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/navigation" target="mainFrame">快速导航</a></dd>
+                    </dl>
+                </li>
+            
+            	<li>
+                	<dl>
+                    	<dt>未审核过线路</dt>
+                    </dl>
+                </li>
+            	<li>
+                	<dl>
+                    	<dt>国内旅游产品</dt>
+                        <dd>近郊游</dd>
+                        <dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游/companytype/办事处" target="mainFrame">散客</a>
+                        </dd>
+                        <!--
+                        <php>foreach($lvxingsheall as $lvxingshe){</php>
+                        <dd style="width:300px; margin:0 0 0 20px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游/companytype/办事处/lvxingsheID/<{$lvxingshe[lvxingsheID]}>" target="mainFrame"><{$lvxingshe[companyname]}></a>
+                        </dd>
+                        <php>}</php>-->
+                        <dd>长线游</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游/companytype/办事处" target="mainFrame">散客</a>
+                        </dd>
+                        <php>foreach($lvxingsheall as $lvxingshe){</php>
+                        <dd style="width:300px; margin:0 0 0 20px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游/companytype/办事处/lvxingsheID/<{$lvxingshe[lvxingsheID]}>" target="mainFrame"><{$lvxingshe[beizhu]}></a>
+                        </dd>
+                        <php>}</php>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/自由人/guojing/国内" target="mainFrame">自由人</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/guojing/国内/xianlutype/包团/kind/包团" target="mainFrame">包团</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Airticket/index" target="mainFrame">机票</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Hotel/index" target="mainFrame">酒店</a></dd>
+                    </dl>
+                </li>
+                <li>
+                	<dl>
+                    	<dt>境外旅游产品</dt>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/海岛游" target="mainFrame">海岛游</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/出境游" target="mainFrame">出境游</a></dd>
+                        <php>foreach($departmentAll as $department){</php>
+                        <dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/出境游/departmentName/<{$department[title]}>" target="mainFrame"><{$department[title]}></a>
+						</dd>
+                        <php>}</php>
+						<dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/欧美澳非" target="mainFrame">欧美澳非</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/自由人/guojing/境外" target="mainFrame">自由人</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/guojing/境外/xianlutype/包团" target="mainFrame">包团</a></dd>
+                    </dl>
+                </li>
+                
+            	<li>
+                	<dl>
+                    	<dt>已审核过线路</dt>
+                    </dl>
+                </li>
+            
+            	<li>
+                	<dl>
+                    	<dt>国内旅游产品</dt>
+                        <dd>近郊游</dd>
+                        <dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游/zhuangtai/报名" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游/companytype/办事处/zhuangtai/报名" target="mainFrame">散客</a>
+                        </dd>
+                        <!--
+                        <php>foreach($lvxingsheall as $lvxingshe){</php>
+                        <dd style="width:300px; margin:0 0 0 20px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/近郊游/companytype/办事处/lvxingsheID/<{$lvxingshe[lvxingsheID]}>" target="mainFrame"><{$lvxingshe[companyname]}></a>
+                        </dd>
+                        <php>}</php>-->
+                        <dd>长线游</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游/zhuangtai/报名" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游/companytype/办事处/zhuangtai/报名" target="mainFrame">散客</a>
+                        </dd>
+                        <php>foreach($lvxingsheall as $lvxingshe){</php>
+                        <dd style="width:300px; margin:0 0 0 20px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/国内/kind/长线游/companytype/办事处/lvxingsheID/<{$lvxingshe[lvxingsheID]}>/zhuangtai/报名" target="mainFrame"><{$lvxingshe[beizhu]}></a>
+                        </dd>
+                        <php>}</php>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/自由人/guojing/国内/zhuangtai/报名" target="mainFrame">自由人</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/guojing/国内/xianlutype/包团/kind/包团/zhuangtai/报名" target="mainFrame">包团</a></dd>
+                    </dl>
+                </li>
+                <li>
+                	<dl>
+                    	<dt>境外旅游产品</dt>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/海岛游/zhuangtai/报名" target="mainFrame">海岛游</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/出境游/zhuangtai/报名" target="mainFrame">出境游</a></dd>
+                        <php>foreach($departmentAll as $department){</php>
+                        <dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/出境游/departmentName/<{$department[title]}>/zhuangtai/报名" target="mainFrame"><{$department[title]}></a>
+						</dd>
+                        <php>}</php>
+						<dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/欧美澳非/zhuangtai/报名" target="mainFrame">欧美澳非</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/自由人/guojing/境外/zhuangtai/报名" target="mainFrame">自由人</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Chanpin/sankechanpin/guojing/境外/xianlutype/包团/zhuangtai/报名" target="mainFrame">包团</a></dd>
+                    </dl>
+                </li>
+            </ul>
+         </div> 
+         <div class="undis" id="tbc_02">
+         	<ul class="hlt_menu">
+            	<li>
+                	<dl>
+                    	<dt>控管国内旅游产品</dt>
+                        <dd>近郊游控管</dd>
+                        <dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/xianlutype/散客产品/guojing/国内/kind/近郊游" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/xianlutype/散客产品/guojing/国内/kind/近郊游/companytype/办事处" target="mainFrame">散客</a>
+                        </dd>
+                        <dd>长线游控管</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+                        |- <a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/xianlutype/散客产品/guojing/国内/kind/长线游" target="mainFrame">拼团</a>
+						</dd>
+						<dd style="width:300px; margin:0 0 0 7px; display:inline; padding:0 0 0 0; background:none;">
+						|- <a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/xianlutype/散客产品/guojing/国内/kind/长线游/companytype/办事处" target="mainFrame">散客</a>
+                        </dd>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/国内/xianlutype/自由人" target="mainFrame">自由人控管</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/国内/xianlutype/包团" target="mainFrame">包团</a></dd>
+                        
+                        <dd><a href="<{:SITE_ADMIN}>Airticket/ticketControl" target="mainFrame">机票控管</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Hotel/mange" target="mainFrame">酒店控管</a></dd>
+                    </dl>
+                </li>
+                <li>
+                	<dl>
+                    	<dt>控管境外旅游产品</dt>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/境外/kind/海岛游/xianlutype/散客产品" target="mainFrame">海岛游控管</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/境外/kind/出境游/xianlutype/散客产品" target="mainFrame">出境游控管</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/境外/xianlutype/自由人" target="mainFrame">自由人控管</a></dd>
+                        <dd><a href="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/境外/xianlutype/包团" target="mainFrame">包团</a></dd>
+                        
+                        
+                        <dd><a href="<{:SITE_ADMIN}>Qianzheng/index" target="mainFrame">签证</a></dd>
+                    </dl>
+                </li>
+            </ul>
+         </div> 
+         <div class="undis" id="tbc_03">
+         	<ul class="hlt_menu">
+            	<li>
+                	<dl>
+                    
+          <dl>
+            <dt>订单审核</dt>
+            <php>$myuser_name = $this->tVar[roleuser]['user_name']</php>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/showtype/审核/check_status/等待审核" target="mainFrame">所有订单</a></dd>
+            <dd>------国内------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/showtype/审核/check_status/等待审核/guojing/国内" target="mainFrame">所有国内订单</a></dd>
+            <dd>------境外------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/showtype/审核/check_status/等待审核/guojing/境外" target="mainFrame">所有境外订单</a></dd>
+            <dd>----机票酒店----</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Airticket/dingdan" target="mainFrame">机票订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Hotel/dingdan" target="mainFrame">酒店订单</a></dd>
+          </dl>
+                    
+                    
+                </li>
+                
+                
+                
+        <li>
+          <dl>
+            <dt>我的订单</dt>
+            <php>$myuser_name = $this->tVar[roleuser]['user_name']</php>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/check_status/所有/user_name/<{$myuser_name}>" target="mainFrame">我的订单</a></dd>
+            <dd>------国内------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/guojing/国内" target="mainFrame">所有国内订单</a></dd>
+            <dd>------境外------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/guojing/境外" target="mainFrame">所有境外订单</a></dd>
+            <dd>----机票酒店----</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Airticket/dingdan" target="mainFrame">机票订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Hotel/dingdan" target="mainFrame">酒店订单</a></dd>
+          </dl>
+        </li>
+                
+                
+                
+                
+                
+            </ul>
+         </div> 
+         
+         
+         <div class="undis" id="tbc_04">
+         	<ul class="hlt_menu">
+            	<li>
+                	<dl>
+                    	<dt>客户管理</dt>
+                        <dd><a href="<{:SITE_ADMIN}>Kehuguanli/kehulist" target="mainFrame">订单客户列表</a></dd>
+                    </dl>
+                </li>
+            </ul>         
+         </div> 
+         
+         
+         
+         
+     </div>
+</div>
+</body> 
+</html>
+ 
+<style media="screen" type="text/css"> 
+<!-- 
+.normaltab,
+.hovertab,
+.hlt_menu li dl	dt,
+.hlt_menu li dl	dd	{ background:url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat;}
+
+
+#hlt_left	{ width:190px; position:relative; float:left;}
+
+
+.tb_		{ width:24px; padding:12px 0 0 3px; position:absolute; top:0; left:3px; z-index:3;} 
+.tb_ ul		{ width:24px; float:left;} 
+.tb_ li		{ width:24px; height:80px; padding:4px 0 0 0; line-height:18px; text-align:center; font-size:12px; font-weight:bold; color:#04534d; cursor:pointer; float:left; } 
+.normaltab	{ background-position:-24px -65px;} 
+.hovertab	{ background-position:0 -65px;} 
+.dis		{ display:block;} 
+.undis		{ display:none;}
+
+
+.ctt		{ width:160px; border:#94a8a3 1px solid; border-top:0; margin:0 0 0 26px; background:#FFFFFF; position:absolute; top:0; left:3px; z-index:2;} 
+.hlt_menu	{ width:140px; padding:5px 0 0 11px; float:left;}
+.hlt_menu li	{ width: 140px; float:left;}
+.hlt_menu li dl	{ width:140px; float:left;}
+.hlt_menu li dl	dt	{ width:105px; padding:0 0 0 35px; height:30px; line-height:27px; color:#2f6b6c; background-position:-48px -65px; font-weight:bold; float:left;}
+.hlt_menu li dl	dd	{ width:120px; padding:0 0 0 20px; background-position:-986px -93px; color:#2f6b6c; float:left;}
+.hlt_menu li dl	dd a{ color:#2f6b6c;}
+.hlt_menu li dl	dd a:hover{ color:#1d4647;}
+--> 
+</style> 

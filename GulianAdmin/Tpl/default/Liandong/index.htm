@@ -1,0 +1,104 @@
+<script src="<{:__PUBLIC__}>/gulianstyle/admintemp/jquery-1.4.2.js" language="javascript"></script>
+
+<script>		
+	$(document).ready(function(){
+									pid = $('#pos2').val();
+									change_jingshe(pid);
+								});
+
+	function change_pos(sid){
+			
+			while (sid <= '3')
+			{
+				pid = $('#pos' + sid).val();
+				sid++;
+				nexts = 'pos' + sid;				
+				change(pid ,nexts);
+			}
+			
+			pid = $('#pos2').val();
+			
+			change_jingshe(pid);
+				  
+		}
+		
+	function change(pid ,nexts){
+		$.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=pos",
+					  success:	function(msg){
+									$("#" + nexts).empty();
+									$(msg).appendTo("#" +nexts);
+								}
+				  });
+	}
+	
+	function change_jingshe(){
+		$.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=jingshe",
+					  success:	function(msg){
+									$("#jingshe").html(msg);
+								}
+				  });
+	}
+	
+	function selectAll(){
+		$.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=all",
+					  success:	function(msg){
+									$("#jingshe a").css('color','red');
+									$("#keywords").attr("value",msg);
+								}
+				  });
+	}
+	
+	function selectNot(){
+		$("#jingshe a").css('color','black');
+		$("#keywords").attr("value",'');
+	}
+	
+	function show_keywords(){
+		$("#jingshe").show();
+	}
+		
+	function closed(){
+		$("#jingshe").hide();
+	}
+	
+	function addWords(objs, keyword){
+		if ($(objs).css("color") == "red"){
+			$("#keywords").attr("value",$("#keywords").attr("value").replace(keyword + " " ,""));
+			$(objs).css("color","black")
+		}
+		else	{
+			$(objs).css("color","red");
+			$("#keywords").attr("value",$("#keywords").attr("value") + keyword + " ");
+		}
+	}
+	
+	
+</script>
+<select onchange="change_pos('1')" id="pos1">
+		<option selected="selected" value="1">华北地区</option>
+		<option value="2">东北地区</option>
+</select>
+<select onchange="change_pos('2')" id="pos2">
+		<option selected="selected" value="101">北京</option>
+		<option value="102">河北</option>
+</select>
+<select onchange="change_pos('3')" id="pos3">
+		<option selected="selected" value="101001">北京</option>
+</select>
+<a href="#" onclick="closed()">关闭</a>
+<a href="#" onclick="selectAll()">全选</a>
+<a href="#" onclick="selectNot()">全不选</a>
+<textarea id="keywords" rows="3" cols="20" onclick="show_keywords()"></textarea>
+<span id="jingshe" style="display:none;"></span>

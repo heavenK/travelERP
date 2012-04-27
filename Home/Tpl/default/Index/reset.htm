@@ -1,0 +1,36 @@
+<include file="Common:header" />
+<div id="login">
+    <div class="indexh" style="margin-bottom:20px">
+        <div class="taboff"><a href="<{:SITE_URL}>/register"><{:L('fast_reg')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/login"><{:L('login_in')}></a></div>
+        <div class="tabon"><{:L('forget_pass')}></div>
+    </div>
+    <br/><br/><br/>
+    <div style="font-size:14px;width:100%;text-align:center">
+    <php>if($type=='find'){</php>
+        <form method="post" action="<{:SITE_URL}>/setpass">
+        <p>“<{$user['nickname']}>” <{:L('reset_email_info')}>：</p>
+        <p><b>&nbsp;&nbsp;<{:L('reset_newpass')}>：</b><input tabindex="1" type="password" name="pass1" class="input_text" style="width:200px" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/></p>
+        <p><b><{:L('input_oncemore')}>：</b><input tabindex="2" type="password" name="pass2" class="input_text" style="width:200px" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/></p>
+        <p><input type="hidden" name="urldata" value="<{$urldata}>" />
+        <input tabindex="3" type="submit" class="button6" value="<{:L('reset_pass')}>" /> or <a href="<{:SITE_URL}>/reset"><{:L('find_pass')}></a></p>
+        </form>
+    <php>} else {</php>
+        <form method="post" action="<{:SITE_URL}>/doreset">
+        <table border="0" width="60%" style="text-align:left;margin-left:20%">
+            <tr height="50px">
+                <td width="70px"><{:L('reg_emali')}></td>
+                <td width="180px"><input type="text" tabindex="1" id="mailadres" name="mailadres" class="input_text" style="width:150px"/></td>
+                <td style="font-size:12px"><{:L('re_email_input')}></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input tabindex="2" type="submit" class="button6" value="<{:L('find_pass')}>" /></td>
+                <td></td>
+            </tr>
+        </table>
+        </form>
+    <php>}</php>
+    </div>
+</div>
+<include file="Common:foot" />

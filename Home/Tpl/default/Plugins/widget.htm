@@ -1,0 +1,104 @@
+<include file="Common:header" />
+<style>
+.plugins {margin-top:10px;line-height:200%;padding:0 10px;}
+.plugins .info {border-bottom:1px dashed #cccccc;padding-bottom:10px;color:#999999;margin-bottom:10px}
+.plugins .set {border:0;width:350px;margin:10px 0 0 20px}
+.plugins .c1 {background:#f3f3f3;float:left;margin-right:20px;width:30px;height:30px;cursor:pointer;border:1px solid #600e00}
+.plugins .c2 {background:#ffd87b;float:left;margin-right:20px;width:30px;height:30px;cursor:pointer;border:1px solid #cccccc}
+.plugins .c3 {background:#affffa;float:left;margin-right:20px;width:30px;height:30px;cursor:pointer;border:1px solid #cccccc}
+.plugins .c4 {background:#ffc6f9;float:left;margin-right:20px;width:30px;height:30px;cursor:pointer;border:1px solid #cccccc}
+.plugins .input {width:80px;height:16px; padding:2px 0;font-size:12px;color:#999999;-moz-border-radius:0px;-webkit-border-radius:0px;}
+.plugins .submit {width:100px; height:26px; background:#baf2f6;color:#555; font-size:12px; line-height:26px; text-align:center; cursor:pointer;-moz-border-radius:0px;-webkit-border-radius:0px;}
+</style>
+<table id="columns">
+<tr>
+<td id="main" style="-moz-border-radius:8px;">
+<div class="contenter" style="width:745px">
+    <div class="indexh">
+        <div class="tabon"><a href="<{:SITE_URL}>/Plugins/widget"><{:L('widget_guajian')}></a></div>
+    </div>
+    <div class="plugins">
+        <h3><{:L('widget_guajian')}>-<{:L('widget_style')}></h3>
+        <div class="info"><{:L('widget_info')}></div>
+        <div class="fleft">
+            <{:L('widget_info1')}>：
+            <table class="set">
+            <tr height="60px">
+                <td width="50px"><{:L('widget_color')}>：</td>
+                <td>                
+                    <div class="c1"></div>
+                    <div class="c2"></div>
+                    <div class="c3"></div>
+                    <div class="c4"></div>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><{:L('widget_size')}>：</td>
+                <td><p><{:L('widget_width')}>：<input type="text" id="bwidth" value="230px" class="input"></p>
+                    <p style="color:#999999"><{:L('widget_zidongkuan')}></p>
+                    <p><{:L('widget_height')}>：<input type="text" id="bheight" value="500px" class="input"></p>
+                </td>
+            </tr>
+            <tr height="60px">
+                <td></td>
+                <td><input type="button" class="submit" id="viewcode" value="<{:L('widget_creat')}>"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="info"></div>
+                    <h3><{:L('widget_daima')}>：</h3><br/>
+                    <p style="color:#999999"><{:L('widget_copy')}></p>
+                    <p><textarea id="code" style="-moz-border-radius:0px;-webkit-border-radius:0px;width:350px;height:140px"><iframe frameborder="0" scrolling="no" style="width:250px;height:500px;" src="<{:SITE_URL}>/Widget?name=<{:rawurlencode($my[user_name])}>&type=1&width=250px&height=500px"></iframe></textarea></p>
+                </td>
+            </tr>
+            </table>
+            </div>
+        </div>
+        <div class="fright">
+            <p><{:L('widget_preview')}>：</p>
+            <iframe id="weibo_<{$my[user_id]}>" frameborder="0" scrolling="no" style="width:250px;height:500px;" src="<{:SITE_URL}>/Widget?name=<{:rawurlencode($my[user_name])}>&type=1&width=250px&height=500px"></iframe>
+        </div>
+        <div class="clearline"></div>
+    </div>
+</div>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+var color=1;
+$(".c1").click(function(){
+    $(this).css('border-color','#600e00');
+    $(".c2").css('border-color','#cccccc');
+    $(".c3").css('border-color','#cccccc');
+    $(".c4").css('border-color','#cccccc');
+    color=1;
+});
+$(".c2").click(function(){
+    $(this).css('border-color','#600e00');
+    $(".c1").css('border-color','#cccccc');
+    $(".c3").css('border-color','#cccccc');
+    $(".c4").css('border-color','#cccccc');
+    color=2;
+});
+$(".c3").click(function(){
+    $(this).css('border-color','#600e00');
+    $(".c1").css('border-color','#cccccc');
+    $(".c2").css('border-color','#cccccc');
+    $(".c4").css('border-color','#cccccc');
+    color=3;
+});
+$(".c4").click(function(){
+    $(this).css('border-color','#600e00');
+    $(".c1").css('border-color','#cccccc');
+    $(".c2").css('border-color','#cccccc');
+    $(".c3").css('border-color','#cccccc');
+    color=4;
+});
+$('#viewcode').click(function(){
+    var url='<{:SITE_URL}>/Widget?name=<{:rawurlencode($my[user_name])}>&type='+color+'&width='+$('#bwidth').val()+'&height='+$('#bheight').val();
+    var code='<iframe frameborder="0" scrolling="no" style="width:'+$('#bwidth').val()+';height:'+$('#bheight').val()+';" src="'+url+'"></iframe>';
+    $('#weibo_<{$my[user_id]}>').attr('src',url);
+    $('#code').val(code);
+});
+</script>
+<include file="Common:foot" />

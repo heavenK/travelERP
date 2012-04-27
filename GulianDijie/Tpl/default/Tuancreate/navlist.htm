@@ -1,0 +1,61 @@
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span><{$navlist}></li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="99%" border="0">
+                        <tbody><tr>
+                            <td width="5%">
+                            </td>
+                            <td width="91" height="18" align="center">
+                            <php>if($tuan['djtuanID']!=null){</php>
+                                <a id="lkbBase" class="yyxxl" href="<{:SITE_DIJIE}>Tuancreate/newtuan/djtuanID/<{$tuan['djtuanID']}>" <php>if($location == '基本信息'){</php>style="color:Blue;" <php>}</php> >基本信息</a>
+                            <php>}</php>
+                            </td>
+                            <td width="91" height="18" align="center">
+                            <php>if($tuan['djtuanID']!=null){</php>
+                                <a id="lkbTravel" href="<{:SITE_DIJIE}>Tuancreate/itinerary/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '日程安排'){</php>style="color:Blue;" <php>}</php> >日程安排</a>
+                            <php>}</php>
+                            </td>
+                            <td width="91">
+                            <php>if($tuan['djtuanID']!=null){</php>
+                                <a id="lkbPrice" href="<{:SITE_DIJIE}>Tuancreate/appraisal/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '估价'){</php>style="color:Blue;" <php>}</php> >对外报价</a>
+                            <php>}</php>
+                            </td>
+                            <td width="50%">
+                            </td>
+                            
+							<td>
+                            	<php>if($location == '基本信息' || $location == '日程安排'){</php>
+                                <a onclick="return checkdata();" id="Submit" class="yyxxl" href="javascript:dosave();">保 存</a>
+                                <php>}</php>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="clear">
+                    </div>
+                </div>
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:150px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script>
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+</script>

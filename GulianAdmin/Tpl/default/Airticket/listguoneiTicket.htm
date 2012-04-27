@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>散客列表页</title>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+<!--
+function tijiao() {
+        document.getElementById('form').submit();
+}
+// -->
+</script>
+
+
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$typeurl}>
+    </div>
+    <div id="hlt_fit_search"><!--查询-->
+	
+		<div class="ss">
+						<table width="88%" border="0" class="test1" style="padding-top: 20px;">
+							<tr>
+								<td width="81" height="18" align="right">
+									出发城市：</td>
+								<td width="179" height="18">
+									<input name="tbDepartCity" type="text" id="tbDepartCity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" style="width:95%;" />
+								</td>
+								<td height="18" align="right" style="width: 119px">
+									目的地城市：</td>
+								<td width="179" height="18">
+									<input name="tbmddcity" type="text" id="tbmddcity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" />
+								</td>
+								<td height="18" align="right" style="width: 81px">
+									状态：</td>
+								<td width="80" height="18">
+									<select name="ddlSates" id="ddlSates" style="width:103px;">
+		<option value="">全部</option>
+		<option value="0">准备</option>
+		<option value="1">等待审核</option>
+		<option value="2">审核不通过</option>
+		<option value="3">报名</option>
+		<option value="4">截止</option>
+		<option value="5">出团</option>
+		<option value="6">回团</option>
+		<option value="7">删除</option>
+	 
+	</select>
+								</td>
+								<td>&nbsp;
+									</td>
+							</tr>
+							<tr>
+								<td width="81" height="18" align="right">
+									关键字：</td>
+								<td width="179" height="18">
+									<input name="tbKeyword" type="text" id="tbKeyword" style="width:95%;" /></td>
+								<td align="right" style="width: 119px">
+									航空公司：</td>
+								<td width="60">
+									<select name="ticket_airline_id" id="ticket_airline_id">
+									  <option value="">请选择航空公司</option>
+									  <php>foreach($airlines as $airline){ </php>
+										<option value="<{$airline['id']}>"><{$airline['title']}></option>
+									  <php>}</php>								
+									</select>
+								</td>
+								<td height="18" align="right" style="width: 81px">
+									日期：</td>
+								<td width="60">
+									<input name="tbLineDate" type="text" id="tbLineDate" class="Wdate" onfocus="WdatePicker()" style="width:101px;" />
+								</td>
+								<td width="60" align="right">
+									<input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu" /></td>
+								<td style="width: 7px">&nbsp;
+									</td>
+							</tr>
+						</table>
+					</div>
+	
+					<div class="nr">
+                        <table width="313" border="0">
+                            <tr>
+                                <td class="wbx" width="58" align="center">
+                                    <a onclick="return confirm('确认删除吗？');" id="lkBtnDelete" class="yyxxl" href="javascript:__doPostBack('lkBtnDelete','')">删 除</a></td>
+                                <td class="wbx" width="58" align="center">
+                                    <a id="lbtAddLine" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/addguoneiTicket">发布新机票</a></td>
+                                <td class="wbx" width="58" align="center">
+                                    <a onclick="return confirm('确认复制吗？');" id="lkbCopy" class="yyxxl" href="javascript:__doPostBack('lkbCopy','')">复 制</a></td>
+                                <td class="wbx" align="left">
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+	
+    
+    <div id="hlt_fit_list"><!--列表-->
+    	<ol>
+        	<ul id="hlt_fit_list_ul_a" style="overflow:hidden">
+            	<li class="hlt_fit_list_ul_lia"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></li>
+              	<li class="hlt_fit_list_ul_lib">机票编号</li> 
+                <li class="hlt_fit_list_ul_lic">机票名称</li>
+                <li class="hlt_fit_list_ul_lid">航班号</li>
+                <li class="hlt_fit_list_ul_lie">航段</li>
+                <li class="hlt_fit_list_ul_lif">往返类型</li>
+                <li class="hlt_fit_list_ul_lig">天数</li>
+                <li class="hlt_fit_list_ul_lih">状态</li>
+                <li class="hlt_fit_list_ul_lii">航空公司</li>
+				<li class="hlt_fit_list_ul_lii">价格</li>
+                <li class="hlt_fit_list_ul_lij">出发日期</li>
+                <li class="hlt_fit_list_ul_lik">轨迹</li>
+            </ul>
+            
+            
+        <form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/deletechanpin" id="form">
+                            <php> $i = -1; foreach($records as $rs){ $i++;                            </php>
+            <ul id="hlt_fit_list_ul_b" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+            	<li class="hlt_fit_list_ul_lia"><input value="<{$rs['ticket_id']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></li>
+              	<li class="hlt_fit_list_ul_lib"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$rs['ticket_id']}>"><{$rs["ticket_id"] }></a></li> 
+                <li class="hlt_fit_list_ul_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$rs['ticket_id']}>" title="<{$rs['ticket_name']}>"><{$rs['ticket_name']}></a></li>
+                <li class="hlt_fit_list_ul_lid" style="overflow:hidden"><{$rs['ticket_hangduan']}></li>
+                <li class="hlt_fit_list_ul_lie"><{$rs['ticket_goback']}></li>
+                <li class="hlt_fit_list_ul_lif" style="overflow:hidden"><{$rs['zhuangtai']}></li>
+                <li class="hlt_fit_list_ul_lig"><{$rs['zhuangtai']}></li>
+                <li class="hlt_fit_list_ul_lih"><{$rs['ticket_airline']}></li>
+                <li class="hlt_fit_list_ul_lii"><{$rs['ticket_airline']}></li>
+				<li class="hlt_fit_list_ul_lii"><{$rs['ticket_airline']}></li>
+                <li class="hlt_fit_list_ul_lij">
+                                            <input type="hidden" id="aaa">
+                                            <img src="<{:__PUBLIC__}>/gulianstyle/styles/rq.gif" alt="" onclick="WdatePicker({el:'aaa',opposite:true,doubleCalendar:true,specialDates:[<{$xianlu[chutuanriqi]}>]});" />                </li>
+                <li class="hlt_fit_list_ul_lik"><img src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" /></li>
+            </ul>
+            
+                            	<php>}                            	</php>
+        </form>
+        </ol>
+  </div>
+    <div id="hlt_fit_page"><!--翻页-->
+    	<span>页次：1/1</span>
+        <a href="#">&lt;&lt;</a>
+        <B>1</B>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">...</a>
+        <span>共条记录</span>
+    </div>
+    
+</div>
+
+</body>
+</html>

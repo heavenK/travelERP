@@ -1,0 +1,19 @@
+<include file="header" />
+<h2><{:L('wap_inputbox_up')}></h2>
+<form method='post' action='<{:SITE_URL}>/Wap/sendmsg'>
+    <p><textarea rows="3" name="content" maxlength="140" style="width:99%"></textarea></p>
+    <p><input type='submit' value='<{:L('wap_send')}>' /></p>
+</form>
+<h2><{:L('wap_main_page')}>(<a href='<{:SITE_URL}>/Wap/home'><{:L('refresh')}></a>)</h2>
+<ul>
+<php>if(count($content)>0){</php>
+    <php>foreach($content as $val){
+        echo $ctent->wapli($val,$my['user_id'],'home',1);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('nothing_here')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+</div>
+<include file="footer" />

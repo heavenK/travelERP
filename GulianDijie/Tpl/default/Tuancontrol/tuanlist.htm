@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+
+</head>
+
+<body>
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置:	</span><{$navlist}></li>
+    </ul>
+</div>
+<div id="hlt_fit_search"><!--查询-->
+	<div class="search_one">  
+        <div id="hlt_fit_search_a_s"><span>团队名称：</span><input type="text" id="tuantitle" value="<{$tuantitle}>"></div>
+        <div id="hlt_fit_search_b_s"><span>日　期：</span><input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time1" value="<{$time1}>"><span>-</span><input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time2" value="<{$time2}>"></div>
+        <div id="hlt_fit_search_a_s"><span>发团社：</span><input type="text" id="fromcompany" value="<{$fromcompany}>"/></div>
+        <div id="hlt_fit_search_a_s"><span>关键字：</span><input type="text" id="keyword" value="<{$keyword}>"></div>
+    </div>
+	<div class="search_one">  
+        <div id="hlt_fit_search_a_s"><span>国境：</span>
+    <select id="jingwai">
+                <php>if($jingwai){</php>
+                <option value="<{$jingwai}>"><{$jingwai}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+      <option value="">全部</option>
+      <option value="国内">国内</option>
+      <option value="境外">境外</option>
+    </select>
+        </div>
+        <div id="hlt_fit_search_a_s"><span>类型：</span>
+    <select id="kind">
+                <php>if($kind){</php>
+                <option value="<{$kind}>"><{$kind}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+      <option value="">全部</option>
+      <option value="国内">国内</option>
+      <option value="日本">日本</option>
+      <option value="台湾">台湾</option>
+    </select>
+        </div>
+        <div id="hlt_fit_search_a_s"><span>状态：</span>
+    <select id="status">
+                <php>if($status){</php>
+                <option value="<{$status}>"><{$status}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+      <option value="">全部</option>
+      <option value="准备">准备</option>
+      <option value="在线">在线</option>
+      <option value="截止">截止</option>
+    </select>
+        
+        </div>
+        <div id="hlt_fit_search_g_s"><input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /></div>
+    </div>
+</div>
+                
+                
+<div class="fanye">
+  <div class="nr" style="margin:20px 0 0 0; display:inline;">
+      <table width="313" border="0">
+          <tbody><tr>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:suoding();" onclick="return confirm('确认要锁定线路吗？');" class="yyxxl">团队锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiesuo();" onclick="return confirm('确认要解除锁定吗？');" class="yyxxl">团队解锁</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:quxiaochengtuan();" onclick="return confirm('确定取消成团？');" class="yyxxl">取消成团</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:copynew();" onclick="return confirm('确定复制团队？');" class="yyxxl">复制团队</a>
+                  </td>
+                  
+          </tr>
+      </tbody></table>
+  </div>
+  <div  style="float:left;width:100%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+  <tbody>
+        <tr>
+            <th height="32" align="center">序号<input type="checkbox" onclick="myCheckBoxSelect(this)">
+            </th>
+            <th height="32" align="center">编号</th>
+            <th height="32" align="center">团队名称</th>
+<!--            <th height="32" align="center">报账单</th>
+-->            
+            <th height="32" align="center">出团日期</th>
+            <th height="32" align="center">操作人</th>
+            <th height="32" align="center">人数</th>
+            <th height="32" align="center">发团社</th>
+            <th height="32" align="center">状态</th>
+            <th height="32" align="center">锁定</th>
+        </tr>
+        <form name="form" method="post" id="form">
+          <php> $i = -1; foreach($tuanAll as $tuan){ $i++;</php>
+          
+              <tr class="tr<php>echo $i%2</php>">
+                  <td height="32" align="center">
+                      <php>echo $i+1</php>
+                      <span><input value="<{$tuan['djtuanID']}>" id="tuanitem_<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                  <td height="32" align="center">
+                      <a href="<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuannumber']}></a>
+                  </td>
+                  <td height="32" align="center">
+                      <span><a href="<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuantitle']}></a></span>
+                  </td>
+                  
+<!--                  <td height="32" align="center">
+                  <php>if($tuan['baozhang']){</php>
+                     <a href="javascript:showbaozhang(<{$tuan['djtuanID']}>)" > [显示报账单]</a>
+                  <php>}else{</php>
+                     -
+                  <php>}</php>
+                  </td>
+-->                
+                  <td height="32" align="center">
+                      <{$tuan['startdate']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$tuan['adduser']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$tuan['renshu']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$tuan['fromcompany']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$tuan['status']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$tuan['islock']}>
+                  </td>
+              </tr>
+          
+        <php> }</php>
+        </form>
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+</div>
+                
+</body>
+</html>
+
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:200px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'tuanitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'tuanitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+<!--
+function quxiaochengtuan() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/quxiaochengtuan';
+        document.getElementById('form').submit();
+}
+function jiesuo() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/tuanlock/type/未锁定';
+        document.getElementById('form').submit();
+}
+function suoding() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/tuanlock/type/已锁定';
+        document.getElementById('form').submit();
+}
+function copynew() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/copynew';
+        document.getElementById('form').submit();
+}
+
+// -->
+function dosearch() {
+        
+	var jingwai = document.getElementById('jingwai').value;
+	var kind = document.getElementById('kind').value;
+	var tuantitle = document.getElementById('tuantitle').value;
+	var time1 = document.getElementById('time1').value;
+	var time2 = document.getElementById('time2').value;
+	var status = document.getElementById('status').value;
+	var keyword = document.getElementById('keyword').value;
+	var fromcompany = document.getElementById('fromcompany').value;
+	window.location.href = '<{:SITE_DIJIE}>Tuancreate/tuanlist/jingwai/'+jingwai+'/kind/'+kind+'/time1/'+time1+'/time2/'+time2+'/status/'+status+'/keyword/'+keyword+'/fromcompany/'+fromcompany+'/tuantitle/'+tuantitle;
+}
+
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+function GetcheckBack(obj,id,tbname,type)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function showbaozhang(id)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/baozhangdan/djtuanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+
+</script>
+<include file="Index:footer" />

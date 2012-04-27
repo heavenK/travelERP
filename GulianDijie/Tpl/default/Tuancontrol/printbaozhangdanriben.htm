@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大连古莲国际旅行社结算单</title>
+<style>
+.gl_jsb_box		{ width:700px; margin:10px auto; overflow:hidden;}
+*	{ font-size:14px; line-height:24px;}
+td	{ padding:3px 0;}
+.gl_jsb_td		{ border-bottom:#000000 1px solid; border-right:#000000 1px solid;}
+.gl_jsb_td td	{ border-top:#000000 1px solid; border-left:#000000 1px solid;}
+.gl_jsb_bottom	{ border-bottom:#000000 1px solid;}
+.gl_td_line		{ line-height:20px;}
+</style>
+<SCRIPT language=javascript>
+function printpr()   //预览函数
+{
+document.all("qingkongyema").click();//打印之前去掉页眉，页脚
+document.all("dayinDiv").style.display="none"; //打印之前先隐藏不想打印输出的元素（此例中隐藏“打印”和“打印预览”两个按钮）
+var OLECMDID = 7;
+var PROMPT = 1; 
+var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
+WebBrowser1.ExecWB(OLECMDID, PROMPT);
+WebBrowser1.outerHTML = "";
+document.all("dayinDiv").style.display="";//打印之后将该元素显示出来（显示出“打印”和“打印预览”两个按钮，方便别人下次打印）
+} 
+function printTure()   //打印函数
+{
+    document.all('qingkongyema').click();//同上
+    document.all("dayinDiv").style.display="none";//同上
+    window.print();
+    document.all("dayinDiv").style.display="";
+}
+function doPage()
+{
+    layLoading.style.display = "none";//同上
+}
+</SCRIPT>
+<script language="VBScript">
+dim hkey_root,hkey_path,hkey_key
+hkey_root="HKEY_CURRENT_USER"
+hkey_path="\Software\Microsoft\Internet Explorer\PageSetup"
+'//设置网页打印的页眉页脚为空
+function pagesetup_null()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
+end function
+'//设置网页打印的页眉页脚为默认值
+function pagesetup_default()
+on error resume next
+Set RegWsh = CreateObject("WScript.Shell")
+hkey_key="\header" 
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&w&b页码，&p/&P"
+hkey_key="\footer"
+RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&u&b&d"
+end function
+</script>
+</head>
+
+<body>
+<div class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9D8" id="dayinDiv" name="dayinDiv">
+  <tr>
+    <td height="20">
+    <input type="button" class="tab" value="打印" onclick="printTure();">  
+<input  type="button" class="tab" value="打印预览" onclick="printpr();">
+<input type="hidden" name="qingkongyema" id="qingkongyema" class="tab" value="清空页码" onclick="pagesetup_null()">  
+<input type="hidden" class="tab" value="恢复页码" onclick="pagesetup_default()">    </td>
+  </tr>
+</table>
+</div>
+<div id="h" class="gl_jsb_box">
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_bottom">
+  <tr>
+    <td align="center"><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_p.gif" width="480" height="80" border="0" /></td>
+    </tr>
+  <tr>
+    <td align="center" class="gl_td_line">处联系人：<{$kehuuser['realname']}>&nbsp;&nbsp; 联系电话：<{$kehuuser['mobiletel']}>   
+MSN：<{$kehuuser['msn']}><br />
+公司地址：<{$company['addr']}>    
+邮政编码：<{$company['postal']}> 
+公司电话：<{$company['officetel']}></td>
+    </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="50" colspan="2" align="center" style=" padding:20px 0 0 0;"><span style=" border-bottom:#000000 1px solid; font-size:26px; font-weight:bold; ">出境旅游团（者）费用结算报告表</span></td>
+  </tr>
+  <tr>
+    <td width="30%">&nbsp;TO：<{$baozhang[to]}></td>
+    <td width="70%"> 组团人：<{$baozhang[zutuanren]}></td>
+  </tr>
+</table>
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_td">
+  <tr>
+    <td width="119" bgcolor="#FFFFFF">&nbsp;团号：<{$tuan['tuannumber']}></td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;结算人数：<{$baozhang[jiesuanrenshu]}></td>
+    <td width="190" bgcolor="#FFFFFF">&nbsp;成人：<{$baozhang[chengren]}></td>
+    <td width="190" bgcolor="#FFFFFF">&nbsp;儿童：<{$baozhang[ertong]}></td>
+    <td width="190" bgcolor="#FFFFFF">&nbsp;婴儿：<{$baozhang[yinger]}></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">&nbsp;综合服务费：</td>
+    <td height="500" colspan="3" bgcolor="#FFFFFF">&nbsp;<{$baozhang[zonghefuwufei]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;实际结算金额：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$baozhang[jiesuanjine]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;备      注：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$baozhang[jiesuanremark]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;合计（人民币）：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$baozhang[hejijine]}></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;备      注：</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;<{$baozhang[hejiremark]}></td>
+  </tr>
+  <tr>
+    <td height="80" colspan="4" align="center" bgcolor="#FFFFFF"><p><strong>公司名称</strong><strong>:</strong><strong>大连古莲国际旅行社有限公司</strong><strong> </strong><br />
+          <strong>帐号</strong><strong>    :803301209006386 </strong><strong>开户行:  大连银行体育场支行营业部</strong></p>      </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

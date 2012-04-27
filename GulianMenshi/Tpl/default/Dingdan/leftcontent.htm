@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>目录</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript"> 
+<!-- 
+function g(o){return document.getElementById(o);} 
+function HoverLi(n){ 
+for(var i=1;i<=3;i++){g('tb_'+i).className='normaltab';g('tbc_0'+i).className='undis';}g('tbc_0'+n).className='dis';g('tb_'+n).className='hovertab'; 
+} 
+//--> 
+</script>
+</head>
+
+<body style=" overflow-x:hidden" >
+<div id="hlt_left" >
+  <div id="tb_" class="tb_">
+    <ul>
+      <li id="tb_1" class="hovertab" onClick ="xgz:HoverLi(1);">订单管理</li>
+      <li id="tb_2" class="normaltab" onClick="xgz:HoverLi(2);">通知计划</li>
+      <li id="tb_3" class="normaltab" onClick="xgz:HoverLi(3);">客户管理</li>
+    </ul>
+  </div>
+  <div class="ctt">
+    <div class="dis" id="tbc_01">
+      <ul class="hlt_menu">
+        <li>
+          <dl>
+            <dt>我的导航</dt>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/index_nav" target="mainFrame">快速导航</a></dd>
+          </dl>
+        </li>
+      
+        <li>
+          <dl>
+            <dt>我的订单</dt>
+            <php>$myuser_name = $this->tVar[roleuser]['user_name']</php>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/check_status/所有/user_name/<{$myuser_name}>" target="mainFrame">我的订单</a></dd>
+            <dd>------国内------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/散客产品/guojing/国内/kind/近郊游" target="mainFrame">近郊游订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/散客产品/guojing/国内/kind/长线游" target="mainFrame">长线游订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/自由人/guojing/国内" target="mainFrame">自由人订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/包团/guojing/国内" target="mainFrame">包团订单</a></dd>
+            <dd>------境外------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/散客产品/guojing/境外/kind/海岛游" target="mainFrame">海岛游订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/散客产品/guojing/境外/kind/出境游" target="mainFrame">出境游订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/自由人/guojing/境外" target="mainFrame">自由人订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/xianlutype/包团/guojing/境外" target="mainFrame">包团订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Dingdan/tuanhistory" target="mainFrame">旅游历史订单</a></dd>
+            <dd>------机票酒店------</dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Airticket/dingdan" target="mainFrame">机票订单</a></dd>
+            <dd style="background:none; padding:0; margin:0 0 0 7px; display:inline;"> |-<a href="<{:SITE_MENSHI}>Hotel/dingdan" target="mainFrame">酒店订单</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    <div class="undis" id="tbc_02">
+      <ul class="hlt_menu">
+        <li>
+          <dl>
+            <dt>出团通知</dt>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/noticelist/jiedaitype/出团通知" target="mainFrame">出团通知</a></dd>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dt>接待计划</dt>
+            <dd><a href="<{:SITE_MENSHI}>Dingdan/noticelist/jiedaitype/接待计划" target="mainFrame">接待计划</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="undis" id="tbc_03">
+      <ul class="hlt_menu">
+        <li>
+          <dl>
+          <dt>客户管理</dt>
+          <dd><a href="<{:SITE_MENSHI}>System/kehulist" target="mainFrame">客户列表</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    
+    
+    
+  </div>
+</div>
+</body>
+</html>
+<style media="screen" type="text/css">
+<!--
+.normaltab, .hovertab, .hlt_menu li dl dt, .hlt_menu li dl dd {
+	background:url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat;
+}
+#hlt_left {
+	width:190px;
+	position:relative;
+	float:left;
+}
+.tb_ {
+	width:24px;
+	padding:12px 0 0 3px;
+	position:absolute;
+	top:0;
+	left:3px;
+	z-index:3;
+}
+.tb_ ul {
+	width:24px;
+	float:left;
+}
+.tb_ li {
+	width:24px;
+	height:80px;
+	padding:4px 0 0 0;
+	line-height:18px;
+	text-align:center;
+	font-size:12px;
+	font-weight:bold;
+	color:#04534d;
+	cursor:pointer;
+	float:left;
+}
+.normaltab {
+	background-position:-24px -65px;
+}
+.hovertab {
+	background-position:0 -65px;
+}
+.dis {
+	display:block;
+}
+.undis {
+	display:none;
+}
+.ctt {
+	width:160px;
+	height:700px;
+	border:#94a8a3 1px solid;
+	border-top:0;
+	margin:0 0 0 26px;
+	background:#FFFFFF;
+	position:absolute;
+	top:0;
+	left:3px;
+	z-index:2;
+}
+.hlt_menu {
+	width:140px;
+	padding:5px 0 0 11px;
+	float:left;
+}
+.hlt_menu li {
+	width: 140px;
+	float:left;
+}
+.hlt_menu li dl {
+	width:140px;
+	float:left;
+}
+.hlt_menu li dl dt {
+	width:105px;
+	padding:0 0 0 35px;
+	height:30px;
+	line-height:27px;
+	color:#2f6b6c;
+	background-position:-48px -65px;
+	font-weight:bold;
+	float:left;
+}
+.hlt_menu li dl dd {
+	width:120px;
+	padding:0 0 0 20px;
+	background-position:-986px -93px;
+	color:#2f6b6c;
+	float:left;
+}
+.hlt_menu li dl dd a {
+	color:#2f6b6c;
+}
+.hlt_menu li dl dd a:hover {
+	color:#1d4647;
+}
+-->
+</style>

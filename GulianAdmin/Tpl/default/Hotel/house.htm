@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>联动枚举管理</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function confirmAct()
+	{
+		if(confirm('此操作不可逆，确定要下线吗？'))
+		{
+			$('#form').submit();
+		}
+		return false;
+	}
+	
+	$(document).ready(function(){
+		$("#all").click(function (){
+									$("input[name=house[]]").attr('checked',$(this).attr('checked'));
+									
+									});
+		
+	});
+</script>
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody><tr>
+   <form name="form" method="post" action="<{:SITE_ADMIN}>Hotel/house" id="form">
+   <input type="hidden" name="type" value="down" />
+   <input type="hidden" name="house_id" value="<{$house_id}>" />
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+		<a href="javascript:void(0);" onclick="confirmAct();">下线选种产品</a>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+  	  <td width="4%"><input type="checkbox" id="all" /></td>
+      <td width="10%">名称</td>
+      <td width="20%">酒店名称</td>
+      <td width="10%">入住日期</td>
+	  <td width="5%">周期</td>
+      <td width="10%">状态</td>
+      <td width="10%">名额</td>
+      <td width="10%">报名名额</td>
+   </tr>
+	   <php>foreach($list as $val){</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+       	<td><input type="checkbox" name='house[]' value='<{$val[id]}>'/></td>
+        <td><{$val[house][title]}></td>
+        <td>
+                        <{$val[hotel][title]}>
+        </td>
+        <td><{$val[date]|date='Y-m-d',###}></td>
+        <td><{$val[hotel_line][stay_day]}></td>
+        <td><{$val[hotel_line][status]}></td>
+        <td><{$val[sum_num]}></td>
+        <td><{$val[reserve_num]}></td>
+     </tr>
+	 <php>}</php> 
+     </form>
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="8">
+          <div class="pagelistbox">
+			<{$page}>
+</div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>

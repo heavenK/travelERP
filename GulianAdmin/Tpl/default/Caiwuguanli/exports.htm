@@ -1,0 +1,60 @@
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+    	<td height="27" align="center" bgcolor="#ff8d00">
+        	<strong>范围</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>订单数(张)</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>销售额(元)</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>人数(人)</strong>
+        </td>
+    </tr>
+    <tr>
+        <td class="xxxx" height="27" align="center">总计 </td>
+        <td class="xxxx" height="27" align="center"><{$num}> </td>
+        <td class="xxxx" height="27" align="center"><{$qianshu}> </td>
+        <td class="xxxx" height="27" align="center"><{$renshu}> </td>
+      </tr>
+      <php>foreach($node_people as $date=>$value){</php>
+      <tr>
+          <td class="xxxx" height="27" align="center"><{$date}> </td>
+          <td class="xxxx" height="27" align="center"><{$node[$date]}> </td>
+          <td class="xxxx" height="27" align="center"><{$node_money[$date]}> </td>
+          <td class="xxxx" height="27" align="center"><{$value}> </td>
+      </tr>
+      <php>}</php>
+</tbody></table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+      <tr>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>订单编号</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>来源人</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>来源部门</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>人数</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>销售额</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>下单日期</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>出团日期</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>通过日期</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>联系人</strong></td>
+          </tr>
+  </tr>
+          <php>foreach($dingdanAll as $dingdan){</php>
+          <tr>
+              <td class="xxxx" height="27" align="center"><{$dingdan['bianhao']}></td>
+              <td align="center" height="27" class="xxxx"><{$dingdan['user_name']}> </td>
+              <td align="center" height="27" class="xxxx"><{$dingdan['department']}> </td>
+              <td class="xxxx" height="27" align="center"><{$dingdan['renshu']}> </td>
+              <td class="xxxx" height="27" align="center"><{$dingdan['xiaoshoue']}></td>
+              <td align="center" height="27" class="xxxx"><php>echo date('Y-m-d H:i:s',$dingdan['time'])</php></td>
+              <td align="center" height="27" class="xxxx"><{$dingdan['chutuanriqi']}> </td>
+              <td align="center" height="27" class="xxxx"><php>echo date('Y-m-d',$dingdan['caiwu_time'])</php></td>
+              <td class="xxxx" height="27" align="center"><{$dingdan['lianxiren']}> </td>
+            </tr>
+          <php>}</php>
+</tbody></table>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游-机票子团管理
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+</head>
+
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+
+	function select_all(obj){
+		$("input[name=selected]").attr('checked',$(obj).attr('checked'));	
+	}
+	
+</script>
+
+
+
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+            	<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="90%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="91" align="center">
+                                <a id="lkbBase" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketCheck/id/<{$pid}>">基本信息</a>
+                            </td>
+                            <td>
+                                <a id="lkbSubLine" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketDateShow/pid/<{$pid}>" style="color: Blue;">子团管理</a></td>
+                            <td width="91">
+                                <a id="lkbPrice" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketPriceShow/pid/<{$pid}>">价 格</a>
+                            </td>
+                            <td width="70%">
+                            </td>
+                            <td width="91">
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="fanye">
+                    <div class="page">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td class="jyt" height="27" width="70%" bgcolor="#E6E6E6">
+                                    <strong>子团管理：</strong></td>
+                                <td align="right" bgcolor="#E6E6E6">
+                                    
+                                </td>
+                                <td align="right" bgcolor="#E6E6E6">
+                                     <a onclick="return confirm('确定审核成功吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Airticket/send/type/success/id/<{$pid}>'>审核成功</a>
+                                     </td>
+                                <td bgcolor="#E6E6E6">
+                                <a onclick="return confirm('确定审核不通过吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Airticket/send/type/fail/id/<{$pid}>'>审核不通过</a>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div id="UpdatePanel1">
+	
+                            <table class="GridList" rules="all" id="Sublinelist" style="border-collapse: collapse;" border="1" cellspacing="0">
+		<tbody><tr class="fenlei" align="center">
+			<td>机票编号</td><td>机票数量</td><td>往返类型</td><td>状态</td><td>出发日期</td><td>报名截止</td><td>
+
+                                        </td>
+		</tr>	
+        						<php>foreach($datas as $val){</php>
+        							<tr>
+										<td align="center">
+                                            <{$val[ticket_id]}>
+                                        </td><td align="center">
+                                            <{$val[sum_num]}>
+                                        </td><td align="center">
+                                            <{$val[ticket][travel_type]}>
+                                        </td><td align="center">
+                                            <{$val[status]}>
+                                        </td><td align="center">
+                                            <{$val[start_date]|date='Y-m-d',###}>
+                                        </td><td align="center">
+                                            <{$val[end_date]|date='Y-m-d',###}>
+                                        </td><td align="center">
+                                        </td>
+									</tr>
+                                <php>}</php>
+	</tbody></table>
+                        
+</div>
+                </div>
+            </div>
+
+    </div>
+
+
+</body></html>

@@ -1,0 +1,146 @@
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span><{$navlist}></li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="99%" border="0">
+                        <tbody><tr>
+                            <td width="5%">
+                            </td>
+                            <td width="91" height="18" align="center">
+                                  <a class="yyxxl" href="<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/<{$tuan['djtuanID']}>" <php>if($location == '基本信息'){</php>style="color:Blue;" <php>}</php> >基本信息</a>
+                            </td>
+                            <td width="91" height="18" align="center">
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/itinerary/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '日程安排'){</php>style="color:Blue;" <php>}</php> >日程安排</a>
+                            </td>
+                            	<php>if($tuan['jingwai'] == '国内'){</php>
+                            <td width="91">
+                                <a 
+                                href="<{:SITE_DIJIE}>Tuancontrol/appraisal/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '估价'){</php>style="color:Blue;" <php>}</php> >对外报价</a>
+                            </td>
+                            	<php>}</php>
+                            	<php>if($tuan['jingwai'] == '境外'){</php>
+                            <td width="91">
+                            <php>if($tuan['djtuanID']!=null){</php>
+                                <a id="lkbPrice" href="<{:SITE_DIJIE}>Tuancontrol/appraisal/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '估价'){</php>style="color:Blue;" <php>}</php> >見　積　書</a>
+                            <php>}</php>
+                            </td>
+                            
+                            <td width="91">
+                            <php>if($tuan['djtuanID']!=null){</php>
+                                <a id="lkbPrice" href="<{:SITE_DIJIE}>Tuancontrol/riben_cost/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '成本计算'){</php>style="color:Blue;" <php>}</php> >原価計算表</a>
+                            <php>}</php>
+                            </td>
+                            
+                            	<php>}</php>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/travelnotice/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '带团通知单'){</php>style="color:Blue;" <php>}</php> >带团通知单</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel_list/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '订房确认单'){</php>style="color:Blue;" <php>}</php> >订房确认单</a>
+                            </td>
+                            <td width="40%">
+                            </td>
+                            <td>
+                            	<php>if($list_add){</php>
+                                <a class="yyxxl" href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/djtuanID/<{$tuan['djtuanID']}>">添 加</a>
+                                <php>}else{</php>
+                                <a onclick="return checkdata();" class="yyxxl" href="javascript:dosave();">保 存</a>
+                                <php>}</php>
+                            </td>
+                            <td>
+                            	<php>if($tuan['jingwai'] == '国内'){</php>
+                            	<php>if($printable == '打印'){</php>
+                                <a class="yyxxl" href="javascript:doprint('<{$tuan['djtuanID']}>','<{$location}>','国内');">打 印</a>
+                                <php>}</php>
+                                <php>}</php>
+                                
+                            	<php>if($tuan['jingwai'] == '境外'){</php>
+                            	<php>if($printable == '打印'){</php>
+                                <a class="yyxxl" href="javascript:doprint('<{$tuan['djtuanID']}>','<{$location}>','境外');">打 印</a>
+                                <php>}</php>
+                                <php>}</php>
+                                
+                                
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                    
+                    <table class="jbxx" width="99%" border="0" style="margin:0px;">
+                        <tbody><tr>
+                            <td width="5%">
+                            </td>
+                            <td width="91" height="18" align="center">
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangitemlist/showtype/收入/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '收入'){</php>style="color:Blue;" <php>}</php> >收入项目</a>
+                            </td>
+                            <td width="91" height="18" align="center">
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangitemlist/showtype/支出/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '支出'){</php>style="color:Blue;" <php>}</php> >支出项目</a>
+                            </td>
+                            <td>
+                            	<php>if($tuan['jingwai'] == '国内'){</php>
+                            
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangdan/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '报账单'){</php>style="color:Blue;" <php>}</php> >报账单</a>
+                            	<php>}</php>
+                                
+                            	<php>if($tuan['jingwai'] == '境外'){</php>
+                            
+                                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangdan/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '报账单'){</php>style="color:Blue;" <php>}</php> >报账单</a>
+                            	<php>}</php>
+                                
+                            </td>
+                            <td width="91">
+                            </td>
+                            
+                            <td width="91">
+                            </td>
+                            <td>
+                            </td>
+                            <td width="40%">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    
+                    
+                    
+                    
+                    <div class="clear">
+                    </div>
+                </div>
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:150px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script>
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function doprint(djtuanID,type,jingwai)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/doprint/djtuanID/'+djtuanID+'/type/'+type+'/jingwai/'+jingwai;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function doprint_2(djtuanID,type,jingwai)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/doprint/showpage/计调/djtuanID/'+djtuanID+'/type/'+type+'/jingwai/'+jingwai;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+</script>

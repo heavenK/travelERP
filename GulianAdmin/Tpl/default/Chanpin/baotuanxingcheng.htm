@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js"></script>
+
+
+<title>行　程</title>
+
+
+<script>
+function baocunbingxiayibu()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+function ksadd(){
+	
+	$("#ksadd").clone().prependTo("#ksaddbox");
+	
+}
+
+</script>
+
+
+
+
+</head>
+
+
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$typeurl}>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="hlt_fit_published_button"><!--步骤 按钮-->
+            <ul>
+                
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianluID}>">基本信息</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+                <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/renyuanbianji/xianluID/<{$xianluID}>">人　员</a></li>
+                <!--<li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>-->
+                
+            </ul>
+            <dl>
+            <div>
+            	<a href="javascript:GetcheckBack('<{$xianlu['xianluID']}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a>
+                
+                <a class="hlt_fit_published_button_b" title="提交审核" onclick="return confirm('确定要提交审核吗？');" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>" ></a>
+                            <php>if($xianluID){
+                            </php>
+                            <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_d" title="保存" onclick="return checkdata();"></a> 
+                            <php>}else{
+                            </php>   
+                            <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_c" title="保存 下一步" onclick="return checkdata();"></a> 
+                            <php>}
+                            </php>   
+                            
+                    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:90px;">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                   </div>
+           </div>
+                
+                
+                
+            </dl>
+        </div>
+                    
+        <form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostXingchengbianji" id="form" enctype="multipart/form-data" >
+        <input type="hidden" name="xianluID" id="xianluID" value="<{$xianlu['xianluID']}>"/>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<div id="hlt_fit_travel">
+            	<ol id="ksaddbox">
+                	<li id="ksadd<{$count}>">
+                    	<span>
+                            行&nbsp;&nbsp;&nbsp;&nbsp;程：<php>if ($xingcheng_word){</php>当前行程文件  <a href="/data/<{$xingcheng_word}>">点击下载</a><php>}</php>&nbsp;&nbsp;&nbsp;<input type="file" name="xingcheng_word" />
+                           
+                        </span>
+                    </li>
+                </ol>     
+            </div>
+        </div>
+        
+        </form>
+        
+    </div>
+    
+    
+</div>
+
+</body>
+</html>

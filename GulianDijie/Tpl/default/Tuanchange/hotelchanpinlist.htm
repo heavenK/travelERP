@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0138)http://m.toptrip.com.cn/Main/ReplaceProduct.aspx?olduser=91CB80A2-FBFF-4C23-A862-B4246D9607AF&newuser=8f7b92f9-5644-449b-a152-5e58ebe0a7fb -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<title>互动旅游-散客产品转移</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+
+function dozhuanyi()
+{
+	document.getElementById("form1").submit();
+}
+
+function dochange()
+{
+	var chanpintype = document.getElementById("chanpintype").value;
+	var leftusername = document.getElementById("leftusername").value;
+	var rightusername = document.getElementById("rightusername").value;
+	
+	window.location.href = "<{:SITE_ADMIN}>Chanpinpingyi/chanpinlist/leftusername/"+leftusername+"/rightusername/"+rightusername+"/chanpintype/"+chanpintype;
+	
+}
+
+
+</script>
+
+
+
+</head>
+
+
+
+
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置：</span>酒店列表</li>
+    </ul>
+</div>
+                <div class="ss">
+                    <table border="0" class="test1" style="padding-top: 20px;">
+                        <tbody><tr>
+                            <td width="81" height="18" align="right" style="width: 100px">
+                                目的地城市：</td>
+                            <td width="179" height="18" style="width: 161px">
+                                <input name="tbmddcity" type="text" id="tbmddcity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}">
+                            </td>
+                            <td height="18" align="right" style="width: 119px">
+                                状态：</td>
+                            <td height="18" style="width: 162px">
+                                <select name="ddlSates" id="ddlSates" style="width:103px;">
+                                    <option value="8">全部</option>
+                                    <option selected="selected" value="3">报名</option>
+                                    <option value="4">截止</option>
+                                    <option value="5">出团</option>
+                                    <option value="6">回团</option>
+                                
+                                </select>
+                            </td>
+                            <td height="18" align="right" style="width: 84px">
+                            </td>
+                            <td colspan="3" style="width: 117px">
+                            </td>
+                            <td>&nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                            <td width="81" align="right" style="height: 38px">
+                                关键字：</td>
+                            <td width="179" style="height: 38px">
+                                <input name="tbKeyword" type="text" id="tbKeyword"></td>
+                            <td align="right" style="height: 38px;">
+                                日期：</td>
+                            <td style="height: 38px; width: 162px;">
+                                <input name="tbLineDate" type="text" id="tbLineDate" class="Wdate" onfocus="WdatePicker()" style="width:101px;">
+                            </td>
+                            <td align="right" style="width: 84px; height: 38px;">
+                            </td>
+                            <td style="height: 38px;">
+                            </td>
+                            <td style="height: 38px;">
+                                <input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu"></td>
+                            <td align="right" colspan="2" style="height: 38px;">
+                                &nbsp;&nbsp;</td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                
+                
+                <div class="fanye">
+                    <div class="nr">
+                        <table width="99%" border="0">
+                            <tbody><tr>
+                                <td class="wbx" width="58" align="center">
+                                    从
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    <span id="ltolduser" style="font-size:14pt;"><{$leftuser['realname']}></span>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    到
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    <span id="ltnewuser" style="font-size:14pt;"><{$rightuser['realname']}></span>
+                                </td>
+                                <td class="wbx" width="150" align="center">
+                                    <select name="chanpintype" onchange="javascript:dochange()" id="chanpintype">
+                                    
+                                        <option selected="selected" value="<{$chanpintype}>"><{$chanpintype}></option>
+                                        <option disabled="disabled" >----------------</option>
+                                        
+                                        <option value="散客产品">散客产品</option>
+                                        <option value="机票">机票</option>
+                                        <option value="酒店">酒店</option>
+                                        <option value="自由人">自由人</option>
+                                    
+                                    </select>
+                                </td>
+                                <td class="wbx" width="150" align="right">
+                                    <a onclick="return confirm('确认转移吗？');" id="lkbMove" class="yyxxl" href="javascript:dozhuanyi()">转 移</a>
+                                </td>
+                                <td class="wbx" align="left">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                        <tbody><tr>
+                            <th height="32" align="center">
+                                <input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                            </th>
+                            <th height="32" align="center">
+                                房型
+                            </th>
+                            <th height="32" align="center">
+                                酒店
+                            </th>
+                            <th height="32" align="center">
+                                入住日期
+                            </th>
+                            <th height="32" align="center">
+                                天数
+                            </th>
+                            <th height="32" align="center">
+                                状态
+                            </th>
+                            <th height="32" align="center">
+                                外卖价
+                            </th>
+                            <th height="32" align="center">
+                                间数
+                            </th>
+                        </tr>
+                        
+                        
+                       <form name="form1" id="form1" action="<{:SITE_ADMIN}>Chanpinpingyi/dopostzhuanyi" method="post" > 
+                       	   <input type="hidden" name="postchanpintype" id="postchanpintype" value="<{$chanpintype}>">
+                           <input type="hidden" name="leftusername" id="leftusername" value="<{$leftuser['user_name']}>" >
+                           <input type="hidden" name="rightusername" id="rightusername" value="<{$rightuser['user_name']}>" >
+                            <php> $i = -1; foreach($hotellineviewAll as $data){$i++;
+                            </php>
+                                <tr class="tr1">
+                                    <td height="27" align="center">
+                                            <span title=""><input value="<{$data['house_id']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></span></td>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['room']}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['hotel_title']}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <php> echo date('Y-m-d',$data['start_date']); </php>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['stay_day']}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['status']}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['sell_price']}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$data['room_num']}>
+                                    </td>
+                                </tr>
+                            <php> }
+                            </php>
+                        </form>
+                                
+                                
+                    </tbody></table>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        
+<div>
+
+</div></form>
+
+</body></html>

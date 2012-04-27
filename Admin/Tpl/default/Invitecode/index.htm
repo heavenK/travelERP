@@ -1,0 +1,52 @@
+<include file="Common:header" />
+<h3>邀请码管理</h3>
+<div class="indexh">
+    <span class="<php>if($t==1){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Invitecode/index/t/1">未使用</a></span>
+    <span class="<php>if($t==2){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Invitecode/index/t/2">已使用</a></span>
+    <span class="<php>if($t==3){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Invitecode/index/t/3">创 建</a></span>
+</div>
+<php>if($t==3){</php>
+<form method="POST" action="<{:SITE_URL}>/admin.php?s=/Invitecode/create">
+<table class="table" style="margin:5px 0 20px 0">
+    <tr>
+        <td width="80px">生成个数：</td>
+        <td width="250px"><input name="num" type="text" value="10" class="txt_input" style="width:150px"/></td>
+        <td class="info">● 一次最多10条</td>
+    </tr>
+    <tr>
+        <td>有效期：</td>
+        <td><input name="time" type="text" value="7" class="txt_input" style="width:150px"/> 天</td>
+        <td class="info">● 填写整数，填写0表示永不过期</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="2"><input type="submit" class="button1" value="提交添加"></td>
+    </tr>
+</table>
+</form>
+<php>}else{</php>
+<form action='<{:SITE_URL}>/admin.php?s=/Invitecode/delcode' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="70px">&nbsp;</td>
+    <td width="250px">邀请码</td>
+    <td width="180px"><php>if($t==1){</php>有效期至<php>}else{</php>使用者帐号<php>}</php></td>
+    <td>&nbsp;</td>
+</tr>
+<php>foreach($idata as $val){</php>
+<tr>
+    <td><input type="checkbox" name="delcode[]" value="<{$val[id]}>" class="checkbox"></td>
+    <td><{$val[invitecode]}></td>
+    <td><php>if($t==1){</php><{:$val[timeline]?date('Y-m-d H:i',$val[timeline]):'永久不过期'}><php>}else{</php><a href="<{:SITE_URL}>/<{$val[user_name]}>" target="_blank"><{$val[user_name]}></a><php>}</php></td>
+    <td style="color:red"><php>if($t==1){</php><{:($val[timeline]<=time() && $val[timeline])?'已过期':''}><php>}</php></td>
+</tr>
+<php>}</php>
+<tr>
+    <td><input type="checkbox" onclick="CheckAll('delcode', 'chkall')" id="chkall" name="chkall" class="checkbox"> 删除?</td>
+    <td colspan="3"><input type="hidden"name="t" value="<{$t}>"><input type="submit" class="button1" value="提交删除"><php>if($t==1){</php>&nbsp;&nbsp;&nbsp;<input type="button" class="button1" value="删除过期" onclick="jsop('<{:SITE_URL}>/admin.php?s=/Invitecode/deloverdue/t/<{$t}>','确认删除所有过期的邀请码？')"><php>}</php></td>
+</tr>
+</table>
+</form>
+<div class="page"><{$page}></div>
+<php>}</php>
+<include file="Common:foot" />

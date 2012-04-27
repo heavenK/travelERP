@@ -1,0 +1,33 @@
+@charset "utf-8";
+html{color:#000;font-family:Arial,Helvetica,sans-serif,"宋体";font-size:12px;}
+body{margin:0;padding:0;border:0;outline:0;line-height:150%}
+p{margin:5px auto;padding:5px auto}
+a {color:#2b4a78;text-decoration:none}
+a:hover {text-decoration:underline;}
+a:hover .label { border-bottom:1px solid #06c;}
+.fleft { float: left; }
+.fright { float: right; }
+.clearline {display:block;height:0;line-height:0;font-size:0;overflow:hidden;clear:both;}
+img {border:0px;margin-top:5px}
+table{border-collapse:collapse;border-spacing:0;}
+.main {padding-left:0px;}
+.main .border {background:url('wgt_slide.gif') repeat-x;height:17px;text-align:center;}
+.img {width:40px;height:40px;border:1px solid #cccccc;padding:1px}
+.vip {background:url('../images/vip.gif') no-repeat right;padding-right:16px}
+.info {font-size:12px;color:#535353}
+.contbody{background:#ffffff;overflow:hidden;overflow-y:scroll;}
+.list {list-style:none; *zoom:1;margin:0px;padding:0px}
+.list li {border-bottom:1px dashed #ddd;overflow:hidden;overflow-x:hidden;-o-text-overflow:ellipsis;padding:6px 10px}
+.list li .timeline{color:#999999;margin-top:3px}
+.list li.unlight {background:#ffffff}
+.list li.light {background:#f5f5f5}
+.list li.unlight .op {display:none}
+.list li.light .op {display:block}
+.fleft a {color:#999999}
+img.emo {width:20px;height:20px;border:0px}
+.grey{color:#999999}
+.retwitt {border:1px #e4e4e4 solid;background:#f9f9f9;padding:5px 8px;font-size:12px;margin-top:5px}
+.retwitt .times {color:#999;float:left}
+.retwitt .times a {color:#999}
+.retwitt .tetime {color:#2b4a78;float:right}
+.retwitt em{font:12px Tahoma,Arial;color:#999;margin-right:5px}

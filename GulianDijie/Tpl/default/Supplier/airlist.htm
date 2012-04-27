@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function confirmAct()
+	{
+		if(confirm('你确定要删除吗？'))
+		{
+			return true;
+		}
+		return false;
+	}
+</script>
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody>
+  <tr>
+   <td colspan="11" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr>
+   <td colspan="11" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<a href="<{:SITE_DIJIE}>Supplier/addresource/type/飞机" class="np coolbg">添加</a>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+      <td width="5%">机票名称</td>
+      <td width="5%">机票编号</td>
+      <td width="5%">航班号</td>
+      <td width="5%">航段</td>
+      <td width="5%">航空公司</td>
+      <td width="5%">往返类型</td>
+      <td width="5%">联系人</td>
+	  <td width="10%">电话</td>
+      <td width="10%">地址</td>
+      <td width="5%">添加人</td>
+      <td width="10%">操作</td>
+   </tr>
+	   <php>foreach($list as $val){</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+       
+        <td><a href="<{:SITE_DIJIE}>Supplier/addresource/type/飞机/resourceID/<{$val[resourceID]}>"><{$val[title]}></a></td>
+        <td><a href="<{:SITE_DIJIE}>Supplier/addresource/type/飞机/resourceID/<{$val[resourceID]}>"><{$val[en_title]}></a></td>
+        <td><{$val[title_ext]}></td>
+        <td><{$val[title_ext2]}></td>
+        <td><{$val[title_ext3]}></td>
+        <td><{$val[title_ext4]}></td>
+        <td><{$val[contact]}></td>
+        <td><{$val[telnum]}></td>
+        <td><{$val[addr]}></td>
+        <td><{$val[adduser]}></td>
+        <td>
+        <a href="<{:SITE_DIJIE}>Supplier/addresource/type/飞机/resourceID/<{$val[resourceID]}>">[修改]</a>
+        <a href="<{:SITE_DIJIE}>Supplier/delete/resourceID/<{$val[resourceID]}>/" onclick="return confirmAct();">[删除]</a>
+        </td>
+     </tr>
+	 <php>}</php> 
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="11">
+          <div class="pagelistbox">
+			<{$page}>
+</div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>

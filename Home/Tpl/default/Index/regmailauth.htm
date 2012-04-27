@@ -1,0 +1,17 @@
+<include file="Common:header" />
+<div id="login">
+    <div style="padding:50px;color:#666666;line-height:250%">
+        <p style="font-size:18px;font-weight:bold;color:#005aab"><{:L('jh_title')}></p>
+        <p><{:L('jh_confirm')}><{$my['mailadres']}>。<{:L('jh_visit')}></p><br/>
+        <php>if(gotomail($my['mailadres'])){</php><p style="font-size:14px;color:#000000"><a href="http://<{:gotomail($my['mailadres'])}>" target="_blank"><{:L('tomail')}></a></p><php>}</php>
+        <p style="font-size:14px;color:#000000"><a href="<{:SITE_URL}>/Index/sendmail"><{:L('jh_reactive')}></a></p><br/>
+        <{:L('jh_info')}>
+        <p>
+        <form action="<{:SITE_URL}>/Index/changemail" method="post">
+            <input type="text" class="input_text" name="email">
+            <input type="submit" class="button2" value="<{:L('changeemail')}>">
+        </form>
+        </p>
+    </div>
+</div>
+<include file="Common:foot" />

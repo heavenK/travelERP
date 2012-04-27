@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>接待计划</title>
+<script>
+function turnoff(obj){
+document.getElementById(obj).style.display="none";
+}
+
+
+function baocun(){
+document.getElementById("form").submit();
+}
+
+function quxiaofabu(){
+document.getElementById("form").action = '<{:SITE_ADMIN}>Kongguan/quxiaofabu';	
+document.getElementById("form").submit();
+}
+
+
+
+</script>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	
+    <div id="control_domestic_order_over">
+    <a href="javascript:window.print();" class="control_domestic_order_over_c" title="打印"></a>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+        <div id="hlt_fit_published_cont">
+            
+            <div id="plan_jh">                
+                <div class="plan_jh_b">接待计划书<a href="#" onclick="javascript:turnoff('plan_jh_a')" class="plan_ap_a_link"></a></div>
+                <div id="plan_jh_a">
+                    <div class="plan_jh_c"><b>致：</b><label style="float:left"><{$jiedaijihua['toperson']}></label><b>电话：</b><label style="float:left"><{$jiedaijihua['totelnum']}></label><b>传真：</b><label style="float:left"><{$jiedaijihua['tofax']}></label></div>
+                    <div class="plan_jh_d">以下为团号：接待计划，请仔细核查后予以确认并安排接待！</div>
+                    <div class="plan_jh_e"><b>发件人：</b><span style="margin-right:40px;">大连古莲国旅</span><label style="float:left"><{$jiedaijihua['fromperson']}></label><b>电话：</b><label style="float:left"><{$jiedaijihua['fromtelnum']}></label><b>传真：</b><label style="float:left"><{$jiedaijihua['fromfax']}></label></div>
+                    <div class="plan_jh_f"><b>线路名称：</b><label style="float:left"><{$zituan['mingcheng']}></label></div>
+                    <div class="plan_jh_g"><b>团号：</b><label style="float:left"><{$zituan['tuanhao']}></label></div>
+                    <div class="plan_jh_h"><b>出团日期：</b><label style="float:left"><{$zituan['chutuanriqi']}></label></div>
+                    <div class="plan_jh_i"><b>回团日期：</b><label style="float:left"><{$zituan['huituanriqi']}></label></div>
+                    
+                    
+                    <div class="plan_jh_l"><b>去程交通：</b><label style="float:left"><{$jiedaijihua['tojiaotong']}></div>
+                    <div class="plan_jh_m"><b>返程交通：</b><label style="float:left"><{$jiedaijihua['backjiaotong']}></div>
+                    <div class="plan_jh_n"><b>领队：</b><label style="float:left"><{$jiedaijihua['songtuanren']}></div>
+                    <div class="plan_jh_o"><b>电话：</b><label style="float:left"><{$jiedaijihua['dipeitelnum']}></div>
+                    <div class="plan_jh_p"><b>地陪姓名：</b><label style="float:left"><{$jiedaijihua['dipeiname']}></div>
+                    <div class="plan_jh_q"><b>电话：</b><label style="float:left"><{$jiedaijihua['dipeitelnum']}></div>
+                    <div class="plan_jh_r"><b>接团标志：</b><label style="float:left"><{$jiedaijihua['jietuanmark']}></div>
+                    <div class="plan_jh_s"><b>紧急联系人：</b><label style="float:left"><{$jiedaijihua['jinjilianxiren']}></div>
+                    <div class="plan_jh_l"><b>集合标志：</b><label style="float:left"><{$jiedaijihua['jihemark']}></div>
+                    <div class="plan_jh_m"></div>
+                    
+                    
+                 </div>
+            </div>
+
+
+            <div id="plan_ap">
+            	<div class="plan_ap_a">行程安排<a href="#" onclick="javascript:turnoff('plan_ap')" class="plan_ap_a_link"></a></div>
+            	<div class="plan_ap_b">
+                	<php>foreach($xingchengAll as $key => $xingcheng){</php>
+                    	<p>&nbsp;</p>
+                    	<p>
+                        	<strong><{$xingcheng['date']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                            交通：<strong><{$xingcheng['tools']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            餐&nbsp;： <strong><{$xingcheng['time']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        	住宿：<strong><{$xingcheng['place']}></strong>
+                        </p>
+                        <p>
+                        	<{$xingcheng['content']}>
+                        </p>
+                    <php>}</php>
+                </div>
+            </div>
+            
+            <div id="plan_bz">
+            	<div class="plan_ap_a">备注说明<a href="#" onclick="javascript:turnoff('plan_bz')" class="plan_ap_a_link"></a></div>
+            	<div class="plan_ap_b">
+                	<{$jiedaijihua['remark']}>
+                </div>
+            </div>
+            
+            <div id="plan_bz">
+            	<div class="plan_ap_a">费用明细<a href="#" onclick="javascript:turnoff('plan_bz')" class="plan_ap_a_link"></a></div>
+            	<div class="plan_ap_b">
+                	<{$jiedaijihua['pricedetail']}>
+                </div>
+            </div>
+            
+            <div id="plan_ty">
+            	<div class="plan_ap_a">团员名单<a href="#" onclick="javascript:turnoff('plan_ty')" class="plan_ap_a_link"></a></div>
+                <div id="plan_ty_box">
+                    <ol>
+                        <ul class="plan_ty_box_ul_a">
+                            <li class="plan_ty_a">姓名		</li>
+                            <li class="plan_ty_b">联系电话	</li>
+                            <li class="plan_ty_c">订单号		</li>
+                            <li class="plan_ty_d">成人|儿童	</li>
+                            <li class="plan_ty_e">备注		</li>
+                        </ul>
+                        
+                        <php> foreach($dingdanAll as $dingdan){ foreach($dingdan['tuanyuan'] as $tuanyuan){
+                        </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="plan_ty_a"><{$tuanyuan['name']}></li>
+                            <li class="plan_ty_b"><{$tuanyuan['telnum']}></li>
+                            <li class="plan_ty_c"><{$dingdan['bianhao']}></li>
+                            <li class="plan_ty_d"><{$tuanyuan['manorchild']}></li>
+                            <li class="plan_ty_e"><{$tuanyuan['xuqiu']}></li>
+                        </ul> 
+                        <php>}}
+                        </php>
+                         
+                    </ol>
+                </div>
+            </div>
+            
+            
+      	</div>
+  </div>
+    
+    
+</div>
+
+</body>
+</html>

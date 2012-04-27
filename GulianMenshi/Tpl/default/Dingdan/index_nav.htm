@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/ks.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	
+$(document).ready(function(){
+  $("#ks_sou_01").click(function () {
+	  	$("#ks_sou_01").removeClass("ks_out_01_m");
+	  	$("#ks_sou_01").addClass("ks_on_01_m");
+	  	$("#ks_sou_02").removeClass("ks_on_02_m");
+	  	$("#ks_sou_02").addClass("ks_out_02_m");
+    	$("#aaa1").show();
+		$("#aaa2").hide();
+  	});
+$("#ks_sou_02").click(function () {
+		$("#ks_sou_01").removeClass("ks_on_01_m");
+	  	$("#ks_sou_01").addClass("ks_out_01_m");
+	  	$("#ks_sou_02").removeClass("ks_out_02_m");
+	  	$("#ks_sou_02").addClass("ks_on_02_m");
+    	$("#aaa2").show();
+		$("#aaa1").hide();
+  	});
+});
+ 
+</script>
+<style>
+.fanye th {
+	background:url("<{:__PUBLIC__}>/gulianstyle/images/search_topbav_bg_02.gif") repeat-x;
+}
+</style>
+<title><{$navlist}></title>
+</head>
+
+<body>
+<div class="ks_mainbav_m">
+	<em>导航页：</em>
+	<a href="#">门市操作导航</a>
+</div>
+<div class="ks_search_line_m"> <span id="ks_sou_01" class="ks_on_01_m"></span> <b id="ks_sou_02" class="ks_out_02_m" ></b> 
+  <div id="aaa1"> <em>
+    <label>订单编号：</label>
+    <input type="text" id="bianhao" />
+    <label>下单日期范围：</label>
+    <input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time1" style=" background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+    <p>-</p>
+    <input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time2" style=" background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+    <label>团队编号：</label>
+    <input type="text" id="tuanhao"/>
+    <label>团队名称：</label>
+    <input type="text" id="mingcheng"/>
+    <label>联系人：</label>
+    <input type="text" id="lianxiren" />
+    </em> <em>
+    
+    <label>门市确认：</label>
+    <select id="daokuan" >
+      <option value="">全部</option>
+      <option value="未付款">未付款</option>
+      <option value="已付款">已付款</option>
+    </select>
+    <label>财务确认：</label>
+    <select id="daokuancw" >
+      <option value="">全部</option>
+      <option value="未付款">未付款</option>
+      <option value="已付款">已付款</option>
+    </select>
+    <label>订单状态：</label>
+    <select id="zhuangtai" >
+      <option value="">全部</option>
+      <option value="占位">占位</option>
+      <option value="确认">确认</option>
+    </select>
+    <label>线路类型：</label>
+    <select id="xianlutype" >
+      <option value="">全部</option>
+      <option value="散客产品">散客产品</option>
+      <option value="自由人">自由人</option>
+      <option value="包团">包团</option>
+    </select>
+    </em> <em>
+    <label>国境：</label>
+    <select id="guojing" >
+      <option value="">全部</option>
+      <option value="国内">国内</option>
+      <option value="境外">境外</option>
+    </select>
+    <label>大客户：</label>
+    <select id="bigmanID" >
+      <option value="">全部</option>
+      <php>foreach($bigmanAll as $bigman){</php>
+      <option value="<{$bigman['id']}>"><{$bigman['title']}></option>
+      <php>}</php>
+    </select>
+    <label>订单类型：</label>
+    <select id="type" >
+      <option value="">全部</option>
+      <option value="包团">包团</option>
+      <option value="机票酒店">机票酒店</option>
+      <option value="机票">机票</option>
+      <option value="酒店">酒店</option>
+    </select>
+    </em> <i id="dosearch"><a onclick="searchdingdan();"></a></i> </div>
+    
+    <div id="aaa2" style="display:none"> <em>
+        <label>团队名称：</label>
+        <input type="text" id="mingcheng_2" />
+        <label>团队编号：</label>
+        <input type="text" id="tuanhao_2" />
+        <label>日期范围：</label>
+        <input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time1_2" style=" background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+        <p>-</p>
+        <input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time2_2" style=" background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+        <label>目的地：</label>
+        <input type="text" id="mudidi_2"/>
+        <label>类型：</label>
+        <select id="jiedaitype_2" >
+        	<option value="出团通知">出团通知</option>
+        	<option value="接待计划">接待计划</option>
+        </select>
+    </em> <i id="dosearcht"><a onclick="searchjihua();"></a></i> </div>
+    
+    
+</div>
+
+<iframe src="<{:SITE_MENSHI}>Dingdan/sankedingdan/iframe/1/user_name/<php>echo $this->tVar[my][user_name]</php>/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible;"></iframe>
+<iframe src="<{:SITE_MENSHI}>Dingdan/noticelist/jiedaitype/出团通知/iframe/2/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible;"></iframe>
+<iframe src="<{:SITE_MENSHI}>Dingdan/noticelist/jiedaitype/接待计划/iframe/3/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible;"></iframe>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+function searchdingdan() {
+        
+	var bianhao = document.getElementById('bianhao').value;
+	var time1 = document.getElementById('time1').value;
+	var time2 = document.getElementById('time2').value;
+	var tuanhao = document.getElementById('tuanhao').value;
+	var mingcheng = document.getElementById('mingcheng').value;
+	var lianxiren = document.getElementById('lianxiren').value;
+	var daokuan = document.getElementById('daokuan').value;
+	var daokuancw = document.getElementById('daokuancw').value;
+	var zhuangtai = document.getElementById('zhuangtai').value;
+	var xianlutype = document.getElementById('xianlutype').value;
+	var guojing = document.getElementById('guojing').value;
+	var bigmanID = document.getElementById('bigmanID').value;
+	var type = document.getElementById('type').value;
+	
+	window.location.href = '<{:SITE_MENSHI}>Dingdan/sankedingdan/bianhao/'+bianhao+'/time1/'+time1+'/time2/'+time2+'/tuanhao/'+tuanhao+'/mingcheng/'+mingcheng+'/lianxiren/'+lianxiren+'/daokuan/'+daokuan+'/daokuancw/'+daokuancw+'/zhuangtai/'+zhuangtai+'/xianlutype/'+xianlutype+'/guojing/'+guojing+'/bigmanID/'+bigmanID+'/type/'+type;
+	
+}
+
+function searchjihua() {
+	
+	var mingcheng = document.getElementById('mingcheng_2').value;
+	var tuanhao = document.getElementById('tuanhao_2').value;
+	var time1 = document.getElementById('time1_2').value;
+	var time2 = document.getElementById('time2_2').value;
+	var mudidi = document.getElementById('mudidi_2').value;
+	var jiedaitype = document.getElementById('jiedaitype_2').value;
+	
+	window.location.href = '<{:SITE_MENSHI}>Dingdan/noticelist/jiedaitype/'+jiedaitype+'/time1/'+time1+'/time2/'+time2+'/mingcheng/'+mingcheng+'/tuanhao/'+tuanhao+'/mudidi/'+mudidi+'/jiedaitype/'+jiedaitype;
+}
+
+
+</script>
+<include file="Index:footer" />

@@ -1,0 +1,123 @@
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/content.css">
+<style>
+.price	{ font-size:12px;}
+</style>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>
+
+	
+	function events(dates, num, re_num, price ,id){
+		
+		var arr = dates.split('-');
+		
+		if ((num-re_num)<='0')
+		{
+			
+		}
+		else{
+		var new_td_room = "<td title='sum' name='" + id + "' class='color3 color4' id='room"  + arr[0] + '-' + arr[1] + '-' + arr[2] +  "' bgcolor='#d1e7e1' align='center'>" + jquery("#room" + dates).text() + "<br><br>" + '<a href="<{:SITE_MENSHI}>Airticket/signup/id/' + id + '" target="_parent"><span class="price">￥' + price + '<span><br><span class="people">剩余票数：' + (num-re_num) + '</span></span></span></a>' + "</td>";
+
+		jquery("#room" + dates).replaceWith(new_td_room);
+		}
+	}
+
+	function change_month(){
+		var y = jquery("#ddlYear").val();
+		var m = jquery("#ddlMonth").find("option:selected").text(); 
+		var head = jquery('#date_event tr').first().html();
+		head = '<tr>' + head + '</tr>';
+		
+		jquery('#date_event').html(head);
+		draw_calendar(y+'-'+m);
+		
+	}
+
+	jquery(document).ready(function(){
+		draw_calendar();
+		
+	});
+	function draw_calendar(t){
+		if (t) var date = new Date(t);
+		else var date = new Date();
+		
+		var d = date.getDate();
+		date.setDate(1);
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		var months = m+1;
+		
+		jquery("#year_month").html(y + "年<br>" + months + "月");
+		
+		start = date.getDay();    //获取本月1号的星期数
+		
+		var days = new Date(y,m+1,0);   
+        var n = days.getDate();       //获取本月有多少天
+		
+		var lines = '';
+
+		
+		for (j = 1, odd = 1; j <= n; odd++){
+			lines += "<tr>";
+			
+			for (i = 0; i < 7; i++){
+				if (i < start && j == 1) {
+					lines += "<td class='lendertd' height='30' align='center' bgcolor='#FFFFFF'><br><br><br><br></td>";
+				}
+				else if(j == d) {
+					lines += "<td id='room" + y + '-' + months + '-' + j + "' bgcolor='#FFFFFF' valign='top' class='color3' align='right'>" + j + "<br><br><br><br></td>";
+					j++;
+				} 
+				else if(j > n){
+					lines += "<td class='lendertd' height='30' align='center' bgcolor='#FFFFFF'><br><br><br><br></td>";
+				}
+				else {
+					lines += "<td id='room" + y + '-' + months + '-' + j + "' bgcolor='#FFFFFF' valign='top' class='color3' align='right'>" + j + "<br><br><br><br></td>";
+					j++;
+				}
+			}
+			lines += "</tr>";
+			
+		}
+		jquery('#date_event').append(lines);
+		
+		
+		//获取活动日期，内容和链接
+		//events('22','天气不错',  '今天天气好情郎，处处好风光，好风光！', 'http://www.baidu.com'); 
+		//events('24','太阳号',  '太阳天气照，花儿对我笑，小鸟说早早早，你为什么背上炸药包！', 'http://www.google.com'); 
+		
+		<php>
+			foreach($calendar as $val){
+		</php>
+				
+				events('<{$val[start_date]|date='Y-n-j',###}>','<{$val[sum_num]}>','<{$val[zhanwei_num]+$val[queren_num]}>','<{$price['price']+$val[price]}>','<{$val[id]}>');
+		<php>
+			}
+		</php>	
+	}
+
+</script>
+<body>
+<div class="calendar" style=" position: absolute;" id="divCalendar">
+<table id="date_event" class="CalendarTab" width="98%" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td rowspan="6" id="year_month" align="center">2011年<br>4月</td>
+            <td class="topx color1" height="27" valign="middle" align="center">星期日</td>
+            <td class="topx" height="27" valign="middle" align="center">星期一</td>
+            <td class="topx" height="27" valign="middle" align="center">星期二</td>
+            <td class="topx" height="27" valign="middle" align="center">星期三</td>
+            <td class="topx" height="27" valign="middle" align="center">星期四</td>
+            <td class="topx" height="27" valign="middle" align="center">星期五</td>
+            <td class="topx color2" height="27" valign="middle" align="center">星期六</td>
+        </tr>
+    </tbody>
+</table>
+                   					 </div>
+</body>

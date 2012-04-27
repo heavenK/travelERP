@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                
+                <div style="text-align:center; margin-top:20px;" >
+                	<h2>订房确认单</h2>
+                </div>
+                
+                <div class="fanye">
+                <div  style="float:left;width:100%">
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                  <tbody>
+                        <tr>
+                            <th height="32" align="center">序号</th>
+                            <th height="32" align="center">标题</th>
+                            <th height="32" align="center">酒店名称</th>
+                            <th height="32" align="center">收件单位</th>
+                            <th height="32" align="center">收件人</th>
+                            <th height="32" align="center">电话</th>
+                            <th height="32" align="center">发件人</th>
+                            <th height="32" align="center">所属团队</th>
+                            <th height="32" align="center">订房时间</th>
+                            <th height="32" align="center">结算时间</th>
+                            <th height="32" align="center">人数</th>
+                            <th height="32" align="center">房间价格</th>
+                            <th height="32" align="center">应付金额</th>
+                            <th height="32" align="center">对账状态</th>
+                            <th height="32" align="center">锁定状态</th>
+                        </tr>
+                          
+                        <form name="form" method="post" id="form">
+                          <php> $i = -1; foreach($orderhotelAll as $orderhotel){ $i++;</php>
+                              <tr class="tr<php>echo $i%2</php>">
+                              
+                                  <td height="32" align="center">
+                                      <php>echo $i+1</php></td>
+                                  <td height="32" align="center">
+                                      <a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/djtuanID/<{$orderhotel['djtuanID']}>/orderhotelID/<{$orderhotel['orderhotelID']}>"><{$orderhotel['title']}></a>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <span><a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/djtuanID/<{$orderhotel['djtuanID']}>/orderhotelID/<{$orderhotel['orderhotelID']}>"><{$orderhotel['hotelname']}></a></span>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['sendcompany']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['sendperson']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['sendtelnum']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['reciveperson']}>
+                                  </td>
+                                  <td height="32" align="center" width="10%">
+                                     <{$orderhotel['tuan']['tuantitle']}> 
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['orderdate']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['jiesuandate']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['renshu']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['roomprice']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['meetamount']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['status']}>
+                                  </td>
+                                  <td height="32" align="center">
+                                      <{$orderhotel['islock']}>
+                                  </td>
+                              </tr>
+                          
+                        <php> }</php>
+                        </form>
+                        
+                  </tbody>
+                  </table>
+ 				</div>
+              <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                   <div class="page"><{$page}></div>
+              </div>
+                </div>
+            </div>
+
+
+</body>
+</html>

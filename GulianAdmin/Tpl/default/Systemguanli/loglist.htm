@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody>
+  <tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+      <td width="60%">文件名</td>
+	  <td width="10%">操作</td>
+   </tr>
+	   <php>foreach($fileList as $val){</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+       
+        <td><{$val[filename]}></td>
+        <td><a href="<{:ET_URL}><{$val[dirpath]}><{$val[filename]}>">下载(鼠标右键另存)</a></td>
+     </tr>
+	 <php>}</php> 
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="8">
+          <div class="pagelistbox">
+			<{$page}>
+            </div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/resetindex.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/glfx.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/sousuo.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+
+</head>
+<body>
+<div id="glfx_box">
+  
+        <include file="Index:navindex" />
+  
+        <!--列表-->
+                        
+<div class="fanye">
+  <div  style="float:left;width:100%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg" style="table-layout:fixed;">
+  <tbody>
+        <tr>
+            <th height="32" width="20%" align="center">标题</th>
+            <th height="32" width="5%" align="center">航段</th>
+            <th height="32" width="5%" align="center">往返类型</th>
+            <th height="32" width="5%" align="center">航空公司</th>
+            <th height="32" width="5%" align="center">价格</th>
+            <th height="32" width="5%" align="center">机票数量</th>
+            <th height="32" width="5%" align="center">航班号</th>
+            <th height="32" width="5%" align="center">机票编号</th>
+            <th height="32" width="5%" align="center">出发日期</th>
+        </tr>
+          
+          <php> $i = -1; foreach($list as $air){ $i++;</php>
+          
+          
+              <tr class="tr<php>echo $i%2</php>">
+                  <td height="50" align="center">
+                     <a target="_blank" style="color:blue" href="<{:SITE_MENSHI}>Airticket/searchdetail/id/<{$air['id']}> "> <{$air['title']}> </a>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air['fly_area']}>
+                  </td>
+                  <td height="50" align="center">
+                	  <span><{$air['travel_type']}></span>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air['fly_company']}>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air[price][cost_price]}>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air['ticket_num']}>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air['fly_id']}>
+                  </td>
+                  <td height="50" align="center">
+                      <{$air['ticket_id']}>
+                  </td>
+                  <td height="50" align="center">
+                      <div>
+                          <input type="hidden" id="aaa">
+                          <img src="<{:__PUBLIC__}>/gulianstyle/styles/rq.gif" onclick="WdatePicker({el:'aaa',opposite:true,doubleCalendar:true,specialDates:[<{$air[start_date]}>]});" />
+                      </div>
+
+                  </td>
+                  
+              </tr>
+          
+        <php> }</php>
+        
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+</div>
+   
+        <!--列表结束-->
+  
+  
+  
+  
+  
+  
+  
+        <include file="Index:footindex" />
+  
+  
+  
+</div>
+</body>
+</html>

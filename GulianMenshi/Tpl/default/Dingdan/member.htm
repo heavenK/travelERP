@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游--名单
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css"><link href="<{:__PUBLIC__}>/gulianstyle/styles/content.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Search.js"></script>
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+        <div id="header">
+            
+
+<table class="TopTab" border="0" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td width="81" align="center"><a href="<{:SITE_URL}>Agent/Index.aspx" class="txtcolor">首 页</a></td>
+        <td width="456" align="left"><a href="<{:SITE_URL}>Agent/index2.aspx" class="txtcolor">进入后台</a></td>
+        <td style="font-weight: normal;" width="48" align="center">欢迎</td>
+        <td width="73" align="center"><a href="#" class="txtcolor" onclick="document.getElementById('divPassmd').style.display='';">修改密码</a>
+            <div id="divPassmd" style="background-color:#FFFDDD; position:absolute;display:none;">
+                <table border="1" cellpadding="0" cellspacing="0">
+                    <tbody><tr><td>原始密码：</td><td><input name="header1$tbOldPassWord" id="header1_tbOldPassWord" type="password"></td></tr>
+                    <tr><td>新密码：</td><td><input name="header1$tbNewPassWord" id="header1_tbNewPassWord" type="password"></td></tr>
+                    <tr><td>重复新密码：</td><td><input name="header1$tbNewPassWord2" id="header1_tbNewPassWord2" type="password"></td></tr>
+                    <tr><td colspan="2" align="center"><input name="header1$Submit" value="提交" onclick="return CheckData();" id="header1_Submit" type="submit">&nbsp;&nbsp;&nbsp;<input name="header1$Button1" value="关闭" onclick="document.getElementById('divPassmd').style.display='none';return false;" id="header1_Button1" type="submit"></td></tr>
+                </tbody></table>
+            </div>
+        </td>
+        <td width="49" align="center"><a id="header1_lbLogout" class="txtcolor" href="javascript:__doPostBack('header1$lbLogout','')">退出</a></td>
+    </tr>
+</tbody></table>
+<script type="text/javascript">
+function CheckData()
+{
+    var OldPassWord=document.getElementById("header1_tbOldPassWord");
+    if(OldPassWord.value=="")
+    {
+        alert("原始密码不能为空！");
+        OldPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord=document.getElementById("header1_tbNewPassWord");
+    if(NewPassWord.value=="")
+    {
+        alert("新密码不能为空！");
+        NewPassWord.focus();
+        return false;
+    }
+    else if(NewPassWord.value.length>20||NewPassWord.value.length<6)
+    {
+        alert("密码长度应为6-20个字符!");
+        NewPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord2=document.getElementById("header1_tbNewPassWord2");
+    if(NewPassWord2.value!=NewPassWord.value)
+    {
+        alert("两次输入的密码不一样！");
+        NewPassWord2.focus();
+        return false;
+    }
+    
+    return true;
+}
+</script>
+        </div>
+                
+    <form name="form1" method="post" action="<{:SITE_MENSHI}>Hotel/member" id="form1">
+    	<input type="hidden" name="type" value="save" />
+        <input name="sid" value="<{$sid}>" type="hidden">
+        <input name="num" value="<{$num}>" type="hidden">
+        
+        <div class="fanye" style="text-align: center; margin: 0 auto; width: 1002px;">
+            <table style="margin: 10px auto;" width="869px" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td style="border: medium none; text-align: left;">
+                        填写团员名单</td>
+                </tr>
+            </tbody></table>
+            <table id="table_id" class="bg" style="text-align: center; margin: 0px auto;" width="869px" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr class="tr">
+                    <td colspan="9" class="bzxsk" height="27" align="center" bgcolor="#FFFFFF">
+                        <table id="tableTravel" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<th class="leftx" height="32" width="7%" align="center">
+                                    序号</th>
+		<th height="32" width="7%" align="center">
+                                    姓名</th>
+		<th height="32" width="7%" align="center">
+                                    成人/儿童
+                                </th>
+		<th height="32" width="4%" align="center">
+                                    性别</th>
+		<th height="32" width="10%" align="center">
+                                    证件类型</th>
+		<th height="32" width="15%" align="center">
+                                    证件号码</th>
+		<th height="32" width="15%" align="center">
+                                    联系电话</th>
+		<th height="32" width="15%" align="center">
+                                    顾客需求(可不填)</th>
+	</tr>
+    <php>for($i=1;$i<=$num;$i++){</php>
+	<tr>
+		<td height="27" align="center"><{$i}></td>
+		<td height="27" align="center"><input id="tbName" name="name<{$i}>" runat="server" type="text"></td>
+		<td height="27" align="center"> <select id="dlManOrChild0" name="dlManOrChild0" disabled="disabled" runat="server"><option selected="selected" value="成人">成人</option><option value="儿童">儿童</option></select><script type="text/javascript">document.getElementById('dlManOrChild0').value='成人';</script></td>
+		<td height="27" align="center"><select id="dlSex" name="sex<{$i}>"><option selected="selected">男</option><option>女</option></select></td>
+		<td height="27" align="center"><select id="dlzj" name="zj<{$i}>" runat="server"><option selected="selected">身份证</option><option>学生证</option></select></td>
+		<td height="27" align="center"><input id="tbNum" name="zj_num<{$i}>" type="text"></td>
+		<td height="27" align="center"><input id="tbphone" name="phone<{$i}>" type="text"></td>
+		<td height="27" align="center"><input id="tbdemands" name="demand<{$i}>" type="text"></td>
+	</tr>
+    <php>}</php>
+</tbody></table>
+
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td class="bzxsk" height="27" align="right" bgcolor="#FFFFFF">
+                        <input name="Button2" value="提  交" id="Button2" class="anu" type="submit">
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    
+<div>
+</form>
+
+</body></html>

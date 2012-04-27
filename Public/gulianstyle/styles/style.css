@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,h7,ul,li,form,input,select,ol,p{ margin:0; padding:0; list-style:none;}
+body{font-size:12px;}
+a img{ border:0;}
+a{color:#525252; text-decoration:none;}
+a:link,a:hover,a:visited{ text-decoration:none;}
+.clear{ width:0; height:0; line-height:0; clear:both; margin:0; padding:0;}
+
+.LetterH3{ height:80px; line-height:80px; margin:35px 0 35px 10px;; background:#f2f2f2;}
+.LetterTable{ margin:0 0 0 10px;}
+.LetterTable th{ border-right:1px solid #CCCCCC; color:#FFFFFF; background:url(../images/bjt.gif) repeat-x;}
+.LetterTable th .upicon{ vertical-align:middle; margin-left:40px;}
+.LetterTable td{ border:1px solid #E8E8E8; border-top:none; color:#494949;}
+.LetterTable .tr1{ background:#F3F3F3;}
+
+.SearchTable{ margin-bottom:10px;}
+.SearchTable .text{ width:255px; height:23px; line-height:23px; margin-right:10px;}
+.SearchTable .search{ width:89px; height:23px; line-height:23px; background:url(../images/anu1.gif) no-repeat; color:#ffffff; border:none; font-family:"宋体"; cursor:pointer;}
+.page{ margin:5px 0 5px 10px;}
+.page .text{ width:40px; margin:0 3px;}
+.page .num2{ background:url(../images/n_02.jpg) no-repeat center center;}
+.page .num1{ background:url(../images/n_01.jpg) no-repeat center center;}
+
+.LetterTable2{ margin:0 0 10px 10px;}
+.LetterTable2 textarea{ width:600px; height:100px; font-family:"宋体"; font-size:12px; line-height:20px;}
+
+.TwoButtons{}
+.TwoButtons a,.showall{ display:block; width:91px; height:22px; line-height:22px; text-align:center; background:url(../images/anniu.gif) no-repeat; margin-left:20px;}
+.TourTable{ border-collapse:collapse; margin-left:10px;}
+.showall{ margin-right:5px;}
+.TourTable td{ border:#000 solid 1px;}
+.TourTable td table td{ border:none; line-height:20px;}
+.TourTable td table td .name{ border-bottom:#000 solid 1px; float:left; width:70px; height:20px;}
+.TourTable td table td .man{ float:left; width:70px; height:20px; line-height:20px;}
+.TourTable th{ border:#000 solid 1px; font-size:16px; border-right:none;}
+.TourTable .deletebtn{ margin:5px 5px 0 0; cursor:pointer;}
+.TourTable .tr2{ background:##ff8d00;}
+
+.TourTable2{ border-collapse:collapse; margin:5px 0 0 10px;}
+.TourTable2 td{ border:#000 solid 1px; line-height:20px;}
+.TourTable2 td.title{ font-size:16px; font-weight:normal; border-right:none;}
+.TourTable2 .deletebtn{ margin:5px 5px 0 0; cursor:pointer;}
+.TourTable2 td .meal{ height:50px; line-height:50px;}
+.TourTable2 td table{ border-collapse:collapse; border:none;}

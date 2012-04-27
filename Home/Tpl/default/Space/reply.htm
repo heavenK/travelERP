@@ -1,0 +1,29 @@
+<div class="status_reply_list">
+    <div class="arrow1"></div><div class="top"></div>
+    <div class="cont">
+    <table border="0" width="100%">
+        <tr>
+        <td>
+            <div class="fleft" style="margin-top:8px">
+                <a href="javascript:void(0);" onclick="showemotion('emotion_<{$contentid}>','replybox_<{$contentid}>')"><img src="<{:__PUBLIC__}>/images/facelist.gif"></a>
+            </div>
+            <textarea id="replybox_<{$contentid}>" onkeyup="replynums('replybox_<{$contentid}>','rnum_<{$contentid}>',event);" onkeydown="javascript:return ctrlEnter_rb(event,'<{$contentid}>',0);" class="input_text replytextarea"></textarea>
+            <div class="clearline"></div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <div id="emotion_<{$contentid}>"></div>
+            <div class="fleft"><input type="checkbox" id="replycheckbox_<{$contentid}>" class="replaycheckbox"><label for="replycheckbox_<{$contentid}>" class="replycheckbox"><{:L('reply_and_forward')}></label></div>
+            <div class="fright">
+                <span class="inputnum" id="rnum_<{$contentid}>"><{:L('also_can_input')}><em>140</em><{:L('word_zi')}></span>
+                <input type="button" id="replybutton_<{$contentid}>" class="button4" value="<{:L('comment')}>" onclick="replysend('<{$contentid}>')"/>
+            </div>
+            <div class="clearline"></div>
+        </td>
+        </tr>
+    </table>
+    <ul class="reply_list_ul"><{$replys}></ul>
+    </div>
+    <div class="bottom"></div>
+</div>

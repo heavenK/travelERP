@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>插件</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/widget/widget.css">
+</head>
+
+<body>
+<table style="background-color:#f3f3f3;border:1px solid #dbdbdb" class="main" width="100%" height="470px">
+  <tbody>
+    <tr height="70px">
+      <td valign="top" style="padding:10px"><table>
+          <tbody>
+            <tr>
+              <td rowspan="2" width="50px"><a href="<{:SITE_HOME}><{$theuser[user_name]}>" target="_blank"><img src="<{:__PUBLIC__}>/attachments/head/<{$theuser[user_head]}>" class="img"></a></td>
+              <td><a href="<{:SITE_HOME}><{$theuser[user_name]}>" target="_blank" class="vip1" title="认证商家"><{$theuser[nickname]}></a></td>
+            </tr>
+            <tr>
+              <td class="info">地区：<{$theuser[live_city]}></td>
+            </tr>
+            <tr height="25px">
+              <td colspan="2" class="info">听众：<a href="<{:SITE_HOME}><{$theuser[user_name]}>/follower" target="_blank"><{$theuser[followme_num]}></a>人&nbsp;&nbsp;&nbsp;广播：<a href="<{:SITE_HOME}><{$theuser[user_name]}>" target="_blank"><{$theuser[msg_num]}></a>条</td>
+            </tr>
+          </tbody>
+        </table></td>
+    </tr>
+    <tr class="border">
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#FFFFFF"><div class="contbody" style="height:505px">
+          <ol class="list">
+          
+          	<php>foreach($contentAll as $content){</php>
+          
+            <li id="9702"><php>echo ubb($content[content_body],$this)</php> 
+              <div class="timeline"> 
+              <span class="fleft"><php>echo date('m月d日 H:i',$content[posttime]);</php></span> 
+              <span class="fright op"><a href="<{:SITE_HOME}>/v/<{$content[content_id]}>" target="_blank">评论(<{$content[replytimes]}>)</a></span> </div>
+              <div class="clearline"></div>
+            </li>
+            
+          	<php>}</php>
+            
+          </ol>
+        </div></td>
+    </tr>
+    <tr class="border">
+      <td valign="top"></td>
+    </tr>
+    <tr height="30px">
+      <td><div class="fleft"></div>
+        <div class="fright" style="line-height:25px"><a href="<{:SITE_HOME}><{$theuser[user_name]}>" target="_blank">更多&gt;&gt;</a></div>
+        <div class="clearline"></div></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

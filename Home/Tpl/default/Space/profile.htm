@@ -1,0 +1,63 @@
+<include file="Common:header" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.tools.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/js/date/date.css"/>
+<php>if(!$my[user_id]){</php>
+<div id="homelogin">
+<div class="main">
+    <div class='left'>
+    <p><h2><{:L('profile_head_c')}><font color="yellow"><{$user['nickname']}></font><{:L('profile_head_d')}></h2></p>
+    <p><{$site['sitename']}><{:L('profile_head_a')}><{$user['nickname']}><{:L('profile_head_b')}></p>
+    </div>
+    <div class='right'>
+    <a href="<{:SITE_URL}>/register/<{:rawurlencode($user['user_name'])}>" style='float:right;font-size:14px;font-weight:bold;color:#ffffff;margin-right:25px;margin-bottom:10px;text-decoration:underline'><{:L('profile_head_e')}></a><br/>
+    <input type="button" value="<{:L('profile_head_f')}>" onclick="window.location.href='<{:SITE_URL}>/login'" class="sendbutton">
+    </div>
+</div>
+</div>
+<php>}</php>
+
+<table id="columns"><tr>
+<td id="main">
+    <include file="Space:prohead" />
+    <div class="contenter">
+        <div class="title">
+        <h3 class="fleft"><{$user[nickname]}><{:L('word_say')}></h3>
+        <div class="fright" style="margin-top:5px">
+            <div class="wbtype">
+                <a <php>if($t=='a'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>/<{$type}>/a"><{:L('all_talks')}></a>
+                <a <php>if($t=='p'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>/<{$type}>/p"><{:L('all_talks_photo')}></a>
+                <a <php>if($t=='m'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>/<{$type}>/m"><{:L('all_talks_video')}></a>
+                <a <php>if($t=='o'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>/<{$type}>/o"><{:L('all_talks_byself')}></a>
+                <a <php>if($t=='r'){</php>class="selected"<php>}</php> href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>/<{$type}>/r"><{:L('all_talks_forward')}></a>
+                <input type="button" class="date" max="<{:date('Y-m-d')}>">
+            </div>
+        </div>
+        </div>
+        <{$hook['profile_left_mid']}>
+        <div id="stream" class="message">
+            <php>if($_GET['dt']){</php><div class="fright" style="margin-right:5px;color:#666"><{:L('show')}> <{:date("Y-m-d",strtotime($_GET['dt']))}> <{:L('talk')}></div><div class="clearline"></div><php>}</php>
+            <ol>
+            <php>if(count($content)>0){</php>
+                <php>foreach($content as $val){echo $ctent->loadoneli($val,1,1);}</php>
+            <php>}else{</php>
+                <li class="unlight" id="nonemsg"><{:L('nothing_here')}></li>
+            <php>}</php>
+            </ol>
+        </div>
+    </div>
+</td>
+<td id="sidebar" rowspan="2"><include file="Space:proside" /></td>
+</tr>
+<tr>
+<td height="36px">
+    <div id="indexpage" class="page"><{$page}></div>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#lookmore").val('<{$t}>');
+    $(".date").dateinput({format:'yyyymmdd',change: function() {homedate('<{$t}>',this.getValue('yyyymmdd'));}});
+});
+</script>
+<include file="Common:foot" />

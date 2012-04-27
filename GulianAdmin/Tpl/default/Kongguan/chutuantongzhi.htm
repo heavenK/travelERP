@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+<script>
+function turnoff(obj){
+document.getElementById(obj).style.display="none";
+}
+
+
+function baocunjustsave(){
+document.getElementById("form").action = '<{:SITE_ADMIN}>Kongguan/dopostchutuantongzhi/type_s/1';	
+document.getElementById("form").submit();
+}
+
+function baocun(){
+document.getElementById("form").action = '<{:SITE_ADMIN}>Kongguan/dopostchutuantongzhi';	
+document.getElementById("form").submit();
+}
+
+function quxiaofabu(){
+document.getElementById("form").action = '<{:SITE_ADMIN}>Kongguan/quxiaofabu';	
+document.getElementById("form").submit();
+}
+
+
+function doprint(zituanID)
+{
+    var url = '<{:SITE_ADMIN}>Kongguan/chutuantongzhi/zituanID/'+zituanID+'/isprint/打印';
+    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+
+</script>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>  <{$navlist}>
+    </div>
+    
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="control_domestic_order_over"><a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="立即截止"></a>
+        <a href="javascript:doprint('<{$zituan[zituanID]}>')" class="control_domestic_order_over_c" title="打印"></a>
+        </div>
+        <include file="Kongguan:navlist" />        
+        
+        <div id="hlt_fit_published_cont" style="margin-top:25px;"><!--内容-->
+        
+        	<div class="plan_jh_fb">
+            <h3><a href="javascript:baocunjustsave()" style="float:left; margin-right:20px; text-decoration:underline; color:blue;" >保存</a></h3>
+            <php> if($jiedaijihua['ispublished'] != '已发布'){
+            </php>
+            <a href="javascript:baocun()" class="plan_jh_fb_link_a" title="发布"></a>
+            <php>}else{
+            </php>
+            <a href="javascript:quxiaofabu()" style="float:left; margin-right:20px;" >取消发布</a>
+            <php>}
+            </php>
+            <a href="#" class="plan_jh_fb_link_b" title="显示全部"></a>
+            </div>
+            
+            <form name="form" id="form" method="post" >
+            <input type="hidden" name="xianluID" id="xianluID" value="<{$xianlu['xianluID']}>" >
+            <input type="hidden" name="zituanID" id="zituanID" value="<{$zituan['zituanID']}>" >
+            <input type="hidden" name="jiedaiID" id="jiedaiID" value="<{$jiedaijihua['jiedaiID']}>" >
+            
+            
+            <div id="plan_jh">                
+                <div class="plan_jh_b">出团通知书<a href="#" onclick="javascript:turnoff('plan_jh_a')" class="plan_ap_a_link"></a></div>
+                <div id="plan_jh_a">
+                
+                
+                    <div class="plan_jh_c">
+                    成人 <{$chengrennum}> 人	儿童 <{$ertongnum}> 人
+                    </div>
+                    <div class="plan_jh_c">
+                    欢迎您们参加我社的旅游团，请您按照下表所示，准时到达指定地点集合。逾时不到，视为自动放弃此团所有行程。届时务必带上本人身份证[16岁以下请带户口本正本]及相关旅游证件，如因证件原因导致行程有误，后果自负。返程交通以当地导游（或取票联系人）告知为准。祝大家旅途愉快！
+                    </div>
+                    <div class="plan_jh_e">
+                    </div>
+                    <div class="plan_jh_f"><b>线路名称：</b><{$zituan['mingcheng']}></div>
+                    <div class="plan_jh_g"><b>团号：</b><{$zituan['tuanhao']}></div>
+                    <div class="plan_jh_h"><b>出团日期：</b><{$zituan['chutuanriqi']}></div>
+                    <div class="plan_jh_i"><b>回团日期：</b><{$zituan['huituanriqi']}></div>
+                    <div class="plan_jh_j"><b>集合时间：</b><input type="text" name="jihetime" value="<{$jiedaijihua['jihetime']}>" /></div>
+                    <div class="plan_jh_k"><b>集合地点：</b><input type="text" name="jiheplace" value="<{$jiedaijihua['jiheplace']}>" /></div>
+                    <div class="plan_jh_l"><b>集合标志：</b><input type="text" name="jihemark" value="<{$jiedaijihua['jihemark']}>" /></div>
+                    <div class="plan_jh_m"><b>去程交通：</b><input type="text" name="tojiaotong" value="<{$jiedaijihua['tojiaotong']}>" /></div>
+                    <div class="plan_jh_n"><b>领队：</b><input type="text" name="songtuanren" value="<{$jiedaijihua['songtuanren']}>" /></div>
+                    <div class="plan_jh_o"><b>返程交通：</b><input type="text" name="backjiaotong" value="<{$jiedaijihua['backjiaotong']}>" /></div>
+                    <div class="plan_jh_p"><b>地陪姓名：</b><input type="text" name="dipeiname" value="<{$jiedaijihua['dipeiname']}>" /></div>
+                    <div class="plan_jh_q"><b>电话：</b><input type="text" name="dipeitelnum" value="<{$jiedaijihua['dipeitelnum']}>" /></div>
+                    <div class="plan_jh_r"><b>接团标志：</b><input type="text" name="jietuanmark" value="<{$jiedaijihua['jietuanmark']}>" /></div>
+                    <div class="plan_jh_s"><b>紧急联系人：</b><input type="text" name="jinjilianxiren" value="<{$jiedaijihua['jinjilianxiren']}>" /></div>
+                 </div>
+            </div>
+
+			</form>
+
+            <div id="plan_ap">
+            	<div class="plan_ap_a">行程安排<a href="#" onclick="javascript:turnoff('plan_ap')" class="plan_ap_a_link"></a></div>
+            	<div class="plan_ap_b">
+                	<php>foreach($xingchengAll as $key => $xingcheng){</php>
+                    	<p>&nbsp;</p>
+                    	<p>
+                        	<strong><{$xingcheng['date']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                            交通：<strong><{$xingcheng['tools']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            餐&nbsp;： <strong><{$xingcheng['time']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        	住宿：<strong><{$xingcheng['place']}></strong>
+                        </p>
+                        <p>
+                        	<{$xingcheng['content']}>
+                        </p>
+                    <php>}</php>
+                </div>
+            </div>
+            
+            <div id="plan_bz">
+            	<div class="plan_ap_a">备注说明<a href="#" onclick="javascript:turnoff('plan_bz')" class="plan_ap_a_link"></a></div>
+            	<div class="plan_ap_b">
+                	<{$xianlu['xingchengtese']}>
+                </div>
+            </div>
+            
+            <div id="plan_ty">
+            	<div class="plan_ap_a">团员名单<a href="#" onclick="javascript:turnoff('plan_ty')" class="plan_ap_a_link"></a></div>
+                <div id="plan_ty_box">
+                    <ol>
+                        <ul class="plan_ty_box_ul_a">
+                            <li class="plan_ty_a">姓名		</li>
+                            <li class="plan_ty_b">联系电话	</li>
+                            <li class="plan_ty_c">订单号		</li>
+                            <li class="plan_ty_d">成人|儿童	</li>
+                            <li class="plan_ty_e">备注		</li>
+                        </ul>
+                        
+                        <php> foreach($dingdanAll as $dingdan){ foreach($dingdan['tuanyuan'] as $tuanyuan){
+                        </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="plan_ty_a"><{$tuanyuan['name']}></li>
+                            <li class="plan_ty_b"><{$tuanyuan['telnum']}></li>
+                            <li class="plan_ty_c"><{$dingdan['bianhao']}></li>
+                            <li class="plan_ty_d"><{$tuanyuan['manorchild']}></li>
+                            <li class="plan_ty_e"><{$tuanyuan['xuqiu']}></li>
+                        </ul> 
+                        <php>}}
+                        </php>
+                         
+                    </ol>
+                </div>
+            </div>
+            
+            
+            
+      	</div>
+  </div>
+    
+    
+</div>
+
+</body>
+</html>

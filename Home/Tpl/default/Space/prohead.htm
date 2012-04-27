@@ -1,0 +1,56 @@
+<{$hook['profile_left_top1']}>
+<div id="info">
+    <div id="avatar"><img alt="<{$user['nickname']}>" src="<{:sethead(str_replace('_small','_big',$user[user_head]))}>"/></div>
+    <div id="panel">
+        <div class="prohead">
+            <span class="nickname <{:setvip($user[user_auth])}>" <{:viptitle($val[user_auth])}>><{$user['nickname']}></span><span class="at">(@<{$user['user_name']}>)</span>
+            <php>if($user['userlock']==1){</php>
+                <span class="uofflineico"><{:L('user_locked')}></span>
+            <php>}else if($user['userlock']==2){</php>
+                <span class="uofflineico"> <{:L('user_no_allow_say')}></span>
+            <php>}else{</php>
+                <php>if(time()-$user[last_login]<=600){</php>
+                    <php>if($user['isadmin']>0){</php>
+                    <span class="adminico"> <{:L('admin_online')}></span>
+                    <php>}else{</php>
+                    <span class="uonlineico"> <{:L('user_online')}></span>
+                    <php>}</php>
+                <php>}else{</php>
+                    <span class="uofflineico"> <{:L('user_offline')}></span>
+                <php>}</php>
+            <php>}</php>
+            <div class="clearline"></div>
+            <p><a href="<{:SITE_URL}>/<{:rawurlencode($user['user_name'])}>"><{:SITE_URL}>/<{$user['user_name']}></a></p>
+        </div>
+        <p class="state">
+            <php>if($user[user_id]==$my[user_id]){</php>
+            <a href="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>/profile"> <{:L('talk')}> <b><{$user[msg_num]}></b> <{:L('talk_unit')}></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <php>}else{</php>
+            <a href="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>"> <{:L('talk')}> <b><{$user[msg_num]}></b> <{:L('talk_unit')}></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <php>}</php>
+            <a href="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>/following"><{:L('follow')}> <b><{$user[follow_num]}></b> <{:L('user_unit')}></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>/follower"><{:L('follower')}> <b><{$user[followme_num]}></b> <{:L('user_unit')}></a>
+        </p>
+        <php>if($user[user_id]!=$my[user_id] && $my[user_id]){</php>
+        <p class="actions">
+            <php>if (!$isblack) {</php>
+                <span id='followsp_<{$user[user_id]}>'>
+                    <php>if($isfriend[$user[user_id]]==1){</php>
+                    <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico2.gif"> <{:L('already_follow')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($user[user_name])}>','<{:L('cancel_follow')}> <{$user['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($user[user_name])}>','<{$user['nickname']}>','<{$user[user_id]}>','<{:$isfriend[$user[user_id]]}>')"><{:L('cancel')}></a></span>
+                    <php>}else if ($isfriend[$user[user_id]]==3){</php>
+                    <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico.gif"> <{:L('follow_followed')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($user[user_name])}>','<{:L('cancel_follow')}> <{$user['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($user[user_name])}>','<{$user['nickname']}>','<{$user[user_id]}>','<{:$isfriend[$user[user_id]]}>')"><{:L('cancel')}></a></span>
+                    <php>}else{</php>
+                    <a class="bh" onclick="followop('addfollow/user_name/<{:rawurlencode($user[user_name])}>','','gz','<{:rawurlencode($user[user_name])}>','<{$user['nickname']}>','<{$user[user_id]}>','<{:$isfriend[$user[user_id]]}>')"><{:L('have_a_follow')}></a>
+                    <php>}</php>
+                </span>
+                <span class="others"><a class="bl" onclick="atbox('<{$user[nickname]}>','<{$user[user_id]}>')">@<{:L('caps_ta')}></a><a class="bl" onclick="sendprimsgbox('<{$user[nickname]}>')"><{:L('send_message')}></a></span>
+                <span class="clearline"></span>
+            <php>}else{</php>
+                <span class="blackico" style="margin-top:0px"><a href="javascript:void(0)" onclick="delblack('<{$user[user_id]}>','<{$user[user_name]}>')"><{:L('addblack')}></a></span>
+            <php>}</php>
+        </p>
+        <php>}</php>
+    </div>
+</div>
+<div class="clearline"></div>
+<{$hook['profile_left_top2']}>

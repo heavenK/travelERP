@@ -1,0 +1,48 @@
+* {
+	BORDER-BOTTOM-STYLE: none; PADDING-BOTTOM: 0px; BORDER-RIGHT-STYLE: none; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: "Î¢ÈíÑÅºÚ"; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none; PADDING-TOP: 0px
+}
+BODY {
+	BACKGROUND: url(../images/body_bg.png)
+}
+.tt {
+	BACKGROUND: url(../images/bg.png) repeat-x left top
+}
+.main_con {
+	MARGIN: 5% auto 0px; WIDTH: 962px; BACKGROUND: url(../images/main_bg.jpg) no-repeat center top; HEIGHT: 456px
+}
+.main_con H1 {
+	POSITION: relative; WIDTH: 200px; COLOR: #666666; FONT-SIZE: 15px; TOP: 130px; FONT-WEIGHT: normal; LEFT: 610px
+}
+.logincon {
+	POSITION: relative; MARGIN: 150px 0px 0px 400px; WIDTH: 500px; HEIGHT: 200px; _margin-left: 300px
+}
+UL {
+	DISPLAY: inline; FLOAT: left; _margin-left: 70px
+}
+UL LI {
+	MARGIN-TOP: 7px; HEIGHT: 22px; COLOR: #000000; FONT-SIZE: 13px
+}
+FORM {
+	WIDTH: 335px; DISPLAY: inline; FLOAT: left; MARGIN-LEFT: 5px; _margin: -90px 0 0 150px
+}
+INPUT {
+	MARGIN-TOP: 7px; DISPLAY: block
+}
+.name {
+	WIDTH: 224px; BACKGROUND: url(../images/text_area1.png); HEIGHT: 22px
+}
+.pw {
+	WIDTH: 224px; BACKGROUND: url(../images/text_area1.png); HEIGHT: 22px
+}
+.num {
+	WIDTH: 164px; BACKGROUND: url(../images/text_area2.png); HEIGHT: 22px
+}
+.img {
+	MARGIN-LEFT: 60px
+}
+.yanzheng {
+	POSITION: absolute; TOP: 65px; RIGHT: 220px; _right: 130px; _top: 70px
+}
+* + HTML .yanzheng {
+	TOP: 70px; RIGHT: 210px
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+
+
+<body>
+
+            <include file="AdminShenhe:navlist" />
+
+            <div id="content_bb" style="width:1000px; margin:auto">
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				</style>
+                
+                <div class="jbxxy" style="width:99%" >
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>付款申请单：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="receiptable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#e6f2f2"><strong>收款项目</strong></td>
+                            <td width="20%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款事由</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款日期</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>付款方</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款方</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>金额</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>出纳</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>交款人</strong></td>
+                        </tr>
+                        <php>foreach($receiptAll as $item){ 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <{$item[title]}>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <textarea disabled="disabled" name="content" id="content_<{$item[receiptID]}>" style=" width:90%; height:50px;" ><{$item[content]}></textarea>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <{$item[receipttime]}>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="fromcompany" id="fromcompany_<{$item[receiptID]}>"  value="<{$item[fromcompany]}>" style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="tocompany" id="tocompany_<{$item[receiptID]}>"  value="<{$item[tocompany]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[receiptID]}>"  value="<{$item[price]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="cashier" id="cashier_<{$item[receiptID]}>"  value="<{$item[cashier]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="payperson" id="payperson_<{$item[receiptID]}>"  value="<{$item[payperson]}>"   style=" width:90%"/>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+
+                
+            </div>
+
+	
+
+</body>
+</html>
+

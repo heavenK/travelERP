@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js"></script>
+
+
+<title>行　程</title>
+
+
+<script>
+function baocunbingxiayibu()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+function ksadd(){
+	
+	$("#ksadd").clone().prependTo("#ksaddbox");
+	
+}
+
+</script>
+
+<style>
+#hlt_fit_travel ol{ width:710px; overflow:hidden; float:left;}
+#hlt_fit_travel ol li{width:710px; padding:20px 0 10px 0; border-bottom:#CCC 1px dashed; overflow:hidden; float:left;}
+#hlt_fit_travel ol li em{ width:320px; font-style:normal; float:left;}
+#hlt_fit_travel ol li i{ font-style:normal; float:left;}
+#hlt_fit_travel ol li label{ margin:0 15px 10px 0; display:inline; float:left;}
+#hlt_fit_travel ol li label input{ width:200px; height:16px; padding:2px;}
+#hlt_fit_travel ol li textarea{ width:300px; height:120px; padding:3px; overflow:hidden; float:left;}
+#hlt_fit_travel ol a{ font-size:14px; text-decoration:underline; color:#00F; cursor:pointer; float:right;}
+#hlt_fit_travel ol a:hover{ text-decoration:none;}
+</style>
+
+
+</head>
+
+
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$typeurl}>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="hlt_fit_published_button"><!--步骤 按钮-->
+            <ul>
+                
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianluID}>">基本信息</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+                <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>
+                
+            </ul>
+            <dl>
+            <div>
+            	<a href="javascript:GetcheckBack('<{$xianlu['xianluID']}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a>
+                
+                <a class="hlt_fit_published_button_b" title="提交审核" onclick="return confirm('确定要提交审核吗？');" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>" ></a>
+                            <php>if($xianluID){
+                            </php>
+                            <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_d" title="保存" onclick="return checkdata();"></a> 
+                            <php>}else{
+                            </php>   
+                            <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_c" title="保存 下一步" onclick="return checkdata();"></a> 
+                            <php>}
+                            </php>   
+                            
+                    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:90px;">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                   </div>
+           </div>
+                
+                
+                
+            </dl>
+        </div>
+                    
+        <form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostXingchengbianji" id="form">
+        <input type="hidden" name="xianluID" id="xianluID" value="<{$xianlu['xianluID']}>"/>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<div id="hlt_fit_travel">
+            	<ol id="ksaddbox">
+                	<php>$count = 0 ;
+                    	 $t =-1;while ($count < $xianlu['tianshu']) {$t++;
+                    </php>
+                	<li id="ksadd<{$count}>">
+                    	<em>
+                        	<input type="hidden" name="id[]" value="<{$xingcheng[$count]['id']}>" />
+                            <label >日&nbsp;&nbsp;&nbsp;&nbsp;期：<input type="text" name="date[]" value="<php>if (!$xingcheng[$count]['date']){ echo '第'.($count+1).'天';}else{</php><{$xingcheng[$count]['date']}><php>}</php>"/></label>
+                            <label>交通工具：
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['tools'],'飞机')){</php>checked="checked"<php>}</php> type="checkbox" name="tools<{$count}>[]" value="飞机"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">飞机</b>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['tools'],'火车')){</php>checked="checked"<php>}</php> type="checkbox" name="tools<{$count}>[]" value="火车"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">火车</b>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['tools'],'轮船')){</php>checked="checked"<php>}</php> type="checkbox" name="tools<{$count}>[]" value="轮船"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">轮船</b>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['tools'],'汽车')){</php>checked="checked"<php>}</php> type="checkbox" name="tools<{$count}>[]" value="汽车"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">汽车</b>
+                            </label>
+                        </em>
+                        <em style="height:78px;">
+                            <label>餐&nbsp;&nbsp;&nbsp;&nbsp;饮：</label>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['time'],'早餐')){</php>checked="checked"<php>}</php> type="checkbox" name="time<{$count}>[]" value="早餐"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">早餐</b>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['time'],'午餐')){</php>checked="checked"<php>}</php> type="checkbox" name="time<{$count}>[]" value="午餐"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">午餐</b>
+                            <input style="vertical-align:middle; display:inline; width:14px; height:14px;" <php>if(strstr($xingcheng[$count]['time'],'晚餐')){</php>checked="checked"<php>}</php> type="checkbox" name="time<{$count}>[]" value="晚餐"/> <b style=" font-weight:normal; display:inline; vertical-align:middle;">晚餐</b>
+                            <label>住&nbsp;&nbsp;&nbsp;&nbsp;宿：<input type="text" name="place[]" value="<{$xingcheng[$count]['place']}>"/></label>
+                           
+                        </em>
+                        <em>
+                            <label>内&nbsp;&nbsp;&nbsp;&nbsp;容：</label>
+                        </em>
+                        
+                        <i>
+                        	<textarea id="content<{$count}>" name="content[]" style="width:700px;" ><{$xingcheng[$count]['content']}></textarea>
+<!--                            <script type="text/javascript">
+
+    
+								var editor = CKEDITOR.replace( 'content<{$count}>',{
+										toolbar:
+										[
+											 ['Bold','Italic','Underline','Strike','Subscript','Superscript'],
+											 ['Styles','Format','Font','FontSize'],
+											 ['TextColor','BGColor'],
+											 ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+										]
+									});
+					
+								CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+					
+							</script> -->
+                        </i>
+                    </li>
+                    <php>$count++;}</php>
+                </ol>     
+            </div>
+        </div>
+        
+        </form>
+        
+    </div>
+    
+    
+</div>
+
+</body>
+</html>

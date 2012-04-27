@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游--名单
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css"><link href="<{:__PUBLIC__}>/gulianstyle/styles/content.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Search.js"></script>
+
+</head>
+<body>
+
+
+        <div id="header">
+            
+
+
+            <table border="0" cellspacing="0" cellpadding="0" class="TopTab">
+                <tbody><tr>
+                    <td width="81" align="center"><a href="<{:SITE_URL}>" class="txtcolor">首 页</a></td>
+                    <td width="456" align="left"><a href="<{:SITE_MENSHI}>Dingdan" class="txtcolor">进入后台</a></td>
+                    <td width="48" align="center" style="font-weight:normal">欢迎</td>
+                    <td width="70" align="center"><a href="<{:SITE_ADMIN}>Login/setting" class="txtcolor"><{$roleuser['realname']}></a></td>
+                    <td width="92" align="center" style="font-weight:normal">[<{$roleuser['companyname']}>]</td>
+                    <td width="49" align="center"><a id="header1_lbLogout" class="txtcolor" href="<{:SITE_ADMIN}>Login/logout">退出</a></td>
+                </tr>
+            </tbody>
+            </table>
+
+            <table border="0" cellspacing="0" cellpadding="0" class="LogoTab">
+                <tbody><tr>
+                    <td width="441" rowspan="3">
+                        <a href="<{:SITE_MENSHI}>"><img src="<{:__PUBLIC__}>/gulianstyle/styles/ktrip_logo.gif"></a>
+                    </td>
+                    <td colspan="3">
+                       <input name="searchkeyword" type="text" id="searchkeyword" class="text" >
+                    </td>
+                </tr>
+                <tr>
+                    <td width="62" height="33">
+                    </td>
+                    <td width="191">
+                    </td>
+                    <td width="186" rowspan="2" valign="top">
+                        <input type="image" class="SearchBtn" src="<{:__PUBLIC__}>/gulianstyle/styles/ktrip_button01.gif" style="border-width:0px;" onclick="dosearch()" >
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" valign="top">&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            
+        </div>
+  
+                
+    <form name="form1" method="post" action="<{:SITE_MENSHI}>Airticket/dopostmingdan" id="form1">
+    	<input type="hidden" name="type" value="save" />
+        <input name="sid" value="<{$sid}>" type="hidden">
+        <input name="num" value="<{$num}>" type="hidden">
+        
+        
+        <div class="fanye" style="text-align: center; margin: 0 auto; width: 1002px;">
+            <table style="margin: 10px auto;" width="869px" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td style="border: medium none; text-align: left;">
+                        填写团员名单</td>
+                </tr>
+            </tbody></table>
+            
+            <table id="table_id" class="bg" style="text-align: center; margin: 0px auto;" width="869px" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr class="tr">
+                    <td colspan="9" class="bzxsk" height="27" align="center" bgcolor="#FFFFFF">
+                        <table id="tableTravel" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody>
+    <tr>
+		<th class="leftx" height="32" width="7%" align="center" style=" color:#000">
+                                    序号</th>
+		<th height="32" width="7%" align="center" style=" color:#000">
+                                    姓名</th>
+		<th height="32" width="7%" align="center" style=" color:#000">
+                                    成人/儿童
+                                </th>
+		<th height="32" width="4%" align="center" style=" color:#000">
+                                    性别</th>
+		<th height="32" width="10%" align="center" style=" color:#000">
+                                    证件类型</th>
+		<th height="32" width="15%" align="center" style=" color:#000">
+                                    证件号码</th>
+		<th height="32" width="15%" align="center" style=" color:#000">
+                                    联系电话</th>
+        <th height="32" width="15%" align="center" style=" color:#000">
+                                    状态</th>
+        <th height="32" width="15%" align="center" style=" color:#000">
+                                    价格</th>
+		<th height="32" width="15%" align="center" style=" color:#000">
+                                    顾客需求(可不填)</th>
+	</tr>
+    <php>for($i=1;$i<=$num;$i++){</php>
+	<tr>
+		<td height="27" align="center"><{$i}></td>
+		<td height="27" align="center"><input id="tbName" name="name<{$i}>" runat="server" type="text"></td>
+		<td height="27" align="center"> <select id="dlManOrChild0" name="dlManOrChild0" disabled="disabled" runat="server"><option selected="selected" value="成人">成人</option><option value="儿童">儿童</option></select><script type="text/javascript">document.getElementById('dlManOrChild0').value='成人';</script></td>
+		<td height="27" align="center"><select id="dlSex" name="sex<{$i}>"><option selected="selected">男</option><option>女</option></select></td>
+		<td height="27" align="center"><select id="dlzj" name="zj<{$i}>" runat="server"><option selected="selected">身份证</option><option>学生证</option></select></td>
+		<td height="27" align="center"><input id="tbNum" name="zj_num<{$i}>" type="text"></td>
+		<td height="27" align="center"><input id="tbphone" name="phone<{$i}>" type="text"></td>
+        <td height="27" align="center">
+        <select name="zhuangtai<{$i}>">
+        	<option value="确认" selected="selected">确认</option>
+            <option value="占位">占位</option>
+        </select>
+        </td>
+        <td height="27" align="center"><input id="jiaoqian" readonly="readonly" value="<{$price}>" name="jiaoqian<{$i}>" type="text"></td>
+		<td height="27" align="center"><input id="tbdemands" name="demand<{$i}>" type="text"></td>
+	</tr>
+    <php>}</php>
+</tbody></table>
+
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td class="bzxsk" height="27" align="right" bgcolor="#FFFFFF">
+                        <input name="Button2" value="提  交" id="Button2" class="anu" type="submit">
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    
+<div>
+</form>
+
+</body></html>

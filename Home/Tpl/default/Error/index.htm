@@ -1,0 +1,37 @@
+<include file="Common:header" />
+<div class="error">
+    <{$hook['error_top']}>
+
+    <php>if($type=='nouser'){</php>
+    <h2><{:L('no_exist_user')}></h2>
+    <h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##"><{:L('go_back')}></a></h4>
+    <br/><p><{:L('else_enter')}></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>"><{:L('my_page')}></a></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/Pub"><{:L('they_say')}></a></p>
+    <php>}else if ($type=='nocontent'){</php>
+    <h2><{:L('no_exist_talk')}></h2>
+    <h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##"><{:L('go_back')}></a></h4>
+    <br/><p><{:L('else_enter')}></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>"><{:L('my_page')}></a></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/Pub"><{:L('they_say')}></a></p>
+    <php>}else if ($type=='userlock'){</php>
+    <h2><{:L('close_user')}></h2>
+    <h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##"><{:L('go_back')}></a></h4>
+    <br/><p><{:L('else_enter')}></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>"><{:L('my_page')}></a></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/Pub"><{:L('they_say')}></a></p>
+    <php>}else if ($type=='webclose'){</php>
+    <h2><{:L('close_web')}></h2>
+    <br/><p><{:L('else_enter')}></p>
+    <p>●&nbsp;&nbsp;<a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##"><{:L('go_back')}></a></p>
+    <p>●&nbsp;&nbsp;<a href="<{:SITE_URL}>/login"><{:L('admin_login')}></a></p>
+    <br/><p><{:L('visit_later')}></p>
+    <php>}else if ($type=='closereg'){</php>
+    <h2><{:L('close_reg')}></h2>
+    <h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##"><{:L('go_back')}></a></h4>
+    <br/><p><{:L('visit_later')}></p>
+    <php>}</php>
+
+    <{$hook['error_bottom']}>
+</div>
+<include file="Common:foot" />

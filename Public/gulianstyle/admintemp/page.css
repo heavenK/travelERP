@@ -1,0 +1,6 @@
+
+.page {padding-right:6px;color:#313031;text-align:right; background-color:#E6E6E6}
+.page A {border:#b7d8ee 1px solid;padding:3px 6px 3px 5px;margin:0px 3px;color:#0030ce;TEXT-DECORATION:none; background:#FFF}
+.page A:hover {border:#b7d8ee 1px solid;BACKGROUND-COLOR:#ffa835}
+.page SPAN.current {border:#b7d8ee 1px solid;padding:3px 6px 3px 5px;FONT-WEIGHT: bold;MARGIN: 0px 3px;BACKGROUND-COLOR: #ffa835;}
+.page SPAN.disabled {DISPLAY: none}

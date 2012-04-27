@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <php>if($tuan['jingwai'] == '国内'){</php>
+                <include file="Tuancreate:navlist" />
+                <php>}else{</php>
+                <include file="Tuancreate:navlist_riben" />
+                <php>}</php>
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				</style>
+                
+                <form name="form1" id="form1" method="post" enctype="multipart/form-data" >
+                <php>if($tuan){</php>
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                <input type="hidden" name="forward" id="forward" value="<{:SITE_DIJIE}>Tuancreate/newtuan/djtuanID/<{$tuan['djtuanID']}>" />
+                <php>}else{</php>
+                <input type="hidden" name="jingwai" id="jingwai" value="<{$jingwai}>" />
+                <input type="hidden" name="kind" id="kind" value="<{$kind}>" />
+                <php>}</php>
+                <div class="jbxxy" >
+                    <table width="99%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody >
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>团队名称：</td>
+                            <td align="left" colspan="10" width="70%">
+                                <input name="tuantitle" id="tuantitle" class="textgp" value="<{$tuan[tuantitle]}>"></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42">
+                                <font color="red">*</font>团队编号：</td>
+                            <td align="left" colspan="10">
+                                <input name="tuannumber" id="tuannumber" class="textgp" value="<{$tuan[tuannumber]}>"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42">
+                                <font color="red">*</font>查询关键字：</td>
+                            <td align="left" colspan="10">
+                                <input name="keyword" id="keyword" class="textgp" value="<{$tuan[keyword]}>"></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42">
+                                <font color="red">*</font>发团社：</td>
+                            <td align="left" colspan="10">
+                                <input name="fromcompany" id="fromcompany" class="textgp" value="<{$tuan[fromcompany]}>"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42">
+                                <font color="red">*</font>联系人：</td>
+                            <td align="left"  >
+                                <input name="contact" id="contact" style="width:80%;" value="<{$tuan[contact]}>"></td>
+                            <td align="left" height="42">
+                                <font color="red">*</font>联系电话：</td>
+                            <td align="left">
+                                <input name="contactphone" id="contactphone" style="width:80%;" value="<{$tuan[contactphone]}>"></td>
+                            <td align="left" height="42">
+                                <font color="red">*</font>传真：</td>
+                            <td align="left">
+                                <input name="contactfax" id="contactfax" style="width:80%;" value="<{$tuan[contactfax]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42">
+                                <font color="red">*</font>接团社负责人：</td>
+                            <td align="left" colspan="3">
+                                <input name="onperson" id="onperson" style="width:33%;" value="<{$tuan[onperson]}>"></td>
+                            <td align="left" height="42">
+                                <font color="red">*</font>团队人数：</td>
+                            <td align="left" colspan="4">
+                                <input name="renshu" id="renshu" style="width:80%;" value="<{$tuan[renshu]}>"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42">
+                                <font color="red">*</font>开始时间：</td>
+                            <td align="left" colspan="3">
+                                <input name="startdate" id="startdate" style="width:33%;" onfocus="WdatePicker()"  value="<{$tuan[startdate]}>"></td>
+                        
+                            <td align="left" height="42">
+                                <font color="red">*</font>行程天数：</td>
+                            <td align="left" colspan="4">
+                                <input name="days" id="days" style="width:80%;" value="<{$tuan[days]}>"></td>
+                        </tr>
+                        
+                        
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="80">
+                                <font color="red">*</font>交通方式：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="trafficarrive" id="trafficarrive"  class="textgpb"><{$tuan[trafficarrive]}></textarea></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="80">
+                                <font color="red">*</font>酒店标准：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="hotelstd" id="hotelstd"  class="textgpb"><{$tuan[hotelstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="80">
+                                <font color="red">*</font>用车标准：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="trafficstd" id="trafficstd" class="textgpb"><{$tuan[trafficstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="80">
+                                <font color="red">*</font>用餐标准：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="eatingstd" id="eatingstd"  class="textgpb"><{$tuan[eatingstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="80">
+                                <font color="red">*</font>导游服务：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="daoyoustd" id="daoyoustd"  class="textgpb"><{$tuan[daoyoustd]}></textarea></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="80">
+                                <font color="red">*</font>景点门票：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="ticketstd" id="ticketstd" class="textgpb"><{$tuan[ticketstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="80">
+                                <font color="red">*</font>接站方式：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="jiezhanstd" id="jiezhanstd" class="textgpb"><{$tuan[jiezhanstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="80">
+                                <font color="red">*</font>购物计划：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="shoppingstd" id="shoppingstd" class="textgpb"><{$tuan[shoppingstd]}></textarea></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42">
+                                <font color="red">*</font>备注：</td>
+                            <td align="left" colspan="10">
+                                <textarea name="remark" id="remark"  class="textgpb"><{$tuan[remark]}></textarea></td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42">
+                                <font color="red">*</font>上传行程计划副本：</td>
+                            <td align="left" colspan="10">
+                                <input name="attachment" id="attachment" type="file" />
+                                
+                                <font color="#FF0000"><php>if($tuan['attachment']) {echo '已上传文件目录为'.$tuan['attachment'].',重新上传将删除该文件！';</php><a target="_blank" style="color:blue" href="<{:SITE_DATA}><{$tuan['attachment']}>">点击查看</a> <php>}</php></font>
+                                
+                                </td>
+                        </tr>
+                        
+                        <tr height="50px;" style="background-color:#CCC;">
+                        <td width="100%" colspan="10" style=" border-bottom:#000 solid 1px;">
+                        </td>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+                </div>
+                </form>
+            </div>
+
+
+</body>
+</html>
+<script>
+
+function dosave()
+{
+    var url='<{:SITE_DIJIE}>Tuancreate/dopostNewtuan';
+	document.getElementById('form1').action = url;
+	document.getElementById('form1').submit();
+	
+}
+
+
+</script>

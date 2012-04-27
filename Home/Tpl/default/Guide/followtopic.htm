@@ -1,0 +1,24 @@
+<include file="Common:header" />
+<div id="login" style="padding:20px 20px 50px 20px">
+    <div class="guideline">
+        <div class="g3"><{:L('firststep')}><br/><{:L('firstbody')}></div>
+        <div class="g1 curent"><{:L('secondstep')}><br/><{:L('secondbody')}></div>
+        <div class="g2"><{:L('thirdstep')}><br/><{:L('thirdbody')}></div>
+    </div>
+    <div class="guidebody">
+        <span class="title"><{:L('thirdtitle')}></span>
+        <div style="margin:10px 30px 0 30px">
+            <form method="post" action="<{:SITE_URL}>/Guide/dotopic">
+            <div style="height:330px">
+            <php>foreach($topic as $val){</php>
+                <div style="width:200px;margin-bottom:10px;float:left"><input type="checkbox" name="topicnames[]" value="<{$val['topicname']}>" checked> <{$val['topicname']}></div>
+            <php>}</php>
+            </div>
+            <div class="clearline"></div>
+            <center><input type="submit" class="button2" value="<{:L('nextstep')}>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" class="button3" value="<{:L('scapestep')}>" onclick="window.location.href='<{:SITE_URL}>/Guide/followuser'"/></center>
+            </form>
+        </div>
+    </div>
+</div>
+<include file="Common:foot" />

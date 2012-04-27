@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>订单轨迹</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+</head>
+
+<body style="background-color:#FFF; ">
+<div class="hdlyRight">
+    <div class="fanye">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" class="bg">
+        <tbody>
+          <tr>
+            <th height="32" align="center"> 序号</th>
+            <th height="32" align="center"> 审核时间</th>
+          </tr>
+            <php>
+        
+        if($dataAll){ $i = 0;foreach($dataAll as $v){$i++;
+          </php>
+        
+        <tr class="tr1">
+          <td height="27" align="center" width="40px;">
+          <php> echo $i </php>
+          </td>
+          <td height="27" align="center">
+          <a href="javascript:showbzd(<{$v['id']}>)">
+          <php> echo date('Y-m-d H:i:s',$v['time']); </php>
+          </a>
+          </td>
+        </tr>
+        <php>}}else{ </php>
+        <tr class="tr1">
+          <td height="27" align="center" width="40px;">
+          </td>
+          <td height="27" align="center"> 暂无记录 </td>
+        </tr>
+        <php>} </php>
+          </tbody>
+      </table>
+    </div>
+    <div style="text-align: center;"> </div>
+</div>
+
+</body>
+</html>
+
+<script>
+function showbzd(id)
+{
+    var url = '<{:SITE_ADMIN}>Shenhe/showbzdbackup/id/'+id;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+</script>
+
+
+

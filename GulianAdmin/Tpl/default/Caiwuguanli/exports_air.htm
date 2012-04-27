@@ -1,0 +1,70 @@
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>订单数(张)</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>销售额(元)</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>人数(人)</strong>
+        </td>
+    </tr>
+    <tr>
+        <td class="xxxx" height="27" align="center">
+            <{$num}>
+        </td>
+        <td class="xxxx" height="27" align="center">
+            <{$qianshu}>
+        </td>
+        <td class="xxxx" height="27" align="center">
+            <{$renshu}>
+        </td>
+    </tr>
+</tbody></table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>订单编号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>联系人</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>人数（人）</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>销售额</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>下单日期</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>出团日期</strong></td>
+          
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>订单来源</strong></td>
+  </tr>
+          <php>foreach($dingdanAll as $dingdan){</php>
+          <tr>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['bid']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['linkman']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['re_num']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <php> echo $dingdan['re_num'] * $dingdan['ticket_date']['price']; </php>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <php>echo date('Y-m-d H:i:s',$dingdan['pubdate'])</php>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$dingdan['start_date']|date='Y-m-d',###}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                                        <{$dingdan['user_name']}>
+                                    </td>
+          </tr>
+          <php>}</php>
+</tbody></table>

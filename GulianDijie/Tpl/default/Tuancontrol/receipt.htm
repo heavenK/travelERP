@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                
+                
+                <div class="fanye">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>付款申请单：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="receiptable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#e6f2f2"><strong>收款项目</strong></td>
+                            <td width="20%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款事由</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款日期</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>付款方</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>收款方</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>金额</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>出纳</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>交款人</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($receiptAll as $item){ 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input value="<{$item[title]}>" type="text" name="title" id="title_<{$item[receiptID]}>"  style=" width:90%;"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <textarea name="content" id="content_<{$item[receiptID]}>" style=" width:90%; height:50px;" ><{$item[content]}></textarea>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="receipttime" id="receipttime_<{$item[receiptID]}>"  value="<{$item[receipttime]}>" onfocus="WdatePicker()"  style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="fromcompany" id="fromcompany_<{$item[receiptID]}>"  value="<{$item[fromcompany]}>" style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="tocompany" id="tocompany_<{$item[receiptID]}>"  value="<{$item[tocompany]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[receiptID]}>"  value="<{$item[price]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="cashier" id="cashier_<{$item[receiptID]}>"  value="<{$item[cashier]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="payperson" id="payperson_<{$item[receiptID]}>"  value="<{$item[payperson]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='uplodattachment("<{$item[receiptID]}>");'>上传副本</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[receiptID]}>");'>修改</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[receiptID]}>","receiptable")'>删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertreceipt('收据清单','receiptable'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+
+                
+            </div>
+
+	
+
+</body>
+</html>
+
+
+<script>
+
+
+function additem(id,tablename){
+	var djtuanID = $("#djtuanID").val();
+	var title = $("#title"+id).val();
+	var content = $("#content"+id).val();
+	var receipttime = $("#receipttime"+id).val();
+	var fromcompany = $("#fromcompany"+id).val();
+	var tocompany = $("#tocompany"+id).val();
+	var price = $("#price"+id).val();
+	var cashier = $("#cashier"+id).val();
+	var payperson = $("#payperson"+id).val();
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/addreceipt",
+		data:	"title="+title+"&content="+content+"&djtuanID="+djtuanID+"&receipttime="+receipttime+"&fromcompany="+fromcompany+"&tocompany="+tocompany+"&price="+price+"&cashier="+cashier+"&payperson="+payperson,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！');
+					}
+					else{
+						alert('添加成功！');
+						var edit_button = "<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"uplodattachment('" + msg + "');\">上传副本</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"edititem_2('" + id + "','" + msg + "');\">修改</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"deleteitem(this,'" + msg + "','"+tablename+"')\">删除</a>";
+						$("#operator"+id).parent().html(edit_button);
+					}
+				  }
+	});
+}
+
+
+function edititem(id){
+	var title = $("#title_"+id).val();
+	var content = $("#content_"+id).val();
+	var receipttime = $("#receipttime_"+id).val();
+	var fromcompany = $("#fromcompany_"+id).val();
+	var tocompany = $("#tocompany_"+id).val();
+	var price = $("#price_"+id).val();
+	var cashier = $("#cashier_"+id).val();
+	var payperson = $("#payperson_"+id).val();
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/editreceipt",
+		data:	"title="+title+"&content="+content+"&receiptID="+id+"&receipttime="+receipttime+"&fromcompany="+fromcompany+"&tocompany="+tocompany+"&price="+price+"&cashier="+cashier+"&payperson="+payperson,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+function edititem_2(id,msg){
+	var title = $("#title"+id).val();
+	var content = $("#content"+id).val();
+	var receipttime = $("#receipttime"+id).val();
+	var fromcompany = $("#fromcompany"+id).val();
+	var tocompany = $("#tocompany"+id).val();
+	var price = $("#price"+id).val();
+	var cashier = $("#cashier"+id).val();
+	var payperson = $("#payperson"+id).val();
+	
+	var receiptID = msg;
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/editreceipt",
+		data:	"title="+title+"&content="+content+"&receiptID="+receiptID+"&receipttime="+receipttime+"&fromcompany="+fromcompany+"&tocompany="+tocompany+"&price="+price+"&cashier="+cashier+"&payperson="+payperson,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+
+function deleteitem(obj, id, tablename){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/deletereceipt",
+		data:	"receiptID=" + id,
+		success:	function(msg){
+					if(msg){
+						alert('删除成功！');
+						deletetablerow(obj, id, tablename);
+					}
+				  }
+	});
+}
+	
+
+function uplodattachment(id){
+
+    var url = '<{:SITE_DIJIE}>Tuancontrol/receiptattachment/receiptID/'+id;
+
+    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+	
+
+	
+
+
+
+</script>

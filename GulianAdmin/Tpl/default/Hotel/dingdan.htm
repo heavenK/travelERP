@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>订单控管-酒店订单</title>
+	
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+</head>
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+<script>
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>
+
+
+<body>
+
+    
+        <div class="hdlyRight">
+            <div id="content_bb">
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                
+                
+                <div class="ss">
+                    <table class="test1" width="100%" border="0" style="padding-top: 20px;">
+                        <tbody>
+                        
+                        <tr>
+                            <td align="right" height="18" width="20%">
+                                订单编号：<input name="bid" type="text" id="bid" value="<{$bid}>">
+                            </td>
+                            <td align="right" height="18" width="20%">
+                                酒店：<input name="hotel" type="text" id="hotel" value="<{$hotel}>">
+                            </td>
+                            <td align="right" height="18" width="20%">
+                                来源部门：<input name="department" type="text" id="department" value="<{$department}>">
+                            </td>
+                            <td align="right" height="18" width="15%">
+                                门市付款：
+                                <select name="money" id="money">
+                                
+                                    <php> if($money){</php>
+                                    <option value="<{$money}>"><{$money}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                
+                                    <option value="">-全部-</option>
+                                    <option value="未付款">未付款</option>
+                                    <option value="已付款">已付款</option>
+                                </select>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                入住日期：
+                                <input name="start_date" type="text" id="start_date" class="Wdate" onfocus="WdatePicker()"  value="<{$start_date}>">
+                            </td>
+                            <td align="right" width="5%">
+                                操作人帐号：<input name="user_name" type="text" id="user_name" value="<{$user_name}>">
+                            </td>
+                            <td align="right" width="5%">
+                                状态：
+                                <select name="status" id="status" value="<{$status}>">
+                               
+                                    <php> if($status){</php>
+                                    <option value="<{$status}>"><{$status}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="占位">占位</option>
+                                    <option value="确认">确认</option>
+                                </select>
+                                
+                            </td>
+                            <td align="right" height="18" width="15%">
+                                财务付款：
+                                <select name="moneycw" id="moneycw" value="<{$moneycw}>">
+                               
+                                    <php> if($moneycw){</php>
+                                    <option value="<{$moneycw}>"><{$moneycw}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="未付款">未付款</option>
+                                    <option value="已付款">已付款</option>
+                                </select>
+                            </td>
+                            
+                            <td colspan="2">
+                                <input type="submit" name="SearchBtn" value="搜 索" class="anu" onclick="dosearch()" style="cursor:pointer">
+                            </td>
+                            
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center">
+                                        订单编号</th>
+                                    <th height="32" align="center">
+                                        酒店</th>
+                                    <th height="32" align="center">
+                                        房型</th>
+                                    <th height="32" align="center">
+                                        操作人</th>
+                                    <th height="32" align="center">
+                                        来源部门</th>
+                                    <th height="32" align="center">
+                                        状态</th>
+                                    <th height="32" align="center">
+                                        锁定</th>
+                                    <th height="32" align="center">
+                                        入住时间</th>
+                                    <th height="32" align="center">
+                                        门市确认</th>
+                                    <th height="32" align="center">
+                                        财务确认</th>
+                                    <th height="32" align="center">
+                                        下单时间</th>
+                                </tr>
+                            
+                            	<php>foreach($dingdans as $val){</php>
+                                <tr class="tr1">
+                                    <td height="27" align="center">
+                                        <a href="<{:SITE_ADMIN}>Hotel/dingdan_info/bid/<{$val[bid]}>">
+                                            <{$val[bid]}>
+                                        </a>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[hotel]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[room]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[linkman]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[department]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[status]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[islock]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[start_date]|date='Y-m-d',###}> 
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[money]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[moneycw]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[pubdate]|date='Y-m-d',###}> 
+                                    </td>
+                                    
+                                    
+                                </tr>
+                            	<php>}</php>
+                            
+                    </tbody>
+                    </table>
+                    
+            </div>
+        </div>
+
+
+</body>
+</html>
+
+
+<script>
+
+function dosearch() {
+        
+		var bid = document.getElementById('bid').value;
+		var hotel = document.getElementById('hotel').value;
+		var department = document.getElementById('department').value;
+		  var money = document.getElementById('money').value;
+		var start_date = document.getElementById('start_date').value;
+		var user_name = document.getElementById('user_name').value;
+		var status = document.getElementById('status').value;
+		var moneycw = document.getElementById('moneycw').value;
+		
+		window.location = '<{:SITE_ADMIN}>Hotel/dingdan/bid/'+bid+'/hotel/'+hotel+'/department/'+department+'/money/'+money+'/start_date/'+start_date+'/user_name/'+user_name+'/status/'+status+'/moneycw/'+moneycw;
+}
+
+
+</script>
+
+<include file="Index:footer" />
+
+

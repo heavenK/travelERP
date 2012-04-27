@@ -1,0 +1,123 @@
+<php>if($fang_all == null) echo '暂无数据';foreach($fang_all as $fang){ 
+</php>
+<br><br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>名称</strong>
+        </td>
+    </tr>
+    <tr>
+        <td class="xxxx" height="27" align="center">
+            <{$fang['title']}>
+        </td>
+    </tr>
+</tbody></table>
+<php>if($zituan['guojing'] =='境外'){</php>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>拼音</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>户籍地</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件有效期</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>游客需求</strong></td>
+  </tr>
+          <php>foreach($fang['tuanyuanAll'] as $tuanyuan){ 
+                                </php>
+          <tr>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['name']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['pinyin']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['sex']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['manorchild']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['zhengjiantype']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  &nbsp;<{$tuanyuan['zhengjianhaoma']}>
+                  
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['telnum']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['hujidi']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['zhengjianyouxiaoqi']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['xuqiu']}>
+              </td>
+          </tr>
+         <php>}}else{
+         </php>
+         <table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>联系电话</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>游客需求</strong></td>
+  </tr>
+          <php>foreach($fang['tuanyuanAll'] as $tuanyuan){ 
+                                </php>
+          <tr>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['name']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['sex']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['manorchild']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$tuanyuan['zhengjiantype']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  &nbsp;<{$tuanyuan['zhengjianhaoma']}>
+                  
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['telnum']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$tuanyuan['xuqiu']}>
+              </td>
+          </tr>
+          <php>}}
+          </php>
+</tbody></table>
+<php>}</php>

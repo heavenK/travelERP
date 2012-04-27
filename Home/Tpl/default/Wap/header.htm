@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+<meta content="initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes, width=device-width" name="viewport">
+<title><php>if($subname){echo($subname.'_');}</php><{$site['sitename']}> - <{$site['subtitle']}></title>
+<link rel="shortcut icon" href="<{:__PUBLIC__}>/images/favicon.ico" />
+<link rel='stylesheet' href='<{:__PUBLIC__}>/wap/style.css' type='text/css'/>
+<style type="text/css"><{$vipcss}></style>
+</head>
+<body>
+<a href="<{:SITE_URL}>/Wap"><h1><{$site[sitename]}></h1></a>
+<div class="main">
+<php>if($showmenu==1){</php>
+<div class="menu">
+<a href='<{:SITE_URL}>/Wap/home'> <{:L('wap_home_page')}></a> |
+<a href='<{:SITE_URL}>/Wap/space'> <{:L('wap_my_page')}></a> |
+<a href='<{:SITE_URL}>/Wap/at'> <{:L('wap_mentioned_me')}></a> |
+<a href='<{:SITE_URL}>/Wap/mycomment'><{:L('comment')}></a> |
+<a href='<{:SITE_URL}>/Wap/myfavor'><{:L('wap_my_fav')}></a><br/>
+<a href='<{:SITE_URL}>/Wap/message'><{:L('message')}></a> |
+<a href='<{:SITE_URL}>/Wap/follow'><{:L('relationship')}></a> |
+<a href='<{:SITE_URL}>/Wap/sendphoto'><{:L('wap_send_photo')}></a> |
+<a href='<{:SITE_URL}>/Wap/logout'>	<{:L('logout')}></a>
+</div>
+<php>}</php>
+<php>if($my['newfollownum']>0 && ACTION_NAME!='follow'){</php><h6><a href="<{:SITE_URL}>/Wap/follow/tab/2"><{:L('wap_you_incr')}> <{$my['newfollownum']}> <{:L('gefollow')}></a></h6><php>}</php>
+<php>if($my['atnum']>0 && ACTION_NAME!='at'){</php><h6><a href="<{:SITE_URL}>/Wap/at"><{:L('have')}> <{$my['atnum']}> <{:L('top_tip_talk')}></a></h6><php>}</php>
+<php>if($my['priread']>0 && ACTION_NAME!='message'){</php><h6><a href="<{:SITE_URL}>/Wap/message"><{:L('you_have')}> <{$my['priread']}> <{:L('top_tip_message')}></a></h6><php>}</php>
+<php>if($my['comments']>0 && ACTION_NAME!='mycomment'){</php><h6><a href="<{:SITE_URL}>/Wap/mycomment"><{:L('you_have')}> <{$my['comments']}> <{:L('top_tip_comment')}></a></h6><php>}</php>

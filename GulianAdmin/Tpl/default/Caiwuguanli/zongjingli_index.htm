@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<title><{$navlist}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b> 团队内容
+    </div>
+    
+    <script>
+	function dosearch() {
+			var time1 = document.getElementById('time1').value;
+			var time2 = document.getElementById('time2').value;
+			var mudidi = document.getElementById('mudidi').value;
+			
+			var mingcheng = document.getElementById('mingcheng').value;
+			var departmentID = document.getElementById('department').value;
+			var realname = document.getElementById('realname').value;
+			var xianlutype = document.getElementById('xianlutype').value;
+			var jingwai = document.getElementById('jingwai').value;
+			
+			var tuanhao = document.getElementById('tuanhao').value;
+			var zituanstatus = document.getElementById('zituanstatus').value;
+			
+			window.location = '<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/time1/'+time1+'/time2/'+time2+'/mudidi/'+mudidi+'/mingcheng/'+mingcheng+'/departmentID/'+departmentID+'/realname/'+realname+'/tuanhao/'+tuanhao+'/zituanstatus/'+zituanstatus+'/xianlutype/'+xianlutype+'/jingwai/'+jingwai;
+			
+	}
+	</script>
+    <div id="hlt_fit_search"><!--查询-->
+    	 
+         
+        <div class="search_one">
+            <div id="hlt_fit_search_b"><span>日期范围：</span>
+            <input type="text" id="time1" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})"  value="<{$time1}>" >
+            <span>--</span>
+            <input type="text" id="time2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})"  value="<{$time2}>" >
+            </div>
+            <div id="hlt_fit_search_a"><span>目的地：</span><input style=" width:205px;" type="text" id="mudidi" value="<{$mudidi}>"></div>
+        </div>
+        
+        <div class="search_one">
+            <div id="hlt_fit_search_a"><span>团标题：</span><input style=" width:205px;" type="text" id="mingcheng" value="<{$mingcheng}>"></div>
+            <div id="hlt_fit_search_a"><span>部门：</span>
+            
+              <select id="department" style="width:100px;">
+                <php>if($department){</php>
+                <option value="<{$departmentID}>"><{$department}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($departmentAll as $temp){</php>
+                <option value="<{$temp[id]}>"><{$temp[title]}></option> 
+                <php>}</php>
+              </select>
+              </div>
+              
+            <div id="hlt_fit_search_a"><span>计调：</span>
+              <select id="realname">
+                <php>if($realname){</php>
+                <option value="<{$realname}>"><{$realname}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($topsystemuserAll as $user){</php>
+                <option value="<{$user[realname]}>"><{$user[realname]}></option> 
+                <php>}</php>
+              </select>
+            </div>
+            
+            <div id="hlt_fit_search_a"><span>团队类型：</span>
+              <select id="xianlutype">
+                <php>if($xianlutype){</php>
+                <option value="<{$xianlutype}>"><{$xianlutype}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+              	<option value="散客产品">散客产品</option>
+              	<option value="地接">地接</option>
+              	<option value="自由人">自由人</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a"><span>过境类型：</span>
+              <select id="jingwai">
+                <php>if($jingwai){</php>
+                <option value="<{$jingwai}>"><{$jingwai}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+              	<option value="国内">国内</option>
+              	<option value="境外">境外</option>
+              </select>
+            </div>
+        </div>
+        
+        <div class="search_one">
+            
+            <div id="hlt_fit_search_a"><span>团号：</span><input style=" width:205px;" type="text" id="tuanhao" value="<{$tuanhao}>"></div>
+            
+            <div id="hlt_fit_search_a"><span>团队状态：</span>
+              <select id="zituanstatus"> 
+                <php>if($zituanstatus){</php>
+                <option value="<{$zituanstatus}>"><{$zituanstatus}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option> 
+                <option value="报名">组团报名</option> 
+                <option value="在线">接团在线</option> 
+                <option value="截止">截止</option> 
+            </select>
+            </div>
+            
+            <div id="hlt_fit_search_g"><input type="submit" value="" alt="搜索" onclick="dosearch();" /></div>
+        </div>
+         
+         
+  </div>
+
+    
+</div>
+<div class="admin_map"><!--地图 add by kaiser-->
+    <span>快速搜索</span>
+    <ul>
+        <li><a href="<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/xianlutype/地接/jingwai/国内"><img src="<{:__PUBLIC__}>/gulianstyle/images/admin_map_pic_01.jpg" /></a></li>
+        <li><a href="<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/xianlutype/地接/jingwai/境外"><img src="<{:__PUBLIC__}>/gulianstyle/images/admin_map_pic_02.jpg" /></a></li>
+        <li><a href="<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/xianlutype/散客产品/jingwai/国内"><img src="<{:__PUBLIC__}>/gulianstyle/images/admin_map_pic_03.jpg" /></a></li>
+        <li><a href="<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/xianlutype/散客产品/jingwai/境外"><img src="<{:__PUBLIC__}>/gulianstyle/images/admin_map_pic_04.jpg" /></a></li>
+    </ul>
+</div>
+</div>
+
+
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b> 报账单内容
+    </div>
+
+<iframe src="<{:SITE_ADMIN}>Shenhe/baozhangdanlist/roletype/总经理/xianlutype/组团/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible; margin-top:10px;"></iframe>
+<iframe src="<{:SITE_ADMIN}>Shenhe/baozhangdanlist/roletype/总经理/xianlutype/地接/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible; margin-top:10px;"></iframe>
+    
+
+<style>
+.gl_cwbb	{ background: url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x scroll 0 0 transparent; text-align:center; color:#FFFFFF;}
+.gl_cwbb a	{ color:0000ff;}
+.gl_cwbb td { border:1px solid #E8E8E8; border-top:0; color: #494949; padding:0 10px;}
+.gl_cwbbdy	{ width:85px; height:25px; margin:0 0 10px 30px; display:inline; background:url(images/header_bg.jpg) -790px -220px; float:left;} 
+.gl_cwbbdy:hover	{ background:url(images/header_bg.jpg) -790px -250px;}
+.tr0 		{ background:#F0F0F0;}
+.tr0 a		{ color:0000ff;}
+.tr1 a		{ color:0000ff;}
+.gl_cwbc	{ display:inline; color:ff5500; text-align:center; background:#F0F0F0; }
+
+.admin_map	{ width:832px; margin:20px 0 0 40px; display:inline; padding:0 0 20px 0; background:#e6e6e6; border:#d6d7d8 1px solid; overflow:hidden; float:left;}
+.admin_map span		{ width:163px; height:38px; margin:10px 0 0 0; display:inline; background:url("<{:__PUBLIC__}>/gulianstyle/images/admin_map_mainbav.png") no-repeat; font-size:24px; text-align:center; line-height:38px; font-family:"微软雅黑", "黑体"; color:#FFF; overflow:hidden; clear:both; float:left;}
+.admin_map ul		{ width:100%; float:left;}
+.admin_map ul li	{ width:163px; height:98px; margin:20px 0 0 35px; display:inline; background:#FFF; border:1px solid #adadad; overflow:hidden; float:left;}
+.admin_map ul li a	{ width:161px; height:96px; margin:1px; display:inline; overflow:hidden; float:left;}
+
+.admin_map table{ margin:20px 0 0 0; display:inline; float:left;}
+.admin_map .tr1{ background:#f3f3f3; }
+
+.admin_map td{border-bottom:solid #e8e8e8 1px; border-right:solid #e8e8e8 1px;border-left:solid #e8e8e8 1px; color:#494949;}
+.admin_map th{ background:url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x; color:#FFF;border-right:solid #CCC 1px;}	
+
+</style>
+
+
+</body>
+</html>
+
+<include file="Index:footer" />

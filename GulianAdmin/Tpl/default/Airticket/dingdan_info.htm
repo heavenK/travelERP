@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>
+	无标题页
+</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>
+	jquery(document).ready(function(){
+		  jquery.ajax({
+						type:	"POST",
+						url:	"<{:SITE_MENSHI}>Hotel/answer",
+						async: false,
+						data:	"type=show&pid=" + "<{$bid}>",
+						success:	function(msg){
+									  jquery(msg).appendTo("#answers");
+								  }
+					});
+					
+		var lock = '<{$dingdans[islock]}>';
+		if (lock == '锁定'){
+			jquery("select").attr('disabled','disabled');
+			jquery("input").attr('disabled','disabled');
+		}
+	});
+	
+	function post_answer(){
+		jquery.ajax({
+						type:	"POST",
+						url:	"<{:SITE_MENSHI}>Hotel/answer",
+						async: false,
+						data:	"type=insert&username=" + "<{$username}>" + "&content=" + jquery("#tbContent").val() + "&pid=" + "<{$bid}>",
+						success:	function(msg){
+									  jquery(msg).appendTo("#answers");
+									  jquery("#tbContent").val('');
+								  }
+					});
+	}
+	
+	function updateMember(id)
+	{	
+
+				jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Airticket/member_edit",
+					  async: false,
+					  data:	"id=" + id + "&name=" + jquery("#name"+id).val() + "&sex=" + jquery("#sex"+id).val() + "&zj=" + jquery("#zj"+id).val()+ "&zj_num=" + jquery("#zj_num"+id).val() + "&phone=" + jquery("#phone"+id).val() + "&demand=" + jquery("#demand"+id).val(),
+					  success:	function(msg){
+						  
+									alert("更新成功！");
+								}
+				  });
+	}
+	
+	function change_sign(type){
+				jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Airticket/sign_edit",
+					  async: false,
+					  data:	"id=" + '<{$dingdans[id]}>' + "&val=" + jquery("#sign_status").val() + "&type=" + type,
+					  success:	function(msg){
+									alert("更新成功！");
+								}
+				  });
+	}
+	
+</script>
+
+
+    <script src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js" language="javascript" type="text/javascript"></script>
+
+    <script language="javascript" type="text/javascript">
+function checkRate(input) //判断是否是数字
+    { 
+         var re = /^[0-9]+[.]?[0-9]*$/;   //判断字符串是否为数字     //判断正整数 /^[1-9]+[0-9]*]*$/   
+         if (!re.test(input)) 
+         {     
+            return false; 
+         }
+         return true;
+    }
+    function  checkNum(obj)
+    {
+        if(checkRate(obj)==false)
+        {
+        alert("请输入数字");
+        }
+    }
+    
+    function  checkdemand()
+    {
+        var demand=document.getElementById("tbContent");
+        if(demand.value=="")
+        {
+            alert("请填写内容！");
+            demand.focus();
+            return false;
+        }
+        post_answer();
+    }
+function showper()
+{
+    var per=document.getElementById("divPer");
+    if(per.style.display=="none")
+        per.style.display="";
+    else
+        per.style.display="none";
+}
+    </script>
+</head>
+<body>
+
+        <div>
+            &nbsp;<div class="hdlyRight">
+                <div id="content_bb">
+                    
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span>订单信息</li>
+                    </ul>
+                </div>
+                 
+                    <div class="ss" style="height:40px;">
+                        <table width="100%" border="0">
+                            <tbody><tr>
+                                <td width="80%">
+                                </td>
+                                <td>
+                                    <a id="lkBase" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketControlShow/id/<{$dingdans['pid']}>">机票控管</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Airticket/chang_info/type/lock/bid/<{$bid}>" class="yyxxl">订单锁定</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Airticket/chang_info/type/unlock/bid/<{$bid}>" class="yyxxl">订单解锁</a>
+                                </td>
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Airticket/chang_info/type/paycw/bid/<{$bid}>" class="yyxxl">财务确认付款</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Airticket/chang_info/type/notpaycw/bid/<{$bid}>" class="yyxxl">财务取消付款</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody></table>
+                    </div>
+                 
+                        
+                    <div id="yk" class="fanye">
+                        <br>
+                        <h3>
+                            订单信息
+                        </h3>
+                        <br>
+                        <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr class="tr1">
+                                <td height="32" width="50%">
+                                    订单编号：<{$bid}>
+                                </td>
+                                <td height="32" width="7%">
+                                    线路：<{$dingdans[from]}>-<{$dingdans[gooo]}>
+                                </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td height="32" width="50%">
+                                    机票编号：<{$dingdans[ticket_id]}>
+                                </td>
+                                <td height="32" width="7%">
+                                    出发日期：<{$dingdans[start_date]|date='Y-m-d',###}>
+                                </td>
+                            </tr>
+                            <tr class="tr1">
+                                <td height="32" width="50%">
+                                    机票张数：<{$dingdans[re_num]}>
+                                </td>
+                                <td height="32" width="50%">
+                                    传真：<{$dingdans[fax]}>
+                                </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td height="32" width="50%">
+                                    联系人：<{$dingdans[linkman]}>
+                                </td>
+                                <td height="32" width="50%">
+                                    联系电话：<{$dingdans[linkphone]}>
+                                </td>
+                            </tr>
+                            
+                            <tr class="tr1">
+                                <td height="32" width="50%">
+                                    订单时间：<php>echo date('Y-m-d H:i:s',$dingdans['pubdate']);</php>
+                                </td>
+                                <td height="32" width="50%" style="color:red">
+                                    是否锁定：<{$dingdans[islock]}>
+                                </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td height="32" width="50%" style="color:red">
+                                    门市付款确认：<{$dingdans[money]}>
+                                </td>
+                                <td height="32" width="50%" style="color:red">
+                                    财务付款确认：<{$dingdans[moneycw]}>
+                                </td>
+                            </tr>
+                            
+                            
+                        </tbody></table>
+                    
+                    
+                    
+                        <br>
+                        <h3>
+                            团员信息
+                        </h3>
+                        <br>
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td>
+                                    <a href="javascript:canceltuanyuan()" onclick="return confirm('确认取消订单？');" class="yyxxl">取消游客</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:dozhanwei()"  onclick="return confirm('修改团员状态为占位？');" class="yyxxl">团员占位</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:doquren()"  onclick="return confirm('修改团员状态为确认？');" class="yyxxl">团员确认</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:dofufei()"  onclick="return confirm('确认付费？');" class="yyxxl">已付费</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:doweifufei()"  onclick="return confirm('标记未付费？');" class="yyxxl">未付费</a>
+                                </td>
+                                <td align="right">
+                                    <a href="javascript:void(0)" onclick="showper();ModifyTraveler();" class="yyxxl">团员信息</a>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        
+                        <br>
+                        <div id="divPer" style="display:block">
+                            <table id="table_id" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody><tr class="tr">
+                                    <td colspan="9" class="bzxsk" height="27" align="center" bgcolor="#FFFFFF">
+                                        <table id="tableTravel" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<th class="leftx" height="32" align="center">点选取消</th>
+		<th height="32" align="center">姓名</th>
+		<th height="32" align="center">成人/儿童</th>
+		<th height="32" align="center">性别</th>
+		<th height="32" align="center">证件类型</th>
+		<th height="32" align="center">证件号码</th>
+		<th height="32" align="center">联系电话</th>
+		<th height="32" align="center">顾客需求</th>
+        <th height="32" align="center">状态</th>
+        <th height="32" align="center">应付</th>
+        <th height="32" align="center">到款</th>
+		<th height="32" align="center">详细信息</th>
+	</tr>
+    <form name="form1" method="post" id="form1">
+    <php>$i = 0;foreach($tuanyuanAll as $val){$i++;</php>
+	<tr>
+          <td width="5%" height="27" align="center">
+          <input style="width:95%" id="_Item_<{$i}>" name="itemlist[]" type="checkbox"  value="<{$val['tuanyuanID']}>">
+          </td>
+		<td width="5%" height="27" align="center">
+        <input style="width:95%"id="name<{$val[tuanyuanID]}>" name="tbName0" value="<{$val[name]}>" type="text"></td>
+		<td width="5%" height="27" align="center">
+        <select><option selected="selected" value="成人">成人</option></select>
+        </td>
+		<td width="5%" height="27" align="center">
+        <select id="sex<{$val[tuanyuanID]}>" name="dlSex0"><option value="男" <php>if ($val[sex] == '男') echo 'selected="selected"';</php> >男</option><option value="女" <php>if ($val[sex] == '女') echo 'selected="selected"';</php>>女</option></select><script type="text/javascript"> document.getElementById('dlSex0').value='男';</script></td>
+		<td width="5%" height="27" align="center"><select id="zj<{$val[tuanyuanID]}>" name="dlzj0"><option value="身份证" <php>if ($val[zhengjiantype] == '身份证') echo 'selected="selected"';</php>>身份证</option><option value="学生证" <php>if ($val[zhengjiantype] == '学生证') echo 'selected="selected"';</php>>学生证</option></select><script type="text/javascript"> document.getElementById('dlzj0').value='身份证';</script></td>
+		<td width="5%" height="27" align="center"><input style="width:95%"id="zj_num<{$val[tuanyuanID]}>" name="tbNum0" value="<{$val[zhengjianhaoma]}>" type="text"></td>
+		<td width="5%" height="27" align="center"><input style="width:95%"id="phone<{$val[tuanyuanID]}>" name="tbphone0" value="<{$val[telnum]}>"  type="text"></td>
+		<td width="10%" height="27" align="center"><input style="width:95%"id="demand<{$val[tuanyuanID]}>" name="tbdemands0" value="<{$val[xuqiu]}>" type="text"></td>
+		<td width="5%" height="27" align="center"><{$val[zhuangtai]}></td>
+		<td width="5%" height="27" align="center"><{$val[jiaoqian]}></td>
+		<td width="5%" height="27" align="center"><{$val[daokuan]}></td>
+		<td width="10%" height="27" align="center">
+        <a href="javascript:void(0)" onclick="updateTuanyuan(<{$val[tuanyuanID]}>);">保存</a>
+        <a style="color:blue;" href="javascript:viod(0)" onclick="TravelerDetail('<{$val['tuanyuanID']}>')">详细信息</a>        
+        </td>
+	</tr>
+    <php>}</php>
+    </form>
+    
+    
+    
+</tbody></table>
+
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                            <br>
+                        </div>
+                        
+                    
+                    
+                    
+                    <div class="fanye">
+                        <br>
+                        <h3>
+                            需求应答
+                        </h3>
+                        <br>
+                        <table id="answers" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                            
+                                    <tbody><tr>
+                                        <th height="32" align="center">
+                                            发起人</th>
+                                        <th height="32" align="center">
+                                            内容</th>
+                                        <th height="32" align="center">
+                                            时间</th>
+                                    </tr>
+                                
+                        </tbody></table>
+                        <table id="tableContent" width="100%">
+	<tbody><tr align="center">
+		<td height="27" align="center">
+                                    内容：
+                                    <textarea name="content" rows="5" cols="45" id="tbContent"></textarea></td>
+	</tr>
+	<tr align="center">
+		<td>
+                                    <input name="btnReply" value="提 交" onclick="checkdemand();" id="btnReply" class="anu" type="submit">
+                                </td>
+	</tr>
+</tbody></table>
+
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</body></html>
+
+
+<script>
+	
+	function updateTuanyuan(id)
+	{	
+
+				jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_MENSHI}>Airticket/tuanyuan_edit",
+					  async: false,
+					  data:	"id=" + id + "&name=" + jquery("#name"+id).val() + "&sex=" + jquery("#sex"+id).val() + "&zj=" + jquery("#zj"+id).val()+ "&zj_num=" + jquery("#zj_num"+id).val() + "&phone=" + jquery("#phone"+id).val() + "&demand=" + jquery("#demand"+id).val(),
+					  success:	function(msg){
+						  
+									alert("更新成功！");
+								}
+				  });
+	}
+
+</script>
+
+
+<script>
+function canceltuanyuan()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Hotel/canceltuanyuan';
+	document.getElementById('form1').submit();
+	
+}
+
+function dozhanwei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Hotel/dochangestatus/type/占位';
+	document.getElementById('form1').submit();
+	
+}
+
+function doquren()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Hotel/dochangestatus/type/确认';
+	document.getElementById('form1').submit();
+	
+}
+
+function dofufei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Hotel/dodaokuancheck/type/已付费';
+	document.getElementById('form1').submit();
+	
+}
+
+function doweifufei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/dodaokuancheck/type/未付费';
+	document.getElementById('form1').submit();
+	
+}
+
+
+function TravelerDetail(id)
+{
+    var url="<{:SITE_MENSHI}>Dingdan/tuanyuanxinxi/tuanyuanID/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+    return false;
+}
+
+
+</script>
+
+

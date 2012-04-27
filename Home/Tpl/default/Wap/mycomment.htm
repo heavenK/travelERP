@@ -1,0 +1,36 @@
+<include file="header" />
+<h2 style="padding-bottom:2px">
+<php>if($tab==1){</php>
+<span class="on"><{:L('receivecomments')}></span><span class="off"><a href="<{:SITE_URL}>/Wap/mycomment/tab/2"><{:L('sendcomments')}></a></span>
+<php>}else{</php>
+<span class="off"><a href="<{:SITE_URL}>/Wap/mycomment"><{:L('receivecomments')}></a></span><span class="on"><{:L('sendcomments')}></span>
+<php>}</php>
+</h2>
+<ul>
+<php>if($tab==1){</php>
+    <php>if($count>0){</php>
+        <php>foreach($data as $val){</php>
+        <li>
+            <div><a href="<{:SITE_URL}>/Wap/space/user_name/<{:rawurlencode($val[user_name])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a><h5><{:L('replytome')}>:</h5><{:$ctent->wapubb($val[comment_body])}></div>
+            <div class="stamp"><{:timeop($val[dateline])}>&nbsp;&nbsp;
+            <a href="<{:SITE_URL}>/Wap/comment/cid/<{$val[content_id]}>/from/<{:base64_encode('mycomment')}>/to/<{:rawurlencode($val[user_name])}>"><{:L('reply')}></a>&nbsp;&nbsp;
+            <a href="<{:SITE_URL}>/Wap/delcm/cid/<{$val[comment_id]}>"><{:L('delete')}></a></div>
+        </li>
+        <php>}</php>
+    <php>}else{</php>
+        <span class="stamp"><{:L('no_comment')}></span>
+    <php>}</php>
+<php>}else{</php>
+    <php>if($count>0){</php>
+        <php>foreach($data as $val){</php>
+        <li class="unlight">
+            <span class="stamp"><{:L('reply')}></span><a href="<{:SITE_URL}>/Wap/space/user_name/<{:rawurlencode($val[user_name])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a><h5>:</h5><{:$ctent->wapubb($val[comment_body])}><div class="stamp"><{:timeop($val[dateline])}>&nbsp;&nbsp;<a href="<{:SITE_URL}>/Wap/comment/cid/<{$val[content_id]}>/from/<{:base64_encode('mycomment')}>"><{:L('view_original')}></a>&nbsp;&nbsp;<a href="<{:SITE_URL}>/Wap/delcm/cid/<{$val[comment_id]}>"><{:L('delete')}></a></div>
+        </li>
+        <php>}</php>
+    <php>}else{</php>
+        <span class="stamp"><{:L('no_comment')}></span>
+    <php>}</php>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

@@ -1,0 +1,60 @@
+<php>if($my[user_id]){</php><a id="reportbutton" href="javascript:void(0)" onclick="reportbox()"><{:L('jubao')}></a><php>}</php>
+<php>if($my['user_id']){</php><div class="ad2"><{:stripslashes($site['ad2'])}><{$hook['main_foot1']}></div><php>}</php>
+<php>if($site['footsimple']==0){</php>
+<div class="bottomLinks">
+    <div class="bL_List">
+        <div class="bL_info">  
+        <h4><{:L('find_interest')}></h4>
+        <ul>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Find"><{:L('find')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Hot"><{:L('foot_top')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Hot?c=<{:rawurlencode(getcity($my[live_city],'province'))}>"><{:L('foot_citytop')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Find/invite"><{:L('foot_invite')}></a></li>
+        </ul>
+        </div>
+        <div class="bL_info">  
+        <h4><{:L('talking')}></h4>
+        <ul>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Pub"><{:L('pub')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Pub?t=hot"><{:L('hot_talk')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Pub?t=city&c=<{:rawurlencode(getcity($my[live_city],'city'))}>"><{:L('city_talk')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Topic"><{:L('hot_topic')}></a></li>
+        </ul>
+        </div>
+        <div class="bL_info bL_io3">  
+        <h4><{:L('moreapp')}></h4>
+        <ul>
+            <li class="MIB_linkar"><a href="<{:ET_URL}>/m"><{:L('foot_wap')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/p/sendsms"><{:L('foot_mobile')}></a></li>
+            <li class="MIB_linkar"><a href="##"><{:L('foot_client')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Setting/theme"><{:L('foot_theme')}></a></li>
+        </ul>
+        </div>
+        <div class="bL_info bL_io4">  
+        <h4><{:L('cooperation')}></h4>
+        <ul>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Index/vip"><{:L('certification')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Index/about"><{:L('about')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Index/about"><{:L('join')}></a></li>
+            <li class="MIB_linkar"><a href="<{:SITE_URL}>/Index/faq"><{:L('faq')}></a></li>
+        </ul>
+        </div>
+        <div class="clearline"></div>
+    </div>
+    <div class="fleft"><a href="<{:ET_URL}>"><{$site['sitename']}></a>&nbsp;<a href="http://www.miibeian.gov.cn" target="_blank"><{$site[miibeian]}></a><br/>
+    Powered by <a href="http://www.nextsns.com" target="_blank">EasyTalk <{:ET_VESION}></a>&copy; 2009-2011 <a href="http://www.nextsns.com" target="_blank">Nextsns.com</a>&nbsp;&nbsp;<{:stripslashes($site["foottongji"])}></div>
+    <div class="fright" style="margin-top:20px"><select id="switchlang"><option value="zh-cn" <php>if(LANG_SET=='zh-cn'){</php>selected<php>}</php>>简体中文</option><option value="zh-tw" <php>if(LANG_SET=='zh-tw'){</php>selected<php>}</php>>繁體中文</option></select></div>
+</div>
+<php>}else{</php>
+<div id="footer">
+    <a href="<{:ET_URL}>"><{$site['sitename']}></a> | <a href="<{:SITE_URL}>/Index/vip"><{:L('certification')}></a> | <a href="<{:SITE_URL}>/Index/about"><{:L('about')}></a> | <a href="<{:SITE_URL}>/Index/faq"><{:L('faq')}></a> | <a href="<{:SITE_URL}>/m"><{:L('foot_wap')}></a><br/>
+    Powered by <a href="http://www.nextsns.com" target="_blank">EasyTalk <{:ET_VESION}></a>&copy; 2009-2011 <a href="http://www.nextsns.com" target="_blank">Nextsns.com</a>&nbsp;&nbsp;<{:stripslashes($site["foottongji"])}>&nbsp;&nbsp;
+    <select id="switchlang"><option value="zh-cn" <php>if(LANG_SET=='zh-cn'){</php>selected<php>}</php>>简体中文</option><option value="zh-tw" <php>if(LANG_SET=='zh-tw'){</php>selected<php>}</php>>繁體中文</option></select>
+</div>
+<php>}</php>
+<{$hook['main_foot2']}>
+</div>
+<div class="gotop"><button onclick="indextop();" title="<{:L('gototop')}>"><span><{:L('gototop')}></span></button></div>
+<div id="credit" class="ye_msg_window creditb" style="display:none"><div class="credit"></div></div>
+</body>
+</html>

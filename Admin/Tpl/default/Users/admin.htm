@@ -1,0 +1,29 @@
+<include file="Common:header" />
+<h3>管理员列表</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr style="font-weight:bold">
+    <td width="200px">用户帐号</td>
+    <td>管理员级别</td>
+    <td width="200px">管理操作</td>
+</tr>
+<php>foreach($user as $val){</php>
+    <php>if($val[user_id]!=1){</php>
+    <form action='<{:SITE_URL}>/admin.php?s=/Users/adminedit' method="POST">
+    <tr>
+        <td><input type="text" name="user_name" class="readonly" value="<{$val[user_name]}>" style="width:150px" readonly></td>
+        <td><input type="radio" name="isadmin" value="1" <php>if($val['isadmin']==1){</php>checked<php>}</php>> 总管理员&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="isadmin" value="2" <php>if($val['isadmin']==2){</php>checked<php>}</php>> 前台管理&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="isadmin" value="0" <php>if($val['isadmin']==0){</php>checked<php>}</php>> 普通会员</td>
+        <td><input type="submit" class="button1" value="修改提交"></td>
+    </tr>
+    </form>
+    <php>}else{</php>
+    <tr>
+        <td><input type="text" name="user_name" class="readonly" value="<{$val[user_name]}>" style="width:150px" readonly></td>
+        <td>总管理员</td>
+        <td>默认管理员无法修改</td>
+    </tr>
+    <php>}</php>
+<php>}</php>
+</table>
+<include file="Common:foot" />

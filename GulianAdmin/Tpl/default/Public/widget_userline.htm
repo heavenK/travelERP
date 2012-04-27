@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>插件</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/widget/widget.css">
+</head>
+
+<body>
+<table style="background-color:#f3f3f3;border:1px solid #dbdbdb" class="main" width="100%" height="470px">
+  <tbody>
+    <tr class="border">
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top" bgcolor="#FFFFFF"><div class="contbody" style="height:430px;">
+          <ol class="list">
+          
+          	<php>foreach($messageAll as $val){</php>
+          
+            <li>
+            <div style="width:200px;">
+            用户:<{$val[tablename]}> <br />IP:<{$val[content]}></php> 
+            </div>
+              <div class="timeline"> 
+              <span class="fleft"><php>echo date('m月d日 H:i:s',$val[time]);</php></span> 
+              <span class="fright op"></span> </div>
+              <div class="clearline"></div>
+            </li>
+            
+          	<php>}</php>
+            
+          </ol>
+        </div></td>
+    </tr>
+    <tr class="border">
+      <td valign="top"></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,106 @@
+    <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+
+        <div id="header">
+            <table border="0" cellspacing="0" cellpadding="0" class="TopTab">
+                <tbody><tr>
+                    <td width="81" align="center"><a href="<{:SITE_URL}>" class="txtcolor">首 页</a></td>
+                    <td width="456" align="left"><a href="<{:SITE_MENSHI}>Dingdan" class="txtcolor">进入后台</a></td>
+                    <td width="48" align="center" style="font-weight:normal">欢迎</td>
+                    <td width="70" align="center"><a href="<{:SITE_ADMIN}>Setting" class="txtcolor"><{$roleuser['realname']}></a></td>
+                    <td width="92" align="center" style="font-weight:normal">[<{$company['companyname']}>]</td>
+                    <td width="49" align="center"><a id="header1_lbLogout" class="txtcolor" href="<{:SITE_ADMIN}>Login/logout">退出</a></td>
+                </tr>
+            </tbody>
+            </table>
+            
+            <table border="0" cellspacing="0" cellpadding="0" class="LogoTab">
+                <tbody>
+                <tr>
+                    <td width="441" rowspan="3">
+                        <a href="<{:SITE_MENSHI}>"><img src="<{:__PUBLIC__}>/gulianstyle/styles/ktrip_logo.gif"></a>
+                    </td>
+                    <td colspan="3">
+                
+                                <table class="jpbg" width="500" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody><tr>
+                                        <td height="30" align="right" class="jp01">
+                                            出发城市：
+                                        </td>
+                                        <td height="30">
+                                            <input name="tbDepartcity2" type="text" id="tbDepartcity2" style="width: 130;" class="btn">
+                                        </td>
+                                        <td height="30" align="right" classs="jp01">
+                                            到达城市：
+                                        </td>
+                                        <td height="30">
+                                            <input name="tbDestioncity2" type="text" id="tbDestioncity2" style="width: 130;" class="btn">
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td height="30" align="right" class="jp01">方式：</td>
+                                        <td height="30" colspan="3">
+                                            <table id="rblPlyType" border="0">
+                                            <tbody><tr>
+                                                <td><input id="rblPlyType_0" type="radio" name="rblPlyType" value="Oneway" onclick="return GetPlyDay(this);"><label for="rblPlyType_0">单程</label></td><td><input id="rblPlyType_1" type="radio" name="rblPlyType" value="Ply" onclick="return GetPlyDay(this);"><label for="rblPlyType_1">往返</label></td>
+                                            </tr>
+                                        </tbody></table>
+                                        </td>
+                                        <td height="30" colspan="4">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td height="30" align="right" class="jp01">出发日期：</td>
+                                        <td height="30">
+                                            <input name="tbStartDate" type="text" id="tbStartDate" class="Wdate" onfocus="WdatePicker()" style="width:150px;">
+                                        </td>
+                                        <td height="30" colspan="4">
+                                            <input type="image" class="SearchBtn" onclick="doairsearch()" src="<{:__PUBLIC__}>/gulianstyle/styles/ktrip_button01.gif" style="border-width:0px;">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                    
+                    
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" valign="top">&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            
+            
+            
+        </div>
+        
+        
+<script>
+function doairsearch()
+{
+		var from_city = document.getElementById("tbDepartcity2").value;
+		var to_city = document.getElementById("tbDestioncity2").value;
+		
+		var travel_type = $("input[name=rblPlyType]:checked").val();
+		if (travel_type == 'Oneway') {
+			travel_type = '单程';
+			var end_date = '';
+		}
+		else if(travel_type == 'Ply') {
+			travel_type = '往返';
+			var end_date = document.getElementById("tbBackDate").value;
+		}
+		else{
+			travel_type = '';
+			var end_date = '';
+		}
+		var start_date = document.getElementById("tbStartDate").value;
+		
+		
+	   	window.location.href = '<{:SITE_MENSHI}>Airticket/search/from_city/'+from_city+'/to_city/'+to_city+'/start_date/'+start_date+'/end_date/'+end_date+'/travel_type/'+travel_type;
+	   
+}
+
+
+</script>

@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<title>订单资料</title>
+
+<script>
+function GetcheckBack(id,tbname,type,obj)
+{
+
+	var offset = $(obj).offset();
+	var objtop = offset.top + 16;
+	var objleft = offset.left - 640;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {	
+		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+function GPmyCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+function piliangcaozuo(type) {
+		
+        document.getElementById('caozuotype').value = type;
+	
+        document.getElementById('form').submit();
+}
+
+</script>
+
+</head>
+
+<body>
+
+
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   产品控管 > 子团 > 订单情况
+    </div>
+    <div id="control_domestic_order_over">
+    <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="control_domestic_order"><!--步骤 按钮-->
+            
+            <ul>
+                <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Dingdan/zituandingdan/zituanID/<{$zituan['zituanID']}>">订单资料</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/<{$zituanID}>">基本信息</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/xingcheng/zituanID/<{$zituan['zituanID']}>">行 程</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/jiage/zituanID/<{$zituan['zituanID']}>">价 格</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/tuanyuanmingdan/zituanID/<{$zituan['zituanID']}>">团员名单</a></li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="<{:SITE_ADMIN}>Kongguan/jiedaijihua/zituanID/<{$zituan['zituanID']}>">接待计划</a>
+                </li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="<{:SITE_ADMIN}>Kongguan/chutuantongzhi/zituanID/<{$zituan['zituanID']}>">出团通知</a>
+                </li>
+            </ul>
+            
+            
+            
+        </div>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<div id="hlt_fit_price"><!--成本项-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">订单情况</div>
+                    <table width="722" border="0" cellspacing="0" style=" background:#FFF; border:#00B298 1px solid; text-align:center; float:left;">
+                        <tbody><tr class="hlt_fit_price_cost_b_ol" style="width:auto; float:none;">
+                            <th class="control_domestic_order_lia">总名额</th>
+                            <th class="control_domestic_order_lib">剩余名额</th>
+                            <th class="control_domestic_order_lic">确认人数</th>
+                            <th class="control_domestic_order_lid">候补人数</th>
+                            <th class="control_domestic_order_lie">占位人数</th>
+                            <th class="control_domestic_order_lif">退团人数</th>
+                        </tr> 
+                        <tr height="30" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <td class="control_domestic_order_lia"><{$zongrenshu}></td>
+                            <td class="control_domestic_order_lib"><{$shengyu}></td>
+                            <td class="control_domestic_order_lic"><{$zongqueren}></td>
+                            <td class="control_domestic_order_lid"><{$zonghuobu}></td>
+                            <td class="control_domestic_order_lie"><{$zongzhanwei}></td>
+                            <td class="control_domestic_order_lif"><{$zongtuituan}></td>
+                        </tr>                       
+                    </tbody></table>
+                    
+                    <div id="divrili2"  style="display: none; position:absolute; ">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+            <div id="hlt_fit_price"><!--订单资料-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    	<div id="hlt_fit_price_agents_link">订单资料</div>
+                    	<a href="javascript:piliangcaozuo('订单锁定')" onclick="return confirm('确定要批量锁定吗？');" class="hlt_fit_price_agents_linka"></a>
+                        <a href="javascript:piliangcaozuo('订单解锁')" onclick="return confirm('确认要批量解锁吗？');" class="hlt_fit_price_agents_linkb"></a>
+                        <a href="javascript:piliangcaozuo('支付')" onclick="return confirm('确定要批量支付操作吗？');" class="hlt_fit_price_agents_linkc"></a>
+                        <a href="javascript:piliangcaozuo('未支付')" onclick="return confirm('确定要批量未支付操作吗？');" class="hlt_fit_price_agents_linkd"></a>
+                    </div>
+                    <table width="722" border="1" cellspacing="0" bordercolor="#00B298" style=" background:#FFF; border-collapse:collapse; text-align:center; float:left;">
+                        <tbody><tr class="hlt_fit_price_cost_b_ol" style="width:auto; height:26px; float:none;">
+                            <th><input type="checkbox" name="checkbox" onclick="GPmyCheckBoxSelect(this)" /></th>
+                            <th>订单编号</th>
+                            <th>联系人</th>
+                            <th>操作人</th>
+                            <th>订单状态</th>
+                            <th>确认</th>
+                            <th>候补</th>
+                            <th>占位</th>
+                            <th>退团</th>
+                            <th>锁</th>
+                            <th>支付</th>
+                            <th>团费</th>
+                            <th>轨迹</th>
+                        </tr> 
+                        <form name="form" method="post" action="<{:SITE_ADMIN}>Dingdan/dingdancaozuo" id="form">
+                            <input name="caozuotype" id="caozuotype" type="hidden" value="" />
+                            <input name="zituanID" id="zituanID" type="hidden" value="<{$zituanID}>" />
+                        <php> $i = -1;foreach($dingdanAll as $dingdan){$i++;
+                        </php>
+                        <tr height="26" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <td><input value="<{$dingdan['dingdanID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></td>
+                            <td><a href="javascript:showdingdan(<{$dingdan['dingdanID']}>);"><{$dingdan['bianhao']}></a></td>
+                            <td><{$dingdan['lianxiren']}></td>
+                            <td><{$dingdan['user_name']}></td>
+                            <td><php>if ($dingdan['daokuan'] == '已付款') echo '确认'; else echo $dingdan['zhuangtai'];</php></td>
+                            <td><{$dingdan['querennum']}></td>
+                            <td><{$dingdan['houbunum']}></td>
+                            <td><{$dingdan['zhanweinum']}></td>
+                            <td><{$dingdan['tuituannum']}></td>
+                            <td><{$dingdan['islock']}></td>
+                            <td><{$dingdan['daokuan']}></td>
+                            <td><{$dingdan['jiage']}></td>
+                            <td><a href="javascript:void(0);"  onclick="GetcheckBack('<{$dingdan['dingdanID']}>','订单','操作记录',this)" >查看</a></td>
+                        </tr> 
+                        <php>}
+                        </php>
+                        </form>                      
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+</body>
+</html>
+<script>
+function showdingdan(dingdanID)
+{
+    var url = '<{:SITE_MENSHI}>Dingdan/dingdanxinxi/showtype/审核/dingdanID/'+dingdanID;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+</script>
+
+

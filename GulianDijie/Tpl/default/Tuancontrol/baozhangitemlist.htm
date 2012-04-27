@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fitqianzheng.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+
+<title><{$navtile}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+    <php>if($showtype_2){</php>
+                <include file="AdminShenhe:navlist" />
+    <php>}else{</php>
+                <include file="Tuancontrol:navlist" />
+    <php>}</php>
+    
+    <php>if($showtype_2){</php>
+        <div id="hlt_fit_published_cont" style="margin-top:65px;"><!--内容-->
+    <php>}else{</php>
+        <div id="hlt_fit_published_cont" style="margin-top:125px;"><!--内容-->
+        <div class="fanye" style="margin-top:10px;">
+          <div class="nr" >
+              <table width="313" border="0">
+                  <tbody><tr>
+            <php>if($showtype == '收入'){</php>
+                      <a href="<{:SITE_DIJIE}>Tuancontrol/addbaozhangitem/showtype/收入/djtuanID/<{$djtuanID}>" class="yyxxl">添加其他应收款</a>
+            <php>}</php>
+            <php>if($showtype == '支出'){</php>
+                      <a href="<{:SITE_DIJIE}>Tuancontrol/addbaozhangitem/showtype/支出/djtuanID/<{$djtuanID}>" class="yyxxl">添加请款单</a>
+            <php>}</php>
+                  </tr>
+              </tbody></table>
+          </div>
+        </div>                
+    <php>}</php>
+    
+    	<div id="hlt_fit_published_cont" >
+        	<div class="plan_jh_fb">
+            <php>if($showtype == '收入'){</php>
+            <h1 style="text-align:center">其他应收款确认单</h1>
+            <php>}</php>
+            <php>if($showtype == '支出'){</php>
+            <h1 style="text-align:center">请款申请单</h1>
+            <php>}</php>
+            </div>
+        
+        	<div id="hlt_fit_price"><!--应收费用-->
+            	<div id="hlt_fit_price_cost">
+                	<ol id="hlt_fit_price_cost_b">
+                    
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_cost_lia_c">日期</li>
+                            <li class="hlt_fit_price_cost_lib_c" style="width:300px;">标题</li>
+                            <li class="hlt_fit_price_cost_lia_c">金额</li>
+                            <li class="hlt_fit_price_cost_lia_c" >状态</li>
+                            <li class="hlt_fit_price_cost_lia_c">操作</li>
+                        </ul>
+                        
+                        
+                        <php>foreach($itemAll as $item){</php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_c"><php>echo date('Y-m-d',$item['time'])</php></li>
+                            <li class="hlt_fit_price_cost_lib_c" style="width:300px;">
+                            
+    <php>if($showtype_2){</php>
+                            <a href="<{:SITE_DIJIE}>Tuancontrol/addbaozhangitem/showtype_2/审核/baozhangitemID/<{$item[baozhangitemID]}>"><{$item['title']}></a>
+    <php>}else{</php>
+                            <a href="<{:SITE_DIJIE}>Tuancontrol/addbaozhangitem/showtype_2/审核/baozhangitemID/<{$item[baozhangitemID]}>"><{$item['title']}></a>
+    <php>}</php>
+                            
+                            </li>
+                            <li class="hlt_fit_price_cost_lia_c"><{$item['price']}></li>
+                            <li class="hlt_fit_price_cost_lia_c"><{$item['check_status']}></li>
+                            <li class="hlt_fit_price_cost_lia_c">  
+                            <a href="<{:SITE_DIJIE}>Tuancontrol/addbaozhangitem/baozhangitemID/<{$item[baozhangitemID]}>" title="修改">修改</a>
+                            <a href="<{:SITE_DIJIE}>Tuancontrol/deleteitem/baozhangitemID/<{$item[baozhangitemID]}>" title="删除">删除</a>
+                            </li>
+                        </ul>
+                        <php>}</php>
+                        
+                        
+                        
+                    </ol>
+                </div>
+            </div>
+      	</div>
+        
+        
+  </div>
+    
+    
+</div>
+
+</body>
+</html>

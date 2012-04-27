@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增频道</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+-->
+</style>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+
+  <form name="form1"  action="<{:SITE_DIJIE}>Supplier/dopostaddresource" method="post" enctype="multipart/form-data">
+  
+  <input type="hidden" name="type" value="火车" />
+  <php>
+  	if($resource) {
+  </php>
+  <input type="hidden" name="forward" value="<{:SITE_DIJIE}>Supplier/addresource/type/火车/resourceID/<{$resource['resourceID']}>" />
+  <input type="hidden" name="resourceID" value="<{$resource['resourceID']}>" />
+  <php>
+  	}else{
+  </php>
+  <input type="hidden" name="forward" value="<{:SITE_DIJIE}>Supplier/supplierlist/type/火车" />
+  <php>
+  	}
+  </php>
+  
+  
+  
+    <tbody>
+    
+  <tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr>
+    
+    
+	<tr height="24" align="center" bgcolor="#FBFCE2"> 
+		<td>带*号的为必选项！</td>
+		<td></td>
+   </tr>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*火车名称：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="title" size="25" class="pubinputs" style="width: 120px;" type="text" value="<{$resource['title']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*火车编号：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="en_title" size="25" class="pubinputs" style="width: 120px;" type="text" value="<{$resource['en_title']}>">
+      </td>
+    </tr>
+    
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*往返类型：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+        <select name="title_ext4" style="width: 120px;" >
+        <php>if($resource['title_ext4']){
+        </php>
+        	<option value="<{$resource['title_ext4']}>"><{$resource['title_ext4']}></option>
+        	<option disabled="disabled">-----------------</option>
+        <php>}
+        </php>
+        	<option value="单程">单程</option>
+        	<option value="往返">往返</option>
+        </select>
+        
+        
+      </td>
+    </tr>
+    
+   <php>if($resource['pic_url']){</php> 
+	<tr> 
+      <td align="left" bgcolor="#FFFFFF">
+       </td>
+      <td bgcolor="#FFFFFF">
+	    <img src="<{:__PUBLIC__}>/<{$resource[pic_url]}>" alt="" height="210" width="280">地址：<{$resource[pic_url]}>
+		</td>
+     </td>
+    </tr>
+   <php>}</php> 
+    
+	<tr> 
+      <td height="40" align="left" bgcolor="#FFFFFF">
+      	图片<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+	    <input name="pic_url"  style="width: 260px;" type="file">
+     </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	联系人：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="contact" class="pubinputs" style="width: 260px;" type="text" value="<{$resource['contact']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	电话：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="telnum" class="pubinputs" style="width: 260px;" type="text" value="<{$resource['telnum']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	地址：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="addr" class="pubinputs" style="width: 260px;" type="text" value="<{$resource['addr']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	备注：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="remark" class="pubinputs" style="width: 99%;" type="text" value="<{$resource['remark']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	火车描述：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<textarea name="content" class="ckeditor" cols="80" id="content" rows="20"><{$resource['content']}></textarea>
+				<script type="text/javascript">
+                    CKEDITOR.replace( 'content',
+                        {
+							width :600,
+                            extraPlugins : 'uicolor',
+                            toolbar :
+                            [
+                                    ['Source','-','Save','NewPage','Preview','-','Templates'],
+									['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+									['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+									['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+									['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['BidiLtr', 'BidiRtl'],
+									['Link','Unlink','Anchor'],
+									'/',
+									['Styles','Format','Font','FontSize'],
+									['TextColor','BGColor'],
+									['Maximize', 'ShowBlocks','-','About']
+                            ]
+                        });
+                </script>
+      </td>
+    </tr>
+    <tr bgcolor="#F9FCEF"> 
+      <td colspan="2" height="28">
+      	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr> 
+            <td height="45" width="26%">&nbsp;</td>
+            <td width="15%">
+            	<input value="提交" type="submit">
+            </td>
+            <td width="59%">
+            	<input name="按钮" class="np coolbg" onclick="javascript:history.back()" value="返回" type="button">
+            </td>
+          </tr>
+        </tbody></table>
+       </td>
+    </tr>
+  </form>
+</tbody></table>
+
+</body></html>

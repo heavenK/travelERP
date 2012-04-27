@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0054)<{:SITE_URL}>Main/Hotel/ProductPublish.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	酒店产品发布
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css"><script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script></script><link href="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>	
+
+	
+	jquery(document).ready(function(){
+
+									city = "<{$data[hotel][city]}>";
+	
+									shengfen = Math.floor(city/1000);
+									daqu = Math.floor(shengfen/100);
+									
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=0&type=pos",
+										  success:	function(msg){
+														jquery("#pos1").empty();
+														jquery(msg).appendTo("#pos1");
+													}
+									  });
+									  
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=" + daqu + "&type=pos",
+										  success:	function(msg){
+														jquery("#pos2").empty();
+														jquery(msg).appendTo("#pos2");
+													}
+									  });
+									  
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=" + shengfen + "&type=pos",
+										  success:	function(msg){
+														jquery("#pos3").empty();
+														jquery(msg).appendTo("#pos3");
+													}
+									  });
+									
+									
+									jquery('#pos1').val(daqu);
+									jquery('#pos2').val(shengfen);
+									jquery('#pos3').val(city);
+
+									
+									
+									
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Basedata/hotel_info",
+										  async: false,
+										  data:	"pid=" + city + "&type=hotel",
+										  success:	function(msg){
+														jquery("#ddlHotel").empty();
+														jquery(msg).appendTo("#ddlHotel");
+													}
+									  });
+									  
+									jquery('#ddlHotel').val(<{$data[hotel_id]}>);
+									hotel = jquery('#ddlHotel').val();
+									  
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Basedata/hotel_info",
+										  async: false,
+										  data:	"pid=" + hotel + "&type=house",
+										  success:	function(msg){
+														jquery("#ddlChamber").empty();
+														jquery(msg).appendTo("#ddlChamber");
+													}
+									  });
+									
+									
+									jquery('#ddlChamber').val(<{$data[house_id]}>);
+									jquery('#ddlChamber option[value="<{$data[house_id]}>"]').attr('disabled',false);
+									
+									jquery('input[name=breakfast]').val(<{$data[breakfast]}>);
+									jquery('select[name=free]').val(<{$data[free]}>);
+									
+								});
+
+	function change_pos(sid){
+			
+			while (sid <= '2')
+			{
+				jquery('#pos_name' + sid).val(jquery('#pos' + sid).find("option:selected").text());
+				
+				pid = jquery('#pos' + sid).val();
+				sid++;
+				nexts = 'pos' + sid;				
+				change(pid ,nexts);
+			}
+			
+			if (sid == '3'){
+				
+				change_hotel();
+				
+				change_house();
+			}
+				  
+		}
+		
+	function change_hotel(){
+			
+			city = jquery('#pos3').val();
+			
+			jquery.ajax({
+				  type:	"POST",
+				  url:	"<{:SITE_ADMIN}>Basedata/hotel_info",
+				  async: false,
+				  data:	"pid=" + city + "&type=hotel",
+				  success:	function(msg){
+								jquery("#ddlHotel").empty();
+								jquery(msg).appendTo("#ddlHotel");
+							}
+			  });
+				  
+		}
+		
+	function change_house(){
+			
+			hotel = jquery('#ddlHotel').val();
+			
+			jquery.ajax({
+				  type:	"POST",
+				  url:	"<{:SITE_ADMIN}>Basedata/hotel_info",
+				  async: false,
+				  data:	"pid=" + hotel + "&type=house",
+				  success:	function(msg){
+								jquery("#ddlChamber").empty();
+								jquery(msg).appendTo("#ddlChamber");
+							}
+			  });
+				  
+		}
+		
+	function change(pid ,nexts){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=pos",
+					  success:	function(msg){
+									jquery("#" + nexts).empty();
+									jquery(msg).appendTo("#" +nexts);
+								}
+				  });
+	}
+</script>
+
+<body>
+    <div class="hdlyRight">
+            <div id="content_bb">
+                
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                <div id="upStartPlace">
+	 <form name="form" method="post" action="<{:SITE_ADMIN}>Hotel/edit" id="form">
+     <input type="hidden" name="type" value="save" />
+     <input type="hidden" name="id" value="<{$data[id]}>" />
+                        <div class="ss">
+                            <table class="riliss" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody><tr>
+                                    <td width="10%" height="30" align="right">
+                                        选择地区：
+                                    </td>
+                                    <td width="14%" height="30" align="left">
+                                        <select name="ddlArea" id="ddlArea" disabled="disabled">
+                                            <option selected="selected" value="国内">国内</option>
+                                            <option value="国外">国外</option>
+                                    
+                                        </select>
+                                                                        </td>
+                                    <td align="right">
+                                        地区：
+                                    </td>
+                                    <td align="left">                                        
+                                        <select name="daqu_id" id="pos1" onchange="change_pos('1')">
+											<option selected="selected" value="1">华北地区</option>
+											<option value="2">东北地区</option>
+											<option value="3">华东地区</option>
+                                            <option value="4">中南地区</option>
+											<option value="5">西南地区</option>
+                                            <option value="6">西北地区</option>
+											<option value="7">港澳地区</option>
+										</select>
+                                    </td>
+                                    <td align="right">
+                                        省分：
+                                    </td>
+                                    <td align="left">                                        
+                                        <select name="shengfen_id" id="pos2" onchange="change_pos('2')">
+											<option selected="selected" value="101">北京</option>
+											<option value="102">河北</option>
+											<option value="103">内蒙古</option>
+											<option value="104">山西</option>
+											<option value="105">天津</option>
+										</select>
+                                        
+                                    </td>
+                                    <td align="right">
+                                        城市：
+                                    </td>
+                                    <td align="left">
+                                        <select name="chengshi_id" id="pos3" onchange="change_pos('3')" class="diquxz">
+											<option selected="selected" value="101001">北京</option>
+										</select>
+                                    </td>
+                                    <td width="20%">
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                            <table>
+                                <tbody><tr>
+                                    <td class="sj" width="10%" height="30" align="right">
+                                        酒店名称：
+                                    </td>
+                                    <td width="24%" height="30" align="left">
+                                        <select name="ddlHotel" onchange="change_house()" id="ddlHotel" class="diquxz">
+		<option selected="selected" value="">请选择...</option>
+
+	</select>
+                                    </td>
+                                    <td width="10%" height="30" align="right" class="sj">
+                                        房型：
+                                    </td>
+                                    <td height="30" align="left" width="20%">
+                                        <select name="ddlChamber" id="ddlChamber" class="diquxz">
+		<option selected="selected" value="">请选择...</option>
+
+	</select>
+                                    </td>
+                                    <td width="10%" align="center">
+                                        <a id="submit" class="yyxxl" href="javascript:void(0)" onclick="form.submit();">生 成</a>
+                                    </td>
+                                    <td align="center">
+                                        <a onclick="return Redirects();" id="lkbNext" class="yyxxl" href="<{:SITE_ADMIN}>Hotel/calendar/house_id/<{$data[id]}>">查 看</a>
+                                    </td>
+                                    
+                            <td width="91">
+                                 <a id="Submit" class="yyxxl" style="cursor:pointer" href="javascript:GetcheckBack('<{$data[id]}>','酒店','需求应答')">审核不通过记录</a>  
+                            </td>
+                                    
+                    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:130px;">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                   </div>
+                                    <td width="10%" align="center">
+                                        
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                        <div class="fanye">
+                            <table class="tjcp" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody><tr>
+                                    <td height="32" colspan="13" class="hang" id="chambertd">
+                                        房型
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sjz" width="15%" height="32">
+                                        房价开始时间<span class="xh">*</span></td>
+                                    <td height="32" colspan="7">
+                                        <input value="<{$data[start_date]|date='Y-m-d',###}>" name="start_date" type="text" readonly="readonly" class="Wdate" onfocus="WdatePicker()" style="width:101px;">
+                                    </td>
+                                    <td width="15%" height="32">
+                                        房价结束时间<span class="xh">*</span></td>
+                                    <td height="32" colspan="4">
+                                        <input value="<{$data[end_date]|date='Y-m-d',###}>" name="end_date" type="text" readonly="readonly"  class="Wdate" onfocus="WdatePicker()" style="width:101px;">
+                                    </td>
+                                </tr>
+                                <tr class="konghang">
+                                    <td class="sjz" height="25">
+                                        需要提前预定天数
+                                    </td>
+                                    <td height="25" colspan="7">
+                                        <input name="before_day" type="text" value="<{$data[before_day]}>" id="tbEndDays" class="duande">
+                                        天<span class="zhouqi">（截止时间）</span>
+                                    </td>
+                                    <td height="25">
+                                        周期天数<span class="xh">*</span>
+                                    </td>
+                                    <td height="25" colspan="4">
+                                        <input value="<{$data[stay_day]}>" name="stay_day" type="text" id="tbCheckInDays" class="duande">
+                                        晚
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;
+                                        </td>
+                                    <td colspan="7">&nbsp;
+                                        </td>
+                                    <td class="zhouqi" colspan="5">
+                                        0为任意入住时间,数字为入住天数。</td>
+                                </tr>
+                                <tr>
+                                    <td class="sjz" height="32">
+                                        投放数量<span class="xh">*</span></td>
+                                    <td height="32" colspan="7">
+                                        <input value="<{$data[room_num]}>" name="room_num" type="text" id="tbNumber" class="duande">间
+                                    </td>
+                                    <td height="32">
+                                        是否含早餐<span class="xh">*</span></td>
+                                    <td width="38%" height="32">
+                                        <table id="rblIsBreakfast" border="0">
+		<tbody><tr>
+			<td><input type="radio" name="breakfast" value="1" checked="checked"><label for="rblIsBreakfast_0">含&nbsp;</label></td><td><input type="radio" name="breakfast" value="0"><label for="rblIsBreakfast_1">不含</label></td>
+		</tr>
+	</tbody></table>
+                                    </td>
+                                    <td width="1%">
+                                    </td>
+                                    <td width="2%">
+                                    </td>
+                                    <td width="2%">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sjz" height="32">
+                                        挂牌价<span class="xh">*</span></td>
+                                    <td height="32" colspan="7">
+                                        <input value="<{$data[sell_price]}>" name="sell_price" type="text" id="tbOutPrice" class="duande">
+                                        元
+                                    </td>
+                                    <td height="32">
+                                        成本价<span class="xh">*</span></td>
+                                    <td height="32" colspan="4">
+                                        <input value="<{$data[price]}>" name="price" type="text" id="tbCostPrice" class="duande">
+                                        元每间晚
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sjz" height="32">
+                                        内部结算价<span class="xh">*</span>
+                                    </td>
+                                    <td height="32" colspan="7">
+                                        <input value="<{$data[inner_price]}>" name="inner_price" type="text" id="tbInnerPrice" class="duande">
+                                        元<span class="zhouqi">（对自由人）</span>
+                                    </td>
+                                    <td height="32">
+                                        折扣<span class="xh">*</span>
+                                    </td>
+                                    <td height="32" colspan="4">
+                                        <input value="<{$data[cut]}>" name="cut" type="text" id="tbDisCount" class="duande">
+                                        元<span class="zhouqi">（对C网）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sjz" height="32">
+                                        代理商结算价<span class="xh">*</span>
+                                    </td>
+                                    <td height="32" colspan="7">
+                                        <input value="<{$data[agent_price]}>" name="agent_price" type="text" id="tbAgentPrice" class="duande">
+                                    </td>
+                                    <td height="32">
+                                        
+                                    </td>
+                                    <td height="32" colspan="4">
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="sjz" height="32">
+                                        星期限制<span class="xh">*</span>
+                                    </td>
+                                    <td width="49%" height="32" colspan="7">
+                                        <table id="cblWeeks" border="0">
+		<tbody><tr>
+			<td><input id="cblWeeks_0" type="checkbox" name="cblWeeks$0" <php>if ($data[week1]){ echo "checked='checked'";}</php>><label for="cblWeeks_0">周一&nbsp;</label></td><td><input id="cblWeeks_1" type="checkbox" name="cblWeeks$1" <php>if ($data[week2]){ echo "checked='checked'";}</php>><label for="cblWeeks_1">周二&nbsp;</label></td><td><input id="cblWeeks_2" type="checkbox" name="cblWeeks$2" <php>if ($data[week3]){ echo "checked='checked'";}</php>><label for="cblWeeks_2">周三&nbsp;</label></td><td><input id="cblWeeks_3" type="checkbox" name="cblWeeks$3" <php>if ($data[week4]){ echo "checked='checked'";}</php>><label for="cblWeeks_3">周四&nbsp;</label></td><td><input id="cblWeeks_4" type="checkbox" name="cblWeeks$4" <php>if ($data[week5]){ echo "checked='checked'";}</php>><label for="cblWeeks_4">周五&nbsp;</label></td><td><input id="cblWeeks_5" type="checkbox" name="cblWeeks$5" <php>if ($data[week6]){ echo "checked='checked'";}</php>><label for="cblWeeks_5">周六&nbsp;</label></td><td><input id="cblWeeks_6" type="checkbox" name="cblWeeks$6" <php>if ($data[week7]){ echo "checked='checked'";}</php>><label for="cblWeeks_6">周日</label></td>
+		</tr>
+	</tbody></table>
+                                    </td>
+                                    <td height="32">
+                                        是否共享给自由人<span class="xh">*</span>
+                                    </td>
+                                    <td height="32" colspan="4">
+                                        <select name="free" id="ddlIshare">
+		<option value="1">是</option>
+		<option selected="selected" value="0">否</option>
+		<option value="2">自由人独占</option>
+
+	</select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="32" valign="top" bgcolor="#f3f3f3" class="bzx">
+                                        备注
+                                    </td>
+                                    <td height="32" colspan="12" bgcolor="#f3f3f3">
+                                        <textarea name="other" rows="5" cols="45" id="tbMenu" class="beizhu03"><{$data[other]}></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="zhouqi" height="32" bgcolor="#FFFFFF">
+                                    </td>
+                                    <td height="32" colspan="12" bgcolor="#FFFFFF">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="konghang" height="32" colspan="13" bgcolor="#FFFFFF">&nbsp;
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td class="konghang" height="32" colspan="6" bgcolor="#FFFFFF">&nbsp;
+                                        </td>
+                                    <td class="konghang" height="32" colspan="7" bgcolor="#FFFFFF">
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    
+</div></form>
+            </div>
+
+
+</body>
+</html>
+
+
+<script>
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>

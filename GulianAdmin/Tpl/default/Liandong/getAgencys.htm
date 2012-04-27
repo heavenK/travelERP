@@ -1,0 +1,98 @@
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script language="javascript">
+	$("document").ready(function(){
+	var arr = $("#own").attr("value").split(',');
+	for(var i in arr){
+		v = arr[i]
+		$("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
+	}
+	
+	})
+   
+	function selectAll(obj){
+		$("input[name='checkboxs']").attr("checked", $(obj).attr("checked"));
+	}
+	
+	function getonlyone(obj){
+		$("input[name='checkboxs']").attr("checked", false);
+		$(obj).attr("checked", true);		
+	}
+	
+	function sendValue(){
+		$("input[name='checkboxs']:checked").each(function(i){
+			if (i == '0') {
+				str = $(this).attr('value');
+				idds = $(this).attr('id');
+			}
+			else {
+				str += ',' + $(this).attr('value');
+				idds += ',' + $(this).attr('id');
+			}
+		})
+		
+		window.opener.document.getElementById("<{$idname}>" + $("#ids").attr("value")).value=str;
+		window.opener.document.getElementById("<{$idid}>" + $("#ids").attr("value")).value=idds;
+		window.close();
+
+	}
+      
+</script>
+
+
+<input type="button" id="send" onclick="sendValue();" value="确认"/>
+<input type="hidden" id="own" value="<{$own}>" />
+<input type="hidden" id="ids" value="<{$ids}>" />
+	<table width="100%" border="1">
+								<tr>
+                                    <th height="32" width="33" align="center">
+                                    
+                                            <php>if($isduoxuan){
+                                            </php>
+                                        <input name="checkbox" onclick="selectAll(this);" type="checkbox" disabled="disabled">
+                                            <php>}else{
+                                            </php>
+                                        <input name="checkbox" onclick="selectAll(this);" type="checkbox">
+                                            <php>}
+                                            </php>
+                                        
+                                            </span>
+                                    
+                                    </th>
+                                    <th height="32" align="center">
+                                        公司名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系人
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系方式
+                                    </th>
+                                </tr>
+		<php>foreach($agents as $agent){</php>
+								<tr>
+                                    <td height="27" width="3%" align="center">
+                                            <span title="12">
+                                            <php>if($isduoxuan){
+                                            </php>
+                                            <input onclick="getonlyone(this)" type="checkbox" id="<{$agent[lvxingsheID]}>" name="checkboxs" value="<{$agent[companyname]}>">
+                                            <php>}else{
+                                            </php>
+                                            <input id="<{$agent[kehuID]}>" type="checkbox" name="checkboxs" value="<{$agent[companyname]}>">
+                                            <php>}
+                                            </php>
+                                            </span>
+                                    </td>
+                                    <td height="27" width="20%" align="center">
+                                        <{$agent[companyname]}>
+                                    </td>
+                                    <td height="27" width="37%" align="center">
+										<{$agent[lianxiren]}>
+                                    </td>
+                                    <td height="27" width="10%" align="center">
+                                        <{$agent[officetel]}>
+                                    </td>
+                                </tr>
+		
+		
+		<php>}</php>
+	</table>	

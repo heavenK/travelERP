@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游-机票子团管理
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+</head>
+
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+
+	function select_all(obj){
+		$("input[name=selected[]]").attr('checked',$(obj).attr('checked'));	
+	}
+	
+	function confirmAct(){
+		if(confirm('此操作不可逆，确定要删除吗？'))
+		{
+			$('#form1').submit();
+		}
+		return false;
+	
+	}
+</script>
+
+
+
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+            	<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="90%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="91" align="center">
+                                <a id="lkbBase" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketEdit/id/<{$pid}>">基本信息</a></td>
+                            <td>
+                                <a id="lkbSubLine" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketDate/pid/<{$pid}>" style="color: Blue;">子团管理</a></td>
+                            <td width="91">
+                                <a id="lkbPrice" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketPrice/pid/<{$pid}>">价 格</a></td>
+                            <td width="70%">
+                            </td>
+                            
+                            <td width="91">
+                                 <a id="Submit" class="yyxxl" style="cursor:pointer" href="javascript:GetcheckBack('<{$ticket[id]}>','机票','需求应答')">审核不通过记录</a>  
+                            </td>
+                            <td width="91">
+                                <a onclick="return confirm('确定提交审核吗？');" id="lkbCheck" class="yyxxl" href='<{:SITE_ADMIN}>Airticket/send/type/wait_check/id/<{$pid}>'>提交审核</a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="clear">
+                    </div>
+                    
+                    <div id="divrili2"  style="display: none; position:absolute; left:30px; top:130px;">
+                        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+                   </div>
+                    
+                </div>
+                <div class="fanye">
+                    <div class="page">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td class="jyt" height="27" width="70%" bgcolor="#E6E6E6">
+                                    <strong>子团管理：</strong></td>
+                                <td align="right" bgcolor="#E6E6E6">
+                                    
+                                </td>
+                                <td align="right" bgcolor="#E6E6E6">
+                                    <a onclick="confirmAct('确认删除？');" id="lkbDelete" class="yyxxl" href="javascript:void(0)">删除</a></td>
+                                <td bgcolor="#E6E6E6">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div id="UpdatePanel1">
+					<form id="form1" name="form1" action="<{:SITE_ADMIN}>Airticket/delete" method="post">
+                    		<input type="hidden" name="type" value="ticketDate" />
+                            <input type="hidden" name="pid" value="<{$pid}>" />
+                            <table class="GridList" rules="all" id="Sublinelist" style="border-collapse: collapse;" border="1" cellspacing="0">
+		<tbody><tr class="fenlei" align="center">
+			<td>机票编号</td><td>机票数量</td><td>往返类型</td><td>状态</td><td>出发日期</td><td>报名截止</td><td>
+                                            <input name="selectall" onclick="select_all(this);" type="checkbox"><label>全选</label>
+                                        </td>
+		</tr>	
+        						<php>foreach($datas as $val){</php>
+        							<tr>
+										<td align="center">
+                                            <{$val[ticket_id]}>
+                                        </td><td align="center">
+                                            <{$val[sum_num]}>
+                                        </td><td align="center">
+                                            <{$val[ticket][travel_type]}>
+                                        </td><td align="center">
+                                            <{$val[status]}>
+                                        </td><td align="center">
+                                            <{$val[start_date]|date='Y-m-d',###}>
+                                        </td><td align="center">
+                                            <{$val[end_date]|date='Y-m-d',###}>
+                                        </td><td align="center">
+                                            <span>
+                                            <input name="selected[]"  type="checkbox" value="<{$val[id]}>">
+                                            </span>
+                                        </td>
+									</tr>
+                                <php>}</php>
+                           
+	</tbody></table>
+                </form>        
+</div>
+                </div>
+            </div>
+
+    </div>
+
+
+</body>
+</html>
+
+
+<script>
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>

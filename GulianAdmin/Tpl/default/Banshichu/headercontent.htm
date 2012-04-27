@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/header.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="hlt_header" style="background:url(<{:__PUBLIC__}>/gulianstyle/images/ks_viewxianlu_16.gif) repeat-x; height:63px;">
+    	<div id="hlt_logo"><h2 style="margin:4px 0 0 0;">办事处旅游产品管理系统</h2></div>
+        <div id="hlt_login" style=" color:#7e7e7e;">您好  <b> <php> echo $this->tVar[roleuser][realname]</php>(<php> echo $this->tVar[my_department][title]</php>:<php> echo $this->tVar[adminuser][adminlevel]</php>) </b>      
+        <a style="color:#bb0707" href="<{:SITE_MENSHI}>" target="_parent" >返回前台</a> |      
+        <a href="<{:SITE_ADMIN}>Login/setting" target="mainFrame" style=" color:#7e7e7e;" >修改个人信息</a> | 
+        <a style="color:#0540d6" href="<{:SITE_HOME}>Pub" target="_parent" >进入微博</a> | 
+        <a target="_parent" href="<{:SITE_ADMIN}>Login/logout" style=" color:#7e7e7e;">退出</a></div>
+        <ul id="hlt_nav">
+        	<li><a style="color:#FFF" target="_parent" href="<{:SITE_ADMIN}>Banshichu">旅游产品</a></li>
+            <li><a style="color:#FFF" target="mainFrame" href="<{:SITE_ADMIN}>Public/newsnoticelist">新闻公告</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+* {font-family:"ËÎÌו";padding:0;margin:0;font-style:normal;font-size:12px;}
+img, a img {border:0;}
+ul,ol {list-style:none;}
+.clear {clear:both;height:0;overflow:hidden;float:none;}
+a:link {text-decoration:underline;color:#1437CF;}
+a:visited {text-decoration:underline;color:#1437CF;}
+a:hover {text-decoration:underline;color:#1437CF;}
+a:active {text-decoration:underline;color:#1437CF;}
+.left {float:left;}
+.right {float:right;}
+
+#yiying {width:385px;height:174px;background:#A5A5A5;float:left;margin-left:6px;margin-top:6px;filter: alpha(opacity=90);}
+#rq {float:left;width:385px;height:182px;position:relative;margin-top:-6px;margin-left:-6px;border:1px #3C81C4 solid;background:#fff;}
+#rq .title {height:20px;padding:1px;border-bottom:1px #B1BEC7 solid;}
+#rq .title span {float:left;height:16px;padding-top:4px;background:#DCE1E5;border-left:1px #fff solid;border-right:1px #fff solid;width:280px;padding-left:40px;font-weight:bold;color:#1F1F1F;}
+#rq .yue {float:left;width:182px;height:151px;padding:0 5px;}
+#rq .border {border-left:1px #B0BEC7 solid;}
+
+.yue .week {height:17px;border-bottom:1px #B1BEC7 solid;padding:0 8px;padding-top:6px;letter-spacing:2px;}
+.yue p {padding-top:2px;float:left;width:176px;}
+.yue p a {width:18px;line-height:18px;float:left;text-align:center;color:#0000FE;font-weight:bold; cursor:pointer;}
+.yue td {width:22px;line-height:18px;text-align:center;margin-top:2px;color:#888888;}
+.yue p a.a1 {color:#FE0000;}

@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>团统计</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js"></SCRIPT>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script>
+var names = [
+	 <php>foreach($kehu_all as $kehu){</php>
+			  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
+	 <php>}</php>
+ ];
+$(function() {
+		 $('#user_name').autocomplete(names, {
+			 max: 20,    //列表里的条目数
+			 minChars: 0,    //自动完成激活之前填入的最小字符
+			 width: 400,     //提示的宽度，溢出隐藏
+			 scrollHeight: 300,   //提示的高度，溢出显示滚动条
+			 matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+			 autoFill: false,    //自动填充
+			 formatItem: function(row, i, max) {
+				 return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+			 },
+			 formatMatch: function(row, i, max) {
+				 return row.name + row.to;
+			 },
+			 formatResult: function(row) {
+				 return row.to;
+			 }
+		 }).result(function(event, row, formatted) {
+		 });
+	 });
+
+function exports()
+{
+		var types = 'caiwutongji';
+		var start_date = document.getElementById('start_date').value;
+		var start_day = document.getElementById('start_day').value;
+		var companyname = document.getElementById('companyname').value;
+		var department = document.getElementById('department').value;
+		var user_name = document.getElementById('user_name').value;
+		var start_date1 = document.getElementById('start_date1').value;
+		var end_date1 = document.getElementById('end_date1').value;
+		var keyword = document.getElementById('keyword').value;
+		window.location.href = '<{:SITE_ADMIN}>Caiwuguanli/exports/'+'/types/'+types+'/start_date/'+start_date+'/companyname/'+companyname+'/department/'+department+'/user_name/'+user_name+'/start_date1/'+start_date1+'/end_date1/'+end_date1+'/start_day/'+start_day+'/keyword/'+keyword;
+}
+	
+function dosearch() {
+		var start_date = document.getElementById('start_date').value;
+		var start_day = document.getElementById('start_day').value;
+		var department = document.getElementById('department').value;
+		var user_name = document.getElementById('user_name').value;
+		var start_date1 = document.getElementById('start_date1').value;
+		var end_date1 = document.getElementById('end_date1').value;
+		var keyword = document.getElementById('keyword').value;
+		window.location = '<{:SITE_ADMIN}>Caiwuguanli/caiwutongji/'+'/start_date/'+start_date+'/department/'+department+'/user_name/'+user_name+'/start_date1/'+start_date1+'/end_date1/'+end_date1+'/start_day/'+start_day+'/keyword/'+keyword;
+}
+	
+function show()
+{
+	$("#flash").show();
+}
+function hide()
+{
+	$("#flash").hide();
+}
+
+function showzituan(zituanID)
+{
+    var url = '<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/'+zituanID;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+}
+function showdjtuan(djtuanID)
+{
+    var url = '<{:SITE_DIJIE}>Tuancreate/newtuan/showtype/审核/djtuanID/'+djtuanID;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+}
+</script>
+</head>
+<body>
+<div class="hdlyRight">
+  <div id="content_bb">
+    <div class="szwz">
+      <ul>
+        <li> <span>您所在的位置：</span> <{$navlist}></li>
+      </ul>
+    </div>
+    <div class="nr"> </div>
+    <div class="fanye">
+  <table width="80%" border="0" cellpadding="0" cellspacing="0" class="bg">
+    <tbody>
+      <tr class="tr2">
+        <td height="27" align="left" class="wbx"> 月份搜索：</td>
+        <td  align="left" class="wbx"><input name="start_date" type="text" id="start_date" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" style="width:150px;" value="<{$start_date}>"></td>
+        <td height="27" align="left" class="wbx"> 日期搜索：</td>
+        <td  align="left" class="wbx"><input name="start_day" type="text" id="start_day" class="Wdate" onfocus="WdatePicker()" style="width:150px;" value="<{$start_day}>"></td>
+        <td  align="left" class="wbx">范围搜索：</td>
+        <td height="27" colspan="10" align="left" class="wbx"><input type="text" class="Wdate" onfocus="WdatePicker()" id="start_date1" name="start_date1" value="<{$start_date1}>">
+          -
+          <input type="text" class="Wdate" onfocus="WdatePicker()" id="end_date1" name="end_date1" value="<{$end_date1}>"></td>
+        <td height="27" align="left" class="wbx"></td>
+      </tr>
+      <tr class="tr2">
+      	<td align="left" class="wbx"><label for="textfield"> 关键字：</label></td>
+        <td height="27" align="left" class="wbx"><input type="text" name="keyword" id="keyword" style="width:150px;" value="<{$keyword}>"/></td>
+        <td height="27" align="left" class="wbx"><label> 部门：</label></td>
+        <td height="27" align="left" class="wbx"><select name="department" id="department" style="width:150px;">
+                <php>if($department){</php>
+                <option value="<{$department}>"><{$department}></option>
+                <option disabled="disabled">---------------</option>
+                <php>}</php>
+            <option value="">全部</option>
+            <php>foreach($departmentAll as $department){</php>
+            <option value="<{$department['title']}>"><{$department['title']}></option>
+            <php>}</php>
+          </select></td>
+        <td align="left" class="wbx"><label for="textfield"> 员工姓名：</label></td>
+        <td height="27" colspan="4" align="left" class="wbx"><input type="text" name="user_name" id="user_name" style="width:150px;" value="<{$user_name}>"/></td>
+        <td height="27" align="left" class="wbx"><input type="image" onclick="dosearch();" name="search_btn" id="search_btn" src="<{:__PUBLIC__}>/gulianstyle/styles/anu.gif" style="border-width:0px;"></td>
+      </tr>
+    </tbody>
+  </table>
+
+      
+  <table class="cbx" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td class="jyt" height="27" bgcolor="#E6E6E6"><strong>统计表</strong></td>
+        <td class="jyt" headers="27" bgcolor="#E6E6E6"><input type="button" name="btnExport" value="导出Excel" id="btnExport" onclick="exports();"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>范围</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>订单数</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>参团人数</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>领队人数</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>应收款</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>应付款</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>毛利</strong></td>
+        <td height="27" align="center" bgcolor="#ff8d00"><strong>毛利率</strong></td>
+      </tr>
+      <tr>
+        <td class="xxxx" height="27" align="center"> 总计 </td>
+        <td class="xxxx" height="27" align="center"><{$dingdan_sum}> </td>
+        <td class="xxxx" height="27" align="center"><{$renshu_sum}> </td>
+        <td class="xxxx" height="27" align="center"><{$renshu_sum_leader}> </td>
+        <td class="xxxx" height="27" align="center"><php> echo number_format($shouru_sum )</php> </td>
+        <td class="xxxx" height="27" align="center"><php> echo number_format($zhichu_sum )</php> </td>
+        <td class="xxxx" height="27" align="center"><php> echo number_format($shouru_sum - $zhichu_sum)</php></td>
+        <td class="xxxx" height="27" align="center"><php>echo sprintf( '%.2f%%',($shouru_sum - $zhichu_sum)/$shouru_sum * 100)</php></td>
+      </tr>
+    <php> foreach($node_people as $date=>$value){</php>
+    <tr>
+      <td class="xxxx" height="27" align="center"><{$date}> </td>
+      <td class="xxxx" height="27" align="center"><{$node_dingdan[$date]}> </td>
+      <td class="xxxx" height="27" align="center"><{$value}> </td>
+      <td class="xxxx" height="27" align="center"><{$node_people_leader[$date]}> </td>
+      <td class="xxxx" height="27" align="center"><php> echo number_format($node_yingshou[$date] )</php> </td>
+      <td class="xxxx" height="27" align="center"><php> echo number_format($node_yingfu[$date] )</php> </td>
+        <td class="xxxx" height="27" align="center"><php> echo number_format($node_yingshou[$date] - $node_yingfu[$date])</php></td>
+        <td class="xxxx" height="27" align="center"><php>echo sprintf( '%.2f%%',($node_yingshou[$date] - $node_yingfu[$date])/$node_yingshou[$date] * 100)</php></td>
+    </tr>
+    <php>}</php>
+      </tbody>
+    
+  </table>
+      
+      
+      <br>
+      <div style="width:99%; margin-top:0px; float:left; height:30px; margin-bottom:20px;" ><!--翻页-->
+        <div class="page" style=" height:24px; padding-top:10px; text-align:center"><{$page}></div>
+      </div>
+      <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>团号</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>团队名称</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>审核日期</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>出团日期</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>应收款</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>应付款</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>毛利</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>毛利率</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>报账人数</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>类型</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>订单数</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>参团人数</strong></td>
+            <td height="32" align="center" bgcolor="#ff8d00"><strong>领队人数</strong></td>
+          </tr>
+        <php> $i = 0 ;foreach($jiedaijihua_all as $jiedai){$i++; </php>
+        
+        <tr class="tr<php>echo $i%2</php>">
+          <td class="xxxx" height="32" align="center"><strong>
+            <php>echo $i</php>
+            </strong></td>
+          <td class="xxxx" height="32" align="center">
+          	<php>if($jiedai['xianlutype'] == '地接'){</php>
+            	<a target="_blank" href="javascript:showdjtuan(<{$jiedai[zituanID]}>);"><{$jiedai['tuanhao']}></a>
+            <php>}else{</php>
+          		<a target="_blank" href="javascript:showzituan(<{$jiedai[zituanID]}>);"><{$jiedai['tuanhao']}></a>
+            <php>}</php>
+          </td>
+          <td class="xxxx" height="32" align="center" style="width:20%;">
+          	<php>if($jiedai['xianlutype'] == '地接'){</php>
+            	<a target="_blank" href="javascript:showdjtuan(<{$jiedai[zituanID]}>);"><{$jiedai['mingcheng']}></a>
+            <php>}else{</php>
+          		<a target="_blank" href="javascript:showzituan(<{$jiedai[zituanID]}>);"><{$jiedai['mingcheng']}></a>
+            <php>}</php>
+          	
+          </td>
+          <td class="xxxx" height="32" align="center"><php>echo date("Y/m/d",$jiedai['caiwu_time']);</php></td>
+          <td class="xxxx" height="32" align="center"><{$jiedai['chutuanriqi']}> </td>
+          <td class="xxxx" height="32" align="center"><php> echo number_format($jiedai['shouru'])</php></td>
+          <td class="xxxx" height="32" align="center"><php> echo number_format($jiedai['zhichu'])</php></td>
+          <td align="center" height="32" class="xxxx"><php> echo number_format($jiedai['shouru'] - $jiedai['zhichu'])</php></td>
+          <td align="center" height="32" class="xxxx"><php>echo sprintf( '%.2f%%',($jiedai['shouru'] - $jiedai['zhichu'])/$jiedai['shouru'] * 100)</php></td>
+          <td class="xxxx" height="32" align="center"><{$jiedai['baozhangrenshu']}> </td>
+          <td align="center" height="32" class="xxxx"><{$jiedai['xianlutype']}> </td>
+          <td align="center" height="32" class="xxxx"><{$jiedai['dingdanshu']}> </td>
+          <td align="center" height="32" class="xxxx"><{$jiedai['dingdanrenshu']}> </td>
+          <td align="center" height="32" class="xxxx"><{$jiedai['dingdanrenshu_leader']}> </td>
+        </tr>
+        <php>}</php>
+          </tbody>
+        
+      </table>
+    </div>
+    <div style="width:99%; margin-top:0px; float:left; height:30px; margin-bottom:20px;" ><!--翻页-->
+      <div class="page" style=" height:24px; padding-top:10px; text-align:center"><{$page}></div>
+    </div>
+  </div>
+  <div class="fanye">
+    <table class="cbx" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="jyt" height="32" bgcolor="#E6E6E6"><strong>未审核团列表</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>订单数</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>参团人数</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>领队人数</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>应收款</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>应付款</strong></td>
+        </tr>
+        <tr>
+          <td class="xxxx" height="32" align="center"><{$dingdanshu}> </td>
+          <td class="xxxx" height="32" align="center"><{$dindanrenshu_num}> </td>
+          <td class="xxxx" height="32" align="center"><{$dindanrenshu_num_leader}> </td>
+          <td class="xxxx" height="32" align="center"><{$shouru_sum_nopass}> </td>
+          <td class="xxxx" height="32" align="center"><{$zhichu_sum_nopass}> </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>团号</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>团队名称</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>出团日期</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>应收款</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>应付款</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>毛利</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>毛利率</strong></td>
+          <td align="center" bgcolor="#ff8d00"><strong>报账人数</strong></td>
+          <td align="center" bgcolor="#ff8d00"><strong>类型</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>订单数</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>参团人数</strong></td>
+          <td height="32" align="center" bgcolor="#ff8d00"><strong>领队人数</strong></td>
+        </tr>
+          <php>
+      
+      $i = 0 ;foreach($tuanall_nopass as $v){$i++;
+        </php>
+      
+      <tr class="tr<php>echo $i%2</php>">
+        <td class="xxxx" height="32" align="center"><strong>
+          <php>echo $i</php>
+          </strong></td>
+        <td class="xxxx" height="32" align="center">
+        	<php>if($v['xianlutype'] == '地接'){</php>
+            	<a target="_blank" href="javascript:showdjtuan(<{$v[zituanID]}>);"><{$v['tuanhao']}></a>
+            <php>}else{</php>
+          		<a target="_blank" href="javascript:showzituan(<{$v[zituanID]}>);"><{$v['tuanhao']}></a>
+            <php>}</php>
+        </td>
+        <td class="xxxx" height="32" align="center" style="width:25%;">
+        	<php>if($v['xianlutype'] == '地接'){</php>
+            	<a target="_blank" href="javascript:showdjtuan(<{$v[zituanID]}>);"><{$v['mingcheng']}></a>
+            <php>}else{</php>
+          		<a target="_blank" href="javascript:showzituan(<{$v[zituanID]}>);"><{$v['mingcheng']}></a>
+            <php>}</php>
+        	
+        </td>
+        <td class="xxxx" height="32" align="center"><{$v['chutuanriqi']}> </td>
+        <td class="xxxx" height="32" align="center"><php> echo number_format($v['shouru'])</php></td>
+        <td class="xxxx" height="32" align="center"><php> echo number_format($v['zhichu'])</php></td>
+        <td align="center" height="32" class="xxxx"><php> echo number_format($v['shouru'] - $v['zhichu'])</php></td>
+        <td align="center" height="32" class="xxxx"><php>echo sprintf( '%.2f%%',($v['shouru'] - $v['zhichu'])/$v['shouru'] * 100)</php></td>
+        <td class="xxxx" height="32" align="center"><{$v['baozhangrenshu']}> </td>
+        <td align="center" height="32" class="xxxx"><{$v['xianlutype']}> </td>
+        <td align="center" height="32" class="xxxx"><{$v['dingdanshu']}> </td>
+        <td align="center" height="32" class="xxxx"><{$v['dingdanrenshu']}> </td>
+        <td align="center" height="32" class="xxxx"><{$v['dingdanrenshu_leader']}> </td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
+  </div>
+  <div style="height:40px; background-color:#E6E6E6; margin-top:20px;"> </div>
+</div>
+
+
+
+
+</body>
+</html>
+<include file="Index:footer" />

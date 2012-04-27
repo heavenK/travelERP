@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0054)http://m.toptrip.com.cn/Main/OrderStatistics_Line.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>互动旅游</title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+	<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+    <script type="text/javascript">
+
+	//导出Excel
+	function exports()
+	{
+			var types = '<{$types}>';
+			window.location.href = '<{:SITE_ADMIN}>Caiwuguanli/exports/types/'+types;
+	}
+	
+	function dochange()
+	{
+			var types = document.getElementById('ddlType').value;
+			window.location.href = '<{:SITE_ADMIN}>Caiwuguanli/yewutongji/types/'+types;
+	}
+	
+	
+	function dosearch() {
+			var start_date = document.getElementById('start_date').value;
+			var type = document.getElementById('type').value;
+			var types = document.getElementById('types').value;
+			
+			var end_date = document.getElementById('end_date').value;
+			
+			var user_name = document.getElementById('user_name').value;
+			
+			window.location = '<{:SITE_ADMIN}>Caiwuguanli/yewutongji/type/'+type+'/types/'+types+'/start_date/'+start_date+'/end_date/'+end_date+'/user_name/'+user_name;
+			
+	}
+    </script>
+
+</head>
+<body>
+    <div class="hdlyRight">
+
+
+            <div id="content_bb">
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置：</span><{$navlist}></li>
+    </ul>
+</div>
+                
+                <div class="nr">
+                </div>
+                <div class="fanye">
+                    <div class="page">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td class="daochu" height="27" bgcolor="#d9d9d9" width="20%">
+                                &nbsp;
+                                    <select name="ddlType" onchange="dochange();" id="ddlType">
+                                        <option <php> if ($types == 'Line') echo 'selected="selected"'; </php> value="Line">散客产品</option>
+                                        <option <php> if ($types == 'Free') echo 'selected="selected"'; </php> value="Free">自由人</option>
+                                        <option <php> if ($types == 'baotuan') echo 'selected="selected"'; </php> value="baotuan">包团</option>
+                                        <option <php> if ($types == 'Ticket') echo 'selected="selected"'; </php> value="Ticket">机票</option>
+                                        <option <php> if ($types == 'Hotel') echo 'selected="selected"'; </php> value="Hotel">酒店</option>
+                                    
+                                    </select>
+                                </td>
+                                <td class="daochu" height="27" bgcolor="#d9d9d9">
+                                    <input type="button" name="btnExport" value="导出Excel" id="btnExport" onclick="exports();">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <input type="hidden" name="type" id="type" value="search">
+                    <input type="hidden" name="types" id="types" value="<{$types}>">
+                    <table width="80%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                          <tbody>
+                        <tr class="tr2">
+                              <td height="27" align="left" class="wbx"> 开始日期：</td>
+                              <td align="left" class="wbx"><input name="start_date" type="text" id="start_date" class="Wdate" onfocus="WdatePicker()" style="width:150px;" value="<{$chanshu[start_date]}>"></td>
+                              <td height="27" align="left" class="wbx"><label for="textfield"> 结束日期：</label></td>
+                              <td height="27" align="left" class="wbx"><input name="end_date" type="text" id="end_date" class="Wdate" onfocus="WdatePicker()" style="width:150px;" value="<{$chanshu[end_date]}>"></td>
+                              <td align="left" class="wbx"></td>
+                              
+                              <td height="27" colspan="4" align="left" class="wbx"></td>
+                              <td height="27" align="left" class="wbx"></td>
+                            </tr>
+                        <tr class="tr2">
+                              <td align="left" class="wbx"><label for="textfield"> 员工姓名：</label></td>
+                              <td height="27" colspan="4" align="left" class="wbx"><select name="user_name" id="user_name" style="width:150px;">
+                                  <php>if($chanshu['user_name']){</php>
+                                     <option value="<{$chanshu['user_name']}>"><{$chanshu['user_name']}></option>
+                                  <php>}</php>
+                                  <option value="">全部</option>
+                                  <option value="">请选择</option>
+                                  <php>foreach($kehu_all as $kehu){</php>
+                                  <option value="<{$kehu['user_name']}>"><{$kehu[realname]}>(<{$kehu['user_name']}>)</option>
+                                  <php>}</php>
+                                </select></td>
+                              <td height="27" align="left" class="wbx"><input type="image" onclick="dosearch();" name="search_btn" id="search_btn" src="<{:__PUBLIC__}>/gulianstyle/styles/anu.gif" style="border-width:0px;"></td>
+                            </tr>
+                      </tbody>
+                        </table>
+                    <table class="cbx" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>曲线图</strong>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="dingdanshu">
+                        <table class="plfs" width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td width="35%" height="0">
+                                </td>
+                                <td width="56%" height="0" align="right">
+                                </td>
+                                <td width="9%" height="0">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td height="27" colspan="3" align="left" class="xxxx">
+                               
+                            <php>	echo renderChartHTML(__PUBLIC__."/gulianstyle/styles/FCF_Line.swf", "", $strXML, "myNext", 1000, 300); </php>   
+                                    
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <table class="cbx" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>统计表</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>订单数(张)</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>销售额(元)</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>人数(人)</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>天数(天)</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="xxxx" height="27" align="center">
+                                <{$num}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$qianshu}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$renshu}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$tianshu}>
+                            </td>
+                            
+                        </tr>
+                    </tbody></table>
+                    <br>
+                    <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>订单编号</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>联系人</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>人数(人)</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>天数(天)</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>销售额</strong></td>
+                            <td align="center" bgcolor="#ff8d00">
+                                <strong>下单日期</strong></td>
+                            <td align="center" bgcolor="#ff8d00">
+                                <strong>出团日期</strong></td>
+                            <td align="center" bgcolor="#ff8d00">
+                                <strong>订单来源</strong></td>
+                        </tr>
+                        		<php>foreach($dingdanAll as $dingdan){</php>
+                                <tr>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$dingdan['bid']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$dingdan['linkman']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$dingdan['re_num']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$dingdan['stay_day']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <php> echo $dingdan['re_num'] * $dingdan['stay_day'] * $dingdan['hotel_date']['price']; </php>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <{$dingdan['pubdate']|date='Y-m-d H:i:s',###}>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <{$dingdan['start_date']|date='Y-m-d',###}>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <{$dingdan['user_name']}>
+                                    </td>
+                                </tr>
+                            	<php>}</php>
+                    </tbody></table>
+                </div>
+                
+                <div id="hlt_fit_page">
+                    <{$page}>
+                </div>
+                <table width="0" border="0">
+                </table>
+            </div>
+        
+<div>
+
+</div>
+    </div>
+    <!--居中大的box-->
+    <!--居中大的box END-->
+
+
+</body></html>

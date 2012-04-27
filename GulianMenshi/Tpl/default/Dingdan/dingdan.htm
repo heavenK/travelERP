@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	无标题页
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css"></head>
+<body>
+    <form name="form1" method="post" action="HotelOrderList.aspx" id="form1">
+<div>
+
+
+
+
+        <div class="hdlyRight">
+            <div id="content_bb">
+                
+<div class="szwz">
+</div>
+                <div class="ss">
+                    <table class="test1" style="padding-top: 20px;" width="85%" border="0">
+                        <tbody><tr>
+                            
+                            <td height="18" width="50" align="right">
+                                订单号</td>
+                            <td width="187">
+                                <input name="tbKeyword" id="tbKeyword" type="text"></td>
+                            <td height="18" width="50" align="right">
+                                状态</td>
+                            <td width="187">
+                                <select name="dlState" id="dlState">
+                                <option selected="selected" value="0">-请选择-</option>
+                                <option value="1">占位</option>
+                                <option value="2">确认</option>
+                                <option value="3">候补</option>
+                                <option value="4">取消</option>
+                            
+                            </select>
+                            </td>
+                            <td>
+                                <input name="SearchBtn" value="搜 索" id="SearchBtn" class="anu" type="submit">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye1">
+                    <table height="30" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td width="8" bgcolor="#e5e5e5">&nbsp;
+                                </td>
+                            <td bgcolor="#e5e5e5">
+                                
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table height="30" width="329" align="center" bgcolor="#e5e5e5" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td valign="middle" width="42" align="right">
+                                            
+                                        </td>
+                                        <td valign="middle" width="42" align="center">
+                                            </td>
+                                        <td valign="middle" width="42" align="center">
+                                            </td>
+                                        <td valign="middle" width="42" align="left">
+                                            </td>
+                                        <td valign="middle" width="73" align="right">
+                                            </td>
+                                        <td valign="middle" width="58" align="right">
+                                            
+                                        </td>
+                                        <td valign="middle" width="19" align="right">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table height="30" width="165" align="right" bgcolor="#e5e5e5" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td width="40" align="right">
+                                            分页</td>
+                                        <td width="40" align="left">
+                                            <span id="lbCurrentPage">1</span>/<span id="lbTotalPage">1</span></td>
+                                        <td width="40" align="right">
+                                            记录数</td>
+                                        <td width="21" align="left">
+                                            <span id="lblRecordCount">3</span></td>
+                                        <td width="5" align="right">&nbsp;
+                                            </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td align="center">
+                                <table style="text-align: left;" width="96%" border="0" cellpadding="0" cellspacing="0">
+                                    
+                                        
+                                            <tbody>
+                                            <php>foreach($dingdans as $val){</php>
+                                            <tr>
+                                                <td colspan="3" height="15">
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td width="5%">
+                                                </td>
+                                                <td height="27">
+                                                    订单编号：<a href="<{:SITE_MENSHI}>Hotel/dingdan_info/bid/<{$val[bid]}>"><{$val[bid]}></a>
+                                                </td>
+                                                <td>
+                                                    状态：<{$val[stauts]}>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td height="27">
+                                                    出团日期：<{$val[start_date]|date='Y-m-d H:i:s',###}>
+                                                </td>
+                                                <td>
+                                                    <{$val[islock]}>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<{$val[money]}>
+                                                </td>
+                                            </tr>
+                                            <tr class="bottomline">
+                                                <td>
+                                                </td>
+                                                <td height="27">
+                                                    下单日期：<{$val[pubdate]|date='Y-m-d H:i:s',###}> 
+16:17:20&nbsp;&nbsp;&nbsp;&nbsp;预定间数<{$val[re_num]}>
+间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$val[linkman]}>
+                                                </td>
+                                                <td height="27">&nbsp;
+                                                    </td>
+                                            </tr>
+                                       		<php>}</php>
+                                            
+                                        
+                                    <tr>
+                                        <td colspan="3" height="15">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <table height="30" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td width="8" bgcolor="#e5e5e5">&nbsp;
+                                </td>
+                            <td bgcolor="#e5e5e5">
+                               
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table height="30" width="329" align="center" bgcolor="#e5e5e5" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td valign="middle" width="42" align="right">
+                                            
+                                        </td>
+                                        <td valign="middle" width="42" align="center">
+                                            </td>
+                                        <td valign="middle" width="42" align="center">
+                                            </td>
+                                        <td valign="middle" width="42" align="left">
+                                            </td>
+                                        <td valign="middle" width="73" align="right">
+                                            </td>
+                                        <td valign="middle" width="58" align="right">
+                                            
+                                        </td>
+                                        <td valign="middle" width="19" align="right">
+                                            </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                            <td bgcolor="#e5e5e5">
+                                <table height="30" width="165" align="right" bgcolor="#e5e5e5" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td width="40" align="right">
+                                            分页</td>
+                                        <td width="40" align="left">
+                                            <span id="lbCurrentPage1">1</span>/<span id="lbTotalPage1">1</span></td>
+                                        <td width="40" align="right">
+                                            记录数</td>
+                                        <td width="21" align="left">
+                                            <span id="lblRecordCount1">3</span></td>
+                                        <td width="5" align="right">&nbsp;
+                                            </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    
+</form>
+
+</body></html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+<style>
+body {
+font-family:verdana;
+font-size:15px;
+}
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  display:none;
+  z-index:9999;
+}
+
+</style>
+
+<php>if(checkByadminlevel_v('计调操作员,计调经理,总经理,网管',$this->tVar)){</php>
+<style>
+
+/*三个的*/
+#boxes #dialog {
+  width:900px;
+  height:379px;
+  padding:13px 0 0 22px;
+  background:url(<{:__PUBLIC__}>/gulianstyle/images/popup_bg.png) no-repeat 0 0 transparent; 
+}
+.ks_close_btn{ position:absolute; right:22px; top:-32px;}
+.window_left{ width:260px; height:354px; padding:0 38px 0 0; overflow:hidden; float:left;}
+.ks_box_cont{ height:308px; width:260px; float:left;  overflow:scroll; overflow-x:hidden; line-height:24px;}
+.ks_box_title{width:210px; float:left; overflow:hidden; color:#666;}
+
+</style>
+<php>}elseif(checkByadminlevel_v('财务操作员,财务总监,地接操作员',$this->tVar)){</php>
+<style>
+/*一个的*/
+#boxes #dialog {
+  width:387px;
+  height:379px;
+  padding:13px 0 0 22px;
+  background:url(<{:__PUBLIC__}>/gulianstyle/images/popup_bg_02.png) no-repeat 0 0 transparent; 
+}
+.ks_close_btn{ position:absolute; right:0px; top:-32px;}
+.window_left{ width:370px; height:354px; overflow:hidden; float:left;}
+.ks_box_cont{ height:308px; width:368px; float:left;  overflow:scroll; overflow-x:hidden; line-height:24px;}
+.ks_box_title{width:310px; float:left; overflow:hidden; color:#666;}*/
+</style>
+
+<php>}elseif(checkByadminlevel_v('门市操作员,联合体成员',$this->tVar)){</php>
+<style>
+/*二个的*/
+#boxes #dialog {
+  width:600px;
+  height:379px;
+  padding:13px 0 0 22px;
+  background:url(<{:__PUBLIC__}>/gulianstyle/images/popup_bg_01.png) no-repeat 0 0 transparent; 
+}
+.ks_close_btn{ position:absolute; right:19px; top:-32px;}
+.window_left{ width:260px; height:354px; padding:0 38px 0 0; overflow:hidden; float:left;}
+.ks_box_cont{ height:308px; width:260px; float:left;  overflow:scroll; overflow-x:hidden; line-height:24px;}
+.ks_box_title{width:210px; float:left; overflow:hidden; color:#666;}*/
+</style>
+
+<php>}</php>
+
+
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+
+  <php>if(checkByadminlevel_v('联合体成员,联合体管理员',$this->tVar)){</php>
+<div style="float:left; width:100%">
+  <php>}else{</php>
+<div style="float:left; width:75%">
+  <php>}</php>
+
+
+<table width="100%" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody>
+  <tr>
+   <td colspan="3" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    <input type="button" value="提示窗口" onclick="launchWindow('#dialog');" />
+	<input type="button" value="发布新公告" onclick="location='<{:SITE_ADMIN}>Systemguanli/addnewsnotice'" />
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="32" align="center" bgcolor="#FBFCE2"> 
+      <td>序号</td>
+      <td>新闻公告</td>
+      <td>时间</td>
+   </tr>
+   
+	   <php>$i = 0; foreach($messageAll as $val){$i++;</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="48" bgcolor="#FFFFFF" align="center"> 
+        <td width="80"><h1><{$i}></h1></td>
+        <td ><h3><a style="color:blue;" href="javascript:shownews(<{$val[messageID]}>)"><{$val[title]}></a></h3></td>
+        <td  width="140" ><php>echo date('Y/m/d H:i',$val[time])</php></td>
+       </tr>
+       
+	 <php>}</php> 
+     
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="3">
+          <div class="pagelistbox">
+			<{$page}>
+            </div>
+
+      </td>
+     </tr>
+</tbody>
+</table>
+
+</div>
+
+  <php>if(checkByadminlevel_v('联合体成员,联合体管理员',$this->tVar)){</php>
+  <php>}else{</php>
+<div style="float:left; width:24%; padding-left:1%">
+
+<table class="table" border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top">
+            <h3>用户轨迹</h3>
+            <iframe src="<{:SITE_ADMIN}>Public/widget_userline" width="100%" height="470px" frameborder="0" scrolling="no"></iframe>
+            
+<!--            <h3>开发人员</h3>
+            <iframe src="<{:SITE_ADMIN}>Public/widget/name/aaa" width="100%" height="670px" frameborder="0" scrolling="no"></iframe>
+-->        
+        </td>
+	</tr>
+</table>
+
+</div>
+  <php>}</php>
+
+
+
+
+
+
+
+<style>
+ .window strong a{font-size:12px; color:#666;}
+ .window strong a:hover{ text-decoration:underline}
+ 
+</style>
+<script>
+	function send_form(type){
+		
+		var date_time = $("#show_date_"+type).val();
+		var names = $("#names_"+type).val();
+		
+		var conditions = 'type=' + type;
+
+		if(date_time != '') conditions += '&date_time=' + date_time;
+		if(names != '') conditions += '&names=' + names;
+
+		$.ajax({
+						type:	"POST",
+						url:	"<{:SITE_ADMIN}>Public/ajax_news",
+						async: false,
+						data:	''+conditions,
+						success:	function(msg){
+									  $("#" + type).html(msg);
+								  }
+					});
+	}
+</script>
+
+<div id="boxes">
+
+<div id="dialog" class="window" style=" height:400px;">
+	
+<php>if(checkByadminlevel_v('计调操作员,计调经理,总经理,网管,门市操作员,联合体成员',$this->tVar)){</php>
+    <div class="window_left" style=" height:400px;">
+        <h1 style=" margin:0 0 12px 0; display:inline; font-size:24px; font-family:'微软雅黑', '黑体'; color:#FFF; float:left;">线路审核提示</h1>
+        <div class="ks_box_cont">
+        	<input type="text" style="width:60px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_line',onpicked:function(dp) {}})" id="show_date_line" />
+            <img align="absmiddle" src='<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg' onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_line',onpicked:function(dp) {}})" /><input style="width:60px" type="text" id="names_line" /><input type="button" value="搜索" onclick="send_form('line');" />
+            <div id="line">
+            <php>$i = -1;foreach($rolelist as $role){foreach($noticelist[$role]['线路'] as $message){$i++;</php>
+                <div class="ks_box_title" id="ignore_div<{$message[messageID]}>">
+                <strong style=" font-weight:normal;">
+                <php>echo $i + 1</php>.<a class="noticetitle" style=" color:#000; cursor:pointer;" target="_blank" onclick="showmessages_news('<{$message[url]}>','<{$message[messageID]}>');"><{$message['content']}></a>
+                </strong>(<php>echo date('Y/m/d H:i',$message['time'])</php>)
+                </div>
+                <div style="width:30px; float:right; overflow:hidden" id="ignore<{$message[messageID]}>">
+                <a style="color:#999;" href="javascript:nomore('<{$message[messageID]}>')">忽略</a>
+                </div>
+            <php>}}</php>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    
+<php>}if(checkByadminlevel_v('计调操作员,计调经理,总经理,网管,门市操作员,联合体成员',$this->tVar)){</php>
+    <div class="window_left" style=" height:400px;">
+        <h1 style=" margin:0 0 12px 0; display:inline; font-size:24px; font-family:'微软雅黑', '黑体'; color:#FFF; float:left;">订单审核提示</h1>
+        <div class="ks_box_cont">
+        	<input type="text" style="width:60px;"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_dingdan',onpicked:function(dp) {}})" id="show_date_dingdan" />
+            <img align="absmiddle" src='<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg' onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_dingdan',onpicked:function(dp) {}})" /><input style="width:60px" type="text" id="names_dingdan" /><input type="button" value="搜索" onclick="send_form('dingdan');" />
+        	<div id="dingdan">
+            <php>$i = -1;foreach($rolelist as $role){foreach($noticelist[$role]['订单'] as $message){$i++;</php>
+                <div class="ks_box_title"  id="ignore_div<{$message[messageID]}>">
+                <strong style=" font-weight:normal;">
+                <php>echo $i + 1</php>.<a class="noticetitle" style=" color:#000;cursor:pointer;" target="_blank" onclick="showmessages_news('<{$message[url]}>','<{$message[messageID]}>');"><{$message['content']}></a>
+                </strong>(<php>echo date('Y/m/d H:i',$message['time'])</php>)
+                </div>
+                <div style="width:30px; float:right; overflow:hidden" id="ignore<{$message[messageID]}>">
+                <a style="color:#999;" href="javascript:nomore('<{$message[messageID]}>')">忽略</a>
+                </div>
+            <php>}}</php>
+        	</div>
+        </div>
+        
+    </div>
+    
+<php>}if(checkByadminlevel_v('计调操作员,计调经理,总经理,网管,财务操作员,财务总监,地接操作员,联合体成员',$this->tVar)){</php>
+    <div class="window_left" style=" height:400px;">
+        <h1 style=" margin:0 0 12px 0; display:inline; font-size:24px; font-family:'微软雅黑', '黑体'; color:#FFF; float:left;">报账单审核提示</h1>
+        <div class="ks_box_cont">
+        	<input type="text" style="width:60px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_baozhang',onpicked:function(dp) {}})" id="show_date_baozhang" />
+            <img align="absmiddle" src='<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg' onclick="WdatePicker({dateFmt:'yyyy-MM-dd',el:'show_date_baozhang',onpicked:function(dp) {}})" /><input style="width:60px" type="text" id="names_baozhang" /><input type="button" value="搜索" onclick="send_form('baozhang');" />
+        	<div id="baozhang">
+            <php>$i = -1;foreach($rolelist as $role){foreach($noticelist[$role]['报账单'] as $message){$i++;</php>
+                <div class="ks_box_title"  id="ignore_div<{$message[messageID]}>">
+                <strong style=" font-weight:normal;">
+                <php>echo $i + 1</php>.<a class="noticetitle" style=" color:#000;cursor:pointer;" target="_blank" onclick="showmessages_news('<{$message[url]}>','<{$message[messageID]}>');"><{$message['content']}></a>
+                </strong>(<php>echo date('Y/m/d H:i',$message['time'])</php>)
+                </div>
+                <div style="width:30px; float:right; overflow:hidden" id="ignore<{$message[messageID]}>">
+                <a style="color:#999;" href="javascript:nomore('<{$message[messageID]}>')">忽略</a>
+                </div>
+            <php>}}</php>
+            </div>
+            
+        </div>
+        
+    </div>
+<php>}</php>
+    
+    <div class="ks_close_btn">
+        <input type="button" value="关闭窗口" class="close" style=" width:75px; height:30px; background:#F00; color:#FFF; float:right"/>
+    </div>
+</div>
+<div id="mask"></div>
+  
+  
+</div>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/js/jquery-latest.pack.js"></script>
+<script>
+function nomore(id)
+{
+	$.get(  
+		  '<{:SITE_ADMIN}>Public/noticeignore',  
+		  {  
+			messageID:id
+		  },  
+		  function(data)
+		  {  
+			$('#ignore'+id).hide();	
+			$('#ignore_div'+id).hide();
+		  }  
+		); 
+}
+
+
+
+//select all the a tag with name equal to modal
+ function launchWindow(id) {
+	//Cancel the link behavior
+	//e.preventDefault();
+	//Get the A tag
+	//var id = $(this).attr('href');
+
+	//Get the screen height and width
+	var maskHeight = $(document).height();
+	var maskWidth = $(window).width();
+
+	//Set heigth and width to mask to fill up the whole screen
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	
+	//transition effect		
+	$('#mask').fadeIn(1);	
+	$('#mask').fadeTo("slow",0.1);	
+
+	//Get the window height and width
+	var winH = $(window).height();
+	var winW = $(window).width();
+		  
+	//Set the popup window to center
+	$(id).css('top',  winH/2-$(id).height()/2);
+	$(id).css('left', winW/2-$(id).width()/2);
+
+	//transition effect
+	$(id).fadeIn(1); 
+
+};
+
+$(document).ready(function() {	
+
+	<php>if($popnotice == 1 && $this->tVar['adminuser']['adminlevel'] != ''){</php>
+	launchWindow('#dialog'); 
+	<php>}</php>
+	
+	//if close button is clicked
+	$('.window .close').click(function (e) {
+		//Cancel the link behavior
+		e.preventDefault();
+		
+		$('#mask').hide();
+		$('.window').hide();
+	});		
+	
+	//if mask is clicked
+	$('#mask').click(function () {
+		$(this).hide();
+		$('.window').hide();
+	});			
+	
+});
+
+function showmessages_news(url,id)
+{
+		$.get(  
+		  '<{:SITE_ADMIN}>Public/noticeignore',  
+		  {  
+			messageID:id
+		  },  
+		  function(data)
+		  {  
+			$('#ignore'+id).hide();	
+			$('#ignore_div'+id).hide();
+		  }  
+		); 
+   	window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+} 
+
+function shownews(id)
+{
+	url = "<{:SITE_ADMIN}>Public/newsnotice/messageID/"+id;
+   	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+}
+</script>
+<include file="Index:footer" />

@@ -1,0 +1,25 @@
+<include file="header" />
+<h2><{:L('word_gei')}> <{$content['nickname']}> <{:L('decomment')}></h2>
+<form method='post' action='<{:SITE_URL}>/Wap/docomment'>
+<p><textarea rows="3" name="scont" maxlength="140" style="width:99%"><php>if($_GET[to]){</php>@<{:urldecode($_GET[to])}> <php>}</php></textarea></p>
+<p><input type="checkbox" id="ret" name="ret" ><label for="ret"> <{:L('reply_and_forward')}></label></p>
+<p>
+    <input type='hidden' name='cid' value='<{$content[content_id]}>' />
+    <input type='hidden' name='from' value='<{$_GET[from]}>' />
+    <input type='submit' value='<{:L('comment')}>' /> or <a href='<{:SITE_URL}>/Wap/<{:base64_decode($_GET[from])}>'> <{:L('go_back_a')}></a>
+</p>
+</form>
+<h2><{:L('talks_concent')}></h2>
+<{:$ctent->wapli($content,$my['user_id'],'',1,0)}>
+<h2><{:L('all_comments')}>(<{$cont}>)</h2>
+<ul>
+<php>if(count($reply)>0){</php>
+    <php>foreach($reply as $val){
+        echo $ctent->wapli($val,$my['user_id'],'',1,0);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"> <{:L('no_comment')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+    
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+</head>
+
+<body>
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置:	</span><{$navlist}></li>
+    </ul>
+</div>
+<div id="hlt_fit_search"><!--查询-->
+    <div class="search_one">
+        <div id="hlt_fit_search_a_s"><span>标题：</span><input type="text" id="title" value="<{$title}>"></div>
+        <div id="hlt_fit_search_a_s"><span>酒店：</span><input type="text" id="hotlename" value="<{$hotlename}>"/></div>
+        <div id="hlt_fit_search_b_s"><span>订房时间：</span><input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time1" value="<{$time1}>"><span>-</span><input type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})" id="time2" value="<{$time2}>"></div>
+        <div id="hlt_fit_search_g_s"><input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /></div>
+    </div>
+</div>
+                
+                
+<div class="fanye">
+
+  <div class="nr" style="margin:20px 0 0 0; display:inline;">
+      <table width="313" border="0">
+          <tbody><tr>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:suoding();" onclick="return confirm('确认要锁定线路吗？');" class="yyxxl">锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiesuo();" onclick="return confirm('确认要解除锁定吗？');" class="yyxxl">解锁</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:yiduizhang();" onclick="return confirm('已对账操作？');" class="yyxxl">已对账</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:weiduizhang();" onclick="return confirm('未对账操作？');" class="yyxxl">未对账</a>
+                  </td>
+          </tr>
+      </tbody></table>
+  </div>
+
+  <div  style="float:left;width:100%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+  <tbody>
+        <tr>
+            <th height="32" align="center">序号<input type="checkbox" onclick="myCheckBoxSelect(this)"></th>
+            <th height="32" align="center">标题</th>
+            <th height="32" align="center">酒店名称</th>
+            <th height="32" align="center">收件单位</th>
+            <th height="32" align="center">收件人</th>
+            <th height="32" align="center">电话</th>
+            <th height="32" align="center">发件人</th>
+            <th height="32" align="center">所属团队</th>
+            <th height="32" align="center">订房时间</th>
+            <th height="32" align="center">结算时间</th>
+            <th height="32" align="center">人数</th>
+            <th height="32" align="center">房间价格</th>
+            <th height="32" align="center">应付金额</th>
+            <th height="32" align="center">对账状态</th>
+            <th height="32" align="center">锁定状态</th>
+        </tr>
+          
+        <form name="form" method="post" id="form">
+          <php> $i = -1; foreach($orderhotelAll as $orderhotel){ $i++;</php>
+              <tr class="tr<php>echo $i%2</php>">
+              
+                  <td height="32" align="center">
+                      <php>echo $i+1</php><input value="<{$orderhotel['orderhotelID']}>" id="tuanitem_<{$i}>" type="checkbox" name="itemlist[]"></td>
+                  <td height="32" align="center">
+                      <a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/djtuanID/<{$orderhotel['djtuanID']}>/orderhotelID/<{$orderhotel['orderhotelID']}>"><{$orderhotel['title']}></a>
+                  </td>
+                  <td height="32" align="center">
+                      <span><a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/djtuanID/<{$orderhotel['djtuanID']}>/orderhotelID/<{$orderhotel['orderhotelID']}>"><{$orderhotel['hotelname']}></a></span>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['sendcompany']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['sendperson']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['sendtelnum']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['reciveperson']}>
+                  </td>
+                  <td height="32" align="center" width="10%">
+                  <a href="javascript:showbaozhang(<{$orderhotel['tuan']['djtuanID']}>)" >
+                     <{$orderhotel['tuan']['tuantitle']}>
+                   </a>  
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['orderdate']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['jiesuandate']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['renshu']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['roomprice']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['meetamount']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['status']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$orderhotel['islock']}>
+                  </td>
+              </tr>
+          
+        <php> }</php>
+        </form>
+        
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+  
+  
+</div>
+                
+</body>
+</html>
+
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:200px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'tuanitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'tuanitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+<!--
+function jiesuo() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancontrol/dolockorderhotel/islock/未锁定';
+        document.getElementById('form').submit();
+}
+function suoding() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancontrol/dolockorderhotel/islock/已锁定';
+        document.getElementById('form').submit();
+}
+function yiduizhang() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancontrol/doduizhang/status/已对账';
+        document.getElementById('form').submit();
+}
+function weiduizhang() {
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancontrol/doduizhang/status/未对账';
+        document.getElementById('form').submit();
+}
+// -->
+function dosearch() {
+        
+		var title = document.getElementById('title').value;
+		var hotlename = document.getElementById('hotlename').value;
+		var time1 = document.getElementById('time1').value;
+		var time2 = document.getElementById('time2').value;
+		
+		window.location = '<{:SITE_DIJIE}>Tuancontrol/orderhotellist/title/'+title+'/hotlename/'+hotlename+'/time1/'+time1+'/time2/'+time2;
+}
+function showbaozhang(id)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+</script>
+<style>
+	.focus td { color:#F00}
+	.focus td a{ color:#F00}
+</style>
+<include file="Index:footer" />

@@ -1,0 +1,53 @@
+<link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.KinSlideshow-1.2.1.min.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/tanchukuang.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$("#KinSlideshow").KinSlideshow();
+})
+
+function dosearch()
+{
+       var keyword = document.getElementById("keyword").value;
+       var xianlutype = document.getElementById("xianlutype").value;
+	   var where = '';
+	   if(xianlutype == '国内')
+	   	 where = '/xianlutype/散客产品/guojing/国内';
+	   if(xianlutype == '出境')
+	   	 where = '/xianlutype/散客产品/guojing/境外';
+	   if(xianlutype == '自由人')
+	   	 where = '/xianlutype/自由人';
+	   window.location.href = '<{:SITE_MENSHI}>Index/search/keyword/'+keyword+where;
+}
+
+</script>
+</head>
+
+<body>
+<div class="ks_box"><!--整体-->
+  <dl class="ks_topbav">
+    <!--顶导航-->
+        <dt><a href="<{:SITE_MENSHI}>">首 页</a> | <php>if(!strstr($this->tVar['adminuser']['adminlevel'],'联合体') && !strstr($this->tVar['adminuser']['adminlevel'],'办事处')){</php><a style="cursor:pointer;" onClick="show_msg();">新闻公告</a>|<php>}</php> <a href="<php>if(!checkByadminlevel_v('联合体成员',$this->tVar) && !checkByadminlevel_v('办事处管理员',$this->tVar)){</php><{:SITE_MENSHI}>Dingdan<php>}else if(checkByadminlevel_v('联合体成员',$this->tVar)){</php><{:SITE_ADMIN}>Tongye<php>}else{</php><{:SITE_ADMIN}>Banshichu<php>}</php>">进入后台</a></dt>
+    <dd>欢迎 <{$company['companyname']}> <b><{$roleuser['realname']}></b>&nbsp;&nbsp;&nbsp;&nbsp;[<a href="<{:SITE_ADMIN}>Login/logout">退出</a>]</dd>
+  </dl>
+  <dl class="ks_top" style="height:100px;">
+    <!--顶部-->
+    
+  <php>if(checkByadminlevel_v('联合体成员,联合体管理员',$this->tVar)){</php>
+  <php>}else{</php>
+    <dt><a href="<{:SITE_MENSHI}>"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_viewxianlu_02.jpg" /></a></dt>
+  <php>}</php>
+    
+    <dd>
+        <input type="text" id="keyword" class="ks_search_text" />
+        <select id="xianlutype">
+          <option value="">全部</option>
+          <option value="出境">出境</option>
+          <option value="国内">国内</option>
+          <option value="自由人">自由人</option>
+        </select>
+        <input type="button" onClick="dosearch();" value="" class="ks_search_sub" />
+    </dd>
+  </dl>
+</div>

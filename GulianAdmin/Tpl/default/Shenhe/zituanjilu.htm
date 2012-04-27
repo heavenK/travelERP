@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>子团记录</title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   审核线路产品 > 国内 > 散客产品 > 子团记录
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="hlt_fit_published_button"><!--步骤 按钮-->
+            <ul>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/showtype/审核/roletype/计调经理/xianluID/<{$xianluID}>">基本信息</a></li>
+                <li class="hlt_fit_published_button_lia">子团信息</li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/course/shenhe/xianluID/<{$xianluID}>">行 程</a></li>
+            </ul>
+            <div>
+            		<a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/成功/xianluID/<{$xianluID}>" onclick="return confirm('确定要审核通过吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/失败/xianluID/<{$xianluID}>" onclick="return confirm('审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/ziyouren" class="hlt_fit_published_button_g" title="返回" ></a>
+           </div>
+        </div>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        <div id="hlt_fit_published_cont_list"><!--列表-->
+        <table width="722" border="1" cellspacing="0" bordercolor="#00B298" style=" background:#FFF; border-collapse:collapse; text-align:center;">
+            <tbody><tr class="hlt_fit_price_cost_b_ol" style="width:auto; float:none;">
+                <th width="13%">团号</th>
+                <th>名称</th>
+                <th width="8%">全款日期</th>
+                <th width="8%">报名截止</th>
+                <th width="4%">名额</th>
+                <th width="8%">状态</th>
+                <th width="10%">出团日期</th>
+            </tr>
+            <php> foreach($zituanAll as $zituan){
+           </php>
+            <tr height="26" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                <td><{$zituan['tuanhao']}></td>
+                <td><{$zituan['mingcheng']}></td>
+                <td><{$zituan['quankuanriqi']}></td>
+                <td><{$zituan['baomingjiezhi']}></td>
+                <td><{$zituan['renshu']}></td>
+                <td><{$zituan['zhuangtai']}></td>
+                <td><{$zituan['chutuanriqi']}></td>
+            </tr> 
+            <php>}
+            </php>
+            </form>                      
+        </tbody></table>
+        <dl id="hlt_fit_published_q">
+            <div>
+            		<a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/成功/xianluID/<{$xianluID}>" onclick="return confirm('确定要审核通过吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/失败/xianluID/<{$xianluID}>" onclick="return confirm('审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/ziyouren" class="hlt_fit_published_button_g" title="返回" ></a>
+           </div>
+            </dl>
+        
+        </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+</body>
+</html>

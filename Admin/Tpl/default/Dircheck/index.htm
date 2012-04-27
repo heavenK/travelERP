@@ -1,0 +1,16 @@
+<include file="Common:header" />
+<div class="infomation"><b>说明：</b>该功能是检查您服务器中以下目录是否可写，如不可写，您需要进入服务器将以下目录权限设置为0777。</div><br/>
+<h3>目录检查</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="70%"><b>目录名</b></td>
+    <td><b>是否可写</b></td>
+</tr>
+<php>foreach($dirs as $val){</php>
+<tr>
+    <td><{$val['dir']}></td>
+    <td style="text-indent:30px"><img src="<{:__PUBLIC__}>/admin/dirwrite<{$val['iswrite']}>.png"></td>
+</tr>
+<php>}</php>
+</table>
+<include file="Common:foot" />

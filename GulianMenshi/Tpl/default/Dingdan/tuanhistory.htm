@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navtitle}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Utility.js"></script>
+
+</head>
+
+<body>
+      
+      
+<div id="priceModify" style="display: none; position: absolute; top:180px; left:30px;">
+<form action="<{:SITE_ADMIN}>Kongguan/dopostpiliangtiaojia" name="form_1" id="form_1" method="post" >
+    <input type="hidden" id="iditems" name="iditems"  />
+
+    <input type="hidden" id="forward" name="forward" value="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/<{$guojing}>/kind/<{$kind}>"  />
+
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6E6">
+        <tbody><tr>
+            <td>成人：</td>
+            <td>
+                <input name="adultxiuzheng" type="text" value="0" id="adultxiuzheng">
+            </td>
+            <td>
+                <table border="0">
+                    <tbody><tr>
+                        <td><input id="adulttype" type="radio" name="adulttype" value="增加" checked="checked"><label >增加</label></td>
+                        <td><input id="adulttype" type="radio" name="adulttype" value="减少"><label >减少</label></td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr>
+            <td>儿童：</td>
+            <td>
+                <input name="childxiuzheng" type="text" value="0" id="childxiuzheng">
+            </td>
+            <td>
+                <table border="0">
+                    <tbody><tr>
+                        <td><input id="childtype" type="radio" name="childtype" value="增加" checked="checked"><label >增加</label></td>
+                        <td><input id="childtype" type="radio" name="childtype" value="减少"><label >减少</label></td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                <input type="submit" value="提 交" onclick="return CheckPrice();" >&nbsp;&nbsp;&nbsp;
+                <input type="button" value="关 闭" onclick="document.getElementById('priceModify').style.display='none';return false;" ></td>
+        </tr>
+    </tbody></table>
+    </form>
+</div>
+
+
+      
+      
+      
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置:	</span><{$navlist}></li>
+    </ul>
+</div>
+<div id="hlt_fit_search"><!--查询-->
+	<div class="search_one"> 
+        <div id="hlt_fit_search_a_s"><span>　关键字：</span><input type="text" id="guanjianzi" name="guanjianzi" value="<{$guanjianzi}>"></div>
+        <div id="hlt_fit_search_b_s"><span>日　期：</span><input type="text" onfocus="WdatePicker()" id="chufariqi" name="chufariqi" value="<{$chufariqi}>"><span>-</span><input type="text" onfocus="WdatePicker()" id="jiezhiriqi" name="jiezhiriqi" value="<{$jiezhiriqi}>"></div>
+        <div id="hlt_fit_search_a_s"><span>状态：</span>
+        <select name="zhuangtai" id="zhuangtai"> 
+            <php> if($zhuangtai){</php>
+            <option value="<{$zhuangtai}>"><{$zhuangtai}></option>
+            <option disabled="disabled">-----------------</option>
+            <php> }</php>
+            <option value="">全部</option> 
+            <option value="准备">准备</option> 
+            <option value="等待审核">等待审核</option> 
+            <option value="审核不通过">审核不通过</option> 
+            <option value="报名">报名</option> 
+            <option value="截止">截止</option> 
+            <option value="出团">出团</option> 
+            <option value="回团">回团</option> 
+            <option value="删除">删除</option> 
+        </select>
+        </div>
+    </div>
+    <div class="search_one"> 
+        <div id="hlt_fit_search_a_s"><span>出发城市：</span><input type="text" id="chufadi" value="<{$chufadi}>"/></div>
+        <div id="hlt_fit_search_a_s"><span>目的地：</span><input type="text" id="mudidi" value="<{$mudidi}>"/></div>
+        <div id="hlt_fit_search_a_s"><span>天数：</span><input type="text" id="tianshu" value="<{$tianshu}>" /></div>
+        <div id="hlt_fit_search_g_s"><input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /></div>   
+    </div>
+</div>
+                
+                
+<div class="fanye">
+
+  
+  <div  style="float:left;width:100%; margin:20px 0 0 0; display:inline;">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+  <tbody>
+        <tr>
+            <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+            <th height="32" align="center">团号</th>
+            <th height="32" align="center">团队名称</th>
+            <th height="32" align="center">出团日期</th>
+            <th height="32" align="center">天数</th>
+            <th height="32" align="center">产品类型</th>
+            <th height="32" align="center">成本(成人/儿童)</th>
+            <th height="32" align="center">修正值</th>
+            <th height="32" align="center">名额</th>
+            <th height="32" align="center">确认/占位</th>
+            <th height="32" align="center">剩余名额</th>
+            <th height="32" align="center">状态</th>
+        </tr>
+          
+        <form name="form" method="post" id="form">
+    	<input type="hidden" name="guojing" id="guojing" value="<{$guojing}>" >
+        <input type="hidden" name="kind" id="kind" value="<{$kind}>" >
+    	<input type="hidden" name="forward" id="forward" value="<{:SITE_ADMIN}>Kongguan/sankekongguan/guojing/<{$guojing}>/kind/$kind" >
+                        <php>$i=-1; foreach($zituanAll as $zituan){ $i++;</php>
+                        
+          
+              <tr class="tr<php>echo $i%2</php>">
+                  <td height="27" align="center"  width="2%">
+                      <span><input value="<{$zituan['zituanID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></span></td>
+                  <td height="27" align="center" width="10%">
+                      <a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/zituanID/<{$zituan['zituanID']}>"><{$zituan['tuanhao']}></a>
+                  </td>
+                  <td height="27" align="center" width="20%">
+                      <span><a href="<{:SITE_MENSHI}>Dingdan/sankedingdan/zituanID/<{$zituan['zituanID']}>" ><{$zituan['mingcheng']}></a></span>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$zituan['chutuanriqi']}>
+                  </td>
+                  <td height="27" align="center" width="3%">
+                      <{$zituan['tianshu']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                  
+                  <{$zituan['guojing']}><php>if($zituan['kind']) echo $zituan['kind'];else echo $zituan['xianlutype'];</php>
+                      
+                  </td>
+                  <td height="27" align="center" width="7%">
+                      <{$zituan['adult_shoujia']}>/<{$zituan['child_shoujia']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$zituan['adultxiuzheng']}>/<{$zituan['childxiuzheng']}>
+                  </td>
+                  <td height="27" align="center" width="3%">
+                      <{$zituan['renshu']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$zituan['querennum']}>/<{$zituan['zhanweinum']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$zituan['shengyu']}>
+                  </td>
+                  <td height="27" align="center" width="3%">
+                      <{$zituan['zhuangtai']}>
+                  </td>
+              </tr>
+          
+        <php> }</php>
+        </form>
+        
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+</div>
+                
+</body>
+</html>
+
+
+
+
+
+
+
+<div id="divrili2"  style="display: none; position:absolute; left:0px; top:200px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+<!--
+function jiezhi() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Kongguan/dopostpiliangjiezhi';
+        document.getElementById('form').submit();
+}
+
+function jiesuo() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Kongguan/dopostpiliangjiesuo';
+        document.getElementById('form').submit();
+}
+
+function suoding() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Kongguan/dopostpiliangsuoding';
+        document.getElementById('form').submit();
+}
+
+
+// -->
+
+function dosearch() {
+        
+		var guanjianzi = document.getElementById('guanjianzi').value;
+		var chufadi = document.getElementById('chufadi').value;
+		var mudidi = document.getElementById('mudidi').value;
+		var tianshu = document.getElementById('tianshu').value;
+		var chufariqi = document.getElementById('chufariqi').value;
+		var jiezhiriqi = document.getElementById('jiezhiriqi').value;
+		var zhuangtai = document.getElementById('zhuangtai').value;
+		var guojing = document.getElementById('guojing').value;
+		var kind = document.getElementById('kind').value;
+		
+		window.location = '<{:SITE_ADMIN}>Kongguan/sankekongguan/guanjianzi/'+guanjianzi+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/tianshu/'+tianshu+'/chufariqi/'+chufariqi+'/jiezhiriqi/'+jiezhiriqi+'/zhuangtai/'+zhuangtai+'/guojing/'+guojing+'/kind/'+kind;
+		
+		
+}
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+</script>
+
+<script>
+function PriceModify(num)
+{
+	
+	var itemlist = "";
+	for(var i = 0; i<num;i++)
+	{
+		id = 'rpUserlist_ctl' + i + '_cbItem';
+		var one = document.getElementById(id);
+		if(one.checked)
+		{ 
+			if(itemlist)
+			itemlist += ","+one.value;
+			else
+			itemlist += one.value;
+		}
+	}
+	var iditems = document.getElementById('iditems');
+	iditems.value = itemlist;
+		
+	var divmodify=document.getElementById("priceModify");
+	if(divmodify)
+	{
+		if(divmodify.style.display=='none')
+		{
+			divmodify.style.display='';
+		}
+		else
+		{
+			divmodify.style.display='none';
+		}
+	}
+    if(0)
+    {
+        if(confirm('您选择了不同母下的子团，要继续吗?'))
+        {
+            var divmodify=document.getElementById("priceModify");
+            if(divmodify)
+            {
+                if(divmodify.style.display=='none')
+                {
+                    divmodify.style.display='';
+                }
+                else
+                {
+                    divmodify.style.display='none';
+                }
+            }
+        }
+    }
+    return false;
+}
+function ReApartSupplier(num)
+{
+	var itemlist = "";
+	for(var i = 0; i<num;i++)
+	{
+		id = 'rpUserlist_ctl' + i + '_cbItem';
+		var one = document.getElementById(id);
+		if(one.checked)
+		{ 
+			if(itemlist)
+			itemlist += ","+one.value;
+			else
+			itemlist += one.value;
+		}
+	}
+	var iditems = document.getElementById('iditems_2');
+	iditems.value = itemlist;
+		
+	var divmodify=document.getElementById("divreapartsuplier");
+	if(divmodify)
+	{
+		if(divmodify.style.display=='none')
+		{
+			divmodify.style.display='';
+		}
+		else
+		{
+			divmodify.style.display='none';
+		}
+	}
+    return false;
+}
+
+function openSub(idname,idid,ids)
+{
+	var obname=document.getElementById(idname + ids);
+	var url = "<{:SITE_ADMIN}>Liandong/getAgencys/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid;
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+
+function CheckPrice()
+{
+    var adultprice=document.getElementById("adultxiuzheng");
+    var childxiuzheng=document.getElementById("childxiuzheng");
+    if(Trim(adultprice.value)==""&&Trim(childxiuzheng.value)=="")
+    {
+        alert("请填写价格!");
+        return false;
+    }
+    
+    if(Number(Trim(adultprice.value))<0)
+    {
+        alert("请填写大于等于0的数字!");
+        return false;
+    }
+    
+    if(Number(Trim(childxiuzheng.value))<0)
+    {
+        alert("请填写大于等于0的数字!");
+        return false;
+    }
+    
+    if(Number(Trim(adultprice.value))==0&&Number(Trim(childxiuzheng.value))==0)
+    {
+        alert("价格不能同时为0!");
+        return false;
+    }
+    
+    return true;
+}
+</script>
+<include file="Index:footer" />

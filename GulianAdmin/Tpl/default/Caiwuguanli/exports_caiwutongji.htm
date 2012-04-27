@@ -1,0 +1,128 @@
+                    <table class="cbx" width="100%" border="1" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>统计表</strong></td>
+                            
+                        </tr>
+                    </tbody></table>
+                    <table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                        	<td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>范围</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>订单数</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>应收款</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>应付款</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>人数</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td class="xxxx" height="27" align="center">
+                                总计
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$dingdan_sum}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$shouru_sum}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$zhichu_sum}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$renshu_sum}>
+                            </td>
+                        </tr>
+                        <php>foreach($node_people as $date=>$value){</php>
+                        <tr>
+                        	<td class="xxxx" height="27" align="center">
+                                <{$date}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$node_dingdan[$date]}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$node_yingshou[$date]}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$node_yingfu[$date]}>
+                            </td>
+                            <td class="xxxx" height="27" align="center">
+                                <{$value}>
+                            </td>
+                        </tr>
+                        <php>}</php>
+                    </tbody></table>
+                    <br>
+                    
+                    <table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>团号</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>团队名称</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>来源人</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>来源部门</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>应收款</strong></td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>应付款</strong></td>
+                            <td align="center" bgcolor="#ff8d00">
+                                <strong>人数</strong></td>
+                            <td align="center" bgcolor="#ff8d00">
+                                <strong>类型</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>订单数</strong>
+                            </td>
+                            <td height="27" align="center" bgcolor="#ff8d00">
+                                <strong>通过日期</strong>
+                            </td>
+                        </tr>
+                        		<php>foreach($jiedaijihua_all as $jiedai){</php>
+                                <tr>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['tuanhao']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['mingcheng']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['user_name']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['departmentName']}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['xiangmu']+$jiedai['shouru']+0}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['zhichu']+0}>
+                                    </td>
+                                    <td class="xxxx" height="27" align="center">
+                                        <{$jiedai['baozhangrenshu']+0}>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <{$jiedai['xianlutype']}>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <{$jiedai['dingdanshu']}>
+                                    </td>
+                                    <td align="center" height="27" class="xxxx">
+                                        <php>echo date('Y-m-d',$jiedai['caiwu_time'])</php>
+                                    </td>
+                                </tr>
+                            	<php>}</php>
+                                
+                            
+                    </tbody></table>
+                

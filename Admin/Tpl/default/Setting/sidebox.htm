@@ -1,0 +1,110 @@
+<include file="Common:header" />
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/webset' method="POST">
+<h3>侧边栏设置</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="200px">推荐用户显示个数</td>
+    <td>
+    <input type="radio" name="site[hotusernum]" value="6" <php>if($site['hotusernum']['contents']==6){</php>checked<php>}</php>> 6个&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[hotusernum]" value="9" <php>if($site['hotusernum']['contents']==9){</php>checked<php>}</php>> 9个&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[hotusernum]" value="12" <php>if($site['hotusernum']['contents']==12){</php>checked<php>}</php>> 12个
+    </td>
+    <td class="info">● 默认显示为6个</td>
+</tr>
+<tr>
+    <td>用户关注听众显示个数</td>
+    <td>
+    <input type="radio" name="site[userfollownum]" value="6" <php>if($site['userfollownum']['contents']==6){</php>checked<php>}</php>> 6个&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[userfollownum]" value="9" <php>if($site['userfollownum']['contents']==9){</php>checked<php>}</php>> 9个&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[userfollownum]" value="12" <php>if($site['userfollownum']['contents']==12){</php>checked<php>}</php>> 12个
+    </td>
+    <td class="info">● 默认显示为6个</td>
+</tr>
+<tr>
+    <td>热门话题显示个数</td>
+    <td>
+    <input type="radio" name="site[hottopicnum]" value="5" <php>if($site['hottopicnum']['contents']==5){</php>checked<php>}</php>> 5个&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[hottopicnum]" value="10" <php>if($site['hottopicnum']['contents']==10){</php>checked<php>}</php>> 10个&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="site[hottopicnum]" value="15" <php>if($site['hottopicnum']['contents']==15){</php>checked<php>}</php>> 15个
+    </td>
+    <td class="info">● 默认显示为10个</td>
+</tr>
+</table>
+<div class="indexh">
+    <span class="<php>if($t=='userside'){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Setting/sidebox/t/userside">用户侧边</a></span>
+    <span class="<php>if($t=='proside'){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Setting/sidebox/t/proside">主页侧边</a></span>
+    <span class="<php>if($t=='pubside'){</php>tabon<php>}else{</php>taboff<php>}</php>"><a href="<{:SITE_URL}>/admin.php?s=/Setting/sidebox/t/pubside">广场侧边</a></span>
+</div>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="70px">显示顺序</td>
+    <td>侧栏类型</td>
+    <td>侧栏标题</td>
+    <td>侧栏内容</td>
+    <td>&nbsp;</td>
+</tr>
+<php>foreach($side[$t] as $key=>$val){</php>
+<tr>
+    <td><input type="text" name="side[order][]" class="txt_input" value="<{:($key+1)}>" style="width:50px"></td>
+    <td width="120px">
+    <select name="side[name][]">
+    <php>if($val['name']=='hottopic'){</php><option value="hottopic" selected>热门话题</option><php>}</php>
+    <php>if($val['name']=='hotuser'){</php><option value="hotuser" selected>人气用户推荐</option><php>}</php>
+    <php>if($val['name']=='bangnormal'){</php><option value="bangnormal" selected>人气之星榜</option><php>}</php>
+    <php>if($val['name']=='bangvip'){</php><option value="bangvip" selected>认证名人榜</option><php>}</php>
+    <php>if($val['name']=='userfollower'){</php><option value="userfollower" selected>TA的听众</option><php>}</php>
+    <php>if($val['name']=='userfollowing'){</php><option value="userfollowing" selected>TA收听的</option><php>}</php>
+    <php>if(!in_array($val['name'],$systemside)){</php><option value="custom" selected>自定义</option><php>}</php>
+    </select></td>
+    <td width="100px">
+    <php>if(in_array($val['name'],$systemside)){</php>
+    <input type="text" name="side[title][]" class="readonly" value="<{:sidedef($val['name'])}>" style="width:100px" readonly>
+    <php>}else{</php>
+    <textarea name="side[title][]" class="txt_input" style="width:100px;font-size:14px"><{$val['title']}></textarea>
+    <php>}</php>
+    </td>
+    <td>
+    <php>if(in_array($val['name'],$systemside)){</php>
+    <input type="text" class="readonly" name="side[val][]" value="系统默认内容" readonly>
+    <php>}else{</php>
+    <textarea class="txt_input" name="side[val][]" style="font-size:14px"><{:stripslashes($val['val'])}></textarea>
+    <php>}</php>
+    </td>
+    <td align="right"><a href="##" onclick="jsop('<{:SITE_URL}>/admin.php?s=/Setting/delside/t/<{$t}>/order/<{$key}>','确认删除此侧栏？')">删除</a></td>
+</tr>
+<php>}</php>
+<tr>
+    <td>&nbsp;</td>
+    <td colspan="4"><input type="hidden" name="reurl" value="Setting/sidebox/t/<{$t}>">
+    <input type="hidden" name="sidetype" value="<{$t}>">
+    <input type="submit" class="button1" value="保存提交">
+    </td>
+</tr>
+</form>
+<tr>
+    <td colspan="5"><div style="border-bottom:2px solid #b5cfd9;height:1px"></div></td>
+</tr>
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/addside' method="POST">
+<tr>
+    <td width="70px">最后插入</td>
+    <td width="120px">
+    <select id="addside" name="addside[name]">
+    <option value="0">选择侧栏类型</option>
+    <option value="hottopic">热门话题</option>
+    <option value="hotuser">人气用户推荐</option>
+    <option value="bangnormal">人气之星榜</option>
+    <option value="bangvip">认证名人榜</option>
+    <php>if($t!='pubside'){</php>
+    <option value="userfollower">TA的听众</option>
+    <option value="userfollowing">TA收听的</option>
+    <php>}</php>
+    <option value="custom">自定义</option>
+    </select>
+    </td>
+    <td width="100px"><input type="text" id="addtitle" name="addside[title]" class="txt_input" value="" style="width:100px"></td>
+    <td><input type="text" id="addval" class="txt_input" name="addside[val]" value="" ></td>
+    <td align="right"><input type="hidden" name="sidetype" value="<{$t}>"><input type="submit" class="button1" value="添加侧栏"></td>
+</tr>
+</form>
+</table>
+<include file="Common:foot" />

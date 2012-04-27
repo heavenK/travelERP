@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>价格</title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/edittables.js"></script>
+<script>
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+</script>
+</head>
+
+<body>
+<form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostxianluJiage" id="form">
+  <input type="hidden" name="xianluID"  id="xianluID" value="<{$xianluID}>" />
+  <div id="hlt_fit_view">
+  <div id="hlt_fit_location"><!--所在位置--> 
+    <b>您所在的位置:</b> <{$typeurl}> </div>
+  <div id="hlt_fit_published">
+  <!--发布新线路页面-->
+  <div id="hlt_fit_published_button"><!--步骤 按钮-->
+    <ul>
+      <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianluID}>">基本信息</a></li>
+      <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+      <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+      <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>
+    </ul>
+    <div> <a href="javascript:GetcheckBack('<{$xianluID}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a> <a class="hlt_fit_published_button_b" title="提交审核" onclick="return confirm('确定要提交审核吗');" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>"></a> <a onclick="return checkdata();" href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_d" title="保存"></a>
+      <div id="divrili2"  style="display: none; position:absolute; left:30px; top:90px;">
+        <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+      </div>
+    </div>
+  </div>
+  <div id="hlt_fit_published_cont">
+  <!--内容-->
+  <div id="hlt_fit_price"><!--成本项-->
+    <div id="hlt_fit_price_cost">
+      <div id="hlt_fit_price_cost_a">成本项</div>
+      <ol id="hlt_fit_price_cost_b" class="chengbendiv">
+        <ul class="hlt_fit_price_cost_b_ol">
+          <li class="hlt_fit_price_cost_lia">类型</li>
+          <li class="hlt_fit_price_cost_lib">描述</li>
+          <li class="hlt_fit_price_cost_lic">价格/游客</li>
+          <li class="hlt_fit_price_cost_lid">数量</li>
+          <li class="hlt_fit_price_cost_lie">次数</li>
+          <li class="hlt_fit_price_cost_lif">计费类型</li>
+          <li class="hlt_fit_price_cost_lig">操作</li>
+        </ul>
+        <php> for($i = 0; $i <= $postdata['rowsnum0']; $i++) {</php>
+        <input type="hidden" id="<php> echo 'chengbenID0'.$i</php>" name="<php> echo 'chengbenID0'.$i</php>" value="<php> echo $postdata['chengbenID0'.$i]</php>" />
+        <input type='hidden' name='chengbencaozuoID[]' value='<{$i}>'/>
+        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="<php> echo 'listdiv0'.$i</php>">
+          <li class="hlt_fit_price_cost_lia">
+            <select id="<php> echo 'tbType0'.$i</php>" name="<php> echo 'tbType0'.$i</php>">
+              <php>if($postdata['tbType0'.$i]){</php>
+              <option value="<php> echo $postdata['tbType0'.$i]</php>">
+              <php> echo $postdata['tbType0'.$i]</php>
+              </option>
+              <option disabled="disabled">-----------</option>
+              <php>}</php>
+              <option value="地接综费">地接综费</option>
+              <option value="导游">导游</option>
+              <option value="门票">门票</option>
+              <option value="其他">其它</option>
+              <option value="餐">餐</option>
+              <option value="房">房</option>
+              <option value="车（小交通）">车（小交通）</option>
+              <option value="火车票">火车票</option>
+              <option value="船票">船票</option>
+              <option value="机票">机票</option>
+              <option value="保险">保险</option>
+            </select>
+          </li>
+          <li class="hlt_fit_price_cost_lib">
+            <input id="<php> echo 'tbSummary0'.$i</php>" type="text" name="<php> echo 'tbSummary0'.$i</php>" value="<php> echo $postdata['tbSummary0'.$i]</php>">
+          </li>
+          <li class="hlt_fit_price_cost_lic">
+            <input id="<php> echo 'tbPrice0'.$i</php>" type="text" name="<php> echo 'tbPrice0'.$i</php>" value="<php> echo $postdata['tbPrice0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+          </li>
+          <li class="hlt_fit_price_cost_lid">
+            <input value="1" id="<php> echo 'tbNum0'.$i</php>" type="text" name="<php> echo 'tbNum0'.$i</php>" value="<php> echo $postdata['tbNum0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+          </li>
+          <li class="hlt_fit_price_cost_lie">
+            <input value="1" id="<php> echo 'tbOrder0'.$i</php>" type="text" name="<php> echo 'tbOrder0'.$i</php>" value="<php> echo $postdata['tbOrder0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+          </li>
+          <li class="hlt_fit_price_cost_lif">
+            <select id="<php> echo 'tbPriceType0'.$i</php>" name="<php> echo 'tbPriceType0'.$i</php>" onchange="GetPersonType()">
+              <php>if($postdata['tbPriceType0'.$i]){</php>
+              <option value="<php> echo $postdata['tbPriceType0'.$i]</php>">
+              <php> echo $postdata['tbPriceType0'.$i]</php>
+              </option>
+              <option disabled="disabled">-----------</option>
+              <php>}</php>
+              <option value="全部">全部</option>
+              <option value="成人">成人</option>
+              <option value="儿童">儿童</option>
+            </select>
+          </li>
+          <li class="hlt_fit_price_cost_lig">
+            <php>if($postdata){ </php>
+            <a href="<{:SITE_ADMIN}>Chanpin/deletechengbenxiang/xianluID/<{$xianluID}>/chengbenID/<php> echo $postdata['chengbenID0'.$i]</php>">删除</a>
+            <php>}else{ </php>
+            <a href="javascript:delete_row('<{$i}>')" >删除</a>
+            <php>} </php>
+          </li>
+        </ul>
+        <php>}</php>
+      </ol>
+      <ol id="hlt_fit_price_cost_b">
+        <ul id="hlt_fit_price_cost_lih">
+          <li> <a href="#" onclick="insert_row(); return false;"></a> </li>
+        </ul>
+      </ol>
+      <ul id="hlt_fit_price_bz" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+        <li>成人总价：
+          <input name="tbAdultAllPrice" readonly="readonly" type="text" id="tbAdultAllPrice" value="<php>if($postdata['tbAdultAllPrice']) echo $postdata['tbAdultAllPrice']; else echo 0;</php>">
+        </li>
+        <li>
+          <dl>
+            <dt>儿童总价：
+              <input name="tbChildAllPrice" readonly="readonly" type="text" id="tbChildAllPrice" value="<php>if($postdata['tbChildAllPrice']) echo $postdata['tbChildAllPrice']; else echo 0;</php>">
+            </dt>
+            <dd>儿童备注：
+              <input name="tbChildNote" type="text" id="tbChildNote" value="<{$postdata['tbChildNote']}>" >
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="hlt_fit_price">
+    <div id="hlt_fit_price_cost">
+      <div id="hlt_fit_price_cost_a">
+        <div style="float:left"> 成本价格 </div>
+      </div>
+      <ol id="hlt_fit_price_cost_b" class="cbDIV">
+        <ul class="hlt_fit_price_cost_b_ol">
+          <li class="hlt_fit_price_agents_lia">人数</li>
+          <li class="hlt_fit_price_agents_lic" style="width:450px;">描述</li>
+          <li class="hlt_fit_price_agents_lid">成本</li>
+          <li class="hlt_fit_price_agents_lii">操作</li>
+        </ul>
+        <php> for($i = 0; $i <= $postdata['rowsnum4']; $i++) {</php>
+        <input type="hidden" id="<php> echo 'cbID1'.$i</php>" name="<php> echo 'cbID1'.$i</php>" value="<php> echo $postdata['cbID1'.$i]</php>" />
+        <input type='hidden' name='chengbenyongyouID[]' value='<{$i}>'/>
+        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="list_chengben_div1<{$i}>">
+          <li class="hlt_fit_price_agents_lid">
+            <input id="<php> echo 'renshu1'.$i</php>" type="text" name="<php> echo 'renshu1'.$i</php>" value="<php> echo $postdata['renshu1'.$i]</php>" />
+          </li>
+          <li class="hlt_fit_price_agents_lic"  style="width:450px;">
+            <input style="width:415px;" id="<php> echo 'miaoshu1'.$i</php>" type="text" name="<php> echo 'miaoshu1'.$i</php>" value="<php> echo $postdata['miaoshu1'.$i]</php>" />
+          </li>
+          <li class="hlt_fit_price_agents_lid">
+            <input id="<php> echo 'chengben1'.$i</php>" type="text" name="<php> echo 'chengben1'.$i</php>" value="<php> echo $postdata['chengben1'.$i]</php>" />
+          </li>
+          <li class="hlt_fit_price_agents_lii">
+            <php>if($postdata){ </php>
+            <a href="<{:SITE_ADMIN}>Chanpin/deletechengben/xianluID/<{$xianluID}>/chengbenID/<php> echo $postdata['cbID1'.$i]</php>">删除</a>
+            <php>}else{ </php>
+            <a href="javascript:delete_row_chengben('<{$i}>')" >删除</a>
+            <php>} </php>
+          </li>
+        </ul>
+        <php>}</php>
+      </ol>
+      <ol id="hlt_fit_price_cost_b">
+        <ul id="hlt_fit_price_cost_lih">
+          <li><a href="#" onclick="insert_row_chengben(); return false;"></a></li>
+        </ul>
+      </ol>
+    </div>
+  </div>
+  <div id="hlt_fit_price">
+  <!--代理商销售价格-->
+  <div id="hlt_fit_price_cost">
+  <div id="hlt_fit_price_cost_a">
+    <div style="float:left"> 代理商销售价格 </div>
+    <div style="float:right"> 代理商选择类别：
+      <select name="ddlAgentType" id="ddlAgentType" onchange="GetCaoZuoType(this)">
+        <php>if($postdata['ddlAgentType'] == 'Batch'){</php>
+        <option value="Batch" selected="selected">批量</option>
+        <php>}else{</php>
+        <option value="Batch" >批量</option>
+        <php>}</php>
+        <php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+        <option value="MultipleChoice"  selected="selected">多选</option>
+        <php>}else{</php>
+        <option value="MultipleChoice">多选</option>
+        <php>}</php>
+      </select>
+    </div>
+  </div>
+  <php>if($postdata['ddlAgentType'] != 'MultipleChoice'){</php>
+  <ol id="hlt_fit_price_cost_b" class="batchdiv">
+  <php>}else{</php>
+  <ol id="hlt_fit_price_cost_b" style="display:none"  class="batchdiv">
+    <php>}</php>
+    <ul class="hlt_fit_price_cost_b_ol">
+      <li class="hlt_fit_price_agents_lia">代理商类型</li>
+      <li class="hlt_fit_price_agents_lic">成人销售价</li>
+      <li class="hlt_fit_price_agents_lid">儿童销售价</li>
+      <li class="hlt_fit_price_agents_lie">成人佣金</li>
+      <li class="hlt_fit_price_agents_lif">儿童佣金</li>
+      <li class="hlt_fit_price_agents_lih">折扣</li>
+      <li class="hlt_fit_price_agents_lig">成人利润</li>
+      <li class="hlt_fit_price_agents_lih">儿童利润</li>
+      <li class="hlt_fit_price_agents_lii">操作</li>
+    </ul>
+    <php> for($i = 0; $i <= $postdata['rowsnum1']; $i++) {</php>
+    <input type="hidden" id="<php> echo 'shoujiaID1'.$i</php>" name="<php> echo 'shoujiaID1'.$i</php>" value="<php> echo $postdata['shoujiaID1'.$i]</php>" />
+    <input type='hidden' name='BatchcaozuoID[]' value='<{$i}>'/>
+    <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv1<{$i}>">
+      <li class="hlt_fit_price_agents_lia">
+        <select id="<php> echo 'slAgentType1'.$i</php>" name="<php> echo 'slAgentType1'.$i</php>" onchange="GetAgentType(this)">
+          <php>if($postdata['slAgentType1'.$i]){</php>
+          <option value="<php>echo $postdata['slAgentType1'.$i]</php>">
+          <php>echo $postdata['slAgentType1'.$i]</php>
+          </option>
+          <option disabled="disabled">------------</option>
+          <php>}</php>
+          <option value="全部">全部</option>
+          <option value="直营门市">直营门市</option>
+          <option value="加盟门市">加盟门市</option>
+          <option value="联合体">联合体</option>
+          <option value="办事处">办事处</option>
+        </select>
+      </li>
+      <li class="hlt_fit_price_agents_lic">
+        <input id="<php> echo 'tbAdultPrice1'.$i</php>" type="text" name="<php> echo 'tbAdultPrice1'.$i</php>" value="<php> echo $postdata['tbAdultPrice1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" >
+      </li>
+      <li class="hlt_fit_price_agents_lid">
+        <input id="<php> echo 'tbChildPrice1'.$i</php>" type="text" name="<php> echo 'tbChildPrice1'.$i</php>" value="<php> echo $postdata['tbChildPrice1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" >
+      </li>
+      <li class="hlt_fit_price_agents_lie">
+        <input id="<php> echo 'tbAdultCommission1'.$i</php>" type="text" name="<php> echo 'tbAdultCommission1'.$i</php>" value="<php> echo $postdata['tbAdultCommission1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lif">
+        <input id="<php> echo 'tbChildCommission1'.$i</php>" type="text" name="<php> echo 'tbChildCommission1'.$i</php>" value="<php> echo $postdata['tbChildCommission1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lih">
+        <input id="<php> echo 'tbCut1'.$i</php>" type="text" name="<php> echo 'tbCut1'.$i</php>" value="<php> echo $postdata['tbCut1'.$i]</php>" >
+      </li>
+      <li class="hlt_fit_price_agents_lig">
+        <input id="<php> echo 'tbAdultProfit1'.$i</php>" type="text" name="<php> echo 'tbAdultProfit1'.$i</php>" value="<php> echo $postdata['tbAdultProfit1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly">
+      </li>
+      <li class="hlt_fit_price_agents_lih">
+        <input id="<php> echo 'tbChildProfit1'.$i</php>" type="text" name="<php> echo 'tbChildProfit1'.$i</php>" value="<php> echo $postdata['tbChildProfit1'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly">
+      </li>
+      <li class="hlt_fit_price_agents_lii">
+        <php>if($postdata){ </php>
+        <a href="<{:SITE_ADMIN}>Chanpin/deleteshoujiaxiang/xianluID/<{$xianluID}>/shoujiaID/<php> echo $postdata['shoujiaID1'.$i]</php>">删除</a>
+        <php>}else{ </php>
+        <a href="javascript:delete_rows('<{$i}>')" >删除</a>
+        <php>} </php>
+      </li>
+    </ul>
+    <php>}</php>
+  </ol>
+  <php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+  <ol id="hlt_fit_price_cost_b" class="multiplediv">
+  <php>}else{</php>
+  <ol id="hlt_fit_price_cost_b" style="display: none;" class="multiplediv">
+    <php>}</php>
+    <ul class="hlt_fit_price_cost_b_ol">
+      <li class="hlt_fit_price_agents_lia">代理商</li>
+      <li class="hlt_fit_price_agents_lic">成人销售价</li>
+      <li class="hlt_fit_price_agents_lid">儿童销售价</li>
+      <li class="hlt_fit_price_agents_lie">成人佣金</li>
+      <li class="hlt_fit_price_agents_lif">儿童佣金</li>
+      <li class="hlt_fit_price_agents_lih">折扣</li>
+      <li class="hlt_fit_price_agents_lig">成人利润</li>
+      <li class="hlt_fit_price_agents_lih">儿童利润</li>
+      <li class="hlt_fit_price_agents_lii">操作</li>
+    </ul>
+    <php> for($i = 0; $i <= $postdata['rowsnum2']; $i++) {</php>
+    <input type="hidden" id="<php> echo 'shoujiaID2'.$i</php>" name="<php> echo 'shoujiaID2'.$i</php>" value="<php> echo $postdata['shoujiaID2'.$i]</php>" />
+    <input type='hidden' name='MultipleChoicecaozuoID[]' value='<{$i}>'/>
+    <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv2<{$i}>">
+      <li class="hlt_fit_price_agents_lia">
+        <input style="width:50px;" id="<php> echo 'AgentName2'.$i</php>" name="<php> echo 'AgentName2'.$i</php>" value="<php> echo $postdata['AgentName2'.$i]</php>" type="text" readonly="readonly">
+        <input id="<php> echo 'AgentID2'.$i</php>" name="<php> echo 'AgentID2'.$i</php>" type="hidden" value="<php> echo $postdata['AgentID2'.$i]</php>">
+        <a id="aChoiceCom" href="javascript:openSub('AgentName2','AgentID2','<php> echo $i</php>');">选择</a> </li>
+      <li class="hlt_fit_price_agents_lic">
+        <input id="<php> echo 'tbAdultPrice2'.$i</php>" type="text" name="<php> echo 'tbAdultPrice2'.$i</php>" value="<php> echo $postdata['tbAdultPrice2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lid">
+        <input id="<php> echo 'tbChildPrice2'.$i</php>" type="text" name="<php> echo 'tbChildPrice2'.$i</php>" value="<php> echo $postdata['tbChildPrice2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lie">
+        <input id="<php> echo 'tbAdultCommission2'.$i</php>" type="text" name="<php> echo 'tbAdultCommission2'.$i</php>" value="<php> echo $postdata['tbAdultCommission2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lif">
+        <input id="<php> echo 'tbChildCommission2'.$i</php>" type="text" name="<php> echo 'tbChildCommission2'.$i</php>" value="<php> echo $postdata['tbChildCommission2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)">
+      </li>
+      <li class="hlt_fit_price_agents_lih">
+        <input id="<php> echo 'tbCut2'.$i</php>" type="text" name="<php> echo 'tbCut2'.$i</php>" value="<php> echo $postdata['tbCut2'.$i]</php>" >
+      </li>
+      <li class="hlt_fit_price_agents_lig">
+        <input id="<php> echo 'tbAdultProfit2'.$i</php>" type="text" name="<php> echo 'tbAdultProfit2'.$i</php>" value="<php> echo $postdata['tbAdultProfit2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly">
+      </li>
+      <li class="hlt_fit_price_agents_lih">
+        <input id="<php> echo 'tbChildProfit2'.$i</php>" type="text" name="<php> echo 'tbChildProfit2'.$i</php>" value="<php> echo $postdata['tbChildProfit2'.$i]</php>"  onkeydown="Getthisvalue2(this)" onkeyup="Checkthisvalue2(this)" readonly="readonly">
+      </li>
+      <li class="hlt_fit_price_agents_lii">
+        <php>if($postdata){ </php>
+        <a href="<{:SITE_ADMIN}>Chanpin/deleteshoujiaxiang/xianluID/<{$xianluID}>/shoujiaID/<php> echo $postdata['shoujiaID2'.$i]</php>">删除</a>
+        <php>}else{ </php>
+        <a href="javascript:delete_row2('<{$i}>')">删除</a>
+        </td>
+        <php>} </php>
+      </li>
+    </ul>
+    <php>}</php>
+  </ol>
+  <ol id="hlt_fit_price_cost_b">
+    <ul id="hlt_fit_price_cost_lih">
+      <li><a href="#" onclick="insert_rows(); return false;"></a></li>
+    </ul>
+  </ol>
+  </div>
+  </div>
+  <div id="hlt_fit_price"><!--代理商销售价格-->
+    <div id="hlt_fit_price_cost">
+      <div id="hlt_fit_price_cost_a">
+        <div style="float:left"> 机票及酒店占位 </div>
+      </div>
+      <ol id="hlt_fit_price_cost_b">
+        <ul class="hlt_fit_price_cost_b_ol">
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">机酒占位数</li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">机票成人票价</li>
+          <li class="hlt_fit_price_agents_lid" style="width:100px;">机票儿童票价</li>
+          <li class="hlt_fit_price_agents_lie" style="width:100px;">机票折扣</li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">酒店成人售价</li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">酒店儿童售价</li>
+          <li class="hlt_fit_price_agents_lig" style="width:100px;">酒店折扣</li>
+        </ul>
+        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv1<{$i}>">
+          <li class="hlt_fit_price_agents_lic"  style="width:100px;">
+            <input type="text" name="airhotlenumber" id="airhotlenumber" value="<{$oldjiage['airhotlenumber']}>"  onkeyup="Checkthisvalue_1(this)" />
+          </li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">
+            <input type="text" name="adultcostair" id="adultcostair" value="<{$oldjiage['adultcostair']}>" onkeyup="Checkthisvalue_1(this)" />
+          </li>
+          <li class="hlt_fit_price_agents_lid" style="width:100px;">
+            <input type="text" name="childcostair" id="childcostair" value="<{$oldjiage['childcostair']}>" onkeyup="Checkthisvalue_1(this)" />
+          </li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">
+            <input type="text" name="aircut" id="aircut" value="<{$oldjiage['aircut']}>"  >
+          </li>
+          <li class="hlt_fit_price_agents_lie" style="width:100px;">
+            <input type="text" name="adultcosthotle" id="adultcosthotle" value="<{$oldjiage['adultcosthotle']}>" onkeyup="Checkthisvalue_1(this)" />
+          </li>
+          <li class="hlt_fit_price_agents_lic" style="width:100px;">
+            <input type="text" name="childcosthotle" id="childcosthotle" value="<{$oldjiage['childcosthotle']}>" onkeyup="Checkthisvalue_1(this)"/>
+          </li>
+          <li class="hlt_fit_price_agents_lig" style="width:100px;">
+            <input type="text" name="hotlecut" id="hotlecut" value="<{$oldjiage['hotlecut']}>"  >
+          </li>
+        </ul>
+      </ol>
+      <ul id="hlt_fit_price_bz" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+        <li>
+          <dl>
+            <dt style="width:308px;">成人总价：
+              <input readonly="readonly" type="text" id="adultAll" >
+            </dt>
+            <dt style="width:268px;">儿童总价：
+              <input readonly="readonly" type="text" id="childAll" >
+            </dt>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <input name="xuanzetype" type="hidden" id="xuanzetype" value="<php>if($postdata['ddlAgentType']) echo $postdata['ddlAgentType']; else echo 'Batch';</php>">
+  <input name="rowsnum0" type="hidden" id="rowsnum0" value="<php>if($postdata['rowsnum0']) echo $postdata['rowsnum0']; else echo 0;</php>">
+  <input name="rowsnum1" type="hidden" id="rowsnum1" value="<php>if($postdata['rowsnum1']) echo $postdata['rowsnum1']; else echo 0;</php>">
+  <input name="rowsnum2" type="hidden" id="rowsnum2" value="<php>if($postdata['rowsnum2']) echo $postdata['rowsnum2']; else echo 0;</php>">
+  <input name="rowsnum3" type="hidden" id="rowsnum3" value="<php>if($postdata['rowsnum3']) echo $postdata['rowsnum3']; else echo 0;</php>">
+  <input name="rowsnum4" type="hidden" id="rowsnum4" value="<php>if($postdata['rowsnum4']) echo $postdata['rowsnum4']; else echo 0;</php>">
+</form>
+</body>
+</html>
+<script>
+  Checkthisvalue_1();
+
+  function Checkthisvalue_1(obj)
+  {
+	 var airhotlenumber = parseInt($("#airhotlenumber").val());
+	 var adultcostair =  parseInt($("#adultcostair").val());
+	 var childcostair = parseInt($("#childcostair").val());
+	 var adultcosthotle =  parseInt($("#adultcosthotle").val());
+	 var childcosthotle =  parseInt($("#childcosthotle").val());
+	if(!airhotlenumber)
+		airhotlenumber = 0;  
+	if(!adultcostair)
+		adultcostair = 0;  
+	if(!childcostair)
+		childcostair = 0;  
+	if(!adultcosthotle)
+		adultcosthotle = 0;  
+	if(!childcosthotle)
+		childcosthotle = 0;  
+	 var adultAll = airhotlenumber*(adultcostair + adultcosthotle);
+	 var childAll = airhotlenumber*(childcostair + childcosthotle);
+	  
+	$("#adultAll").val(adultAll);
+	$("#childAll").val(childAll);
+
+
+  }
+</script>
+<script>
+function baocunbingxiayibu()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+
+</script>
+<script language="javascript">
+function openSub(idname,idid,ids)
+{
+	var obname=document.getElementById(idname + ids);
+	var url = "<{:SITE_ADMIN}>Liandong/getAgencys/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid;
+	
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>
+</script>
+<script type="text/javascript">
+
+function GetAgentType(obj)
+{
+  var classcontent='一级=二级,二级=二级,三级=三级';
+  var biaoshi=obj.id.replace("slAgentType","")
+  var slclass=document.getElementById("slClass"+biaoshi);
+  if(obj.value=="门市")
+  {
+        slclass.length=0;
+        var opt=new Option("全部","全部");
+        slclass.options.add(opt);
+      var array=classcontent.split(',');
+      if(array.length>0)
+      {
+        var strs="";
+        for(var i=0;i<array.length;i++)
+        {
+            strs=array[i].split('=');
+			
+			
+            var opt=new Option(strs[0],strs[1]);
+            slclass.options.add(opt);
+        }
+      }
+  }
+  else
+  {
+    slclass.length=0;
+    var opt=new Option("全部","全部");
+    slclass.options.add(opt);
+  }
+}
+</script>

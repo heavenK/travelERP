@@ -1,0 +1,35 @@
+<include file="Common:header" />
+<div class="infomation"><b>说明：</b>数据表优化可以去除数据文件中的碎片，使记录排列紧密，提高读写速度。</div><br/>
+<h3>数据库优化</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Database/dooptimize' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="70px">&nbsp;</td>
+    <td width="150px">数据表</td>
+    <td width="100px">类型</td>
+    <td width="100px">记录数</td>
+    <td width="100px">数据</td>
+    <td width="100px">索引</td>
+    <td>碎片</td>
+</tr>
+<php>foreach($tbdata as $val){</php>
+    <tr>
+        <td><{$val[0]}></td>
+        <td><{$val[1]}></td>
+        <td><{$val[2]}></td>
+        <td><{$val[3]}></td>
+        <td><{$val[4]}></td>
+        <td><{$val[5]}></td>
+        <td><{$val[6]}></td>
+    </tr>
+<php>}</php>
+    <tr>
+        <td colspan="7">尺寸 <{:sizecount($totalsize)}></td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" checked="checked" onclick="CheckAll('optimizetables', 'chkall')" id="chkall" name="chkall" class="checkbox"> 优化?</td>
+        <td colspan="6"><input type="submit" class="button1" value="提交优化"></td>
+    </tr>
+</table>
+</form>
+<include file="Common:foot" />

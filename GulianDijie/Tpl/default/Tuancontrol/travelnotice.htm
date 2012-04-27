@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.js"></script>
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                
+                <div style="text-align:center; margin-top:20px;" >
+                	<h2>旅游带团通知（行程计划）单</h2>
+                </div>
+                
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				.textgpc{width:98%; height:80%;}
+				</style>
+                
+                <form name="form1" id="form1" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                <input type="hidden" name="forward" id="forward" value="<{:SITE_DIJIE}>Tuancontrol/travelnotice/djtuanID/<{$tuan['djtuanID']}>" />
+                <php>if($itinerary){</php>
+                <input type="hidden" name="itineraryID" id="itineraryID" value="<{$itinerary['itineraryID']}>" />
+                <php>}</php>
+                <div class="jbxxy" >
+                    <table width="99%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody >
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>编号：</td>
+                            <td align="left" colspan="1" width="20%">
+                                <input name="number" id="number" class="textgp" value="<{$itinerary[number]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>导游员：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="guide" id="guide" class="textgp" value="<{$itinerary[guide]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>组团社：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="fromcompany" id="fromcompany" class="textgp" value="<{$itinerary[fromcompany]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>团号：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="tuannumber" id="tuannumber" class="textgp" value="<{$tuan[tuannumber]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>团标：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="tuanmark" id="tuanmark" class="textgp" value="<{$itinerary[tuanmark]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>实际人数：</td>
+                            <td align="left" colspan="2" width="10%">
+                                <input name="renshu" id="renshu" class="textgp" value="<{$itinerary[renshu]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>入住酒店：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="hotel" id="hotel" class="textgp" value="<{$itinerary[hotel]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>客房（间）：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="roomnumber" id="roomnumber" class="textgp" value="<{$itinerary[roomnumber]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>全陪：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="guidetype" id="guidetype" class="textgp" value="<{$itinerary[guidetype]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>电话：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="guidetelnum" id="guidetelnum" class="textgp" value="<{$itinerary[guidetelnum]}>"></td>
+                                
+                        </tr>
+                        
+                        <php>foreach($arrivetool_arr as $key => $arr){</php>
+                        <tr class="t1gp" id="arrive<{$key}>">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>抵达方式：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <select name="arrivetool[]" id="arrivetool<{$key}>" class="textgp">
+                                	<php>if($arrivetool_arr[$key]){</php>
+                                	<option value="<{$arrivetool_arr[$key]}>"><{$arrivetool_arr[$key]}></option>
+                                	<option disabled="disabled">--------------------</option>
+                                	<php>}</php>
+                                	<option value="轮船">轮船</option>
+                                	<option value="飞机">飞机</option>
+                                	<option value="火车">火车</option>
+                                </select>
+                            </td>     
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>搭乘时间：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="arrivedatestart[]" id="arrivedatestart<{$key}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  class="textgp" value="<{$arrivedatestart_arr[$key]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>抵达时间：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input name="arrivedateend[]" id="arrivedateend<{$key}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  style="width:33%"  value="<{$arrivedateend_arr[$key]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+							<php>if($key == count($arrivetool_arr) - 1){</php>
+                                <input id="add_arrive<{$key}>" type="button" value="增加" onclick="add_arrive(<{$key}>);" />
+                                <input id="del_arrive<{$key}>" type="button" value="删除" onclick="del_arrive(<{$key}>);" />
+                            <php>}else{</php>
+                                <input id="del_arrive<{$key}>" type="button" value="删除" onclick="del_arrive(<{$key}>);" />
+                            <php>}</php>
+                            </td>
+                        </tr>
+                        <php>}</php>
+                        
+                        <php>foreach($leavetool_arr as $key => $lea){</php>
+                        <tr id="leave<{$key}>">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>离开方式：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <select name="leavetool[]" id="leavetool<{$key}>" class="textgp">
+                                	<php>if($leavetool_arr[$key]){</php>
+                                	<option value="<{$leavetool_arr[$key]}>"><{$leavetool_arr[$key]}></option>
+                                	<option disabled="disabled">--------------------</option>
+                                	<php>}</php>
+                                	<option value="轮船">轮船</option>
+                                	<option value="飞机">飞机</option>
+                                	<option value="火车">火车</option>
+                                </select>
+                            </td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>搭乘时间：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="leavedate[]" id="leavedate<{$key}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="textgp" value="<{$leavedate_arr[$key]}>"></td>
+                            <td align="right" height="42" width="10%">
+                            <php>if($key == count($leavetool_arr) - 1){</php>
+                                <input id="add_leave<{$key}>" type="button" value="增加" onclick="add_leave(<{$key}>);" />
+                                <input id="del_leave<{$key}>" type="button" value="删除" onclick="del_leave(<{$key}>);" />
+                            <php>}else{</php>
+                                <input id="del_leave<{$key}>" type="button" value="删除" onclick="del_leave(<{$key}>);" />
+                            <php>}</php> 
+                            </td>
+                        </tr>
+                        <php>}</php>
+                        <tr height="50px;">
+                        <td>
+                        <h3>活动日程</h3>
+                        </td>
+                        </tr>
+                            	<input type="hidden" name="daynumber" id="daynumber" value="<{$tuan['days']}>" >
+                                
+                        <php>for($i=0; $i< $tuan['days']; $i++){</php>
+                        <tr style="height:150px;"  <php>if($i%2 == 0)echo 'class="t1gp"'</php>>
+							<input type="hidden" name="rcitemID[]" id="rcitemID"  value="<{$rcitemAll[$i][rcitemID]}>" />
+                            <td align="left" height="42" width="10%">
+                            	<input type="hidden" name="date[]" id="date" value="<php>echo jisuanriqi($tuan['startdate'],$i+1)</php>" >
+                                <h3><php>echo jisuanriqi($tuan['startdate'],$i+1)</php><br />日程安排：</h3></td>
+                            <td align="left" height="42" colspan="3"  width="40%">
+                            	<textarea name="content[]" id="content"  class="textgpc"><{$rcitemAll[$i][content]}></textarea>
+                            </td>
+                                
+                            <td align="left" colspan="5" width="50%">
+                            
+                                <table width="100%">
+                                  <tr>
+                                    <td align="center">餐标（元）</td>
+                                    <td align="center">就餐地点</td>
+                                    <td align="center">联系电话</td>
+                                  </tr>
+                                  <tr>
+                                    <td>早<input name="breakfastprice[]" id="breakfastprice" style="width:80%" value="<{$rcitemAll[$i][breakfastprice]}>"></td>
+                                    <td><input name="breakfastplace[]" id="breakfastplace" class="textgp" value="<{$rcitemAll[$i][breakfastplace]}>"></td>
+                                    <td><input name="breakfasttelnum[]" id="breakfasttelnum" class="textgp" value="<{$rcitemAll[$i][breakfasttelnum]}>"></td>
+                                  </tr>
+                                  <tr>
+                                    <td>中<input name="lunchprice[]" id="lunchprice" style="width:80%" value="<{$rcitemAll[$i][lunchprice]}>"></td>
+                                    <td><input name="lunchplace[]" id="lunchplace" class="textgp" value="<{$rcitemAll[$i][lunchplace]}>"></td>
+                                    <td><input name="lunchtelnum[]" id="lunchtelnum" class="textgp" value="<{$rcitemAll[$i][lunchtelnum]}>"></td>
+                                  </tr>
+                                  <tr>
+                                    <td>晚<input name="dinnerprice[]" id="dinnerprice" style="width:80%" value="<{$rcitemAll[$i][dinnerprice]}>"></td>
+                                    <td><input name="dinnerpalce[]" id="dinnerpalce" class="textgp" value="<{$rcitemAll[$i][dinnerpalce]}>"></td>
+                                    <td><input name="dinnertelnum[]" id="dinnertelnum" class="textgp" value="<{$rcitemAll[$i][dinnertelnum]}>"></td>
+                                  </tr>
+                                  <tr>
+                                    <td><input name="othertitle[]" id="othertitle" style="width:89%" value="<{$rcitemAll[$i][othertitle]}>"></td>
+                                    <td><input name="otherpalce[]" id="otherpalce" class="textgp" value="<{$rcitemAll[$i][otherpalce]}>"></td>
+                                    <td><input name="othertelnum[]" id="othertelnum" class="textgp" value="<{$rcitemAll[$i][othertelnum]}>"></td>
+                                  </tr>
+                                </table>
+                            
+                            </td>
+                        </tr>
+                        <php>}</php>
+                        
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>旅游车号：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="carnumber" id="carnumber" class="textgp" value="<{$itinerary[carnumber]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>驾驶员：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="carpilot" id="carpilot" class="textgp" value="<{$itinerary[carpilot]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>驾驶员电话：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input name="cartelnum" id="cartelnum" style="width:33%" value="<{$itinerary[cartelnum]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>地接旅行社：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="oncompany" id="oncompany" class="textgp" value="<{$itinerary[oncompany]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>计调：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="jidiao" id="jidiao" class="textgp" value="<{$itinerary[jidiao]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>计调电话：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input name="jidiaotelnum" id="jidiaotelnum" class="textgp" value="<{$itinerary[jidiaotelnum]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr >
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>备注：</td>
+                            <td align="left" colspan="10" width="70%">
+                              <textarea name="remark" id="remark"  class="textgpb"><{$itinerary[remark]}></textarea></td>
+                        </tr>
+                        
+                        <tr height="50px;" style="background-color:#CCC;">
+                        <td width="100%" colspan="10" style=" border-bottom:#000 solid 1px;">
+                        </td>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+                </div>
+                </form>
+            </div>
+
+
+</body>
+</html>
+<script>
+function add_arrive(key)
+{
+	var new_key = key + 1;
+	var arr_tr = '<tr class="t1gp" id="arrive' + new_key + '"><td align="left" height="42" width="10%"><font color="red">*</font>抵达方式：</td><td align="left" colspan="1" width="10%"><select name="arrivetool[]" id="arrivetool' + new_key + '" class="textgp"><option value="轮船">轮船</option><option value="飞机">飞机</option><option value="火车">火车</option></select></td><td align="right" height="42" width="10%"><font color="red">*</font>搭乘时间：</td><td align="left" colspan="1" width="10%"><input name="arrivedatestart[]" id="arrivedatestart' + new_key + '" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm\'})"  class="textgp" value=""></td><td align="right" height="42" width="10%"><font color="red">*</font>抵达时间：</td><td align="left" colspan="3" width="10%"><input name="arrivedateend[]" id="arrivedateend' + new_key + '" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm\'})"  style="width:33%"  value=""></td><td align="right" height="42" width="10%"><input id="add_arrive' + new_key + '" type="button" value="增加" onclick="add_arrive(' + new_key + ');" /><input id="del_arrive' + new_key + '" type="button" value="删除" onclick="del_arrive(' + new_key + ');" /></td></tr>';
+	$("#arrive"+key).after(arr_tr);
+	$("#add_arrive"+key).remove();
+}
+
+function add_leave(key)
+{
+	var new_key = key + 1;
+	var arr_tr = '<tr id="leave' + new_key + '"><td align="left" height="42" width="10%"><font color="red">*</font>离开方式：</td><td align="left" colspan="1" width="10%"><select name="leavetool[]" id="leavetool' + new_key + '" class="textgp"><option value="轮船">轮船</option><option value="飞机">飞机</option><option value="火车">火车</option</select></td><td align="right" height="42" width="10%"><font color="red">*</font>搭乘时间：</td><td align="left" colspan="1" width="10%"><input name="leavedate[]" id="leavedate' + new_key + '" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm\'})" class="textgp" value=""></td><td align="right" height="42" width="10%"><input id="add_leave' + new_key + '" type="button" value="增加" onclick="add_leave(' + new_key + ');" /><input id="del_leave' + new_key + '" type="button" value="删除" onclick="del_leave(' + new_key + ');" /><td></tr>';
+	$("#leave"+key).after(arr_tr);
+	$("#add_leave"+key).remove();
+}
+
+function del_arrive(key)
+{
+	$("#arrive"+key).remove();
+}
+
+function del_leave(key)
+{
+	$("#leave"+key).remove();
+}
+
+
+function dosave()
+{
+    var url='<{:SITE_DIJIE}>Tuancreate/dopostItinerary';
+	document.getElementById('form1').action = url;
+	document.getElementById('form1').submit();
+	
+}
+
+
+</script>

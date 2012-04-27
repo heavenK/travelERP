@@ -1,0 +1,14 @@
+<include file="header" />
+<h2> <{:L('at_mytalk')}></h2>
+<ul>
+<php>if(count($content)>0){</php>
+    <php>foreach($content as $val){
+        echo $ctent->wapli($val,$my['user_id'],'at',1);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('no_talks_this_time')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+</div>
+<include file="footer" />

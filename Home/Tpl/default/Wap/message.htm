@@ -1,0 +1,26 @@
+<include file="header" />
+<h2><{:L('wap_my_message')}></h2>
+<ul>
+<php>if($count>0){</php>
+    <php>foreach($data as $val){</php>
+    <li>
+        <div>
+        <php>if($val[senduid]==0){</php>
+        <{:L('system_message')}>
+        <php>}else{</php>
+        <a href="<{:SITE_URL}>/Wap/space/user_name/<{:rawurlencode($val[user_name])}>" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a>
+        <php>}</php>
+        <h5>:</h5><{:$ctent->wapubb($val[messagebody])}></div>
+        <div class="stamp"><{:timeop($val[sendtime])}>&nbsp;&nbsp;
+        <php>if($my[user_id]!=$val[uid]){</php>
+        <a href="<{:SITE_URL}>/Wap/sendprimsg/user_name/<{:rawurlencode($val[user_name])}>/from/<{:base64_encode('message')}>"><{:L('reply_message')}></a>&nbsp;&nbsp;
+        <php>}</php>
+        <a href="<{:SITE_URL}>/Wap/delprimsg/mid/<{$val[message_id]}>"><{:L('delete')}></a></div>
+    </li>
+    <php>}</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('wap_mo_message')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fitqianzheng.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/json.js" language="javascript" ></script>
+<script>
+function doprint()
+{
+	var qianzhengID = $("#qianzhengID").val();
+    var url = '<{:SITE_ADMIN}>Qianzheng/addnew/doprint/ispirnt/qianzhengID/'+qianzhengID;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+function doprint_2()
+{
+	var qianzhengID = $("#qianzhengID").val();
+    var url = '<{:SITE_ADMIN}>Qianzheng/addnew/doprint/ispirnt/printtype/计调/qianzhengID/'+qianzhengID;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+    <php>if(!$qianzheng[qianzhengID]){</php>
+       alert('添加信息前请先点击"保存"！');
+    <php>}</php>
+</script>
+
+<title><{$navtile}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navtile}>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    <php>if($zituan){</php>
+        <include file="Kongguan:navlist" />        
+    <php>}</php>
+    <php>if(!$qianzheng[qianzhengID]){</php>
+        *　添加信息前请先点击"保存"！
+    <php>}</php>
+    
+        <div id="hlt_fit_published_cont" style="margin-top:25px;"><!--内容-->
+        	&nbsp;&nbsp;状态：<php>if($qianzheng[status]){</php>
+                            	<{$qianzheng[status]}>
+                            <php>}else{</php>
+                            	准备中
+                            <php>}</php>
+        	<div class="plan_jh_fb">
+            <php>if($qianzheng[qianzhengID]){</php>
+            <a href="javascript:addsave()" class="plan_jh_fb_link_c_qz" title="修改"></a>
+            <a href="javascript:doprint();" class="plan_jh_fb_link_a_qz" title="打印"></a>
+            <a href="javascript:doprint_2();" class="hlt_fit_published_button_y" title="计调打印"></a>
+                <php>if(!$qianzheng[manager]){</php>
+                <a href="javascript:tijiao();" class="hlt_fit_published_button_b" title="提交审核"></a>
+                <php>}</php>
+            <php>}else{</php>
+            <a href="javascript:addsave()" class="plan_jh_fb_link_b_qz" title="保存"></a>
+            <php>}</php>
+            
+            
+            <php>if(checkByadminlevel_v('财务操作员,网管',$this->tVar)){</php>
+            <span  style="float:left">财务：</span>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/财务/dotype/审核通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/财务/dotype/审核不通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <php>}</php>
+            
+            <php>if(checkByadminlevel_v('计调经理,地接经理,网管',$this->tVar)){</php>
+            <a  style="float:right" href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/经理/dotype/审核通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a  style="float:right" href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/经理/dotype/审核不通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <span  style="float:right">经理：</span>
+            <php>}</php>
+            
+            <php>if(checkByadminlevel_v('财务总监,网管',$this->tVar)){</php>
+            <span  style="float:left">财务总监：</span>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/财务总监/dotype/审核通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/财务总监/dotype/审核不通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <php>}</php>
+            
+            <php>if(checkByadminlevel_v('总经理,网管',$this->tVar)){</php>
+            <span  style="float:left">总经理：</span>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/总经理/dotype/审核通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a href="<{:SITE_ADMIN}>Qianzheng/qianzhengshenhe/roletype/总经理/dotype/审核不通过/qianzhengID/<{$qianzheng[qianzhengID]}>" onclick="return confirm('确定要审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <php>}</php>
+            
+            </div>
+    <form method="post" enctype="multipart/form-data" name="form" id="form">
+    <input type="hidden" name="zituanID" id="zituanID" value="<{$zituan[zituanID]}>" >
+    <input type="hidden" name="kind" id="kind" value="<{$kind}>" >
+    <input type="hidden" name="tijiao" id="tijiao" value="0" >
+    <input type="hidden" name="qianzhengID" id="qianzhengID" value="<{$qianzheng[qianzhengID]}>" >
+            <div id="plan_jh">                
+                <div class="plan_jh_b">出境旅游团（者）费用结算报告表</div>
+                <div id="plan_jh_a">
+                    <div class="plan_jh_f_a"><span>旅游团（者）名称：</span><input type="text" name="title" value="<{$qianzheng[title]}>" /></div>
+                    <div class="plan_jh_j"><b>填送日期：</b><input type="text" name="inputdate" onfocus="WdatePicker()" value="<{$qianzheng[inputdate]}>" /></div>
+                    <div class="plan_jh_k"><b>旅游线路：</b><input type="text" name="title_ext" value="<{$qianzheng[title_ext]}>" /></div>
+                    <div class="plan_jh_l"><b>天数：</b><input type="text" name="tianshu" value="<{$qianzheng[tianshu]}>" /></div>
+                    <div class="plan_jh_m"><b>人数：</b><input type="text" name="renshu" value="<{$qianzheng[renshu]}>" /></div>
+                    <div class="plan_jh_r"><b>全程陪同：</b><input type="text" name="quanchengpeitong" value="<{$qianzheng[quanchengpeitong]}>" /></div>
+                    <div class="plan_jh_s"><b>境外接待社：</b><input type="text" name="jingwaijiedaishe" value="<{$qianzheng[jingwaijiedaishe]}>" /></div>
+                    <div class="plan_jh_n"><b>抵连时间：</b><input type="text" name="arrivetime" onfocus="WdatePicker({startDate:'<{$qianzheng[arrivetime]}>',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" value="<{$qianzheng[arrivetime]}>" />
+                    <select name="arrivetool" style="width:80px; height:24px; margin-left:10px;">
+                    	<php>if($qianzheng[arrivetool]){</php>
+                    	<option value="<{$qianzheng[arrivetool]}>" ><{$qianzheng[arrivetool]}></option>
+                    	<option disabled="disabled">---------------</option>
+                    	<php>}</php>
+                    	<option value="船" >船</option>
+                    	<option value="机" >机</option>
+                    	<option value="车" >车</option>
+                    </select>
+                    
+                    </div>
+                    <div class="plan_jh_o"><b>离连时间：</b><input type="text" name="leavetime" onfocus="WdatePicker({startDate:'<{$qianzheng[leavetime]}>',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" value="<{$qianzheng[leavetime]}>" />
+                    <select name="leavetool" style="width:80px; height:24px; margin-left:10px;">
+                    	<php>if($qianzheng[leavetool]){</php>
+                    	<option value="<{$qianzheng[leavetool]}>" ><{$qianzheng[leavetool]}></option>
+                    	<option disabled="disabled">---------------</option>
+                    	<php>}</php>
+                    	<option value="船" >船</option>
+                    	<option value="机" >机</option>
+                    	<option value="车" >车</option>
+                    </select>
+                    
+                    </div>
+                    <div class="plan_jh_p"><b>不换汇人员：</b><input type="text" name="buhuanhui" value="<{$qianzheng[buhuanhui]}>" /></div>
+                    <div class="plan_jh_q"><b>因私护照：</b><input type="text" name="yinsihuzhao" value="<{$qianzheng[yinsihuzhao]}>" /></div>
+                    <div class="plan_jh_r"><b>不返程人员：</b><input type="text" name="bufancheng" value="<{$qianzheng[bufancheng]}>" /></div>
+                    <div class="plan_jh_s"><b>外地户口：</b><input type="text" name="waidihukou" value="<{$qianzheng[waidihukou]}>" /></div>
+                    <div class="plan_jh_f_a"><span>备注：</span><textarea style="width:560px; height:100px" name="other"><{$qianzheng[other]}></textarea></div>
+                 </div>
+            </div>
+            <input type="hidden" id="countnum" value="<{$num}>" />
+            
+            <include file="qzitem" />    
+            
+            
+            <div id="hlt_fit_price_qz"><!--利润-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a_qz">利润</div>
+                	<ol id="hlt_fit_price_cost_b_qz">
+                    	<ul class="hlt_fit_price_cost_b_ol_qz">
+                            <li class="hlt_fit_price_cost_lia_b">利润</li>
+                        </ul>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_b" id="lirun"><{$lirun}></li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>
+            <div id="hlt_fit_price_qz"><!--负责人-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a_qz">部门经理（负责人）</div>
+                	<ol id="hlt_fit_price_cost_b_qz">
+                    	<ul class="hlt_fit_price_cost_b_ol_qz">
+                            <li class="hlt_fit_price_cost_lia_b">部门经理（负责人）</li>
+                        </ul>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_b">
+                            
+                            <php>if($qianzheng['manager']){</php>
+                            <{$qianzheng['manager']}> 已确认
+                            <php>}else{</php>
+                            <span>未确认</span></li>
+                            <php>}</php>
+                            
+                        </ul>
+                    </ol>
+                </div>
+            </div>
+            <div id="hlt_fit_price_qz"><!--经办人-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a_qz">经办人</div>
+                	<ol id="hlt_fit_price_cost_b_qz">
+                    	<ul class="hlt_fit_price_cost_b_ol_qz">
+                            <li class="hlt_fit_price_cost_lia_b">经办人</li>
+                        </ul>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_b"><{$qianzheng[username]}></li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>
+      	</div>
+  </div>
+   </form> 
+</div>
+
+</body>
+</html>
+
+<script>
+
+  function insert_row(tab,type,tab2)
+  {
+		var curnum = parseInt($('#countnum').val())+1;
+		
+		var tem = parseInt($(tab2).val())+1;
+		
+		var htmlcontent =  '<ul  id="a_tab_'+curnum+'" onmouseover="this.style.backgroundColor=\'#bce5df\'" onmouseout="this.style.backgroundColor=\'\'"><li class="hlt_fit_price_cost_lia_a"><input type="hidden" id="qzitemID_'+curnum+'" />'+tem+'</li><li class="hlt_fit_price_cost_lib_a"><input type="text" id="title_'+curnum+'" ></li><li class="hlt_fit_price_cost_lic_a"><input type="text" id="value_'+curnum+'" ></li><li id="oper_'+curnum+'" class="hlt_fit_price_cost_lig_a" style="width:80px;"><a href="javascript:additem(\''+type+'\',\''+curnum+'\')" title="保存">保存</a></li></ul>';
+		
+		$('#countnum').val(curnum);
+		$(tab2).val(tem);
+		
+		$(tab).append(htmlcontent);	  
+  }
+
+
+</script>
+
+<script>
+function tijiao()
+{
+	$("#tijiao").val('1');
+    var url='<{:SITE_ADMIN}>Qianzheng/dopostqianzheng';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+function addsave()
+{
+    var url='<{:SITE_ADMIN}>Qianzheng/dopostqianzheng';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+function additem(type,id){
+	var qianzhengID = $("#qianzhengID").val();
+	
+	var qzitemID = $("#qzitemID_"+id).val();
+	var title = $("#title_"+id).val();
+	var value = $("#value_"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_ADMIN}>Qianzheng/ajaxadditem",
+		data:	"qianzhengID="+qianzhengID+"&qzitemID="+qzitemID+"&type="+type+"&title="+title+"&value="+value,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！请点击保存后添加子项');
+					}
+					else{
+						alert('添加成功！');
+						
+						 $("#qzitemID_"+id).val(msg);
+						
+						var edit_button = '<a href="javascript:additem(\'应收费用\',\''+id+'\')" title="修改">修改</a>&nbsp;<a href="javascript:deleteitem(\'#a_tab_'+id+'\',\''+id+'\')" title="删除">删除</a>';
+						$("#oper_"+id).html(edit_button);
+						docount();
+					}
+				  }
+	});
+}
+
+
+
+function deleteitem(tab,id){
+	
+	var qzitemID = $("#qzitemID_"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_ADMIN}>Qianzheng/ajaxdeleteitem",
+		data:	"qzitemID="+qzitemID,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！');
+					}
+					else{
+						alert('删除成功！');
+						$(tab).remove();
+						docount();
+					}
+				  }
+	});
+}
+
+function docount(){
+	
+	var qianzhengID = $("#qianzhengID").val();
+	if(!qianzhengID)
+	alert('请点击保存后添加子项');
+		$.ajax({
+			type:	"POST",
+			url:	"<{:SITE_ADMIN}>Qianzheng/ajaxcount",
+			data:	"qianzhengID="+qianzhengID,
+			success:	function(msg){
+						var obj = msg.parseJSON();
+						$("#total_1").html(obj.total_1);
+						$("#total_2").html(obj.total_2);
+						$("#lirun").html(obj.lirun);
+					  }
+		});
+}
+
+</script>

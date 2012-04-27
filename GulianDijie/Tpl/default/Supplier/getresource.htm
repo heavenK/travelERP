@@ -1,0 +1,118 @@
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script language="javascript">
+	$("document").ready(function(){
+	var arr = $("#own").attr("value").split(',');
+	for(var i in arr){
+		v = arr[i]
+		$("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
+	}
+	
+	})
+   
+	function selectAll(obj){
+		$("input[name='checkboxs']").attr("checked", $(obj).attr("checked"));
+	}
+	
+	function getonlyone(obj){
+		$("input[name='checkboxs']").attr("checked", false);
+		$(obj).attr("checked", true);		
+	}
+	
+	function sendValue(){
+		$("input[name='checkboxs']:checked").each(function(i){
+			if (i == '0') {
+				str = $(this).attr('value');
+				idds = $(this).attr('id');
+			}
+			else {
+				str += ',' + $(this).attr('value');
+				idds += ',' + $(this).attr('id');
+			}
+		})
+		
+		window.opener.document.getElementById("<{$idname}>" + $("#ids").attr("value")).value=str;
+		window.opener.document.getElementById("<{$idid}>" + $("#ids").attr("value")).value=idds;
+		window.opener.document.getElementById("<{$idname}>" + $("#ids").attr("value")).disabled = true;
+		window.close();
+
+	}
+	
+	function addNew(){
+		
+		var title = $("#addTitle").val();
+		
+		$.ajax({
+		  type:	"POST",
+		  url:	"<{:SITE_DIJIE}>Supplier/ajax_add",
+		  async: false,
+		  data:	"type=<{$type}>&title=" + title,
+		  success:	function(msg){
+						if(msg != 'false') {
+							var str = '<tr><td height="27" width="3%" align="center"><span title="12"><input onclick="getonlyone(this)" type="checkbox" id="' + msg + '" name="checkboxs" value="' + title + '"></span></td><td height="27" width="20%" align="center">' + title + '</td><td height="27" width="10%" align="center"><{$type}></td><td height="27" width="10%" align="center"></td><td height="27" width="10%" align="center"></td><td height="27" width="10%" align="center"></td></tr>';
+							$("#title_tr").after(str);
+							$("#addTitle").val('');
+							
+						}else{
+							alert("添加入库失败，你可能没有权限！");	
+						}
+					}
+	    });
+
+	}
+      
+</script>
+
+
+<input type="button" id="send" onclick="sendValue();" value="确认"/>
+<input type="text" id="addTitle" />
+<input type="button" id="addNews" onclick="addNew();" value="添加"/>
+<input type="hidden" id="own" value="<{$own}>" />
+<input type="hidden" id="ids" value="<{$ids}>" />
+	<table width="100%" border="1">
+								<tr id='title_tr'>
+                                    <th height="32" width="33" align="center">
+                                        <input name="checkbox" onclick="selectAll(this);" type="checkbox" disabled="disabled">
+                                    </th>
+                                    <th height="32" align="center">
+                                        名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        类型
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系人
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系电话
+                                    </th>
+                                    <th height="32" align="center">
+                                        价格
+                                    </th>
+                                </tr>
+		<php>foreach($resourceAll as $resource){</php>
+								<tr>
+                                    <td height="27" width="3%" align="center">
+                                            <span title="12">
+                                            <input onclick="getonlyone(this)" type="checkbox" id="<{$resource[resourceID]}>" name="checkboxs" value="<{$resource[title]}>">
+                                            </span>
+                                    </td>
+                                    <td height="27" width="20%" align="center">
+                                        <{$resource[title]}>
+                                    </td>
+                                    <td height="27" width="10%" align="center">
+										<{$resource[type]}>
+                                    </td>
+                                    <td height="27" width="10%" align="center">
+                                        <{$resource[contact]}>
+                                    </td>
+                                    <td height="27" width="10%" align="center">
+                                        <{$resource[telnum]}>
+                                    </td>
+                                    <td height="27" width="10%" align="center">
+                                        <{$resource[price]}>
+                                    </td>
+                                </tr>
+		<php>}</php>
+        
+        
+	</table>	

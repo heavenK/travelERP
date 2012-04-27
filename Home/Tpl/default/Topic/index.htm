@@ -1,0 +1,182 @@
+<include file="Common:header" />
+<php>if($keyword){</php>
+<table id="columns">
+<tr>
+<td id="main">
+    <div id="infohead">
+        <div class="hometip">
+            <span class="fleft"><{:L('topic_title')}><{$keyword}></span>
+            <span class="fright"><{$hook['topic_top']}></span>
+        </div>
+        <textarea id="contentbox" class="input_text headtextarea" onkeydown="javascript:return ctrlEnter_st(event);"></textarea>
+        <div class="sendbox">
+        <div id="uploadbox">
+            <div id="emotion"></div>
+            <div class="topic"><a href="javascript:void(0);" onclick="Sharetopic()"><{:L('topic')}></a>
+            <div id="sharetopic">
+                <div class="topicbox">
+                <ul id="tabnav2"> 
+                    <a id="topic1" onclick="topicajax(1);" href="javascript:void(0)"><{:L('who_i_attation')}></a>
+                    <a id="topic2" onclick="topicajax(2);" href="javascript:void(0)"><{:L('recommend_topics')}></a>
+                </ul> 
+                <ul class="tagB"></ul>
+                </div>
+            </div>
+            </div>
+            <div class="video"><a href="javascript:void(0);"><{:L('video')}></a>
+            <div id="sharevideo" style="display:none">
+                <p><{:L('video_info')}></p>
+	            <p><{:L('video_s')}>：<a href="http://video.sina.com.cn/" rel="nofollow" target="_blank"><{:L('sina')}></a>、<a href="http://www.youku.com/" rel="nofollow" target="_blank"><{:L('youku')}></a>、<a href="http://v.blog.sohu.com/" rel="nofollow" target="_blank"><{:L('sohu')}></a>、<a href="http://www.ku6.com/" rel="nofollow" target="_blank"><{:L('ku6')}></a>、<a href="http://www.tudou.com/" rel="nofollow" target="_blank"><{:L('tudou')}></a>、<a href="http://tv.mofile.com/" rel="nofollow" target="_blank"><{:L('mofang')}></a></p>
+            </div></div>
+            <div class="emos"><a href="javascript:void(0);" onclick="showemotion('emotion','contentbox')"><{:L('emtion')}></a></div>
+            <div class="photo">
+                <div id="loadform" style="display:block">
+                    <form class="picForm" target="imageUpload" method="post" enctype="multipart/form-data" action="<{:SITE_URL}>/Space/uploadpic" id="upform">
+                        <input type="file" id="uploadbtn" class="uploadbtn" name="image" title="<{:L('photo_info3')}>"/>
+                    </form>
+                    <span id="photoico">&nbsp;</span>
+                    <a href="javascript:void(0);"><{:L('photo')}></a>
+                </div>
+                <div id="priviewbtn"></div>
+                <div id="uploading"><img src='<{:__PUBLIC__}>/images/spinner.gif'> <{:L('photo_info2')}> <a onclick='cencelUpload();' class='greyclose'>x</a></div>
+                <div id="priviewpoic"></div>
+                <div class="photobox">
+                    <span id="photoico2">&nbsp;</span>
+                    <a href="javascript:void(0);" onclick="$('.outphotobox').show();$('.photobox').hide();"><{:L('link')}></a>
+                </div>
+            </div>
+            <div class="clearline"></div>
+            <div class="outphotobox">
+                <p><div class="fleft"><{:L('picout')}></div><div class="fright close1" onclick="$('.outphotobox').hide()"></div></p>
+                <p><input class="input_text" type="text" id="outphotourl">&nbsp;&nbsp;<button class="button5" onclick="uploadouturl()"><{:L('sure')}></button></p>
+            </div>
+            <iframe style="display:none;" src="about:blank" name="imageUpload" id="imageUpload"></iframe>
+            <span id="morecontent" style="display:none;"></span>
+        </div>
+        <div class="fright">
+            <input type="hidden" id="topic" value="#<{$keyword}>#">
+            <div class="sendtip"><span class="sendsp"><{:L('also_can_input')}><span id="nums">140</span><{:L('word_zi')}></span></div>
+            <input type="button" class="sendbutton" onclick="sendTalk()" value="<{:L('sendtalkbtn')}>"/>
+        </div>
+        </div>
+    </div>
+    <div class="clearline"></div>
+    <div class="contenter">
+        <{$hook['topic_left_mid1']}>
+        <div class="ad3"><{:stripslashes($site['ad3'])}></div>
+        <{$hook['topic_left_mid2']}>
+        <div class="hometitle">
+            <div class="mine"><{:L('a_total_have')}> <span id="keynum"><{$count}></span> <{:L('talk_unit')}><{:L('talk')}></div>
+        </div>
+        <div id="stream" class="message">
+            <ol class="wa">
+            <php>if($count>0){</php>
+                <php>foreach($content as $val){</php>
+                    <{:$ctent->loadoneli($val);}>
+                <php>}</php>
+            <php>}else{</php>
+                <li class="unlight" id="nonemsg"><{:L('no_pub_topic')}></li>
+            <php>}</php>
+            </ol>				
+        </div>
+    </div>
+</td>
+<td id="sidebar" rowspan="2">
+<div class="contenter">
+    <{$hook['topic_side_top']}>
+    
+    <php>if($topic){</php>
+    <div class="sect first-sect">
+        <php>if($topic['info']){</php>
+            <p><b><{:L('topic_info')}></b><{$topic['info']}></p>
+        <php>}</php>
+        <p><b><{:L('topic_follownum')}></b><{$topic['follownum']}> <{:L('people')}></p>
+
+        <div id="followtopic" style="font-size:12px;font-weight:normal;margin:10px 0 20px 0">
+            <php>if($count>0){</php>
+                <php>if($isfollow==1){</php>
+                    <a class='bl' onclick="fltopic('<{$keyword}>','<{:L('is_cancle_attention_topic')}>','jc')"><{:L('yes_cancle_attention_topic')}></a>
+                <php>}else{</php>
+                    <a class="bh" onclick="fltopic('<{$keyword}>','','fl')"><{:L('yes_attention_topic')}></a>
+                <php>}</php>
+            <php>}</php>
+        </div>
+    </div>
+    
+    <php>if($topic['follownum']>0){</php>
+    <div class="sect">
+        <h2><{:L('newfuser')}></h2>
+        <ul class="alist">
+        <php>foreach($topicusers as $val){</php>
+        <li><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>"><img src="<{:sethead($val[user_head])}>" class="followpreview" id="fu<{$val[user_id]}>" alt="<{$val[nickname]}>"><span><{$val[nickname]}></span></a><div></div>
+        </li>
+        <php>}</php>
+        </ul>
+    </div>
+    <php>}</php>
+
+    <php>}else{</php>
+    <div class="sect first-sect"><{:L('notcreate')}></div>
+    <php>}</php>
+
+    <{$hottopic}>
+    <div class="sect">
+        <h2><{:L('youqingtishi')}></h2>
+        <{:L('youqingtishi_info1')}><a href="<{:SITE_URL}>/k/<{:L('youqingtishi_info3')}>">#<{:L('youqingtishi_info3')}>#</a> <{:L('youqingtishi_info2')}>
+    </div>
+    <{$hook['topic_side_bottom']}>
+</div>
+</td>
+</tr>
+<tr>
+<td height="36px"><div id="indexpage" class="page"><{$page}></div></td>
+</tr>
+</table>
+<php>}else{</php>
+<div class="friends">
+<div id="stream">
+    <div class="titleline">
+        <div class="line"></div>
+        <div class="h4"><{:L('all_topic_list')}></div>
+    </div>
+    <div class="ranklist">
+        <h4><span class="more"> <{:L('topics_num_total')}></span><{:L('hot_topic_list')}></h4>
+        <ul class="top_list">
+        <php>foreach($topic1 as $key=>$val){</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[topictimes]}></em>
+                <a href="<{:SITE_URL}>/k/<{$val[topicname]}>"><{$val[topicname]}></a>
+            </li>
+        <php>}</php>
+        </ul>
+    </div> 
+    <div class="ranklist">
+        <h4><span class="more"> <{:L('topics_num_total')}></span> <{:L('recom_topic_list')}></h4>
+        <ul class="top_list">
+        <php>foreach($topic2 as $key=>$val){</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[topictimes]}></em>
+                <a href="<{:SITE_URL}>/k/<{$val[topicname]}>"><{$val[topicname]}></a>
+            </li>
+        <php>}</php>
+        </ul>
+    </div>
+    <div class="ranklist" style="margin-right:0px">
+        <h4><span class="more"><{:L('attention_topic_user')}></span><{:L('attention_topic_list')}></h4>
+        <ul class="top_list">
+        <php>foreach($topic3 as $key=>$val){</php>
+            <li>
+                <span><{:($key+1)}></span>
+                <em><{$val[follownum]}></em>
+                <a href="<{:SITE_URL}>/k/<{$val[topicname]}>"><{$val[topicname]}></a>
+            </li>
+        <php>}</php>
+        </ul>
+    </div>
+    <div class="clearline"></div>
+</div>
+</div>
+<php>}</php>
+<include file="Common:foot" />

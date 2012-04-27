@@ -1,0 +1,144 @@
+<include file="Common:header" />
+<div class="reg_header"><{:L('welcome_join')}><font color="#ff9000"><{$site[sitename]}></font>，<{:L('please_input_reg_info')}></div>
+<div id="register" <php>if($site['footsimple']==0){</php>style="margin-bottom:-17px"<php>}</php>>
+    <div class="fleft" style="border-right:1px solid #ececec;">
+    <{$hook['register_top']}>
+    <php>if($user[user_id]){</php>
+        <div class="invite">
+            <div class="fleft"><img src="<{:sethead($user[user_head])}>"></div>
+            <div class="fleft" style="margin-left:10px"><p><b><{$user[nickname]}></b><small>(@<{$user[user_name]}>)</small></p><p> <{:L('invite_you_join')}><{$site[sitename]}>，<{:L('after_reg_follow')}></p></div>
+            <div class="clearline"></div>
+        </div>
+    <php>}</php>
+    <php>if($site['closereg']==3){</php>
+        <div class="invite"><{:L('input_invitecode')}></div>
+    <php>}</php>
+    <form method="post" action="##" class="lf">
+    <table class="regtb">
+        <php>if($site['closereg']==3){</php>
+        <tr height="50px" valign="top">
+            <th><label class="label_input" for="invitecode"><{:L('invitecode')}></label></th>
+            <td width="200px"><input tabindex="1" type="text" id="invitecode" name="invitecode" class="input_text" value="" style="ime-mode:disabled"/></td>
+            <td id="check0" style="width:255px"></td>
+        </tr>
+        <php>}</php>
+        <tr height="60px" valign="top">
+            <th><label class="label_input" for="username"><{:L('user_account')}></label></th>
+            <td width="200px"><input tabindex="2" type="text" id="username" name="username" class="input_text" value="" maxlength="12"/></td>
+            <td class="info" id="check1" style="width:255px"><{:L('reg_account_info')}></td>
+        </tr>
+        <tr height="30px" valign="top">
+            <td></td>
+            <td colspan="2"><span class="grey"><{:L('your_website')}>：<{:SITE_URL}>/<span id="wbadd"></span></span></td>
+        </tr>
+        <tr height="70px" valign="top">
+            <th><label class="label_input" for="mailadres"><{:L('reg_emali')}></label></th>
+            <td><input tabindex="4" type="text" id="mailadres" name="mailadres" class="input_text" value="" /></td>
+            <td class="info" id="check2"><{:L('reg_emali_info')}></td>
+        </tr>
+        <tr height="70px" valign="top">
+            <th><label class="label_input" for="password1"><{:L('reg_password')}></label></th>
+            <td><input tabindex="5" type="password" id="password1" name="password1" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/></td>
+            <td class="info" id="check3"><{:L('reg_password_info')}></td>
+        </tr>
+        <tr height="70px" valign="top">
+            <th><label class="label_input" for="password2"><{:L('makesure_pass')}></label></th>
+            <td><input tabindex="6" type="password" id="password2" name="password2" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/></td>
+            <td class="info" id="check4"><{:L('makesure_pass_info')}></td>
+        </tr>
+        <tr height="70px" valign="top">
+            <td></td>
+            <td colspan="2"><php>if($user[user_id]){</php><input type="hidden" id="inviteuid" value="<{$user[user_id]}>" /><php>}</php>
+            <input tabindex="7" type="button" id="btn-reg" class="btn-reg fleft" value="<{:L('now_register')}>" onclick="check_register();"/>
+            <div id="regck" style="float:left;margin:10px 0 0 20px;font-weight:bold;color:#000;display:none"><img src="<{:__PUBLIC__}>/images/loading.gif"></div>
+            </td>
+        </tr>
+    </table>
+    </form>
+    </div>
+    <div class="fright reg_right">
+        <p><{:L('have_account')}></p>
+        <p style="margin-top:20px;margin-left:20px"><input type="button" onclick="window.location.href='<{:SITE_URL}>/login'" class="button6" value="<{:L('login_wb')}>"></p>
+        <{$hook['reg_login_btn']}>
+    </div>
+    <div class="clearline"></div>
+</div>
+<script type="text/javascript">
+$("#username").keyup(function(){
+    $('#username').val($('#username').val().replace(/[\s\.]/ig,""));
+    $('#wbadd').html($('#username').val());
+    $('#username').val($('#username').val().slice(0,12));
+    $('#wbadd').html($('#username').val().slice(0,12));
+});
+$("#mailadres").keyup(function() {$('#mailadres').val($('#mailadres').val().replace(/\s/ig,""));});
+$("#password1").keyup(function() {$('#password1').val($('#password1').val().replace(/\s/ig,""));});
+$("#password2").keyup(function() {$('#password2').val($('#password2').val().replace(/\s/ig,""));});
+
+$('#invitecode').blur(function(){
+    checkpost({action:'checkcode',invitecode:$('#invitecode').val()},0);
+});
+$('#username').blur(function(){
+    checkpost({action:'checkname',uname:$('#username').val()},1);
+});
+$('#mailadres').blur(function(){
+    checkpost({action:'checkmail',mail:$('#mailadres').val()},2);
+});
+$('#password1').blur(function(){
+    checkpost({action:'checkpass1',pass1:$('#password1').val()},3);
+});
+$('#password2').blur(function(){
+    checkpost({action:'checkpass2',pass1:$('#password1').val(),pass2:$('#password2').val()},4); 
+});
+$('#invitecode').focus(function(){
+    $('#btn-reg').removeAttr("disabled");
+});
+$('#username').focus(function(){
+    $('#btn-reg').removeAttr("disabled");
+});
+$('#mailadres').focus(function(){
+    $('#btn-reg').removeAttr("disabled");
+});
+$('#password1').focus(function(){
+    $('#btn-reg').removeAttr("disabled");
+});
+$('#password2').focus(function(){
+    $('#btn-reg').removeAttr("disabled");
+});
+function checkpost(parse,id){
+    $.post(siteurl+"/Index/regcheckstep",parse,
+    function(msg){
+        if (msg=="check_ok") {
+            $('#check'+id).html('<div style="margin-top:5px"><img src="'+pubdir+'/images/signup-right.png"></div>');
+        } else {
+            $('#check'+id).html('<div class="errormt"><img src="'+pubdir+'/images/signup-wrong.png"> '+msg+'</div>');
+        }
+    });
+}
+function check_register(){
+    $('#btn-reg').attr("disabled","true");
+    $('#regck').show();
+    checkpost({action:'checkcode',invitecode:$('#invitecode').val()},0);
+    checkpost({action:'checkname',uname:$('#username').val()},1);
+    checkpost({action:'checkmail',mail:$('#mailadres').val()},2);
+    checkpost({action:'checkpass1',pass1:$('#password1').val()},3);
+    checkpost({action:'checkpass2',pass1:$('#password1').val(),pass2:$('#password2').val()},4);
+    check_register_ok();
+}
+function check_register_ok() {
+    var t0=$('#invitecode').val();
+    var t1=$('#username').val();
+    var t2=$('#mailadres').val();
+    var t3=$('#password1').val();
+    var t4=$('#password2').val();
+    var t5=$('#inviteuid').val();
+    $.post(siteurl+"/regcheck",{invitecode:t0,uname:t1,mail:t2,pass1:t3,pass2:t4,inviteuid:t5},
+    function(msg){
+        $('#regck').hide();
+        if (msg=="check_ok") {
+           ye_dialog.openHtml("<div class='regok'>"+langjs['reg_success_rj']+"</div>",langjs['reg_new'],400,100);
+           setInterval(function(){window.location.href=siteurl+'/Setting';}, 3000);
+        }
+    });
+}
+</script>
+<include file="Common:foot" />

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+    
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+</head>
+
+<body>
+                
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置:	</span><{$navlist}></li>
+    </ul>
+</div>
+<div id="hlt_fit_search"><!--查询-->
+    <div id="hlt_fit_search_g"><input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /></div>   
+    <div id="hlt_fit_search_a"><span>关键字：</span><input type="text" id="guanjianzi" name="guanjianzi" value="<{$guanjianzi}>"></div>
+    <div id="hlt_fit_search_b"><span>日　期：</span><input type="text" onfocus="WdatePicker()" id="chufariqi" name="chufariqi" value="<{$chufariqi}>"><span>-</span><input type="text" onfocus="WdatePicker()" id="jiezhiriqi" name="jiezhiriqi" value="<{$jiezhiriqi}>"></div>
+    <div id="hlt_fit_search_d"><span>发团社：</span><input type="text" id="chufadi" value="<{$chufadi}>"/></div>
+    <div id="hlt_fit_search_e"><span>接团社：</span><input type="text" id="mudidi" value="<{$mudidi}>"/></div>
+</div>
+                
+                
+<div class="fanye">
+  <div  style="float:left;width:100%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+  <tbody>
+        <tr>
+            <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+            <th height="32" align="center">编号</th>
+            <th height="32" align="center">团队名称</th>
+            <th height="32" align="center">发团社</th>
+            <th height="32" align="center">发团人</th>
+            <th height="32" align="center">联系电话</th>
+            <th height="32" align="center">接团人</th>
+            <th height="32" align="center">人数</th>
+            <th height="32" align="center">出团日期</th>
+            <th height="32" align="center">状态</th>
+            <th height="32" align="center">锁定</th>
+            <th height="32" align="center">类型</th>
+        </tr>
+          
+        <form name="form" method="post" id="form">
+    	<input type="hidden" name="forward" id="forward" value="<{:SITE_DIJIE}>Tuancreate/index" >
+        <input type="hidden" name="jingwai" id="jingwai" value="<{$jingwai}>" />
+          <php> $i = -1; foreach($tuanAll as $tuan){ $i++;</php>
+             <php>if($tuan['status'] == '询价'){
+            </php>
+             <tr class="focus tr<php>echo $i%2</php>">
+            <php>}else{
+            </php>
+              <tr class="tr<php>echo $i%2</php>">
+            <php>}
+            </php>
+              
+                  <td height="27" align="center"  width="2%">
+                      <span><input value="<{$tuan['djtuanID']}>" id="tuanitem_<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                  <td height="27" align="center" width="5%">
+                      <a href="<{:SITE_DIJIE}>Finance/applypayment/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuannumber']}></a>
+                  </td>
+                  <td height="27" align="center" width="25%">
+                      <span><a href="<{:SITE_DIJIE}>Finance/applypayment/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuantitle']}></a></span>
+                  </td>
+                  <td height="27" align="center" width="10%">
+                      <{$tuan['fromcompany']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$tuan['contact']}>
+                  </td>
+                  <td height="27" align="center" width="7%">
+                      <{$tuan['contactphone']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$tuan['onperson']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$tuan['renshu']}>
+                  </td>
+                  <td height="27" align="center" width="7%">
+                      <{$tuan['startdate']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$tuan['status']}>
+                  </td>
+                  <td height="27" align="center" width="5%">
+                      <{$tuan['islock']}>
+                  </td>
+                  <td align="center" width="3%">
+                  <img onclick="GetcheckBack('<{$tuan['djtuanID']}>','地接团队','')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                  </td>
+              </tr>
+          
+        <php> }</php>
+        </form>
+        
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+  
+  
+  
+  
+  
+</div>
+                
+</body>
+</html>
+
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:200px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'tuanitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'tuanitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+<!--
+function tijiao() {
+		var jingwai = document.getElementById('jingwai').value;
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/deletechanpin/jingwai/'+jingwai;
+        document.getElementById('form').submit();
+}
+function jiesuo() {
+		var jingwai = document.getElementById('jingwai').value;
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/xianlujiesuo/jingwai/'+jingwai;
+        document.getElementById('form').submit();
+}
+function suoding() {
+		var jingwai = document.getElementById('jingwai').value;
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/xianlusuoding/jingwai/'+jingwai;
+        document.getElementById('form').submit();
+}
+function chengtuan() {
+		var jingwai = document.getElementById('jingwai').value;
+        document.getElementById('form').action = '<{:SITE_DIJIE}>Tuancreate/chengtuan/jingwai/'+jingwai;
+        document.getElementById('form').submit();
+}
+// -->
+function dosearch() {
+        
+		var guanjianzi = document.getElementById('guanjianzi').value;
+		var chufadi = document.getElementById('chufadi').value;
+		var mudidi = document.getElementById('mudidi').value;
+		var tianshu = document.getElementById('tianshu').value;
+		var chufariqi = document.getElementById('chufariqi').value;
+		var jiezhiriqi = document.getElementById('jiezhiriqi').value;
+		var zhuangtai = document.getElementById('zhuangtai').value;
+		var jingwai = document.getElementById('jingwai').value;
+		window.location = '<{:SITE_DIJIE}>Tuancreate/sankechanpin/guanjianzi/'+guanjianzi+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/tianshu/'+tianshu+'/chufariqi/'+chufariqi+'/jiezhiriqi/'+jiezhiriqi+'/zhuangtai/'+zhuangtai+'/jingwai/'+jingwai;
+}
+
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+</script>
+<style>
+	.focus td { color:#F00}
+	.focus td a{ color:#F00}
+</style>

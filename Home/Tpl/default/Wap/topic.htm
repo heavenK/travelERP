@@ -1,0 +1,13 @@
+<include file="header" />
+<h2><{:L('topic')}>：#<{$topic}>#</h2>
+<ul>
+<php>if(count($content)>0){</php>
+    <php>foreach($content as $val){
+        echo $ctent->wapli($val,$my['user_id'],'topic/k/'.urlencode($topic),1);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('nothing_her')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<include file="footer" />

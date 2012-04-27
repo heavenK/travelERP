@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script language="javascript">
+function openSub(type)
+{
+	if (type == 'image'){
+	
+		var obname=document.getElementById("Images");
+		var url = "<{:SITE_MENSHI}>Liandong/getImages/own/" + obname.value;
+	}
+	if (type == 'video'){
+		var obname=document.getElementById("Videos");
+		var url = "<{:SITE_MENSHI}>Liandong/getVideos/own/" + obname.value;
+	}
+	if (type == 'agency'){
+		var obname=document.getElementById("Agencys");
+		var url = "<{:SITE_MENSHI}>Liandong/getAgencys/own/" + obname.value;
+	}
+   window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>
+</head>
+
+<body>
+<form name="frm0">
+
+<input type="text" id="Images" />
+<input type="text" id="Images_id" />
+    <input type="button" onClick="openSub('image');" value="选择图片" />
+    </form>
+	
+<input type="text" id="Videos" />
+<input type="text" id="Videos_id" />
+    <input type="button" onClick="openSub('video');" value="选择视频" />
+    </form>
+	
+	
+<input type="text" id="Agencys" />
+<input type="text" id="Agencys_id" />
+    <input type="button" onClick="openSub('agency');" value="选择合作伙伴" />
+    </form>
+</body>
+</html>

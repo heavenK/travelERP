@@ -1,0 +1,75 @@
+<include file="Common:header" />
+<form action='<{:SITE_URL}>/admin.php?s=/Theme/upload' method="POST" enctype="multipart/form-data">
+<h3>上传模板</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="150px">选择ZIP压缩文件</td>
+    <td><input type="file" name="upload" class="txt_input"></td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" class="button1" value="提交上传"></td>
+</tr>
+</table>
+</form>
+<php>if($edit){</php>
+<h3>编辑模版</h3>
+    <form action='<{:SITE_URL}>/admin.php?s=/Theme/edit' method="POST">
+    <table class="table" style="margin:5px 0 20px 0">
+    <tr>
+        <td width="12%">背景色</td>
+        <td width="12%">文本色</td>
+        <td width="12%">链接色</td>
+        <td width="12%">侧栏色</td>
+        <td width="12%">侧边框色</td>
+        <td width="13%">背景图位置</td>
+        <td width="13%">有无背景图</td>
+        <td width="14%">&nbsp;</td>
+    </tr>
+    <tr>   
+        <td><input type="text" name="edit[theme_bgcolor]" style="width:75px" value="<{$edit[theme_bgcolor]}>"></td>
+        <td><input type="text" name="edit[theme_text]" style="width:75px" value="<{$edit[theme_text]}>"></td>
+        <td><input type="text" name="edit[theme_link]" style="width:75px" value="<{$edit[theme_link]}>"></td>
+        <td><input type="text" name="edit[theme_sidebar]" style="width:75px" value="<{$edit[theme_sidebar]}>"></td>
+        <td><input type="text" name="edit[theme_sidebox]" style="width:75px" value="<{$edit[theme_sidebox]}>"></td>
+        <td><select name="edit[theme_sidebox]" style="width:75px">
+        <option value="repeat" <php>if($edit[theme_sidebox]=="repeat"){</php>selected="selected"<php>}</php>>平铺</option>
+        <option value="center" <php>if($edit[theme_sidebox]=="center"){</php>selected="selected"<php>}</php>>居中</option>
+        <option value="left" <php>if($edit[theme_sidebox]=="left"){</php>selected="selected"<php>}</php>>左对齐</option>
+        </select></td>
+        <td><select name="edit[theme_upload]" style="width:75px">
+        <option value="1" <php>if($edit[theme_upload]=="1"){</php>selected="selected"<php>}</php>>有</option>
+        <option value="0" <php>if($edit[theme_upload]=="0"){</php>selected="selected"<php>}</php>>无</option>
+        </select></td> 
+        <td><input type="hidden" name="id" value="<{$edit[ut_id]}>"><input type="submit" value="编辑"><input type="button" onclick="window.location.href='<{:SITE_URL}>/admin.php?s=/Theme'" value="取消"></td>
+    </tr>
+    </table>
+    </form>
+<php>}else{</php>
+    <h3>模版列表</h3>
+    <div style="padding:10px 0 15px 15px">
+    <php>foreach($themes as $val){</php>
+    <div class="themebox">
+        <p>
+        <php>if($val['theme_upload']==1){</php>
+            <img src="<{:__PUBLIC__}>/attachments/usertemplates/<{$val[ut_id]}>/thumb_themebg.jpg" class="themeimg">
+        <php>}else{</php>
+            <div style="background:<{$val[theme_bgcolor]}>" class="themeimg"><br/>无背景</div>
+        <php>}</php>
+        </p>
+        <p>
+            <{$val[ut_id]}> | 
+            <php>if($val[isopen]==0){</php><a href="<{:SITE_URL}>/admin.php?s=/Theme/option/op/open/id/<{$val[ut_id]}>">开</a>
+            <php>}else{</php><a href="<{:SITE_URL}>/admin.php?s=/Theme/option/op/close/id/<{$val[ut_id]}>">关</a>
+            <php>}</php>
+            <php>if($val[ut_id]!=1){</php>
+            | <a href="##" onclick="jsop('<{:SITE_URL}>/admin.php?s=/Theme/option/op/del/id/<{$val[ut_id]}>','确认删除此模板？')">删</a> | <a href="<{:SITE_URL}>/admin.php?s=/Theme/option/op/edit/id/<{$val[ut_id]}>">编</a>
+            <php>}</php>
+        </p>
+    </div>
+    <php>}</php>
+    </div>
+    <div class="clearline"></div>
+    <div class="page"><{$page}></div>
+<php>}</php>
+<include file="Common:foot" />

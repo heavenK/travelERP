@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>基本信息</title>
+
+<script>
+function baocun()
+{
+	$form = document.getElementById('form_1');
+	$form.submit();
+	
+}
+
+
+</script>
+
+
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   产品控管 > 国内 > 子团信息
+    </div>
+    <div id="control_domestic_order_over">
+    <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a>
+    <a href="javascript:baocun()" class="hlt_fit_published_button_d" style="margin-right:20px; float:right"></a>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="control_domestic_order"><!--步骤 按钮-->
+            <ul>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Dingdan/zituandingdan/zituanID/<{$zituan['zituanID']}>">订单资料</a></li>
+                <li class="hlt_fit_published_button_lia">基本信息</li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/xingcheng/zituanID/<{$zituan['zituanID']}>">行 程</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/jiage/zituanID/<{$zituan['zituanID']}>">价 格</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/tuanyuanmingdan/zituanID/<{$zituan['zituanID']}>">团员名单</a></li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="javascript:alert('暂无')">接待计划</a>
+                </li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="javascript:alert('暂无')">出团通知</a>
+                </li>
+            </ul>
+        </div>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<dl id="hlt_fit_published_a">
+                <dt><span>*</span>名称：</dt>
+                <dd><{$zituan['mingcheng']}></dd>
+            </dl>
+        	<dl id="hlt_fit_published_a">
+                <dt><span>*</span>团号：</dt>
+                <dd><{$zituan['tuanhao']}></dd>
+            </dl>
+            <dl id="hlt_fit_published_b">
+            	<dt><span>*</span>目的地：</dt>
+                <dd>
+            	    <select disabled="disabled" >
+                        <option value="1" selected="selected">国内</option>
+                    </select>
+                    <select disabled="disabled">
+                        <option value="406" selected="selected"><{$mudidi[0]}></option>
+                    </select>
+                    <select disabled="disabled">
+                        <option value="22" selected="selected"><{$mudidi[1]}></option>
+                    </select>
+                    <select disabled="disabled">
+                        <option value="157"><{$mudidi[2]}></option>
+                    </select>
+				</dd>
+            </dl>
+            <dl id="hlt_fit_published_c">
+            	<dt><span>*</span>出发地：</dt>
+                <dd><select disabled="disabled">
+                        <option value="22" selected="selected"><{$chufadi[0]}></option>
+                    </select>
+                    <select disabled="disabled">
+                        <option value="157"><{$chufadi[1]}></option>
+                    </select></dd>
+            </dl>
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>线路关键字：</dt>
+                <dd><{$xianlu['guanjianzi']}></dd>
+            </dl>
+            
+            <form name="form_1" id="form_1" action="<{:SITE_ADMIN}>Kongguan/dopostzituanxinxi" method="post" >
+            <input type="hidden" name="forward" id="forward" value="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/<{$zituan['zituanID']}>" />
+            <input type="hidden" name="zituanID" id="zituanID"  value="<{$zituan['zituanID']}>" />
+            <dl id="hlt_fit_published_e">
+                <dt><span>*</span>报名截止至：</dt>
+                <dd><label style="float:left">前</label>
+                <input type="text" style=" border:#F00 1px solid" name="baomingjiezhi" id="baomingjiezhi" value="<{$zituan['baomingjiezhi']}>" />
+                天</dd>
+            </dl>
+            <dl id="hlt_fit_published_f">
+                <dt><span>*</span>全款日期至：</dt>
+                <dd><label style="float:left">前</label>
+                <input type="text" style=" border:#F00 1px solid" name="quankuanriqi" id="quankuanriqi" value="<{$zituan['quankuanriqi']}>" />
+                天</dd>
+            </dl>
+            <dl id="hlt_fit_published_g">
+                <dt><span>*</span>计划人数：</dt>
+                <dd>
+                <input type="text" style=" border:#F00 1px solid" name="renshu" id="renshu" value="<{$xianlu['renshu']}>" />
+                人</dd>
+            </dl>
+            <dl id="hlt_fit_published_h">
+                <dt><span>*</span>行程天数：</dt>
+                <dd>
+                <input type="text" style=" border:#F00 1px solid" name="tianshu" id="tianshu" value="<{$xianlu['tianshu']}>" />
+                天</dd>
+            </dl>
+            
+            </form>
+            
+            <dl id="hlt_fit_published_i">
+            	<dt><span>*</span>出团日期：</dt>
+                <dd>
+                	<{$zituan['chutuanriqi']}>
+                </dd>
+            </dl>
+            <dl id="hlt_fit_published_j">
+            	<dt><span>*</span>主题：</dt>
+                <dd>
+            	    <select disabled="disabled">
+                        <option value=""><{$xianlu['zhuti']}></option>
+                    </select>
+            	</dd>
+            </dl>
+            <dl id="hlt_fit_published_k">
+            	<dt><span>*</span>团队类型：</dt>
+                <dd>
+            	    <select disabled="disabled">
+                        <option value=""><{$xianlu['tuanduileixing']}></option>
+                    </select>
+            	</dd>
+            </dl>
+            <dl id="hlt_fit_published_l">
+            	<dt>导游服务：</dt>
+                <dd>
+            	    <{$xianlu['daoyoufuwu']}>
+            	</dd>
+            </dl>
+            <dl id="hlt_fit_published_m">
+            	<dt><span>*</span>行程特色：</dt>
+                <dd><{$xianlu['xingchengtese']}></dd>
+            </dl>
+            <dl id="hlt_fit_published_n">
+                <dt>线路图片：</dt>
+                <dd><{$xianlu['tupian']}></dd>
+            </dl>
+            <dl id="hlt_fit_published_o">
+                <dt>视频：</dt>
+                <dd><{$xianlu['shipin']}></dd>
+            </dl>
+            <dl id="hlt_fit_published_p">
+                <dt>参团须知：</dt>
+                <dd>
+                <{$xianlu['cantuanxuzhi']}>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+    
+</div>
+
+</body>
+</html>

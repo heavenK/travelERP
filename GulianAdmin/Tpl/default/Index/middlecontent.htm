@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+html,body{height:100%;background:url(<{:__PUBLIC__}>/gulianstyle/images/shade_bg.jpg) repeat-y left top}
+</style>
+</head>
+<body style="margin:0;height:100%">
+<table width="10" cellpadding="0" height="100%" cellspacing="0">
+<tr>
+	<td height="100%" align="center" valign="middle" style="cursor:pointer" onclick="ss()"><img id="imgTab" src="<{:__PUBLIC__}>/gulianstyle/images/arrow_left.gif" border="0" /></td>
+</tr>
+</table>
+<script language="javascript">
+function ss() {
+	var imgTab = document.getElementById("imgTab");
+	if (parent.window.document.getElementById("first").cols == '0,10,*') {
+		parent.window.document.getElementById("first").cols = '195,10,*';
+		imgTab.src = "<{:__PUBLIC__}>/gulianstyle/images/arrow_left.gif";
+	}else {
+		parent.window.document.getElementById("first").cols = '0,10,*';
+		imgTab.src = "<{:__PUBLIC__}>/gulianstyle/images/arrow_right.gif";
+	}
+}
+</script> 
+</body>
+</html>

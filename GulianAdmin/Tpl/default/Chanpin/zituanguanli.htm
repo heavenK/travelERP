@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+<script>
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+}
+
+</script>
+<script type="text/javascript">
+<!--
+function tijiao() {
+        document.getElementById('form').submit();
+}
+// -->
+
+function GetcheckBack(id,tbname,type)
+
+{
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+
+</script>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+  <div id="hlt_fit_location"><!--所在位置--> 
+    <b>您所在的位置:</b> <{$navlist}> </div>
+  <div id="hlt_fit_published"><!--发布新线路页面-->
+    <div id="hlt_fit_published_button"><!--步骤 按钮-->
+      <ul>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianluID}>">基本信息</a></li>
+        <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+        <php>if($xianlu['xianlutype'] == '包团'){</php>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/renyuanbianji/xianluID/<{$xianluID}>">人　员</a></li>
+        <php>}else{</php>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>
+        <php>}</php>
+      </ul>
+      <div> <a href="javascript:GetcheckBack('<{$xianlu['xianluID']}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a> <a class="hlt_fit_published_button_b" title="提交审核" onclick="return confirm('确定要提交审核吗？');" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>" ></a>
+        <div id="divrili2"  style="display: none; position:absolute; left:30px; top:90px;">
+          <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+        </div>
+      </div>
+    </div>
+    <div id="hlt_fit_published_cont"><!--内容-->
+      <div id="hlt_fit_published_cont_list"><!--列表-->
+        <div id="hlt_fit_published_cont_list_del"> <a onclick="return confirm('确认删除？');" href="javascript:tijiao();" >选中删除项</a> </div>
+        <table width="722" border="1" cellspacing="0" bordercolor="#00B298" style=" background:#FFF; border-collapse:collapse; text-align:center; float:left;">
+            <tbody><tr class="hlt_fit_price_cost_b_ol" style="width:auto; height:26px; float:none;">
+                <th><input type="checkbox" onclick="myCheckBoxSelect(this)" name="checkbox"></th>
+                <th>团号</th>
+                <th>名称</th>
+                <th>出团日期</th>
+                <th>全款日期</th>
+                <th>报名截止</th>
+                <th>名额</th>
+                <th>状态</th>
+            </tr> 
+            <form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/deletezituan" id="form">
+            <input type="hidden" value="<{$xianluID}>" name="xianluID" id="xianluID"  />
+            <php> $i = -1; foreach($zituanAll as $zituan){$i++; </php>
+            <tr height="26" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                <td><input value="<{$zituan['zituanID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></td>
+                <td><{$zituan['tuanhao']}></td>
+                <td><{$zituan['mingcheng']}></td>
+                <td><{$zituan['chutuanriqi']}></td>
+                <td>前<{$zituan['quankuanriqi']}>天</td>
+                <td>前<{$zituan['baomingjiezhi']}>天</td>
+                <td><{$zituan['renshu']}></td>
+                <td><{$zituan['zhuangtai']}></td>
+            </tr> 
+            <php>} </php>
+          </form>                     
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

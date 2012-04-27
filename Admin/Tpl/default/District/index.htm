@@ -1,0 +1,62 @@
+<include file="Common:header" />
+<h3>地区管理</h3>
+<div class="infomation"><b>说明：</b>你可以自己编辑地区数据，添加，编辑或删除操作后<b>需要点击“确认提交”按钮才生效</b></div>
+<form method="POST" action="<{:SITE_URL}>/admin.php?s=/District/editnames">
+<table class="table" style="margin:5px 0 20px 0">
+    <tr>
+        <td width="400px">选择地区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select id="sprovince">
+            <option>-省份-</option>
+            <php>foreach($districts as $val){</php>
+                <php>if($val['level']==1){</php><option value="<{$val['id']}>"><{$val['name']}></option><php>}</php>
+            <php>}</php>
+        </select>
+        <select id="scity">
+            <option>-城市地区-</option>
+            <php>foreach($districts as $val){</php>
+                <php>if($val['level']==2 && $val['upid']==$pid){</php><option value="<{$val['id']}>"><{$val['name']}></option><php>}</php>
+            <php>}</php>
+            </select>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    <php>foreach($districts as $val){</php>
+        <php>if(($type=='loadprovince' && $val['level']==1) || ($type=='loadcity' && $val['level']==2 && $val['upid']==$pid)){</php>
+        <tr id="tr<{$val['id']}>">
+            <td><input type="text" id="<{$val['id']}>" name="names[<{$val['id']}>]" value="<{$val['name']}>" class="readonly" readonly style="width:110px"></td>
+            <td><a href="javascript:void(0)" onclick="editname(<{$val['id']}>)">编辑</a> | <a href="javascript:void(0)" onclick="delname(<{$val['id']}>)">删除</a></td>
+        </tr>
+        <php>}</php>
+    <php>}</php>
+    <tr id="addbtn">
+        <td colspan="2"><a href="javascript:void(0)" onclick="addname()">+ 添加</a></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="hidden" name="level" value="<{$level}>"><input type="hidden" name="pid" value="<{$pid}>"><input type="submit" class="button1" value="确认提交"></td>
+    </tr>
+</table>
+</form>
+<script type="text/javascript">
+$('#sprovince').change(function(){
+    var pid=$('#sprovince').val();
+    if (parseInt(pid)>0) {
+        window.location.href="admin.php?s=/District/index/type/loadcity/pid/"+pid+"/level/2";
+    } else {
+        window.location.href="admin.php?s=/District";
+    }
+});
+function editname(id){
+    $('#'+id).attr('class','txt_input');
+    $('#'+id).removeAttr('readonly');
+}
+function delname(id){
+    if (confirm('是否确定要删除该条名称？')) {
+        $('#tr'+id).remove();
+    }
+}
+function addname() {
+    $('#addbtn').before('<tr><td colspan="2"><input type="text" name="newnames[]" value="" class="txt_input" style="width:110px"></td></tr>');
+}
+$('#sprovince').val('<{$pid}>');
+</script>
+<include file="Common:foot" />

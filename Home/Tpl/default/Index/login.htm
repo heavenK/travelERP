@@ -1,0 +1,29 @@
+<include file="Common:header" />
+<div id="login">
+    <div class="indexh" style="margin-bottom:20px">
+        <div class="taboff"><a href="<{:SITE_URL}>/register"><{:L('fast_reg')}></a></div>
+        <div class="tabon"><{:L('login_in')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/reset"><{:L('forget_pass')}></a></div>
+    </div>
+    <{$hook['login_top']}>
+    <form method="post" action="<{:SITE_URL}>/dologin" class="vf lf" style="margin-top:80px">
+    <p>
+        <label class="label_input" for="loginname"><{:L('user_name')}><php>if(ET_UC!=TRUE){</php> <{:L('or')}> <{:L('user_emailaddr')}><php>}else{</php> <{:L('or')}> <{:L('suppourt_ucenter')}><php>}</php></label>
+        <input tabindex="1" type="text" id="loginname" name="loginname" class="input_text" value="" />
+    </p>
+    <p>
+        <label class="label_input" for="password"><{:L('login_pass')}></label>
+        <input tabindex="2" type="password" id="password" name="password" class="input_text" value="" maxlength="20" />
+    </p>
+    <p>
+        <label class="label_check" for="rememberMe">
+        <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" class="checkbox" value="on" />&nbsp;&nbsp;<{:L('nexttime_remember')}>
+        </label>
+    </p>
+    <p class="act">
+        <input tabindex="4" type="submit" class="button6" value="<{:L('now_login')}>" />
+        <{$hook['login_btn']}>
+    </p>
+    </form>
+</div>
+<include file="Common:foot" />

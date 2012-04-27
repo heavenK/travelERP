@@ -1,0 +1,101 @@
+@charset "utf-8";
+/* CSS Document */
+
+*	{ margin:0; padding:0; }
+body{ background:url(../images/ks_viewxianlu_01.gif) repeat-x #FFF; font-size:12px; font-family:"宋体", Arial, "微软雅黑"; color:#333333;}
+li	{ list-style-type:none;}
+a,u	{ text-decoration:none;}
+a:hover{ text-decoration:underline;}
+em,i{ font-style:normal;}
+input,select{ font-size:12px; color:#333333;}
+
+/*整体*/
+.ks_box	{ width:860px; margin:0 auto;}
+
+/*顶导航*/
+.ks_topbav	{ width:860px; height:32px; color:#006655; line-height:30px; float:left;}
+.ks_topbav dt	{ float:left;}
+.ks_topbav dt a	{ color:#006655;}
+.ks_topbav dd	{ float:right;}
+.ks_topbav dd a	{ color:#006655; text-decoration:underline;}
+.ks_topbav dd a:hover{ text-decoration:none;}
+
+/*顶部*/
+.ks_top		{ width:860px; height:133px; float:left;}
+.ks_top dt			{ width:238px; height:49px; margin:32px 0 0 25px; display:inline; overflow:hidden; float:left;}
+.ks_top dd			{ float:right;}
+.ks_search_text		{ width:296px; height:16px; margin:43px 0 0 10px; display:inline; padding:7px 3px; background:#FFF; border:1px solid #dcdcdc; float:left;}
+.ks_top dd select	{ width:70px; height:32px; margin:43px 0 0 10px; display:inline; padding:5px 2px; background:#FFF; border:1px solid #dcdcdc; float:left;}
+.ks_search_sub		{ width:97px; height:34px; margin:43px 0 0 10px; display:inline; background:url(../images/ks_viewxianlu_03.png) no-repeat; cursor:pointer; overflow:hidden; float:left;}
+
+/*主导航*/
+.ks_mainbav	{ width:860px; height:27px; background:url(../images/ks_viewxianlu_05.gif) repeat-x bottom; float:left;}
+.ks_mainbav dt		{ width:103px; height:27px; background:url(../images/ks_viewxianlu_04.png) no-repeat; overflow:hidden; float:left;}
+.ks_mainbav dd		{ color:#242525; line-height:26px; float:right;}
+
+/*标题*/
+.ks_title	{ width:860px; float:left;}
+.ks_title dt		{ width:570px; margin:18px 0 0 15px; display:inline; padding:0 0 0 20px; background:url(../images/ks_viewxianlu_06.png) no-repeat 0 3px; font:18px "黑体"; line-height:20px; overflow:hidden; float:left;}
+.ks_title dd		{ margin:11px 11px 0 0; display:inline; overflow:hidden; float:right;}
+.ks_title dd a		{ width:82px; height:32px; background:url(../images/ks_viewxianlu_07.png) no-repeat 0 -102px; float:right;}
+.ks_title dd a:hover{ background:url(../images/ks_viewxianlu_07.png) no-repeat -82px -102px;}
+
+/*内容*/
+.ks_cont	{ width:860px; margin:10px 0 0 0; display:inline; overflow:hidden; float:left;}
+.ks_cont dt			{ width:328px; margin:0 12px 0 0; display:inline; overflow:hidden; float:left;}
+.ks_cont dt img		{ float:left;}
+.ks_cont dt i		{ width:328px; padding:31px 0 0 0; background:url(../images/ks_viewxianlu_17.png) no-repeat top; float:left;}
+.ks_cont dt i u		{ width:316px; height:191px; padding:5px; background:#fdfbee; border:1px solid #CCC; border-top:none; overflow:hidden; float:left;}
+.ks_cont dd			{ width:517px; float:left;}
+.ks_cont dd em		{ width:515px; background:#f7ffe8; border:2px solid #f9b300; overflow:hidden; float:left;}
+.ks_cont dd em ol	{ width:515px; height:76px; overflow:hidden; float:left;}
+.ks_cont dd em ol li{ width:220px; height:54px; margin:22px 0 0 27px; display:inline; color:#ff6600; overflow:hidden; float:left;}
+.ks_cont dd em ol li h1{ display:inline; font-size:36px; font-family:Arial, Helvetica, sans-serif;}
+.ks_cont dd em ul	{ width:515px; overflow:hidden; float:left;}
+.ks_cont dd em ul li{ width:487px; height:25px; margin:0 0 0 12px; display:inline; border-top:1px dashed #a3ca23; overflow:hidden; float:left;}
+.ks_cont dd em ul li p{ width:239px; margin:0 0 0 4px; display:inline; color:#666666; line-height:24px; float:left;}
+.ks_cont dd em ul li p b{ display:inline; font-weight:normal; color:#000;}
+.ks_cont dd em ul li span{ width:483px; margin:0 0 0 4px; display:inline; color:#666666; line-height:24px; float:left;}
+.ks_cont dd em ul li span b{ display:inline; font-weight:normal; color:#000;}
+.ks_cont dd em u	{ width:515px; height:80px; float:left;}
+.ks_cont dd em u a	{ width:186px; height:51px; margin:14px 68px 0 0; display:inline; background:url(../images/ks_viewxianlu_07.png) no-repeat 0 0; overflow:hidden; float:right;}
+.ks_cont dd em u a:hover{ background:url(../images/ks_viewxianlu_07.png) no-repeat 0 -51px;}
+
+/*介绍*/
+.ks_inof	{ width:860px; margin:10px 0 0 0; display:inline; background:url(../images/ks_viewxianlu_08.png) no-repeat top; overflow:hidden; float:left;}
+.ks_inof h2			{ width:822px; margin:31px 0 0 0; display:inline; padding:23px 18px; background:#fdfbee; border:1px solid #CCC; border-top:none; font-size:12px; font-weight:normal; color:#000; line-height:24px; float:left;}
+
+/*子导航*/
+.ks_sonbav	{ width:860px; height:27px; background:url(../images/ks_viewxianlu_09.gif) repeat-x; text-align:center; overflow:hidden; float:left;}
+.ks_sonbav a		{ margin:0 10px; display:inline; font-size:14px; font-weight:bold; color:#FFF; line-height:28px; text-decoration:underline;}
+.ks_sonbav a:hover	{ text-decoration:none;}
+
+/*主体内容*/
+.ks_main	{ width:860px; margin:10px 0 0; display:inline; float:left;}
+.ks_main del		{ width:113px; height:25px; background:url(../images/ks_viewxianlu_10.png) no-repeat; font-size:14px; font-weight:bold; color:#FFF; line-height:24px; text-align:center; text-decoration:none; float:left;}
+.ks_main_1st		{ width:838px; padding:10px; border:1px solid #3da3b5; line-height:24px; float:left;}
+.ks_main_2nd		{ width:826px; margin:0 0 5px 0; display:inline; padding:5px; border:1px dashed #cdcdcd; float:left;}
+.ks_main_3rd		{ width:826px; overflow:hidden; float:left;}
+.ks_main_3rd_sonbav	{ width:816px; height:24px; padding:0 0 0 10px; background:#e8e8e8; font-weight:bold; float:left;}
+.ks_main_3rd_cont	{ width:806px; padding:10px; line-height:24px; overflow:hidden; float:left;}
+.ks_main_3rd_bottom	{ width:826px; height:24px; background:#e8e8e8; color:#31708f; float:left;}
+.ks_main_3rd_bottom em{ width:252px; padding:0 0 0 10px; overflow:hidden; float:left;}
+
+/*底部*/
+.ks_footer	{ width:860px; padding:30px 0; line-height:24px; float:left;}
+.ks_footer em		{ width:860px; height:20px; background:#57c0b3; float:left;}
+.ks_footer ul		{ width:810px; margin:25px 0 0 50px; display:inline; overflow:hidden; float:left;}
+.ks_footer ul li	{ width:380px; overflow:hidden; float:left;}
+.ks_footer i		{ width:860px; margin:10px 0 0 0; display:inline; text-align:center; float:left;}
+
+/*右下视频框*/
+.float_layer { width:500px; border: 1px solid #aaaaaa; display:none; background: #000; z-index:9999;}
+.float_layer h2 { height: 25px; line-height: 25px; padding-left: 10px; font-size: 14px; color: #333; background: url(../images/ks_viewxianlu_14.gif) repeat-x; border-bottom: 1px solid #aaaaaa; position: relative; z-index:9999;}
+.float_layer .min { width: 21px; height: 20px; background: url(../images/ks_viewxianlu_13.gif) no-repeat 0 bottom; position: absolute; top: 2px; right: 25px; z-index:9999;}
+.float_layer .min:hover { background: url(../images/ks_viewxianlu_13.gif) no-repeat 0 0; }
+.float_layer .max { width: 21px; height: 20px; background: url(../images/ks_viewxianlu_12.gif) no-repeat 0 bottom; position: absolute; top: 2px; right: 25px; z-index:9999;}
+.float_layer .max:hover { background: url(../images/ks_viewxianlu_12.gif) no-repeat 0 0; }
+.float_layer .close { width: 21px; height: 20px; background: url(../images/ks_viewxianlu_11.gif) no-repeat 0 bottom; position: absolute; top: 2px; right: 3px; z-index:9999;}
+.float_layer .close:hover { background: url(../images/ks_viewxianlu_11.gif) no-repeat 0 0; }
+.float_layer .content { height:400px; overflow: hidden; font-size: 14px; line-height: 18px; color: #666;  }
+.float_layer .wrap { padding: 10px; }

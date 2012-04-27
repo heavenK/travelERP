@@ -1,0 +1,34 @@
+<include file="Common:header" />
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" width="70%" style="padding-right:20px">
+            <h3>系统信息</h3>
+            <table border="0" width="100%">
+            <tr>
+                <td width="150px">EasyTalk版本</td>
+                <td>EasyTalk <{:ET_VESION}> Release <{:ET_RELEASE}>&nbsp;&nbsp;<a href="http://www.nextsns.com" target="_blank">[查看最新版本]</a></td>
+            </tr>
+            <tr>
+                <td>操作系统及PHP</td>
+                <td><{$serverinfo}></td>
+            </tr>
+            <tr>
+                <td>Mysql版本</td>
+                <td><{$dbversion}></td>
+            </tr>
+            <tr>
+                <td>数据库尺寸</td>
+                <td><{$dbsize}></td>
+            </tr>
+            </table>
+            <br/>
+            <h3>相关信息</h3>
+            <iframe src="http://www.nextsns.com/et/etadmin.htm" width="100%" height="300px" frameborder="0" scrolling="no"></iframe>
+        </td>
+		<td valign="top">
+            <h3>作者微博</h3>
+            <iframe src="http://www.nextsns.com/et/Widget?name=hjoeson&type=1&width=100%&height=470px" width="100%" height="470px" frameborder="0" scrolling="no"></iframe>
+        </td>
+	</tr>
+</table>
+<include file="Common:foot" />

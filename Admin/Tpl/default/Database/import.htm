@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<div class="infomation"><b>说明：</b>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将微博关闭，恢复全部完成后可以将微博重新开放。</div><br/>
+<form action="<{:SITE_URL}>/admin.php?s=/Database/delimport" method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<h3>数据备份记录</h3>
+<tr>
+    <td width="70px">&nbsp;</td>
+    <td width="200px">文件名</td>
+    <td width="70px">卷号</td>
+    <td width="100px">文件大小</td>
+    <td width="100px">类型</td>
+    <td width="150px">创建时间</td>
+    <td>操作</td>
+</tr>
+<php>foreach($sqldata as $val){</php>
+    <tr>
+        <td><input type="checkbox"  name="delsql[]" value="<{:basename($val[filename])}>" class="checkbox"></td>
+        <td><{:basename($val[filename])}></td>
+        <td><{$val[num]}></td>
+        <td><{$val[size]}> KB</td>
+        <td><{$val[type]}></td>
+        <td><{$val[dateline]}></td>
+        <td><a href="##" onclick="if(confirm('是否确定要导入该文件到数据库？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Database/doimport/sqlfile/<{:base64_encode(basename($val[filename]))}>/method/server<{$val[type]}>'}">导入</a> | <a href="##" onclick="if(confirm('是否确定要删除该文件？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Database/delimport/delsql/<{:base64_encode(basename($val[filename]))}>'}">删除</a> | <a href="##" onclick="if(confirm('是否要下载该文件？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Database/downsql/filename/<{:base64_encode(basename($val[filename]))}>'}">下载</a></td>
+    </tr>
+<php>}</php>
+    <tr>
+        <td><input type="checkbox" onclick="CheckAll('delsql', 'chkall')" id="chkall" name="chkall" class="checkbox"> 删除?</td>
+        <td colspan="4"><input type="submit" class="button1" value="提交删除"></td>
+    </tr>
+</table>
+</form>
+<include file="Common:foot" />

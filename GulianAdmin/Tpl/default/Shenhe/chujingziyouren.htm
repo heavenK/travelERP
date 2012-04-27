@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navtitle}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b> <{$navlist}>
+    </div>
+    
+    <div id="hlt_fit_published"><!--内容-->
+    	<div id="hlt_fit_published_button"><!--步骤-->
+            <ul>
+                <li class="hlt_fit_published_button_lia">基本信息</li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/showtype/审核/xianluID/<{$xianluID}>">子团信息</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/course/shenhe/xianluID/<{$xianluID}>">行 程</a></li>
+            </ul>
+            <div>
+            		<a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/成功/xianluID/<{$xianluID}>" onclick="return confirm('确定要审核通过吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/失败/xianluID/<{$xianluID}>" onclick="return confirm('审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/sankechanpin" class="hlt_fit_published_button_g" title="返回" ></a>
+           </div>
+        </div>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<dl id="hlt_audit_basic_a">
+                <dt><span>*</span>线路名称：</dt>
+                <dd><input type="text" value="<{$xianlu['mingcheng']}>"  readonly="readonly"  disabled="disabled"/></dd>
+            </dl>
+        	<dl id="hlt_audit_basic_a">
+                <dt><span>*</span>线路编号：</dt>
+                <dd><input type="text" value="<{$xianlu['bianhao']}>"  readonly="readonly"  disabled="disabled"/></dd>
+            </dl>
+            <dl id="hlt_audit_basic_b">
+            	<dt><span>*</span>目的地：</dt>
+                <dd>
+            	    <select disabled="disabled" id="ddlArea" name="ddlArea" readonly="readonly">
+                        <option value="1" selected="selected">境外</option>
+                    </select>
+                    <select readonly="readonly"  disabled="disabled">
+                        <option value="406" selected="selected"><{$xianlu['diqu']}></option>
+                    </select>
+                    <select readonly="readonly"  disabled="disabled">
+                        <option selected="selected"><{$xianlu['shengfen']}></option>
+                    </select>
+                    <select readonly="readonly"  disabled="disabled">
+                        <option ><{$xianlu['chengshi']}></option>
+                    </select>
+				</dd>
+            </dl>
+            <dl id="hlt_audit_basic_c">
+            	<dt><span>*</span>出发地：</dt>
+                <dd><select readonly="readonly"  disabled="disabled">
+                        <option ><{$xianlu['chufashengfen']}></option>
+                    </select>
+                    <select readonly="readonly"  disabled="disabled">
+                        <option ><{$xianlu['chufashengfen']}></option>
+                    </select></dd>
+            </dl>
+            <dl id="hlt_audit_basic_d">
+            	<dt><span>*</span>线路关键字：</dt>
+                <dd><input type="text" readonly="readonly"  disabled="disabled" value="<{$xianlu['guanjianzi']}>" /></dd>
+            </dl>
+            <dl id="hlt_audit_basic_e">
+                <dt><span>*</span>报名截止至：</dt>
+                <dd><p>前</p><input type="text" readonly="readonly"  disabled="disabled" value="<{$xianlu['baomingjiezhi']}>" /><p>天</p></dd>
+            </dl>
+            <dl id="hlt_audit_basic_f">
+                <dt><span>*</span>报名截止至：</dt>
+                <dd><p>前</p><input type="text" readonly="readonly"  disabled="disabled"  value="<{$xianlu['quankuanriqi']}>"/><p>天</p></dd>
+            </dl>
+            <dl id="hlt_audit_basic_g">
+                <dt><span>*</span>计划人数：</dt>
+                <dd><input type="text"  readonly="readonly"  disabled="disabled" value="<{$xianlu['renshu']}>"/><p>人</p></dd>
+            </dl>
+            <dl id="hlt_audit_basic_h">
+                <dt><span>*</span>行程天数：</dt>
+                <dd><input type="text"  readonly="readonly"  disabled="disabled" value="<{$xianlu['tianshu']}>"/><p>天</p></dd>
+            </dl>
+            <dl id="hlt_audit_basic_i">
+            	<dt><span>*</span>出团日期：</dt>
+                <dd>
+                	<textarea cols="" rows="" readonly="readonly"  disabled="disabled" /><{$xianlu['chutuanriqi']}>
+               	  </textarea>
+                	<img src="<{:__PUBLIC__}>/gulianstyle/images/fit_published.gif" width="24" height="21" border="0" />
+                </dd>
+            </dl>
+            <dl id="hlt_audit_basic_j">
+            	<dt><span>*</span>主题：</dt>
+                <dd>
+            	    <select readonly="readonly"  disabled="disabled">
+                        <option ><{$xianlu['zhuti']}></option>
+                    </select>
+            	</dd>
+            </dl>
+            <dl id="hlt_audit_basic_k">
+            	<dt><span>*</span>团队类型：</dt>
+                <dd>
+            	    <select readonly="readonly"  disabled="disabled">
+                        <option ><{$xianlu['tuanduileixing']}></option>
+                    </select>
+            	</dd>
+            </dl>
+            <dl id="hlt_audit_basic_l">
+            	<dt>导游服务：</dt>
+                <dd>
+            	    <{$xianlu['daoyoufuwu']}>
+            	</dd>
+            </dl>
+            
+            <dl id="hlt_audit_basic_xc">
+                <dt>行程特色：</dt>
+                <dd><{$xianlu['xingchengtese']}></dd>
+            </dl>
+            <dl id="hlt_audit_basic_n">
+                <dt>线路图片：</dt>
+                <dd><input type="text"  readonly="readonly"  disabled="disabled" value="<{$xianlu['tupian']}>"/></dd>
+            </dl>
+            <dl id="hlt_audit_basic_o">
+                <dt>视频：</dt>
+                <dd><input type="text"  readonly="readonly"  disabled="disabled" value="<{$xianlu['shipin']}>"/></dd>
+            </dl>
+            <dl id="hlt_audit_basic_p">
+                <dt>参团须知：</dt>
+                <dd><{$xianlu['cantuanxuzhi']}></dd>
+            </dl>
+            <dl id="hlt_audit_basic_xc">
+                <dt>行程资料：</dt>
+                <dd>
+                	<php>foreach($xingchengAll as $key => $xingcheng){</php>
+                    	<p>&nbsp;</p>
+                    	<p>
+                        	<strong><{$xingcheng['date']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                            交通：<strong><{$xingcheng['tools']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            餐&nbsp;： <strong><{$xingcheng['time']}></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        	住宿：<strong><{$xingcheng['place']}></strong>
+                        </p>
+                        <p>
+                        	<{$xingcheng['content']}>
+                        </p>
+                    <php>}</php>
+                </dd>
+            </dl>
+            
+            
+            
+            
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>费用包含：</dt>
+                <dd>
+                <{$xianlu['feiyongyes']}>
+                </dd>
+            </dl>
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>费用不包含：</dt>
+                <dd>
+                <{$xianlu['feiyongno']}>
+                </dd>
+            </dl>
+            
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>签证信息：</dt>
+                <dd>
+                <{$xianlu['qianzhengxinxi']}>
+                </dd>
+            </dl>
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>可选自费：</dt>
+                <dd>
+                <{$xianlu['kexuanzifei']}>
+                </dd>
+            </dl>
+            
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>购物信息：</dt>
+                <dd>
+                <{$xianlu['gouwuxinxi']}>
+                </dd>
+            </dl>
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>预定条款：</dt>
+                <dd>
+                <{$xianlu['yudingtiaokuan']}>
+                </dd>
+            </dl>
+            <dl id="hlt_fit_published_d">
+            	<dt><span>*</span>出行警示：</dt>
+                <dd>
+                <{$xianlu['chuxingjingshi']}>
+                </dd>
+            </dl>
+            
+
+            
+                    <php>if($xianlujiage['xuanzetype'] == 'Batch'){</php>
+            <div id="hlt_fit_price"><!--代理商销售价格-->
+                    <php>}else{</php>
+            <div id="hlt_fit_price" style="display: none;"><!--代理商销售价格-->
+                    <php>}</php>
+            
+            
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    <div style="float:left">
+                    销售价格
+                    </div>
+                    <div style="float:right">
+                                选择类别：
+                            <select disabled="disabled">
+                                <option selected="selected">批量</option>
+                            </select>
+                    </div>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">类型</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">售价</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">佣金</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">利润</li>
+                        </ul>
+                        
+    <php> 
+    		foreach($typeshoujiaAll as $shoujia){
+    </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <select disabled="disabled"  style="width:95%;">
+                            <option value="all"><{$shoujia['dailileixing']}></option>
+                            </select>
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" type="text" value="<{$shoujia['chengrenshoujia']}>" disabled="disabled">
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$shoujia['chengrenyongjin']}>" disabled="disabled"></li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$shoujia['chengrenlirun']}>"   disabled="disabled"></li>
+                        </ul>
+    <php>}
+    </php>
+                        
+                    </ol>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+                    <php>if($xianlujiage['xuanzetype'] == 'MultipleChoice'){</php>
+            <div id="hlt_fit_price"><!--代理商销售价格-->
+                    <php>}else{</php>
+            <div id="hlt_fit_price" style="display: none;"><!--代理商销售价格-->
+                    <php>}</php>
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    <div style="float:left">
+                    销售价格
+                    </div>
+                    <div style="float:right">
+                                选择类别：
+                            <select disabled="disabled" style="width:95%;">
+                                <option selected="selected">多选</option>
+                            </select>
+                    </div>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">类型</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">售价</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">佣金</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">利润</li>
+                        </ul>
+                        
+    <php> 
+    		foreach($typeshoujiaAll as $shoujia){
+    </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$shoujia['hezuohuoban']}>" type="text"   disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" type="text" value="<{$shoujia['chengrenshoujia']}>" disabled="disabled">
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$shoujia['chengrenyongjin']}>"   disabled="disabled"></li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$shoujia['chengrenlirun']}>"   disabled="disabled"></li>
+                        </ul>
+    <php>}
+    </php>
+                    </ol>
+                </div>
+            </div>
+                        
+            
+            
+            
+            
+                        
+            <div id="hlt_fit_price"><!--代理商销售价格-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    <div style="float:left">
+                    机票
+                    </div>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">机票编号</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">航空公司</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">往返类型</li>
+                        </ul>
+                        
+    <php> 
+    		foreach($ticketshowAll as $ticket){ if($ticket['tickettype'] == '机票' ){
+    </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$ticket['arg1']}>" type="text"   disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$ticket['arg2']}>" type="text"   disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$ticket['arg3']}>"   disabled="disabled"></li>
+                        </ul>
+    <php>}}
+    </php>
+                        
+                    </ol>
+                </div>
+            </div>
+                        
+            
+            
+            
+            
+            <div id="hlt_fit_price">
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    <div style="float:left">
+                    酒店
+                    </div>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">房型</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">酒店名称</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">周期</li>
+                        </ul>
+                        
+    <php> 
+    		foreach($ticketshowAll as $ticket){ if($ticket['tickettype'] == '酒店' ){
+    </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$ticket['arg1']}>" type="text"   disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$ticket['arg2']}>" type="text"   disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input style="width:95%;" type="text" value="<{$ticket['arg3']}>"   disabled="disabled"></li>
+                        </ul>
+    <php>}}
+    </php>
+                        
+                    </ol>
+                </div>
+            </div>
+            
+            
+            <div id="hlt_fit_price">
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">
+                    <div style="float:left">
+                    一日游信息
+                    </div>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style="width:40%">名称</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">售价</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">佣金</li>
+                            <li class="hlt_fit_price_agents_lia" style="width:15%">状态</li>
+                        </ul>
+                        
+    <php> 
+    		foreach($yiriyouAll as $yiriyou){
+    </php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style="width:40%">
+                            <input style="width:97%;" value="<{$yiriyou['title']}>" type="text" disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%">
+                            <input style="width:95%;" value="<{$yiriyou['price']}>" type="text" disabled="disabled" >
+                            </li>
+                            <li class="hlt_fit_price_agents_lia" style="width:20%"><input  style="width:95%;" type="text" value="<{$yiriyou['yongjin']}>" disabled="disabled"></li>
+                            <li class="hlt_fit_price_agents_lia" style="width:15%"><input  style="width:93%;" type="text" value="<{$yiriyou['zhuangtai']}>" disabled="disabled"></li>
+                        </ul>
+    <php>}
+    </php>
+                        
+                    </ol>
+                </div>
+            </div>
+            
+            
+            <div id="hlt_fit_price">
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a" style="width:100px;">应答需求</div>
+                	<div id="hlt_fit_price_cost_a" style="width:600px;">
+                    
+                        <form name="form" id="form" action="<{:SITE_ADMIN}>Message/dopostxuqiuxinxi" method="post">
+                        <input type="hidden" name="tableID" value="<{$xianluID}>"  />
+                        <input type="hidden" name="tablename" value="线路"  />
+                        
+                        <input name="content" style="float:left; width:500px;" />
+                        
+                        <input type="submit"  style="float:left; height:25px; width:50px; margin-left:10px;" value="提 交" >
+                        
+                        </form>
+                    </div>
+                	<ol id="hlt_fit_price_cost_b">
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_agents_lia" style=" width:150px;">来源</li>
+                            <li class="hlt_fit_price_agents_lib">发起人</li>
+                            <li class="hlt_fit_price_agents_lic" style="width:320px;">内容</li>
+                            <li class="hlt_fit_price_agents_lii" style=" width:150px;">时间</li>
+                        </ul>
+                                <php> foreach($messageAll as $message){
+                                </php>	
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_agents_lia" style=" width:150px;"><{$message['laiyuan']}></li>
+                            <li class="hlt_fit_price_agents_lib"><{$message['username']}></li>
+                            <li class="hlt_fit_price_agents_lic" style=" width:320px;"><{$message['content']}></li>
+                            <li class="hlt_fit_price_agents_lii" style=" width:150px;"><php> echo date('Y-m-d H:i:s',$message['time']); </php></li>
+                        </ul>
+                                <php>}
+                                </php>
+                        
+                    </ol>
+                </div>
+            </div>
+            <dl id="hlt_fit_published_q">
+                 <div>
+            		<a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/成功/xianluID/<{$xianluID}>" onclick="return confirm('确定要审核通过吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/shenhecaozuo/caozuo/失败/xianluID/<{$xianluID}>" onclick="return confirm('审核不通过?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/sankechanpin" class="hlt_fit_published_button_g" title="返回" ></a>
+           		</div>
+            </dl>
+            
+        </div>
+    </div>
+    
+    
+</div>
+</body>
+</html>

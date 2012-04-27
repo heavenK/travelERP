@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Finance:navlist" />
+                
+                <div style="text-align:center; margin-top:20px;" >
+                	<h2>订房确认单</h2>
+                </div>
+                
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				.textgpc{width:98%; height:80%;}
+				</style>
+                
+                <form name="form1" id="form1" method="post" enctype="multipart/form-data" >
+                <input disabled="disabled" type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                <input disabled="disabled" type="hidden" name="forward" id="forward" value="<{:SITE_DIJIE}>Finance/orderhotel/djtuanID/<{$tuan['djtuanID']}>" />
+                
+                
+                <php>if($orderhotel){</php>
+                <input disabled="disabled" type="hidden" name="orderhotelID" id="orderhotelID" value="<{$orderhotel['orderhotelID']}>" />
+                <php>}</php>
+                
+                
+                
+                <div class="jbxxy" >
+                    <table width="99%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody >
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>标题：</td>
+                            <td align="left" colspan="1" width="20%">
+                                <input disabled="disabled" name="title" id="title" class="textgp" value="<{$orderhotel[title]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>酒店名称：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="hotelname" id="hotelname" class="textgp" value="<{$orderhotel[hotelname]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>收件单位：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="sendcompany" id="sendcompany" class="textgp" value="<{$orderhotel[sendcompany]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>收件人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="sendperson" id="sendperson" class="textgp" value="<{$orderhotel[sendperson]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>电话：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="sendtelnum" id="sendtelnum" class="textgp" value="<{$orderhotel[sendtelnum]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>传真：</td>
+                            <td align="left" colspan="2" width="10%">
+                                <input disabled="disabled" name="senfax" id="senfax" class="textgp" value="<{$orderhotel[senfax]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>发件单位：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="recivecompany" id="recivecompany" class="textgp" value="<{$orderhotel[recivecompany]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>发件人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="reciveperson" id="reciveperson" class="textgp" value="<{$orderhotel[reciveperson]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>电话：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="recivetelnum" id="recivetelnum" class="textgp" value="<{$orderhotel[recivetelnum]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>传真：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="recivefax" id="recivefax" class="textgp" value="<{$orderhotel[recivefax]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td height="42" width="10%">
+                                <font color="red">*</font>订房时间：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="orderdate" id="orderdate" onfocus="WdatePicker()"  class="textgp" value="<{$orderhotel[orderdate]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>入住时间：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="livedate" id="livedate" onfocus="WdatePicker()"  style="width:33%"  value="<{$orderhotel[livedate]}>"></td>
+                                
+                            <td align="left" colspan="3" ></td>
+                                
+                        </tr>
+                        
+                        <tr>
+                            <td height="42" width="10%">
+                                <font color="red">*</font>结算时间：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="jiesuandate" id="jiesuandate" onfocus="WdatePicker()"  class="textgp" value="<{$orderhotel[jiesuandate]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>退房时间：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="checkoutdate" id="checkoutdate" onfocus="WdatePicker()"  style="width:33%"  value="<{$orderhotel[checkoutdate]}>"></td>
+                                
+                            <td align="left" colspan="3" ></td>
+                        </tr>
+                                
+                        
+                        
+                        <tr class="t1gp">
+                            <td height="42" width="10%">
+                                <font color="red">*</font>人数：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="renshu" id="renshu" class="textgp" value="<{$orderhotel[renshu]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>订房标准：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="roomstd" id="roomstd" style="width:33%"  value="<{$orderhotel[roomstd]}>"></td>
+                                
+                            <td align="left" colspan="3" ></td>
+                        </tr>
+                        
+                        <tr>
+                            <td height="42" width="10%">
+                                <font color="red">*</font>房间价格：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="roomprice" id="roomprice" class="textgp" value="<{$orderhotel[roomprice]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>陪同房：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="peitongroom" id="peitongroom" style="width:33%"  value="<{$orderhotel[peitongroom]}>"></td>
+                                
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td height="42" width="10%">
+                                <font color="red">*</font>早餐标准：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="breakfaststd" id="breakfaststd" class="textgp" value="<{$orderhotel[breakfaststd]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>早餐人数：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="breakrenshu" id="breakrenshu" style="width:33%"  value="<{$orderhotel[breakrenshu]}>"></td>
+                            <td align="left" colspan="3" ></td>
+                        </tr>
+                        
+                        <tr >
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>应付金额：</td>
+                            <td align="left" colspan="10" width="70%" height="80px;">
+                              <textarea disabled="disabled" name="meetamount" id="meetamount"  class="textgpb"><{$orderhotel[meetamount]}></textarea></td>
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td align="left" height="42" width="10%">
+                                <font color="red">*</font>备注：</td>
+                            <td align="left" colspan="10" width="70%" height="80px;">
+                              <textarea disabled="disabled" name="remark" id="remark"  class="textgpb"><{$orderhotel[remark]}></textarea></td>
+                        </tr>
+                        
+                        <tr >
+                            <td height="42" width="10%">
+                                <font color="red">*</font>旅行社经办人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="handler" id="handler" class="textgp" value="<{$orderhotel[handler]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>时间：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="handlertime" id="handlertime" onfocus="WdatePicker()"  style="width:33%"  value="<{$orderhotel[handlertime]}>"></td>
+                                
+                        </tr>
+                        
+                        <tr class="t1gp">
+                            <td height="42" width="10%">
+                                <font color="red">*</font>酒店经办人：</td>
+                            <td align="left" colspan="1" width="10%">
+                                <input disabled="disabled" name="hotelhandler" id="hotelhandler" class="textgp" value="<{$orderhotel[hotelhandler]}>"></td>
+                                
+                            <td align="right" height="42" width="10%">
+                                <font color="red">*</font>时间：</td>
+                            <td align="left" colspan="3" width="10%">
+                                <input disabled="disabled" name="hotelhandlertime" id="hotelhandlertime" onfocus="WdatePicker()"  style="width:33%"  value="<{$orderhotel[hotelhandlertime]}>"></td>
+                            <td align="left" colspan="3" ></td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td align="left" height="42">
+                                <font color="red">*</font>上传订房确认单副本：</td>
+                            <td align="left" colspan="10">
+                                <input disabled="disabled" name="attachment" id="attachment" type="file" />
+                                
+                                <font color="#FF0000"><php>if($orderhotel['attachment']) {echo '已上传文件目录为'.$orderhotel['attachment'];</php><a target="_blank" style="color:blue" href="<{:__PUBLIC__}>/<{$orderhotel['attachment']}>">点击查看</a> <php>}</php></font>
+                                
+                                </td>
+                        </tr>
+                        
+                        
+                        <tr height="50px;" style="background-color:#CCC;">
+                        <td width="100%" colspan="10" style=" border-bottom:#000 solid 1px;">
+                        </td>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+                </div>
+                </form>
+            </div>
+
+
+</body>
+</html>
+<script>
+
+function dosave()
+{
+    var url='<{:SITE_DIJIE}>Finance/dopostorderhotel';
+	document.getElementById('form1').action = url;
+	document.getElementById('form1').submit();
+	
+}
+
+
+</script>

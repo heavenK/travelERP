@@ -1,0 +1,37 @@
+<include file="Common:header" />
+<h3><{$plugin['name']}> 标准设置<span id="pluginsetbox"><a href="javascript:void(0)" onclick="plswitch()" id="text"><php>if($appadmin){</php>展开<php>}else{</php>收起<php>}</php></a></span></h3>
+<div id="bzset" <php>if($appadmin){</php>style="display:none"<php>}</php>>
+<form action='<{:SITE_URL}>/admin.php?s=/Plugins/setting/appname/<{$plugin[directory]}>' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="120px">插件显示名称：</td>
+    <td><input type="text" name="newname" value="<{$plugin['name']}>" class="txt_input" maxlength="10">&nbsp;&nbsp;&nbsp;● 用于显示在前台工具菜单的名称</td>
+</tr>
+<tr>
+    <td>插件显示顺序：</td>
+    <td><input type="text" name="neworder" value="<{$plugin['order']}>" class="txt_input" style="width:100px" maxlength="3">&nbsp;&nbsp;&nbsp;● 插件在前台和后台列表显示的顺序，数字越小越靠前,填写 0-999 的数字</td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" value="保存提交" class="button1"></td>
+</tr>
+</table>
+</form>
+</div>
+<php>if($appadmin){</php>
+<h3><{$plugin['name']}> 高级设置</h3>
+<{$appadmin}>
+<php>}</php>
+<script type="text/javascript">
+function plswitch(){
+    var isshow=$('#bzset').css('display');
+    if (isshow=='none') {
+        $('#bzset').show();
+        $('#text').html('收起');
+    } else {
+        $('#bzset').hide();
+        $('#text').html('展开');
+    }
+}
+</script>
+<include file="Common:foot" />

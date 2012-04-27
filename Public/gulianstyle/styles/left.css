@@ -1,0 +1,24 @@
+.leftNav LI {
+	LINE-HEIGHT: 37px; MARGIN-TOP: 3px; TEXT-INDENT: 28px; BACKGROUND: url(../images/hdLeftBg-02.jpg) no-repeat
+}
+.leftNav LI A {
+	COLOR: #222
+}
+.nav2 {
+	MARGIN-TOP: 7px; MARGIN-BOTTOM: 7px; MARGIN-LEFT: 5px
+}
+.nav2 LI {
+	LINE-HEIGHT: 20px; TEXT-INDENT: 17px; BACKGROUND: url(../images/leftBiao.jpg) no-repeat left 5px
+}
+.nav3 {
+	LINE-HEIGHT: 20px; MARGIN-LEFT: 20px
+}
+.nav3 LI {
+	LINE-HEIGHT: 20px; BACKGROUND: url(../images/hdLeftBg-04.jpg) no-repeat
+}
+.nav4 {
+	MARGIN: 10px 0px
+}
+.nav4 LI {
+	BORDER-BOTTOM: #aeaeae 1px dashed; BACKGROUND: none transparent scroll repeat 0% 0%
+}

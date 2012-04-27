@@ -1,0 +1,29 @@
+<include file="Common:header" />
+<h3>短域名设置</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/webset' method="POST">
+<table class="table" class="table" style="margin:5px 0 20px 0;line-height:250%">
+<tr>
+    <td>选择服务器</td>
+    <td><select name="site[shortserver]">
+    <option value="0" <php>if($site['shortserver']['contents']==0){</php>selected<php>}</php>>goo.gl</option>
+    <option value="1" <php>if($site['shortserver']['contents']==1){</php>selected<php>}</php>>bit.ly</option>
+    <option value="2" <php>if($site['shortserver']['contents']==2){</php>selected<php>}</php>>自定义</option>
+    </select>
+    </td>
+    <td class="info">● 如果选择自定义服务器，请设置下面的短域名地址，建议使用goo.gl</td>
+</tr>
+<tr>
+    <td>短域名地址</td>
+    <td><input type="text" name="site[shorturl]" class="txt_input" value="<{$site['shorturl']['contents']}>"></td>
+    <td class="info">● 设置自定义短域名地址</td>
+</tr>
+</table>
+<div class="infomation" style="margin-top:0px"><b>自定义短域名URL伪静态设置</b><br/>
+1、请确认您的服务器支持伪静态。<br/>
+2、请将您设置的短域名地址解析到微博目录下的url目录，如您安装的微博的相对地址是“/web/et/”，则解析短域名到“/web/et/url/”。<br/>
+3、解析后进入url目录根据自己的web环境将“XXX伪静”目录下的文件复制到url目录下并做相应的设置。
+</div><br/>
+<input type="hidden" name="reurl" value="Setting/shorturl">
+<input type="submit" class="button1 submit" value="保存提交">
+</form>
+<include file="Common:foot" />

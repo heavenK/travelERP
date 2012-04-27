@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<title>互动旅游-散客产品转移</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css">
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+
+function dozhuanyi()
+{
+	document.getElementById("form1").submit();
+}
+
+function dochange()
+{
+	var chanpintype = document.getElementById("chanpintype").value;
+	var leftusername = document.getElementById("leftusername").value;
+	var rightusername = document.getElementById("rightusername").value;
+	
+	window.location.href = "<{:SITE_DIJIE}>Tuanchange/tuanlist/leftusername/"+leftusername+"/rightusername/"+rightusername+"/chanpintype/"+chanpintype;
+	
+}
+
+function dosearch() {
+		var tuantitle = document.getElementById('tuantitle').value;
+		var status = document.getElementById('status').value;
+		var keyword = document.getElementById('keyword').value;
+		window.location = document.location.href+'/tuantitle/'+tuantitle+'/status/'+status+'/keyword/'+keyword;
+}
+</script>
+
+
+
+</head>
+
+
+
+
+
+
+<body>
+    <div class="hdlyRight">
+            <div id="content_bb">
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置:</span><{$navlist}></li>
+                </ul>
+            </div>
+
+
+                <div class="ss">
+                    <table border="0" class="test1" style="padding-top: 20px;">
+                        <tbody><tr>
+                            <td width="81" height="18" align="right" style="width: 100px">
+                                团队名称：</td>
+                            <td width="179" height="18" style="width: 161px">
+                                <input name="tuantitle" type="text" id="tuantitle" class="inp02" >
+                            </td>
+                            <td height="18" align="right" style="width: 84px">
+                                状态：</td>
+                            <td colspan="3" style="width: 117px">
+                                <select name="status" id="status" style="width:103px;">
+                                    <option value="" selected="selected" >全部</option>
+                                    <option value="报名">报名</option>
+                                    <option value="截止">截止</option>
+                                    <option value="出团">出团</option>
+                                    <option value="回团">回团</option>
+                                </select>
+                            </td>
+                            <td width="81" align="right" style="height: 38px">
+                                关键字：</td>
+                            <td width="179" style="height: 38px">
+                                <input name="keyword" type="text" id="keyword"></td>
+                            <td style="height: 38px;">
+                                <input type="button" onclick="dosearch();" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu"></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                
+                <div class="fanye">
+                    <div class="nr">
+                        <table width="99%" border="0">
+                            <tbody><tr>
+                                <td class="wbx" width="58" align="center">
+                                    从
+                                </td>
+                                <td class="wbx" width="100" align="center">
+                                    <h3><{$leftuser['realname']}></h3>
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    到
+                                </td>
+                                <td class="wbx" width="100" align="center">
+                                    <h3><{$rightuser['realname']}></h3>
+                                </td>
+                                <td class="wbx" width="150" align="right">
+                                    <a onclick="return confirm('确认转移吗？');" id="lkbMove" class="yyxxl" href="javascript:dozhuanyi()">转 移</a>
+                                </td>
+                                <td class="wbx" align="left">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    
+                  <div  style="float:left;width:100%">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                        <tbody>
+                        <tr>
+                            <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                            <th height="32" align="center">编号</th>
+                            <th height="32" align="center">团队名称</th>
+                            <th height="32" align="center">发团社</th>
+                            <th height="32" align="center">发团人</th>
+                            <th height="32" align="center">联系电话</th>
+                            <th height="32" align="center">接团人</th>
+                            <th height="32" align="center">人数</th>
+                            <th height="32" align="center">出团日期</th>
+                            <th height="32" align="center">状态</th>
+                            <th height="32" align="center">锁定</th>
+                            <th height="32" align="center">类型</th>
+                        </tr>
+                        
+                       <form name="form1" id="form1" action="<{:SITE_DIJIE}>Tuanchange/dopostzhuanyi" method="post" > 
+                           <input type="hidden" name="leftusername" id="leftusername" value="<{$leftuser['user_name']}>" >
+                           <input type="hidden" name="rightusername" id="rightusername" value="<{$rightuser['user_name']}>" >
+                            <php> $i = -1; foreach($tuanAll as $tuan){$i++;
+                            </php>
+                                    <tr class="tr1">
+                                      <td height="27" align="center"  width="2%">
+                                            <span title=""><input value="<{$tuan['djtuanID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></span></td>
+                                      <td height="27" align="center" width="5%">
+                                          <a target="_blank" href="<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuannumber']}></a>
+                                      </td>
+                                      <td height="27" align="center" width="25%">
+                                          <span><a target="_blank" href="<{:SITE_DIJIE}>Tuancontrol/tuaninfo/djtuanID/<{$tuan['djtuanID']}>"><{$tuan['tuantitle']}></a></span>
+                                      </td>
+                                      <td height="27" align="center" width="10%">
+                                          <{$tuan['fromcompany']}>
+                                      </td>
+                                      <td height="27" align="center" width="5%">
+                                          <{$tuan['contact']}>
+                                      </td>
+                                      <td height="27" align="center" width="7%">
+                                          <{$tuan['contactphone']}>
+                                      </td>
+                                      <td height="27" align="center" width="5%">
+                                          <{$tuan['onperson']}>
+                                      </td>
+                                      <td height="27" align="center" width="5%">
+                                          <{$tuan['renshu']}>
+                                      </td>
+                                      <td height="27" align="center" width="7%">
+                                          <{$tuan['startdate']}>
+                                      </td>
+                                      <td height="27" align="center" width="5%">
+                                          <{$tuan['status']}>
+                                      </td>
+                                      <td height="27" align="center" width="5%">
+                                          <{$tuan['islock']}>
+                                      </td>
+                                      <td align="center" width="3%">
+                                      <img onclick="GetcheckBack('<{$tuan['djtuanID']}>','地接团队','')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                                      </td>
+                                    </tr>
+                            <php> }
+                            </php>
+                        </form>
+                    </tbody></table>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        
+<div>
+
+</div>
+    </div>
+
+</body></html>
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:200px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+
+<script type="text/javascript">
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+</script>

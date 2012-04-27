@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>内容选择</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function confirmAct()
+	{
+		if(confirm('你确定要删除吗？'))
+		{
+			return true;
+		}
+		return false;
+	}
+</script>
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+
+<input type="hidden" id="own" value="<{$own}>" />
+
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody><tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+<input type="button" id="send" onclick="sendValue();" value="确认推送"/>
+    </div>
+    <div style="float:right">
+	<a href="<{:SITE_ADMIN}>Liandong/add_scenic" class="np coolbg">添加新的</a>
+    </div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+      <td ><input name="checkbox" onclick="selectAll(this);" type="checkbox"></td>
+      <td >编号</td>
+      <td >图片名称</td>
+      <td >图片</td>
+	  <td >日期</td>
+      <td >操作</td>
+   </tr>
+   
+	 <php>$i=0;foreach($pics as $pic){ $i++;</php>
+     <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+        <td><input id="<{$pic[id]}>" type="checkbox" name="checkboxs" value="<{$pic[title]}>"></td>
+        <td><{$i}></td>
+        <td>
+            <{$pic[title]}>
+        </td>
+        <td><img src="<{:SITE_DATA}>attachments/<{$pic[url]}>" alt="" onmouseover="bigger(this)" onmouseout="smaller(this)" height="60" width="80"></td>
+		<td><{$pic[pubdate]|date="Y/m/d",###}></td>
+        <td>
+                        <a href="<{:SITE_ADMIN}>Liandong/edit_scenic/id/<{$pic[id]}>">[修改]</a>
+						<a href="<{:SITE_ADMIN}>Liandong/delete_scenic/id/<{$pic[id]}>" onclick="return confirmAct();">[删除]</a>
+                </td>
+     </tr>
+	 <php>}</php>
+     
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="8">
+          <div class="pagelistbox">
+			<{$page}>
+</div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>
+
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script language="javascript">
+	$("document").ready(function(){
+	var arr = $("#own").attr("value").split(',');
+	for(var i in arr){
+		v = arr[i]
+		$("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
+	}
+	
+	})
+   
+	function selectAll(obj){
+		$("input[name='checkboxs']").attr("checked", $(obj).attr("checked"));
+	}
+	
+	function sendValue(){
+		$("input[name='checkboxs']:checked").each(function(i){
+			if (i == '0') {
+				str = $(this).attr('value');
+				ids = $(this).attr('id');
+			}
+			else {
+				str += ',' + $(this).attr('value');
+				ids += ',' + $(this).attr('id');
+			}
+		})
+		
+		
+		window.opener.document.getElementById("tupian").value=str;
+		window.opener.document.getElementById("Images_id").value=ids;
+		window.close();
+
+	}
+	
+	function bigger(obj){
+		$(obj).attr('width','280');
+		$(obj).attr('height','210');
+	}
+	
+	function smaller(obj){
+		$(obj).attr('width','80');
+		$(obj).attr('height','60');
+	}
+      
+</script>
+

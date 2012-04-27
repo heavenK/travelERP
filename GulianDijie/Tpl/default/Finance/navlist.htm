@@ -1,0 +1,76 @@
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span><{$navlist}></li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="99%" border="0">
+                        <tbody><tr>
+                            <td width="5%">
+                            </td>
+                            <td width="91" height="18" align="center">
+                                  <a class="yyxxl" href="<{:SITE_DIJIE}>Finance/tuaninfo/djtuanID/<{$tuan['djtuanID']}>" <php>if($location == '基本信息'){</php>style="color:Blue;" <php>}</php> >基本信息</a>
+                            </td>
+                            <td width="91" height="18" align="center">
+                                <a href="<{:SITE_DIJIE}>Finance/itinerary/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '日程安排'){</php>style="color:Blue;" <php>}</php> >日程安排</a>
+                            </td>
+                            <td width="91">
+                                <a href="<{:SITE_DIJIE}>Finance/appraisal/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '估价'){</php>style="color:Blue;" <php>}</php> >对外报价</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Finance/travelnotice/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '带团通知单'){</php>style="color:Blue;" <php>}</php> >带团通知单</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Finance/applypayment/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '付款申请单'){</php>style="color:Blue;" <php>}</php> >付款申请单</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Finance/receipt/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '收据清单'){</php>style="color:Blue;" <php>}</php> >收据清单</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Finance/orderhotel/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '订房确认单'){</php>style="color:Blue;" <php>}</php> >订房确认单</a>
+                            </td>
+                            <td>
+                                <a href="<{:SITE_DIJIE}>Finance/baozhangdan/djtuanID/<{$tuan['djtuanID']}>" class="yyxxl" <php>if($location == '报账单'){</php>style="color:Blue;" <php>}</php> >报账单</a>
+                            </td>
+                            <td width="40%">
+                            </td>
+                            <td>
+                            	<php>if($printable == '打印'){</php>
+                                <a class="yyxxl" href="javascript:doprint('<{$tuan['djtuanID']}>','<{$location}>');">打 印</a>
+                                <php>}</php>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <div class="clear">
+                    </div>
+                </div>
+
+<div id="divrili2"  style="display: none; position:absolute; left:150px; top:150px;">
+    <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+<script>
+function GetcheckBack(id,tbname,type)
+{
+    var url='<{:SITE_DIJIE}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function doprint(djtuanID,type)
+{
+    var url = '<{:SITE_DIJIE}>Finance/doprint/djtuanID/'+djtuanID+'/type/'+type;
+    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+</script>

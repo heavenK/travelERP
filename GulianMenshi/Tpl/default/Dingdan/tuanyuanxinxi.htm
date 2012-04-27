@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+	游客信息
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Utility.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+
+</head>
+<script>
+function baocun()
+{
+	document.getElementById("form").submit();
+}
+</script>
+
+
+<body>
+
+
+            <div id="content_bb">
+            
+   <form name="form" id="form" action="<{:SITE_MENSHI}>Dingdan/doposttuanyuanxinxi" method="post" >         
+   <input type="hidden" name="tuanyuanID" value="<{$postdata[tuanyuanID]}>" >       
+            
+                <div class="jbxxy" style="padding: 20px 15px 20px 15px; border: 1px solid #CCC">
+                    <table width="100%" border="0" style="background-color: Silver" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td width="60%" height="38" align="right">
+                            </td>
+                            <td>&nbsp;
+                                
+                            </td>
+                            <td align="right" width="100">
+                                <a id="Submit" class="yyxxl" href="javascript:baocun()">提 交</a>
+                            </td>
+                            <td align="right" width="100">
+                                <a onclick="window.close();" id="btnClose" class="yyxxl" href="javascript:void(0)">关 闭</a>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <table width="100%" border="1" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td width="20%" height="20" align="right">
+                                <font color="red">*</font>姓名：</td>
+                            <td width="30%" align="left">
+                                <input name="name" type="text" id="name" style="width:98%;" value="<{$postdata['name']}>">
+                            </td>
+                            <td align="right" width="20%">
+                                性别：
+                            </td>
+                            <td align="left" width="30%">
+                                <table id="rblSex" border="0">
+                                    <tbody><tr>
+                                        <php>if($postdata['sex'] == '男'){</php>
+                                        <td><input id="sex" type="radio" name="sex" value="男" checked="checked"><label for="rblSex_0">男</label></td>
+                                        <php>}else{</php>
+                                        <td><input id="sex" type="radio" name="sex" value="男" ><label for="rblSex_0">男</label></td>
+                                        <php>}</php>
+                                        
+                                        <php>if($postdata['sex'] == '女'){</php>
+                                        <td><input id="sex1" type="radio" name="sex" value="女" checked="checked"><label for="rblSex_1">女</label></td>
+                                        <php>}else{</php>
+                                        <td><input id="sex1" type="radio" name="sex" value="女"><label for="rblSex_1">女</label></td>
+                                        <php>}</php>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" align="right">
+                                证件类型：
+                            </td>
+                            <td align="left">
+                                
+                                <select name="zhengjiantype" id="zhengjiantype">
+                                
+                                	<php>if($postdata[zhengjiantype]){
+                                    </php>
+                                    <option selected="selected" value="<{$postdata[zhengjiantype]}>"><{$postdata[zhengjiantype]}></option>
+                                    <option disabled="disabled">------------</option>
+                                	<php>}
+                                    </php>
+                                
+                                	<option value="身份证">身份证</option>
+                                	<option value="护照">护照</option>
+                                	<option value="通行证">通行证</option>
+                                </select>
+                                
+                            </td>
+                            <td align="right">
+                                证件号码：
+                            </td>
+                            <td align="left">
+                                <input name="zhengjianhaoma" type="text" id="zhengjianhaoma" style="width:98%;" value="<{$postdata[zhengjianhaoma]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" align="right">
+                                证件有效期：
+                            </td>
+                            <td align="left">
+                                <input name="zhengjianyouxiaoqi" type="text" id="zhengjianyouxiaoqi" style="width:98%;" value="<{$postdata[zhengjianyouxiaoqi]}>">
+                            </td>
+                            <td align="right">
+                                联系电话：
+                            </td>
+                            <td align="left">
+                                <input name="telnum" type="text" id="telnum" style="width:98%;" value="<{$postdata[telnum]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                身份：
+                            </td>
+                            <td align="left">
+                                <select name="manorchild" id="manorchild" disabled="disabled">
+                                    <option selected="selected" value="<{$postdata[manorchild]}>"><{$postdata[manorchild]}></option>
+                                
+                                </select>
+                            </td>
+                            <td align="right">
+                            </td>
+                            <td align="left">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                需求：</td>
+                            <td align="left" colspan="3">
+                                <textarea name="xuqiu" rows="3" cols="20" id="xuqiu" class="Textbox" style="width:98%;"><{$postdata[xuqiu]}></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                身份证号码：
+                            </td>
+                            <td align="left">
+                                <input name="shenfenzhenghaoma" type="text" id="shenfenzhenghaoma" class="Textbox" style="width:98%;" value="<{$postdata[shenfenzhenghaoma]}>">
+                            </td>
+                            <td align="right">
+                                状态：
+                            </td>
+                            <td align="left">
+                                <select name="zhuangtai" id="zhuangtai" disabled="disabled">
+                                	<php>if($postdata[zhuangtai]){
+                                    </php>
+                                    <option selected="selected" value="<{$postdata[zhuangtai]}>"><{$postdata[zhuangtai]}></option>
+                                	<php>}
+                                    </php>
+                                
+                                    <option value="确认">确认</option>
+                                    <option value="占位">占位</option>
+                                    <option value="候补">候补</option>
+                                    <option value="取消">取消</option>
+                                
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                身份证签发地：</td>
+                            <td align="left">
+                                <input name="zhengjianfadi" type="text" id="zhengjianfadi" class="Textbox" style="width:98%;" value="<{$postdata[zhengjianfadi]}>">
+                            </td>
+                            <td align="right">
+                                国籍：</td>
+                            <td align="left">
+                                <input name="guoji" type="text" id="guoji" class="Textbox" style="width:98%;" value="<{$postdata[guoji]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                身份证签日期：</td>
+                            <td align="left">
+                                <input name="zhengjianriqi" type="text" id="zhengjianriqi" class="Wdate" onfocus="WdatePicker()" style="width:98%;" value="<{$postdata[zhengjianriqi]}>">
+                            </td>
+                            <td align="right">
+                                户籍地：</td>
+                            <td align="left">
+                                <input name="hujidi" type="text" id="hujidi" class="Textbox" style="width:98%;" value="<{$postdata[hujidi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                拼音：</td>
+                            <td align="left">
+                                <input name="pinyin" type="text" id="pinyin" class="Textbox" style="width:98%;" value="<{$postdata[pinyin]}>">
+                            </td>
+                            <td align="right">
+                                民族：</td>
+                            <td align="left">
+                                <input name="minzu" type="text" id="minzu" class="Textbox" style="width:98%;" value="<{$postdata[minzu]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                英文姓：</td>
+                            <td align="left">
+                                <input name="yingwenxing" type="text" id="yingwenxing" class="Textbox" style="width:98%;" value="<{$postdata[yingwenxing]}>">
+                            </td>
+                            <td align="right">
+                                英文名：</td>
+                            <td align="left">
+                                <input name="yingwenming" type="text" id="yingwenming" class="Textbox" style="width:98%;" value="<{$postdata[yingwenming]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                Email：</td>
+                            <td align="left">
+                                <input name="email" type="text" id="email" class="Textbox" style="width:98%;" value="<{$postdata[email]}>">
+                            </td>
+                            <td align="right">
+                                MSN：</td>
+                            <td align="left">
+                                <input name="msn" type="text" id="msn" class="Textbox" style="width:98%;" value="<{$postdata[msn]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                QQ：
+                            </td>
+                            <td align="left">
+                                <input name="qq" type="text" id="qq" class="Textbox" style="width:98%;" value="<{$postdata[qq]}>">
+                            </td>
+                            <td align="right">
+                                邮政编码：
+                            </td>
+                            <td align="left">
+                                <input name="postal" type="text" id="postal" class="Textbox" style="width:98%;" value="<{$postdata[postal]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                出生日期：
+                            </td>
+                            <td align="left">
+                                <input name="chushengriqi" type="text" id="chushengriqi" class="Wdate" style="width:98%;" value="<{$postdata[chushengriqi]}>">
+                            </td>
+                            <td align="right">
+                            </td>
+                            <td align="left">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20" rowspan="4">
+                                护照：
+                            </td>
+                            <td align="left">
+                                护照号码：<input name="huzhaohaoma" type="text" id="huzhaohaoma" class="Textbox" style="width:65%;" value="<{$postdata[huzhaohaoma]}>">
+                            </td>
+                            <td align="right" rowspan="4">
+                                通行证：</td>
+                            <td align="left">
+                                通行证号：<input name="tongxingzhenghao" type="text" id="tongxingzhenghao" class="Textbox" style="width:65%;" value="<{$postdata[tongxingzhenghao]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="20">
+                                签 发 地：<input name="hzqianfadi" type="text" id="hzqianfadi" class="Textbox" style="width:65%;" value="<{$postdata[hzqianfadi]}>">
+                            </td>
+                            <td align="left">
+                                签 发 地：<input name="txzqianfadi" type="text" id="txzqianfadi" class="Textbox" style="width:65%;" value="<{$postdata[txzqianfadi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="20">
+                                签发日期：<input name="hzqianfariqi" type="text" id="hzqianfariqi" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$postdata[hzqianfariqi]}>">
+                            </td>
+                            <td align="left">
+                                签发日期：<input name="txzqianfariqi" type="text" id="txzqianfariqi" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$postdata[txzqianfariqi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="20">
+                                有效日期：<input name="hzyouxiaoriqi" type="text" id="txzyouxiaoriqi" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$postdata[hzyouxiaoriqi]}>">
+                            </td>
+                            <td align="left">
+                                有效日期：<input name="txzyouxiaoriqi" type="text" id="hzyouxiaoriqi" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$postdata[txzyouxiaoriqi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                现住地址：
+                            </td>
+                            <td align="left" colspan="3">
+                                <input name="xianzhutizhi" type="text" id="xianzhutizhi" class="Textbox" style="width:65%;" value="<{$postdata[xianzhutizhi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                通讯地址：
+                            </td>
+                            <td align="left" colspan="3">
+                                <input name="tongxundizhi" type="text" id="tongxundizhi" class="Textbox" style="width:65%;" value="<{$postdata[tongxundizhi]}>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="20">
+                                备注：
+                            </td>
+                            <td align="left" colspan="3">
+                                <textarea name="beizhu" rows="5" cols="20" id="beizhu" class="Textbox" style="width:65%;"><{$postdata[beizhu]}></textarea>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        
+<div>
+
+</div>
+
+</form>
+    </div>
+
+
+</body></html>

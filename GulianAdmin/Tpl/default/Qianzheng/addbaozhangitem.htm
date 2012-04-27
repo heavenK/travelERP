@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fitqianzheng.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/json.js" language="javascript" ></script>
+<script>
+function doprint()
+{
+	var qianzhengID = $("#qianzhengID").val();
+    var url = '<{:SITE_ADMIN}>Qianzheng/addnew/doprint/ispirnt/qianzhengID/'+qianzhengID;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+</script>
+
+<title><{$navtile}></title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navtile}>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    <php>if($zituan){</php>
+        <include file="Kongguan:navlist" />        
+    <php>}</php>
+    
+    
+        <div id="hlt_fit_published_cont" style="margin-top:25px;"><!--内容-->
+        	<div class="plan_jh_fb">
+            
+
+            <a href="javascript:addsave()" class="plan_jh_fb_link_b_qz" title="保存"></a>
+
+            <php>if(checkByadminlevel_v('计调操作员,联合体成员,网管',$this->tVar)){</php>
+            
+            <a class="hlt_fit_published_button_z" title="保存提交" href="javascript:addsave_b()" ></a>
+            
+<!--            <a class="hlt_fit_published_button_b" title="提交审核" href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/dotype/等待审核/baozhangitemID/<{$item[baozhangitemID]}>" ></a>
+-->            
+            <php>}</php>
+            <php>if(checkByadminlevel_v('计调经理,网管',$this->tVar)){</php>
+            <span style="float:left">经理操作：</span>
+            <a style="float:left" href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/经理/dotype/审核通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a style="float:left" href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/经理/dotype/审核不通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <php>}</php>
+            
+            <php>if(checkByadminlevel_v('财务操作员,网管',$this->tVar)){</php>
+            <span style="float:left">财务操作：</span>
+            <a href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/财务/dotype/审核通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a style="float:left" href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/财务/dotype/审核不通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            
+            <php>}</php>
+            
+            <php>if(checkByadminlevel_v('总经理,网管',$this->tVar)){</php>
+            <span style="float:left">总经理操作：</span>
+            <a href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/总经理/dotype/审核通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('确定要审核通过?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+            <a href="<{:SITE_ADMIN}>Qianzheng/itemshenhe/roletype/总经理/dotype/审核不通过/baozhangitemID/<{$item[baozhangitemID]}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            <php>}</php>
+            
+            
+            
+            </div>
+            
+        	<div class="plan_jh_fb">
+            当前状态:<{$item['check_status']}> | 操作人:<{$item['edituser']}> | 经理:<{$item['manager']}> | 财务:<{$item['check_user']}> | 总经理:<{$item['zong_manager']}>  
+            </div>
+            
+        	<div class="plan_jh_fb">
+            <php>if($showtype == '收入'){</php>
+            <h1 style="text-align:center">其他应收款确认单</h1>
+            <php>}</php>
+            <php>if($showtype == '支出'){</php>
+            <h1 style="text-align:center">请款申请单</h1>
+            <php>}</php>
+            </div>
+    <form method="post" enctype="multipart/form-data" name="form" id="form">
+    <input type="hidden" name="baozhangID" id="baozhangID" value="<{$baozhang[baozhangID]}>" >
+    <input type="hidden" name="baozhangitemID" id="baozhangitemID" value="<{$item[baozhangitemID]}>" >
+    <input type="hidden" name="zituanID" value="<{$zituan[zituanID]}>" >
+            <php>if(!$item){</php>
+    <input type="hidden" name="type" value="<{$type}>" >
+            <php>}</php>
+    
+    
+            <div id="plan_jh">                
+                <div class="plan_jh_b">
+                
+                <{$zituan['mingcheng']}>/<{$zituan['tuanhao']}>/<{$zituan['chutuanriqi']}>
+                
+                </div>
+                <div id="plan_jh_a">
+                    <div class="plan_jh_f_a"><span>标题：</span><input type="text" name="title" value="<{$item[title]}>" /></div>
+                    <div class="plan_jh_f_a"><span>金额：</span>
+                    <input style="width:200px;" type="text" name="price" value="<{$item[price]}>" />
+                    <span>方式：</span>
+                    
+                            <select name="pricetype"  >
+                            	<php>if($item['pricetype']){
+                                </php>
+                                    <option value="<{$item['pricetype']}>" selected="selected"><{$item['pricetype']}></option>
+                                    <option disabled="disabled">----------------</option>
+                            	<php> }
+                                </php>
+                            	<option value="现金">现金</option>
+                            	<option value="网拨">网拨</option>
+                            	<option value="银行卡">银行卡</option>
+                            	<option value="汇款">汇款</option>
+                            	<option value="转账">转账</option>
+                            	<option value="支票">支票</option>
+                            	<option value="签单">签单</option>
+                            	<option value="对冲">对冲</option>
+                            	<option value="月结">月结</option>
+                            </select>
+                    
+                    
+                    </div>
+                    <div class="plan_jh_f_a"><span>备注：</span>
+                    <textarea name="remark" style="width:70%; height:50px;"><{$item[remark]}></textarea>
+                    </div>
+                    <div class="plan_jh_f_a"><span>详细内容：</span>
+                    <textarea name="check_text" style="width:70%; height:200px;"><{$item[check_text]}></textarea>
+                    </div>
+                 </div>
+            </div>
+      	</div>
+    </div>
+   </form> 
+</div>
+
+</body>
+</html>
+
+
+<script>
+
+function addsave()
+{
+    var url='<{:SITE_ADMIN}>Qianzheng/dopostbaozhangitem';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+function addsave_b()
+{
+    var url='<{:SITE_ADMIN}>Qianzheng/dopostbaozhangitem/dotype/等待审核';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+
+</script>

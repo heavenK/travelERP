@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+<!--
+.rollBox {
+	width:603px;
+}
+.rollBox .LeftBotton {
+	height:38px;
+	width:32px;
+	background:url(../images/lr_an.jpg) no-repeat -3px 0;
+	overflow:hidden;
+	float:left;
+	display:inline;
+	margin:45px 0 0 10px;
+	cursor:pointer;
+}
+.rollBox .RightBotton {
+	height:38px;
+	width:32px;
+	background:url(../images/lr_an-02.jpg) no-repeat  0;
+	overflow:hidden;
+	float:left;
+	display:inline;
+	margin:45px 0 0 10px;
+	cursor:pointer;
+}
+.rollBox .Cont {
+	margin:0 auto;
+	margin-top:20px;
+	width:518px;
+	overflow:hidden;
+	float:left;
+}
+.rollBox .ScrCont {
+	width:10000000px;
+}
+.rollBox .Cont .pic {
+	margin-left:2px;
+	width:130px;
+	float:left;
+	text-align:center;
+}
+.rollBox .Cont .pic img {
+	padding:1px;
+	background:#fff;
+	border:1px solid #ccc;
+	display:block;
+	margin:0 auto;
+}
+.rollBox .Cont .pic p {
+	line-height:26px;
+	color:#505050;
+}
+.rollBox .Cont a:link, .rollBox .Cont a:visited {
+	color:#626466;
+	text-decoration:none;
+}
+.rollBox .Cont a:hover {
+	color:#f00;
+	text-decoration:underline;
+}
+.rollBox #List1, .rollBox #List2 {
+	float:left;
+}
+.clear{ clear:both;}
+-->

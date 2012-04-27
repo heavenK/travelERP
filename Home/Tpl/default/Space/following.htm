@@ -1,0 +1,92 @@
+<include file="Common:header" />
+<table id="columns">
+<tr>
+<td id="main">
+<php>if($user[user_id]!=$my[user_id]){</php>
+    <include file="Space:prohead" />
+<php>}</php>
+<div class="contenter">
+    <div style="height:30px;">
+        <div style="height:30px;float:left;font-size:14px;font-weight:bold;text-indent:5px"><{:L('total')}> <{$user['follow_num']}> <{:L('gefollower')}></div>
+        <div style="width:208px;height:30px;float:right">
+            <form method="GET" action="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>/following">
+            <input type="text" class="followform" name="keyword" >
+            <input type="button" id="searchr-submit" value="<{:L('search')}>" onclick="if($('.followform').val()!='<{:L(inputfollowaccount)}>'){submit();}">
+            </form>
+        </div>
+    </div>
+    <div class="clearline"></div>
+    <{$hook['follow_left_top']}>
+    <div class="indexh" style="margin-bottom:10px">
+        <div class="tabon"><php>if($user[user_id]==$my[user_id]){</php><{:L('single_me')}><php>}else{</php>TA<php>}</php><{:L('followde')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/<{:rawurlencode($user[user_name])}>/follower"><php>if($user[user_id]==$my[user_id]){</php><{:L('single_me')}><php>}else{</php>TA<php>}</php><{:L('defollower')}></a></div>
+    </div>
+    <div id="stream" class="message">
+        <ol class="wa">
+        <php>if($count>0){</php>
+            <php>foreach($following as $val){</php>
+            <li class="unlight">
+                <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>" title="<{$val['nickname']}>" class="avatar"><img src="<{:sethead($val['user_head'])}>" alt="<{$val['nickname']}>" width="48px" /></a>
+                <span class="fleft">
+                    <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>" style="margin-left:5px" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val['nickname']}></a><small>(@<{$val['user_name']}>)</small><br/>
+                    <span class="actions">
+                        <span style="color:#999999;margin-left:5px">
+                        <{:L('follow')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>/following"><b><{$val['follow_num']}></b></a> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;&nbsp;<{:L('follower')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>/follower"><b><{$val['followme_num']}></b></a> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;&nbsp;<{:L('talk')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>"><b><{$val['msg_num']}></b></a>  <{:L('talk_unit')}>
+                        </span>
+                    </span>
+                </span>
+                <span class="fright actions">
+                     <php>if($val[user_id]!=$my[user_id]){</php>
+                        <span id='followsp_<{$val[user_id]}>'>
+                            <php>if($isfollower[$val[user_id]]==1){</php>
+                            <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico2.gif"> <{:L('already_follow')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($val[user_name])}>','<{:L('cancel_follow')}> <{$val['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('cancel')}></a></span>
+                            <php>}else if ($isfollower[$val[user_id]]==3){</php>
+                            <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico.gif"> <{:L('follow_followed')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($val[user_name])}>','<{:L('cancel_follow')}> <{$val['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('cancel')}></a></span>
+                            <php>}else{</php>
+                            <a class="bh" onclick="followop('addfollow/user_name/<{:rawurlencode($val[user_name])}>','','gz','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('have_a_follow')}></a>
+                            <php>}</php>
+                        </span>
+                    <php>}</php>
+                </span>
+            </li>
+            <php>}</php>
+        <php>}else{</php>
+            <li class="unlight"><{:L('no_any_user')}></li>
+        <php>}</php>
+        </ol>
+    </div>
+    <div class="clearline"></div>
+</div>
+</td>
+    <td id="sidebar" rowspan="2">
+        <php>if($user[user_id]==$my[user_id]){</php><include file="Space:homeside" /><php>}else{</php><include file="Space:proside" /><php>}</php>
+    </td>
+</tr>
+<tr>
+    <td height="36px">
+        <div id="indexpage" class="page"><{$page}></div>
+    </td>
+</tr>
+</table>
+<script type="text/javascript">
+$(document).ready(function(){
+    followlay();
+    var k='<{$keyword}>';
+    if (k) {
+        $('.followform').val('<{$keyword}>');
+    } else {
+        $('.followform').val('<{:L(inputfollowaccount)}>');
+    }
+    $('.followform').focus(function(){
+        if ($('.followform').val()=='<{:L(inputfollowaccount)}>') {
+            $('.followform').val('');
+        }
+    });
+    $('.followform').blur(function(){
+        if ($('.followform').val()=='') {
+            $('.followform').val('<{:L(inputfollowaccount)}>');
+        }
+    });
+});
+</script>
+<include file="Common:foot" />

@@ -1,0 +1,30 @@
+<include file="header" />
+<div style='padding:2px'><p><img src='<{:sethead($user[user_head])}>' width='50px'></p>
+<php>if($user[user_id]!=$my[user_id] && $my[user_id]){</php>
+    <a href="<{:SITE_URL}>/Wap/sendprimsg/user_name/<{:rawurlencode($user[user_name])}>/from/<{:base64_encode('space/user_name/'.$user[user_name])}>"><{:L('send_message')}></a><span class="stamp">&nbsp;|&nbsp;</span>
+    <php>if($isfriend[$user[user_id]]==1 || $isfriend[$user[user_id]]==3){</php>
+    <a href="<{:SITE_URL}>/Wap/delfollow/user_name/<{:rawurlencode($user[user_name])}>/from/<{:base64_encode('space/user_name/'.$user[user_name])}>"><{:L('yes_cancel_follow')}></a>
+    <php>}else{</php>
+    <a href="<{:SITE_URL}>/Wap/addfollow/user_name/<{:rawurlencode($user[user_name])}>/from/<{:base64_encode('space/user_name/'.$user[user_name])}>"><{:L('have_a_follow')}></a>
+    <php>}</php>
+<php>}</php>
+</div>
+<h2><{$user['nickname']}> <{:L('is_doing')}></h2>
+<ul>
+<php>if(count($content)>0){</php>
+    <php>foreach($content as $val){
+        echo $ctent->wapli($val,$my['user_id'],'space/user_name/'.rawurlencode($user[user_name]),1);
+    }</php>
+<php>}else{</php>
+    <span class="stamp"><{:L('no_talks_this_time')}></span>
+<php>}</php>
+<div class="page"><{$page}></div>
+</ul>
+<h2><{$user['nickname']}><{:L('wap_user_info')}></h2>
+
+<php>if($user[user_auth]>=1 && $vipgroup[$user[user_auth]][name]){</php><p><img src="<{:$vipgroup[$user[user_auth]][titleurl]}>" /></p><php>}</php>
+<p><{:L('set_gender')}>：<php>if($user[user_gender]){</php><{$user[user_gender]}><php>}</php></p>
+<p> <{:L('wap_my_city')}>：<php>if($user[live_city]){</php><{$user[live_city]}><php>}</php></p>
+<p> <{:L('user_info')}>：<php>if($user[user_info]){</php><{:$ctent->wapubb(clean_html($user[user_info]))}><php>}</php></p>
+<php>if($user[user_auth]>=1){</php><p> <{:L('vip_info')}>：<{:clean_html($user[auth_info])}></p><php>}</php>
+<include file="footer" />

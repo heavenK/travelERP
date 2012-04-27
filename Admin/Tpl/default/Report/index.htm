@@ -1,0 +1,28 @@
+<include file="Common:header" />
+<h3>举报信息列表</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Report/delreport' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="80px">&nbsp;</td>
+    <td width="150px">用户帐号</td>
+    <td width="400px" style="text-indent:0px">举报内容</td>
+    <td width="150px">举报分类</td>
+    <td width="150px">举报时间</td>
+</tr>
+<php>foreach($content as $val){</php>
+    <tr>
+        <td valign="top"><input type="checkbox" name="deljb[]" class="checkbox" value="<{$val[id]}>"></td>
+        <td valign="top"><a href="<{:SITE_URL}>/<{$val[user_name]}>" target="_blank"><{$val[user_name]}></a></td>
+        <td style="text-indent:0px"><{$val[reportbody]}></td>
+        <td valign="top"><{:jbtype($val[reporttype])}></td>
+        <td valign="top"><{:date('Y-m-d H:i',$val[dateline])}></td>
+    </tr>
+<php>}</php>
+<tr>
+    <td><input type="checkbox" onclick="CheckAll('deljb', 'chkall')" id="chkall" name="chkall" class="checkbox"> 删除?</td>
+    <td colspan="4"><input type="submit" class="button1" value="提交删除"></td>
+</tr>
+</table>
+</form>
+<div class="page"><{$page}></div>
+<include file="Common:foot" />

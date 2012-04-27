@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="beizhu-Type" beizhu="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+
+#tablelist td{ background:#FFFFFF}
+-->
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+
+<table id="tablelist" class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+<tbody>
+  <tr>
+    <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+    </td>
+  </tr>
+  
+  <php>foreach($huilvAll as $huilv){</php>
+  
+    <tr> 
+      <td height="28" width="160" align="left" >
+      	<input id="title_<{$huilv[resourceID]}>" type="text" value="<{$huilv[title]}>" >：<br>
+      </td>
+      <td >
+      	&nbsp; "<strong>1</strong>" 元人民币兑换
+      	<input id="price_<{$huilv[resourceID]}>" style="width: 160px; text-align:center" type="text" value="<{$huilv[price_ext2]}>">
+      </td>
+      <td>
+        <input class="np coolbg" onclick="javascript:edititem_1('<{$huilv[resourceID]}>')" value="修改" type="button">
+        <input class="np coolbg" onclick="javascript:dodelete(this,'<{$huilv[resourceID]}>','tablelist')" value="删除" type="button">
+      </td>
+    </tr>
+    
+  <php>}</php>
+    
+</tbody>
+</table>
+
+
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+<tbody>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      </td>
+      <td bgcolor="#FFFFFF">
+            	<input class="np coolbg" onclick="javascript:newadd('tablelist')" value="增加" type="button">
+      </td>
+    </tr>
+</tbody>
+</table>
+
+
+
+</body></html>
+
+
+<script>
+
+function dosave_1(id,tablename){
+	
+	var price = $("#price"+id).val();
+	var title = $("#title"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>System/dopostrmbtoother",
+		data:	"title="+title+"&price_ext2="+price,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！');
+					}
+					else{
+						
+						alert('添加成功！');
+						
+						var edit_button = "<input class=\"np coolbg\" onclick=\"javascript:edititem_2('" + id + "','" + msg + "')\" value=\"修改\" type=\"button\">";
+						edit_button += "<input class=\"np coolbg\" onclick=\"javascript:dodelete(this,'" + msg + "','"+tablename+"')\" value=\"删除\" type=\"button\">";
+						$("#operator"+id).parent().html(edit_button);
+						
+					}
+				  }
+	});
+}
+
+
+function edititem_2(id,msg){
+	
+	var resourceID = msg;
+	
+	var title = $("#title"+id).val();
+	var price = $("#price"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>System/dopostrmbtoother",
+		data:	"title="+title+"&price_ext2="+price+"&resourceID="+resourceID,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+function edititem_1(id){
+	
+	var resourceID = id;
+	
+	var title = $("#title_"+id).val();
+	var price = $("#price_"+id).val();
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>System/dopostrmbtoother",
+		data:	"title="+title+"&price_ext2="+price+"&resourceID="+resourceID,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+
+var hj=0;
+function newadd(tablename){
+	hj++;
+	var thetable = document.getElementById(tablename);     
+	R=thetable.insertRow(-1); 
+	
+	C=R.insertCell(-1);
+	C.innerHTML='<input  id="title'+hj+'" type="text" value="人民币兑" >：';     
+	
+	 var str = '&nbsp; "<strong>1</strong>" 元人民币兑换&nbsp;';
+	 str += '<input  id="price'+hj+'" style="width: 160px; text-align:center" type="text" value="<{$price_ext2}>"> ';
+      	
+	C=R.insertCell(-1);
+	C.innerHTML = str;  
+	        
+	 str = '<input id="operator'+hj+'" class="np coolbg" onclick="javascript:dosave_1(\''+hj+'\',\''+tablename+'\')" value="保存" type="button">';
+	 str += '<input class="np coolbg" onclick="javascript:dodelete(this,\''+hj+'\',\''+tablename+'\')" value="删除" type="button">';
+      	
+	C=R.insertCell(-1);
+	C.innerHTML = str;  
+	
+}
+
+
+
+function deletetablerow(obj,rowi,tablename)   
+{ 
+    var thetable = document.getElementById(tablename);  
+    var rowIndex   =   obj.parentNode.parentNode.rowIndex;  
+    thetable.deleteRow(rowIndex); 
+}   
+
+function dodelete(obj, id, tablename){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>System/deletestrmbtoother",
+		data:	"resourceID=" + id,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('删除成功！');
+						deletetablerow(obj, id, tablename);
+					}
+					if(msg == 'false'){
+						alert('删除失败！');
+					}
+					
+					
+				  }
+	});
+}
+	
+
+
+</script>

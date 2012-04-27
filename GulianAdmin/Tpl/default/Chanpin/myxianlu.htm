@@ -1,0 +1,280 @@
+<link href="<{:__PUBLIC__}>/gulianstyle/css/ks.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<style>
+.fanye th{ background:url("<{:__PUBLIC__}>/gulianstyle/images/search_topbav_bg_02.gif") repeat-x;}
+</style>
+<div class="fanye" style="display:inline; width:98%; border:#adadad 1px solid; float:left;">
+
+	<php>if($iframe == 1){</php>
+	<em></em>
+	<php>}</php>
+	<php>if($iframe == 2){</php>
+    <i></i>
+	<php>}</php>
+	<php>if($iframe == 3){</php>
+    <u></u>
+	<php>}</php>
+    
+    
+
+
+  <div class="nr" style="margin-top:15px; margin-left:180px; width:100px; ">
+      <table width="313" border="0" style="font-size:12px;">
+          <tbody><tr>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:copytonew()" class="yyxxl">复制线路</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:tijiao();" onclick="return confirm('确认删除吗？');" class="yyxxl">删除</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:suoding();" onclick="return confirm('确认要锁定线路吗？');" class="yyxxl">线路锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiesuo();" onclick="return confirm('确认要解除锁定吗？');" class="yyxxl">解除锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiezhi();" onclick="return confirm('确认要线路截止吗？');" class="yyxxl">线路截止</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:webpub('pub');" onclick="return confirm('确认要向网站发布线路信息新闻吗？');" class="yyxxl">网站发布</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:webpub('del');" onclick="return confirm('确认要删除网站线路信息新闻吗？');" class="yyxxl">网站删除</a>
+                  </td>
+          </tr>
+      </tbody></table>
+  </div>
+    
+    
+    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:12px;">
+        <tbody>
+            <tr>
+                <th height="32" align="center"><input type="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                <th height="32" align="center">
+                    产品名称</th>
+                <th height="32" align="center">
+                    编号</th>
+                <th height="32" align="center">
+                    出团日期</th>
+                <th height="32" align="center">
+                    发布人</th>
+                <th height="32" align="center">
+                    创建时间</th>
+                <th height="32" align="center">
+                    状态</th>
+                <th height="32" align="center">
+                    锁定</th>
+                <th height="32" align="center">
+                    网站发布</th>
+                <th height="32" align="center">
+                    轨迹</th>
+            </tr>
+        <form name="form" method="post" id="form">
+          <php> $i = -1; foreach($xianludatas as $xianlu){ $i++;</php>
+        <tr class="tr<php>echo $i%2</php>">
+                <td height="32" align="center">
+                      <span><input value="<{$xianlu['xianluID']}>" id="1_list<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                </td>
+                <td height="32" align="center">
+                                        <a href="javascript:showxianlu(<{$xianlu['xianluID']}>);">
+                                            <{$xianlu['mingcheng']}>
+                                        </a>
+                </td>
+                <td height="32" align="center">
+                                        <a href="javascript:showxianlu(<{$xianlu['xianluID']}>);">
+                                            <{$xianlu['bianhao']}>
+                                        </a>
+                </td>
+                <td height="32" align="center">
+                  	<img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($xianlu[chutuanriqi])</php>',this)" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" />
+                </td>
+                <td height="32" align="center">
+                    <{$xianlu['realname']}>
+                </td>
+                <td height="32" align="center">
+                	<php>echo date('Y/m/d H:i',$xianlu['time']);</php>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['zhuangtai']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['islock']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['ispub']}>
+                </td>
+                <td height="32" align="center" style="color:red">
+                	<img onclick="GetcheckBack(this,'<{$xianlu['xianluID']}>','线路','审核记录')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                </td>
+            </tr>
+            <php>}
+            </php>
+        </form>
+        </tbody>
+    </table>
+</div>
+<div style="width:99%; float:left; text-align:center;" >
+   <div class="page"><{$page}></div>
+</div>
+<div id="divrili2"  style="display: none; position:absolute; ">
+    <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+
+<div id="divrili3"  style="display: none; height:300px; position:absolute; width:300px; text-align:center; ">
+    <div class="fanye" id="thedate">
+      
+    </div>
+</div>
+
+<script language="javascript">  
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+
+
+function dump_obj(myObject) {  
+  var s = "";  
+  for (var property in myObject) {  
+   s = s + "\n "+property +": " + myObject[property] ;  
+  }  
+  alert(s);  
+}  
+
+</script> 
+
+<script type="text/javascript">
+function showdate(datelist,obj)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 20;
+	$("#divrili3").css({top:objtop , left:objleft });
+	
+	datelist=datelist.replace(/'/g,"");
+	datelist=datelist.split(";");
+	
+	 var str = '';
+	 str += '<table width="100%" cellspacing="0" cellpadding="0" border="0" class="bg"  style="font-size:12px">';
+	 str += '<tbody>';
+	 str += '<tr>';
+	 str += '<th height="32" align="center"> 时间</th>';
+	 str += '</tr>';
+	 for(var i=0; i<datelist.length; i++){
+		 str += '<tr class="tr1">';
+		 str += '<td width="100%" height="32" align="center">'+datelist[i]+'</td>';
+		 str += '</tr>';
+	 }
+	 str += '</tbody>';
+	 str += '</table>';
+	 
+	$("#thedate").empty();
+	$("#thedate").append(str);
+	
+	var divRili = document.getElementById("divrili3"); 
+	if(divRili) {
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else 
+		{		
+			divRili.style.display = '';			
+		}
+	}
+}
+
+
+function GetcheckBack(obj,id,tbname,type)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili) {
+
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else {		
+			divRili.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+function showxianlu(id)
+{
+    var url = '<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function myCheckBoxSelect(o)
+{
+    var id = '1_list';
+    var i = 0;
+    for(;;)
+    {
+        id = '1_list' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+
+function copytonew() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/copytonew';
+        document.getElementById('form').submit();
+}
+function tijiao() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/deletechanpin';
+        document.getElementById('form').submit();
+}
+function jiesuo() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/xianlujiesuo';
+        document.getElementById('form').submit();
+}
+function suoding() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/xianlusuoding';
+        document.getElementById('form').submit();
+}
+function jiezhi() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/dochangestatus/type/截止';
+        document.getElementById('form').submit();
+}
+function webpub(type) {
+	if(type == 'pub'){
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Public/domakepub/type/发布';
+        document.getElementById('form').submit();
+	}
+	else{
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Public/domakepub/type/删除';
+        document.getElementById('form').submit();
+	}
+}
+
+</script>

@@ -1,0 +1,738 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+订单信息
+</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/sankechanpin.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js" language="javascript" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script language="javascript" type="text/javascript">
+function check()
+{
+    var dd=document.getElementById("islock");
+    if(dd.value=="锁定")
+    {
+    alert("该订单已经锁定，无法进行操作");
+    return false;
+    }
+    return true;}
+
+function showper()
+{
+    var per=document.getElementById("divPer");
+   
+    if(per.style.display=="none")
+        per.style.display="";
+    else
+        per.style.display="none";
+}
+
+    </script>
+<script type="text/javascript">
+
+function ajax_modify(obj,id){
+	
+	value = $(obj).val();
+	name = $(obj).attr('name');
+	name = name.replace('[]','');
+	
+	//alert(value + " " +name);
+	datas = "ajax=1&tuanyuanID=" + id + "&" + name + "=" + value;
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_MENSHI}>Index/dopostmingdan",
+		data:	datas,
+		success:	function(msg){
+				  }
+	});
+	
+		
+}
+</script>
+</head>
+<body>
+
+
+
+        <div>
+            &nbsp;<div class="hdlyRight">
+                <div id="content_bb">
+                    
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span>订单信息</li>
+                    </ul>
+                </div>
+                    <div class="ss" style="height:30px;">
+                        <table width="100%" border="0">
+                            <tbody><tr>
+                                <td width="80%">
+                                </td>
+                                <td>
+                                    <a onclick="return confirm('确认取消订单？');" id="lkBtnCancelOrder" class="yyxxl" href="<{:SITE_MENSHI}>Index/quxiaodingdan/dingdanID/<{$dingdanID}>" style="color:Red;">取消订单</a>
+                                </td>
+                                <td>
+                                    <a id="lkBase" class="yyxxl" href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/<{$dingdan['zituanID']}>">团队控管</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Dingdan/dingdansuo/type/锁定/dingdanID/<{$dingdan['dingdanID']}>" class="yyxxl">订单锁定</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Dingdan/dingdansuo/type/解锁/dingdanID/<{$dingdan['dingdanID']}>" class="yyxxl">订单解锁</a>
+                                </td>
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Dingdan/querenfukuancw/dingdanID/<{$dingdan['dingdanID']}>" class="yyxxl">财务确认付款</a>
+                                </td>
+                                
+                                <td>
+                                    <a href="<{:SITE_ADMIN}>Dingdan/quxiaofukuancw/dingdanID/<{$dingdan['dingdanID']}>" class="yyxxl">财务取消付款</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    
+                    <div class="ss" style="height:30px;">
+                        <table width="100%" border="0">
+                            <tbody><tr>
+                                <td width="60%">
+                                </td>
+                                <td align="center">
+                                   订单审核状态:<strong><{$dingdan['check_status']}></strong> 
+                                </td>
+                                <td align="center">
+                                   <a id="lkBase" class="yyxxl" href="<{:SITE_ADMIN}>Shenhe/dingdanshenhe/check_status/审核通过/dingdanID/<{$dingdan['dingdanID']}>">审核通过</a>
+                                </td>
+                                <td align="center">
+                                   <a id="lkBase" class="yyxxl" href="<{:SITE_ADMIN}>Shenhe/dingdanshenhe/check_status/审核不通过/dingdanID/<{$dingdan['dingdanID']}>">审核不通过</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    
+                    <div id="yk" class="fanye">
+                        <br>
+                        <br>
+                        <h3>订单信息:</h3>
+                            
+                        
+                        <br>
+                        <table border="0" cellpadding="0" cellspacing="0" class="bg" width="100%">
+                            <tbody><tr class="tr1">
+                                <td width="50%" height="32">
+                                   &nbsp; 订单编号：<{$dingdan['bianhao']}>
+                                </td>
+                                <td width="50%">
+                                  &nbsp;  订单状态：<span id="ltState"><{$dingdan['zhuangtai']}></span>
+                                </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td width="50%" height="32">
+                                  &nbsp;  团队编号：<{$dingdan['tuanhao']}>
+                                </td>
+                                <td height="32" width="7%">
+                                  &nbsp;  团体名称：<{$dingdan['mingcheng']}>
+                                </td>
+                            </tr>
+                            <tr class="tr1">
+                                <td width="50%" height="32">
+                                   &nbsp; 订单佣金：<span id="lbYj"><{$dingdan['yongjin']}></span>
+                                </td>
+                                <td height="32" width="50%">
+                                   &nbsp; 订单价格：<span id="lbPay"><{$dingdan['jiage']}></span>
+                                </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td width="50%" height="32">
+                                   &nbsp; 成人数：<{$dingdan['chengrenshu']}>
+                                </td>
+                                <td height="32" width="50%">
+                                   &nbsp; 儿童数：<{$dingdan['ertongshu']}>
+                                </td>
+                            </tr>
+                            <php>if($dingdan['xianlutype'] == '散客产品'){
+                            </php>
+                            <tr class="tr1">
+                                <td width="50%" height="32">
+                                   &nbsp; 成人价：<{$dingdan['chengrenjia']}>
+                                </td>
+                                <td height="32" width="50%">
+                                  &nbsp;  儿童价：<{$dingdan['ertongjia']}>
+                                </td>
+                            </tr>
+                            <php>}
+                            </php>
+                            
+                            <php>if($dingdan['xianlutype'] == '自由人'){
+                            </php>
+                            <tr class="tr1">
+                                <td width="50%" height="32">
+                                  &nbsp;  售价：<{$dingdan['chengrenjia']}>
+                                </td>
+                            </tr>
+                            <php>}
+                            </php>
+                            <tr class="tr2">
+                                <td width="50%" height="32">
+                                  &nbsp;  联系人：<{$dingdan['lianxiren']}>
+                                </td>
+                                <td height="32" width="50%">
+                                  &nbsp;  联系电话：<{$dingdan['telnum']}>
+                                </td>
+                            </tr>
+                            <tr class="tr1">
+                                <td width="50%" height="32">
+                                  &nbsp;  来源：<{$dingdan['companyname']}>-<{$dingdan['user_name']}>
+                                </td>
+                            <php>if($dingdan['xianlutype'] == '散客产品'){
+                            </php>
+                                <td height="32" width="50%">
+                                  &nbsp;  剩余名额：<span id="lbSyNo"><{$shengyu}></span>
+                                </td>
+                            <php>}
+                            </php>
+                            </tr>
+                            <tr class="tr2">
+                                <td width="50%" height="32"  style="color:red">
+                                  &nbsp;  是否锁定：<{$dingdan['islock']}>
+                                </td>
+                                <td height="32" width="50%">
+                                   &nbsp; 出团日期：<{$dingdan['chutuanriqi']}>
+                                </td>
+                            </tr>
+                            
+                            <tr class="tr1">
+                                <td width="50%" height="32" style="color:red">
+                                   &nbsp; 门市确认付款：<php>if($dingdan['daokuan']=='已付款') echo '已确认' ;else echo '未确认';</php>
+                                </td>
+                                <td width="50%" height="32" style="color:red">
+                                   &nbsp; 财务确认付款：<php>if($dingdan['daokuancw']=='已付款') echo '已确认' ;else echo '未确认';</php>
+                                </td>
+                            </tr>
+                            
+                            <tr class="tr2">
+                                <td width="10%" height="32">
+                                  &nbsp;  订单需求：<{$dingdan['xuqiu']}>
+                                </td>
+                                <td height="32">
+                                  
+                                </td>
+                                
+                            </tr>
+                            
+                            
+                        </tbody></table>
+                        <br>
+                        <h3>
+                            团员信息
+                        </h3>
+                        <br>
+                        <table>
+                            <tbody><tr>
+                                <td>
+                                    <a id="lkBtnUpdate" class="yyxxl" href="javascript:baochunxinxi()" style="background:blue; color:#FFFFFF"  >保存团员修改</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:dozhanwei()"  onclick="return confirm('修改团员状态为占位？');" class="yyxxl">团员占位</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:doquren()"  onclick="return confirm('修改团员状态为确认？');" class="yyxxl">团员确认</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:setleader()" onclick="return confirm('确认设成领队？');" class="yyxxl">设为领队</a>
+                                </td>
+                            	<td>
+                                    <a href="javascript:cancerleader()" onclick="return confirm('确认取消领队？');" class="yyxxl">取消领队</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:dofufei()"  onclick="return confirm('确认付费？');" class="yyxxl">已付费</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:doweifufei()"  onclick="return confirm('标记未付费？');" class="yyxxl">未付费</a>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <br>
+                        
+                        
+                        
+                        <php>if($zituan['guojing'] =='境外'){</php>
+                        
+                        <div id="divPer" style="display:block">
+                            <table id="table_id" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                                <tbody><tr class="tr">
+                                    <td height="27" colspan="9" align="center" bgcolor="#FFFFFF" class="bzxsk">
+                                        <table id="tableTravel" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                                            <tbody>
+                                            <tr>
+                                                <th height="32" align="center">点选</th>
+                                                <th height="32" align="center">姓名</th>
+                                                <th height="32" align="center">拼音</th>
+                                                <th align="center" height="32">类型</th>
+                                                <th height="32" align="center">性别</th>
+                                                <th height="32" align="center">生日</th>
+                                                <th height="32" align="center">证件类型</th>
+                                                <th height="32" align="center">证件号码</th>
+                                                <th height="32" align="center">户籍地</th>
+                                                <th height="32" align="center">证件有效期</th>
+                                                <th height="32" align="center">状态</th>
+                                                <th height="32" align="center">应付</th>
+                                                <th height="32" align="center">到款</th>
+                                                <th height="32" align="center">详细信息</th>
+                                            </tr>
+                                            
+                                            
+                                            <form name="form1" method="post" action="<{:SITE_MENSHI}>Index/dopostmingdan" id="form1">
+                                            <input type="hidden" name="dingdanID" id="dingdanID" value="<{$dingdanID}>">
+                                            <input type="hidden" name="zituanID" id="zituanID" value="<{$dingdan[zituanID]}>">
+                                            <input type="hidden" name="jiaoqian_chengren" id="jiaoqian_chengren" value="<{$dingdan['chengrenjia']}>">
+                                            <input type="hidden" name="forward" id="forward" value="<{:SITE_MENSHI}>Dingdan/dingdanxinxi/dingdanID/<{$dingdanID}>">
+                                            
+                                            
+                                            <php> 
+                                            if($tuanyuanAll){
+                                            $i = -1;  foreach($tuanyuanAll as $tuanyuan){ $i++;
+                                            </php>
+                                            
+                                            <tr>
+                                                <td height="27" align="center">
+                                                <input id="_Item_<{$i}>" name="itemlist[]" type="checkbox"  value="<{$tuanyuan['tuanyuanID']}>">
+                                                
+                                                <input type="hidden" name="tuanyuanID[]" value="<{$tuanyuan['tuanyuanID']}>" />
+                                                </td>
+                                                                    
+                                                <td height="27" align="center" <php>if($tuanyuan['leader']){ echo 'bgcolor="#0000FF"';}</php>>
+                                                <input style="width:80px" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');" value="<{$tuanyuan['name']}>" name="name[]" type="text"></td>
+                                                <td height="27" align="center">
+                                                <input style="width:80px" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');" value="<{$tuanyuan['pinyin']}>" name="pinyin[]" type="text"></td>
+                                                <td height="27" align="center">
+                                                <select disabled="disabled">
+                                                    <option disabled="disabled"><{$tuanyuan['manorchild']}></option>
+                                                </select>
+                                                </td>
+                                                <td height="27" align="center">
+                                                <select name="sex[]" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                                                <php>if($tuanyuan['sex']){
+                                                </php>
+                                                    <option value="<{$tuanyuan['sex']}>"><{$tuanyuan['sex']}></option>
+                                                    <option disabled="disabled">--------</option>
+                                                <php>}
+                                                </php>
+                                                <option value="男">男</option>
+                                                <option value="女">女</option>
+                                                </select>
+                                                </td>
+                                                <td height="27" align="center">
+                                                <input onfocus="WdatePicker()" style="width:80px;" value="<{$tuanyuan['chushengriqi']}>" name="chushengriqi[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                                                </td>
+                                                <td height="27" align="center">
+                                <select name="zhengjiantype[]" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                                
+                                	<php>if($tuanyuan[zhengjiantype]){
+                                    </php>
+                                    <option selected="selected" value="<{$tuanyuan[zhengjiantype]}>"><{$tuanyuan[zhengjiantype]}></option>
+                                    <option disabled="disabled">------------</option>
+                                	<php>}
+                                    </php>
+                                
+                                	<option value="身份证">身份证</option>
+                                	<option value="护照">护照</option>
+                                	<option value="通行证">通行证</option>
+                                </select>
+                                                
+                                                </td>
+                                                
+                                                <td height="27" align="center">
+                                                <input style="width:100px" value="<{$tuanyuan['zhengjianhaoma']}>" name="zhengjianhaoma[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                <td height="27" align="center"><input style="width:100px" value="<{$tuanyuan['hujidi']}>" name="hujidi[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                <td height="27" align="center"><input onfocus="WdatePicker()" style="width:100px" value="<{$tuanyuan['zhengjianyouxiaoqi']}>" name="zhengjianyouxiaoqi[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                
+                                                <td height="27" align="center"><{$tuanyuan['zhuangtai']}></td>
+                                                <td height="27" align="center">
+                                                <php>if(checkByadminlevel_v('计调操作员,计调经理,网管',$this->tVar)){</php>
+                                                	<input style="width:80px;" value="<{$tuanyuan['jiaoqian']}>" id="xuqiu<{$tuanyuan['jiaoqian']}>" name="jiaoqian[]" type="text"  onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                            					<php>}else{</php>
+                                                	<input disabled="disabled" style="width:80px;" value="<{$tuanyuan['jiaoqian']}>" id="xuqiu<{$tuanyuan['jiaoqian']}>" name="jiaoqian[]" type="text">
+                                                <php>}</php>
+                                                </td>
+                                                <td height="27" align="center"><{$tuanyuan['daokuan']}></td>
+                                                <td height="27" align="center"><a style="color:blue;" href="javascript:viod(0)" onclick="TravelerDetail('<{$tuanyuan['tuanyuanID']}>')">详细信息</a></td>
+                                            </tr>
+                                            
+                                            <php>}}
+                                            </php>
+                                            
+                                         </form>   
+                                            
+                                        </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                        
+                        
+                        
+                        <php>}else{</php>
+                        
+                        <div id="divPer" style="display:block">
+                            <table id="table_id" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                                <tbody><tr class="tr">
+                                    <td height="27" colspan="9" align="center" bgcolor="#FFFFFF" class="bzxsk">
+                                        <table id="tableTravel" width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+                                            <tbody>
+                                            <tr>
+                                                <th height="32" align="center">点选</th>
+                                                <th height="32" align="center">姓名</th>
+                                                <th align="center" height="32">类型</th>
+                                                <th height="32" align="center">性别</th>
+                                                <th height="32" align="center">证件类型</th>
+                                                <th height="32" align="center">证件号码</th>
+                                                <th height="32" align="center">联系电话</th>
+                                                <th height="32" align="center">需求</th>
+                                                <th height="32" align="center">状态</th>
+                                                <th height="32" align="center">应付</th>
+                                                <th height="32" align="center">到款</th>
+                                                <th height="32" align="center">详细信息</th>
+                                            </tr>
+                                            
+                                            
+                                            <form name="form1" method="post" action="<{:SITE_MENSHI}>Index/dopostmingdan" id="form1">
+                                            <input type="hidden" name="dingdanID" id="dingdanID" value="<{$dingdanID}>">
+                                            <input type="hidden" name="zituanID" id="zituanID" value="<{$dingdan[zituanID]}>">
+                                            <input type="hidden" name="jiaoqian_chengren" id="jiaoqian_chengren" value="<{$dingdan['chengrenjia']}>">
+                                            <input type="hidden" name="forward" id="forward" value="<{:SITE_MENSHI}>Dingdan/dingdanxinxi/dingdanID/<{$dingdanID}>">
+                                            
+                                            
+                                            <php> 
+                                            if($tuanyuanAll){
+                                            $i = -1;  foreach($tuanyuanAll as $tuanyuan){ $i++;
+                                            </php>
+                                            
+                                            <tr>
+                                                <td height="27" align="center">
+                                                <input id="_Item_<{$i}>" name="itemlist[]" type="checkbox"  value="<{$tuanyuan['tuanyuanID']}>">
+                                                
+                                                <input type="hidden" name="tuanyuanID[]" value="<{$tuanyuan['tuanyuanID']}>" />
+                                                </td>
+                                                                    
+                                                <td height="27" align="center" <php>if($tuanyuan['leader']){ echo 'bgcolor="#0000FF"';}</php> >
+                                                <input style="width:80px" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');" value="<{$tuanyuan['name']}>" name="name[]" type="text"></td>
+                                                <td height="27" align="center">
+                                                <select disabled="disabled">
+                                                    <option disabled="disabled"><{$tuanyuan['manorchild']}></option>
+                                                </select>
+                                                </td>
+                                                <td height="27" align="center">
+                                                <select name="sex[]" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                                                <php>if($tuanyuan['sex']){
+                                                </php>
+                                                    <option value="<{$tuanyuan['sex']}>"><{$tuanyuan['sex']}></option>
+                                                    <option disabled="disabled">--------</option>
+                                                <php>}
+                                                </php>
+                                                <option value="男">男</option>
+                                                <option value="女">女</option>
+                                                </select>
+                                                </td>
+                                                <td height="27" align="center">
+                                                <select name="zhengjiantype[]" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                                                
+                                                    <php>if($tuanyuan[zhengjiantype]){
+                                                    </php>
+                                                    <option selected="selected" value="<{$tuanyuan[zhengjiantype]}>"><{$tuanyuan[zhengjiantype]}></option>
+                                                    <option disabled="disabled">------------</option>
+                                                    <php>}
+                                                    </php>
+                                                
+                                                    <option value="身份证">身份证</option>
+                                                    <option value="护照">护照</option>
+                                                    <option value="通行证">通行证</option>
+                                                </select>
+                                                
+                                                </td>
+                                                
+                                                <td height="27" align="center">
+                                                <input style="width:100px" value="<{$tuanyuan['zhengjianhaoma']}>" name="zhengjianhaoma[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                <td height="27" align="center">
+                                                <input style="width:100px" value="<{$tuanyuan['telnum']}>" name="telnum[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                <td height="27" align="center">
+                                                <input style="width:100px" value="<{$tuanyuan['xuqiu']}>" name="xuqiu[]" type="text" onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');"></td>
+                                                <td height="27" align="center"><{$tuanyuan['zhuangtai']}></td>
+                                                <td height="27" align="center">
+                                                <php>if(checkByadminlevel_v('计调操作员,计调经理,网管',$this->tVar)){</php>
+                                                	<input style="width:80px;" value="<{$tuanyuan['jiaoqian']}>" id="xuqiu<{$tuanyuan['jiaoqian']}>" name="jiaoqian[]" type="text"  onchange="ajax_modify(this,'<{$tuanyuan['tuanyuanID']}>');">
+                            					<php>}else{</php>
+                                                	<input disabled="disabled" style="width:80px;" value="<{$tuanyuan['jiaoqian']}>" id="xuqiu<{$tuanyuan['jiaoqian']}>" name="jiaoqian[]" type="text">
+                                                <php>}</php>
+                                                </td>
+                                                <td height="27" align="center"><{$tuanyuan['daokuan']}></td>
+                                                <td height="27" align="center"><a style="color:blue;" href="javascript:viod(0)" onclick="TravelerDetail('<{$tuanyuan['tuanyuanID']}>')">详细信息</a></td>
+                                            </tr>
+                                            
+                                            <php>}}
+                                            </php>
+                                            
+                                         </form>   
+                                            
+                                        </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                            
+                            
+                        </div>
+                        
+                        <php>}</php>
+                        
+                        
+                        
+                        <br>
+                        <h3>
+                            需求应答
+                        </h3>
+                        <br>
+                        <table border="0" cellpadding="0" cellspacing="0" class="bg" width="100%">
+                            
+                                    <tbody><tr>
+                                        <th align="center" height="32" width="20%">
+                                            来源
+                                        </th>
+                                        <th align="center" height="32" width="20%">
+                                            发起人
+                                        </th>
+                                        <th align="center" height="32" width="45%">
+                                            内容
+                                        </th>
+                                        <th align="center" height="32">
+                                            时间
+                                        </th>
+                                    </tr>
+                                
+                                <php> foreach($messageAll as $message){
+                                </php>	
+                                    
+                                    <tr class="tr1">
+                                        <td align="center" height="27" width="20%">
+                                            <{$message['laiyuan']}>
+                                        </td>
+                                        <td align="center" height="27" width="20%">
+                                            <{$message['username']}>
+                                        </td>
+                                        <td align="center" height="27" width="45%">
+                                            <{$message['content']}>
+                                        </td>
+                                        <td align="center" height="27">
+                                            <php> echo date('Y-m-d H:i:s',$message['time']); </php>
+                                        </td>
+                                    </tr>
+                                    
+                                <php>}
+                                </php>
+                                
+                        </tbody></table>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <form name="form" id="form" action="<{:SITE_ADMIN}>Message/dopostxuqiuxinxi" method="post">
+                        <input type="hidden" name="tableID" value="<{$dingdan['dingdanID']}>"  />
+                        <input type="hidden" name="tablename" value="订单"  />
+                        
+                        <table width="100%" border="0">
+                            <tbody><tr>
+                                <td height="27" align="center" width="70%" colspan="8">
+                                    内容：
+                                    <textarea name="content" rows="5" cols="45" id="content"></textarea>
+                                </td>
+                            </tr>
+                            <tr align="center">
+                                <td colspan="2">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        </form>
+                        
+                        
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+function checkdata()
+  {   
+  
+    //var reg=^\d{15}|\d{17}[\dx]$;
+    
+    var name=document.getElementsByName("tbName");
+    var no=document.getElementsByName("tbNum");
+    var phone=document.getElementsByName("tbphone");
+    
+   
+    if(name.length>0)
+    {
+        for(var i=0;i<name.length;i++)
+        {
+             if(name[i].value=="")
+             {
+                alert("请填写姓名！");
+                return false;
+             }
+             if(no[i].value=="")
+             {
+                alert("请填写证件号码！");
+                return false;
+             }
+//             if(reg.test(no[i]))
+//             {
+//                alert("证件号码不正确！");
+//                return false;
+//             }
+             if(phone[i].value=="")
+             {
+                alert("请填写联系电话！");
+                return false;
+             }
+          }
+          
+          return true;
+       }
+       return false;
+       
+    }
+
+function getTid()
+{  
+    var dd=document.getElementById("islock");
+    if(dd.value=="锁定")
+    {
+        alert("该订单已经锁定，无法进行操作");
+        return false;
+    }
+    else
+    {
+        var orderid=document.getElementById("orderid").value;
+        var tid="";
+        var state="";
+       var checks=document.getElementsByName("car");
+        for(var i=0;i<checks.length;i++)
+        {
+            if(checks[i].checked)
+            {
+                tid+=document.getElementById("tbid"+i).value+",";
+                state+="dlState"+i+",";
+            }
+         }
+        
+        if(tid=="")
+        {
+            alert("请选择游客");
+            return false;
+        }
+        
+        
+        var url="OrdersAjax.aspx?tid="+tid+"&orderid="+orderid+"&date="+new Date().getTime();
+        var response=httpRequest('get',null,url);
+        if(response=="OK")
+        {
+            var states=state.split(",");
+            if(states.length>0)
+            {
+                for(var i=0;i<states.length-1;i++)
+                {
+                    document.getElementById(states[i]).value='4';
+                }
+            }
+            alert("该游客已取消!");
+        }
+        else
+        {
+            alert(response);
+        } 
+    }
+   
+}
+
+</script>
+<script>
+function canceltuanyuan()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/canceltuanyuan';
+	document.getElementById('form1').submit();
+	
+}
+
+function setleader()
+{
+	document.getElementById('form1').action = '<{:SITE_ADMIN}>Public/setLeader';
+	document.getElementById('form1').submit();
+	
+}
+function cancerleader()
+{
+	document.getElementById('form1').action = '<{:SITE_ADMIN}>Public/cancerleader';
+	document.getElementById('form1').submit();
+	
+}
+
+
+function dozhanwei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/dochangestatus/type/占位';
+	document.getElementById('form1').submit();
+	
+}
+
+function doquren()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/dochangestatus/type/确认';
+	document.getElementById('form1').submit();
+	
+}
+
+function dofufei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/dodaokuancheck/type/已付费';
+	document.getElementById('form1').submit();
+	
+}
+
+function doweifufei()
+{
+	document.getElementById('form1').action = '<{:SITE_MENSHI}>Dingdan/dodaokuancheck/type/未付费';
+	document.getElementById('form1').submit();
+	
+}
+
+function baochunxinxi() {
+        document.getElementById('form1').submit();
+}
+
+
+function TravelerDetail(id)
+{
+    var url="<{:SITE_MENSHI}>Dingdan/tuanyuanxinxi/tuanyuanID/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+    return false;
+}
+
+</script>
+
+</body></html>

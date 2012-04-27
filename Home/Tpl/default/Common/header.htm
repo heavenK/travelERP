@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta name="keywords" content="<{$keyword}><{$site['seokey']}>" />
+<meta name="description" content="<php>if($description){</php><{$description}><php>}else{</php><{$site['seodescription']}><php>}</php>" />
+<meta name="viewport" content="width=770"/>
+<php>if(!is_numeric($allowseo)){</php><meta name="robots" content="noindex,nofollow" /><php>}</php>
+<title><php>if($subname){echo($subname.'_');}</php><{$site['sitename']}> - <{$site['subtitle']}></title>
+<link href="<{:__PUBLIC__}>/images/favicon.ico?<{$site['cachetime']}>" rel="Shortcut Icon" type="image/x-icon">
+<link href="<{:__PUBLIC__}>/images/favicon.ico?<{$site['cachetime']}>" rel="Bookmark" type="image/x-icon">
+<script type="text/javascript">var etuser='{"siteurl":"<{:SITE_URL}>","pubdir":"<{:__PUBLIC__}>","setok":"<{$setok}>","my_uid":"<{$my[user_id]}>","user_name":"<{:$user[user_name]?$user[user_name]:$my[user_name]}>","nickname":"<{:$user[nickname]?$user[nickname]:$my[nickname]}>","space":"<{$type}>"}';var stalk='<{$sendtalk}>';var shorturl='<php>if($site[shortserver]<=1){</php><{:shortserver($site[shortserver])}><php>}else{</php><{$site[shorturl]}><php>}</php>';var autorefresh=<{$site[autorefresh]}>;</script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.js?<{$site['cachetime']}>"></script>
+<script type="text/javascript" src="<{:ET_URL}>/Home/Lang/<{:LANG_SET}>/lang.js?<{$site['cachetime']}>"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/extends.js?<{$site['cachetime']}>"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/function.js?<{$site['cachetime']}>"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/common.js?<{$site['cachetime']}>"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/ye_dialog.js?<{$site['cachetime']}>"></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/images/style.css?<{$site['cachetime']}>" />
+<!--[if lte IE 6]>
+<style type="text/css">
+#header .left{_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/logo.png');_background:none;cursor:pointer}
+#header2 .left{_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/logo.png');_background:none;cursor:pointer}
+#header .topmenubg{_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/topmenu.png');_background:none;}
+#navbg {_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='scale',src='<{:__PUBLIC__}>/images/headbg.png');_background:none;}
+#sidebar .homestabs .menu li .arrHover{_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/sidemenuArr_over.png');_background:none;}
+#sidebar .homestabs .menu li .arrCurt{_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/sidemenuArr.png');_background:none}
+#sidebar .sect {_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale', src='<{:__PUBLIC__}>/images/dot.png');_background:none;}
+.newst {_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='image',src='<{:__PUBLIC__}>/images/newst.png');_background:none;}
+</style>
+<![endif]-->
+<style type="text/css"><{$usertemp}><{$vipcss}></style>
+</head>
+
+<body>
+<php>if($my['user_id']){</php>
+<div id="navbg"></div>
+<div id="container" class="newlook">
+<div id="header">
+    <div id="navigation">
+        <ul>
+            <li ><a href="<{:SITE_ADMIN}>Chanpin">管理系统</a></li>
+            <li <php>if($menu=='pub'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/Pub"><{:L('pub')}></a></li>
+            <li <php>if($menu=='hot'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/Hot"><{:L('top')}></a></li>
+            <li <php>if($menu=='finder'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/Find"><{:L('find')}></a></li>
+            <li <php>if($menu=='invite'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/Find/invite"><{:L('invite')}></a></li>
+            <php>if ($site[googlemapopen]==1 || $site[widgetopen]==1 || $site[wapopen]==1){</php>
+            <li id="plugins"><a class="nohover" href="javascript:void(0);"><{:L('tools')}><span class="arr_d"><em class="b1">&nbsp;</em><em class="b2">&nbsp;</em><em class="b3">&nbsp;</em></span></a>
+            <div class="subNav" style="display:none;">
+            <php>if ($site[widgetopen]==1){</php><p><a href="<{:SITE_URL}>/Plugins/widget"><{:L('widget')}></a></p><php>}</php>
+            <{$plugincache['pageplugins']}>
+            </div>
+            </li>
+            <php>}</php>
+            <li class="fright"><a href="<{:SITE_URL}>/logout"><{:L('logout')}></a></li>
+            <php>if($my['isadmin']==1){</php><li class="fright"><a href="<{:ET_URL}>/admin.php"><{:L('adminmn')}></a></li><php>}</php>
+            <li class="fright <php>if($type=='message'){</php>selected<php>}</php>"><a href="<{:SITE_URL}>/Message/inbox"><{:L('message')}></a> | </li>
+            <li class="fright <php>if($menu=='theme'){</php>selected<php>}</php>"><a href="<{:SITE_URL}>/Setting/theme"><{:L('theme')}></a></li>
+            <li class="fright <php>if($menu=='setting'){</php>selected<php>}</php>"><a href="<{:SITE_URL}>/Setting"><{:L('setting')}></a></li>
+            <li class="fright <php>if($menu=='profile'){</php>selected<php>}</php>"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/profile"><{$my[nickname]}><php>if($my['userlock']==2){</php><b>[<{:L('Silenc')}>]</b><php>}</php></a></li>
+        </ul>
+    </div>
+    <php>if($site['loginindex']=='home'){</php><a href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>">
+    <php>}else{</php><a href="<{:SITE_URL}>/Pub">
+    <php>}</php><div class="left"></div></a>
+    <div class="tipmsg" <php>if($my[priread]==0 && $my[comments]==0 && $my[newfollownum]==0 && $my[atnum]==0){</php>style="display:none"<php>}</php>>
+        <div class="tips">
+        <p id="t_msg" <php>if($my[priread]==0){</php>style="display:none"<php>}</php>><{:L('you_have')}><span id="t_msg_num"><{$my[priread]}></span><{:L('top_tip_message')}><a href="<{:SITE_URL}>/Message/inbox"><{:L('view_message')}></a></p>
+        <p id="t_comment" <php>if($my[comments]==0){</php>style="display:none"<php>}</php>><{:L('you_have')}><span id="t_comment_num"><{$my[comments]}></span><{:L('top_tip_comment')}><a href="<{:SITE_URL}>/Comments"><{:L('view_comment')}></a></p>
+        <p id="t_follow" <php>if($my[newfollownum]==0){</php>style="display:none"<php>}</php>><{:L('have')}><span id="t_follow_num"><{$my[newfollownum]}></span><{:L('top_tip_follow')}><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/follower"><{:L('view_follow')}></a></p>
+        <p id="t_at" <php>if($my[atnum]==0){</php>style="display:none"<php>}</php>><{:L('have')}><span id="t_at_num"><{$my[atnum]}></span><{:L('top_tip_talk')}><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/at"><{:L('view_talk')}></a></p>
+        </div>
+        <div class="close"><a href="javascript:void(0)" onclick="$('.tipmsg').hide();">x</a></div>    
+    </div>
+    <div class="topmenubg"></div>
+    <div class="topmenu">
+        <ul>
+            <li <php>if($menu=='home'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>"><{:L('my_page')}></a> | </li>
+            <li <php>if($menu=='profile'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/profile"><{:L('my_talk')}></a> | </li>
+            <li <php>if($menu=='follow'){</php>class="selected"<php>}</php>><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>/following"><{:L('relationship')}></a></li>
+            <li>
+                <div id="searchr">
+                    <select id="commonsearch" class="select"><option value="talk"><{:L('talk')}></option><option value="user"><{:L('user')}></option></select>
+                    <input type="text" id="searchr-input" name="q" value="<php>if(!$_GET['q']){</php><{:L('please_input_keyword')}><php>}else{</php><{$_GET['q']}><php>}</php>" onfocus="if($(this).val()=='<{:L('please_input_keyword')}>'){$(this).val('')}" onblur="if($(this).val()==''){$(this).val('<{:L('please_input_keyword')}>')}" onkeydown= "if(event.keyCode==13){dosearch()}"/>
+                    <input type="button" id="searchr-submit" value="<{:L('search')}>" onclick="dosearch();" />
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="ad1"><{:stripslashes($site['ad1'])}><{$hook['main_top']}></div>
+<php>}else{</php>
+<div id="container" class="newlook">
+<div id="header2">
+    <php>if($site['loginindex']=='home'){</php><a href="<{:SITE_URL}>/<{:rawurlencode($my['user_name'])}>"><php>}else{</php><a href="<{:SITE_URL}>/Pub"><php>}</php><div class="left"></div></a>
+</div>
+<php>}</php>
+<div class="clearline"></div>

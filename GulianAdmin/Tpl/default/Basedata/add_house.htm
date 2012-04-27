@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增频道</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+-->
+</style>
+
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+  <form name="form1" action="<{:SITE_ADMIN}>Basedata/add_house" method="post" enctype="multipart/form-data">
+    <tbody>
+	<tr height="24" align="center" bgcolor="#FBFCE2"> 
+		<td>带*号的为必选项！</td>
+		<td></td>
+   </tr>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*房型名称：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+	  <input type="hidden" name="pid" value="<{$pid}>" />
+      	<input name="title" size="25" value="" class="pubinputs" style="width: 120px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	房间类型：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<select name="room">
+			<{$room}>
+		</select>
+      </td>
+    </tr>
+    <tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	朝向：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select name="direction">
+			<{$direction}>
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	有烟房：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select name="smoke">
+			<option value="有烟房">有烟房</option>
+			<option selected="selected" value="无烟房">无烟房</option>
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	上网：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select name="internet">
+			<{$internet}>
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	早餐类型：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select name="breakfast">
+			<{$breakfast}>
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	早餐价格：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="bf_price" size="25" value="" class="pubinputs" style="width: 120px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td height="40" align="left" bgcolor="#FFFFFF">
+      	大图：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+	    <input name="big" style="width: 180px;" value="" type="file">
+     </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	视频：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="video_url" size="25" value="" class="pubinputs" style="width: 120px;" type="text">
+      </td>
+    </tr>
+	<tr> 
+      <td align="left" bgcolor="#FFFFFF">
+      	配套设施：<br>
+       </td>
+      <td bgcolor="#FFFFFF">
+		<select multiple="multiple" name="support" size="8" style="height:100px;width:150px;">
+			<{$support}>
+
+		</select>
+     </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	房型简述：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<textarea name="house_info" class="ckeditor" cols="80" id="house_info" rows="20"></textarea>
+				<script type="text/javascript">
+                    CKEDITOR.replace( 'house_info',
+                        {
+                            extraPlugins : 'uicolor',
+                            toolbar :
+                            [
+                                    ['Source','-','Save','NewPage','Preview','-','Templates'],
+									['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+									['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+									['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+									['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['BidiLtr', 'BidiRtl'],
+									['Link','Unlink','Anchor'],
+									'/',
+									['Styles','Format','Font','FontSize'],
+									['TextColor','BGColor'],
+									['Maximize', 'ShowBlocks','-','About']
+                            ]
+                        });
+                </script>
+      </td>
+    </tr>
+    <tr bgcolor="#F9FCEF"> 
+      <td colspan="2" height="28">
+      	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr> 
+            <td height="45" width="26%">&nbsp;</td>
+            <td width="15%">
+            	<input value="提交" type="submit">
+            </td>
+            <td width="59%">
+            	<input name="按钮" class="np coolbg" id="button2" onclick="javascript:history.back(-1);" value="返回" type="button">
+            </td>
+          </tr>
+        </tbody></table>
+       </td>
+    </tr>
+  </form>
+</tbody></table>
+
+</body></html>

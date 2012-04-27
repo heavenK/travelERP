@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>互动旅游-机票管理</title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css2.css">
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+
+	function select_all(obj){
+		$("input[name=selected]").attr('checked',$(obj).attr('checked'));	
+	}
+	
+	function confirmAct(){
+		if(confirm('此操作不可逆，确定要删除吗？'))
+		{
+			$('#form1').submit();
+		}
+		return false;
+	
+	}
+</script>
+
+
+
+
+
+
+<body>
+
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+
+                <div class="ss">
+                    <table class="test1" style="padding-top: 20px;" width="88%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="81" align="right">
+                                出发城市：</td>
+                            <td height="18" width="179">
+                                <input name="tbDepartCity" id="tbDepartCity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" style="width: 95%;" type="text">
+                            </td>
+                            <td style="width: 119px;" height="18" align="right">
+                                目的地城市：</td>
+                            <td height="18" width="179">
+                                <input name="tbmddcity" id="tbmddcity" class="inp02" onkeydown="gjcx_cclxEnter(this,'divPoiFilter',event);" onkeyup="if(isSearchNotice(event)){SearchNotice(this.id,'divPoiFilter',this.value,'AutoCompleteStartPlace');}" type="text">
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                状态：</td>
+                            <td height="18" width="80">
+                                <select name="ddlSates" id="ddlSates" style="width:103px;">
+	<option selected="selected" value="">全部</option>
+	<option value="0">准备</option>
+	<option value="1">等待审核</option>
+	<option value="2">审核不通过</option>
+	<option value="3">报名</option>
+	<option value="4">截止</option>
+	<option value="5">出团</option>
+	<option value="6">回团</option>
+	<option value="7">删除</option>
+
+</select>
+                            </td>
+                            <td>&nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                            <td height="18" width="81" align="right">
+                                关键字：</td>
+                            <td height="18" width="179">
+                                <input name="tbKeyword" id="tbKeyword" style="width: 95%;" type="text"></td>
+                            <td style="width: 119px;" align="right">
+                                航空公司：</td>
+                            <td width="60">
+                                <select name="dlCompany" id="dlCompany" style="width:152px;">
+	<option selected="selected" value="0">全部</option>
+	<option value="1">北航</option>
+	<option value="2">南航</option>
+	<option value="4">dfsdf</option>
+
+</select>
+                            </td>
+                            <td style="width: 81px;" height="18" align="right">
+                                日期：</td>
+                            <td width="60">
+                                <input name="tbLineDate" id="tbLineDate" class="Wdate" onfocus="WdatePicker()" style="width: 101px;" type="text">
+                            </td>
+                            <td width="60" align="right">
+                                <input name="SearchBtn" value="搜 索" id="SearchBtn" class="anu" type="submit"></td>
+                            <td style="width: 7px;">&nbsp;
+                                </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye">
+                    <div class="nr">
+                        <table width="313" border="0">
+                            <tbody><tr>
+                                <td class="wbx" width="58" align="center">
+                                    <a onclick="confirmAct('确认删除？');" id="lkBtnDelete" class="yyxxl" href="javascript:void(0)">删 除</a></td>
+                                <td class="wbx" width="58" align="center">
+                                    <a id="lbtAddLine" class="yyxxl" href="<{:SITE_ADMIN}>Airticket/ticketPublish">发布新机票</a></td>
+                                <td class="wbx" width="58" align="center">
+                                   </td>
+                                <td class="wbx" align="left">
+                                </td>
+                                <td class="wbx" width="58" align="center">
+                                    
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    <div class="page">
+                       
+                    </div>
+                    
+                    
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function insertair(bianhao,gongnshi,type,id){
+		
+		
+		var num = window.opener.document.getElementById("rowsair").value++;
+		
+		var htmlcontent = '<div id="divair0'+num+'" class="divaircss"><div>'+bianhao+'</div><div>'+gongnshi+'</div><div>'+type+'</div><div><a href="javascript:deletehotelrow(\'divair0'+num+'\')">删除</a></div><input type="hidden" name="ticketID0'+num+'" id="ticketID0'+num+'" value="'+id+'"/><input type="hidden" name="tickettype0'+num+'" id="tickettype0'+num+'" value="机票"/><input type="hidden" name="aircaozuoID[]" value="'+num+'"/></div>'
+		
+		$(window.opener.document).find("#divairlist").append(htmlcontent);
+		
+		
+//		alert('adf');
+//		window.opener.document.getElementById("divHotel").value='adf';
+//		window.opener.document.getElementById("<{$idid}>" + $("#ids").attr("value")).value=idds;
+//		window.close();
+
+	}
+      
+</script>
+                    
+                    
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center">
+                                        <input name="checkbox_all" onclick="select_all(this);" type="checkbox">
+                                    </th>
+                                    <th height="32" align="center">
+                                        选择</th>
+                                    <th height="32" align="center">
+                                        机票编号</th>
+                                    <th height="32" align="center">
+                                        机票名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        航班号</th>
+                                    <th height="32" align="center">
+                                        航段
+                                    </th>
+                                    <th height="32" align="center">
+                                        往返类型</th>
+                                    <th height="32" align="center">
+                                        天数</th>
+                                    <th height="32" align="center">
+                                        状态</th>
+                                    <th height="32" align="center">
+                                        航空公司</th>
+                                    <th height="32" align="center">
+                                        价格</th>
+                                    <th height="32" align="center">
+                                        机票数量</th>
+                                    <th height="32" align="center">
+                                        出发日期</th>
+                                    <th align="center">
+                                        类型</th>
+                                </tr>
+                                
+                          <form id="form1" name="form1" action="<{:SITE_ADMIN}>Airticket/delete" method="post">
+                    		<input type="hidden" name="type" value="ticket" />
+                            <php>foreach($list as $val){</php>
+                                <tr class="tr1">
+                                    <td height="27" align="center">
+                                        <span title="1ca746cd-3ee1-4603-ab68-121253669055"><php>if ($val[status] != '等待审核') {</php><input name="selected" type="checkbox" value="<{$val[id]}>"><php>}</php></span></td>
+                                        
+                                    <td height="27" align="center">
+                                        <span>
+                                        <a style="color:#00F;" href="javascript:insertair('<{$val[ticket_id]}>','<{$val[fly_company]}>','<{$val[travel_type]}>','<{$val[id]}>')">选择</a>
+                                        </span>
+                                    </td>
+                                        
+                                    <td height="27" align="center">
+                                        <php>if ($val[status] != '等待审核') {</php><a href="<{:SITE_ADMIN}>Airticket/ticketEdit/id/<{$val[id]}>"><php>}</php><{$val[ticket_id]}><php>if ($val[status] != '等待审核') {</php></a><php>}</php>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <php>if ($val[status] != '等待审核') {</php><a href="<{:SITE_ADMIN}>Airticket/ticketEdit/id/<{$val[id]}>"><php>}</php><{$val[title]}><php>if ($val[status] != '等待审核') {</php></a><php>}</php>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_id]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_area]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[travel_type]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[days]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[status]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[fly_company]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        
+                                    </td>
+                                    <td height="27" align="center">
+                                        <{$val[ticket_num]}>
+                                    </td>
+                                    <td height="27" align="center">
+                                        <div style="position: relative; width: 80px;">
+                                       
+                                            <img src="<{:__PUBLIC__}>/gulianstyle/styles/rq.gif" alt="" onclick="WdatePicker({el:'aaa',opposite:true,doubleCalendar:true,specialDates:[<{$val[start_date]}>]});">
+                                            <input type="hidden" id="aaa">
+
+                                        </div>
+                                    </td>
+                                    <td width="56" align="center">
+                                        <img src="<{:__PUBLIC__}>/gulianstyle/styles/xcz-03.gif" style="" onclick="GetGuiJi(this,'1ca746cd-3ee1-4603-ab68-121253669055')" alt="点击查看轨迹">
+                                    </td>
+                                </tr>
+							<php>}</php>
+                            
+                            </form>
+                    </tbody></table>
+                    <div class="page">
+						<{$page}>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+        
+    </div>
+    <div id="divrili2" style="display: none; position: absolute;">
+        <iframe src="TicketManage.aspx_files/GuijiManage.htm" name="CalFrame2" id="CalFrame2" frameborder="0" height="180" width="668"></iframe>
+    </div>
+    <div id="divrili" style="display: none;">
+        <iframe style="display: block;" src="TicketManage.aspx_files/Ticketcalendar.htm" name="CalFrame" id="CalFrame" frameborder="0" height="180" width="668"></iframe>
+    </div>
+
+
+</div></body></html>

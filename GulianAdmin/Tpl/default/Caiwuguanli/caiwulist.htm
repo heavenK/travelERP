@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+
+<title>大连古莲国际旅行社应收帐款明细表（总表）</title>
+</head>
+
+<body>
+<div id="hlt_fit_view" style=" padding-bottom:12px;">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   财务列表
+    </div>
+    <script>
+	function dosearch() {
+			var time1 = document.getElementById('time1').value;
+			var time2 = document.getElementById('time2').value;
+			var mudidi = document.getElementById('mudidi').value;
+			
+			var mingcheng = document.getElementById('mingcheng').value;
+			var departmentID = document.getElementById('department').value;
+			var realname = document.getElementById('realname').value;
+			var xianlutype = document.getElementById('xianlutype').value;
+			var jingwai = document.getElementById('jingwai').value;
+			
+			var tuanhao = document.getElementById('tuanhao').value;
+			var zituanstatus = document.getElementById('zituanstatus').value;
+			
+			window.location = '<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/time1/'+time1+'/time2/'+time2+'/mudidi/'+mudidi+'/mingcheng/'+mingcheng+'/departmentID/'+departmentID+'/realname/'+realname+'/tuanhao/'+tuanhao+'/zituanstatus/'+zituanstatus+'/xianlutype/'+xianlutype+'/jingwai/'+jingwai;
+			
+	}
+	</script>
+    
+    <div id="hlt_fit_search"><!--查询-->
+    	 
+        <div class="search_one">
+            <div id="hlt_fit_search_b_s"><span>日期：</span>
+            <input type="text" id="time1" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})"  value="<{$time1}>" >
+            <span>--</span>
+            <input type="text" id="time2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM'})"  value="<{$time2}>" >
+            </div>
+            <div id="hlt_fit_search_a_s"><span>目的地：</span><input style=" width:205px;" type="text" id="mudidi" value="<{$mudidi}>"></div>
+            <div id="hlt_fit_search_a_s"><span>团标题：</span><input style=" width:205px;" type="text" id="mingcheng" value="<{$mingcheng}>"></div>
+            <div id="hlt_fit_search_a_s"><span>部门：</span>
+              <select id="department" style="width:100px;">
+                <php>if($department){</php>
+                <option value="<{$departmentID}>"><{$department}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($departmentAll as $temp){</php>
+                <option value="<{$temp[id]}>"><{$temp[title]}></option> 
+                <php>}</php>
+              </select>
+              </div>
+            <div id="hlt_fit_search_a_s"><span>计调：</span>
+              <select id="realname">
+                <php>if($realname){</php>
+                <option value="<{$realname}>"><{$realname}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($topsystemuserAll as $user){</php>
+                <option value="<{$user[realname]}>"><{$user[realname]}></option> 
+                <php>}</php>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团队类型：</span>
+              <select id="xianlutype">
+                <php>if($xianlutype){</php>
+                <option value="<{$xianlutype}>"><{$xianlutype}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+              	<option value="散客产品">散客产品</option>
+              	<option value="地接">地接</option>
+              	<option value="自由人">自由人</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>过境类型：</span>
+              <select id="jingwai">
+                <php>if($jingwai){</php>
+                <option value="<{$jingwai}>"><{$jingwai}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+              	<option value="国内">国内</option>
+              	<option value="境外">境外</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团号：</span><input style=" width:205px;" type="text" id="tuanhao" value="<{$tuanhao}>"></div>
+            <div id="hlt_fit_search_a_s"><span>团队状态：</span>
+              <select id="zituanstatus"> 
+                <php>if($zituanstatus){</php>
+                <option value="<{$zituanstatus}>"><{$zituanstatus}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option> 
+                <option value="报名">组团报名</option> 
+                <option value="在线">接团在线</option> 
+                <option value="截止">截止</option> 
+            </select>
+            </div>
+            <div id="hlt_fit_search_g"><input type="submit" value="" alt="搜索" onclick="dosearch();" /></div>
+        </div>
+         
+  </div>
+  
+  
+  
+
+    
+</div>
+
+<style>
+.gl_cwbb	{ background: url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x scroll 0 0 transparent; text-align:center; color:#FFFFFF;}
+.gl_cwbb a	{ color:0000ff;}
+.gl_cwbb td { border:1px solid #E8E8E8; border-top:0; color: #494949; padding:0 10px;}
+.gl_cwbbdy	{ width:85px; height:25px; margin:0 0 10px 30px; display:inline; background:url(images/header_bg.jpg) -790px -220px; float:left;} 
+.gl_cwbbdy:hover	{ background:url(images/header_bg.jpg) -790px -250px;}
+.gl_cwbbtitle	{ width:600px; padding:0 0 0 20px; color:#004e42; font-size:16px; font-weight:bold;  float:left;}
+.tr0 		{ background:#F0F0F0;}
+.tr0 a		{ color:0000ff;}
+.tr1 a		{ color:0000ff;}
+.gl_cwbc	{ display:inline; color:ff5500; text-align:center; background:#F0F0F0; }
+</style>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style=" clear:both;">
+  <tr>
+    <td>&nbsp;页面说明：根据系统内部门设置显示所有部门内订单以及报账单信息，根据确认状态计算订单的金额，根据子团报账单的填写情况显示报账单金额，总盈亏=总收入-总支出，总收入=结算项目+其他项目</td>
+  </tr>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="gl_cwbb">
+  <!--列表-->
+  <tr>
+    <th width="50" height="30">序号</th>
+    <th width="120">部门</th>
+    <th width="100" height="30">订单总金额</th>
+    <th width="100" height="30">已收订单金额</th>
+    <th width="100" height="30">订单余额</th>
+    <th width="100" height="30">报账单总收入</th>
+    <th width="100" height="30">报账单总支出</th>
+    <th width="100" height="30">报账单总盈亏</th>
+    <th width="300" height="30">备注</th>
+  </tr>
+  
+  <php>$i = 0;foreach($departmentAll as $department){$i++;</php>
+  <tr class="tr0">
+    <td height="27"><{$i}></td>
+    <td align="center"><span><a href="<{:SITE_ADMIN}>Caiwuguanli/departmentdetail/id/<{$department[id]}>"><{$department[title]}></a></span> </td>
+    <td height="27"><php>if($department[payed]+$department[nopay])echo $department[payed]+$department[nopay];else echo '-';</php></td>
+    <td height="27"><php>if($department[nopay])echo $department[nopay];else echo '-';</php></td>
+    <td height="27"><php>if($department[nopay])echo $department[nopay];else echo '-';</php></td>
+    <td height="27"><php>if($department[nopay])echo $department[nopay];else echo '-';</php></td>
+    <td height="27"><php>if($department[nopay])echo $department[nopay];else echo '-';</php></td>
+    <td height="27"><php>if($department[nopay])echo $department[nopay];else echo '-';</php></td>
+    <td align="left">
+    <input type="text" style="width:75%" name="description" id="description_<{$department[id]}>"  value="<{$department[description]}>" />
+    <input type="button" name="button2" value="修改" onclick="tosubmit('<{$department[id]}>');" /></td>
+  </tr>
+  <php>}</php>
+  
+  <tr class="tr1">
+    <td height="20" colspan="6">&nbsp;</td>
+  </tr>
+  <tr class="tr0">
+    <td height="27">合计</td>
+    <td align="center">&nbsp;</td>
+    <td height="27"><php>if($countall)echo $countall;else echo '-';</php></td>
+    <td height="27"><php>if($countpayed)echo $countpayed;else echo '-';</php></td>
+    <td height="27"><php>if($countonpay)echo $countonpay;else echo '-';</php></td>
+    <td height="27"><php>if($baozhangshouru)echo $baozhangshouru;else echo '-';</php></td>
+    <td height="27"><php>if($baozhangzhichu)echo $baozhangzhichu;else echo '-';</php></td>
+    <td height="27"><php>if($baozhangyingkui)echo $baozhangyingkui;else echo '-';</php></td>
+    <td align="left"></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+</body>
+</html>
+
+
+<script>
+
+function tosubmit(id){
+
+	var description = document.getElementById('description_'+id).value;
+
+    $.post(  
+      '<{:SITE_ADMIN}>Caiwuguanli/editdepartment',  
+      {  
+        id:id,  
+        description:description 
+      },  
+      function (data)
+      {  
+	  		alert('修改完成');
+      }  
+    );  
+
+
+}
+</script>

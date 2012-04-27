@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+<body>
+
+            <include file="AdminShenhe:navlist" />
+
+            <div id="content_bb" style="width:1000px; margin:auto">
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				</style>
+                
+                <div class="jbxxy" style="width:99%" >
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody> <tr class="fenlei">
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong style="float:left; line-height:20px;">报价金额：</strong>
+                                <strong style="float:left; line-height:20px;"><input disabled="disabled" type="text" name="quote" id="quote" value="<{$tuan['quote']}>" >	元</strong>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody> <tr class="fenlei">
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong style="float:left; line-height:20px;">综合估价：</strong>
+                                <strong style="float:left; line-height:20px;" id='totalprice'><{$totalprice}>元</strong>
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                <div class="fanye">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>酒店：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="hoteltable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#e6f2f2"><strong>酒店名称</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>订房标准</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>入住时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>退房时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>人数</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '酒店') continue;
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>"onfocus="WdatePicker()"  />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>餐饮：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="eattable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>用餐地点</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>用餐描述</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>用餐时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>结束时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>人数</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '餐') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" onfocus="WdatePicker()"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                
+                
+                <div class="fanye">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>景区门票：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="tickettable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>景区名称</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>描述</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>参观时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>离开时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>人数</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '门票') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>"  onfocus="WdatePicker()"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                
+                
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>用车：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="cartable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>车号</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>司机</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>用车时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>结束时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>车次</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '车') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>"  onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>导游：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="daoyoutable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>姓名</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>联系电话</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>跟团时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>结束时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>人次</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '导游') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                   
+                </div>
+                
+                
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>其他：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="othertable" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>项目名</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>项目描述</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>开始时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>结束时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>人次</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>应付金额</strong></td>
+                        </tr>
+                        <php>foreach($appraisalAll as $item){ if($item['type'] != '其他') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" value="<{$item[title]}>" type="text" name="title" id="title_<{$item[appraisalID]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="description" id="description_<{$item[appraisalID]}>"  value="<{$item[description]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timestart" id="timestart_<{$item[appraisalID]}>"  value="<{$item[timestart]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="timeend" id="timeend_<{$item[appraisalID]}>"  value="<{$item[timeend]}>" onfocus="WdatePicker()" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="renshu" id="renshu_<{$item[appraisalID]}>"  value="<{$item[renshu]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="price" id="price_<{$item[appraisalID]}>"  value="<{$item[price]}>" />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                
+                
+            </div>
+
+</body>
+</html>
+

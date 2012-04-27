@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	互动旅游-酒店预定
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css">
+    
+
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Utility.js"></script>
+
+    <link href="<{:__PUBLIC__}>/gulianstyle/styles/content.css" type="text/css" rel="stylesheet">
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js"></script>
+    <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/Search.js"></script>
+
+    <script type="text/javascript">
+function CheckData1()
+{
+        var synum="";
+         var lineid='c798f47b-cd36-4f55-927e-1d7deddfc071';
+         var hotelNum=document.getElementById("tbNeedNum");
+		 var own_num=document.getElementById("own_num");
+         var state=document.getElementById("dlState");
+         var url="../LineSignupAjax.aspx?lineid="+lineid+"&type=HotelProduct&date="+new Date().getTime();
+
+         var response=httpRequest('get',null,url);
+         
+        if(response!="")
+        {
+            synum=response;            
+        }
+        else
+        {
+             alert(response);
+        } 
+
+    var baomingshe=document.getElementById("tbSign");
+    if(Trim(baomingshe.value)=="")
+    {
+        alert("报名社不能为空！");
+        baomingshe.focus();
+        return false;
+    }
+    
+    var Person=document.getElementById("tbPerson");
+    if(Trim(Person.value)=="")
+    {
+        alert("联系人不能为空！");
+        Person.focus();
+        return false;
+    }
+    
+    var Phone=document.getElementById("tbPhone");
+    if(Trim(Phone.value)=="")
+    {
+        alert("联系电话不能为空！");
+        Phone.focus();
+        return false;
+    }
+    
+    var Fax=document.getElementById("tbFax");
+    if(Trim(Fax.value)=="")
+    {
+        alert("传真不能为空！");
+        Fax.focus();
+        return false;
+    }
+    
+    if(Trim(hotelNum.value)==""||Trim(hotelNum.value)<="0")
+    {
+        alert("预定间数不能为空或负数！");
+        hotelNum.focus();
+        return false;
+    }
+    else if(!IsNumber(hotelNum.value))
+    {
+        alert("预定间数应为数字！");
+        hotelNum.focus();
+        return false;
+    }
+	else if(Trim(hotelNum.value)>Trim(own_num.value))
+    {
+        alert("预定间不能超过剩余间数！");
+        hotelNum.focus();
+        return false;
+    }
+
+    var state=document.getElementById("dlState");
+    if(state.value=="0")
+    {
+        alert("请选择订单状态！");
+        state.focus();
+        return false;
+    }
+    
+    if(state.value=="1"&&parseInt(hotelNum.value)>parseInt(synum))
+    {
+        alert("余位不足，请重新填写人数");
+        hotelNum.focus();
+        return false;
+    }
+    
+    if(Trim(state.value)=="2"&&parseInt(hotelNum.value)>parseInt(synum))
+    {
+        return confirm("余位不足，订单将转为候补状态，确认继续?");
+    }
+    
+    return true;
+}
+    </script>
+
+</head>
+<body>
+
+
+
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+        <div id="header">
+            
+
+<table class="TopTab" border="0" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td width="81" align="center"><a href="<{:SITE_URL}>Agent/Index.aspx" class="txtcolor">首 页</a></td>
+        <td width="456" align="left"><a href="<{:SITE_URL}>Agent/index2.aspx" class="txtcolor">进入后台</a></td>
+        <td style="font-weight: normal;" width="48" align="center">欢迎</td>
+        <td width="73" align="center"><a href="#" class="txtcolor" onclick="document.getElementById('divPassmd').style.display='';">修改密码</a>
+            <div id="divPassmd" style="background-color:#FFFDDD; position:absolute;display:none;">
+                <table border="1" cellpadding="0" cellspacing="0">
+                    <tbody><tr><td>原始密码：</td><td><input name="header1$tbOldPassWord" id="header1_tbOldPassWord" type="password"></td></tr>
+                    <tr><td>新密码：</td><td><input name="header1$tbNewPassWord" id="header1_tbNewPassWord" type="password"></td></tr>
+                    <tr><td>重复新密码：</td><td><input name="header1$tbNewPassWord2" id="header1_tbNewPassWord2" type="password"></td></tr>
+                    <tr><td colspan="2" align="center"><input name="header1$Submit" value="提交" onclick="return CheckData();" id="header1_Submit" type="submit">&nbsp;&nbsp;&nbsp;<input name="header1$Button1" value="关闭" onclick="document.getElementById('divPassmd').style.display='none';return false;" id="header1_Button1" type="submit"></td></tr>
+                </tbody></table>
+            </div>
+        </td>
+        <td width="49" align="center"><a id="header1_lbLogout" class="txtcolor" href="javascript:__doPostBack('header1$lbLogout','')">退出</a></td>
+    </tr>
+</tbody></table>
+<script type="text/javascript">
+function CheckData()
+{
+    var OldPassWord=document.getElementById("header1_tbOldPassWord");
+    if(OldPassWord.value=="")
+    {
+        alert("原始密码不能为空！");
+        OldPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord=document.getElementById("header1_tbNewPassWord");
+    if(NewPassWord.value=="")
+    {
+        alert("新密码不能为空！");
+        NewPassWord.focus();
+        return false;
+    }
+    else if(NewPassWord.value.length>20||NewPassWord.value.length<6)
+    {
+        alert("密码长度应为6-20个字符!");
+        NewPassWord.focus();
+        return false;
+    }
+    
+    var NewPassWord2=document.getElementById("header1_tbNewPassWord2");
+    if(NewPassWord2.value!=NewPassWord.value)
+    {
+        alert("两次输入的密码不一样！");
+        NewPassWord2.focus();
+        return false;
+    }
+    
+    return true;
+}
+</script>
+        </div>
+        
+    <form name="form1" method="post" action="<{:SITE_MENSHI}>Hotel/signup" id="form1">
+    	<input type="hidden" name="type" value="save" />
+        <input name="id" value="<{$id}>" type="hidden">
+        <div class="hdlyRight">
+            <div id="content_bb">
+                <div style="width: 80%; height: 97px; margin-bottom: 10px;">
+                    <table class="jbxx" width="8%" border="0">
+                        <tbody><tr>
+                            <td height="18" width="91" align="center">
+                                <a class="yyxxl" href="<{:SITE_URL}>Agent/Hotel/HotelSearch.aspx">返 回</a></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="skbm">
+                    <div class="bmb">
+                        <h4 style="margin-left:43%">
+                            报名表
+                        </h4>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td style="width: 259px;" height="27" align="right">
+                                </td>
+                                <td style="width: 185px;" height="27">&nbsp;
+                                    </td>
+                                <td style="width: 156px;" height="27" align="right">&nbsp;
+                                    </td>
+                                <td height="27" width="38%" align="left">&nbsp;
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 27px; width: 259px;" align="right">
+                                    报名社：</td>
+                                <td style="height: 27px; width: 185px;">
+                                    <input name="department" value="<{$user[companyname]}>" id="tbSign" type="text"></td>
+                                <td style="height: 27px; width: 156px;" align="right">
+                                    联系电话：</td>
+                                <td style="height: 27px;" width="38%" align="left">
+                                    <input name="linkphone" id="tbPhone" type="text" value="<{$user[mobiletel]}>"></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 27px; width: 259px;" align="right">
+                                    联系人：</td>
+                                <td style="height: 27px; width: 185px;">
+                                    <input name="linkman" value="<{$user[realname]}>" id="tbPerson" type="text"></td>
+                                <td style="height: 27px; width: 156px;" align="right">
+                                    传真：</td>
+                                <td style="height: 27px;" align="left">
+                                    <input name="fax" value="<{$user[fax]}>" id="tbFax" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 259px;" height="27" align="right">
+                                    房型：</td>
+                                <td style="width: 185px;" height="27">
+                                    <{$houses[title]}>
+                                    <input name="room" value="<{$houses[title]}>" type="hidden">
+                                </td>
+                                <td style="width: 156px;" height="27" align="right">
+                                    酒店：</td>
+                                <td height="27" align="left">
+                                     <{$hotels[title]}>
+                                     <input name="hotel" value="<{$hotels[title]}>" type="hidden">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 27px; width: 259px;" align="right">
+                                    入住日期：</td>
+                                <td style="height: 27px; width: 185px;">
+                                   <{$calender[date]|date='Y-m-d',###}>
+                                   <input name="start_date" value="<{$calender[date]}>" type="hidden">
+                                </td>
+                                <td style="height: 27px; width: 156px;" align="right">
+                                    剩余间数：</td>
+                                <td style="height: 27px;" align="left">
+                                    <{$calender[sum_num]-$calender[reserve_num]}>
+                                    <input name="own_num" value="<{$calender[sum_num]-$calender[reserve_num]}>" type="hidden">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 259px; height: 27px;" align="right">
+                                    预定间数：</td>
+                                <td style="height: 27px;">
+                                    <input name="re_num" id="tbNeedNum" type="text">
+                                </td>
+                                <td style="height: 27px; width: 156px;" align="right">
+                                    入住天数：</td>
+                                <td style="height: 27px;" align="left">
+                                    <{$hotel_lines[stay_day]}>
+                                    <input name="stay_day" value=" <{$hotel_lines[stay_day]}>" type="hidden">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 259px;" height="27" align="right">
+                                    订单要求：</td>
+                                <td colspan="3" height="27">
+                                    <textarea name="other" rows="5" cols="45" id="tbDemands" style="width: 375px;"></textarea>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <hr class="fengexian">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td colspan="2" style="height: 27px;" align="right">
+                                    <img src="HotelSignUp.aspx_files/xh.gif" alt="">
+                                    订单状态：
+                                </td>
+                                <td colspan="3" style="height: 27px;">
+                                    &nbsp;<select name="status" id="dlState">
+	<option selected="selected" value="0">-请选择-</option>
+	<option value="占位">占位</option>
+	<option value="确认">确认</option>
+
+</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="height: 27px;" align="center">
+                                    <input name="Button1" value="保　存" onclick="return CheckData1();" id="Button1" class="anu1" type="submit">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <p>&nbsp;
+                            </p>
+                    </div>
+                </div>
+                <!--居中大的box-->
+                <!--居中大的box END-->
+            </div>
+        </div>
+    
+<div>
+</form>
+
+
+</body></html>

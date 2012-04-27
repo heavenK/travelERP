@@ -1,0 +1,81 @@
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>名称</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>团号</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>行程天数</strong>
+        </td>
+        <td height="27" align="center" bgcolor="#ff8d00">
+            <strong>出团日期</strong>
+        </td>
+    </tr>
+    <tr>
+        <td class="xxxx" height="27" align="center">
+            <{$mingcheng}>
+        </td>
+        <td class="xxxx" height="27" align="center">
+            <{$tuanhao}>
+        </td>
+        <td class="xxxx" height="27" align="center">
+            <{$tianshu}>天
+        </td>
+        <td class="xxxx" height="27" align="center">
+            <{$chutuanriqi}>
+        </td>
+    </tr>
+</tbody></table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00">
+          <strong>联系电话</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>游客需求</strong></td>
+      <td align="center" bgcolor="#ff8d00">
+          <strong>订单来源</strong></td>
+  </tr>
+          <php>foreach($tuanyuan as $dingdan){</php>
+          <tr>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['name']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['sex']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['manorchild']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  <{$dingdan['zhengjiantype']}>
+              </td>
+              <td class="xxxx" height="27" align="center">
+                  &nbsp;<{$dingdan['zhengjianhaoma']}>
+                  
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$dingdan['telnum']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$dingdan['xuqiu']}>
+              </td>
+              <td align="center" height="27" class="xxxx">
+                  <{$dingdan['bumen']}>
+              </td>
+          </tr>
+          <php>}</php>
+</tbody></table>

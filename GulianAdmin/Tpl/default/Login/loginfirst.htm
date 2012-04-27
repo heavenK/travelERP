@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><{$navtitle}></title>
+<link rel="shortcut icon" href="<{:__PUBLIC__}>/gulianstyle/images/gulianlogo.jpg" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/images/welcome.css" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js"></script>
+<script type="text/javascript" language="javascript">
+
+<!--
+
+	window.onload = function (){
+
+		userid = document.getElementById("loginname");
+
+		userid.focus();
+
+	}
+
+-->
+
+</script>
+</head>
+
+<body>
+<div class="welcomemain">
+    <div id="welmain">
+        <div id="welleft">
+            <div class="welbanner" style="height:300px;">
+<!--            <img style="margin-top:100px;" src="<{:__PUBLIC__}>/gulianstyle/images/newmark.jpg" />
+-->            
+			<h1 style="margin:100px 0 0 100px;;">旅游产品管理系统</h1>
+
+			</div>
+        </div>
+        <div class="fleft">
+            <form id="dologin" method="post" >
+            <table border="0" width="265px" style="margin-top:20px">
+                <tr height="100px">
+                </tr>
+                <tr height="60px">
+                    <td width="55px" valign="top">帐&nbsp;&nbsp;&nbsp;号：</td>
+                    <td valign="top"><input tabindex="1" type="text" name="loginname" id="loginname" class="input_text" value="" style="width:185px"/><br/><font color="#9d9d9d">支持帐号<php>if(ET_UC!=TRUE){</php> / 邮箱地址<php>}else{</php> / Ucenter帐号<php>}</php></font></td>
+                </tr>
+                <tr height="80px">
+                    <td valign="top">密&nbsp;&nbsp;&nbsp;码：</td>
+                    <td valign="top"><input tabindex="2" type="password" name="password" class="input_text" value="" maxlength="20" style="width:185px"/>
+                    <div style="margin-top:15px">
+                    <label class="label_check" for="rememberMe">
+                    <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" value="on" class="checkbox"/>&nbsp;&nbsp;下次自动登录&nbsp;&nbsp;
+                    </label>
+                    </div>
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td>　</td>
+                    <td>
+                    
+                    <input tabindex="4" type="submit" class="button1" value="立即登录" onclick="dosubmit('系统');" />
+                    <input tabindex="4" type="button" class="button1" onclick="dosubmit('微博');"  style="background-image:url(<{:__PUBLIC__}>/gulianstyle/images/button2.gif);" value="登录微博" />
+                    
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+    <div class='clearline'></div>
+</div>
+<div id="indexbottom">
+    <div class="hot">Copyright © 2011-2012 <{$navtitle}> All Rights Reserved. </div>
+</div>
+</body>
+</html>
+
+<script>
+function dosubmit(type){
+	if(type == '系统')
+	document.getElementById('dologin').action = "<{:SITE_ADMIN}>Login/dologin";
+	else
+	document.getElementById('dologin').action = "<{:SITE_HOME}>Index/dologin";
+	document.getElementById('dologin').submit();
+}
+</script>

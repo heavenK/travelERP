@@ -1,0 +1,47 @@
+<include file="Common:header" />
+<table id="columns">
+<tr>
+<td id="main">
+<div class="contenter">
+<{$hook['comment_left_top']}>
+<div class="indexh">
+    <div class="fleft">
+        <div class="tabon"><{:L('receivecomments')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Comments/sendlist"><{:L('sendcomments')}></a></div>
+    </div>
+    <div class="message"><{:L('total')}> <{$count}> <{:L('number_comment')}>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="checkall" onclick="CheckAll('delcid', 'checkall')">&nbsp;<a href="javascript:void(0)" onclick="CheckAll('delcid', 'checkall','1')"><{:L('selectall')}></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick="delcomment('index');"><{:L('delete')}></a></div>
+    <div class="clearline"></div>
+</div>
+<{$hook['comment_left_mid']}>
+<div id="stream" class="message">
+    <ol class="wa">
+    <php>if($count>0){</php>
+        <php>foreach($data as $val){</php>
+        <li class="unlight">
+            <a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="avatar"><img src="<{:sethead($val[user_head])}>" alt="<{$val[nickname]}>" /></a>
+            <div class="content"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" class="author <{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{$val[nickname]}></a><h6>&nbsp;<{:L('replytome')}></h6><{:$ctent->ubb($val[comment_body])}></div>
+            <span class="stamp fleft"><{:timeop($val[dateline])}>&nbsp;&nbsp;<a href="<{:SITE_URL}>/v/<{$val[content_id]}>/r"><{:L('view_original')}></a></span> 
+            <span class="stamp op fright">
+            <input type="checkbox" name="delcid[]" value="<{$val[comment_id]}>">
+            <a href="javascript:void(0);" onclick="replyajaxbox('<{$val[content_id]}>','<{$val[comment_id]}>');$('#replybox_<{$val[content_id]}>').val('@<{$val[nickname]}> ')" title="<{:L('reply')}><{$val[nickname]}>"><{:L('reply')}></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick="delmsg('<{:SITE_URL}>/Comments/delmsg/cmid/<{$val[comment_id]}>','<{:L('delete_tishi')}>',this.parentNode.parentNode)"><{:L('delete')}></a>
+            </span>
+            <span id="reply_<{$val[comment_id]}>" class="replyspan"></span>
+            <div class="clearline"></div>
+        </li>
+        <php>}</php>
+    <php>}else{</php>
+        <li class="unlight" id='nonemsg'><{:L('no_comment')}></li>
+    <php>}</php>
+    </ol>
+</div>
+</div>
+</td>
+<td id="sidebar" rowspan="2"><include file="Space:homeside" /></td></tr>
+<tr>
+    <td height="36px">
+        <div id="indexpage" class="page"><{$page}></div>
+    </td>
+</tr>
+</table>
+<script type="text/javascript">$(document).ready(function(){$("#commentstip").remove();closetip("t_comment");});</script>
+<include file="Common:foot" />

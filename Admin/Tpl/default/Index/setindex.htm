@@ -1,0 +1,50 @@
+<include file="Common:header" />
+<table class="table" border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" width="70%" style="padding-right:20px">
+            <h3>系统信息</h3>
+            <table class="table" border="0" width="100%">
+            <tr>
+                <td width="150px">EasyTalk版本</td>
+                <td>EasyTalk <{:ET_VESION}> Release <{:ET_RELEASE}></td>
+            </tr>
+            <tr>
+                <td>操作系统及PHP</td>
+                <td><{$serverinfo}></td>
+            </tr>
+            <tr>
+                <td>Mysql版本</td>
+                <td><{$dbversion}></td>
+            </tr>
+            <tr>
+                <td>数据库尺寸</td>
+                <td><{$dbsize}></td>
+            </tr>
+            </table>
+            <br/>
+            <h3>全站统计</h3>
+            <table class="table" border="0" width="100%">
+            <tr>
+                <td width="150px">总注册人数</td>
+                <td><{:intval($tjdata['ppcount'])}> 人</td>
+            </tr>
+            <tr>
+                <td>注册人数</td>
+                <td>今日注册：<{:intval($tjdata['tdreg'])}> 人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昨日注册：<{:intval($tjdata['ytdreg'])}> 人</td>
+            </tr>
+            <tr>
+                <td width="150px">活跃人数</td>
+                <td>今日活跃：<{:intval($tjdata['tdlogin'])}> 人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昨日活跃：<{:intval($tjdata['ytdlogin'])}> 人</td>
+            </tr>
+            </table>
+            <br/>
+            <h3>相关信息</h3>
+            <iframe src="http://www.nextsns.com/versions.php?v=<{:ET_VESION}>&r=<{:ET_RELEASE}>" width="100%" height="300px" frameborder="0" scrolling="no"></iframe>
+        </td>
+		<td valign="top">
+            <h3>作者微博</h3>
+            <iframe src="http://www.nextsns.com/et/Widget?name=hjoeson&type=1&width=100%&height=470px" width="100%" height="470px" frameborder="0" scrolling="no"></iframe>
+        </td>
+	</tr>
+</table>
+<include file="Common:foot" />

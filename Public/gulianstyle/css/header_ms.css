@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+body		{ background:url(../images/all_bg3.png) repeat-x;}
+#hlt_header,
+#hlt_nav li	{ background:url(../images/all_bg3.png) no-repeat;}
+
+
+#hlt_header	{ width:100%; height:65px; overflow:hidden; float:left;}
+	#hlt_logo	{ width:20%; height:34px; padding:2px 0 0 16px; float:left;}
+	#hlt_login	{ width:75%; height:36px; padding:0 30px 0 0; color:#FFF; line-height:36px; text-align:right; float:right;}
+		#hlt_login a	{ color:#b3dad5;}
+		#hlt_login a:hover	{ color:#FFFFFF;}
+	#hlt_nav	{ width:100%; height:29px; line-height:27px; padding: 0 0 0 10px; float:left;}
+		#hlt_nav li	{ width:65px; height:29px; padding: 0 0 0 16px; background-image:url(../images/navbg.png); float:left;}
+		#hlt_nav li a	{ color:#999999;}
+		#hlt_nav li a:hover	{ color:#FFFFFF;}

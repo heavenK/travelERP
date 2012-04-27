@@ -1,0 +1,45 @@
+<include file="Common:header" />
+<table id="columns">
+<tr>
+<td id="main" style="-moz-border-radius-bottomleft:5px;">
+<div class="contenter">
+    <div class="indexh">
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting"><{:L('change_setting')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/face"><{:L('change_face')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/account"><{:L('change_pass')}></a></div>
+        <div class="tabon"><a href="<{:SITE_URL}>/Setting/mailauth"><{:L('email_checking')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/theme"> <{:L('theme')}></a></div>
+    </div>
+    <div class="mailauthbox">
+    <form method="post" action="<{:SITE_URL}>/Setting/domailauth">
+        <p>
+        <php>if($my[auth_email]==0){</php>
+            <{:L('no_access_check')}>
+            <strong><{$my[mailadres]}></strong>
+           <{:L('view_your_email')}>
+            <input type="submit" class="button2" value="<{:L('send_check')}>" />
+        <php>}else{</php>
+            <{:L('access_check')}>
+        <php>}</php>
+        </p>
+    </form>
+    </div>
+    <form method="post" action="<{:SITE_URL}>/Setting/changemail" class="vf lf">
+        <p>
+            <label class="label_input" for="oldmail"><{:L('my_old_email')}> </label>
+            <input tabindex="1" type="text" id="oldmail" class="input_text" value="<{$my[mailadres]}>" disabled="disabled"/>
+        </p>
+        <p>
+            <label class="label_input" for="newmail"><{:L('set_new_email')}> </label>
+            <input tabindex="2" type="text" id="newmail" name="email" class="input_text" />
+        </p>
+        <p>
+            <input tabindex="3" type="submit" class="button1" value="<{:L('set_my_email')}>" />
+        </p>
+    </form>
+</div>
+</td>
+<td id="sidebar"><include file="Space:homeside"/></td>
+</tr>
+</table>
+<include file="Common:foot" />

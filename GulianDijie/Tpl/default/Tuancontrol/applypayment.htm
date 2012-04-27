@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+
+
+<body>
+
+            <div id="content_bb">
+                
+                <include file="Tuancontrol:navlist" />
+                
+                <input type="hidden" name="djtuanID" id="djtuanID" value="<{$tuan['djtuanID']}>" />
+                
+                
+                <div class="fanye">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>付款申请单：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="applypayment" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#e6f2f2"><strong>标题</strong></td>
+                            <td width="20%" height="27" align="Center" bgcolor="#ff8c05"><strong>申请内容</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>申请时间</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>总经理</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>部门负责</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>审核</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>经手人</strong></td>
+                            <td width="3%" height="27" align="Center" bgcolor="#ff8c05"><strong>状态</strong></td>
+                            <td width="15%" height="27" align="Center" bgcolor="#ff8c05"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($paymentAll as $item){ 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input value="<{$item[title]}>" type="text" name="title" id="title_<{$item[applypaymentID]}>"  style=" width:90%;"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <textarea name="content" id="content_<{$item[applypaymentID]}>" style=" width:90%; height:50px;" ><{$item[content]}></textarea>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="applytime" id="applytime_<{$item[applypaymentID]}>"  value="<{$item[applytime]}>" onfocus="WdatePicker()"  style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="manager" id="manager_<{$item[applypaymentID]}>"  value="<{$item[manager]}>" style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="department" id="department_<{$item[applypaymentID]}>"  value="<{$item[department]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="checker" id="checker_<{$item[applypaymentID]}>"  value="<{$item[checker]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="handler" id="handler_<{$item[applypaymentID]}>"  value="<{$item[handler]}>"   style=" width:90%"/>
+                            </td>
+                            <td style="height: 27px;" align="center" id="zhuangtai_<{$item[applypaymentID]}>">
+                            <{$item['status']}>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='uplodattachment("<{$item[applypaymentID]}>");'>上传副本</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='docheck("<{$item[applypaymentID]}>");'>提交审核</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[applypaymentID]}>");'>修改</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color:blue' onclick='deleteitem(this,"<{$item[applypaymentID]}>","applypayment")'>删除</a>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertpayment('付款申请单','applypayment'); return false;">添 加</a></td>
+                        </tr>
+                    </tbody></table>
+                    
+                </div>
+
+                
+            </div>
+
+	
+
+</body>
+</html>
+
+
+<script>
+
+
+function additem(id,tablename){
+	var djtuanID = $("#djtuanID").val();
+//	var type = $("#type"+id).val();
+	var title = $("#title"+id).val();
+	var content = $("#content"+id).val();
+	var applytime = $("#applytime"+id).val();
+	var manager = $("#manager"+id).val();
+	var department = $("#department"+id).val();
+	var checker = $("#checker"+id).val();
+	var handler = $("#handler"+id).val();
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/addpaymentitem",
+		data:	"title="+title+"&content="+content+"&djtuanID="+djtuanID+"&applytime="+applytime+"&manager="+manager+"&department="+department+"&handler="+handler+"&checker="+checker,
+		success:	function(msg){
+					if(msg == 'false'){
+						alert('失败！');
+					}
+					else{
+						alert('添加成功！');
+						var edit_button = "<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"docheck('" + msg + "');\">提交审核</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"edititem_2('" + id + "','" + msg + "');\">修改</a>&nbsp;&nbsp;<a style=\"color: blue;cursor: pointer;\" class=\"del\" onclick=\"deleteitem(this,'" + msg + "','"+tablename+"')\">删除</a>";
+						$("#operator"+id).parent().html(edit_button);
+					}
+				  }
+	});
+}
+
+
+function edititem(id){
+	var title = $("#title_"+id).val();
+	var content = $("#content_"+id).val();
+	var applytime = $("#applytime_"+id).val();
+	var manager = $("#manager_"+id).val();
+	var department = $("#department_"+id).val();
+	var checker = $("#checker_"+id).val();
+	var handler = $("#handler_"+id).val();
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/editpaymentitem",
+		data:	"title="+title+"&content="+content+"&applypaymentID="+id+"&applytime="+applytime+"&manager="+manager+"&department="+department+"&handler="+handler+"&checker="+checker,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+
+function edititem_2(id,msg){
+	var title = $("#title"+id).val();
+	var content = $("#content"+id).val();
+	var applytime = $("#applytime"+id).val();
+	var manager = $("#manager"+id).val();
+	var department = $("#department"+id).val();
+	var checker = $("#checker"+id).val();
+	var handler = $("#handler"+id).val();
+	
+	var applypaymentID = msg;
+	
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/editpaymentitem",
+		data:	"title="+title+"&content="+content+"&applypaymentID="+applypaymentID+"&applytime="+applytime+"&manager="+manager+"&department="+department+"&handler="+handler+"&checker="+checker,
+		success:	function(msg){
+					if(msg == 'true'){
+						alert('修改成功！');
+					}
+					if(msg == 'false'){
+						alert('失败！');
+					}
+				  }
+	});
+}
+
+
+function deleteitem(obj, id, tablename){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/deletepaymentitem",
+		data:	"applypaymentID=" + id,
+		success:	function(msg){
+					if(msg){
+						alert('删除成功！');
+						deletetablerow(obj, id, tablename);
+					}
+				  }
+	});
+}
+	
+
+function docheck(id){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_DIJIE}>Tuancontrol/docheck",
+		data:	"applypaymentID=" + id +"&type=申请",
+		success:	function(msg){
+					if(msg){
+						alert('申请成功！');
+						$("#zhuangtai_"+id).html(msg);
+					}
+				  }
+	});
+}
+	
+
+function uplodattachment(id){
+
+    var url = '<{:SITE_DIJIE}>Tuancontrol/applyattachment/applypaymentID/'+id;
+
+    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+	
+
+
+
+</script>

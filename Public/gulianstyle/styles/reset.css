@@ -1,0 +1,13 @@
+@charset "gb2312";
+/* CSS Document */
+
+/*通用样式*/
+*		{ margin:0; border:0; padding:0;}
+html	{ background:#FFF url(../images/index_bg_repeat.gif) repeat-x;}
+body	{ background:url(../images/bg_norepeat.jpg) no-repeat; background-position:center 30px; font-size:12px; color:#000;}
+li		{ list-style-type:none;}
+a		{ text-decoration:none;}
+a:hover	{ text-decoration:underline;}
+i,em	{ font-style:normal;}
+h1,h2,h3{ font-weight:normal;}
+input,textarea,select	{ font-size:12px;}

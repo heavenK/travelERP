@@ -1,0 +1,84 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,p,table,td,ul,li,ol,dl,dt,dd,from,input,select,fieldset{ margin:0; padding:0;}
+body{ font:normal 12px/22px simsun; color:#000000;}
+ul,ol,li{list-style:none;}
+a img{ border:0;}
+a{ color:#000000; text-decoration:none;}
+a:hover{ color:#000000; text-decoration:underline;}
+button{ cursor:pointer;}
+.clearit{ clear:both;}
+
+#header{ width:1002px; margin:0 auto;}
+#header .TopTab{ width:869px; height:34px; margin:0 auto; background:url(../images/ktrip_01.gif) repeat-x;}
+#header .TopTab .txtcolor{ color:#2F45B2;}
+
+#container{ width:869px; margin:0 auto;}
+.PicTab{ width:869px; margin:0 auto;}
+.search{ width:675px; margin:0 auto; overflow:hidden;}
+.search .SearchT{ float:left; width:500px; height:28px; line-height:28px; border:#1px solid #CCCCCC; color:#333333; margin-top:11px; font-size:14px;}
+.search .SearchBtn{ float:left;}
+.TwoButton{ width:675px; margin:5px auto 10px; overflow:hidden;}
+.TwoButton a{ float:left; width:122px; height:27px; text-align:center; font:14px/25px "微软雅黑";}
+.TwoButton a.current{ background:url(../images/button.jpg) no-repeat;}
+.TwoButton a:hover{ text-decoration:none;}
+.AdSearch{ width:640px; margin:0 0 0 162px;}
+.AdSearch td{ height:25px;}
+.AdSearch input{ vertical-align:middle; margin:0 5px;}
+.AdSearchTit{ width:70px; height:20px; padding:0 0 0 12px; text-align:left; color:#ffffff; background:url(../images/drop_bg01.gif) no-repeat;}
+.AdSearch .inpTime{ float:left; width:100px; height:20px; border:1px solid #79ADDE;}
+.AdSearch .inpTime .Wdate{ width:90px; height:20px; border:none; margin:0px; vertical-align:inherit; background:#FFF url(../images/Wdate_bg.jpg) no-repeat right center;}
+.AdSearch .date1{ float:left; height:22px; line-height:22px; margin:0 5px; _margin:0 5px 0 10px; display:inline;}
+.AdSearch .date2{ float:left; height:22px; line-height:22px; margin:0 5px 0 30px; display:inline;}
+
+.FootTab{ margin:50px auto 0;}
+.FootTab td.gifbg{ width:100px; height:70px; background-repeat:no-repeat; background-position:center top; text-align:center;}
+.FootTab a.text{ margin-top:20px;}
+.FootTab a{ color:#0000FF;}
+.FootTab a:hover{ color:#FF0000;}
+.FootTab .newgo{ vertical-align:middle;}
+
+.LogoTab{ width:880px; margin:5px auto;}
+.LogoTab .text{ width:425px; height:28px; line-height:28px; border:1px solid #CCCCCC; color:#333333;}
+.LogoTab .check{ margin-right:5px; vertical-align:middle;}
+.LogoTab .TextCor{ color:#F10303;}
+
+.FruitTab{ width:869px; margin:0 auto;}
+.FruitTab .ScrollTxt{ width:370px; height:22px; margin-left:10px; overflow:hidden;}
+.FruitTab .ScrollTxt a{ color:#0000FF;}
+.FruitTab .ScrollTxt a:hover{ color:#FF0000;}
+.FruitTab .TxtColor{ color:#FF0000;}
+.FruitTab .TxtBold{ font-weight:bold;}
+.FruitTab .TdBorder{ border-bottom:2px solid #FFFFFF; border-top:2px solid #000000; background:#D0DBFF;}
+
+.LineTab{ width:700px; margin:0 auto 30px; padding-bottom:30px; float:left;}
+.LineTab a{ color:#0000FF;}
+.LineTab a:hover{ color:#FF0000; text-decoration:none;}
+.LineTab .OneLine{ width:785px; border-bottom:#000000 solid 1px; padding:10px 0; margin:0 auto;}
+.LineTab .set{ margin-right:70px;}
+.LineTab .fit{ margin-right:20px;}
+.LineTab .star{}
+.LineTab a.line{ font-size:14px;}
+.LineTab td.tdborder{ border-right:#139210 solid 1px;}
+
+
+.LineTab .pagebar{ width:785px; margin:20px auto 0; text-align:right;}
+.LineTab .pagebar .color{ color:#FF0000;}
+.LineTab .pagebar input{ width:30px;}
+
+.LineTab .NewDiv{ background:url(../images/ktrip_05_02.gif) no-repeat right top;}
+.LineTab .new{ width:131px; height:20px; line-height:20px; color:#2743BA; font-weight:bold; border:#afc6d0 solid 1px; border-bottom:none; border-right:none; text-align:center; margin-right:13px;}
+.LineTab .new a{ color:#2743BA; font-weight:bold; text-decoration:underline;}
+.LineTab .NewCon{ width:143px; height:50px; border:#afc6d0 solid 1px; border-top:none;}
+
+.calendar{ width:705px; margin:5px auto;}
+.calendar .CalendarTab{ width:700px; border-collapse:collapse; background-color:White;}
+.calendar .CalendarTab td{ border:1px solid #C6C6C6; height:30px;width:10%;}
+.calendar .CalendarTab td.topx{ font-weight:bold;}
+.calendar .CalendarTab td.color1{ color:#FF6633;}
+.calendar .CalendarTab td.color2{ color:#009966;}
+.calendar .CalendarTab td.color3{ color:#cbcbcb; font-weight:bold; font-family:Verdana, Geneva, sans-serif;}
+.calendar .CalendarTab td.color4{ color:#000000;}
+.calendar .CalendarTab td.txtsize{ font-size:14px;}
+.calendar .CalendarTab .price{ color:#FF6633;}
+.calendar .CalendarTab .people{ color:#000; font-weight:normal;}

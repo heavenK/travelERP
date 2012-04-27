@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>行程</title>
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+
+<script>
+function baocun()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+
+
+</script>
+
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   产品控管 > 国内 > 散客产品 > 行程
+    </div>
+    <div id="control_domestic_order_over">
+    <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituanID}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a>
+    <a href="javascript:baocun()" class="hlt_fit_published_button_d" style="margin-right:20px; float:right"></a>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="control_domestic_order"><!--步骤 按钮-->
+            <ul>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Dingdan/zituandingdan/zituanID/<{$zituan['zituanID']}>">订单资料</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/<{$zituanID}>">基本信息</a></li>
+                <li class="hlt_fit_published_button_lia"><a href="<{:SITE_ADMIN}>Kongguan/xingcheng/zituanID/<{$zituan['zituanID']}>">行 程</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/jiage/zituanID/<{$zituan['zituanID']}>">价 格</a></li>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Kongguan/tuanyuanmingdan/zituanID/<{$zituan['zituanID']}>">团员名单</a></li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="<{:SITE_ADMIN}>Kongguan/jiedaijihua/zituanID/<{$zituan['zituanID']}>">接待计划</a>
+                </li>
+                <li class="hlt_fit_published_button_lic">
+                <a href="<{:SITE_ADMIN}>Kongguan/chutuantongzhi/zituanID/<{$zituan['zituanID']}>">出团通知</a>
+                </li>
+            </ul>
+        </div>
+        
+        <form name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostXingchengbianji" id="form">
+        <input type="hidden" name="xianluID" id="xianluID" value="<{$xianlu['xianluID']}>"/>
+        <input type="hidden" name="forward" id="forward" value="<{:SITE_ADMIN}>Kongguan/xingcheng/zituanID/<{$zituanID}>"/>
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<div id="control_domestic_travel">
+            	
+                
+                                <textarea name="xingcheng" rows="2" cols="20" id="xingcheng" class="ckeditor" style="visibility: hidden; display: none; "><{$xianlu['xingcheng']}></textarea>
+                                
+                                <script>
+								var editor=CKEDITOR.replace('xingcheng',{height:400});
+								</script>
+                                
+                
+                
+            </div>
+        </div>
+        
+        </form>
+        
+    </div>
+    
+    
+</div>
+
+</body>
+</html>

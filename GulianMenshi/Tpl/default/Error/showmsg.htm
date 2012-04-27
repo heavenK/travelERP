@@ -1,0 +1,13 @@
+<include file="Common:header" />
+<style>
+	.error{ margin:10px 0 0 0;}
+	.error h1{ color:#F00; font-family:'黑体'; font-size:30px;}
+	.error a{ text-decoration:underline;}
+	.error a:hover{ text-decoration:none;}
+</style>
+<div class="error">
+    <h1>提示！</h1>
+    <br/><br/><h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##">返回到之前浏览的页面</a></h4>
+    <br/><h2>以下是提示信息：</h2>
+    
+</div>

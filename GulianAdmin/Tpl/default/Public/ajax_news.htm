@@ -1,0 +1,11 @@
+          <php>$i = 0;foreach($rolelist as $role){foreach($noticelist[$role][$types] as $message){$i++;</php>
+                <div class="ks_box_title">
+                <strong style=" font-weight:normal;">
+                <{$i}>.<a class="noticetitle" style=" color:#000; cursor:pointer;" target="_blank" onclick="showmessages('<{$message[url]}>');"><{$message['content']}></a>
+                </strong>(<php>echo date('Y/m/d H:i',$message['time'])</php>)
+                </div>
+                <div style="width:30px; float:right; overflow:hidden" id="ignore<{$message[messageID]}>">
+                <a style="color:#999;" href="javascript:nomore('<{$message[messageID]}>')">忽略</a>
+                </div>
+            <br />
+            <php>}}</php>

@@ -1,0 +1,45 @@
+<include file="Common:header" />
+<div class="infomation"><b>说明：</b>数据备份功能根据您的选择备份数据表，导出的数据文件可用“数据恢复”功能或 phpMyAdmin 导入。<br/><b>提示：</b><span style="color:red">如果您的数据过过大请使用其他专业数据库备份软件或者在服务器通过脚本备份</span>。</div><br/>
+<form action="<{:SITE_URL}>/admin.php?s=/Database/export" method="POST">
+<h3>数据备份类型</h3>
+<div style="margin:10px 15px 15px 15px">
+<p><input type="radio" name="expottype" value="exportall" onclick="$('#customtable').hide();" checked> 备份全部表</p>
+<p><input type="radio" name="expottype" value="custom" onclick="$('#customtable').show();"> 自定义备份 </p>
+<div id="customtable" style="margin:10px 0 0 18px;display:none">
+<php>foreach($table as $val){</php>
+    <div style="width:160px;float:left"><input class="checkbox" type="checkbox" name="tables[]" value="<{$val[Name]}>" checked>&nbsp;&nbsp;<{$val['Name']}></div>
+<php>}</php>
+<div class="clearline"></div>
+<p style="margin-top:10px"><input type='checkbox' id='chkall' value='check' checked>&nbsp;&nbsp;全选/反选</p>
+</div>
+<div class="clearline"></div>
+</div>
+<h3>备份设置</h3>
+<div style="margin:10px 15px 15px 15px">
+<p><b>备份文件名</b></p>
+<p><input type="text" class="txt_input" name="filename" value="<{:date('YmdHis')}>">.sql</p><br/>
+<p><b>压缩备份文件</b></p>
+<p><input type="radio" name="usezip" value="1"> zip压缩</p>
+<p><input type="radio" name="usezip" value="0" checked> 不压缩</p><br/>
+<p><b>扩展方式插入(Extended Insert)</b></p>
+<p><input type="radio" name="extendin" value="1"> 是</p>
+<p><input type="radio" name="extendin" value="0" checked> 否</p><br/>
+<p><b>分卷大小</b></p>
+<p><input type="text" name="sizelimit" value="2048"> KB</p><br/>
+<input type="submit" class="button1" value="确定备份">
+</div>
+</form>
+<script type="text/javascript">
+$("#chkall").click(function() {
+    if ($(this).attr("checked") == true) {
+        $("input[name='tables[]']").each(function() {   
+            $(this).attr("checked", true);   
+        });   
+    } else {
+        $("input[name='tables[]']").each(function() {   
+            $(this).attr("checked", false);   
+        });   
+    }   
+});
+</script>
+<include file="Common:foot" />

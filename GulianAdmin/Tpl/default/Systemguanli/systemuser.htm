@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+<{$navlist}>
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+
+</head>
+
+<body>
+    <div class="hdlyRight">
+
+
+            <div id="content_bb">
+                
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置:</span><{$navlist}></li>
+                </ul>
+            </div>
+                <div class="ss">
+                    <table class="test1" width="85%" border="0" style="padding-top: 20px;">
+                        <tbody><tr>
+                            <form action="<{:SITE_ADMIN}>Systemguanli/systemuser" method='post'>
+							<input type="hidden" name="type" value="search">
+                            <td width="50" height="18" align="right">
+                                关键字</td>
+                            <td width="187">
+                                <input name="tbKeyword" type="text" id="tbKeyword"></td>
+                            <td>
+                                <input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                            </td>
+                            </form>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="nr">
+                    <table width="313" border="0">
+                        <tbody><tr>
+                            <td width="58" align="center">
+                                
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要重置吗？');" id="lkbSetPassWord" class="yyxxl" href="javascript:resetpwd()">密码重置</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('删除吗？');" id="lkbSetPassWord" class="yyxxl" href="javascript:deleteadmin()">删除</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要锁定帐户吗？');" id="lbkLocked" class="yyxxl" href="javascript:doislock('已锁定')">锁定帐户</a>
+                            </td>
+                            <td width="59" align="center">
+                                <a onclick="return confirm('确认要解锁该帐户吗？');" id="lbkOpen" class="yyxxl" href="javascript:doislock('未锁定')">解锁帐户</a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+        <form name="form" method="post" id="form">
+    	<input type="hidden" name="forward" id="forward" value="<{:SITE_ADMIN}>Systemguanli/systemuser" >
+                
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody><tr>
+                                    <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                                    <th height="32" align="center">
+                                        姓名
+                                    </th>
+                                    <th height="32" align="center">
+                                        帐户
+                                    </th>
+                                    <th height="32" align="center">
+                                        部门
+                                    </th>
+                                    <th height="32" align="center">
+                                        职位
+                                    </th>
+                                    <th height="32" align="center">
+                                        办公电话
+                                    </th>
+                                    <th height="32" align="center">
+                                        手机
+                                    </th>
+                                    <th height="32" align="center">
+                                        QQ
+                                    </th>
+                                    <th height="32" align="center">
+                                        状态
+                                    </th>
+                                    <th height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                            
+                            
+                            <php> $i = -1;  foreach($kehuAll as $kehu){ $i++;
+                            </php>
+                            
+                                <tr class="tr<php>echo $i%2+1</php>">
+                                  <td height="27" align="center"  width="2%">
+                                      <span><input value="<{$kehu['user_id']}>" id="kehuitem_<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                                
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['realname']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['user_name']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['department']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['role']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['officetel']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['mobiletel']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['qq']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['islock']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        [<a href="<{:SITE_ADMIN}>Systemguanli/edituser/kehuID/<{$kehu['kehuID']}>">修改信息</a>]
+                                        [<a href="<{:SITE_ADMIN}>Systemguanli/powermanage/user_name/<{$kehu['user_name']}>">权限管理</a>]
+                                    </td>
+                                </tr>
+                            
+                            <php>}
+                            </php>
+                            
+                    </tbody></table>
+                </div>
+            </div>
+            
+            </form>
+            
+            
+    </div>
+
+
+</body>
+</html>
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'kehuitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'kehuitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+<script type="text/javascript">
+function resetpwd() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Systemguanli/resetpwd';
+        document.getElementById('form').submit();
+}
+
+function doislock(islock) {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Systemguanli/doislock/type/'+islock;
+        document.getElementById('form').submit();
+}
+
+function deleteadmin() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Systemguanli/deleteadmin';
+        document.getElementById('form').submit();
+}
+
+</script>

@@ -1,0 +1,207 @@
+﻿body, ul, li, p, from, select, input, a, h1, h2, h3, h4, h5, h6, h7 {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+from {
+	clear:both;
+}
+body {
+	font-size:12px;
+}
+a img {
+	border:0;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+.clear {
+	width:0;
+	height:0;
+	margin:0;
+	padding:0;
+	font-size:0;
+	line-height:0;
+	clear:both;
+}
+/*订单管理*/
+#ddgl_main {
+	width:930px;
+	margin:0 auto;
+}
+.dnagqianye a {
+	font-size:12px;
+	font-weight:normal;
+}
+.dnagqianye h1 {
+	font-size:12px;
+	height:30px;
+	line-height:30px;
+	background:#f3f7f8;
+	padding-left:46px;
+}
+.sy {
+	color:#333333;
+}
+.dqy {
+	color:#cc6601;
+}
+/*logo*/
+    .logo {
+	float:left;
+	margin-top:24px;
+}
+/*右边搜索*/
+	.ddgltop_right {
+	width:500px;
+	float:right;
+}
+.ssk {
+	width:465px;
+	height:85px;
+	margin-top:10px;
+	padding:12px 28px 0 9px;
+}
+.ssk table {
+	width:467px;
+}
+.csxz {
+	width:169px;
+	height:18px;
+	border:#a5b3b6 solid 1px;
+}
+.ggxw {
+	width:476px;
+	margin-top:11px;
+	height:27px;
+	padding-right:24px;
+}
+.ggxw td {
+	text-indent:24px;
+	color:#333335;
+}
+/*订单管理内容*/
+.ddgl_content {
+	margin-top:12px;
+	padding:0 24px;
+	padding-bottom:33px;
+	border-bottom:#bfcdd0 solid 1px;
+}
+.ddgl_content .xx_bt_BJ {
+	background: #ffefd6;
+	height:27px;
+	border-left: #cccccc solid 1px;
+	border-right: #cccccc solid 1px;
+	margin-top:5px
+}
+.xx_bt_BJ .xxlist {
+	padding-left:20px;
+	float:left;
+	min-width:600px;
+	margin-top:15px;
+}
+.xxlist li {
+	float:left;
+	margin-right:33px;
+}
+.jiudianming {
+	color:#0254a8;
+	font-size:14px;
+	font-weight:bold;
+	background:url(images/ddgl_bj_tb-02.jpg) no-repeat left center;
+	text-indent:32px;
+}
+.jiudianming span, .szcs span {
+	color:#acadaf;
+}
+.xingji {
+	color:#333333;
+	font-weight:bold;
+	width:123px;
+}
+.xx_bt_BJ .ckfx {
+	float:right;
+	margin-top:8px;
+}
+.szcs {
+	color:#szcs;
+	font-weight:bold;
+}
+.jdxxxx {
+	margin-bottom:5px;
+}
+.jdxxxx th {
+	color:#353334;
+}
+.jdxxxx td {
+	color:#0056ad;
+	border-bottom:#FFF solid 1px;
+}
+/*分页*/
+.fenye {
+	margin:0 auto;
+	margin-top:10px;
+	margin-bottom:52px;
+	width:520px;
+}
+.syy {
+	display:block;
+	width:53px;
+	height:21px;
+	text-align:center;
+	border:#dfdfdf solid 1px;
+	color:#dfdfdf;
+	padding-top:5px;
+}
+.xyy {
+	display:block;
+	width:53px;
+	height:21px;
+	text-align:center;
+	border:#bebebe solid 1px;
+	color:#0055a9;
+	padding-top:5px;
+}
+.fenye a {
+	float:left;
+	margin-left:5px;
+	padding-top:5px;
+}
+.fenye span {
+	height:26px;
+	line-height:26px;
+}
+.dq {
+	display:block;
+	width:26px;
+	height:23px;
+	background:#0054aa;
+	color:#FFF;
+	text-align:center;
+}
+.wx {
+	display:block;
+	width:24px;
+	height:21px;
+	border:#bdbdbd solid 1px;
+	color:#0355ab;
+	text-align:center;
+}
+.shifou{ width:63px; height:20px; background:#d4e8cd;}
+.shuliang{ width:63px; height:16px; background:#d4e8cd;}
+.biaotilan{ border-bottom:#d6b781 solid 1px;}
+.xinxi{ color:#ff5217; font-weight:bold; text-indent:24px;}
+.leibie{ color:#a7590e; font-weight:bold; border-right:#c4bad5 solid 1px;}
+.leibie_SC{color:#a7590e; font-weight:bold;}
+.jc td{ color:#353334; font-size:13px; font-weight:bold;}
+.sbx td{ border-top:#969696 solid 1px;}
+.sbx_01 td{ border-top:#7ebaec solid 1px;}
+.soujinzhi{ text-indent:30px;}
+
+.leibie1 {color:#a7590e; font-weight:bold; border-right:#c4bad5 solid 1px;}
+.leibie1 {color:#a7590e; font-weight:bold; border-right:#c4bad5 solid 1px;}
+
+.TextBoxBack{ background-color:Red;}

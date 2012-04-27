@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+
+<body>
+<div id="hlt_fit_view">
+<div id="hlt_fit_location"><!--所在位置--> 
+  <b>您所在的位置:</b> <{$navlist}> </div>
+    <div id="hlt_fit_published"><!--发布新线路页面--> 
+    <div id="control_domestic_order_over">
+        <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a>
+        <a href="javascript:dosave()" class="control_domestic_order_over_b" title="修改"></a>
+        </div> 
+        <include file="Kongguan:navlist" /> 
+             
+<form name="form" method="post" action="<{:SITE_ADMIN}>Kongguan/dopostzituanxinxi" id="form">
+  <input name="zituanID" id="zituanID" type="hidden" value="<{$zituan['zituanID']}>" >
+  
+  <div id="hlt_fit_published_cont"><!--内容-->
+  
+    <dl id="hlt_fit_published_b">
+      <dt>子团编号：</dt>
+      <dd>
+        <input style="border:#0C0 2px solid" name="tuanhao" id="tuanhao" value="<{$zituan['tuanhao']}>" >
+      </dd>
+    </dl>
+  
+    <dl id="hlt_fit_published_a">
+      <dt><span>*</span>线路名称：</dt>
+      <dd>
+        <input disabled="disabled" type="text" id="mingcheng" value="<{$postdata['mingcheng']}>" >
+      </dd>
+    </dl>
+	<dl id="hlt_fit_published_g">
+      <dt>天数：</dt>
+      <dd>
+        <input style="border:#0C0 2px solid"  name="tianshu" type="text" id="tianshu" value="<{$zituan['tianshu']}>" >
+      </dd>
+    </dl>
+	<dl id="hlt_fit_published_g">
+      <dt>人数：</dt>
+      <dd>
+        <input style="border:#0C0 2px solid"  name="renshu" type="text" id="renshu" value="<{$postdata['renshu']}>" >
+        <p>人</p>
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_h">
+      <dt>全陪：</dt>
+      <dd>
+        <input name="quanpeiren" type="text" id="quanpeiren" value="<{$postdata['quanpeiren']}>" readonly="readonly"  disabled="disabled">
+      </dd>
+    </dl>
+    <dl id="hlt_fit_published_i">
+      <dt>出团日期：</dt>
+      <dd>
+        <input onfocus="WdatePicker()" style="border:#0C0 2px solid" name="chutuanriqi" id="chutuanriqi" value="<{$zituan['chutuanriqi']}>" >
+    </dl>
+    		<dl id="hlt_fit_published_j">
+                  <dt>包团单位：</dt>
+                  <dd id="line_themes">
+                    <input type="text" name="baotuan_uni" value="<{$postdata['baotuan_uni']}>" readonly="readonly"  disabled="disabled"/>
+                  </dd>
+                </dl>
+            <script>
+                $(document).ready(function(){
+                    
+                     $("#baotuan_departID").val("<{$postdata['baotuan_departID']}>");
+                });
+            </script>
+                <dl id="hlt_fit_published_k">
+                  <dt>包团部门：</dt>
+                  <dd id="goods_type">
+                       <select name="baotuan_departID" id="baotuan_departID" style="width:100px;"   readonly="readonly"  disabled="disabled">
+                            <php>foreach($departmentAll as $temp){</php>
+                            <option value="<{$temp[id]}>"><{$temp[title]}></option> 
+                            <php>}</php>
+                        </select>
+                  </dd>
+                </dl>
+                <dl id="hlt_fit_published_l">
+            
+                </dl>
+                <dl id="hlt_fit_published_o">
+                  <dt>行程：</dt>
+                  <dd><php>if ($postdata['xingcheng_word']){</php><a href="/data/<{$postdata['xingcheng_word']}>">行程文件.doc</a><php>}</php></dd>
+                </dl>
+                <dl id="hlt_fit_published_n">
+                  <dt>人员：</dt>
+                  <dd><php>if ($postdata['renyuan_word']){</php><a href="/data/<{$postdata['renyuan_word']}>">人员文件.doc</a><php>}</php></dd>
+                </dl>
+                <dl id="hlt_fit_published_m">
+                  <dt>价格：</dt>
+                  <dd>
+                    <textarea name="price_big" id="price_big" style="height:200px; width:580px; margin-top:4px;"   readonly="readonly"  disabled="disabled" ><{$postdata['price_big']}></textarea>
+                  </dd>
+                </dl>
+                <dl id="hlt_fit_published_j">
+                  <dt>成人价：</dt>
+                  <dd id="line_themes">
+                    <input type="text" name="chengren_price" style="width:100px" value="<{$postdata['chengren_price']}>"  readonly="readonly"  disabled="disabled" />
+                  </dd>
+                </dl>
+                <dl id="hlt_fit_published_k">
+                  <dt>儿童价：</dt>
+                  <dd id="goods_type">
+                       <input type="text" name="ertong_price" style="width:100px" value="<{$postdata['ertong_price']}>"  readonly="readonly"  disabled="disabled" />
+                  </dd>
+                </dl>
+                <dl id="hlt_fit_published_l">
+                    <dt>总价：</dt>
+                    <dd id="goods_type">
+                       <input type="text" style="width:100px" name="sum_price" value="<{$postdata['sum_price']}>"  readonly="readonly"  disabled="disabled" />
+                    </dd>
+                </dl>
+
+
+  </div>
+  </div>
+  </div>
+</form>
+</body>
+</html>
+<script>
+function dosave()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+	
+}
+
+</script>

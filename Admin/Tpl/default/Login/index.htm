@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>EasyTalk Administrator's Control Panel</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/admin/login.css" />
+</head>
+<body>
+<div class="mainarea">
+<form method="post" action="<{:SITE_URL}>/admin.php?s=/Login/dologin">
+    <table class="loginbox">
+        <tr>
+            <td class="logo"><p>EasyTalk 是一个采用 PHP 和 MySQL数据库构建的高效微博解决方案！</p></td>
+            <td>
+                <table cellspacing="0" cellpadding="0" class="loginform">
+                    <tr>
+                        <th>账　号：</th>
+                        <td><php>if($loginname){</php><{$loginname}>&nbsp;<a href="<{:SITE_URL}>/home.php/logout">[登出]</a><php>}else{</php><a href="<{:SITE_URL}>/login">请先登录前台</a><php>}</php></td>
+                    </tr>
+                    <tr>
+                        <th>密　码：</th>
+                        <td><input type="password" name="password" class="t_input" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                        <input type="submit" class="button1" name="btnsubmit" value="登录后台" class="submit" /> or <a href="<{:SITE_URL}>">返回前台</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<p class="footer">Powered by EasyTalk &copy; 2009 - 2011 <a href="http://www.Nextsns.com" target="_blank">Nextsns.com</a></p>
+</body>
+</html>

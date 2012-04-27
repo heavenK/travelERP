@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
+
+<title>大连古莲国际旅行社应收帐款明细表（总表）</title>
+</head>
+
+<body>
+<div id="hlt_fit_view" style=" padding-bottom:12px;">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   报账管理
+    </div>
+    <script>
+	function dosearch() {
+			var time1 = document.getElementById('time1').value;
+			var time2 = document.getElementById('time2').value;
+			
+			var mingcheng = document.getElementById('mingcheng').value;
+			var departmentID = document.getElementById('department').value;
+			var realname = document.getElementById('realname').value;
+			var jingwai = document.getElementById('jingwai').value;
+			
+			var tuanhao = document.getElementById('tuanhao').value;
+			var zituanstatus = document.getElementById('zituanstatus').value;
+			var xianlutype = document.getElementById('xianlutype').value;
+			
+			window.location = '<{:SITE_ADMIN}>Shenhe/baozhangdanlist/time1/'+time1+'/time2/'+time2+'/xianlutype/'+xianlutype+'/mingcheng/'+mingcheng+'/departmentID/'+departmentID+'/realname/'+realname+'/tuanhao/'+tuanhao+'/zituanstatus/'+zituanstatus+'/jingwai/'+jingwai;
+			
+	}
+	
+	
+	</script>
+    
+    <div id="hlt_fit_search"><!--查询-->
+    	 
+        <div class="search_one">
+            <div id="hlt_fit_search_b_s"><span>日期范围：</span>
+            <input type="text" id="time1" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"  value="<{$time1}>" >
+            <span>--</span>
+            <input type="text" id="time2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"  value="<{$time2}>" >
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团标题：</span><input style=" width:205px;" type="text" id="mingcheng" value="<{$mingcheng}>"></div>
+            <div id="hlt_fit_search_a_s"><span>部门：</span>
+              <select id="department" style="width:100px;">
+                <php>if($department){</php>
+                <option value="<{$departmentID}>"><{$department}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($departmentAll as $temp){</php>
+                <option value="<{$temp[id]}>"><{$temp[title]}></option> 
+                <php>}</php>
+              </select>
+              </div>
+            <div id="hlt_fit_search_a_s"><span>线路类型：</span>
+              <select id="xianlutype" style="width:100px;">
+                <php>if($xianlutype){</php>
+                <option value="<{$xianlutype}>"><{$xianlutype}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <option value="地接">地接</option> 
+                <option value="组团">组团</option> 
+              </select>
+              </div>
+        </div>
+        <div class="search_one">
+            <div id="hlt_fit_search_a_s"><span>计调：</span>
+              <select id="realname">
+                <php>if($realname){</php>
+                <option value="<{$realname}>"><{$realname}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+                <php>foreach($topsystemuserAll as $user){</php>
+                <option value="<{$user[realname]}>"><{$user[realname]}></option> 
+                <php>}</php>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>过境类型：</span>
+              <select id="jingwai">
+                <php>if($jingwai){</php>
+                <option value="<{$jingwai}>"><{$jingwai}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option>
+              	<option value="国内">国内</option>
+              	<option value="境外">境外</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团号：</span><input style=" width:205px;" type="text" id="tuanhao" value="<{$tuanhao}>"></div>
+            <div id="hlt_fit_search_a_s"><span>团队状态：</span>
+              <select id="zituanstatus"> 
+                <php>if($zituanstatus){</php>
+                <option value="<{$zituanstatus}>"><{$zituanstatus}></option> 
+                <option disabled="disabled">--------------</option> 
+                <php>}</php>
+                <option value="">全部</option> 
+                <option value="报名">组团报名</option> 
+                <option value="在线">接团在线</option> 
+                <option value="截止">截止</option> 
+            </select>
+            </div>
+            <div id="hlt_fit_search_g_s"><input type="submit" value="" alt="搜索" onclick="dosearch();" /></div>
+        </div>
+         
+  </div>
+  
+  
+  
+
+    
+</div>
+
+<style>
+.gl_cwbb	{ background: url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x scroll 0 0 transparent; text-align:center; color:#FFFFFF;}
+.gl_cwbb a	{ color:0000ff;}
+.gl_cwbb td { border:1px solid #E8E8E8; border-top:0; color: #494949; padding:0 10px;}
+.gl_cwbbdy	{ width:85px; height:25px; margin:0 0 10px 30px; display:inline; background:url(images/header_bg.jpg) -790px -220px; float:left;} 
+.gl_cwbbdy:hover	{ background:url(images/header_bg.jpg) -790px -250px;}
+.gl_cwbbtitle	{ width:600px; padding:0 0 0 20px; color:#004e42; font-size:16px; font-weight:bold;  float:left;}
+.tr0 		{ background:#F0F0F0;}
+.tr0 a		{ color:0000ff;}
+.tr1 a		{ color:0000ff;}
+.gl_cwbc	{ display:inline; color:ff5500; text-align:center; background:#F0F0F0; }
+</style>
+
+<div style="float:left">
+<strong style=" font-size:14px">
+<php>if($department){</php>
+《<{$department}>》明细表
+<php>}</php>
+</strong>
+
+搜索关键字：<{$time1}> <{$time2}> <{$mudidi}> <{$mingcheng}> <{$tuanhao}> <{$department}> <{$realname}> <{$xianlutype}> <{$jingwai}> <{$zituanstatus}>
+
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="gl_cwbb" style="float:left;">
+  <tr>
+    <th height="30">序号</th>
+    <th height="30">产品类型</th>
+    <th height="30">产品名称</th>
+    <th height="30">编号</th>
+    <th height="30">出团日期</th>
+    <th height="30">人数</th>
+    <th height="30">操作人</th>
+    <th height="30">国境</th>
+    <th height="30">类型</th>
+    <th height="30">状态</th>
+    <th height="30">报账</th>
+    <th height="30">轨迹</th>
+  </tr>
+  
+          <php> $i = -1; foreach($xianludatas as $xianlu){ $i++;</php>
+  
+  <tr class="tr<php>echo $i%2</php>">
+    <td height="27"><php>echo $i + 1</php></td>
+                <td height="32" align="center">
+                	<{$xianlu['xianlutype']}>
+                </td>
+        <php>if($xianlu['xianluID']){</php>
+        
+                <td width="20%" height="32" align="center">
+                                        <a href="javascript:showzituan(<{$xianlu['xianluID']}>,<{$xianlu['zituanID']}>,'<{$roletype}>');">
+                                            <{$xianlu['mingcheng']}>
+                                        </a>
+                </td>
+                <td width="10%" height="32" align="center">
+                                        <a href="javascript:showzituan_bzd(<{$xianlu['xianluID']}>,<{$xianlu['zituanID']}>,'<{$roletype}>');">
+                                            <{$xianlu['tuanhao']}>
+                                        </a>
+                </td>
+        <php>}else{</php>
+        
+                <td width="20%" height="32" align="center">
+                                        <a href="javascript:showdjtuan(<{$xianlu['djtuanID']}>,'<{$roletype}>');">
+                                            <{$xianlu['mingcheng']}>
+                                        </a>
+                </td>
+                <td width="10%" height="32" align="center">
+                                        <a href="javascript:showdjtuan_bzd(<{$xianlu['djtuanID']}>,'<{$roletype}>');">
+                                            <{$xianlu['tuanhao']}>
+                                        </a>
+                </td>
+        <php>}</php>
+                <td height="32" align="center">
+                    <{$xianlu['chutuanriqi']}>
+                </td>
+                <td height="32" align="center">
+                    <{$xianlu['renshu']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['user_name']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['guojing']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['kind']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['zhuangtai']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['status']}>
+                </td>
+        <php>if($xianlu['xianluID']){</php>
+                <td height="32" align="center" style="color:red">
+                	<img onclick="GetcheckBack(this,'<{$xianlu['baozhangID']}>','报账单','审核记录')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                </td>
+        <php>}else{</php>
+                <td height="32" align="center" style="color:red">
+                	<img onclick="GetcheckBack(this,'<{$xianlu['baozhangID']}>','地接报账单','审核记录')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                </td>
+        <php>}</php>
+  </tr>
+  <php>}</php>
+  
+</table>
+<style>
+.current{ background:#008170; color:#FFFFFF;}
+ </style>
+<div id="hlt_fit_page">
+	<{$page}>
+</div>
+</body>
+</html>
+
+
+
+<div id="divrili2"  style="display: none; position:absolute; ">
+    <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+
+<div id="divrili3"  style="display: none; height:300px; position:absolute; width:300px; text-align:center; ">
+    <div class="fanye" id="thedate">
+      
+    </div>
+</div>
+
+<script language="javascript">  
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+
+
+function dump_obj(myObject) {  
+  var s = "";  
+  for (var property in myObject) {  
+   s = s + "\n "+property +": " + myObject[property] ;  
+  }  
+  alert(s);  
+}  
+
+</script> 
+
+<script type="text/javascript">
+function showdate(datelist,obj)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 20;
+	$("#divrili3").css({top:objtop , left:objleft });
+	
+	datelist=datelist.replace(/'/g,"");
+	datelist=datelist.split(";");
+	
+	 var str = '';
+	 str += '<table width="100%" cellspacing="0" cellpadding="0" border="0" class="bg"  style="font-size:12px">';
+	 str += '<tbody>';
+	 str += '<tr>';
+	 str += '<th height="32" align="center"> 时间</th>';
+	 str += '</tr>';
+	 for(var i=0; i<datelist.length; i++){
+		 str += '<tr class="tr1">';
+		 str += '<td width="100%" height="32" align="center">'+datelist[i]+'</td>';
+		 str += '</tr>';
+	 }
+	 str += '</tbody>';
+	 str += '</table>';
+	 
+	$("#thedate").empty();
+	$("#thedate").append(str);
+	
+	var divRili = document.getElementById("divrili3"); 
+	if(divRili) {
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else 
+		{		
+			divRili.style.display = '';			
+		}
+	}
+}
+
+
+function GetcheckBack(obj,id,tbname,type)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili) {
+
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else {		
+			divRili.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+function showzituan(id,zituanID,roletype)
+{
+    var url = '<{:SITE_ADMIN}>Kongguan/baozhangdan/showtype/审核/xianluID/'+id+'/zituanID/'+zituanID+'/roletype/'+roletype;
+    var winvalue=	window.open(url,null,"height=700,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function showdjtuan(djtuanID,roletype)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/baozhangdan/showtype/审核/djtuanID/'+djtuanID+'/roletype/'+roletype;
+    var winvalue=	window.open(url,null,"height=700,width=1300,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function showzituan_bzd(id,zituanID,roletype)
+{
+    var url = '<{:SITE_ADMIN}>Kongguan/baozhangdan/doprint/1/showtype/审核/xianluID/'+id+'/zituanID/'+zituanID+'/roletype/'+roletype;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function showdjtuan_bzd(djtuanID,roletype)
+{
+    var url = '<{:SITE_DIJIE}>Tuancontrol/baozhangdan/doprint/1/showtype/审核/djtuanID/'+djtuanID+'/roletype/'+roletype;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function myCheckBoxSelect(o)
+{
+    var id = '1_list';
+    var i = 0;
+    for(;;)
+    {
+        id = '1_list' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+</script>
+<include file="Index:footer" />

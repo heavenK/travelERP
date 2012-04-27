@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>互动旅游-用户管理</title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script type="text/javascript" language="javascript">
+function SetState(o,username)
+{
+	
+   if(o.name=="Left")
+   {
+      document.getElementById("leftusername").value = username;
+       var right=document.getElementsByName("Right");
+       if(right.length>0)
+       {
+           for(var i=0;i<right.length;i++)
+           {
+               if(right[i].value==o.value)
+               {
+                   right[i].disabled='disabled';
+               }
+               else
+               {
+                   right[i].disabled='';
+               }
+           }
+       }
+   }
+   
+   if(o.name=="Right")
+   {
+      document.getElementById("rightusername").value = username;
+       var left=document.getElementsByName("Left");
+       if(left.length>0)
+       {
+           for(var i=0;i<left.length;i++)
+           {
+               if(left[i].value==o.value)
+               {
+                   left[i].disabled='disabled';
+               }
+               else
+               {
+                   left[i].disabled='';
+               }
+           }
+       }
+   }
+}
+
+
+function dozhuanyi()
+{
+	  var leftusername = document.getElementById("leftusername").value;
+	  var rightusername = document.getElementById("rightusername").value;
+	  var type = document.getElementById("type").value;
+	  if(type == '产品')
+	  window.location.href = '<{:SITE_ADMIN}>Chanpinpingyi/chanpinlist/leftusername/'+leftusername+'/rightusername/'+rightusername+'/type/'+type;
+	  if(type == '地接')
+	  window.location.href = '<{:SITE_ADMIN}>Chanpinpingyi/dijietuanlist/leftusername/'+leftusername+'/rightusername/'+rightusername+'/type/'+type;
+	  
+}
+
+function dosearch() {
+        
+		var left_keyword = document.getElementById('left_keyword').value;
+		var right_keyword = document.getElementById('right_keyword').value;
+	  var type = document.getElementById("type").value;
+		window.location = '<{:SITE_ADMIN}>Chanpinpingyi/index/left_keyword/'+left_keyword+'/right_keyword/'+right_keyword+'/type/'+type;
+}
+</script></head>
+
+
+
+<body>
+    <div class="hdlyRight">
+    
+		<input type="hidden" name="leftusername" id="leftusername" />
+		<input type="hidden" name="rightusername" id="rightusername" />
+		<input type="hidden" name="type" id="type" value="<{$type}>" />
+        
+            <div id="content_bb">
+                
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置:</span><{$navlist}> </li>
+                </ul>
+            </div>
+                <table width="99%" border="0">
+                    <tbody><tr>
+                        <td>
+                            <div class="nr">
+                                <table class="test1" width="100%" border="0" style="padding-top: 20px;">
+                                    <tbody><tr>
+                                        <td width="50" height="18" align="right">
+                                            关键字</td>
+                                        <td width="187">
+                                            <input name="left_keyword" id="left_keyword" type="text" value="<{$left_keyword}>"></td>
+                                        <td>
+                                            <input type="button" onclick="dosearch();" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+                            <div class="fanye">
+                                <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td colspan="3" height="40" align="center">
+                                            转出人</td>
+                                    </tr>
+                                    
+                                            <tr>
+                                                <th width="33" height="32" align="center">
+                                                </th>
+                                                <th height="32" align="center">
+                                                    用户名</th>
+                                                <th height="32" align="center">
+                                                    姓名</th>
+                                            </tr>
+                                        
+                                        
+                                  <php> foreach($userAll_left as $user){
+                                  </php>      
+                                        
+                                            <tr class="tr1">
+                                                <td width="3%" height="27" align="center">
+                                                    <input type="radio" id="LeftcbItem" name="Left" value="<{$user[user_name]}>" onclick="SetState(this,'<{$user[user_name]}>')">
+                                                </td>
+                                                <td width="15%" height="27" align="center">
+                                                    <{$user[user_name]}>
+                                                </td>
+                                                <td width="15%" height="27" align="center">
+                                                    <{$user[realname]}>
+                                                </td>
+                                            </tr>
+                                        
+                                  <php> }
+                                  </php>      
+                                        
+                                        
+                                        
+                                        
+                                </tbody></table>
+                            </div>
+                        </td>
+                        <td width="10%" align="center">
+                            <a onclick="return confirm('确认转移吗？');" id="lkbMove" class="yyxxl" href="javascript:dozhuanyi()">转 移</a>
+                        </td>
+                        <td width="45%">
+                            <div class="nr">
+                                <table class="test1" width="100%" border="0" style="padding-top: 20px;">
+                                    <tbody><tr>
+                                        <td width="50" height="18" align="right">
+                                            关键字</td>
+                                        <td width="187">
+                                            <input name="right_keyword" id="right_keyword" type="text" value="<{$right_keyword}>"></td>
+                                        <td>
+                                             <input type="button" onclick="dosearch();" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+                            <div class="fanye">
+                                <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td colspan="3" align="center" height="40">
+                                            接收人</td>
+                                    </tr>
+                                    
+                                            <tr>
+                                                <th width="33" height="32" align="center">
+                                                </th>
+                                                <th height="32" align="center">
+                                                    用户名
+                                                </th>
+                                                <th height="32" align="center">
+                                                    姓名
+                                                </th>
+                                            </tr>
+                                        
+                                  <php> foreach($userAll_right as $user){
+                                  </php>      
+                                            <tr class="tr1">
+                                                <td width="3%" height="27" align="center">
+                                                    <input type="radio" id="RightcbItem" name="Right"  value="<{$user[user_name]}>" onclick="SetState(this,'<{$user[user_name]}>')">
+                                                </td>
+                                                <td width="15%" height="27" align="center">
+                                                    <{$user[user_name]}>
+                                                </td>
+                                                <td width="15%" height="27" align="center">
+                                                    <{$user[realname]}>
+                                                </td>
+                                            </tr>
+                                  <php> }
+                                  </php>      
+                                </tbody></table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody></table>
+                <div class="clear">
+                </div>
+            </div>
+        
+<div>
+
+</div>
+    </div>
+
+
+</body></html>

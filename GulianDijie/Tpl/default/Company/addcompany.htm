@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="beizhu-Type" beizhu="text/html; charset=UTF-8">
+<title>新增频道</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+-->
+</style>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+
+  <form name="form1"  action="<{:SITE_DIJIE}>Company/dopsotaddcompany" method="post" enctype="multipart/form-data">
+  
+  <php>
+  	if($lvxingshe) { 
+  </php>
+  <input type="hidden" name="forward" value="<{:SITE_DIJIE}>Company/addcompany/lvxingsheID/<{$lvxingshe['lvxingsheID']}>" />
+  <input type="hidden" name="lvxingsheID" value="<{$lvxingshe['lvxingsheID']}>" />
+  <php>
+  	}else{
+  </php>
+  <input type="hidden" name="forward" value="<{:SITE_DIJIE}>Company/Companylist" />
+  <php>
+  	}
+  </php>
+    <tbody>
+    
+  <tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr>
+    
+    
+	<tr height="24" align="center" bgcolor="#FBFCE2"> 
+		<td>带*号的为必选项！</td>
+		<td></td>
+   </tr>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	*公司名称：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="companyname" size="25" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['companyname']}>">
+      </td>
+    </tr>
+    
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	联系人：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="lianxiren" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['lianxiren']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	办公电话：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="officetel" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['officetel']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	地址：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="addr" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['addr']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	邮政编码：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="postal" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['postal']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	其他联系方式：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="other" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['other']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	传真：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="fax" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['fax']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	MSN：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="msn" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['msn']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	电子邮箱：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="email" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['email']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	网址：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<input name="web" class="pubinputs" style="width: 260px;" type="text" value="<{$lvxingshe['web']}>">
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	描述：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<textarea name="beizhu" class="ckeditor" id="beizhu" ><{$lvxingshe['beizhu']}></textarea>
+				<script type="text/javascript">
+                    CKEDITOR.replace( 'beizhu',
+                        {
+							width :600,
+                            extraPlugins : 'uicolor',
+                            toolbar :
+                            [
+                                    ['Source','-','Save','NewPage','Preview','-','Templates'],
+									['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+									['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+									['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+									['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['BidiLtr', 'BidiRtl'],
+									['Link','Unlink','Anchor'],
+									'/',
+									['Styles','Format','Font','FontSize'],
+									['TextColor','BGColor'],
+									['Maximize', 'ShowBlocks','-','About']
+                            ]
+                        });
+                </script>
+      </td>
+    </tr>
+    <tr bgcolor="#F9FCEF"> 
+      <td colspan="2" height="28">
+      	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr> 
+            <td height="45" width="26%">&nbsp;</td>
+            <td width="15%">
+            	<input value="提交" type="submit">
+            </td>
+            <td width="59%">
+            	<input name="按钮" class="np coolbg" onclick="javascript:history.back()" value="返回" type="button">
+            </td>
+          </tr>
+        </tbody></table>
+       </td>
+    </tr>
+  </form>
+</tbody></table>
+
+</body></html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title>价格</title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/edittables.js"></script>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+<div id="hlt_fit_location"><!--所在位置--> 
+  <b>您所在的位置:</b> <{$navlist}> </div>
+<div id="hlt_fit_published">
+<!--发布新线路页面-->
+<div id="control_domestic_order_over"> <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a> </div>
+<include file="Kongguan:navlist" />
+<div id="hlt_fit_published_cont">
+<!--内容-->
+<div id="hlt_fit_price"><!--成本项-->
+  <div id="hlt_fit_price_cost">
+    <div id="hlt_fit_price_cost_a">成本项</div>
+    <ol id="hlt_fit_price_cost_b" class="chengbendiv">
+      <ul class="hlt_fit_price_cost_b_ol">
+        <li class="hlt_fit_price_cost_lia">类型</li>
+        <li class="hlt_fit_price_cost_lib">描述</li>
+        <li class="hlt_fit_price_cost_lic">价格/游客</li>
+        <li class="hlt_fit_price_cost_lid">数量</li>
+        <li class="hlt_fit_price_cost_lie">次数</li>
+        <li class="hlt_fit_price_cost_lif">计费类型</li>
+      </ul>
+      <php> for($i = 0; $i <= $postdata['rowsnum0']; $i++) {</php>
+      <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="<php> echo 'listdiv0'.$i</php>">
+        <li class="hlt_fit_price_cost_lia">
+          <select disabled="disabled" id="<php> echo 'tbType0'.$i</php>" name="<php> echo 'tbType0'.$i</php>">
+            <option value="<php> echo $postdata['tbType0'.$i]</php>">
+            <php> echo $postdata['tbType0'.$i]</php>
+            </option>
+          </select>
+        </li>
+        <li class="hlt_fit_price_cost_lib">
+          <input disabled="disabled" type="text" value="<php> echo $postdata['tbSummary0'.$i]</php>">
+        </li>
+        <li class="hlt_fit_price_cost_lic">
+          <input disabled="disabled" type="text" value="<php> echo $postdata['tbPrice0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+        </li>
+        <li class="hlt_fit_price_cost_lid">
+          <input disabled="disabled" value="1" id="<php> echo 'tbNum0'.$i</php>" type="text" name="<php> echo 'tbNum0'.$i</php>" value="<php> echo $postdata['tbNum0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+        </li>
+        <li class="hlt_fit_price_cost_lie">
+          <input disabled="disabled" value="1" id="<php> echo 'tbOrder0'.$i</php>" type="text" name="<php> echo 'tbOrder0'.$i</php>" value="<php> echo $postdata['tbOrder0'.$i]</php>" onkeydown="Getthisvalue(this)" onkeyup="Checkthisvalue(this)">
+        </li>
+        <li class="hlt_fit_price_cost_lif">
+          <select disabled="disabled" id="<php> echo 'tbPriceType0'.$i</php>" name="<php> echo 'tbPriceType0'.$i</php>" onchange="GetPersonType()">
+            <option value="<php> echo $postdata['tbPriceType0'.$i]</php>">
+            <php> echo $postdata['tbPriceType0'.$i]</php>
+            </option>
+          </select>
+        </li>
+      </ul>
+      <php>}</php>
+    </ol>
+    <ul id="hlt_fit_price_bz" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+      <li>成人总价：
+        <input disabled="disabled" name="tbAdultAllPrice"  type="text" id="tbAdultAllPrice" value="<php>if($postdata['tbAdultAllPrice']) echo $postdata['tbAdultAllPrice']; else echo 0;</php>">
+      </li>
+      <li>
+        <dl>
+          <dt>儿童总价：
+            <input disabled="disabled" name="tbChildAllPrice"  type="text" id="tbChildAllPrice" value="<php>if($postdata['tbChildAllPrice']) echo $postdata['tbChildAllPrice']; else echo 0;</php>">
+          </dt>
+          <dd>儿童备注：
+            <input disabled="disabled" name="tbChildNote" type="text" id="tbChildNote" value="<{$postdata['tbChildNote']}>" >
+          </dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="hlt_fit_price">
+  <div id="hlt_fit_price_cost">
+  <div id="hlt_fit_price_cost_a">
+    <div style="float:left"> 成本价格 </div>
+  </div>
+  <ol id="hlt_fit_price_cost_b" class="cbDIV">
+    <ul class="hlt_fit_price_cost_b_ol">
+      <li class="hlt_fit_price_agents_lia">人数</li>
+      <li class="hlt_fit_price_agents_lic" style="width:450px;">描述</li>
+      <li class="hlt_fit_price_agents_lid">成本</li>
+      <li class="hlt_fit_price_agents_lii"></li>
+    </ul>
+    <php> for($i = 0; $i <= $postdata['rowsnum4']; $i++) {</php>
+    <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="list_chengben_div1<{$i}>">
+      <li class="hlt_fit_price_agents_lid">
+		<input disabled="disabled"  id="<php> echo 'renshu1'.$i</php>" type="text" name="<php> echo 'renshu1'.$i</php>" value="<php> echo $postdata['renshu1'.$i]</php>" />
+      </li>
+      <li class="hlt_fit_price_agents_lic"  style="width:450px;">
+        <input disabled="disabled"  style="width:415px;" id="<php> echo 'miaoshu1'.$i</php>" type="text" name="<php> echo 'miaoshu1'.$i</php>" value="<php> echo $postdata['miaoshu1'.$i]</php>" />
+      </li>
+      <li class="hlt_fit_price_agents_lid">
+        <input disabled="disabled"  id="<php> echo 'chengben1'.$i</php>" type="text" name="<php> echo 'chengben1'.$i</php>" value="<php> echo $postdata['chengben1'.$i]</php>" />
+      </li>
+      <li class="hlt_fit_price_agents_lii">
+      </li>
+    </ul>
+    <php>}</php>
+  </ol>
+  
+  
+  
+  
+  </div>
+  </div>
+
+
+<div id="hlt_fit_price">
+<!--代理商销售价格-->
+<div id="hlt_fit_price_cost">
+<div id="hlt_fit_price_cost_a">
+  <div style="float:left"> 代理商销售价格 </div>
+  <div style="float:right"> 代理商选择类别：
+    <select disabled="disabled" name="ddlAgentType" id="ddlAgentType" onchange="GetCaoZuoType(this)">
+      <php>if($postdata['ddlAgentType'] == 'Batch'){</php>
+      <option value="Batch" selected="selected">批量</option>
+      <php>}else{</php>
+      <option value="Batch" >批量</option>
+      <php>}</php>
+      <php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+      <option value="MultipleChoice"  selected="selected">多选</option>
+      <php>}else{</php>
+      <option value="MultipleChoice">多选</option>
+      <php>}</php>
+    </select>
+  </div>
+</div>
+<php>if($postdata['ddlAgentType'] != 'MultipleChoice'){</php>
+<ol id="hlt_fit_price_cost_b" class="batchdiv">
+<php>}else{</php>
+<ol id="hlt_fit_price_cost_b" style="display:none"  class="batchdiv">
+  <php>}</php>
+  <ul class="hlt_fit_price_cost_b_ol">
+    <li class="hlt_fit_price_agents_lia">代理商类型</li>
+    <li class="hlt_fit_price_agents_lic">成人销售价</li>
+    <li class="hlt_fit_price_agents_lid">儿童销售价</li>
+    <li class="hlt_fit_price_agents_lie">成人佣金</li>
+    <li class="hlt_fit_price_agents_lif">儿童佣金</li>
+    <li class="hlt_fit_price_agents_lih">折扣</li>
+    <li class="hlt_fit_price_agents_lig">成人利润</li>
+    <li class="hlt_fit_price_agents_lih">儿童利润</li>
+  </ul>
+  <php> for($i = 0; $i <= $postdata['rowsnum1']; $i++) {</php>
+  <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv1<{$i}>">
+    <li class="hlt_fit_price_agents_lia">
+      <select disabled="disabled" id="<php> echo 'slAgentType1'.$i</php>" name="<php> echo 'slAgentType1'.$i</php>" >
+        <option value="<php>echo $postdata['slAgentType1'.$i]</php>">
+        <php>echo $postdata['slAgentType1'.$i]</php>
+        </option>
+      </select>
+    </li>
+    <li class="hlt_fit_price_agents_lic">
+      <input disabled="disabled" id="<php> echo 'tbAdultPrice1'.$i</php>" type="text" name="<php> echo 'tbAdultPrice1'.$i</php>" value="<php> echo $postdata['tbAdultPrice1'.$i]</php>"    >
+    </li>
+    <li class="hlt_fit_price_agents_lid">
+      <input disabled="disabled" id="<php> echo 'tbChildPrice1'.$i</php>" type="text" name="<php> echo 'tbChildPrice1'.$i</php>" value="<php> echo $postdata['tbChildPrice1'.$i]</php>"    >
+    </li>
+    <li class="hlt_fit_price_agents_lie">
+      <input disabled="disabled" id="<php> echo 'tbAdultCommission1'.$i</php>" type="text" name="<php> echo 'tbAdultCommission1'.$i</php>" value="<php> echo $postdata['tbAdultCommission1'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lif">
+      <input disabled="disabled" id="<php> echo 'tbChildCommission1'.$i</php>" type="text" name="<php> echo 'tbChildCommission1'.$i</php>" value="<php> echo $postdata['tbChildCommission1'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lih">
+      <input disabled="disabled" id="<php> echo 'tbCut1'.$i</php>" type="text" name="<php> echo 'tbCut1'.$i</php>" value="<php> echo $postdata['tbCut1'.$i]</php>" >
+    </li>
+    <li class="hlt_fit_price_agents_lig">
+      <input disabled="disabled" id="<php> echo 'tbAdultProfit1'.$i</php>" type="text" name="<php> echo 'tbAdultProfit1'.$i</php>" value="<php> echo $postdata['tbAdultProfit1'.$i]</php>"    >
+    </li>
+    <li class="hlt_fit_price_agents_lih">
+      <input disabled="disabled" id="<php> echo 'tbChildProfit1'.$i</php>" type="text" name="<php> echo 'tbChildProfit1'.$i</php>" value="<php> echo $postdata['tbChildProfit1'.$i]</php>"    >
+    </li>
+  </ul>
+  <php>}</php>
+</ol>
+<php>if($postdata['ddlAgentType'] == 'MultipleChoice'){</php>
+<ol id="hlt_fit_price_cost_b" class="multiplediv">
+<php>}else{</php>
+<ol id="hlt_fit_price_cost_b" style="display: none;" class="multiplediv">
+  <php>}</php>
+  <ul class="hlt_fit_price_cost_b_ol">
+    <li class="hlt_fit_price_agents_lia">代理商</li>
+    <li class="hlt_fit_price_agents_lic">成人销售价</li>
+    <li class="hlt_fit_price_agents_lid">儿童销售价</li>
+    <li class="hlt_fit_price_agents_lie">成人佣金</li>
+    <li class="hlt_fit_price_agents_lif">儿童佣金</li>
+    <li class="hlt_fit_price_agents_lih">折扣</li>
+    <li class="hlt_fit_price_agents_lig">成人利润</li>
+    <li class="hlt_fit_price_agents_lih">儿童利润</li>
+  </ul>
+  <php> for($i = 0; $i <= $postdata['rowsnum2']; $i++) {</php>
+  <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv2<{$i}>">
+    <li class="hlt_fit_price_agents_lia">
+      <input disabled="disabled" style="width:50px;" id="<php> echo 'AgentName2'.$i</php>" name="<php> echo 'AgentName2'.$i</php>" value="<php> echo $postdata['AgentName2'.$i]</php>" type="text" >
+      <input disabled="disabled" id="<php> echo 'AgentID2'.$i</php>" name="<php> echo 'AgentID2'.$i</php>" type="hidden" value="<php> echo $postdata['AgentID2'.$i]</php>">
+      <a id="aChoiceCom" href="javascript:openSub('AgentName2','AgentID2','<php> echo $i</php>');">选择</a> </li>
+    <li class="hlt_fit_price_agents_lic">
+      <input disabled="disabled" id="<php> echo 'tbAdultPrice2'.$i</php>" type="text" name="<php> echo 'tbAdultPrice2'.$i</php>" value="<php> echo $postdata['tbAdultPrice2'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lid">
+      <input disabled="disabled" id="<php> echo 'tbChildPrice2'.$i</php>" type="text" name="<php> echo 'tbChildPrice2'.$i</php>" value="<php> echo $postdata['tbChildPrice2'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lie">
+      <input disabled="disabled" id="<php> echo 'tbAdultCommission2'.$i</php>" type="text" name="<php> echo 'tbAdultCommission2'.$i</php>" value="<php> echo $postdata['tbAdultCommission2'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lif">
+      <input disabled="disabled" id="<php> echo 'tbChildCommission2'.$i</php>" type="text" name="<php> echo 'tbChildCommission2'.$i</php>" value="<php> echo $postdata['tbChildCommission2'.$i]</php>"   >
+    </li>
+    <li class="hlt_fit_price_agents_lih">
+      <input disabled="disabled" id="<php> echo 'tbCut2'.$i</php>" type="text" name="<php> echo 'tbCut2'.$i</php>" value="<php> echo $postdata['tbCut2'.$i]</php>" >
+    </li>
+    <li class="hlt_fit_price_agents_lig">
+      <input disabled="disabled" id="<php> echo 'tbAdultProfit2'.$i</php>" type="text" name="<php> echo 'tbAdultProfit2'.$i</php>" value="<php> echo $postdata['tbAdultProfit2'.$i]</php>"    >
+    </li>
+    <li class="hlt_fit_price_agents_lih">
+      <input disabled="disabled" id="<php> echo 'tbChildProfit2'.$i</php>" type="text" name="<php> echo 'tbChildProfit2'.$i</php>" value="<php> echo $postdata['tbChildProfit2'.$i]</php>"    >
+    </li>
+  </ul>
+  <php>}</php>
+</ol>
+</div>
+</div>
+<div id="hlt_fit_price"><!--代理商销售价格-->
+  <div id="hlt_fit_price_cost">
+    <div id="hlt_fit_price_cost_a">
+      <div style="float:left"> 机票及酒店占位 </div>
+    </div>
+    <ol id="hlt_fit_price_cost_b">
+      <ul class="hlt_fit_price_cost_b_ol">
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">机酒占位数</li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">机票成人票价</li>
+        <li class="hlt_fit_price_agents_lid" style="width:100px;">机票儿童票价</li>
+        <li class="hlt_fit_price_agents_lie" style="width:100px;">机票折扣</li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">酒店成人售价</li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">酒店儿童售价</li>
+        <li class="hlt_fit_price_agents_lig" style="width:100px;">酒店折扣</li>
+      </ul>
+      <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''" id="listdiv1<{$i}>">
+        <li class="hlt_fit_price_agents_lic"  style="width:100px;">
+          <input disabled="disabled" type="text" name="airhotlenumber" id="airhotlenumber" value="<{$oldjiage['airhotlenumber']}>"   />
+        </li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">
+          <input disabled="disabled" type="text" name="adultcostair" id="adultcostair" value="<{$oldjiage['adultcostair']}>"  />
+        </li>
+        <li class="hlt_fit_price_agents_lid" style="width:100px;">
+          <input disabled="disabled" type="text" name="childcostair" id="childcostair" value="<{$oldjiage['childcostair']}>"  />
+        </li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">
+          <input disabled="disabled" type="text" name="aircut" id="aircut" value="<{$oldjiage['aircut']}>"  >
+        </li>
+        <li class="hlt_fit_price_agents_lie" style="width:100px;">
+          <input disabled="disabled" type="text" name="adultcosthotle" id="adultcosthotle" value="<{$oldjiage['adultcosthotle']}>"  />
+        </li>
+        <li class="hlt_fit_price_agents_lic" style="width:100px;">
+          <input disabled="disabled" type="text" name="childcosthotle" id="childcosthotle" value="<{$oldjiage['childcosthotle']}>" />
+        </li>
+        <li class="hlt_fit_price_agents_lig" style="width:100px;">
+          <input disabled="disabled" type="text" name="hotlecut" id="hotlecut" value="<{$oldjiage['hotlecut']}>"  >
+        </li>
+      </ul>
+    </ol>
+    <ul id="hlt_fit_price_bz" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+      <li>
+        <dl>
+          <dt style="width:308px;">成人总价：
+            <input disabled="disabled" name="adultcostair"  type="text" id="adultAll" >
+          </dt>
+          <dt style="width:268px;">儿童总价：
+            <input disabled="disabled" name="childcostair"  type="text" id="childAll" >
+          </dt>
+        </dl>
+      </li>
+    </ul>
+    
+    <ul id="hlt_fit_price_bz" onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+      <li>
+        <dl>
+          <dt style="width:308px;">成人修正值：
+            <input disabled="disabled"  type="text" value="<{$zituan[adultxiuzheng]}>">
+          </dt>
+          <dt style="width:268px;">儿童修正值：
+            <input disabled="disabled" type="text" value="<{$zituan[childxiuzheng]}>">
+          </dt>
+        </dl>
+      </li>
+    </ul>
+    
+  </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+<script language="javascript">
+function openSub(idname,idid,ids)
+{
+	var obname=document.getElementById(idname + ids);
+	var url = "<{:SITE_ADMIN}>Liandong/getAgencys/own/" + obname.value + "/ids/" + ids+ "/idname/" + idname + "/idid/" + idid;
+	
+    window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>
+</script>

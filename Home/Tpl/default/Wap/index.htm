@@ -1,0 +1,9 @@
+<include file="header" />
+<form method='post' action='<{:SITE_URL}>/Wap/dologin' >
+<h3><{:L('user_account')}><php>if(ET_UC!=TRUE){</php> /<{:L('suppourt_emailaddr')}><php>}else{</php> / <{:L('suppourt_ucenter')}><php>}</php>：</h3><p><input type='text' name='loginname' /></p>
+<h3><{:L('login_pass')}>：</h3><p><input type='password' name='password' /></p>
+<p><input type='checkbox' id="rememberMe" name='rememberMe' value='on' checked='checked' /><label for="rememberMe"> <{:L('nexttime_remember')}></label></p>
+<p><input type='submit' value='<{:L('wap_login')}>' /> or <a href="<{:SITE_URL}>/Wap/reg"><{:L('register')}></a></p>
+</form>
+<p><{$site['sitename']}> <{:L('wap_index_foot1')}></p><p><{:L('wap_index_foot2')}></p><p><{:L('wap_index_foot3')}></p><p><{:L('wap_index_foot4')}></p>
+<include file="footer" />

@@ -1,0 +1,35 @@
+<include file="Common:header" />
+<table id="columns">
+<tr>
+<td id="main" style="-moz-border-radius-bottomleft:5px;">
+<div class="contenter">
+    <div class="indexh">
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting"><{:L('change_setting')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/face"><{:L('change_face')}></a></div>
+        <div class="tabon"><a href="<{:SITE_URL}>/Setting/account"><{:L('change_pass')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/mailauth"><{:L('email_checking')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/theme"> <{:L('theme')}></a></div>
+    </div>
+    <form method="post" action="<{:SITE_URL}>/Setting/doaccount" class="vf lf" style="margin-top:50px">
+        <p>
+            <label class="label_input" for="pass1"><{:L('old1_pass')}>：</label>
+            <input tabindex="1" type="password" name="pass" id="pass1" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p>
+            <label class="label_input" for="pass2"><{:L('new1_pass')}>：</label>
+            <input tabindex="2" type="password" name="newpass1" id="pass2" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p>
+            <label class="label_input" for="pass3"><{:L('new2_pass')}>：</label>
+            <input tabindex="3" type="password" name="newpass2" id="pass3" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p>
+            <input tabindex="4" type="submit" class="button1" value="<{:L('sure_change')}>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>"><{:L('cancel')}></a>
+        </p>
+    </form>
+</div>
+</td>
+<td id="sidebar"><include file="Space:homeside"/></td>
+</tr>
+</table>
+<include file="Common:foot" />

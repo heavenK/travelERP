@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<title>子团记录</title>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navlist}>
+    </div>
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+    	<div id="hlt_fit_published_button"><!--步骤-->
+            <ul>
+                <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/showtype/审核/roletype/<{$roletype}>/xianluID/<{$xianluID}>/zituanID/<{$zituanID}>">团队信息</a></li>
+                <li class="hlt_fit_published_button_lia">报账单</li>
+            </ul>
+            <php>if($roletype == '计调经理'){</php>
+            <div>
+            		<a href="javascript:showbackup(this,<{$zituanID}>)" class="ks_btn_03"></a>
+            		<a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/经理通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('确定要审核通过报账单吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/经理不通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            </div>
+            <php>}if($roletype == '财务操作员'){</php>
+            <div>
+            		<a href="javascript:showbackup(this,<{$zituanID}>)" class="ks_btn_03"></a>
+            		<a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/财务通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('确定要审核通过报账单吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/财务不通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            </div>
+            <php>}if($roletype == '总经理'){</php>
+            <div>
+            		<a href="javascript:showbackup(this,<{$zituanID}>)" class="ks_btn_03"></a>
+            		<a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/总经理通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('确定要审核通过报账单吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/总经理不通过/roletype/<{$roletype}>/zituanID/<{$zituanID}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            </div>
+            <php>}</php>
+        </div>
+<div id="divrili2"  style="position:absolute; display:none; z-index:1000">
+    <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+        
+        
+        
+        <div id="hlt_fit_published_cont"><!--内容-->
+        	<div class="plan_jh_fb">
+            报账单状态：<{$baozhang['status']}>
+                    <a href="javascript:doprint('<{$zituan[zituanID]}>','<{$location}>')" class="control_domestic_order_over_c" title="打印"></a>
+            </div>
+        
+          <php>if($baozhang){</php>
+          <php>}</php>
+            <div id="plan_jh">                
+                <div class="plan_jh_b">团队结算及报账单<a href="#" onclick="javascript:turnoff('plan_jh_a')" class="plan_ap_a_link"></a></div>
+                 
+                <div id="plan_jh_a">
+                    <div class="plan_jh_c"><b>线路名称：</b><{$zituan['mingcheng']}></div>
+                    <div class="plan_jh_g"><b>团号：</b><{$zituan['tuanhao']}></div>
+                    <div class="plan_jh_h"><b>天数：</b><{$zituan['tianshu']}></div>
+                    <div class="plan_jh_i"><b>联系人：</b><{$kehuuser['realname']}></div>
+                    <div class="plan_jh_j"><b>人数：</b><input type="text" disabled="disabled" value="<{$baozhang[renshu]}>" /></div>
+                    <div class="plan_jh_k"><b>签约人：</b><input disabled="disabled" class="textgp" value="<{$baozhang[qianyueren]}>"></div>
+                    <div class="plan_jh_k"><b>全陪：</b><input disabled="disabled" class="textgp" value="<{$baozhang[quanpei]}>"></div>
+                    <div class="plan_jh_l"><b>部门：</b><input disabled="disabled" class="textgp" value="<{$baozhang[department]}>"></div>
+                    <div class="plan_jh_m"><b>接团单位：</b><input disabled="disabled" class="textgp" value="<{$baozhang[jingwaijiedai]}>"></div>
+                    <div class="plan_jh_n"></div>
+                 </div>
+                 
+            </div>
+
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>应收款项：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="table_a" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>标题</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>金额</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>支付类型</strong></td>
+                            <td width="30%" height="27" align="Center" bgcolor="#ff8c05"><strong>备注</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>不打印</strong></td>
+                        </tr>
+                        <php>foreach($itemAll as $item){if($item['type'] != '结算项目') continue;  if($item['bigmanID'])continue;
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled" value="<{$item[title]}>"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            
+                            <select disabled="disabled"  >
+                            	<php>if($item['pricetype']){
+                                </php>
+                                    <option value="<{$item['pricetype']}>" selected="selected"><{$item['pricetype']}></option>
+                                    <option disabled="disabled">----------------</option>
+                            	<php> }
+                                </php>
+                            </select>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled"  value="<{$item[remark]}>" style=" width:90%;"  />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input onclick="javascript:dosetprint(this,<{$item[baozhangitemID]}>);" type="checkbox" name="is_print" <php>if($item['is_print'] == '不打印'){</php>checked="checked" <php>}</php> />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                <div class="fanye">
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>应付款项：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="table_b" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>标题</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>金额</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>支付类型</strong></td>
+                            <td width="30%" height="27" align="Center" bgcolor="#ff8c05"><strong>备注</strong></td>
+                            <td width="5%" height="27" align="Center" bgcolor="#ff8c05"><strong>不打印</strong></td>
+                        </tr>
+                        <php>foreach($itemAll as $item){ if($item['type'] != '支出项目') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled" value="<{$item[title]}>"/>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            
+                            <select disabled="disabled" >
+                            	<php>if($item['pricetype']){
+                                </php>
+                                    <option value="<{$item['pricetype']}>" selected="selected"><{$item['pricetype']}></option>
+                                    <option disabled="disabled">----------------</option>
+                            	<php> }
+                                </php>
+                            
+                            </select>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" disabled="disabled"  value="<{$item[remark]}>" style=" width:90%;"  />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input onclick="javascript:dosetprint(this,<{$item[baozhangitemID]}>);" type="checkbox" name="is_print" value="不打印" <php>if($item['is_print'] == '不打印'){</php>checked="checked" <php>}</php> />
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+                
+                
+                <div class="fanye">
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>利润：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="table_c" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>标题</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>金额</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>支付类型</strong></td>
+                            <td width="30%" height="27" align="Center" bgcolor="#ff8c05"><strong>备注</strong></td>
+                            <td width="10%" height="27" align="Center" bgcolor="#ff8c05"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($itemAll as $item){ if($item['type'] != '利润') continue; 
+                        </php>
+                        <tr>
+                            <td style="height: 27px;" align="center">
+                            <php>if($item['department']){</php>
+                            <input type="text" readonly="readonly" name="title" id="title_<{$item[baozhangitemID]}>" value="<{$item[title]}>"/>
+                            <php>}else{</php>
+                            <input type="text" name="title" id="title_<{$item[baozhangitemID]}>" value="<{$item[title]}>"/>
+                            <php>}</php>
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="price" id="price_<{$item[baozhangitemID]}>"  value="<{$item[price]}>" />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            
+                            <select name="pricetype" id="pricetype_<{$item[baozhangitemID]}>"  >
+                            	<php>if($item['pricetype']){
+                                </php>
+                                    <option value="<{$item['pricetype']}>" selected="selected"><{$item['pricetype']}></option>
+                                    <option disabled="disabled">----------------</option>
+                            	<php> }
+                                </php>
+                            
+                            	<option value="现金">现金</option>
+                            	<option value="网拨">网拨</option>
+                            	<option value="银行卡">银行卡</option>
+                            	<option value="汇款">汇款</option>
+                            	<option value="转账">转账</option>
+                            	<option value="支票">支票</option>
+                            	<option value="签单">签单</option>
+                            	<option value="对冲">对冲</option>
+                            	<option value="月结">月结</option>
+                            </select>
+                            </td>
+                            
+                            <td style="height: 27px;" align="center">
+                            <input type="text" name="remark" id="remark_<{$item[baozhangitemID]}>"  value="<{$item[remark]}>" style=" width:90%;"  />
+                            </td>
+                            <td style="height: 27px;" align="center">
+                            <php>if($baozhang['status']=='经理通过' || $baozhang['status']=='财务通过' || $baozhang['status']=='总经理通过'){</php>
+                            	<php>if(checkByadminlevel_v("财务操作员,财务总监,网管",$this->tVar)){</php>
+                                <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[baozhangitemID]}>");'>修改</a>&nbsp;&nbsp;
+                                <php>}else{</php>
+                                <a class="yyxxl" href="javascript:alert(' 报账单已经在审核中，不允许添加及修改')" >修改</a>&nbsp;&nbsp;
+                                <php>}</php>
+                            <php>}else{</php>
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='edititem("<{$item[baozhangitemID]}>");'>修改</a>&nbsp;
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='deleteitem(this,"<{$item[baozhangitemID]}>","table_c");'>删除</a>
+                            <php>}</php>
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="tr2"><td class="wbx" height="5"></td></tr> </tbody></table>
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr class="tr2">
+                            <td class="wbx" height="27" width="44%" align="left">
+                            <php>if($baozhang['status']=='经理通过' || $baozhang['status']=='财务通过' || $baozhang['status']=='总经理通过'){</php>
+                            	<php>if(checkByadminlevel_v("财务操作员,财务总监,网管",$this->tVar)){</php>
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertbaozhang('利润','table_c'); return false;">添 加</a>
+                                <php>}else{</php>
+                                <a class="yyxxl" href="javascript:alert(' 报账单已经在审核中，不允许添加及修改')" >添 加</a>
+                                <php>}</php>
+                            <php>}else{</php>
+                                <a class="yyxxl" href="javascript:void(0)" onclick="insertbaozhang('利润','table_c'); return false;">添 加</a>
+                            <php>}</php>
+                        </tr>
+                    </tbody></table>
+                </div>
+
+
+</body>
+</html>
+<script>
+function doprint(zituanID,type)
+{
+    var url = '<{:SITE_ADMIN}>Kongguan/doprint/zituanID/'+zituanID+'/type/'+type;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+
+}
+
+function showbackup(obj,id)
+{
+//	objtop = getPosTop(obj) + 36;
+//	objleft = getPosLeft(obj) - 450;
+//	$("#divrili2").css({top:objtop , left:objleft });
+	$("#divrili2").css({top:100 , left:50 });
+    var url='<{:SITE_ADMIN}>Shenhe/showbackuplist/zituanID/'+id;
+	var divRili = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili) {
+
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else {		
+			divRili.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function dosetprint(ele,id)
+{
+	checked = ele.checked;
+	if(checked)
+	value = '不打印';
+	else
+	value = '';
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_ADMIN}>Kongguan/editbaozhangitem",
+		data:	"baozhangitemID="+id+"&is_print="+value,
+		success:	function(msg){
+				  }
+	});
+	
+}
+
+
+</script>

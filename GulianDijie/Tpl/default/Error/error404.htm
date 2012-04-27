@@ -1,0 +1,15 @@
+<include file="Common:header" />
+<style>
+	#bodymain .title{ background:url(<{:__PUBLIC__}>/gulianstyle/admintemp/ks_titlebg_01.gif) repeat-x;}
+	.error{ margin:10px 0 0 0;}
+	.error h1{ color:#F00; font-family:'黑体'; font-size:30px;}
+	.error a{ text-decoration:underline;}
+	.error a:hover{ text-decoration:none;}
+</style>
+<div class="error">
+    <h1>错误！</h1>
+    <br/><br/><h2>很抱歉，没有找到请求的页面！</h2>
+    <h4 style="margin-top:10px"><a onclick="var len=history.length;if(len>1 || (len==1 && navigator.userAgent.indexOf('MSIE')!=-1)){history.go(-1);return false;}else{location.href='/'}" href="##">返回到之前浏览的页面</a></h4>
+    <br/><p>感谢您的支持，请稍候再回来...</p>
+    
+</div>

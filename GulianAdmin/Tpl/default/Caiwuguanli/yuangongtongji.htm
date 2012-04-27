@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><{$navlist}></title>
+    <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+	<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+
+    <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+    <SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js"></SCRIPT>
+    <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+    <SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+    
+    
+    <script>
+	    var names = [
+			 <php>foreach($kehu_all as $kehu){</php>
+					  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
+             <php>}</php>
+         ];
+		$(function() {
+                 $('#user_name').autocomplete(names, {
+                     max: 20,    //列表里的条目数
+                     minChars: 0,    //自动完成激活之前填入的最小字符
+                     width: 400,     //提示的宽度，溢出隐藏
+                     scrollHeight: 300,   //提示的高度，溢出显示滚动条
+                     matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+                     autoFill: false,    //自动填充
+                     formatItem: function(row, i, max) {
+                         return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+                     },
+                     formatMatch: function(row, i, max) {
+                         return row.name + row.to;
+                     },
+                     formatResult: function(row) {
+                         return row.to;
+                     }
+                 }).result(function(event, row, formatted) {
+                 });
+             });
+	</script>
+    <script type="text/javascript">
+	//导出Excel
+	function exports()
+	{
+			var types = '<{$types}>';
+			
+			var start_date = document.getElementById('start_date').value;
+			var start_day = document.getElementById('start_day').value;
+			var type = document.getElementById('type').value;
+			var types = document.getElementById('types').value;
+			
+			//var end_date = document.getElementById('end_date').value;
+			var companyname = document.getElementById('companyname').value;
+			var department = document.getElementById('department').value;
+			
+			var user_name = document.getElementById('user_name').value;
+			
+			var start_date1 = document.getElementById('start_date1').value;
+			var end_date1 = document.getElementById('end_date1').value;
+			
+			window.location.href = '<{:SITE_ADMIN}>Caiwuguanli/exports/types/'+types+'/type/'+type+'/types/'+types+'/start_date/'+start_date+'/companyname/'+companyname+'/department/'+department+'/user_name/'+user_name+'/start_date1/'+start_date1+'/end_date1/'+end_date1+'/start_day/'+start_day;
+	}
+	
+	function dochange()
+	{
+			var types = document.getElementById('ddlType').value;
+			window.location.href = '<{:SITE_ADMIN}>Caiwuguanli/yewutongji/types/'+types;
+	}
+	
+	function dosearch() {
+			var start_date = document.getElementById('start_date').value;
+			var start_day = document.getElementById('start_day').value;
+			var type = document.getElementById('type').value;
+			var types = document.getElementById('types').value;
+			
+			//var end_date = document.getElementById('end_date').value;
+			var companyname = document.getElementById('companyname').value;
+			var department = document.getElementById('department').value;
+			
+			var user_name = document.getElementById('user_name').value;
+			
+			var start_date1 = document.getElementById('start_date1').value;
+			var end_date1 = document.getElementById('end_date1').value;
+			
+
+			
+			window.location = '<{:SITE_ADMIN}>Caiwuguanli/yuangongtongji/tuan/<{$tuan}>/type/'+type+'/types/'+types+'/start_date/'+start_date+'/companyname/'+companyname+'/department/'+department+'/user_name/'+user_name+'/start_date1/'+start_date1+'/end_date1/'+end_date1+'/start_day/'+start_day;
+			
+	}
+	
+    </script>
+    <script>
+function showdingdan(dingdanID)
+{
+    var url = '<{:SITE_MENSHI}>Dingdan/dingdanxinxi/showtype/审核/dingdanID/'+dingdanID;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function show()
+{
+	$("#flash").show();
+}
+function hide()
+{
+	$("#flash").hide();
+}
+</script>
+    </head>
+
+    <body>
+<div class="hdlyRight">
+      <div id="content_bb">
+    <div class="szwz">
+          <ul>
+        <li> <span>您所在的位置：</span><{$navlist}></li>
+      </ul>
+        </div>
+    <div class="nr"> </div>
+    <div class="fanye">
+          <div class="page">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+            <tr>
+                  <td class="daochu" height="27" bgcolor="#d9d9d9" width="20%">&nbsp;
+                <select name="ddlType" onchange="dochange();" id="ddlType">
+                      <option 
+                      <php> if ($types == 'Line') echo 'selected="selected"'; </php>
+                       value="Line">散客产品
+                      </option>
+                      <option 
+                      <php> if ($types == 'baotuan') echo 'selected="selected"'; </php>
+                       value="baotuan">包团
+                      </option>
+                      <option 
+                      <php> if ($types == 'Free') echo 'selected="selected"'; </php>
+                       value="Free">自由人
+                      </option>
+                    </select></td>
+                  <td class="daochu" height="27" bgcolor="#d9d9d9">
+                  <input style=" background:#FFF; border:1px solid #333; cursor:pointer" type="button" name="btnExport" value="导出Excel" id="btnExport" onclick="exports();"></td>
+                </tr>
+          </tbody>
+            </table>
+      </div>
+
+        <input type="hidden" name="type" id="type" value="search">
+        <input type="hidden" name="types" id="types" value="<{$types}>">
+        <table width="80%" border="0" cellpadding="0" cellspacing="0" class="bg">
+              <tbody>
+            <tr class="tr2">
+                  <td height="27" align="left" class="wbx"> 月份搜索：</td>
+                  <td  align="left" class="wbx"><input name="start_date" type="text" id="start_date" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM'})" style="width:150px;" value="<{$start_date}>"></td>
+                  <td height="27" align="left" class="wbx"> 日期搜索：</td>
+                  <td  align="left" class="wbx"><input name="start_day" type="text" id="start_day" class="Wdate" onfocus="WdatePicker()" style="width:150px;" value="<{$start_day}>"></td>
+                  <td  align="left" class="wbx">范围搜索：</td>
+                  <td height="27" colspan="10" align="left" class="wbx"><input type="text" class="Wdate" onfocus="WdatePicker()" id="start_date1" name="start_date1" value="<{$start_date1}>">-<input type="text" class="Wdate" onfocus="WdatePicker()" id="end_date1" name="end_date1" value="<{$end_date1}>"></td>
+                  <td height="27" align="left" class="wbx"></td>
+                </tr>
+            <tr class="tr2">
+                  <td height="27" align="left" class="wbx"><label for="textfield"> 公司：</label></td>
+                  <td height="27" align="left" class="wbx"><select name="companyname" id="companyname" style="width:150px;">
+            
+                <php>if($companyname){</php>
+                <option value="<{$companyname}>"><{$companyname}></option>
+                <option disabled="disabled">---------------</option>
+                <php>}</php>
+            
+                      <option value="">全部</option>
+                      <php>foreach($companyAll as $company){</php>
+                      <option value="<{$company['companyname']}>"><{$company['companyname']}></option>
+                      <php>}</php>
+                    </select></td>
+                  <td height="27" align="left" class="wbx"><label> 部门：</label></td>
+                  <td height="27" align="left" class="wbx"><select name="department" id="department" style="width:150px;">
+                <php>if($department){</php>
+                <option value="<{$department}>"><{$department}></option>
+                <option disabled="disabled">---------------</option>
+                <php>}</php>
+            
+                      <option value="">全部</option>
+                      <php>foreach($departmentAll as $department){</php>
+                      <option value="<{$department['title']}>"><{$department['title']}></option>
+                      <php>}</php>
+                    </select></td>
+                  <td align="left" class="wbx"><label for="textfield"> 员工姓名：</label></td>
+                  <td height="27" colspan="4" align="left" class="wbx">
+                  <input type="text" name="user_name" id="user_name" style="width:150px;" border="1"  value="<{$user_name}>"/>
+                    
+                    </td>
+
+                  <td height="27" align="left" class="wbx"><input type="image" onclick="dosearch();" name="search_btn" id="search_btn" src="<{:__PUBLIC__}>/gulianstyle/styles/anu.gif" style="border-width:0px;"></td>
+                </tr>
+          </tbody>
+            </table>
+
+          
+
+          
+          <table class="cbx" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+              <tr>
+            <td class="jyt" height="27" bgcolor="#E6E6E6"><strong>统计表</strong></td>
+          </tr>
+            </tbody>
+      </table>
+          <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+              <tr>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>范围</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>订单数(张)</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>销售额(元)</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>参团人数(人)</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>领队人数(人)</strong></td>
+          </tr>
+              <tr>
+            <td class="xxxx" height="27" align="center">总计 </td>
+            <td class="xxxx" height="27" align="center"><{$num}> </td>
+            <td class="xxxx" height="27" align="center"><{$qianshu}> </td>
+            <td class="xxxx" height="27" align="center"><{$renshu}> </td>
+            <td class="xxxx" height="27" align="center"><{$renshu_leader}> </td>
+          </tr>
+          	<php>foreach($node_people as $date=>$value){</php>
+            <tr>
+                <td class="xxxx" height="27" align="center"><{$date}> </td>
+                <td class="xxxx" height="27" align="center"><{$node[$date]}> </td>
+                <td class="xxxx" height="27" align="center"><{$node_money[$date]}> </td>
+                <td class="xxxx" height="27" align="center"><{$value}> </td>
+                <td class="xxxx" height="27" align="center"><{$node_people_leader[$date]}> </td>
+            </tr>
+            <php>}</php>
+            </tbody>
+      </table>
+          <br>
+          <table class="zsj" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+              <tr>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>员工姓名</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>部门</strong></td>
+            <td align="center" bgcolor="#ff8d00"><strong>订单数</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>参团人数</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>领队人数</strong></td>
+            <td height="27" align="center" bgcolor="#ff8d00"><strong>销售额</strong></td>
+          </tr>
+                <php>
+            foreach($renyuantj as $key => $renyuan){
+          </php>
+        
+        <tr>
+              <td class="xxxx" height="27" align="center"><a style="color:blue;" href="<{:SITE_ADMIN}>Caiwuguanli/yuangongtongji/user_name/<{$key}>"><{$key}></a> </td>
+              <td align="center" height="27" class="xxxx"><a style="color:blue;" href="<{:SITE_ADMIN}>Caiwuguanli/yuangongtongji/department/<{$renyuan['department']}>"><{$renyuan['department']}></a> </td>
+              <td align="center" height="27" class="xxxx"><{$renyuan['dingdan_sum']}> </td>
+              <td class="xxxx" height="27" align="center"><{$renyuan['renshu_sum']}> </td>
+              <td class="xxxx" height="27" align="center"><{$renyuan['renshu_sum_leader']}> </td>
+              <td class="xxxx" height="27" align="center"><{$renyuan['jine_sum']}></td>
+            </tr>
+        <php>}</php>
+          </tbody>
+      </table>
+          
+        </div>
+<div id="hlt_fit_page">
+	<{$page}>
+</div>
+    <table width="0" border="0">
+        </table>
+  </div>
+
+    </div>
+<!--居中大的box--> 
+<!--居中大的box END-->
+
+</body>
+</html>
+<include file="Index:footer" />

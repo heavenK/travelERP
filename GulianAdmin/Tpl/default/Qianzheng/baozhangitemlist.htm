@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fitqianzheng.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<title><{$navtile}></title>
+
+</head>
+<script>
+function GetcheckBack(id,tbname,type,obj)
+{
+
+	var offset = $(obj).offset();
+	var objtop = offset.top - 130;
+	var objleft = offset.left - 640;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {	
+		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+
+}
+</script>
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navtile}>
+    </div>
+    
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+        <include file="Kongguan:navlist" /> 
+               
+        <div id="hlt_fit_published_cont" style="margin-top:25px;"><!--内容-->
+        <div class="fanye" style="margin-top:10px;">
+          <div class="nr" >
+              <table width="313" border="0">
+                  <tbody><tr>
+                      <td class="wbx" width="58" align="center">
+                      
+            <php>if($showtype == '收入'){</php>
+                      <a href="<{:SITE_ADMIN}>Qianzheng/addbaozhangitem/showtype/收入/zituanID/<{$zituanID}>" class="yyxxl">添加其他应收款</a>
+            <php>}</php>
+            <php>if($showtype == '支出'){</php>
+                      <a href="<{:SITE_ADMIN}>Qianzheng/addbaozhangitem/showtype/支出/zituanID/<{$zituanID}>" class="yyxxl">添加请款单</a>
+            <php>}</php>
+                      
+                          </td>
+                      <td class="wbx" width="58" align="center">
+                          </td>
+                      <td class="wbx" width="58" align="center">
+                          </td>
+                      <td class="wbx" width="58" align="center">
+                          </td>
+                  </tr>
+              </tbody></table>
+          </div>
+        </div>                
+    
+    	<div id="hlt_fit_published_cont" >
+        	<div class="plan_jh_fb">
+            <php>if($showtype == '收入'){</php>
+            <h1 style="text-align:center">其他应收款确认单</h1>（财务只显示经理确认后项目）
+            <php>}</php>
+            <php>if($showtype == '支出'){</php>
+            <h1 style="text-align:center">请款申请单</h1>（财务只显示经理确认后项目）
+            <php>}</php>
+            </div>
+       		<div id="divrili2"  style="display: none; position:absolute; ">
+                <iframe height="180" style="border:#999 1px solid" width="668" name="CalFrame2" id="CalFrame2"></iframe>
+            </div>
+        	<div id="hlt_fit_price"><!--应收费用-->
+            	<div id="hlt_fit_price_cost">
+                	<ol id="hlt_fit_price_cost_b">
+                    
+                    	<ul class="hlt_fit_price_cost_b_ol">
+                            <li class="hlt_fit_price_cost_lia_c">日期</li>
+                            <li class="hlt_fit_price_cost_lib_c" style="width:300px;">标题</li>
+                            <li class="hlt_fit_price_cost_lia_c">金额</li>
+                            <li class="hlt_fit_price_cost_lia_c" >状态</li>
+                            <li class="hlt_fit_price_cost_lia_c">操作</li>
+                            <li class="hlt_fit_price_cost_lia_d">轨迹</li>
+                        </ul>
+                        
+                        
+                        <php>foreach($itemAll as $item){</php>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="hlt_fit_price_cost_lia_c"><php>echo date('Y-m-d',$item['time'])</php></li>
+                            <li class="hlt_fit_price_cost_lib_c" style="width:300px;"><a href="<{:SITE_ADMIN}>Qianzheng/addbaozhangitem/baozhangitemID/<{$item[baozhangitemID]}>"><{$item['title']}></a></li>
+                            <li class="hlt_fit_price_cost_lia_c"><{$item['price']}></li>
+                            <li class="hlt_fit_price_cost_lia_c"><{$item['check_status']}></li>
+                            <li class="hlt_fit_price_cost_lia_c">  
+                            <a href="<{:SITE_ADMIN}>Qianzheng/addbaozhangitem/baozhangitemID/<{$item[baozhangitemID]}>" title="修改">修改</a>
+                            <a href="<{:SITE_ADMIN}>Qianzheng/deleteitem/baozhangitemID/<{$item[baozhangitemID]}>" title="删除">删除</a>
+                            </li>
+                            <li class="hlt_fit_price_cost_lia_d"><a href="javascript:void(0);"  onclick="GetcheckBack('<{$item[baozhangitemID]}>','报账项','操作记录',this)" >查看</a></li>
+                        </ul>
+                        <php>}</php>
+                        
+                        
+                        
+                    </ol>
+                </div>
+            </div>
+      	</div>
+        
+        
+  </div>
+    
+    
+</div>
+
+</body>
+</html>

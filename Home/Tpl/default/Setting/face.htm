@@ -1,0 +1,91 @@
+<include file="Common:header" />
+<table id="columns">
+<tr>
+<td id="main" style="-moz-border-radius-bottomleft:5px;">
+<div class="contenter">
+    <div class="indexh">
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting"><{:L('change_setting')}></a></div>
+        <div class="tabon"><a href="<{:SITE_URL}>/Setting/face"><{:L('change_face')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/account"><{:L('change_pass')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/mailauth"><{:L('email_checking')}></a></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Setting/theme"> <{:L('theme')}></a></div>
+    </div>
+    <div class="banner"></div>
+    <div id="upload"> 
+    <table border="0" width="100%" cellpadding="0"> 
+    <tr valign="top"> 
+    <td width="150px">
+    <php>if(ET_UC==TRUE){</php>
+    <img src="<{:UC_API}>/avatar.php?uid=<{$my['user_head']}>&size=middle" alt="<{$my[nickname]}>" style="border:1px solid #999999;padding:1px;width:120px;height:120px">
+    </td> 
+    <td><h3><{:L('set_my_new_face')}></h3><br/>
+    <p><{:L('select_a_new_photo')}></p>
+    <p><{:L('refresh_this_page')}></p>
+    </td> 
+    </tr> 
+    </table><br/>
+    <{:uc_avatar($my[user_head])}>
+    <php>}else{</php>
+    <img src="<{:sethead(str_replace('_small','_big',$my[user_head]))}>?<{:time()}>" alt="<{$my[nickname]}>" style="border:1px solid #999999;padding:1px;width:120px;height:120px"/>
+    </td> 
+    <td><h3><{:L('set_my_new_face')}></h3><br/>
+    <script src="<{:__PUBLIC__}>/js/jcrop/jquery.Jcrop.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="<{:__PUBLIC__}>/js/jcrop/jquery.Jcrop.css" type="text/css" />
+    <script language="Javascript">
+    function faceinit(wid) {
+        $('#ysw').val(wid);
+        $(document).ready(function(){
+            $('#cropbox').Jcrop({
+                minSize: [30,30],
+                maxSize: [300,300],        			 
+                aspectRatio: 1,
+                setSelect: [0,0,120,120],
+                onChange: showCoords,
+                onSelect: showCoords,
+                allowSelect: 0
+            });
+        });
+        function showCoords(c) {
+            $('#x').val(c.x);
+            $('#y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        };
+    }
+    </script>
+    <iframe id="uploadface" name="uploadface" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank"></iframe>
+    <span id="picpath">
+    <form method="post"  action="<{:SITE_URL}>/Setting/doface" enctype="multipart/form-data" name="faceform" target="uploadface" id="faceform">
+    <input name="face" type="file" onchange="$('#faceform').submit();$('#loadpic').show()"/><img src="<{:__PUBLIC__}>/images/loading.gif" id="loadpic" style="display:none;margin-left:10px;width:20px">
+    </form>
+    </span>
+    <p style="color:#999;margin-top:10px"><{:L('limit_2m')}></p>
+    </td> 
+    </tr> 
+    </table><br/>
+    <div style="margin-top:10px;display:none" id="cropboxdiv">
+    <img src="" id="cropbox" class="Image"/><br/>
+    <form action="<{:SITE_URL}>/Setting/doface2" method="post" style="text-align:center">
+        <input type="hidden" id="ysw" name="ysw" />
+        <input type="hidden" id="x" name="x" />
+        <input type="hidden" id="y" name="y" />
+        <input type="hidden" id="w" name="w" />
+        <input type="hidden" id="h" name="h" />
+        <input type="hidden" id="imgpath" name="imgpath"/>
+        <input type="submit" value="<{:L('sure_cut')}>" class="button1"/>
+        <input type="button" value="<{:L('cancel')}>" class="button1" onclick="updateavatar()" style="margin-left:50px"/>
+    </form>
+    </div>
+    <php>}</php>
+    </div>
+</div>
+</td>
+<td id="sidebar"><include file="Space:homeside"/></td>
+</tr>
+</table>
+<script type="text/javascript">
+function updateavatar() {
+    window.location.href='<{:SITE_URL}>/Setting/face';
+}
+</script>
+<include file="Common:foot" />

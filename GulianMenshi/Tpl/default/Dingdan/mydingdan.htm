@@ -1,0 +1,160 @@
+<link href="<{:__PUBLIC__}>/gulianstyle/css/ks.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<style>
+.fanye th {
+	background:url("<{:__PUBLIC__}>/gulianstyle/images/search_topbav_bg_02.gif") repeat-x;
+}
+</style>
+
+
+
+<div class="fanye" style="margin:10px 10px 0; display:inline; width:99%; border:#adadad 1px solid; float:left;"> <u style=" background-image:url('<{:__PUBLIC__}>/gulianstyle/images/ks_btn_33.png')"></u>
+  <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:12px;">
+    <tbody>
+        <tr>
+            <th height="32" align="center">序号<input type="checkbox" onclick="myCheckBoxSelect(this)">
+            </th>
+            <th height="32" align="center">订单编号</th>
+            <th height="32" align="center">团队名称</th>
+            <th height="32" align="center">团队编号</th>
+            <th height="32" align="center">人数</th>
+            <th height="32" align="center">下单时间</th>
+            <th height="32" align="center">订单类型</th>
+            <th height="32" align="center">状态</th>
+            <th height="32" align="center">大客户</th>
+            <th height="32" align="center">锁</th>
+            <th height="32" align="center">门市确认</th>
+            <th height="32" align="center">财务确认</th>
+            <th height="32" align="center">应答</th>
+        </tr>
+    <form name="form" method="post" id="form">
+          <php> $i = -1; foreach($dingdanAll as $v){ $i++;</php>
+              <tr class="tr<php>echo $i%2</php>">
+                  <td height="32" align="center">
+                      <php>echo $i+1</php>
+                      <span><input value="<{$v['djtuanID']}>" id="tuanitem_<{$i}>" type="checkbox" name="itemlist[]"></span></td>
+                  <td height="32" align="center">
+                      <a href="javascript:showdingdan(<{$v['dingdanID']}>);"> <{$v['bianhao']}> </a>
+                  </td>
+                  <td height="32" align="center">
+                      <a href="javascript:showtuan(<{$v['zituanID']}>);"> <{$v['mingcheng']}> </a>
+                  </td>
+                  <td height="32" align="center">
+                      <a href="javascript:showtuan(<{$v['zituanID']}>);"> <{$v['tuanhao']}> </a>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['renshu']}>
+                  </td>
+                  <td height="32" align="center">
+                      <php>echo date("Y/m/d H:i",$v['time']);</php>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['type']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['zhuangtai']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['bigmanID']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['islock']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['daokuan']}>
+                  </td>
+                  <td height="32" align="center">
+                      <{$v['daokuancw']}>
+                  </td>
+                  <td align="center">
+                  <img onclick="GetcheckBack(this,'<{$v['dingdanID']}>','订单','')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                  </td>
+              </tr>
+          
+        <php> }</php>
+    </form>
+      </tbody>
+    
+  </table>
+</div>
+<div style="width:100%; float:left; text-align:center;" >
+  <div class="page"><{$page}></div>
+</div>
+<div id="divrili2"  style="display: none; position:absolute; ">
+  <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+<script language="javascript">  
+
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+function GetcheckBack(obj,id,tbname,type)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili2 = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+
+		if(divRili2.style.display=='')
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {		
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function myCheckBoxSelect(o)
+{
+    var id = 'tuanitem_';
+    var i = 0;
+    for(;;)
+    {
+        id = 'tuanitem_' + i;
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+
+function showtuan(id)
+{
+    var url = '<{:SITE_MENSHI}>Index/zituanxinxi/zituanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1200,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+function showdingdan(id)
+{
+    var url = '<{:SITE_MENSHI}>Dingdan/dingdanxinxi/dingdanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+</script>

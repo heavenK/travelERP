@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/dijiecss/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/dijiecss/header.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="hlt_header">
+    	<div id="hlt_logo"><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_2.gif" width="165" height="32" border="0"/></div>
+        <div id="hlt_login">您好  <b> <php> echo $this->tVar[roleuser][realname]</php>(<php> echo $this->tVar[my_department][title]</php>:<php> echo $this->tVar[adminuser][adminlevel]</php>) </b>      
+        <a style="color:#FF0" href="<{:SITE_MENSHI}>Dingdan" target="_parent" >进入门市</a> |      
+        <a style="color:#FF0" href="<{:SITE_ADMIN}>Chanpin" target="_parent" >进入综合系统</a> | 
+        <a href="<{:SITE_ADMIN}>Login/setting" target="mainFrame" >修改个人信息</a> | 
+        <a style="color:#FFF" href="<{:SITE_HOME}>Pub" target="_parent" >进入微博</a> | 
+        <a target="_parent" href="<{:SITE_ADMIN}>Login/logout">退出</a></div>
+        <ul id="hlt_nav">
+        	<li><a target="_parent" href="<{:SITE_DIJIE}>Index/index_tuan">团队管理</a></li>
+            <li><a target="_parent" href="<{:SITE_DIJIE}>Index/index_system">系统设置</a></li>
+            <li><a target="mainFrame" href="<{:SITE_ADMIN}>Public/newsnoticelist">新闻公告</a></li>
+            <li><a target="mainFrame" href="<{:SITE_ADMIN}>Public/leaderpaituan">领队排团表</a></li>
+        </ul>
+    </div>
+</body>
+</html>

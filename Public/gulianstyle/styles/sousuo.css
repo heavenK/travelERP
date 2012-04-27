@@ -1,0 +1,105 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{ font-size:12px;}
+body, h1, h2, h3, h4, h5, h6, h7, ul, li, form, input, select, ol, p {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+a{ text-decoration:none;}
+.jpss{ width:978px; margin:0 auto;}
+     .jp_banner{ width:810px; height:174px; margin:0 auto;}
+	
+	
+#header{ width:1002px; margin:0 auto;}
+#header .TopTab{ width:869px; height:34px; margin:0 auto; background:url(../images/ktrip_01.gif) repeat-x;}
+#header .TopTab .txtcolor{ color:#2F45B2;}
+	 
+/*********搜索内容********************/	
+	.xyzp{ width:771px; margin:0 auto;}
+	ul {
+		list-style:none;
+	}
+	
+	.maintab{ width:675px; margin:50px 0 0 0px;}
+	.maintab li {
+		text-indent:18px;
+		line-height:29px;
+	}
+	.maintab li a {
+		color:#6c6c6c;
+	}
+	#tabs0 {
+		min-height:200px;
+		width: 720px;
+		margin:0 auto;
+	}
+	.menu0 {
+		background:url(../images/tab_xhx.jpg) repeat-x;
+		width:580px;
+		padding-left:140px;
+		height:30px;
+	}
+	.menu0 li {
+		color:#333333;
+		font-size:14px;
+		font-weight:bold;
+		display:block;
+		float: left;
+		width:107px;
+		height:29px;
+		line-height:29px;
+		text-align: center;
+		cursor:pointer;
+		background: url(../images/tab_bj-02.jpg) no-repeat;
+		margin-right:3px;
+	}
+	.menu0 li.hover {
+		background: url(../images/tab_bj.jpg) no-repeat;
+		margin-top:1px;
+		width:107px;
+		height:29px;
+		color:#ff9831;
+	}
+	#main0 ul {
+		display: none;
+		width:675px;
+		padding-left:20px;
+	}
+	#main0 ul.block {
+		display: block;
+	}
+/************************************************/
+.cfcs{ width:160px; height:20px; border:#a5b3b6 solid 1px;}	
+.jp01{ color:#323232;}
+.jpbg{ border-bottom:#d7d5e2 dashed 1px; width:682px;}
+.bottom_jpnav{ margin-top:120px;}
+.bottom_jpnav ul{ height:80px; overflow:hidden;}
+.bottom_jpnav li{ float:left; margin-right:23px; margin-left:30px; display:inline; text-align:center; width:60px;}
+.bottom_jpnav li img{ margin-bottom:10px;}
+.bottom_jpnav li a{ color:#0000fd;}
+.jp_content{ margin-top:10px;}
+/***********************酒店搜索*********************************/
+.gaojisousuo{ width:642px; margin:0 auto; margin-top:10px;}
+.gjsousuo{ font-size:12px; font-weight:normal; margin-bottom:32px;}
+.chufariqi{ width:121px; height:20px;}
+.jdbg{ border-bottom:#d7d5e2 dashed 1px; width:642px; display:none;}
+.sousuox{ border-right:#d1d3d2 solid 1px;}
+
+.search{ width:675px; margin:0 auto; overflow:hidden;}
+.search .SearchT{ float:left; width:500px; height:28px; line-height:28px; border:#1px solid #CCCCCC; color:#333333; margin-top:11px; font-size:14px;border:1px solid #999999}
+.search .SearchBtn{ float:left;}
+.TwoButton{ width:675px; height:27px; padding:1px; margin:5px auto 10px; overflow:hidden;}
+.TwoButton a{ float:left; width:100px; height:27px; text-align:center; font:14px/25px "微软雅黑"; color:#000000;}
+.TwoButton a.current{ color:#FF9831;}
+.TwoButton a:hover{ text-decoration:none;}
+.AdSearch{ width:640px; margin:0 0 0 36px; display:none;}
+.AdSearch td{ height:25px;}
+.AdSearch input{ vertical-align:middle; margin:0 5px;}
+.AdSearchTit{ width:70px; height:20px; line-height:20px; padding:0 0 0 12px; text-align:left; color:#ffffff; background:url(../images/drop_bg01.gif) no-repeat;}
+.AdSearch .inpTime{ float:left; width:100px; height:20px; border:1px solid #79ADDE;}
+.AdSearch .inpTime .Wdate{ width:90px; height:20px; border:none; margin:0px; vertical-align:inherit; background:#FFF url(../images/Wdate_bg.jpg) no-repeat right center;}
+.AdSearch .date1{ float:left; height:22px; line-height:22px; margin:0 5px; _margin:0 5px 0 10px; display:inline;}
+.AdSearch .date2{ float:left; height:22px; line-height:22px; margin:0 5px 0 30px; display:inline;}
+
+.btn{ width:150px; height:20px; line-height:20px; border:1px solid #999999}

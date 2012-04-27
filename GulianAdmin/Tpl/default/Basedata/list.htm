@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>联动枚举管理</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function confirmAct()
+	{
+		if(confirm('你确定要删除吗？'))
+		{
+			return true;
+		}
+		return false;
+	}
+</script>
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody><tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<a href="<{:SITE_ADMIN}>Basedata/add/opera/<{$type}>" class="np coolbg">添加</a>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+      <td width="6%">编号</td>
+      <td width="20%">名称</td>
+      <td width="20%">简介</td>
+	  <td width="20%">添加日期</td>
+      <td width="18%">操作</td>
+   </tr>
+	   <php>foreach($list as $val){</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+        <td><{$val[id]}></td>
+        <td>
+                        <{$val[title]}>
+        </td>
+        <td><{$val[description]}></td>
+		<td><{$val[pubdate]|date='Y-m-d H:i:s',###}></td>
+        <td>
+                        <a href="<{:SITE_ADMIN}>Basedata/edit/opera/<{$type}>/id/<{$val[id]}>">[修改]</a>
+						<a href="<{:SITE_ADMIN}>Basedata/delete/opera/<{$type}>/id/<{$val[id]}>/" onclick="return confirmAct();">[删除]</a>
+                </td>
+     </tr>
+	 <php>}</php> 
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="8">
+          <div class="pagelistbox">
+			<{$page}>
+</div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>

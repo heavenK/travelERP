@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+<title><{$my[nickname]}><{:L('invite_you_join')}><{$site[sitename]}></title><style>img {border:0}a {color:#2b4a78;text-decoration:none}a:hover {text-decoration:underline;}</style></head><body>
+
+<div style="background:#a2ddef;width:500px;border:6px solid #deedcc">
+    <div style="height:60px;border-bottom:3px solid #deedcc;background:#3e3e3e;padding:20px">
+        <a href="<{:SITE_URL}>" target="_blank"><img src="<{:__PUBLIC__}>/images/logo.png"></a>
+    </div>
+    <div style="background:#ffffff;margin-top:10px;margin:10px">
+    <div style="padding:20px;">
+        <div style="float:left;width:160px"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>" target="_blank"><img src="<{:sethead($my[user_head])}>" style="width:120px;border:1px solid #cccccc;padding:2px"></a></div>
+        <div style="float:left;width:270px">
+        <div style="font-size:14px;font-weight:bold"><a href="<{:SITE_URL}>/<{:rawurlencode($my[user_name])}>" target="_blank"><{$my[nickname]}></a> <{:L('invite_you_join')}><{$site[sitename]}></div>
+        <div style="font-size:12px;margin-top:20px;text-indent:2em;line-height:20px"><{$site['inviteword']}></div>
+        </div>
+        <div style="clear:both"></div>
+        <h3 style="border-bottom:1px dashed #999999;font-size:14px;padding-bottom:5px;margin-bottom:0px"><{:L('lastest_talk')}></h3>
+        <php>foreach($content as $val){</php>
+        <div style="border-bottom:1px dashed #999999;margin:5px auto;padding-bottom:5px">
+        <table border="0" width="420px" style="font-size:12px">
+            <tr>
+                <td width="60px" valign="top"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" target="_blank"><img src="<{:sethead($val[user_head])}>" style="width:50px;border:1px solid #cccccc;"></a></td>
+                <td valign="top"><a href="<{:SITE_URL}>/<{:rawurlencode($val[user_name])}>" target="_blank"><{$val[nickname]}></a>：<{:$ctent->ubb($val[content_body])}>
+                <div style="color:#999999;margin-top:7px"><{:timeop($val[posttime])}></div>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <php>}</php>
+        <div style="text-align:center;margin-top:30px"><a href="<{:SITE_URL}>/register/<{:rawurlencode($val[user_name])}>" target="_blank"><img src="<{:__PUBLIC__}>/images/regbtn.gif"></a></div>
+    </div>
+    </div>
+</div>
+<div style="text-align:center;font-size:14px;margin-top:10px;width:500px"><{:L('email_content_last1')}><br/><{:L('email_content_last2')}> <{$site[servicemail]}></div>
+</body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	互动旅游-门市管理
+</title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpRoleList_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+
+function TravelerDetail(id)
+{
+
+    var url="<{:SITE_MENSHI}>Dingdan/tuanyuanxinxi/tuanyuanID/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+    return false;
+
+}
+</script>
+
+</head>
+
+<body>
+    <div class="hdlyRight">
+
+            <div id="content_bb">
+                
+                <div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span><{$navlist}></li>
+                    </ul>
+                </div>
+                
+                
+                <div class="ss">
+                    <table class="test1" width="100%" border="0" style="padding-top: 20px;">
+                        <tbody>
+                        
+                        <tr>
+                            <td align="right" height="18">
+                                姓名：<input style="width:60%;" name="name" type="text" id="name" value="<{$name}>">
+                            </td>
+                            <td align="right" height="18">
+                                联系电话：<input style="width:60%;" name="telnum" type="text" id="telnum" value="<{$telnum}>">
+                            </td>
+                            <td align="right" height="18">
+                                订单类型：
+                                <select style="width:60%;" name="usertype" id="usertype">
+                               
+                                    <php> if($usertype){</php>
+                                    <option value="<{$usertype}>"><{$usertype}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="订团">订团</option>
+                                    <option value="订房">订房</option>
+                                    <option value="订票">订票</option>
+                                </select>
+                                
+                                
+                            </td>
+                            <td align="right" height="18">
+                                订单编号：<input style="width:60%;" name="dingdanbianhao" type="text" id="dingdanbianhao" value="<{$dingdanbianhao}>">
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td align="right" height="18">
+                                证件类型：<input style="width:60%;" name="zhengjiantype" type="text" id="zhengjiantype" value="<{$zhengjiantype}>">
+                            </td>
+                            <td align="right" height="18">
+                                证件号码：<input style="width:60%;" name="zhengjianhaoma" type="text" id="zhengjianhaoma" value="<{$mingcheng}>">
+                            </td>
+                            <td align="right">
+                                类型：
+                                <select style="width:20%;" name="manorchild" id="manorchild">
+                               
+                                    <php> if($manorchild){</php>
+                                    <option value="<{$manorchild}>"><{$manorchild}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="成人">成人</option>
+                                    <option value="儿童">儿童</option>
+                                </select>
+                                
+                                性别：
+                                <select style="width:20%;" name="sex" id="sex">
+                               
+                                    <php> if($sex){</php>
+                                    <option value="<{$sex}>"><{$sex}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                                
+                            </td>
+                            <td align="right" height="18">
+                            
+                                状态：
+                                <select style="width:20%;" name="zhuangtai" id="zhuangtai">
+                               
+                                    <php> if($zhuangtai){</php>
+                                    <option value="<{$zhuangtai}>"><{$zhuangtai}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="占位">占位</option>
+                                    <option value="确认">确认</option>
+                                </select>
+                                
+                            
+                            
+                                付款确认：
+                                <select style="width:20%;" name="daokuan" id="daokuan">
+                               
+                                    <php> if($daokuan){</php>
+                                    <option value="<{$daokuan}>"><{$daokuan}></option>
+                                    <option disabled="disabled">-----------------</option>
+                                    <php> }</php>
+                                 
+                                    <option value="">-全部-</option>
+                                    <option value="未付款">未付款</option>
+                                    <option value="已付款">已付款</option>
+                                </select>
+                            </td>
+                            
+                            <td colspan="2">
+                                <input type="submit" name="SearchBtn" value="搜 索" class="anu" onclick="dosearch()" style="cursor:pointer">
+                            </td>
+                            
+                        </tr>
+                    </tbody></table>
+                </div>
+                
+                
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th height="32" align="center">
+                                        姓名
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系电话
+                                    </th>
+                                    <th height="32" align="center">
+                                        类型
+                                    </th>
+                                    <th height="32" align="center">
+                                        性别
+                                    </th>
+                                    <th height="32" align="center">
+                                        生日/年龄
+                                    </th>
+                                    <th height="32" align="center">
+                                        订单类型
+                                    </th>
+                                    <th height="32" align="center">
+                                        订单编号
+                                    </th>
+                                    <th height="32" align="center">
+                                        证件类型</th>
+                                    <th height="32" align="center">
+                                        证件号码
+                                    </th>
+                                    <th height="32" align="center">
+                                        状态
+                                    </th>
+                                    <th height="32" align="center">
+                                        付款确认
+                                    </th>
+                                    <th height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                            
+                            
+                            <php> foreach($kehuAll as $kehu){
+                            </php>
+                            
+                                <tr class="tr1">
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['name']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['telnum']}>
+                                    </td>
+                                    <td width="3%" height="27" align="center">
+                                        <{$kehu['manorchild']}>
+                                    </td>
+                                    <td width="3%" height="27" align="center">
+                                        <{$kehu['sex']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                          <{$kehu['chushengriqi']}>/<{$kehu['age']}>
+                                    </td>
+                                    <td width="4%" height="27" align="center">
+                                        <{$kehu['usertype']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <php>
+                                        	if($kehu['usertype'] == '订团')
+                                            	echo $kehu['bianhao'];
+                                            else
+                                            	echo $kehu['sid'];
+                                        </php>
+                                    </td>
+                                    <td width="4%" height="27" align="center">
+                                        <{$kehu['zhengjiantype']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['zhengjianhaoma']}>
+                                    </td>
+                                    <td width="3%" height="27" align="center">
+                                        <{$kehu['zhuangtai']}>
+                                    </td>
+                                    <td width="4%" height="27" align="center">
+                                        <{$kehu['daokuan']}>
+                                    </td>
+                                    <td width="3%" height="27" align="center">
+                                        [<a href="javascript:void(0)" onclick="TravelerDetail('<{$kehu['tuanyuanID']}>')">详细</a>]
+                                    </td>
+                                </tr>
+                            
+                            <php>}
+                            </php>
+                            
+                    </tbody></table>
+                    
+                      <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+                           <div class="page"><{$page}></div>
+                      </div>
+                    
+                    
+                </div>
+        
+            </div>
+        
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+<script>
+
+function dosearch() {
+        
+		var name = document.getElementById('name').value;
+		var telnum = document.getElementById('telnum').value;
+		var usertype = document.getElementById('usertype').value;
+		var dingdanbianhao = document.getElementById('dingdanbianhao').value;
+		var zhengjiantype = document.getElementById('zhengjiantype').value;
+		var zhengjianhaoma = document.getElementById('zhengjianhaoma').value;
+		var manorchild = document.getElementById('manorchild').value;
+		var sex = document.getElementById('sex').value;
+		var zhuangtai = document.getElementById('zhuangtai').value;
+		var daokuan = document.getElementById('daokuan').value;
+		
+		window.location = '<{:SITE_MENSHI}>System/kehulist/name/'+name+'/telnum/'+telnum+'/usertype/'+usertype+'/dingdanbianhao/'+dingdanbianhao+'/zhengjiantype/'+zhengjiantype+'/zhengjianhaoma/'+zhengjianhaoma+'/manorchild/'+manorchild+'/sex/'+sex+'/zhuangtai/'+zhuangtai+'/daokuan/'+daokuan;
+}
+
+
+</script>
+<include file="Index:footer" />
+

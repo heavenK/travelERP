@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/content.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+
+<title>机票-搜索</title>
+<script>
+	function showdate(id){
+		if ($("#datelist" + id).css('display') == 'none'){
+			$("div[class=calendar]").hide();
+			$("#datelist" + id).show();
+		}else{
+			$("#datelist" + id).hide();
+		}
+	}
+</script>
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/resetindex.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/glfx.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+
+<div id="glfx_box">
+        <include file="Index:navindex" />
+
+        <div id="container">
+            <table border="0" cellspacing="0" cellpadding="0" class="FruitTab">
+                <tbody><tr>
+                    <td width="150" class="TxtBold">
+                        搜索结果
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right" class="TdBorder">
+                        搜索获得</td>
+                </tr>
+            </tbody></table>
+            <div>
+                <table border="0" cellspacing="0" cellpadding="0" class="LineTab">
+                    
+                            <tbody>
+                            
+                        <php>if(!$list)echo  "没有符合条件的数据"</php>
+						<php>foreach($list as $val){
+                        </php>
+                            
+                            <tr>
+                                <td width="700">
+                                    <div>
+                                        <a href="javascript:void(0)" style="cursor: pointer; ">
+                                            <{$val['title']}>
+                                        </a>
+                                        <br>
+                                        编号： <{$val['ticket_id']}><br>
+                                        航空公司： <{$val['fly_company']}>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 航班号：<{$val['fly_id']}><br>
+                                        <span class="set">
+                                            <{$val['ticket_type']}>
+                                        </span><span class="fit"><a href="#">
+                                            <{$val[travel_type]}>
+                                        </a></span><span class="star"><a href="#">
+                                        </a></span><span class="star"><a href="#">
+                                            <{$val[days]}>
+                                        </a></span>
+                                        
+                                        <div class="calendar" style="display:block" id="datelist<{$val['id']}>" >
+                                        	<iframe width="720" height="410" scrolling="no" frameborder="0" src="<{:SITE_MENSHI}>Airticket/ajax/pid/<{$val['id']}>"></iframe>
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        
+                        
+						<php>}
+                        </php>
+
+                        
+                    <tr>
+                        <td>
+                            <div class="pagebar">
+                                <{$page}>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+        
+        <include file="Index:footindex" />
+<div>
+
+</body>
+</html>
+
+
+
+
+

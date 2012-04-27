@@ -1,0 +1,36 @@
+body,ul,ol,form{margin:0 0;padding:0 0;font:normal 12px Arial, Helvetica;line-height:150%}
+ul,ol,li{list-style:none}
+h2,.s{border-bottom:1px solid #ccc}
+h2,h3,h6,div,li,p{margin:0 0;padding:2px 2px;font-size:12px}
+h1{background:#8FE1FF url('logo.gif') no-repeat;text-indent:-9999px;margin:0 0;padding:5px 0px;margin-bottom:-5px}
+h2{background:#d2edf6;margin-bottom:5px;padding:5px 3px;margin-top:2px}
+h2 .on {background:#ffffff;border:1px solid #cccccc;border-bottom:1px solid #ffffff;padding:2px 10px;padding-bottom:3px;}
+h2 .off {margin:0px 15px}
+h5{ margin:0 5px;color:#999999;font-size:12px;display:inline;font-weight:normal}
+h6{background:#fffcaa;border-bottom:1px solid #ffed00;margin-top:2px;padding-left:3px}
+h6 a {color:#ff0000}
+a {color:#06c; text-decoration:none}
+a:hover {text-decoration:underline}
+.page {padding-right:6px;color:#313031;margin-top:5px}
+.page A {border:#b7d8ee 1px solid;padding:3px 6px 3px 5px;margin:0px 3px;color:#0030ce;TEXT-DECORATION:none}
+.page A:hover {border:#b7d8ee 1px solid;BACKGROUND-COLOR:#d2eaf6}
+.page SPAN.current {border:#b7d8ee 1px solid;padding:3px 6px 3px 5px;FONT-WEIGHT: bold;MARGIN: 0px 3px;COLOR: #444444;BACKGROUND-COLOR: #d2eaf6}
+.page SPAN.disabled {DISPLAY: none}
+.showmag {margin:10px 0 10px 0}
+.n{border:1px solid #ffed00;background:#fffcaa}
+.t,.a,.stamp,#ft{color:#999999;}
+.stamp a{color:#06c}
+img {border:0; vertical-align:middle}
+.main{padding:3px}
+.menu{border-bottom:1px solid #8FE1FF;padding-top:5px;color:#cccccc;font-weight:bold}
+.emo {width:20px;height:20px}
+ul{margin-bottom:5px}
+ul li {border-bottom:1px dashed #cccccc;margin:5px auto;padding-bottom:5px}
+.vip {background:url('vip.gif') no-repeat right;padding-right:16px}
+.photo {border:1px solid #cccccc;padding:1px}
+.retwitt {border:1px #e4e4e4 solid;background:#f9f9f9;padding:5px 8px;width:96%;font-size:12px;margin-top:5px}
+.retwitt .times {color:#999;float:left}
+.retwitt .times a {color:#999}
+.retwitt .tetime {color:#2b4a78;float:right}
+.retwitt em{font:12px Tahoma,Arial;color:#999;margin-right:5px}
+.clearline {display:block;height:0;line-height:0;font-size:0;overflow:hidden;clear:both;}

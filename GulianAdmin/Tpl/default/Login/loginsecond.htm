@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<title><{$navtitle}></title>
+
+<style>
+body		{ background:url(<{:__PUBLIC__}>/gulianstyle/images/login_bg.jpg) center top no-repeat; }
+#hlt_box	{ width:500px; margin:0 auto;}
+#hlt_login	{ width:360px; height:24px; margin:270px 0 0 225px; display:inline; float:left;}
+#hlt_login dl			{ width:280px; padding: 10px 0 0 73px; float:left;	}
+#hlt_login dl dt		{ width:280px; font-size:12px; line-height:30px; color:#676767; font-weight:bold; float:left;}
+#hlt_login dl dd		{ width:280px; float:left;}
+#hlt_login dl dd input	{ width:200px; height:20px; border:#bac4cd 1px solid; padding:0 3px; line-height:20px; float:left;}
+#hlt_login_checkbox		{ width:280px; padding: 15px 0 0 73px; float:left;	}
+#hlt_login_button		{ width:240px; padding: 10px 0 0 90px; float:left;	}
+#hlt_login_button input	{ width:110px; height:42px; border:0; background:url(<{:__PUBLIC__}>/gulianstyle/images/login_button.png); float:left;}
+</style>
+
+<SCRIPT type=text/javascript>
+function checkdata()
+{
+    var password=document.getElementById("password");
+	if(password.value=="")
+    {
+        alert("密码不能为空！");
+        password.focus();
+        return false;
+    }	
+	
+}
+</SCRIPT>
+
+<script type="text/javascript" language="javascript">
+
+<!--
+
+	window.onload = function (){
+
+		userid = document.getElementById("password");
+
+		userid.focus();
+
+	}
+
+-->
+
+</script>
+
+
+</head>
+
+<body>
+<form method="post" action="<{:SITE_ADMIN}>Login/dologinsecond">
+<input type="hidden" name="type" value="<{$type}>">
+<div id="hlt_box">
+    <div id="hlt_login">
+        <dl>
+<php>if($loginname){</php>
+            <dt><{$loginname}> 您好：<a href="<{:SITE_HOME}>logout">[登出]</a><a href="<{:SITE_ADMIN}>Login/loginguide">[返回导航页]</a></dt>
+            <dd style="color:#999">请再次输入密码完成登陆!</dd>
+<php>}else{</php>
+            <dt>请先登陆前台！</dt>
+            <dd><a href="<{:SITE_HOME}>login">点击登录</a></dd>
+<php>}</php>
+        </dl>
+        <dl>
+            <dt>密  码：</dt>
+            <dd><input type="password" name="password" id="password" /></dd>
+        </dl>
+        <div id="hlt_login_checkbox"></div>
+        <div id="hlt_login_button"><input type="submit" onClick="return checkdata();" value="" style="cursor:pointer" /></div>
+    </div>
+</div>
+</form>
+
+</body>
+</html>

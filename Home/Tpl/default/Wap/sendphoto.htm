@@ -1,0 +1,20 @@
+<include file="header" />
+<h2><{:L('wap_snedphoto_title')}></h2>
+<form enctype='multipart/form-data' action='<{:SITE_URL}>/Wap/dosendphoto' method='post'>
+<p class="stamp"><{:L('wap_snedphoto_info')}></p>
+<table width="99%">
+<tr>
+    <td width="70px"><{:L('wap_select_photo')}>：</td>
+    <td><input type='file' name='image'/></td>
+</tr>
+<tr>
+    <td valign="top"><{:L('wap_photo_text')}>：</td>
+    <td><textarea rows="3" name="content" maxlength="140" style="width:100%"></textarea></td>
+</tr>
+<tr>
+    <td> </td>
+    <td><input type='submit' value='<{:L("publish")}>' /></td>
+</tr>
+</table>
+</form>
+<include file="footer" />

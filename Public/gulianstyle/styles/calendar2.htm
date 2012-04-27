@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0038)<{:SITE_URL}>calendar2.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>日期样式</title>
+<script type="text/javascript" src="./互动旅游-价格编辑_files/utility.js"></script>
+<script type="text/javascript" src="./互动旅游-价格编辑_files/HttpXML.js"></script>
+<style>
+* {padding:0;margin:0;font-style:normal;}
+img,a img {border:0;}
+a:link {text-decoration:underline;color:#1437CF;}
+a:visited {text-decoration:underline;color:#1437CF;}
+a:hover {text-decoration:underline;color:#1437CF;}
+a:active {text-decoration:underline;color:#1437CF;}
+.left {float:left;}
+.right {float:right;}
+#yiying {width:648px;height:174px;background:#A5A5A5;float:left;margin-left:6px;margin-top:6px;filter: alpha(opacity=90);}
+#rq {font-family:Arial;float:left;width:648px;height:174px;position:relative;margin-top:-6px;margin-left:-6px;border:1px #3C81C4 solid;background:#fff;}
+#rq .title {height:20px;padding:1px;border-bottom:1px #B1BEC7 solid;}
+#rq .title span {float:left;height:16px;padding-top:4px;background:#DCE1E5;border-left:1px #fff solid;border-right:1px #fff solid;width:576px;padding-left:40px;font-weight:bold;color:#1F1F1F;}
+#rq .yue {float:left;width:312px;height:151px;padding:0 5px;}
+#rq .border {border-left:1px #B0BEC7 solid;}
+.yue td {font-size:11px;font-family:Arial;text-align:center}
+.yue td, .yue td a {color:#0000FE;}
+.yue td a {color:#0000FE;font-weight:700}
+#minfo table {margin-top:-3px;}
+</style>
+<script language="javascript" type="text/javascript">
+var str='',i,j,yy,mm,openbound,callback;
+var fld1,fld2;
+var wp=window.parent;
+var cf=wp.document.getElementById("CalFrame");
+var days = "";  
+var beginmonthadd = "";  
+var lineidforrili = GetParastr("lineid");
+//alert(lineidforrili);
+getStartTimes(lineidforrili);
+//getBeginMonthAdd(lineidforrili);
+var linecal=wp.document.getElementById("lineCal");
+var fld,curday,today=new Date();
+//if(beginmonthadd > 0)
+	//today = dateAdd(today,'m',wp.beginmonthadd); 
+today.setHours(0);today.setMinutes(0);today.setSeconds(0);today.setMilliseconds(0);
+
+var ie = (document.all) ? 1:0
+
+
+
+function parseDate(s)
+{
+	var reg=new RegExp("[^0-9-]","")
+	if(s.search(reg)>=0)return today;
+	var ss=s.split("-");
+	if(ss.length!=3)return today;
+	if(isNaN(ss[0])||isNaN(ss[1])||isNaN(ss[2]))return today;
+	return new Date(parseFloat(ss[0]),parseFloat(ss[1])-1,parseFloat(ss[2]));
+}
+function resizeCalendar() {
+	if (ie.toString() == "1") {
+    var browser = navigator.appName;
+    var b_version = navigator.appVersion; 
+    var version = b_version.split(";"); 
+    var trim_Version = version[1].replace(/[ ]/g, ""); 
+    if(cf){
+		if(browser == "Microsoft Internet Explorer" && trim_Version == "MSIE7.0") {
+		  cf.width  = 668;
+		  cf.height = 180;
+		} else if(browser == "Microsoft Internet Explorer" && trim_Version == "MSIE6.0") {
+		  cf.width  = 668;
+		  cf.height = 191;
+		}
+		} else {
+			cf.width  = 668;
+			cf.height = 180;
+	  }
+  }
+}
+function initCalendar()
+{
+	if(fld1&&fld1.value.length>0){curday=parseDate(fld1.value);}
+	else if(fld2&&fld2.value.length>0){curday=parseDate(fld2.value);}
+	else curday=today;
+	var tmpy = curday.getFullYear();var tmpm = curday.getMonth();
+	if(tmpm ==12) { tmpm =1; tmpy = tmpy+1;}
+	else{tmpm = tmpm+1;}
+	drawTitle(curday.getFullYear(),tmpm);
+	drawCalendar(tmpy,tmpm,"d");
+	drawCalendar(curday.getFullYear(),curday.getMonth(),"b");
+}
+function drawTitle(y,m)
+{
+	if(y>today.getFullYear() || (y==today.getFullYear()&&m>today.getMonth()+1) ){
+		document.getElementById('prev').style.display="";
+		document.getElementById('minfo').style.width="560px";
+		document.getElementById('prev').innerHTML='<a href=\'javascript:drawTitle(yy,mm);drawCalendar(yy,mm,"d");drawCalendar(yy,mm-1,"b");\'><img class="left" src="/image/rq_bg1.gif" /></a>';
+	}else{
+		document.getElementById('prev').style.display="none";
+		document.getElementById('minfo').style.width="580px";
+		
+	}
+	showx = new Date(y,m,1);
+	showy = showx.getFullYear();
+	showmm = showx.getMonth();
+	if(showmm==0)
+	{
+		showmm=12;
+		nextmm=1;
+		preshowy = new Date(y-1,m,1).getFullYear();
+	}
+	else
+	{
+		nextmm=showmm+1;
+		preshowy = showy;
+	}		
+	document.getElementById("minfo").innerHTML="<table width=\"100%\"><tr><td>"+preshowy+"."+(showmm>9?showmm:"0"+(showmm))+"</td><td align=center>"+showy+"."+(nextmm>9?nextmm:"0"+(nextmm))+"</td></tr></table>";
+}
+function drawCalendar(y,m,id)
+{
+	var x=new Date(y,m,1),mv=x.getDay(),d=x.getDate(),de;
+	yy=x.getFullYear();mm=x.getMonth();
+	for(var i=1;i<=mv;i++)
+	{
+		de=document.getElementById(id+i);
+		de.innerHTML="";
+		de.bgColor="";
+	}
+	while(x.getMonth()==mm)
+	{
+		de=document.getElementById(id+(d+mv));
+		if(x.getTime()==curday.getTime())
+			de.style.background="#ddd";
+		else
+			de.style.background="#fff";
+		if(x.getTime()<today.getTime())
+		{
+		    var dm = x.getMonth()+1;
+			var sm ='';
+			if(dm<10)
+			{
+				sm = '0' + dm;
+			}
+			else
+			{
+				sm = dm;
+			}
+			var dday = x.getDate();
+			var sdday='';
+			if(dday<10)
+			{
+				sdday = '0' + dday;
+			}
+			else
+			{
+				sdday = dday;
+			}
+		    var dd = x.getFullYear() + '-' + sm + '-' + sdday;
+            if(days.indexOf(dd)>=0)
+			{
+				de.innerHTML="<font color=#888888><strong>"+d+"</strong></font>";
+			}
+			else
+			{
+				de.innerHTML="<font color=#888888>"+d+"</font>";
+			}
+		}
+		else
+		{
+			var dm = x.getMonth()+1;
+			var sm ='';
+			if(dm<10)
+			{
+				sm = '0' + dm;
+			}
+			else
+			{
+				sm = dm;
+			}
+			var dday = x.getDate();
+			var sdday='';
+			if(dday<10)
+			{
+				sdday = '0' + dday;
+			}
+			else
+			{
+				sdday = dday;
+			}
+		    var dd = x.getFullYear() + '-' + sm + '-' + sdday;
+            if(days.indexOf(dd)>=0)
+			{	
+			    //daysss=getRemainingDate(lineidforrili,dd);
+				de.innerHTML="<font color=#FF6600 size=2><strong>"+d+"</strong></font>";//(<font color=#2c3c7a size=1>"+daysss+"</font>)
+			}
+			else
+			{
+				//de.innerHTML=d;
+				de.innerHTML="<font color=#888888>"+d+"</font>";
+			}
+		}
+		x.setDate(++d);
+	}
+	while(d+mv<=42)
+	{
+		de=document.getElementById(id+(d+mv));
+		de.innerHTML="";
+		de.bgColor="";
+		d++;
+	}
+}
+function setDate(d,id)
+{
+	wp.hideCalendar();
+	var dstr;
+	if(d<10) d = '0'+d;
+	if(id =="b"){
+		if(mm>=9) {
+			if(mm>11){
+				dstr=(yy+1)+"-0"+(mm+1-12)+"-"+d;
+			}else{
+				dstr=yy+"-"+(mm+1)+"-"+d;
+			}
+		}	
+		else dstr = yy +"-0"+(mm+1)+"-"+d;
+	}else if(id=="d"){
+		if(mm>=8) {
+			if(mm>10){
+				dstr=(yy+1)+"-0"+(mm+2-12)+"-"+d;
+			}else{
+				dstr=yy+"-"+(mm+2)+"-"+d;
+			}
+		}	
+		else dstr = yy +"-0"+(mm+2)+"-"+d;	
+	}
+	/*
+	if(callback&&callback.length>0){eval("wp."+callback+"(\""+dstr+"\")");}
+	else{fld1.value=dstr;fld1.select();}
+	*/
+	fld1.value=dstr;fld1.select();
+	if(callback&&callback.length>0){eval("wp."+callback+"(\""+dstr+"\")");}
+}
+
+function GetParastr(strname) {// 获取地址参数
+	var hrefstr
+	hrefstr = window.location.href;		
+	return GetParastrByUrlAndParaName(hrefstr,strname);
+} 
+
+function GetParastrByUrlAndParaName(hrefstr,strname) {// 获取地址参数
+	var pos,parastr,para,tempstr;		
+	pos = hrefstr.indexOf("?")
+	parastr = hrefstr.substring(pos+1);
+	para = parastr.split("&");
+	tempstr="";
+	for(i=0;i<para.length;i++) {
+		tempstr = para[i];
+		pos = tempstr.indexOf("=");
+		if(tempstr.substring(0,pos) == strname) {
+			tmp = tempstr.substring(pos+1);
+			if(tmp.indexOf("#") != -1)
+				return tmp.substring(0,tmp.length-1);
+			else
+				return tmp;
+		}
+	}
+	return null;
+}
+
+//得到剩余天数
+function getRemainingDate(lineid,date) {
+	 
+	var url = "/ajax.aspx?lineidforrili2="+ lineid + "&date="+date+"&temp=" + new Date().getTime(); 
+	var response = httpRequest("get",null,url);	
+	if(response) {
+		return response;
+	}
+	//alert(response);	
+}
+
+function getStartTimes(lineid) {
+	var url = "/ajax.aspx?type=linestartime&lineid="+ lineid + "&temp=" + new Date().getTime(); 
+	var response = httpRequest("get",null,url);	
+	if(response) {
+		days = response; 
+	}
+}
+function getBeginMonthAdd(lineid) {
+	 
+	var url = "/ajax.aspx?lineidforbma="+ lineid + "&temp=" + new Date().getTime(); 
+	var response = httpRequest("get",null,url);	
+	if(response) {			
+		beginmonthadd = response; 
+	} 	 
+}
+function dateAdd(currentDate,strInterval, number) {   
+    var dtTmp = currentDate;   
+	var afterdate = currentDate; 
+    switch (strInterval) {    
+        case 's' :{  
+			afterdate = new Date(Date.parse(dtTmp) + (1000 * number)); 
+			break;
+		} 
+        case 'n' : { 
+			afterdate = new Date(Date.parse(dtTmp) + (60000 * number)); 
+			break; 
+		}
+        case 'h' : {
+			afterdate = new Date(Date.parse(dtTmp) + (3600000 * number)); 
+			break; 
+		}
+        case 'd' : {
+			afterdate = new Date(Date.parse(dtTmp) + (86400000 * number));
+			break; 
+		}
+        case 'w' :{
+			afterdate = new Date(Date.parse(dtTmp) + ((86400000 * 7) * number));  
+			break; 
+		}
+        case 'q' : {
+			afterdate = new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + number*3, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+			break; 
+		}
+        case 'm' : {
+			afterdate = new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + number, 1, 0, 0, 0); 
+			break; 
+		}
+        case 'y' : {
+			afterdate = new Date((dtTmp.getFullYear() + number), dtTmp.getMonth(), dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds()); 
+			break; 
+		}
+    }  
+	return afterdate;  
+}
+//-->
+</script></head>
+
+
+<body topmargin="0" leftmargin="0" bottommargin="0" rightmargin="0" onload="resizeCalendar();">
+<div id="yiying">
+	<div id="rq">
+		<div class="title">
+			<em id="prev" style="width: 20px; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(220, 225, 229); display: none; background-position: initial initial; background-repeat: initial initial; "></em>
+			<span id="minfo" style="font-family: Arial; font-size: 12px; width: 580px; "><table width="100%"><tbody><tr><td>2011.03</td><td align="center">2011.04</td></tr></tbody></table></span>
+			<a href="javascript:drawTitle(yy,mm+2);drawCalendar(yy,mm+2,"d");drawCalendar(yy,mm-1,"b");"><img class="left" src="./互动旅游-价格编辑_files/rq_bg2.gif"></a>
+		</div>
+		<div class="yue">
+			<table width="310" border="0" bgcolor="white" cellpadding="0" cellspacing="2">
+			<tbody><tr height="18"><td><font color="red">日</font></td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td><font color="green">六</font></td></tr>
+
+			<tr height="1"><td colspan="7" bgcolor="#B1BEC7"></td></tr>
+			<script language="javascript">
+			<!--//
+			var str="";
+			for(i=0;i<6;i++)
+			{
+				str+="<tr height=18>";
+				for(j=1;j<=7;j++)str+="<td id=b"+(i*7+j)+"></td>";
+				str+="</tr>";
+			}
+			document.write(str);
+			//-->
+			</script><tr height="18"><td id="b1" bgcolor=""></td><td id="b2" bgcolor=""></td><td id="b3" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">1</font></td><td id="b4" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">2</font></td><td id="b5" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">3</font></td><td id="b6" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">4</font></td><td id="b7" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">5</font></td></tr><tr height="18"><td id="b8" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">6</font></td><td id="b9" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">7</font></td><td id="b10" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">8</font></td><td id="b11" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">9</font></td><td id="b12" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">10</font></td><td id="b13" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">11</font></td><td id="b14" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">12</font></td></tr><tr height="18"><td id="b15" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">13</font></td><td id="b16" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">14</font></td><td id="b17" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">15</font></td><td id="b18" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">16</font></td><td id="b19" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">17</font></td><td id="b20" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">18</font></td><td id="b21" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">19</font></td></tr><tr height="18"><td id="b22" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">20</font></td><td id="b23" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">21</font></td><td id="b24" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">22</font></td><td id="b25" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">23</font></td><td id="b26" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">24</font></td><td id="b27" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">25</font></td><td id="b28" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">26</font></td></tr><tr height="18"><td id="b29" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">27</font></td><td id="b30" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">28</font></td><td id="b31" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">29</font></td><td id="b32" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">30</font></td><td id="b33" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(221, 221, 221); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">31</font></td><td id="b34" bgcolor=""></td><td id="b35" bgcolor=""></td></tr><tr height="18"><td id="b36" bgcolor=""></td><td id="b37" bgcolor=""></td><td id="b38" bgcolor=""></td><td id="b39" bgcolor=""></td><td id="b40" bgcolor=""></td><td id="b41" bgcolor=""></td><td id="b42" bgcolor=""></td></tr>
+</tbody></table>
+		</div>
+		<div class="yue border">
+			<table width="310" border="0" bgcolor="white" cellpadding="0" cellspacing="2">
+			<tbody><tr height="18"><td><font color="red">日</font></td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td><font color="green">六</font></td></tr>
+
+			<tr height="1"><td colspan="7" bgcolor="#B1BEC7"></td></tr>
+			<script language="javascript">
+			<!--//
+			var str="";
+			for(i=0;i<6;i++)
+			{
+				str+="<tr height=18>";
+				for(j=1;j<=7;j++)str+="<td id=d"+(i*7+j)+"></td>";
+				str+="</tr>";
+			}
+			document.write(str);
+			//-->
+			</script><tr height="18"><td id="d1" bgcolor=""></td><td id="d2" bgcolor=""></td><td id="d3" bgcolor=""></td><td id="d4" bgcolor=""></td><td id="d5" bgcolor=""></td><td id="d6" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">1</font></td><td id="d7" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">2</font></td></tr><tr height="18"><td id="d8" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">3</font></td><td id="d9" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">4</font></td><td id="d10" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">5</font></td><td id="d11" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">6</font></td><td id="d12" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">7</font></td><td id="d13" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">8</font></td><td id="d14" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">9</font></td></tr><tr height="18"><td id="d15" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">10</font></td><td id="d16" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">11</font></td><td id="d17" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">12</font></td><td id="d18" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">13</font></td><td id="d19" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">14</font></td><td id="d20" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">15</font></td><td id="d21" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">16</font></td></tr><tr height="18"><td id="d22" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">17</font></td><td id="d23" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">18</font></td><td id="d24" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">19</font></td><td id="d25" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">20</font></td><td id="d26" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">21</font></td><td id="d27" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">22</font></td><td id="d28" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">23</font></td></tr><tr height="18"><td id="d29" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">24</font></td><td id="d30" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">25</font></td><td id="d31" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">26</font></td><td id="d32" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">27</font></td><td id="d33" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">28</font></td><td id="d34" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">29</font></td><td id="d35" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial; "><font color="#888888">30</font></td></tr><tr height="18"><td id="d36" bgcolor=""></td><td id="d37" bgcolor=""></td><td id="d38" bgcolor=""></td><td id="d39" bgcolor=""></td><td id="d40" bgcolor=""></td><td id="d41" bgcolor=""></td><td id="d42" bgcolor=""></td></tr>
+</tbody></table>
+		</div>
+	</div>
+</div>
+<script language="javascript">
+<!--//
+var bCalLoaded=true;
+//-->
+</script>
+<script language="javascript"> 
+	cf.style.display='block';
+	initCalendar();
+</script>
+
+
+</body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>联动枚举管理</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script>
+	function confirmAct()
+	{
+		if(confirm('你确定要删除吗？'))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	function updateLiandong(id)
+	{	
+
+				$.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/edit",
+					  async: false,
+					  data:	"pid=" + <{$t}> + "&id=" + id + "&name=" + $("#ename"+id).val(),
+					  success:	function(msg){
+									alert("更新成功！");
+								}
+				  });
+	}
+</script>
+<style>
+li { float:left; padding-right:8px; line-height:24px; }
+.abt { width:90%; border:1px #ffffff solid}
+#edsta {
+  position:absolute;
+  top:73px; left:111px;
+  width: 278px; height: 199px;
+  background-color: #F9FCEF;
+  border: 1px solid #dedede;
+  display:none;
+  padding:3px;
+}
+#edsta div { margin:5px; }
+</style>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table style="margin-bottom: 8px;" width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody><tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+    </div>
+     </td>
+  </tr>
+  <tr height="48" bgcolor="#ffffff"> 
+   <td>
+<form action="<{:SITE_ADMIN}>Liandong/insert" method="post">
+<input name="pid" value="<{$t}>" type="hidden">
+<div style="float:left;">
+</div>
+<div style="float:left;">
+<b>&nbsp;分类名称：</b><input name="ename" class="iptxt" style="width: 350px;" type="text">
+</div>
+<div style="float:left;padding-left:6px">
+    <input name="sb2" value="增加分类" class="np coolbg" type="submit">
+</div>
+<div style="clear:both;color:#333333;line-height:24px;">
+&nbsp; 用半角逗号","分开可以一次增加多个分类。
+</div>
+</form>    
+   </td>
+  </tr>
+</tbody></table>
+<table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+  <tbody><tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr height="24" align="center" bgcolor="#FBFCE2"> 
+      <td width="6%">编号</td>
+      <td width="20%">枚举名</td>
+      <td width="20%">类别组名</td>
+      <td width="10%">枚举类型</td>
+      <td width="18%">操作</td>
+   </tr>
+	   <php>foreach($list as $val){</php>
+       <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+        <td><{$val[id]}></td>
+        <td>
+                        <input id="ename<{$val[id]}>" value="<{$val[position]}>" class="abt" type="text">
+        </td>
+        <td><{$pname[position]}></td>
+            <td>
+            <{$pname[level]}></td>
+        <td>
+					<php>if($val[id]>999){</php>
+					<php>}else{</php> 
+						<a href="<{:SITE_ADMIN}>Liandong/show/t/<{$val[id]}>/">[查看]</a>
+					<php>}</php>
+					<php>if($val[id]>99 && $val[id]<1000){</php>
+						<a href="<{:SITE_ADMIN}>Liandong/keyword/pid/<{$val[id]}>/">[查看关键字]</a>
+					<php>}</php>
+                        <a href="javascript:void(0);" onclick="updateLiandong('<{$val[id]}>')">[更新]</a>
+        <a href="<{:SITE_ADMIN}>Liandong/delete/t/<{$t}>/id/<{$val[id]}>/" onclick="return confirmAct();">[删除]</a>
+                </td>
+     </tr>
+	 <php>}</php> 
+      <tr height="28" align="center" bgcolor="#F9FCEF"> 
+       <td colspan="8">
+          <div class="pagelistbox">
+			<{$page}>
+</div>
+
+      </td>
+     </tr>
+</tbody></table>
+
+</body></html>

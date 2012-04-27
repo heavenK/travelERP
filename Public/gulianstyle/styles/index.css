@@ -1,0 +1,148 @@
+@charset "gb2312";
+/* CSS Document */
+
+/*通用调图*/
+#list_find dd em,
+.list_find_button,
+#list_publish dl dt,
+#list_publish dl dd,
+#list_publish a,
+#list_review dl dt,
+#list_review dl dd,
+#list_review span em,
+#list_review span a,
+#list_all dl dt span,
+#list_cont_right em a:hover,
+.list_mainbav_on			{ background:url(../images/bg_all.png) no-repeat;}
+
+/*整体*/
+#box	{ width:774px; margin:0 auto; background:url(../images/box_bg.jpg) no-repeat; background-position:0 30px; overflow:hidden;}
+
+	/*头部*/
+	#header			{ width:735px; height:23px; padding:7px 23px 0 16px; overflow:hidden; float:left;}
+	#header dt		{ float:left;}
+	#header dt a	{ margin:0 22px 0 0; display:inline; color:#c8e0fd;}
+	#header dd		{ color:#9ac6fd; float:right;}
+	#header dd a	{ color:#9ac6fd;}
+	
+	/*主体*/
+	#list_cont		{ width:774px; margin:88px 0 0 0; display:inline; background:url(../images/list_cont_bg.gif) repeat-y; position:relative; float:left;}
+	
+		/*搜索*/
+		#list_find			{ width:323px; height:54px; position:absolute; top:-50px; right:22px;}
+		#list_find dt		{ width:318px; height:20px; padding:0 0 0 5px; float:left;}
+		#list_find dt span	{ height:17px; margin:0 14px 0 0; display:inline; padding:3px 0 0 0; text-align:center; cursor:pointer; overflow:hidden; float:left;}
+		.list_find_on		{ width:53px; background-image:url(../images/list_find_on.png)!important; background-repeat: no-repeat;_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/list_find_on.png');_ background-image: none; color:#FFF;}
+		.list_find_out		{ color:#334673;}
+		#list_find dd		{ width:323px; height:34px; float:left;}
+		#list_find dd em	{ width:259px; height:34px; background-position:0 0; overflow:hidden; float:left;}
+		.list_find_text		{ width:245px; height:26px; margin:4px 0 0 4px; display:inline; padding:0 3px; line-height:25px; overflow:hidden; float:left;}
+		.list_find_button	{ width:64px; height:34px; background-position:-259px 0; cursor:pointer; overflow:hidden; float:left;}
+		
+		/*左半部分*/
+		#list_cont_left		{ width:551px; overflow:hidden; float:left;}
+		
+			/*上传*/
+			#list_publish				{ width:542px; height:206px; margin:0 0 0 9px; display:inline; background:url(../images/list_publish_bg.png) no-repeat bottom; overflow:hidden; float:left;}
+			#list_publish dl			{ width:526px; height:21px; padding:0 0 0 16px; color:#484847; overflow:hidden; float:left;}
+			#list_publish dl dt			{ width:52px; height:17px; margin:0 1px; display:inline; padding:4px 0 0 0; background-position:0 -34px; text-align:center; cursor:pointer; overflow:hidden; float:left;}
+			#list_publish dl dd			{ width:52px; height:17px; margin:0 1px; display:inline; padding:4px 0 0 0; background-position:-52px -34px; text-align:center; cursor:pointer; overflow:hidden; float:left;}
+			#list_publish_title			{ width:510px; height:22px; margin:22px 0 0 27px; display:inline; overflow:hidden; float:left;}
+			#list_publish_title span	{ width:46px; height:18px; padding:4px 0 0 0; color:#615f5f; overflow:hidden; float:left;}
+			#list_publish_title input	{ height:20px; border:#b7b6b6 1px solid; line-height:20px; overflow:hidden; float:left;}
+			#list_publish_title em		{ margin:0 0 0 12px; display:inline; padding:4px 0 0 0; color:#b9b9b9; float:left;}
+			#list_publish_classes		{ width:510px; height:28px; margin:12px 0 0 27px; display:inline; overflow:hidden; float:left;}
+			#list_publish_classes span	{ width:46px; vertical-align:middle; font-family:Tahoma; color:#615f5f; display:inline;}
+			#list_publish_classes input	{ width:24px; vertical-align:middle; display:inline;}
+			#list_publish_classes em	{ vertical-align:middle; font-family:Tahoma; color:#605e5e; display:inline;}
+			#list_publish_introduce		{ width:510px; height:66px; margin:0 0 0 27px; display:inline; overflow:hidden; float:left;}
+			#list_publish_introduce span{ width:46px; height:60px; padding:4px 0 0 0; color:#615f5f; overflow:hidden; float:left;}
+			#list_publish_introduce textarea{ width:429px; height:49px; padding:2px; border:#b5b4b4 1px solid; overflow:hidden; float:left;}
+			#list_publish a				{ width:61px; height:25px; margin:0 50px 0 0; display:inline; background-position:-104px -34px; overflow:hidden; float:right;}
+			#list_publish a:hover		{ background-position:-165px -34px;}
+			
+			/*我想说*/
+			#list_review				{ width:542px; height:206px; margin:0 0 0 9px; display:inline; background:url(../images/list_review_bg.png) no-repeat bottom; overflow:hidden; float:left;}
+			#list_review dl				{ width:526px; height:21px; padding:0 0 0 16px; color:#484847; overflow:hidden; float:left;}
+			#list_review dl dt			{ width:52px; height:17px; margin:0 1px; display:inline; padding:4px 0 0 0; background-position:0 -34px; text-align:center; cursor:pointer; overflow:hidden; float:left;}
+			#list_review dl dd			{ width:52px; height:17px; margin:0 1px; display:inline; padding:4px 0 0 0; background-position:-52px -34px; text-align:center; cursor:pointer; overflow:hidden; float:left;}
+			#list_review textarea		{ width:493px; height:80px; margin:46px 0 0 20px; display:inline; padding:2px; overflow:hidden; float:left;}
+			#list_review span			{ width:478px; height:25px; padding:16px 34px 0 30px; overflow:hidden; float:left;}
+			#list_review span em		{ width:42px; height:14px; margin:6px 0 0 0; display:inline; background-position:-226px -34px; cursor:pointer; overflow:hidden; float:left;}
+			#list_review span a			{ width:61px; height:25px; background-position:-104px -34px; overflow:hidden; float:right;}
+			#list_review span a:hover	{ background-position:-165px -34px;}
+			
+			/*所有发布*/
+			#list_all					{ width:551px; margin:27px 0 0 0; display:inline; overflow:hidden; float:left;}
+			#list_all dl				{ width:516px; height:29px; margin:0 0 0 13px; display:inline; padding:0 8px 0 14px; border-bottom:#a6a5a5 1px solid; overflow:hidden; float:left;}
+			#list_all dl dt				{ height:29px; overflow:hidden; float:left;}
+			#list_all dl dt span		{ height:27px; padding:2px 0 0 30px; background-position:-307px -34px; font-size:14px; font-weight:bold; color:#3d5384; overflow:hidden; float:left;}
+			#list_all dl dt em			{ height:25px; padding:4px 0 0 19px; color:#3d5384; float:left;}
+			#list_all dl dt em a		{ color:#3d5384;}
+			#list_all dl dd				{ height:29px; overflow:hidden; float:right;}
+			#list_all dl dd a			{ padding:4px 0 0 0; color:#3d5384; float:right;}
+			#list_all dl dd i			{ padding:4px 12px 0; color:#3d5384; float:right;}
+			#list_all dl dd select		{ width:84px; height:19px; border:#cdcccc 1px solid; float:right;}
+			#list_all_cont				{ width:502px; height:510px; margin:3px 0 0 32px; display:inline; overflow:hidden; float:left;}
+			#list_all_cont li			{ width:502px; height:84px; border-bottom:#999999 1px dashed; overflow:hidden; float:left;}
+			#list_all_cont li b			{ width:55px; height:55px; margin:12px 15px 0 3px; display:inline; padding:2px; border:#d9d9d9 1px solid; overflow:hidden; float:left;}
+			#list_all_cont li h1		{ width:390px; height:16px; padding:27px 0 0 0; overflow:hidden; float:left;}
+			#list_all_cont li h1 a		{ font-size:14px; color:#2b4a78;}
+			#list_all_cont li span		{ width:413px; height:14px; padding:13px 0 0 0; color:#a2a3a3; overflow:hidden; float:left;}
+			#list_all_cont li span i	{ float:left;}
+			#list_all_cont li span em	{ float:right;}
+			#list_all_cont li span em a	{ color:#a2a3a3;}
+			
+			/*页码*/
+			.pagination					{ height:25px; padding:25px 0 10px 35px; overflow:hidden; float:left;}
+			.pagination ul				{ font-size:12px; text-align:left;}
+			.pagination li				{ display:inline;}
+			.pagination a, .pagination a:visited{ padding:2px 6px; border:1px solid #000; color:#2e6ab1;}
+			.pagination a:hover, .pagination a:active{ color:#000; background-color:#f5b417; text-decoration:none;}
+			.pagination li.currentpage	{ font-weight:bold; padding:2px 6px; border:1px solid #000; background-color:#f5b417; color:#000;}
+			.pagination li.disablepage	{ padding:2px 6px; border:1px solid #b6b5b5; color:#b6b5b5;}
+			* html .pagination li.currentpage, * html .pagination li.disablepage{ margin-right:5px; padding-right:0;}
+			.pageNO						{ overflow:hidden; float:right;}
+			.pageNO span				{ margin:25px 4px 0; float:right;}
+			.disablepage_text			{ width:29px; height:16px; margin:22px 0 0 0; display:inline; padding:1px 2px 0; border:#7f9db9 1px solid; overflow:hidden; float:right;}
+			.disablepage_button			{ width:31px; height:14px; margin:24px 29px 0 0; display:inline; background:#dedede; border:#2b2b2b 1px solid; text-align:center; font-weight:bold; color:#2b2b2b; float:right;}
+			.disablepage_button:hover	{ text-decoration:none;}
+			
+		/*右半部分*/
+		#list_cont_right	{ width:205px; margin:20px 9px 0 0; display:inline; background:#cbe3fb url(../images/list_cont_right_bg_up.gif) no-repeat top; overflow:hidden; float:right;}
+			
+			/*个人资料*/
+			#list_cont_right dl			{ width:205px; height:194px; overflow:hidden; float:left;}
+			#list_cont_right dl dt		{ width:182px; height:112px; margin:0 0 0 10px; display:inline; background:url(../images/list_cont_right_line.png) no-repeat bottom; overflow:hidden; float:left;}
+			#list_cont_right dl dt b	{ width:79px; height:79px; margin:14px 9px 0 1px; display:inline; padding:2px; background:#FFF; border:#c6c6c6 1px solid; overflow:hidden; float:left;}
+			#list_cont_right dl dt ul	{ width:87px; height:73px; margin:25px 0 0 0; display:inline; overflow:hidden; float:left;}
+			#list_cont_right dl dt ul li{ width:87px; height:14px; padding:0 0 3px 0; color:#0330a1; overflow:hidden; float:left;}
+			#list_cont_right dl dd		{ width:175px; height:38px; margin:13px 0 0 17px; display:inline; overflow:hidden; float:left;}
+			#list_cont_right dl dd span	{ width:175px; height:14px; margin:0 0 3px 0; display:inline; color:#363535; overflow:hidden; float:left;}
+			
+			/*主导航*/
+			#list_cont_right em			{ width:205px; height:611px; background:#cbe3fb url(../images/list_cont_right_bg_down.gif) no-repeat bottom; overflow:hidden; float:left;}
+			#list_cont_right em a		{ width:176px; height:43px; margin:0 0 13px 15px; display:inline; overflow:hidden; float:left;}
+			#list_cont_right em a:hover	{ background-position:0 -59px; text-decoration:none;}
+			.list_mainbav_on			{ background-position:0 -59px;}
+			#list_cont_right em a span	{ width:33px; height:32px; margin:5px 13px 0 25px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+			#list_cont_right em a b		{ width:95px; height:16px; margin:14px 0 0 0; display:inline; font-size:14px; color:#2c71ad; cursor:pointer; overflow:hidden; float:left;}
+			
+	/*底部*/
+	#footer			{ width:486px; height:58px; margin:0 0 20px 0; display:inline; padding:16px 0 0 288px; background:url(../images/footer_bg.png) no-repeat; overflow:hidden; float:left;}
+	#footer li		{ width:460px; height:14px; margin:0 0 2px 0; display:inline; color:#d3f2ff; overflow:hidden; float:left;}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

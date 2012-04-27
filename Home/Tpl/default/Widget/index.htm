@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$site[sitename]}><{:L('plugin')}></title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/widget/widget.css" />
+<script type="text/javascript">$(document).ready(function(){$("ol li").mouseover(function(){$(this).addClass("light");$(this).removeClass("unlight");});$("ol li").mouseout(function(){$(this).addClass("unlight");$(this).removeClass("light");});});</script>
+</head>
+
+<body>
+<table style="background-color:<{$wg['bgcolor']}>;border:1px solid <{$wg['border']}>" class="main" width="<{$wg['width']}>" height="<{$wg['height']}>">
+<tr height="70px">
+    <td valign="top" style="padding:10px">
+        <table>
+            <tr>
+                <td rowspan="2" width="50px"><a href="<{:SITE_URL}>/<{$wg['uname']}>" target="_blank"><img src="<{:sethead($user[user_head])}>" class="img"></a></td>
+                <td><a href="<{:SITE_URL}>/<{$wg['uname']}>" target="_blank" class="<{:setvip($user[user_auth])}>" <{:viptitle($user[user_auth])}>><{$user[nickname]}></a></td>
+            </tr>
+            <tr>
+                <td class="info"><{:L('area')}>：<{$user['live_city']}></td>
+            </tr>
+            <tr height="25px">
+                <td colspan="2" class="info"><{:L('follower')}>：<a href="<{:SITE_URL}>/<{$wg['uname']}>/follower" target="_blank"><{$user['followme_num']}></a><{:L('user_unit')}>&nbsp;&nbsp;&nbsp;<{:L('talk')}>：<a href="<{:SITE_URL}>/<{$wg['uname']}>" target="_blank"><{$user['msg_num']}></a><{:L('talk_unit')}></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr class="border">
+    <td valign="top"></td>
+</tr>
+<tr>
+    <td valign="top" bgcolor="#FFFFFF">
+    <div class="contbody" style="height:<{:(intval($wg['height'])-165)}>px">
+    <ol class="list">
+        <php>foreach($content as $val){</php>
+        <li class="unlight" id="<{$val[content_id]}>">
+        <php>if ($val['retid']) {</php><span class="grey"><{:L('forwarding')}>：</span><php>}</php>
+        <{:$ctent->outubb($val['content_body'])}>
+        <{:$ctent->outubb($val['media_body'])}>
+        <php>if ($val['retid']) {</php><{:$ctent->outubb($val['retbody'])}><php>}</php>
+        <div class="timeline">
+           <span class="fleft"><a href="<{:SITE_URL}>/v/<{$val[content_id]}>" target="_blank" class="noline"><{:timeop($val['posttime'])}></a></span>
+           <span class="fright op"><a href="<{:SITE_URL}>/v/<{$val[content_id]}>" target="_blank"><{:L('comment')}>(<{$val['replytimes']}>)</a></span>
+        </div>
+        <div class="clearline"></div>
+        </li>
+        <php>}</php>
+    </ol>
+    </div>
+    </td>
+</tr>
+<tr class="border">
+    <td valign="top"></td>
+</tr>
+<tr height="30px">
+    <td>
+    <div class="fleft"><a href="<{:SITE_URL}>" target="_blank"><img src="<{:__PUBLIC__}>/images/logo.png" height="25px" style="margin:0px"></a></div>
+    <div class="fright" style="line-height:25px"><a href="<{:SITE_URL}>/<{$wg['uname']}>" target="_blank"><{:L('more')}></a></div>
+    <div class="clearline"></div>
+    </td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+* {margin: 0; padding: 0; }
+body {color: #333; }
+body, td, th { font: 12px/1.5em Arial; }
+.loginbox { margin: 180px auto 60px; text-align: left; }
+td { }
+.logo { width: 221px;padding: 90px 70px 30px 0; background:url('loginlogo.gif') no-repeat 100% 50%}
+.logo p { margin: -40px 0 0 0; }
+.loginform th, .loginform td { padding: 3px; font-size: 14px; }
+.t_input { padding: 3px 2px; border: 1px solid; border-color: #666 #EEE #EEE #666; }
+.submit { height: 22px; padding: 0 5px; border: 1px solid; border-color: #EEE #666 #666 #EEE; background: #DDD; font-size: 14px; cursor: pointer; }
+.footer { position: absolute; bottom: 10px;text-align:center; width:100%;color: #999; }
+a { color: #2366A8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.button1 {border:0;background:url('button1.gif') no-repeat;width:80px;height:28px;text-align:center;font-size:14px;cursor:pointer;color:#ffffff;}

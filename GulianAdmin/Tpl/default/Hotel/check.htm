@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>互动旅游-酒店产品管理</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<LINK rel=stylesheet type=text/css href="<{:__PUBLIC__}>/gulianstyle/styles/css1.css">
+<LINK rel=stylesheet type=text/css href="<{:__PUBLIC__}>/gulianstyle/styles/ProductList.css">
+
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7600.16722">
+</HEAD>
+<BODY onLoad="new Accordian('basic-accordian',5,'header_highlight');">
+
+<DIV id=content_bb>
+
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+    </ul>
+</div>
+
+<DIV class=ss>
+<TABLE style="PADDING-TOP: 20px" class=test1 border=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD height=18 width=81 align=right>酒店名称：</TD>
+    <TD height=18 width=179><INPUT id=hotel_title name=hotel_title value="<{$hotel_title}>"></TD>
+    <TD height=18 width=81 align=right>所在城市：</TD>
+    <TD height=18 width=219><INPUT id=city_name name=city_name value="<{$city_name}>"> </TD>
+    <TD height=18 width=47 align=right>状态：</TD>
+    <TD colSpan=3>
+    <SELECT style="WIDTH: 103px" id=status name=status> 
+        <OPTION value='等待审核'>等待审核</OPTION> 
+    </SELECT>
+    </TD>
+    <TD>&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD height=18 width=81 align=right>房型名：</TD>
+    <TD height=18 width=179><INPUT id=house_title name=house_title value="<{$house_title}>"> </TD>
+    <TD height=18 width=47 align=right>日期：</TD>
+    <TD height=18 width=174>
+    <INPUT style="WIDTH: 81px" id=start_date class=Wdate onfocus=WdatePicker() readonly="readonly" name=start_date value="<{$start_date}>">
+    到<INPUT style="WIDTH: 81px" readonly="readonly" id=end_date class=Wdate onfocus=WdatePicker() name=end_date value="<{$end_date}>"> 
+    </TD>
+    <TD width=61>&nbsp;</TD>
+    <TD width=60 align=right><INPUT class=anu value="搜　索" type=submit name=SearchBtn onClick="dosearch();"> 
+    </TD>
+    <TD width=200>&nbsp;</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+</DIV>
+
+<DIV id=ddgl_main>
+<DIV id=basic-accordian class=ddgl_content>
+
+<php>foreach($list as $key=>$val){</php>
+
+<DIV id=test<{$key+1}>-header class="accordion_headings <php> if ($key == '0') {</php>header_highlight<php>}</php>">
+    <DIV class=jiudian>
+        
+        <UL class=jiudianxx >
+          <LI class=jiudianming><{$val[hotel_title]}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN>|</SPAN> </LI>
+          <LI class=xingji>星级：<IMG border=0 src="<{:__PUBLIC__}>/gulianstyle/styles/Star<{$val[star]}>.jpg"> </LI>
+          <LI class=szcs><SPAN>|</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在城市：<{$val[city_name]}> </LI>
+        </UL>
+        
+    </DIV>
+</DIV>
+
+<DIV id=test<{$key+1}>-content>
+<TABLE class=jdxxxx border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TH bgColor=#e2e8e8 height=33 width="12%">房型名</TH>
+    <TH bgColor=#e2e8e8 height=33 width="12%">房型类别</TH>
+    <TH bgColor=#e2e8e8 height=33 width="13%">开始日期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="16%">结束日期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="14%">状态</TH>
+    <TH bgColor=#e2e8e8 height=33 width="14%">入住周期</TH>
+    <TH bgColor=#e2e8e8 height=33 width="12%">剩余房间数</TH>
+    <TH bgColor=#e2e8e8 height=33 width="10%">价格</TH>
+    <TD bgColor=#e2e8e8 height=33 width="11%" align=left>&nbsp;</TD></TR>
+  <php>foreach($data_line[$key] as $house){</php>
+  <TR>
+
+    <TD bgColor=#f2f2f2 height=29 align=middle><A 
+      href="<{:SITE_ADMIN}>Hotel/check/id/<{$house[id]}>"><{$house[house_title]}></A> 
+    </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[room]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[start_date]|date='Y-m-d',###}></TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[end_date]|date='Y-m-d',###}></TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[status]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[stay_day]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[room_num]}> </TD>
+    <TD bgColor=#f2f2f2 height=29 align=middle><{$house[price]}> </TD></TR>
+
+  <php>}</php>
+
+</TBODY>
+</TABLE>
+</DIV>
+
+<php>}</php>
+
+</DIV>
+</DIV>
+</DIV>
+
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<div class="fanye">
+<div style="width:100%; margin-top:0px; float:left; height:100px;" ><!--翻页-->
+     <div class="page"><{$page}></div>
+</div>
+</div>
+
+</BODY>
+</HTML>
+
+
+<script>
+
+function dosearch() {
+        
+		var hotel_title = document.getElementById('hotel_title').value;
+		var house_title = document.getElementById('house_title').value;
+		var city_name = document.getElementById('city_name').value;
+		var start_date = document.getElementById('start_date').value;
+		var end_date = document.getElementById('end_date').value;
+		var status = document.getElementById('status').value;
+		
+		window.location = '<{:SITE_ADMIN}>Hotel/check/hotel_title/'+hotel_title+'/house_title/'+house_title+'/city_name/'+city_name+'/start_date/'+start_date+'/end_date/'+end_date+'/status/'+status;
+		
+}
+
+</script>
+
+<include file="Index:footer" />

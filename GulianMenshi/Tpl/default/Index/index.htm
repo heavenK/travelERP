@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大连古莲国际旅行社</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/resetindex.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/glfx.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/sousuo.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssdijie.css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+</head>
+<body>
+<div id="glfx_box">
+
+        <include file="Index:navindex" />
+  
+
+<!--列表-->
+<div class="fanye">
+
+<div id="change_banshi" style="float:left; width:100%;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bg">
+    <tr>
+      <th width="7%" height="30" align="center" class="bg">线路类型</th>
+      <th width="59%" align="center" class="bg">线路名称</th>
+      <th width="9%" align="center" class="bg"><strong>价格(元)</strong></th>
+      <th width="9%" align="center" class="bg">团队类型</th>
+      <th width="16%" align="center" class="bg">目的城市</th>
+      </tr>
+  </table>
+  <style>
+  	.dlgl_qt_table	{ border-bottom: #CCCCCC 10px solid;}
+	.dlgl_qt_table_td_title	a	{color:#0000ff; font-size:14px;}
+	.dlgl_qt_table_td_title	a:hover	{color:blue; text-decoration:underline; font-size:14px;}
+	.dlgl_qt_table_td a	{ color:#313031;}
+	.dlgl_qt_table_td li	{ width:80px; height:32px; line-height:16px; border:#CCCCCC 1px solid; margin:5px; display:inline; float:left;}
+	.dlgl_qt_table_td li a	{ width:80px; height:32px;  background-color:#c6e7ff; float:left;}
+	.dlgl_qt_table_td li a:hover	{ background-color:#4e9be3; color:#FFFFFF;}
+  </style>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  
+          <php> $i = -1; foreach($xianluAll as $xianlu){ $i++;</php>
+          
+              <tr class="tr0">
+                <td height="70" align="center" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="dlgl_qt_table">
+                  <tr>
+                    <td width="7%" height="60" rowspan="2" align="center" class="tr0"> <{$xianlu['guojing']}> </td>
+                    <td width="59%" height="30" align="center" class="dlgl_qt_table_td_title">
+                    
+                    <php>if($xianlu['price']['chengrenshoujia']){</php>
+                          <span><{$xianlu['mingcheng']}></span>
+                    <php>}else{</php>
+                          <span><{$xianlu['mingcheng']}></span>
+                    <php>}</php>
+                    
+                    <php>if($xianlu['companytype'] == '同业'){</php>
+                    <strong>(联合体提供)</strong>
+                    <php>}</php>
+                    <php>if($xianlu['companytype'] == '办事处'){</php>
+                    <strong>(<{$xianlu['user_name']}> 办事处提供)</strong>
+                    <php>}</php>
+                    </td>
+                    <td width="9%" align="center" class="tr0"><{$xianlu['price']['chengrenshoujia']}></td>
+                    <td width="9%" align="center" class="tr0"><{$xianlu['xianlutype']}> </td>
+                    <td width="16%" align="center" class="tr0"><{$xianlu['mudidi']}></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" align="center" class="dlgl_qt_table_td"><ul>
+				  <php>
+								foreach($xianlu['zituanAll'] as $zituan){ 
+				  </php>
+                  		<php>if($zituan['zhuangtai'] == '报名' && $zituan['shengyu'] > 0){</php>
+                        <li><a <php>if($zituan['shoujia_chengben']){</php>title="成本：<{$zituan['shoujia_chengben']}>元"<php>}</php> target="_blank" href="<{:SITE_MENSHI}>Index/zituanxinxi/zituanID/<{$zituan['zituanID']}>"><{$zituan['chutuanriqi']}><br />
+                          <{$zituan['shoujia']}>元 剩:<{$zituan['shengyu']}></a></li>
+                  		<php>}else{</php>
+                        <li><a style="background:#CCCCCC" href="javascript:void(0);"><{$zituan['chutuanriqi']}><br />
+                          <{$zituan['zhuangtai']}> 剩:<{$zituan['shengyu']}></a></li>
+                  		<php>}</php>
+				  <php>}
+				  </php>
+                          
+                          
+                    </ul></td>
+                  </tr>
+                </table></td>
+              </tr>
+          
+        <php> }</php>
+              
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+</div>
+<!--列表结束-->
+  
+  
+        <include file="Index:footindex" />
+  
+</div>
+</body>
+</html>
+
+
+

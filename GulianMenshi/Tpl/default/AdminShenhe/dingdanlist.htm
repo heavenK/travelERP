@@ -1,0 +1,134 @@
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<style>
+.gl_cwbb	{ background: url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x scroll 0 0 transparent; text-align:center; color:#FFFFFF;}
+.gl_cwbb a	{ color:0000ff;}
+.gl_cwbb td { border:1px solid #E8E8E8; border-top:0; color: #494949; padding:0 10px;}
+.gl_cwbbdy	{ width:85px; height:25px; margin:0 0 10px 30px; display:inline; background:url(images/header_bg.jpg) -790px -220px; float:left;} 
+.gl_cwbbdy:hover	{ background:url(images/header_bg.jpg) -790px -250px;}
+.tr0 		{ background:#F0F0F0;}
+.tr0 a		{ color:0000ff;}
+.tr1 a		{ color:0000ff;}
+.gl_cwbc	{ display:inline; color:ff5500; text-align:center; background:#F0F0F0; }
+
+.admin_map	{ font-size:12px; width:832px; margin:20px 0 0 40px; display:inline; padding:0 0 20px 0; background:#e6e6e6; border:#d6d7d8 1px solid; overflow:hidden; float:left;}
+.admin_map span		{ width:163px; height:38px; margin:10px 0 0 0; display:inline; background:url("<{:__PUBLIC__}>/gulianstyle/images/admin_map_mainbav.png") no-repeat; font-size:24px; text-align:center; line-height:38px; font-family:"微软雅黑", "黑体"; color:#FFF; overflow:hidden; clear:both; float:left;}
+.admin_map ul		{ width:100%; float:left;}
+.admin_map ul li	{ width:163px; height:98px; margin:20px 0 0 35px; display:inline; background:#FFF; border:1px solid #adadad; overflow:hidden; float:left;}
+.admin_map ul li a	{ width:161px; height:96px; margin:1px; display:inline; overflow:hidden; float:left;}
+
+.admin_map table{ margin:20px 0 0 0; display:inline; float:left;}
+.admin_map .tr1{ background:#f3f3f3; }
+
+.admin_map td{border-bottom:solid #e8e8e8 1px; border-right:solid #e8e8e8 1px;border-left:solid #e8e8e8 1px; color:#494949;}
+.admin_map th{ background:url("<{:__PUBLIC__}>/gulianstyle/images/bjt.gif") repeat-x; color:#FFF;border-right:solid #CCC 1px;}	
+
+</style>
+
+
+<div class="admin_map" style=" width:95%; "><!--地图 add by kaiser-->
+<php>if($check_status){</php>
+    <span><{$check_status}>订单</span>
+<php>}else{</php>
+    <span>待确认订单</span>
+<php>}</php>
+        <table style="font-size:12px" class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">                    
+            <tbody>
+                <tr>
+                    <th height="32" align="center">
+                        订单编号</th>
+                    <th height="32" align="center">
+                        团号</th>
+                    <th height="32" align="center">
+                        线路名称</th>
+                    <th height="32" align="center">
+                        人数</th>
+                    <th height="32" align="center">
+                        出团时间</th>
+                    <th height="32" align="center">
+                        操作人</th>
+                    <th height="32" align="center">
+                        部门</th>
+                    <th height="32" align="center">
+                        审核状态</th>
+                    <th height="32" align="center">
+                        锁</th>
+                    <th height="32" align="center">
+                        门市确认</th>
+                    <th height="32" align="center">
+                        财务确认</th>
+                    <th height="32" align="center">
+                        下单时间</th>
+                </tr>
+                            <php> foreach($dingdanAll as $dingdan){
+                            </php>
+                                <tr class="tr1">
+                                    <td height="32" align="center">
+                                        <a href="javascript:dingdanprint(<{$dingdan['dingdanID']}>);">
+                                            <{$dingdan['bianhao']}>
+                                        </a>
+                                    </td>
+                                    <td height="32" align="center">
+                                        <a href="javascript:zituanprint(<{$dingdan['zituanID']}>);">
+                                            <{$dingdan['tuanhao']}>
+                                        </a>
+                                    </td>
+                                    <td height="32" align="center">
+                                            <{$dingdan['mingcheng']}>
+                                    </td>
+                                    <td height="32" align="center">
+                                       <php> echo $dingdan['chengrenshu'] + $dingdan['ertongshu'] </php>
+                                    </td>
+                                    <td height="32" align="center">
+                                        <{$dingdan['chutuanriqi']}>
+                                    </td>
+                                    <td height="32" align="center">
+                                        <{$dingdan['realname']}>
+                                    </td>
+                                    <td height="32" align="center">
+                                        <{$dingdan['department']}>
+                                    </td>
+                                    <td height="32" align="center" style="color:red">
+                                        <{$dingdan['check_status']}>
+                                    </td>
+                                    <td height="32" align="center" style="color:red">
+                                        <{$dingdan['islock']}>
+                                    </td>
+                                    <td height="32" align="center" style="color:red">
+                                        <php>if($dingdan['daokuan']=='已付款') echo '已确认' ;else echo '未确认';</php>
+                                    </td>
+                                    <td height="32" align="center" style="color:red">
+                                        <php>if($dingdan['daokuancw']=='已付款') echo '已确认' ;else echo '未确认';</php>
+                                    </td>
+                                    <td height="32" align="center">
+                                        <php>echo date('Y-m-d H:i:s',$dingdan['time'])</php>
+                                        
+                                    </td>
+                                </tr>
+                
+                            <php>}
+                            </php>
+                
+            </tbody>
+        </table>
+    
+    
+    
+</div>
+<div style="width:100%; float:left; text-align:center;" >
+   <div class="page"><{$page}></div>
+</div>
+<script>
+function dingdanprint(id)
+{
+    var url = '<{:SITE_MENSHI}>Dingdan/dingdanxinxi/showtype/审核/dingdanID/'+id;
+    var winvalue=	window.open(url,null,"height=500,width=1100,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+function zituanprint(id)
+{
+    var url = '<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/zituanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+</script>

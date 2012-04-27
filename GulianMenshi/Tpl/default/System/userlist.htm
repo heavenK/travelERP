@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0042)<{:SITE_URL}>Main/msManage.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	互动旅游-门市管理
+</title><link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css"><script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+
+    var id = 'rpRoleList_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpRoleList_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+
+
+</script></head>
+
+
+
+<body>
+    <div class="hdlyRight">
+            <div id="content_bb">
+                            
+            <div class="szwz">
+                <ul>
+                  <li> <span>您所在的位置：</span>用户列表</li>
+                </ul>
+            </div>
+                <div class="ss">
+                    <table class="test1" width="85%" border="0" style="padding-top: 20px;">
+                        <tbody><tr>
+                            
+                            <td width="50" height="18" align="right">
+                                关键字</td>
+                            <td width="187">
+                                <input name="tbKeyword" type="text" id="tbKeyword"></td>
+                            <td>
+                                <input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="fanye">
+                    <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        
+                                <tbody><tr>
+                                    <th width="33" height="32" align="center">
+                                        <input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)">
+                                        <label for="checkbox">
+                                        </label>
+                                    </th>
+                                    <th height="32" align="center">
+                                        公司名称
+                                    </th>
+                                    <th height="32" align="center">
+                                        姓名
+                                    </th>
+                                    <th height="32" align="center">
+                                        帐户
+                                    </th>
+                                    <th height="32" align="center">
+                                        状态
+                                    </th>
+                                    <th height="32" align="center">
+                                        添加日期</th>
+                                    <th height="32" align="center">
+                                        部门
+                                    </th>
+                                    <th height="32" align="center">
+                                        联系电话
+                                    </th>
+                                    <th height="32" align="center">
+                                        操作
+                                    </th>
+                                </tr>
+                            
+                            
+                            <php> foreach($kehuAll as $kehu){
+                            </php>
+                            
+                                <tr class="tr1">
+                                    <td width="3%" height="27" align="center">
+                                        <label for="checkbox">
+                                            <span title="9"><input id="rpRoleList_ctl01_cbItem" type="checkbox" name="rpRoleList$ctl01$cbItem"></span>
+                                        </label>
+                                    </td>
+                                    <td width="20%" height="27" align="center">
+                                        <{$lvxingshe['companyname']}>
+                                    </td>
+                                    <td width="7%" height="27" align="center">
+                                        <{$kehu['realname']}>
+                                    </td>
+                                    <td width="10%" height="27" align="center">
+                                        <{$kehu['user_name']}>
+                                    </td>
+                                    <td width="5%" height="27" align="center">
+                                        <{$kehu['islock']}>
+                                    </td>
+                                    <td width="8%" height="27" align="center">
+                                         <php>echo date('Y-m-d',$kehu['time'])</php>
+                                    </td>
+                                    <td width="32%" height="27" align="center">
+                                        <{$kehu['department']}>
+                                    </td>
+                                    <td width="3%" height="27" align="center">
+                                        <{$kehu['mobiletel']}>
+                                    </td>
+                                    <td width="12%" height="27" align="center">
+                                        [<a href="<{:SITE_ADMIN}>Kehuguanli/editkehu/kehuID/<{$kehu['kehuID']}>">修改信息</a>]
+                                    </td>
+                                </tr>
+                            
+                            <php>}
+                            </php>
+                            
+                    </tbody></table>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</body></html>
+<include file="Index:footer" />

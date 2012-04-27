@@ -1,0 +1,19 @@
+<include file="Common:header" />
+<h3>屏蔽管理</h3>
+<form action='<{:SITE_URL}>/admin.php?s=/Setting/webset' method="POST">
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="130px" valign="top">屏蔽广播关键字</td>
+    <td width="430px"><textarea name="site[badwords]" class="txt_textarea"><{$site['badwords']['contents']}></textarea></td>
+    <td class="info" valign="top">● <{$site['badwords']['description']}></td>
+</tr>
+<tr>
+    <td width="150px" valign="top">禁止使用注册帐号</td>
+    <td width="330px"><textarea name="site[regname]" class="txt_textarea"><{$site['regname']['contents']}></textarea></td>
+    <td class="info" valign="top">● <{$site['regname']['description']}></td>
+</tr>
+</table>
+<input type="hidden" name="reurl" value="Setting/badword">
+<input type="submit" class="button1 submit" value="保存提交">
+</form>
+<include file="Common:foot" />

@@ -1,0 +1,46 @@
+<include file="Common:header" />
+<div class="friends">
+    <{$hook['find_top']}>
+    <div class="indexh">
+        <div class="tabon"><{:L('find')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Find/invite"><{:L('invite_friend')}></a></div>
+    </div>
+    <{$hook['find_mid1']}>
+    <div id="stream" class="message">
+        <div class="searchbox">
+        <div style="padding:15px 50px">
+            <div style="color:#999999;margin-bottom:5px"><{:L('look_friend')}></div>
+            <form method="POST" action="<{:SITE_URL}>/Find/search">
+                <input class="input_text" type="text" style="width:300px" name="sname" value=""/>
+                <input class="button2" type="submit" value="<{:L('click_search')}>"/>
+           </form>
+           <div style="margin-top:5px"><{:L('find_more_friend')}><a href="<{:SITE_URL}>/Find/invite"><{:L('invite_friend_opened')}></a></div>
+        </div>
+        </div>
+        <{$hook['find_mid2']}>
+        <table border="0" width="100%" height="550px">
+        <tr>
+        <td valign="top">
+            <h3><img src="<{:__PUBLIC__}>/images/invite.gif"> <{:L('recommend_for_you')}></h3>
+            <div class="finder">
+                <php>if($t==1){</php><div class="tabon"><{:L('vip_user')}></div><php>}else{</php><div class="taboff"><a href="<{:SITE_URL}>/Find?t=1"><{:L('vip_user')}></a></div><php>}</php>
+                <php>if($t==2){</php><div class="tabon"><{:L('recommend_user')}></div><php>}else{</php><div class="taboff"><a href="<{:SITE_URL}>/Find?t=2"><{:L('recommend_user')}></a></div><php>}</php>
+                <php>if($t==3){</php><div class="tabon"><{:L('samecity_user')}></div><php>}else{</php><div class="taboff"><a href="<{:SITE_URL}>/Find?t=3"><{:L('samecity_user')}></a></div><php>}</php>
+            </div>
+            <div class="finderr">
+                <php>if(count($user)>0){</php>
+                <ul class="alistM">
+                <php>foreach($user as $val){</php><{:$uModel->alist($val,$my['user_id'],0);}><php>}</php>
+                </ul>
+                <php>}else{</php>
+                    <div style="text-align:center;margin-top:100px"><{:L('no_recommend_user')}></div>
+                <php>}</php>
+            </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+    <div class="clearline"></div>
+    <{$hook['find_bottom']}>
+</div>
+<include file="Common:foot" />

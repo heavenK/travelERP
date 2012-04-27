@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js"></SCRIPT>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+	    var names = [
+			 <php>foreach($kehu_all as $kehu){</php>
+					  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
+             <php>}</php>
+         ];
+		$(function() {
+                 $('#user_name').autocomplete(names, {
+                     max: 20,    //列表里的条目数
+                     minChars: 0,    //自动完成激活之前填入的最小字符
+                     width: 400,     //提示的宽度，溢出隐藏
+                     scrollHeight: 300,   //提示的高度，溢出显示滚动条
+                     matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+                     autoFill: false,    //自动填充
+                     formatItem: function(row, i, max) {
+                         return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+                     },
+                     formatMatch: function(row, i, max) {
+                         return row.name + row.to;
+                     },
+                     formatResult: function(row) {
+                         return row.to;
+                     }
+                 }).result(function(event, row, formatted) {
+                 });
+             });
+	</script>
+<body>
+<div id="hlt_fit_view">              
+    <div class="szwz" style="color:#FFF;">
+        <ul>
+          <li> <span>您所在的位置:	</span><{$navlist}> </li>
+        </ul>
+    </div>
+    <div class="fanye">
+    
+    <div id="hlt_fit_search"><!--查询-->
+        <div class="search_one">
+            <div id="hlt_fit_search_a_s"><span>线路名称：</span><input type="text" id="mingcheng" name="mingcheng" value="<{$mingcheng}>"></div>
+            <div id="hlt_fit_search_b_s" style="width:270px;"><span>出发日期：</span><input type="text" onfocus="WdatePicker()" id="chufariqi" name="chufariqi" value="<{$chufariqi}>"><span>-</span><input type="text" onfocus="WdatePicker()" id="jiezhiriqi" name="jiezhiriqi" value="<{$jiezhiriqi}>"></div>
+            <div id="hlt_fit_search_a_s"><span>员工姓名：</span><input style="width:90px;" type="text" id="user_name" value="<{$user_name}>"/></div>
+        </div>
+        <div class="search_one">
+            <div id="hlt_fit_search_a_s" style="width:130px;"><span>状态：</span>
+            <select name="zhuangtai" id="zhuangtai"> 
+                <php> if($zhuangtai){</php>
+                <option value="<{$zhuangtai}>"><{$zhuangtai}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">全部</option> 
+                <option value="准备">准备</option> 
+                <option value="等待审核">等待审核</option> 
+                <option value="审核不通过">审核不通过</option> 
+                <option value="报名">报名</option> 
+                <option value="截止">截止</option> 
+            </select>
+            </div>
+            <div id="hlt_fit_search_a_s" style="width:431px;">
+            <span>关键字：</span><input style="width:90px;" type="text" id="guanjianzi" name="guanjianzi" value="<{$guanjianzi}>">
+            <span>出发地：</span><input style="width:90px;" type="text" id="chufadi" value="<{$chufadi}>"/>
+            <span>目的地：</span><input style="width:90px;" type="text" id="mudidi" value="<{$mudidi}>"/>
+            </div>
+            <div id="hlt_fit_search_g_s"><input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /><input type="button" value="" alt="返回" style="background:url('<{:__PUBLIC__}>/gulianstyle/images/search_btn_02.png') no-repeat; margin:0 0 0 5px; display:inline;" onclick="returnback();" /></div>
+        </div>
+         
+    </div>
+    </div>
+</div>
+                
+                
+<div class="fanye">
+  <div class="nr">
+      <table width="313" border="0">
+          <tbody><tr>
+              <td class="wbx" width="58" align="center">
+              <a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/<{$xianlutype}>/guojing/<{$guojing}>/kind/<{$kind}>" class="yyxxl">发布线路</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:copytonew()" class="yyxxl">复制线路</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:tijiao();" onclick="return confirm('确认删除吗？');" class="yyxxl">删除</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:suoding();" onclick="return confirm('确认要锁定线路吗？');" class="yyxxl">线路锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiesuo();" onclick="return confirm('确认要解除锁定吗？');" class="yyxxl">解除锁定</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:jiezhi();" onclick="return confirm('确认要线路截止吗？');" class="yyxxl">线路截止</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:webpub('pub');" onclick="return confirm('确认要向网站发布线路信息新闻吗？');" class="yyxxl">网站发布</a>
+                  </td>
+              <td class="wbx" width="58" align="center">
+              <a href="javascript:webpub('del');" onclick="return confirm('确认要删除网站线路信息新闻吗？');" class="yyxxl">网站删除</a>
+                  </td>
+          </tr>
+      </tbody></table>
+  </div>
+  <div  style="float:left;width:100%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+  <tbody>
+        <tr>
+                <th height="32" align="center"><input type="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                <th height="32" align="center">
+                    产品名称</th>
+                <th height="32" align="center">
+                    编号</th>
+                <th height="32" align="center">
+                    出团日期</th>
+                <th height="32" align="center">
+                    发布人</th>
+                <th height="32" align="center">
+                    创建时间</th>
+                <th height="32" align="center">
+                    公司</th>
+                <th height="32" align="center">
+                    部门</th>
+                <th height="32" align="center">
+                    状态</th>
+                <th height="32" align="center">
+                    锁定</th>
+                <th height="32" align="center">
+                    网站发布</th>
+                <th height="32" align="center">
+                    轨迹</th>
+        </tr>
+          
+        <form name="form" method="post" id="form">
+    	<input type="hidden" name="xianlutype" id="xianlutype" value="<{$xianlutype}>" >
+    	<input type="hidden" name="guojing" id="guojing" value="<{$guojing}>" >
+        <input type="hidden" name="kind" id="kind" value="<{$kind}>" >
+          <php> $i = -1; foreach($xianludatas as $xianlu){ $i++;</php>
+          
+              <tr class="tr<php>echo $i%2</php>">
+                  <td height="32" align="center"  width="3%">
+                      <span><input value="<{$xianlu['xianluID']}>" id="rpUserlist_ctl<{$i}>_cbItem" type="checkbox" name="itemlist[]"></span></td>
+                  <td height="32" align="center" width="30%">
+                      <span><a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianlu['xianluID']}>"><{$xianlu['mingcheng']}></a></span>
+                  </td>
+                  <td height="32" align="center" width="10%">
+                      <a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$xianlu['xianluID']}>"><{$xianlu['bianhao']}></a>
+                  </td>
+                <td height="32" align="center">
+                  	<img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($xianlu[chutuanriqi])</php>',this)" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" />
+                </td>
+                <td height="32" align="center">
+                    <{$xianlu['realname']}>
+                </td>
+                <td height="32" align="center">
+                	<php>echo date('Y/m/d H:i',$xianlu['time']);</php>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['companyname']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['departmentName']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['zhuangtai']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['islock']}>
+                </td>
+                <td height="32" align="center">
+                	<{$xianlu['ispub']}>
+                </td>
+                  <td align="center" width="3%">
+                  <img onclick="GetcheckBack(this,'<{$xianlu['xianluID']}>','线路','操作记录')" src="<{:__PUBLIC__}>/gulianstyle/images/fit_bg_lx.gif" width="16" height="16" border="0" alt="点击查看轨迹" />
+                  </td>
+              </tr>
+          
+        <php> }</php>
+        </form>
+        
+  </tbody>
+  </table>
+  </div>
+  <div style="width:100%; margin-top:0px; float:left" ><!--翻页-->
+       <div class="page"><{$page}></div>
+  </div>
+</div>
+                
+</body>
+</html>
+
+
+<div id="divrili2"  style="display: none; position:absolute; ">
+    <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+
+<div id="divrili3"  style="display: none; position:absolute; width:300px; text-align:center ">
+    <div class="fanye" id="thedate">
+      
+    </div>
+</div>
+
+
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+    var id = 'rpUserlist_ctl';
+    var i = 0;
+    for(;;)
+    {
+        id = 'rpUserlist_ctl' + i + '_cbItem';
+        var c = document.getElementById(id);
+        if(c)
+            c.checked = o.checked;
+        else
+            break;
+        i ++;
+    }
+}
+</script>
+
+<script type="text/javascript">
+
+function tijiao() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/deletechanpin';
+        document.getElementById('form').submit();
+}
+function jiesuo() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/xianlujiesuo';
+        document.getElementById('form').submit();
+}
+function suoding() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/xianlusuoding';
+        document.getElementById('form').submit();
+}
+function jiezhi() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/dochangestatus/type/截止';
+        document.getElementById('form').submit();
+}
+function baoming() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/dochangestatus/type/报名';
+        document.getElementById('form').submit();
+}
+
+
+function webpub(type) {
+	if(type == 'pub'){
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Public/domakepub/type/发布';
+        document.getElementById('form').submit();
+	}
+	else{
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Public/domakepub/type/删除';
+        document.getElementById('form').submit();
+	}
+}
+
+function copytonew() {
+        document.getElementById('form').action = '<{:SITE_ADMIN}>Chanpin/copytonew';
+        document.getElementById('form').submit();
+}
+
+
+
+
+
+
+function dosearch() {
+        
+		var mingcheng = document.getElementById('mingcheng').value;
+		var guanjianzi = document.getElementById('guanjianzi').value;
+		var chufadi = document.getElementById('chufadi').value;
+		var mudidi = document.getElementById('mudidi').value;
+//		var tianshu = document.getElementById('tianshu').value;
+		var chufariqi = document.getElementById('chufariqi').value;
+		var jiezhiriqi = document.getElementById('jiezhiriqi').value;
+		var zhuangtai = document.getElementById('zhuangtai').value;
+		var guojing = document.getElementById('guojing').value;
+		var kind = document.getElementById('kind').value;
+		var user_name = document.getElementById('user_name').value;
+		window.location = '<{:SITE_ADMIN}>Chanpin/sankechanpin/guanjianzi/'+guanjianzi+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/chufariqi/'+chufariqi+'/jiezhiriqi/'+jiezhiriqi+'/zhuangtai/'+zhuangtai+'/guojing/'+guojing+'/kind/'+kind+'/mingcheng/'+mingcheng+'/user_name/'+user_name;
+}
+
+function GetcheckBack(obj,id,tbname,type)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 650;
+	$("#divrili2").css({top:objtop , left:objleft });
+
+	
+    var url='<{:SITE_ADMIN}>Message/showmessage/tableID/'+id+'/tablename/'+tbname+'/type/'+type;
+	var divRili = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili) {
+
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else {		
+			divRili.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+function showdate(datelist,obj)
+{
+	
+	objtop = getPosTop(obj) + 16;
+	objleft = getPosLeft(obj) - 10;
+	$("#divrili3").css({top:objtop , left:objleft });
+	
+	datelist=datelist.replace(/'/g,"");
+	datelist=datelist.split(";");
+	
+	 var str = '';
+	 str += '<table width="100%" cellspacing="0" cellpadding="0" border="0" class="bg">';
+	 str += '<tbody>';
+	 str += '<tr>';
+	 str += '<th height="32" align="center"> 时间</th>';
+	 str += '</tr>';
+	 for(var i =0; i<datelist.length;i++){
+	 str += '<tr class="tr1">';
+	 str += '<td width="100%" height="32" align="center">'+datelist[i]+'</td>';
+	 str += '</tr>';
+	 }
+	 str += '</tbody>';
+	 str += '</table>';
+	 
+	$("#thedate").empty();
+	$("#thedate").append(str);
+	
+	var divRili = document.getElementById("divrili3"); 
+	if(divRili) {
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else 
+		{		
+			divRili.style.display = '';			
+		}
+	}
+}
+
+
+
+
+</script>
+
+
+
+
+<script language="javascript">  
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+
+
+function dump_obj(myObject) {  
+  var s = "";  
+  for (var property in myObject) {  
+   s = s + "\n "+property +": " + myObject[property] ;  
+  }  
+  alert(s);  
+}  
+	function returnback()
+	{
+			window.parent.location = '<{:SITE_ADMIN}>Index/index_chanpin';
+	}
+
+</script>  
+<include file="Index:footer" />

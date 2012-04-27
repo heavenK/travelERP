@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ font-size:12px; font-family:"宋体", Arial;}
+em,i{ font-style:normal;}
+img{ border:0;}
+.fanye em{ width:141px; height:41px; margin:10px 0 10px 10px; display:inline; background:url(../images/ks_btn_16.png) no-repeat; overflow:hidden; float:left;}
+.fanye i{ width:141px; height:41px; margin:10px 0 10px 10px; display:inline; background:url(../images/ks_btn_17.png) no-repeat; overflow:hidden; float:left;}
+.fanye u{ width:141px; height:41px; margin:10px 0 10px 10px; display:inline; background:url(../images/ks_btn_18.png) no-repeat; overflow:hidden; float:left;}
+.fanye del{ width:41px; height:141px; margin:10px 0 10px 10px; display:inline; overflow:hidden; float:left;}
+
+/*总部系统*/
+.ks_mainbav{ width:100%; height:28px; margin:3px 0 0 0; display:inline; background:url(../images/search_topbav_bg.gif) repeat-x; font-weight:bold; color:#FFF; float:left;}
+.ks_mainbav em{ margin:2px 0 0 10px; display:inline; float:left;}
+.ks_mainbav a{ margin:2px 15px 0 0; display:inline; padding:0 0 0 15px; background:url(../images/jt.gif) no-repeat 0 6px; color:#FFF; float:left;}
+.ks_search_line{ width:1088px; margin:10px 20px 0 10px; display:inline; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_line span{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line b	{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line u	{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line em	{ margin:10px 20px 15px 10px; display:inline; clear:both; float:left;}
+.ks_search_line em p	{ float:left;}
+.ks_search_line em label{ margin:0 0 0 10px; display:inline; float:left;}
+.ks_search_line em input{ width:90px; height:20px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; padding:2px; float:left;}
+.ks_search_line em select{ width:100px; height:26px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; float:left;}
+.ks_search_line i	{ width:77px; float:left;}
+.ks_search_line i a	{ width:77px; height:28px; margin:9px 45px 20px 0; display:inline; background:url(../images/search_btn.png) no-repeat; cursor:pointer; overflow:hidden; float:left;}
+.ks_on_01	{ background:url(../images/ks_btn_09.png) no-repeat;}
+.ks_out_01	{ background:url(../images/ks_btn_13.png) no-repeat;}
+.ks_on_02	{ background:url(../images/ks_btn_10.png) no-repeat;}
+.ks_out_02	{ background:url(../images/ks_btn_14.png) no-repeat;}
+
+.ks_search_infos{ width:1078px; margin:10px 20px 0 10px; display:inline; padding:0 0 10px 10px; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_infos b	{ width:41px; height:141px; margin:10px 35px 0 0; display:inline; background:url(../images/ks_btn_12.png) no-repeat; overflow:hidden; float:left;}
+.ks_search_infos em	{ width:1000px; overflow:hidden; float:left;}
+.ks_search_infos u	{ margin:15px 40px 0 0; display:inline; float:left;}
+
+/*地接系统*/
+.ks_mainbav_d{ width:100%; height:28px; margin:3px 0 0 0; display:inline; background:url(../images/search_topbav_bg_03.gif) repeat-x; font-weight:bold; color:#FFF; float:left;}
+.ks_mainbav_d em{ margin:2px 0 0 10px; display:inline; float:left;}
+.ks_mainbav_d a{ margin:2px 15px 0 0; display:inline; padding:0 0 0 15px; background:url(../images/jt.gif) no-repeat 0 6px; color:#FFF; float:left;}
+.ks_search_line_d{ width:1088px; margin:10px 20px 0 10px; display:inline; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_line_d span a{ margin:28px 0 0 20px; display:inline; font-size:14px; font-weight:bold; color:#c50000; text-decoration:underline; float:left;}
+.ks_search_line_d b	{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line_d u a{ width:87px; height:28px; margin:9px 0 20px 10px; display:inline; background:url(../images/search_btn_04.png) no-repeat; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line_d em	{ margin:10px 20px 15px 10px; display:inline; clear:both; float:left;}
+.ks_search_line_d em p	{ float:left;}
+.ks_search_line_d em label{ margin:0 0 0 10px; display:inline; float:left;}
+.ks_search_line_d em input{ width:90px; height:20px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; padding:2px; float:left;}
+.ks_search_line_d em select{ width:100px; height:26px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; float:left;}
+.ks_search_line_d i	{ width:77px; float:left;}
+.ks_search_line_d i a	{ width:77px; height:28px; margin:9px 45px 20px 0; display:inline; background:url(../images/search_btn.png) no-repeat; cursor:pointer; overflow:hidden; float:left;}
+.ks_on_01_d	{ background:url(../images/ks_btn_09.png) no-repeat;}
+.ks_out_01_d	{ background:url(../images/ks_btn_13.png) no-repeat;}
+.ks_on_02_d	{ background:url(../images/ks_btn_10.png) no-repeat;}
+.ks_out_02_d	{ background:url(../images/ks_btn_14.png) no-repeat;}
+
+.ks_search_infos_d{ width:1078px; margin:10px 20px 0 10px; display:inline; padding:0 0 10px 10px; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_infos_d b	{ width:41px; height:141px; margin:10px 35px 0 0; display:inline; background:url(../images/ks_btn_12.png) no-repeat; overflow:hidden; float:left;}
+.ks_search_infos_d em	{ width:1000px; overflow:hidden; float:left;}
+.ks_search_infos_d u	{ margin:15px 40px 0 0; display:inline; float:left;}
+
+/*门市系统*/
+.ks_mainbav_m{ width:100%; height:28px; margin:3px 0 0 0; display:inline; background:url(../images/search_topbav_bg_05.gif) repeat-x; font-weight:bold; color:#FFF; float:left;}
+.ks_mainbav_m em{ margin:2px 0 0 10px; display:inline; float:left;}
+.ks_mainbav_m a{ margin:2px 15px 0 0; display:inline; padding:0 0 0 15px; background:url(../images/jt.gif) no-repeat 0 6px; color:#FFF; float:left;}
+.ks_search_line_m{ width:1088px; margin:10px 20px 0 10px; display:inline; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_line_m span{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line_m b	{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line_m u	{ width:140px; height:38px; margin:15px 0 10px 20px; display:inline; cursor:pointer; overflow:hidden; float:left;}
+.ks_search_line_m em	{ margin:10px 20px 15px 10px; display:inline; clear:both; float:left;}
+.ks_search_line_m em p	{ float:left;}
+.ks_search_line_m em label{ margin:0 0 0 10px; display:inline; float:left;}
+.ks_search_line_m em input{ width:90px; height:20px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; padding:2px; float:left;}
+.ks_search_line_m em select{ width:100px; height:26px; margin:0 5px 0 0; display:inline; border:#adadad 1px solid; float:left;}
+.ks_search_line_m i	{ width:77px; float:left;}
+.ks_search_line_m i a	{ width:77px; height:28px; margin:9px 45px 20px 0; display:inline; background:url(../images/search_btn.png) no-repeat; cursor:pointer; overflow:hidden; float:left;}
+.ks_on_01_m	{ background:url(../images/ks_btn_25.png) no-repeat;}
+.ks_out_01_m	{ background:url(../images/ks_btn_26.png) no-repeat;}
+.ks_on_02_m	{ background:url(../images/ks_btn_27.png) no-repeat;}
+.ks_out_02_m	{ background:url(../images/ks_btn_28.png) no-repeat;}
+.ks_on_03_m	{ background:url(../images/ks_btn_29.png) no-repeat;}
+.ks_out_03_m	{ background:url(../images/ks_btn_30.png) no-repeat;}
+
+.ks_search_infos_m{ width:1078px; margin:10px 20px 0 10px; display:inline; padding:0 0 10px 10px; background:#f5f5f5; border:#adadad 1px solid; overflow:hidden; float:left;}
+.ks_search_infos_m b	{ width:41px; height:141px; margin:10px 35px 0 0; display:inline; background:url(../images/ks_btn_12.png) no-repeat; overflow:hidden; float:left;}
+.ks_search_infos_m em	{ width:1000px; overflow:hidden; float:left;}
+.ks_search_infos_m u	{ margin:15px 40px 0 0; display:inline; float:left;}

@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+</head>
+<style>
+.control_domestic_member_lia { width:70px;}
+</style>
+<body>
+<div id="hlt_fit_view">
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navlist}>
+    </div>
+    
+    <div id="hlt_fit_published"><!--发布新线路页面-->
+        <div id="control_domestic_order_over">
+        <a href="<{:SITE_ADMIN}>Kongguan/zituanjiezhi/zituanID/<{$zituan['zituanID']}>" onclick="return confirm('要立即截止改团吗？');" class="control_domestic_order_over_a" title="报名截止"></a>
+        </div>
+        <include file="Kongguan:navlist" /> 
+        <div class="ks_btn">
+        	<a href="javascript:doprint('<{$zituan[zituanID]}>')" class="ks_btn_01"></a>
+            <a onclick="exports('<{$zituan[zituanID]}>','word');" class="ks_btn_05"></a>
+            <a onclick="exports('<{$zituan[zituanID]}>','excel');" class="ks_btn_02"></a>
+			<a onclick="exports_word('<{$zituan[zituanID]}>');" class="ks_btn_04"></a>
+        </div>
+        <div id="hlt_fit_published_cont" style="margin-top:10px;"><!--内容-->
+        
+                        		<php>if($dingdanAll == null) echo '暂无数据';foreach($dingdanAll as $dingdan){ 
+                                </php>
+                                
+        	<div id="hlt_fit_price"><!--成本项-->
+            	<div id="hlt_fit_price_cost">
+                	<div id="hlt_fit_price_cost_a">订单编号：<{$dingdan['bianhao']}>            订单来源:<{$dingdan['companyname']}>-<{$dingdan['user_name']}></div>
+                    
+                	<ol id="control_domestic_member">
+                        <php>if($dingdan['diyinput'] =='文件名单'){</php>
+                    	<ul class="control_domestic_member_ol">
+                            <li class="control_domestic_member_lia" style=" width:100px;">总人数</li>
+                            <li class="control_domestic_member_lia" style="width:100px;">领队人数</li>
+                            <li class="control_domestic_member_lib" style="width:100px;">团费</li>
+                            <li class="control_domestic_member_lic" style="width:400px;">名单下载</li>
+                        </ul>
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="control_domestic_member_lia" style="width:100px;"><php> echo $dingdan['chengrenshu'] + $dingdan['ertongshu']</php></li>
+                            <li class="control_domestic_member_lia" style="width:100px;"><{$dingdan['lingdui_num']}></li>
+                            <li class="control_domestic_member_lib" style="width:100px;"><{$dingdan['jiage']}></li>
+                            <li class="control_domestic_member_lic" style="width:400px;"><a style="color:blue;" href="/data/<{$dingdan[file_url]}>">点击查看</a></li>
+                        </ul>
+                        <php>}else{ </php>
+                               
+                                
+                                
+                    
+                        <php>if($zituan['guojing'] =='境外'){</php>
+                    
+                    	<ul class="control_domestic_member_ol">
+                            <li class="control_domestic_member_lia">姓名</li>
+                            <li class="control_domestic_member_lia">拼音</li>
+                            <li class="control_domestic_member_lib">性别</li>
+                            <li class="control_domestic_member_lic">身份</li>
+                            <li class="control_domestic_member_lid">参团状态</li>
+                            <li class="control_domestic_member_lia">出生日期</li>
+                            <li class="control_domestic_member_lia">证件类型</li>
+                            <li class="control_domestic_member_lia">证件号</li>
+                            <li class="control_domestic_member_lia">户籍地</li>
+                            <li class="control_domestic_member_lia">证件有效期</li>
+                            <li class="control_domestic_member_lia">操作</li>
+                        </ul>
+                        
+                        		<php>foreach($dingdan['tuanyuanAll'] as $tuanyuan){ 
+                                </php>
+                        
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="control_domestic_member_lia"><{$tuanyuan['name']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['pinyin']}></li>
+                            <li class="control_domestic_member_lib"><{$tuanyuan['sex']}></li>
+                            <li class="control_domestic_member_lic"><{$tuanyuan['manorchild']}></li>
+                            <li class="control_domestic_member_lid"><{$tuanyuan['zhuangtai']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['chushengriqi']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['zhengjiantype']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['zhengjianhaoma']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['hujidi']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['zhengjianyouxiaoqi']}></li>
+                            <li class="control_domestic_member_lia"><a href="javascript:TravelerDetail('<{$tuanyuan['tuanyuanID']}>')">详细</a></li>
+                        </ul>
+                        
+                        		<php>}}else{
+                                </php>
+                                
+                    
+                    	<ul class="control_domestic_member_ol">
+                            <li class="control_domestic_member_lia">姓名</li>
+                            <li class="control_domestic_member_lib">性别</li>
+                            <li class="control_domestic_member_lic">身份</li>
+                            <li class="control_domestic_member_lid">状态</li>
+                            <li class="control_domestic_member_lia">证件类型</li>
+                            <li class="control_domestic_member_lia" style="width:120px;">证件号</li>
+                            <li class="control_domestic_member_lia">联系电话</li>
+                            <li class="control_domestic_member_lia" style="width:140px;">需求</li>
+                            <li class="control_domestic_member_lia">操作</li>
+                        </ul>
+                        
+                        		<php>foreach($dingdan['tuanyuanAll'] as $tuanyuan){ 
+                                </php>
+                        
+                        <ul onmouseover="this.style.backgroundColor='#bce5df'" onmouseout="this.style.backgroundColor=''">
+                            <li class="control_domestic_member_lia"><{$tuanyuan['name']}></li>
+                            <li class="control_domestic_member_lib"><{$tuanyuan['sex']}></li>
+                            <li class="control_domestic_member_lic"><{$tuanyuan['manorchild']}></li>
+                            <li class="control_domestic_member_lid"><{$tuanyuan['zhuangtai']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['zhengjiantype']}></li>
+                            <li class="control_domestic_member_lia"  style="width:120px;"><{$tuanyuan['zhengjianhaoma']}></li>
+                            <li class="control_domestic_member_lia"><{$tuanyuan['telnum']}></li>
+                            <li class="control_domestic_member_lia" style="width:140px;"><{$tuanyuan['xuqiu']}></li>
+                            <li class="control_domestic_member_lia"><a href="javascript:TravelerDetail('<{$tuanyuan['tuanyuanID']}>')">详细</a></li>
+                        </ul>
+                        
+                                
+                        		<php>}}
+                                </php>
+                                
+                                
+                                
+                        
+                    </ol>
+                    
+                    
+                        <php>}</php>
+                    
+                    
+<!--                    <div id="hlt_fit_price_cost_c">订单需求：<{$dingdan['xuqiu']}></div>
+-->                </div>
+            </div> 
+            
+                        		<php>}
+                                </php>
+        </div>
+    </div>
+    
+    
+</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+function doprint(zituanID)
+{
+    var url = '<{:SITE_ADMIN}>Kongguan/jiedaijihua/zituanID/'+zituanID+'/isprint/打印';
+    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+function exports(zituanID,type)
+{
+	if(type == 'word') type = '/type/word';
+	else type = '';
+	window.location.href = '<{:SITE_ADMIN}>Kongguan/exports/zituanID/'+zituanID+type;
+}
+function exports_word(zituanID)
+{
+	window.location.href = '<{:SITE_ADMIN}>Kongguan/exports_word/zituanID/'+zituanID;
+}
+function TravelerDetail(id)
+{
+    var url="<{:SITE_MENSHI}>Dingdan/tuanyuanxinxi/tuanyuanID/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+    return false;
+}
+
+</script>

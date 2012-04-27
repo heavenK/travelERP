@@ -1,0 +1,45 @@
+<include file="Common:header" />
+<div class="infomation" style="color:red"><b>说明：</b>请慎重安装第三方微博插件，安装第三方插件可能导致数据丢失或者其他安全隐患。过多的安装插件可能导致程序运行缓慢以及效率低下。</div><br/>
+<h3>管理插件</h3>
+<table class="table" style="margin:5px 0 20px 0">
+<tr>
+    <td width="40px">序号</td>
+    <td width="120px">插件名称</td>
+    <td width="120px">插件目录</td>
+    <td width="120px">插件作者</td>
+    <td width="100px">插件版本</td>
+    <td width="120px" style="text-indent:0px">插件介绍</td>
+    <td>启用</td>
+    <td>&nbsp;</td>
+</tr>
+<php>foreach($plugins as $key=>$val){</php>
+    <tr>
+        <td><{$val[plus][order]}></td>
+        <td><b><{$val[plus][name]}></b></td>
+        <td><{$key}></td>
+        <td>
+        <php>if($val[info][weburi]){</php>
+            <a href="<{$val[info][weburi]}>" target="_blank"><{$val[info][author]}></a>
+        <php>}else{</php>
+            <{$val[info][author]}>
+        <php>}</php>
+        </td>
+        <td><{$val[info][version]}></td>
+        <td style="text-indent:0px"><div style="white-space:normal; word-wrap:break-word;_overflow:hidden;width:120px"><{$val[info][info]}></div></td>
+        <td><{:$val[plus][available]==0?'否':'是'}></td>
+        <td>
+        <a href="<{:SITE_URL}>/admin.php?s=/Plugins/appsetting/appname/<{$key}>">插件设置</a> | 
+        <php>if($val[plus][available]==0){</php>
+            <a href="<{:SITE_URL}>/admin.php?s=/Plugins/switchs/appname/<{$key}>/s/1">启用插件</a>
+        <php>}else{</php>
+            <a href="##" onclick="if(confirm('是否要停用该插件？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Plugins/switchs/appname/<{$key}>/s/0'}">停用插件</a>
+         <php>}</php>
+         | <a href="##" onclick="if(confirm('是否要卸载该插件？')){window.location.href='<{:SITE_URL}>/admin.php?s=/Plugins/uninstall/appname/<{$key}>'}">卸载插件</a>
+        </td>
+    </tr>
+<php>}</php>
+</table>
+<php>if(!$plugins){</php>
+<div style="margin-left:20px">您还没有安装插件，插件项目请上传至“/Plugin”目录下！</div>
+<php>}</php>
+<include file="Common:foot" />

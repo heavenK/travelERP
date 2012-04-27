@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/ks.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssaaa.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	
+$(document).ready(function(){
+  $("#ks_sou_01").click(function () {
+	  	$("#ks_sou_01").removeClass("ks_out_01");
+	  	$("#ks_sou_01").addClass("ks_on_01");
+	  	$("#ks_sou_02").removeClass("ks_on_02");
+	  	$("#ks_sou_02").addClass("ks_out_02");
+    	$("#aaa1").show();
+		$("#aaa2").hide();
+  	});
+$("#ks_sou_02").click(function () {
+		$("#ks_sou_01").removeClass("ks_on_01");
+	  	$("#ks_sou_01").addClass("ks_out_01");
+	  	$("#ks_sou_02").removeClass("ks_out_02");
+	  	$("#ks_sou_02").addClass("ks_on_02");
+    	$("#aaa2").show();
+		$("#aaa1").hide();
+  	});
+});
+ 
+</script>
+<style>
+.fanye th {
+	background:url("<{:__PUBLIC__}>/gulianstyle/images/search_topbav_bg_02.gif") repeat-x;
+}
+</style>
+<title><{$navlist}></title>
+</head>
+
+<body>
+<div class="ks_mainbav"> <em>导航页：</em> <a style="color:red" href="<{:SITE_ADMIN}>Chanpin/navigation">计调导航</a> 
+<php>if(checkByadminlevel_v('计调经理,网管,总经理',$this->tVar)){</php><a href="<{:SITE_ADMIN}>Chanpin/manager_index">经理导航</a> <php>}</php>
+
+</div>
+<div class="ks_search_line"> <span id="ks_sou_01" class="ks_on_01"></span> <b id="ks_sou_02" class="ks_out_02" ></b>
+  <div id="aaa1"> <em>
+    <label>线路名称：</label>
+    <input type="text" id="mingcheng" />
+    <label>包含出团日期：</label>
+    <input type="text" onfocus="WdatePicker()" id="chutuanriqi" style=" background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+    <label>出发地：</label>
+    <input type="text" id="chufadi"/>
+    <label>目的地：</label>
+    <input type="text" id="mudidi"/>
+    <label>关键字：</label>
+    <input type="text" id="guanjianzi" />
+    </em> <em>
+    <label>国境：</label>
+    <select id="guojing" onchange="doready();">
+      <option value="">全部</option>
+      <option value="国内">国内</option>
+      <option value="境外">境外</option>
+    </select>
+    <label>产品类型：</label>
+    <select id="xianlutype" onchange="doready();">
+      <option value="">全部</option>
+      <option value="散客产品">散客产品</option>
+      <option value="自由人">自由人</option>
+      <option value="包团">包团</option>
+    </select>
+    <label>产品分类：</label>
+    <select id="kind">
+      <option value="">全部</option>
+      <option class="nei" value="近郊游">近郊游</option>
+      <option class="nei" value="长线游">长线游</option>
+      <option class="nei" value="包团">包团</option>
+      <option class="wai" style="display:none;" value="海岛游">海岛游</option>
+      <option class="wai" style="display:none;" value="出境游">出境游</option>
+      <option class="wai" style="display:none;" value="包团">包团</option>
+    </select>
+    <label>状态：</label>
+    <select id="zhuangtai">
+      <option value="">全部</option>
+      <option value="准备">准备</option>
+      <option value="等待审核">等待审核</option>
+      <option value="审核不通过">审核不通过</option>
+      <option value="报名">报名</option>
+      <option value="截止">截止</option>
+    </select>
+    </em> <i id="dosearch"><a onclick="dosearch();"></a></i> </div>
+  <div id="aaa2" style="display:none"> <em>
+    <label>团号：</label>
+    <input type="text" id="tuanhaot" />
+    <label>团队名称：</label>
+    <input type="text" id="mingchengt" />
+    <label>出团日期：</label>
+    <input type="text" onfocus="WdatePicker()" id="chutuanriqit" style="width:90px; background: url(<{:__PUBLIC__}>/gulianstyle/images/header_bg.png) no-repeat -116px -101px;" />
+    <label>出发地：</label>
+    <input type="text" id="chufadit" />
+    <label>目的地：</label>
+    <input type="text" id="mudidit" />
+    <label>天数：</label>
+    <input type="text" id="tianshut" />
+    </em> <em>
+    <label>关键字：</label>
+    <input type="text" id="keywordt" />
+    <label>国境：</label>
+    <select id="guojingt" onchange="doreadyt();">
+      <option value="">全部</option>
+      <option value="国内">国内</option>
+      <option value="境外">境外</option>
+    </select>
+    <label>方式：</label>
+    <select id="xianlutypet" onchange="doreadyt();">
+      <option value="">全部</option>
+      <option value="散客产品">散客产品</option>
+      <option value="自由人">自由人</option>
+      <option value="包团">包团</option>
+    </select>
+    <label>种类：</label>
+    <select id="kindt">
+      <option value="">全部</option>
+      <option class="neit" value="近郊游">近郊游</option>
+      <option class="neit" value="长线游">长线游</option>
+      <option class="neit" value="包团">包团</option>
+      <option class="wait" style="display:none;" value="海岛游">海岛游</option>
+      <option class="wait" style="display:none;" value="出境游">出境游</option>
+      <option class="wait" style="display:none;" value="包团">包团</option>
+    </select>
+    <label>状态：</label>
+    <select id="zhuangtait">
+      <option value="">全部</option>
+      <option value="报名">报名</option>
+      <option value="截止">截止</option>
+    </select>
+    </em> <i id="dosearcht"><a onclick="dosearcht();"></a></i> </div>
+</div>
+<!--
+<div class="ks_search_infos"> <b></b> <em> <u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/散客产品/guojing/国内/kind/近郊游"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_01.gif" /></a></u> <u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/散客产品/guojing/国内/kind/长线游"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_02.gif" /></a></u> <u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/自由人/guojing/国内/kind/自由人"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_03.gif" /></a></u> <u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/包团/guojing/国内/kind/包团"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_04.gif" /></a></u> </em> <em> <u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/散客产品/guojing/境外/kind/海岛游"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_05.gif" /></a></u> 
+<u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/散客产品/guojing/境外/kind/出境游"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_06.gif" /></a></u> 
+<u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/自由人/guojing/境外/kind/自由人"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_07.gif" /></a></u> 
+<u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/xianlutype/包团/guojing/境外/kind/包团"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_08.gif" /></a></u> 
+<u><a href="<{:SITE_ADMIN}>Chanpin/fabuxinxianlu/showtype/快速"><img src="<{:__PUBLIC__}>/gulianstyle/images/ks_btn_33.gif" /></a></u> 
+</em> </div>
+-->
+<iframe src="<{:SITE_ADMIN}>/Chanpin/sankechanpin/iframe/2/user_name/<php>echo $this->tVar[my][user_name]</php>/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible; margin-top:10px;"></iframe>
+<iframe src="<{:SITE_ADMIN}>/Chanpin/sankechanpin/iframe/2/user_name/<php>echo $this->tVar[my][user_name]</php>/pagenum/5/zhuangtai/全部" width="100%" height="300" frameborder="0" style="overflow: visible; margin-top:10px;"></iframe>
+<iframe src="<{:SITE_ADMIN}>/Kongguan/sankekongguan/iframe/3/user_name/<php>echo $this->tVar[my][user_name]</php>/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible;"></iframe>
+<iframe src="<{:SITE_ADMIN}>/Chanpin/sankechanpin/iframe/1/zhuangtai/报名/user_name/<php>echo $this->tVar[my][user_name]</php>/pagenum/5" width="100%" height="300" frameborder="0" style="overflow: visible; margin-top:10px; " ></iframe>
+
+<php>if($ds > 1){</php>
+
+<iframe src="<{:SITE_MENSHI}>Dingdan/sankedingdan/iframe/s1/check_status/等待审核/pagenum/5" width="100%" height="400" frameborder="0" style="overflow: visible;"></iframe>
+
+<php>}</php>
+
+</body>
+</html>
+<script type="text/javascript">
+
+function dosearch() {
+        
+	var mingcheng = document.getElementById('mingcheng').value;
+	var guanjianzi = document.getElementById('guanjianzi').value;
+	var chufadi = document.getElementById('chufadi').value;
+	var mudidi = document.getElementById('mudidi').value;
+	var xianlutype = document.getElementById('xianlutype').value;
+	var chutuanriqi = document.getElementById('chutuanriqi').value;
+//	var chufariqi = document.getElementById('chufariqi').value;
+//	var jiezhiriqi = document.getElementById('jiezhiriqi').value;
+	var zhuangtai = document.getElementById('zhuangtai').value;
+	var guojing = document.getElementById('guojing').value;
+	var kind = document.getElementById('kind').value;
+	window.location.href = '<{:SITE_ADMIN}>Chanpin/sankechanpin/guanjianzi/'+guanjianzi+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/zhuangtai/'+zhuangtai+'/xianlutype/'+xianlutype+'/mingcheng/'+mingcheng+'/guojing/'+guojing+'/kind/'+kind+'/chutuanriqi/'+chutuanriqi;
+}
+
+function doziyousearch() {
+        
+	var mingcheng = document.getElementById('mingcheng').value;
+	var guanjianzi = document.getElementById('guanjianzi').value;
+	var chufadi = document.getElementById('chufadi').value;
+	var mudidi = document.getElementById('mudidi').value;
+	var xianlutype = document.getElementById('xianlutype').value;
+	var chutuanriqi = document.getElementById('chutuanriqi').value;
+//	var chufariqi = document.getElementById('chufariqi').value;
+//	var jiezhiriqi = document.getElementById('jiezhiriqi').value;
+	var zhuangtai = document.getElementById('zhuangtai').value;
+	var guojing = document.getElementById('guojing').value;
+	var kind = document.getElementById('kind').value;
+	
+	window.location.href = '<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/自由人/guanjianzi/'+guanjianzi+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/zhuangtai/'+zhuangtai+'/xianlutype/'+xianlutype+'/mingcheng/'+mingcheng+'/guojing/'+guojing+'/kind/'+kind+'/chutuanriqi/'+chutuanriqi;
+}
+
+function doready(){
+	var guojing = document.getElementById('guojing').value;
+	var xianlutype = document.getElementById('xianlutype').value;
+	
+	if(guojing == "国内"){
+		$(".nei").show();
+		$(".wai").hide();
+	}
+	else{
+		$(".wai").show();
+		$(".nei").hide();
+	}
+	
+	if(xianlutype == "自由人"){
+		$("#dosearch").empty();
+		$("#dosearch").append('<a onclick="doziyousearch();"></a>');
+	}
+	else{
+		$("#dosearch").empty();
+		$("#dosearch").append('<a onclick="dosearch();"></a>');
+	}
+	
+}
+
+function dosearcht() {
+        
+	var tuanhao = document.getElementById('tuanhaot').value;
+	var mingcheng = document.getElementById('mingchengt').value;
+	var keyword = document.getElementById('keywordt').value;
+	var chufadi = document.getElementById('chufadit').value;
+	var mudidi = document.getElementById('mudidit').value;
+	var tianshu = document.getElementById('tianshut').value;
+	var chutuanriqi = document.getElementById('chutuanriqit').value;
+	var zhuangtai = document.getElementById('zhuangtait').value;
+	var guojing = document.getElementById('guojingt').value;
+	var kind = document.getElementById('kindt').value;
+	var xianlutype = document.getElementById('xianlutypet').value;
+	
+	window.location.href = '<{:SITE_ADMIN}>Kongguan/sankekongguan/keyword/'+keyword+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/tianshu/'+tianshu+'/chutuanriqi/'+chutuanriqi+'/zhuangtai/'+zhuangtai+'/xianlutype/'+xianlutype+'/guojing/'+guojing+'/kind/'+kind+'/tuanhao/'+tuanhao+'/mingcheng/'+mingcheng;		
+}
+
+function doziyousearcht() {
+	var tuanhao = document.getElementById('tuanhaot').value;
+	var mingcheng = document.getElementById('mingchengt').value;
+	var keyword = document.getElementById('keywordt').value;
+	var chufadi = document.getElementById('chufadit').value;
+	var mudidi = document.getElementById('mudidit').value;
+	var tianshu = document.getElementById('tianshut').value;
+	var chutuanriqi = document.getElementById('chutuanriqit').value;
+	var zhuangtai = document.getElementById('zhuangtait').value;
+	var guojing = document.getElementById('guojingt').value;
+	
+	window.location.href = '<{:SITE_ADMIN}>Kongguan/sankekongguan/xianlutype/自由人/keyword/'+keyword+'/chufadi/'+chufadi+'/mudidi/'+mudidi+'/tianshu/'+tianshu+'/chutuanriqi/'+chutuanriqi+'/zhuangtai/'+zhuangtai+'/guojing/'+guojing+'/tuanhao/'+tuanhao+'/mingcheng/'+mingcheng;
+	
+}
+
+function doreadyt(){
+	var guojing = document.getElementById('guojingt').value;
+	var xianlutype = document.getElementById('xianlutypet').value;
+	if(guojing == "国内"){
+		$(".neit").show();
+		$(".wait").hide();
+	}
+	else{
+		$(".wait").show();
+		$(".neit").hide();
+	}
+	if(xianlutype == "自由人"){
+		$("#dosearcht").empty();
+		$("#dosearcht").append('<a onclick="doziyousearcht();"></a>');
+	}
+	else{
+		$("#dosearcht").empty();
+		$("#dosearcht").append('<a onclick="dosearcht();"></a>');
+	}
+}
+
+
+
+</script>
+<include file="Index:footer" />

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><{$navlist}></title>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css" />
+<link rel="stylesheet" href="<{:__PUBLIC__}>/gulianstyle/admintemp/page.css" type="text/css" media="all" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/search.js"></script>
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></SCRIPT>
+</head>
+
+<body>
+    
+<div id="hlt_fit_view" >
+    <div class="szwz" style="color:#FFF;">
+      <ul>
+        <li> <span>您所在的位置: </span><{$navlist}></li>
+      </ul>
+    </div>
+    
+    
+    <div class="fanye" style="float:left; margin-top:10px; width:100%">
+      <div id="hlt_fit_search" style="width:900px;"><!--查询-->
+      	<div class="search_one">
+            <div id="hlt_fit_search_a_s"><span>订单编号：</span>
+              <input name="bianhao" type="text" id="bianhao" value="<{$bianhao}>">
+            </div>
+            <div id="hlt_fit_search_a_s"><span>团号：</span>
+              <input name="tuanhao" type="text" id="tuanhao" value="<{$tuanhao}>">
+            </div>
+            <div id="hlt_fit_search_a_s"> <span>线路名称：</span>
+              <input name="mingcheng" type="text" id="mingcheng" value="<{$mingcheng}>">
+             </div>
+            <div id="hlt_fit_search_a_s" > <span>出团日期：</span>
+              <input name="chutuanriqi" type="text" id="chutuanriqi" class="Wdate" onfocus="WdatePicker()"  value="<{$chutuanriqi}>">
+            </div>
+        </div>
+      	<div class="search_one">
+            <div id="hlt_fit_search_a_s" > <span>国境：</span>
+              <select name="guojing" id="guojing" value="<{$guojing}>">
+                <php> if($guojing){</php>
+                <option value="<{$guojing}>"><{$guojing}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="国内">国内</option>
+                <option value="境外">境外</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>操作人：</span>
+              <input name="user_name" type="text" id="user_name" value="<{$user_name}>">
+            </div>
+            <div id="hlt_fit_search_a_s" ><span>类型：</span>
+              <select name="kind" id="kind" value="<{$kind}>">
+                <php> if($kind){</php>
+                <option value="<{$kind}>"><{$kind}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="近郊游">近郊游</option>
+                <option value="长线游">长线游</option>
+                <option value="海岛游">海岛游</option>
+                <option value="出境游">出境游</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s" ><span>线路类型：</span>
+              <select name="xianlutype" id="xianlutype" value="<{$xianlutype}>">
+                <php> if($xianlutype){</php>
+                <option value="<{$xianlutype}>"><{$xianlutype}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="散客产品">散客产品</option>
+                <option value="自由人">自由人</option>
+                <option value="包团">包团</option>
+              </select>
+            </div>
+        </div>
+      	<div class="search_one">
+            <div id="hlt_fit_search_a_s"><span>状态：</span>
+              <select name="zhuangtai" id="zhuangtai" value="<{$zhuangtai}>">
+                <php> if($zhuangtai){</php>
+                <option value="<{$zhuangtai}>"><{$zhuangtai}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="占位">占位</option>
+                <option value="确认">确认</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>门市付款：</span>
+              <select name="daokuan" id="daokuan">
+                <php> if($daokuan){</php>
+                <option value="<{$daokuan}>"><{$daokuan}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="未付款">未付款</option>
+                <option value="已付款">已付款</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_a_s"><span>审核状态：</span>
+              <select name="check_status" id="check_status" value="<{$check_status}>">
+                <php> if($check_status){</php>
+                <option value="<{$check_status}>"><{$check_status}></option>
+                <option disabled="disabled">-----------------</option>
+                <php> }</php>
+                <option value="">-全部-</option>
+                <option value="等待审核">等待审核</option>
+                <option value="审核通过">审核通过</option>
+                <option value="审核不通过">审核不通过</option>
+              </select>
+            </div>
+            <div id="hlt_fit_search_g_s" style="width:200px;">
+              <input type="submit" value="" alt="搜索" style="cursor:pointer" onclick="dosearch();"  /><input type="button" value="" alt="返回" style="background:url('<{:__PUBLIC__}>/gulianstyle/images/search_btn_02.png') no-repeat; margin:0 0 0 5px; display:inline;" onclick="window.parent.location = '<{:SITE_ADMIN}>Index/index_chanpin'" />
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="fanye" style="float:left; margin-top:10px; width:100%">
+      <table class="bg" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th height="32" align="center">序号</th>
+            <th height="32" align="center"> 订单编号</th>
+            <th height="32" align="center"> 线路名称</th>
+            <th height="32" align="center"> 团号</th>
+            <th height="32" align="center"> 人数</th>
+            <th height="32" align="center"> 出团时间</th>
+            <th height="32" align="center"> 操作人</th>
+            <th height="32" align="center"> 部门</th>
+            <th height="32" align="center"> 锁</th>
+            <th height="32" align="center"> 审核状态</th>
+            <th height="32" align="center"> 下单时间</th>
+          </tr>
+            <php>
+        $i = 0;
+        foreach($dingdanAll as $dingdan){ $i++;
+          </php>
+        
+        <tr class="tr<php>echo $i%2</php>">
+          <td height="32" align="center"><{$i}></td>
+          <td height="32" align="center"><a href="javascript:dingdanprint(<{$dingdan['dingdanID']}>);"> <{$dingdan['bianhao']}> </a></td>
+          <td height="32" align="center"><a href="javascript:dingdanprint(<{$dingdan['dingdanID']}>);"><{$dingdan['mingcheng']}> </a></td>
+          <td height="32" align="center"><a href="javascript:zituanprint(<{$dingdan['zituanID']}>);"> <{$dingdan['tuanhao']}> </a></td>
+          <td height="32" align="center"><php> echo $dingdan['chengrenshu'] + $dingdan['ertongshu'] </php></td>
+          <td height="32" align="center"><{$dingdan['chutuanriqi']}> </td>
+          <td height="32" align="center"><{$dingdan['realname']}> </td>
+          <td height="32" align="center"><{$dingdan['department']}> </td>
+          <td height="32" align="center"><{$dingdan['islock']}> </td>
+          <td height="32" align="center"><{$dingdan['check_status']}></td>
+          <td height="32" align="center"><php>echo date('Y-m-d H:i:s',$dingdan['time'])</php></td>
+        </tr>
+        <php>} </php>
+          </tbody>
+        
+      </table>
+      <div style="width:100%; float:left; background-color:#E6E6E6;" ><!--翻页-->
+        <div class="page"><{$page}></div>
+      </div>
+    </div>
+    
+</div>
+</body>
+</html>
+<script>
+
+function dosearch() {
+        
+		var bianhao = document.getElementById('bianhao').value;
+		var tuanhao = document.getElementById('tuanhao').value;
+		var mingcheng = document.getElementById('mingcheng').value;
+		var daokuan = document.getElementById('daokuan').value;
+		var chutuanriqi = document.getElementById('chutuanriqi').value;
+		var user_name = document.getElementById('user_name').value;
+		var zhuangtai = document.getElementById('zhuangtai').value;
+		//var daokuancw = document.getElementById('daokuancw').value;
+		var guojing = document.getElementById('guojing').value;
+		var xianlutype = document.getElementById('xianlutype').value;
+		var kind = document.getElementById('kind').value;
+		var check_status = document.getElementById('check_status').value;
+		
+		window.location = '<{:SITE_MENSHI}>Dingdan/sankedingdan/showtype/审核/bianhao/'+bianhao+'/tuanhao/'+tuanhao+'/mingcheng/'+mingcheng+'/daokuan/'+daokuan+'/chutuanriqi/'+chutuanriqi+'/user_name/'+user_name+'/zhuangtai/'+zhuangtai+'/kind/'+kind+'/guojing/'+guojing+'/xianlutype/'+xianlutype+'/check_status/'+check_status;
+}
+
+function zituanprint(zituanID)
+{
+    var url = '<{:SITE_ADMIN}>Dingdan/zituandingdan/zituanID/'+zituanID;
+    var winvalue=	window.open(url,null,"height=700,width=800,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+function dingdanprint(id)
+{
+    var url = '<{:SITE_MENSHI}>Dingdan/dingdanxinxi/showtype/审核/dingdanID/'+id;
+    var winvalue=	window.open(url,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+
+}
+
+</script>
+<include file="Index:footer" />

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/cssold.css">
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/dijietable.js"></script>
+
+</head>
+
+
+<body>
+
+            <include file="AdminShenhe:navlist" />
+
+            <div id="content_bb" style="width:1000px; margin:auto">
+                
+                <style>
+				.t1gp{background-color:#e6f2f2}
+				.textgp{width:98%;}
+				.textgpb{width:98%; height:60px;}
+				</style>
+                
+                <div class="jbxxy" style="width:99%" >
+
+                    <table class="cbx" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="jyt" height="27" bgcolor="#E6E6E6">
+                                <strong>付款申请单：</strong></td>
+                        </tr>
+                    </tbody></table>
+                    <table id="applypayment" style="text-align: center;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="fenlei">
+                            <td height="27" align="Center" bgcolor="#e6f2f2"><strong>标题</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>申请内容</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>申请时间</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>总经理</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>部门负责</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>审核</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>经手人</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>状态</strong></td>
+                            <td height="27" align="Center" bgcolor="#ff8c05"><strong>操作</strong></td>
+                        </tr>
+                        <php>foreach($paymentAll as $item){ 
+                        </php>
+                        <tr>
+                            <td width="10%" style="height: 27px;" align="center">
+                            <{$item[title]}>
+                            </td>
+                            <td width="20%" style="height: 27px;" align="center">
+                            <textarea disabled="disabled" name="content" id="content_<{$item[applypaymentID]}>" style=" width:90%; height:50px;" ><{$item[content]}></textarea>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center">
+							<{$item[applytime]}>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="manager" id="manager_<{$item[applypaymentID]}>"  value="<{$item[manager]}>" style=" width:90%"/>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="department" id="department_<{$item[applypaymentID]}>"  value="<{$item[department]}>"   style=" width:90%"/>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="checker" id="checker_<{$item[applypaymentID]}>"  value="<{$item[checker]}>"   style=" width:90%"/>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center">
+                            <input disabled="disabled" type="text" name="handler" id="handler_<{$item[applypaymentID]}>"  value="<{$item[handler]}>"   style=" width:90%"/>
+                            </td>
+                            <td width="5%" style="height: 27px;" align="center" id="zhuangtai_<{$item[applypaymentID]}>">
+                            <{$item['status']}>
+                            </td>
+                            <td width="10%" style="height: 27px;" align="center">
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='docheck("<{$item[applypaymentID]}>","审核通过");'>审核通过</a>&nbsp;&nbsp;
+                            <a style='cursor:pointer;color: blue;' class='del' onclick='docheck("<{$item[applypaymentID]}>","审核不通过");'>审核不通过</a>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                        <php>}
+                        </php>
+                        </tbody></table>
+                    
+                </div>
+
+                
+            </div>
+
+	
+
+</body>
+</html>
+
+
+<script>
+
+function docheck(id,type){
+	$.ajax({
+		type:	"POST",
+		url:	"<{:SITE_ADMIN}>Shenhe/docheck",
+		data:	"applypaymentID=" + id +"&type="+type,
+		success:	function(msg){
+					if(msg){
+						alert(type+'操作成功！');
+						$("#zhuangtai_"+id).html(msg);
+					}
+				  }
+	});
+}
+
+</script>

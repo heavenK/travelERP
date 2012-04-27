@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0046)<{:SITE_URL}>Main/QuoteProduct.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>互动旅游-产品引用</title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/gulianstyle/styles/sankechanpin.css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/HttpXML.js" language="javascript">
+</script><script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.js">
+</script><link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+
+
+
+<script type="text/javascript" language="javascript">
+function myCheckBoxSelect(o)
+{
+
+    var id = 'rpUserlist_ctl';
+    var i = 1;
+    for(;;)
+    {
+        if(i%2)
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbItem';
+        }
+        else
+        {
+            id = 'rpUserlist_ctl' + (i>9?'':'0') + i + '_cbAlternatingItem';
+        }
+        var c = document.getElementById(id);
+        if(c)
+        {
+            c.checked = o.checked;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+ 
+}
+function Shenhe(id)
+{
+    var url = '/ajax.aspx?type=TijiaoShenhe&uid='+id+'&date=' + new Date().getTime();
+    var response=httpRequest('get',null,url);
+    if(response=='ok')
+    {
+        var img=document.getElementById("img"+id);
+        if(img)
+        {
+            img.src='images/waitshenhe.gif';
+        }
+        var span=document.getElementById("span"+id);
+        if(span)
+        {
+            span.innerHTML='等待审核';
+        }
+        alert("提交成功！");
+    }
+    else
+    {
+       alert(response);
+    }
+}
+
+function PriceModify(o)
+{
+
+    var divmodify=document.getElementById("priceModify");
+    if(divmodify)
+    {
+        if(divmodify.style.display=='none')
+        {
+            divmodify.style.display='';
+            var x = GapsX(o);
+            var y = GapsY(o);
+            divmodify.style.left = x+ 'px';
+	        divmodify.style.top = (y + 25)+ 'px';
+            
+        }
+        else
+        {
+            divmodify.style.display='none';
+        }
+    }
+    return false;
+}
+
+function CheckPrice()
+{
+    var price=document.getElementById("tbPrice");
+    if(price.value=="")
+    {
+        alert("价格不能为空!");
+        pirce.focus();
+        return false;
+    }
+    return true;
+}
+</script></head>
+
+
+
+
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none; "><iframe src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker.htm" frameborder="0" border="0" scrolling="no" style="width: 186px; height: 199px; "></iframe></div>
+<div class="hdlyRight">
+  <form name="form" method="post" action="<{:__PUBLIC__}>/gulianstyle/styles/互动旅游-产品引用.htm" id="form">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTExOTc2Mzk3MjkPZBYCAgEPZBY6AgEPZBYCAgEPFgIeBFRleHQFjgEgJmd0OyA8YSBocmVmPSIjIj7ml4XmuLjkuqflk4HnrqHnkIY8L2E+ICZndDsgPGEgaHJlZj0iIyI+57q/6Lev5Lqn5ZOB5Y+R5biDPC9hPiAmZ3Q7IDxhIGhyZWY9IiMiPuWbveWGhTwvYT4gJmd0OyA8YSBocmVmPSIjIj7mlaPlrqLkuqflk4E8L2E+ZAIDDxAPFgYeDURhdGFUZXh0RmllbGQFBVRpdGxlHg5EYXRhVmFsdWVGaWVsZAUCSUQeC18hRGF0YUJvdW5kZ2QQFQMG5YWo6YOoBuWkp+i/ngbljJfkuqwVAwEwAjgxAzE1NxQrAwNnZ2dkZAIRDxYCHgVjbGFzcwUEbnVtMmQCEw8WAh8EBQRudW0xZAIVDxYCHwQFBG51bTJkAhcPDxYCHgdWaXNpYmxlaGRkAhkPDxYCHwVoZGQCGw8PFgIfBWhkZAIdDw8WAh8FaGRkAh8PDxYCHwVoZGQCIQ8QDxYCHwVoZBAVABUAFCsDABYAZAIjDw8WAh8FaGRkAiUPDxYCHwAFATBkZAInDw8WAh8ABQEwZGQCKQ8PFgIfAAUBMGRkAisPFgIeC18hSXRlbUNvdW50ZmQCLQ8WAh8EBQRudW0yZAIvDxYCHwQFBG51bTFkAjEPFgIfBAUEbnVtMmQCMw8PFgIfBWhkZAI1Dw8WAh8FaGRkAjcPDxYCHwVoZGQCOQ8PFgIfBWhkZAI7Dw8WAh8FaGRkAj0PEA8WAh8FaGQQFQAVABQrAwAWAGQCPw8PFgIfBWhkZAJBDw8WAh8ABQEwZGQCQw8PFgIfAAUBMGRkAkUPDxYCHwAFATBkZGQ+Gj/0tlLJjgSmA4U3YEKETzYvag==">
+</div>
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+    <div id="content_bb">
+      
+<div class="szwz">
+    <ul>
+      <li> <span>您所在的位置：</span>引用产品</li>
+    </ul>
+</div>
+      <div class="ss">
+        <table width="79%" border="0" class="test1" style="padding-top:20px;">
+          <tbody><tr>
+            <td width="81" height="18" align="right">出发城市：</td>
+            <td width="179" height="18">
+                <select name="ddlDepartCity" id="ddlDepartCity" style="width:153px;">
+	<option value="0">全部</option>
+	<option value="81">大连</option>
+	<option value="157">北京</option>
+
+</select>
+            </td>
+            <td width="47" height="18" align="right">状态：</td>
+            <td colspan="3">
+                <select name="ddlSates" id="ddlSates" style="width:103px;">
+	<option value="">全部</option>
+	<option value="3">报名</option>
+	<option value="4">截止</option>
+	<option value="5">出团</option>
+	<option value="6">回团</option>
+
+</select>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="81" height="18" align="right">关键字：</td>
+            <td width="179" height="18"><input name="tbKeyword" type="text" id="tbKeyword"></td>
+            <td width="47" height="18" align="right">日期：</td>
+            <td width="174" height="18"><input name="tbLineDate" type="text" id="tbLineDate" class="Wdate" onfocus="WdatePicker()" style="width:101px;"></td>
+            <td width="61">&nbsp;</td>
+            <td width="60" align="right"><input type="submit" name="SearchBtn" value="搜 索" id="SearchBtn" class="anu"></td>
+            <td width="285">&nbsp;</td>
+          </tr>
+        </tbody></table>
+      </div>
+      <div class="fanye">
+      <div class="nr">
+        <table width="313" border="0">
+          <tbody><tr>
+            
+            <td class="wbx" width="58" align="center"><a onclick="return confirm('确认删除吗？');" id="lkBtnDelete" class="yyxxl" href="javascript:__doPostBack('lkBtnDelete','')">删 除</a></td>
+          <td class="wbx" width="58" align="center"><a id="lbtBack" class="yyxxl" href="javascript:__doPostBack('lbtBack','')">返 回</a></td>
+            <td class="wbx" width="58" align="center"></td>
+            <td class="wbx" align="left"></td>
+          </tr>
+        </tbody></table>
+      </div>
+      <div class="page">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6E6">
+           <tbody><tr>
+                <td width="10%" align="center" valign="middle" bgcolor="#E6E6E6">每页显示数量<a href="<{:SITE_URL}>Main/QuoteProduct.aspx#"></a> <a href="<{:SITE_URL}>Main/QuoteProduct.aspx#"></a></td>
+                <td id="td20" width="2%" class="num2" align="center" valign="middle" bgcolor="#E6E6E6">
+                    <a id="lnkbtnTop20" class="num_11" href="javascript:__doPostBack('lnkbtnTop20','')">20</a>
+                </td>
+
+                <td id="td40" width="2%" align="center" valign="middle" bgcolor="#E6E6E6" class="num1">
+                    <a id="lnkbtnTop40" class="num_11" href="javascript:__doPostBack('lnkbtnTop40','')">40</a>
+                </td>
+
+                <td id="td60" width="2%" align="center" valign="middle" bgcolor="#E6E6E6" class="num2">
+                    <a id="lnkbtnTop60" class="num_11" href="javascript:__doPostBack('lnkbtnTop60','')">60</a>
+                </td>
+
+                <td class="fz" width="7%" align="center" valign="middle" bgcolor="#E6E6E6">&nbsp;</td>
+                <td class="fz" width="9%" align="center" valign="middle" bgcolor="#E6E6E6">&nbsp;</td>
+                <td width="47%" align="center" valign="middle" bgcolor="#E6E6E6">
+                     
+                     
+                     
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     
+                     
+                    
+                </td>
+                <td width="21%" height="27" align="center" valign="middle" bgcolor="#E6E6E6">分页<span id="lbCurrentPage">0</span>/<span id="lbTotalPage">0</span> 记录数 <span id="lblRecordCount">0</span></td>
+          </tr>
+        </tbody></table></div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+        
+              <tbody><tr>
+                <th height="32" align="center"><input type="checkbox" name="checkbox" onclick="myCheckBoxSelect(this)"></th>
+                <th height="32" align="center">团号</th>
+                <th height="32" align="center">产品名称</th>
+                <th height="32" align="center">主题</th>
+                <th height="32" align="center">天数 </th>
+                <th height="32" align="center">状态</th>
+                <th height="32" align="center">供应商</th>
+                <th height="32" align="center">价格</th>
+                <th height="32" align="center">人数</th>
+                <th height="32" align="center">出团日期</th>
+                <th height="32" align="center">引用状态</th>
+                <th align="center">类型</th>
+              </tr>
+                 
+        </tbody></table>
+       <div class="page">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6E6">
+              <tbody><tr>
+                <td width="10%" align="center" valign="middle" bgcolor="#E6E6E6">每页显示数量</td>
+                <td id="td201" width="2%" align="center" valign="middle" bgcolor="#E6E6E6" class="num2">
+                    <a id="lnkbtnTop201" class="num_11" href="javascript:__doPostBack('lnkbtnTop201','')">20</a>
+                </td>
+
+                <td id="td401" width="2%" align="center" valign="middle" bgcolor="#E6E6E6" class="num1">
+                     <a id="lnkbtnTop401" class="num_11" href="javascript:__doPostBack('lnkbtnTop401','')">40</a>
+                </td>
+
+                <td id="td601" width="2%" align="center" valign="middle" bgcolor="#E6E6E6" class="num2">
+                    <a id="lnkbtnTop601" class="num_11" href="javascript:__doPostBack('lnkbtnTop601','')">60</a>
+                </td>
+
+                <td class="fz" width="7%" align="center" valign="middle" bgcolor="#E6E6E6">&nbsp;</td>
+                <td class="fz" width="9%" align="center" valign="middle" bgcolor="#E6E6E6">&nbsp;</td>
+                <td width="47%" align="center" valign="middle" bgcolor="#E6E6E6">
+                    
+                    
+					 
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					
+                    
+                    
+                </td>
+                <td width="21%" height="27" align="center" valign="middle" bgcolor="#E6E6E6">分页<span id="lbCurrentPage1">0</span>/<span id="lbTotalPage1">0</span> 记录数 <span id="lblRecordCount1">0</span></td>
+          </tr>
+        </tbody></table></div>
+      <div class="clear"></div>
+    </div>
+    <div id="priceModify" style="display:none; position:absolute;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E6E6E6">
+            <tbody><tr><td>价格：</td><td><input name="tbPrice" type="text" value="0" id="tbPrice"></td></tr>
+            <tr><td></td><td><table id="rblAddCut" border="0">
+	<tbody><tr>
+		<td><input id="rblAddCut_0" type="radio" name="rblAddCut" value="ADD" checked="checked"><label for="rblAddCut_0">增加</label></td><td><input id="rblAddCut_1" type="radio" name="rblAddCut" value="CUT"><label for="rblAddCut_1">减少</label></td>
+	</tr>
+</tbody></table></td></tr>
+            <tr><td></td><td><input type="submit" name="btnAdd" value="提 交" onclick="return CheckPrice();" id="btnAdd">&nbsp;&nbsp;&nbsp;<input type="submit" name="Button1" value="关 闭" onclick="document.getElementById('priceModify').style.display='none';return false;" id="Button1"></td></tr>
+        </tbody></table>
+    </div>
+  
+</div></form>
+<div id="divrili" style="display:none;">
+    <iframe height="180" frameborder="0" width="668" src="<{:__PUBLIC__}>/gulianstyle/styles/calendar2.htm" name="CalFrame" id="CalFrame" style="display: block; "></iframe>
+</div>
+<div id="divrili2" style="position:absolute;display:none;">
+    <iframe height="180" frameborder="0" width="668" src="<{:__PUBLIC__}>/gulianstyle/styles/GuijiManage.htm" name="CalFrame2" id="CalFrame2"></iframe>
+</div>
+
+
+
+<script type="text/javascript"> 
+var currentLineID = "";
+function setRiliDisplay(divID,id) {
+	var divline = document.getElementById(divID);
+	var divRili = document.getElementById("divrili"); 
+	var divRili2 = document.getElementById("divrili2"); 
+	divRili2.style.display = 'none';
+	var ifCalFrame = document.getElementById("CalFrame");  
+	if(divRili) {
+		if(divRili.style.display=='' && currentLineID == divID.replace("divline",""))
+			divRili.style.display = 'none';
+		else {
+			divRili.style.display = '';  
+			ifCalFrame.setAttribute("src","/calendar2.html?lineid="+id);
+			divline.appendChild(divRili); 
+		}
+	}
+	currentLineID = divID.replace("divline","");
+}
+
+function GetGuiJi(o,lineid)
+{
+    var x = GapsX(o);
+    var y = GapsY(o);
+	var divRili2 = document.getElementById("divrili2"); 
+	var divRili = document.getElementById("divrili"); 
+	divRili.style.display = 'none';
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili2) {
+		if(divRili2.style.display==''&&currentLineID==lineid)
+		{   
+			divRili2.style.display = 'none';
+		}
+		else {
+		    divRili2.style.left = (x-680) + 'px';
+	        divRili2.style.top = y + 'px';
+			divRili2.style.display = '';			
+			ifCalFrame.setAttribute("src","GuijiManage.aspx?lineid="+lineid+"&date="+new Date().getTime());
+		}
+	}
+	currentLineID=lineid;
+	
+}
+
+function GapsX(elem){
+    return !elem.offsetParent ? elem.offsetLeft : ( elem.offsetLeft + GapsX(elem.offsetParent) ); 
+}
+function GapsY(elem){
+    return !elem.offsetParent ? elem.offsetTop : ( elem.offsetTop + GapsY(elem.offsetParent) ); 
+}
+</script>
+</div></body></html>

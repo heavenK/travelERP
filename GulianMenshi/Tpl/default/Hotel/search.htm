@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/resetindex.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/glfx.css" rel="stylesheet" type="text/css" />
+
+<style>
+
+/*订单管理内容*/
+.ddgl_content{ margin-top:12px; padding:0 24px; padding-bottom:33px; border-bottom:#bfcdd0 solid 1px;}
+    .ddgl_content .jiudian{ background:url(<{:__PUBLIC__}>/gulianstyle/styles/ddgl_BJ.jpg) repeat-x; height:42px; border-left: #cccccc solid 1px; border-right: #cccccc solid 1px; padding-right:24px;}
+	.jiudian .jiudianxx{ padding-left:20px; float:left; min-width:500px; margin-top:15px;}
+	.jiudianxx li{ float:left; margin-right:33px;}
+	.jiudianming{ color:#0254a8; font-size:14px; font-weight:bold; background:url(<{:__PUBLIC__}>/gulianstyle/styles/ddgl_bj_tb-02.jpg) no-repeat left center; text-indent:32px;}
+	.jiudianming span,.szcs span{ color:#acadaf;}
+	.xingji { color:#333333; font-weight:bold; width:163px;}
+	.jiudian .ckfx{ float:right; margin-top:8px;}
+	.szcs{ color:#szcs; font-weight:bold;}
+	.jdxxxx{ margin-bottom:5px;}
+	.jdxxxx th{ color:#353334;}
+	.jdxxxx td{ color:#0056ad; border-bottom:#FFF solid 1px;}
+	.jiudian{ margin-top:5px;}
+	
+/*分页*/
+</style>
+
+</head>
+<body>
+<div id="glfx_box">
+
+        <include file="Index:navindex" />
+  
+
+    <div id="ddgl_main">
+
+
+            <!--订单管理内容-->
+            <div class="ddgl_content"  style="float:left">
+                <div id="basic-accordian">
+                            <php>foreach($list as $key=>$val){</php>
+                            
+                            <div id="test<{$key}>-header" class="accordion_headings">
+                                <div class="jiudian">
+                                    <ul class="jiudianxx">
+                                        <li class="jiudianming">
+                                            <{$val[hotel_title]}>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span></li>
+                                        <li class="xingji">星级：<IMG border=0 src="<{:__PUBLIC__}>/gulianstyle/styles/Star<{$val[star]}>.jpg"></li>
+                                        <li class="szcs"><span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在城市：<{$val[city_name]}></li>
+                                    </ul>
+                                    <ul class="ckfx">
+                                    </ul>
+                                    <br class="clear">
+                                </div>
+                            </div>
+                            <div id="test<{$key}>-content">
+                                <table class="jdxxxx" width="100%" border="0" cellspacing="0" cellpadding="0" >
+                               	 <tbody>
+                                    <tr>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">房型名称</th>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">房型类别</th>
+                                        <th width="13%" height="33" bgcolor="#e2e8e8">开始日期</th>
+                                        <th width="16%" height="33" bgcolor="#e2e8e8">结束日期</th>
+                                        <th width="14%" height="33" bgcolor="#e2e8e8">入住周期</th>
+                                        <th width="12%" height="33" bgcolor="#e2e8e8">投放数量</th>
+                                        <th width="10%" height="33" bgcolor="#e2e8e8">价格</th>
+                                        <td width="11%" height="33" align="left" bgcolor="#e2e8e8">&nbsp;</td>
+                                    </tr>
+                                    <php>foreach($data_line[$key] as $house){</php>
+                                	<tr>
+                                        <td height="29" align="center" bgcolor="#f2f2f2" onclick="aa();"><{$house[house_title]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[room]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[start_date]|date='Y-m-d',###}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[end_date]|date='Y-m-d',###}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[stay_day]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[room_num]}></td>
+                                        <td height="29" align="center" bgcolor="#f2f2f2"><{$house[agent_price]}></td> 
+                                        <td height="29" align="left" bgcolor="#f2f2f2"><input type="image" name="imageField2" id="imageField2" src="<{:__PUBLIC__}>/gulianstyle/styles/ddgl_bj_tb-04.jpg" onclick="openSub(<{$house[house_id]}>);"></td>
+                                    </tr>
+                                     <php>}</php>
+                                   </tbody>
+                                 </table>
+                            </div>
+                             <php>}</php>
+                       
+                        
+                    <div class="calendar" style="display: none; position: absolute;" id="divCalendar">
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="tdborder">
+                                <{$page}>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+            
+            
+    </div>
+  
+  
+        <include file="Index:footindex" />
+        
+</div>
+</body>
+</html>
+<script language="javascript">
+function openSub(ID)
+{
+
+	var url = "<{:SITE_MENSHI}>Hotel/ajax/house_id/" + ID;
+		
+	window.open(url,null,"height=500,width=800,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+</script>

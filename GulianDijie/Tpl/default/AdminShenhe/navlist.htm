@@ -1,0 +1,93 @@
+
+<div id="hlt_fit_view" style="height:50px;">
+
+	<div id="hlt_fit_location"><!--所在位置-->
+    	<b>您所在的位置:</b>   <{$navlist}>
+    </div>
+    
+    <div id="hlt_fit_published" style="width:1300px;" ><!--内容-->
+    	<div id="hlt_fit_published_button" style="width:1300px;"><!--步骤-->
+            <ul style=" width:900px;">
+                <li <php>if($location == '基本信息'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancreate/newtuan/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">团队信息</a></li>
+                <li <php>if($location == '日程安排'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancreate/itinerary/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">日程安排</a></li>
+                <li <php>if($location == '估价'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancreate/appraisal/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">估价</a></li>
+                <li <php>if($location == '带团通知单'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancontrol/travelnotice/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">带团通知单</a></li>
+                <li <php>if($location == '收入'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangitemlist/roletype/<{$roletype}>/showtype_2/审核/showtype/收入/djtuanID/<{$tuan[djtuanID]}>">应收款项</a></li>
+                <li <php>if($location == '支出'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangitemlist/roletype/<{$roletype}>/showtype_2/审核/showtype/支出/djtuanID/<{$tuan['djtuanID']}>">支出项目</a></li>
+                <li <php>if($location == '订房确认单'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancontrol/orderhotel/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">订房确认单</a></li>
+                <li <php>if($location == '报账单'){</php>class="hlt_fit_published_button_lia"<php>}else{</php>class="hlt_fit_published_button_lic"<php>}</php> >
+                <a href="<{:SITE_DIJIE}>Tuancontrol/baozhangdan/roletype/<{$roletype}>/showtype/审核/djtuanID/<{$tuan[djtuanID]}>">报账单</a></li>
+                
+                
+            </ul>
+            <php>if($roletype == '计调经理'){</php>
+            <div style="float:left;">
+            		<a href="javascript:showbackup(this,<{$tuan[djtuanID]}>)" class="ks_btn_03"></a>
+            		<a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/经理通过/roletype/<{$roletype}>/djtuanID/<{$tuan[djtuanID]}>" onclick="return confirm('确定要审核通过报账单吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/经理不通过/roletype/<{$roletype}>/djtuanID/<{$tuan[djtuanID]}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            </div>
+            <php>}if($roletype == '财务操作员'){</php>
+            <div style="float:left; width:300px; height:50px;">
+            		<a href="javascript:showbackup(this,<{$tuan[djtuanID]}>)" class="ks_btn_03"></a>
+            		<a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/财务通过/roletype/<{$roletype}>/djtuanID/<{$tuan[djtuanID]}>" onclick="return confirm('确定要审核通过报账单吗?');" class="hlt_fit_published_button_e" title="审核成功"></a>
+                    <a href="<{:SITE_ADMIN}>Shenhe/bzdshenhe/dotype/财务不通过/roletype/<{$roletype}>/djtuanID/<{$tuan[djtuanID]}>" onclick="return confirm('审核不通过报账单?');" class="hlt_fit_published_button_f" title="审核不通过"></a>
+            </div>
+            <php>}</php>
+            
+         </div>
+    </div>
+    
+</div>
+<div id="divrili2"  style="position:absolute; display:none; z-index:1000">
+    <iframe height="180" style="border:#999 1px solid" width="668" id="CalFrame2"></iframe>
+</div>
+<script>
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+
+function showbackup(obj,id)
+{
+//	objtop = getPosTop(obj) + 36;
+//	objleft = getPosLeft(obj) - 450;
+//	$("#divrili2").css({top:objtop , left:objleft });
+	$("#divrili2").css({top:80 , left:250 });
+    var url='<{:SITE_ADMIN}>Shenhe/showbackuplist/djtuanID/'+id;
+	var divRili = document.getElementById("divrili2"); 
+	var ifCalFrame = document.getElementById("CalFrame2");  
+	if(divRili) {
+
+		if(divRili.style.display=='')
+		{   
+			divRili.style.display = 'none';
+		}
+		else {		
+			divRili.style.display = '';			
+			ifCalFrame.setAttribute("src",url);
+		}
+	}
+}
+
+</script>

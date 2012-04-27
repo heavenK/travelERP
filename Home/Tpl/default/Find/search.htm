@@ -1,0 +1,59 @@
+<include file="Common:header" />
+<div class="friends">
+    <div class="indexh">
+        <div class="tabon"><{:L('find')}></div>
+        <div class="taboff"><a href="<{:SITE_URL}>/Find/invite"><{:L('invite_friend')}></a></div>
+    </div>
+    <div id="stream" class="message">
+        <div class="searchbox">
+        <div style="padding:15px 50px">
+            <div style="color:#999999;margin-bottom:5px"><{:L('look_friend')}></div>
+            <form method="POST" action="<{:SITE_URL}>/Find/search">
+                <input class="input_text" type="text" style="width:300px" name="sname" value="<{$searchname}>"/>
+                <input class="button2" type="submit" value="<{:L('click_search')}>"/>
+           </form>
+           <div style="margin-top:5px"><{:L('find_more_friend')}><a href="<{:SITE_URL}>/Find/invite"><{:L('invite_friend_opened')}></a></div>
+        </div>
+        </div>
+        <table border="0" width="100%" height="500px">
+        <tr>
+        <td valign="top">
+            <h3><{:L('search_result')}> <font color="#ff0000"><{$count}></font> <{:L('number_user')}></h3>
+            <ol class="wa">
+            <php>if($count>0){</php>
+                <php>foreach($users as $val){</php>
+                <li class="unlight">
+                    <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>" title="<{$val['nickname']}>" class="avatar"><img src="<{:sethead($val['user_head'])}>" alt="<{$val['nickname']}>" width="48px" /></a>
+                    <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>" style="margin-left:5px" class="<{:setvip($val[user_auth])}>" <{:viptitle($val[user_auth])}>><{:str_replace($_GET['sname'],'<font color="red">'.$_GET['sname'].'</font>',$val['nickname'])}></a><small>(@<{$val['user_name']}>)</small>
+                    <p class="actions">
+                    <span style="color:#999999;margin-left:5px">
+                    <{:L('follow')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>/following"><b><{$val['follow_num']}></b></a> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;&nbsp;<{:L('follower')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>/follower"><b><{$val['followme_num']}></b></a> <{:L('user_unit')}>&nbsp;&nbsp;&nbsp;&nbsp;<{:L('talk')}> <a href="<{:SITE_URL}>/<{:rawurlencode($val['user_name'])}>"><b><{$val['msg_num']}></b></a> <{:L('talk_unit')}>
+                    </span>
+                    <php>if($val[user_id]!=$my[user_id]){</php>
+                        <span id='followsp_<{$val[user_id]}>' style="display:block;float:right;">
+                            <php>if($isfollower[$val[user_id]]==1){</php>
+                            <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico2.gif"> <{:L('already_follow')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($val[user_name])}>','<{:L('cancel_follow')}> <{$val['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('cancel')}></a></span>
+                            <php>}else if ($isfollower[$val[user_id]]==3){</php>
+                            <span class="followbtn"><img src="<{:__PUBLIC__}>/images/fico.gif"> <{:L('follow_followed')}>&nbsp;|&nbsp;<a href="javascript:void(0)" onclick="followop('delfollow/user_name/<{:rawurlencode($val[user_name])}>','<{:L('cancel_follow')}> <{$val['nickname']}> <{:L('ma')}>','jc','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('cancel')}></a></span>
+                            <php>}else{</php>
+                            <a class="bh" onclick="followop('addfollow/user_name/<{:rawurlencode($val[user_name])}>','','gz','<{:rawurlencode($val[user_name])}>','<{$val['nickname']}>','<{$val[user_id]}>','<{:$isfollower[$val[user_id]]}>')"><{:L('have_a_follow')}></a>
+                            <php>}</php>
+                        </span>
+                    <php>}</php>
+                    </p>
+                </li>
+                <php>}</php>
+            <php>}else{</php>
+            <li class="unlight" id="nonemsg"><{:L('no_search_result')}></li>
+            <php>}</php>
+            </ol>
+        </td>
+        </tr>
+        <tr>
+            <td height="36px"><div class="page"><{$page}></div></td>
+        </tr>
+        </table>
+    </div>
+    <div class="clearline"></div>
+</div>
+<include file="Common:foot" />

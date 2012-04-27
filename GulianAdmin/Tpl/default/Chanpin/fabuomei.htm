@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<{:__PUBLIC__}>/gulianstyle/css/fit.css" rel="stylesheet" type="text/css" />
+<title><{$navlist}></title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckfinder/ckfinder.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<script>
+function baocunbingxiayibu()
+{
+	$form = document.getElementById('form');
+	$form.submit();
+}
+</script>
+
+<script type="text/javascript">
+    jquery= $;
+	jquery(document).ready(function(){
+									pid = jquery('#pos2').val();
+									change_jingshe(pid);
+									
+									mudidi = "<{$postdata[mudidi]}>";
+									mudidi_arr = mudidi.split(',');
+									
+									if (!mudidi_arr[0]) {
+										mudidi_arr[0] = '请选择';
+									}else{
+										jquery("#pos2").attr('disabled','true');
+										jquery("#pos3").attr('disabled','true');
+									}
+									jquery("#pos1").find("option:selected").text(mudidi_arr[0]); 
+									jquery("#pos2").find("option:selected").text(mudidi_arr[1]); 
+									jquery("#pos3").find("option:selected").text(mudidi_arr[2]); 
+									jquery("#pos_name1").val(mudidi_arr[0]);
+									jquery("#pos_name2").val(mudidi_arr[1]);
+									jquery("#pos_name3").val(mudidi_arr[2]);
+									
+									
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=0&type=pos_go",
+										  success:	function(msg){
+														jquery("#chufashengfen_id").empty();
+														jquery(msg).appendTo("#chufashengfen_id");
+													}
+									  });
+									  
+									  
+									jquery("#chufashengfen_id").prepend("<option selected='selected' value='0'>请选择</option>");
+									 
+									chufadi = "<{$postdata[chufadi]}>";
+									chufadi_arr = chufadi.split(',');
+									
+									if (!chufadi_arr[0]) {
+										chufadi_arr[0] = '请选择';
+									}else{
+										jquery("#chufachengshi_id").attr('disabled','true');
+									}
+									
+									jquery("#chufashengfen_id").find("option:selected").text(chufadi_arr[0]); 
+									jquery("#chufachengshi_id").find("option:selected").text(chufadi_arr[1]); 
+									jquery("#chufashengfen").val(chufadi_arr[0]);
+									jquery("#chufachengshi").val(chufadi_arr[1]);
+									
+								});
+
+	function change_pos(sid){
+			
+			
+			var maxIndex = jquery("#pos1 option:last").attr("index");
+			if (sid=='1' && maxIndex >= '7'){
+				
+				jquery("#pos1 option:first").remove();
+				jquery("#pos2").attr('disabled',false);
+				jquery("#pos3").attr('disabled',false);
+			}
+			
+			while (sid <= '3')
+			{
+				jquery('#pos_name' + sid).val(jquery('#pos' + sid).find("option:selected").text());
+				
+				pid = jquery('#pos' + sid).val();
+				sid++;
+				nexts = 'pos' + sid;				
+				change(pid ,nexts);
+			}
+			
+			pid = jquery('#pos2').val();
+			
+			change_jingshe(pid);
+				  
+		}
+		
+	function change_pos_go(){
+			
+			var maxIndex = jquery("#chufashengfen_id option:last").attr("index");
+			if ( maxIndex >= '33'){
+				
+				jquery("#chufashengfen_id option:first").remove();
+				jquery("#chufachengshi_id").attr('disabled',false);
+			}
+			
+			jquery('#chufashengfen').val(jquery('#chufashengfen_id').find("option:selected").text());
+			
+			pid = jquery('#chufashengfen_id').val();
+			nexts = 'chufachengshi_id';				
+			change(pid ,nexts);
+			jquery('#chufachengshi').val(jquery('#chufachengshi_id').find("option:selected").text());
+				  
+	}	
+		
+	function chufachengshi_gaopeng(){
+		
+			value = jquery('#chufachengshi_id').find("option:selected").text();
+			jquery('#chufachengshi').val(jquery('#chufachengshi_id').find("option:selected").text());
+	}	
+		
+		
+	function change(pid ,nexts){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=pos",
+					  success:	function(msg){
+									jquery("#" + nexts).empty();
+									jquery(msg).appendTo("#" +nexts);
+								}
+				  });
+	}
+	
+	function change_jingshe(){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=jingshe",
+					  success:	function(msg){
+									jquery("#jingshe").html(msg);
+								}
+				  });
+	}
+	
+	function selectAll(){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=all",
+					  success:	function(msg){
+									jquery("#jingshe a").css('color','red');
+									jquery("#guanjianzi").attr("value",msg);
+								}
+				  });
+	}
+	
+	function selectNot(){
+		jquery("#jingshe a").css('color','black');
+		jquery("#guanjianzi").attr("value",'');
+	}
+	
+	function show_keywords(){
+		jquery("#divKeywords").show();
+	}
+		
+	function closed(){
+		jquery("#jingshe").hide();
+	}
+	
+	function addWords(objs, keyword){
+		if (jquery(objs).css("color") == "red"){
+			jquery("#guanjianzi").attr("value",jquery("#guanjianzi").attr("value").replace(keyword + " " ,""));
+			jquery(objs).css("color","black")
+		}
+		else	{
+			jquery(objs).css("color","red");
+			jquery("#guanjianzi").attr("value",jquery("#guanjianzi").attr("value") + keyword + " ");
+		}
+	}
+	
+	
+</script>
+<script>
+	function openCalenderDetail(objID,url) {
+		url = url + '?oid='+objID+'&selectdates=' + document.getElementById(objID).value;
+		if(navigator.userAgent.toLowerCase().indexOf('msie')>=0)
+		{
+			window.showModalDialog(url,window,'dialogHeight=270px;dialogWidth=405px;top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+		else		
+		{
+			window.open(url,'','height=230, width=450, top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+	}
+	function cleanCalender() {
+			
+			document.getElementById('chutuanriqi').value = '';
+
+	}
+</script>
+<script>
+function checkdatasmple()
+{
+	
+    var LineName=document.getElementById("mingcheng");
+    if(LineName.value=="")
+    {
+        alert("线路名称不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+    var LineName=document.getElementById("mudidi");
+    if(LineName.value=="")
+    {
+        alert("目的地不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+    var LineName=document.getElementById("renshu");
+    if(LineName.value=="")
+    {
+        alert("人数不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+    var LineName=document.getElementById("tianshu");
+    if(LineName.value=="")
+    {
+        alert("天数不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+    var LineName=document.getElementById("chutuanriqi");
+    if(LineName.value=="")
+    {
+        alert("日期不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+	
+	
+	
+	
+	
+    var LineName=document.getElementById("chengben_x");
+    if(LineName.value=="")
+    {
+        alert("成本不能为空!");
+        LineName.focus();
+        return false;
+    }
+    var LineName=document.getElementById("shoujia_x");
+    if(LineName.value=="")
+    {
+        alert("售价不能为空!");
+        LineName.focus();
+        return false;
+    }
+    var LineName=document.getElementById("cut_x");
+    if(LineName.value=="")
+    {
+        alert("折扣不能为空!");
+        LineName.focus();
+        return false;
+    }
+	
+	if(jquery('#tianshu').val() > 30){
+		alert("行程天数不能超过30天！");
+        return false;
+	}
+}
+</script>
+<style>
+.hlt_fit_published_button_c{ background:url(<{:__PUBLIC__}>/gulianstyle/images/ks_btn_44.png) no-repeat 0 0;}
+.hlt_fit_published_button_c:hover{ background:url(<{:__PUBLIC__}>/gulianstyle/images/ks_btn_44.png) no-repeat 0 -25px;}
+</style>
+</head>
+
+<body>
+<div id="hlt_fit_view">
+    <div id="hlt_fit_location"><!--所在位置--> 
+      <b>您所在的位置:</b> <{$navlist}> 
+    </div>
+    <div id="hlt_fit_published">
+    <!--发布新线路页面-->
+    <div id="hlt_fit_published_button"><!--步骤 按钮-->
+      <ul>
+        <li class="hlt_fit_published_button_lia">基本信息</li>
+        <php>if($xianluID){ </php>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/zituanguanli/xianluID/<{$xianluID}>">子团管理</a></li>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xingchengbianji/xianluID/<{$xianluID}>">行　程</a></li>
+        <li class="hlt_fit_published_button_lic"><a href="<{:SITE_ADMIN}>Chanpin/xianlujiage/xianluID/<{$xianluID}>">价　格</a></li>
+        <php>}else{ </php>
+        <li class="hlt_fit_published_button_lib">子团管理</li>
+        <php>} </php>
+      </ul>
+      <div> 
+      	<php>if($xianluID){ </php>
+        <a href="javascript:GetcheckBack('<{$xianluID}>','线路','需求应答')" class="hlt_fit_published_button_a" title="审核不通过记录"></a> 
+        <a class="hlt_fit_published_button_b" title="提交审核" onclick="return checkdata();" href="<{:SITE_ADMIN}>Chanpin/tijiaoshenhe/xianluID/<{$xianluID}>" ></a>
+        <php>}</php>
+        <a href="javascript:baocunbingxiayibu()" class="hlt_fit_published_button_c" title="保存发布" onclick="return checkdatasmple();"></a>
+      </div>
+    </div>
+    <form enctype="multipart/form-data" name="form" method="post" action="<{:SITE_ADMIN}>Chanpin/dopostFabulvyouxianlu" id="form">
+      <php>if($postdata[xianluID]){</php>
+      <input name="xianluID" id="xianluID" type="hidden" value="<{$postdata['xianluID']}>" >
+      <input name="kind" type="hidden" id="kind" value="<{$postdata['kind']}>" >
+      <input name="xianlutype" id="xianlutype" type="hidden" value="<{$postdata['xianlutype']}>" >
+      <php>}else{</php>
+      <input name="kind" type="hidden" id="kind" value="<{$kind}>" >
+      <input name="xianlutype" id="xianlutype" type="hidden" value="<{$xianlutype}>">
+      <php>}</php>
+      <input name="showtype" type="hidden" value="快速">
+      <input name="forward" type="hidden" value="<{:SITE_ADMIN}>Chanpin/sankechanpin/xianlutype/散客产品/guojing/境外/kind/欧美澳非">
+      
+      <div id="hlt_fit_published_cont"><!--内容-->
+        <dl id="hlt_fit_published_a">
+          <dt><span>*</span>线路名称：</dt>
+          <dd>
+            <input style="height:30px;" name="mingcheng" type="text" id="mingcheng" value="<{$postdata['mingcheng']}>" >
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_b">
+          <dt><span>*</span>目的地：</dt>
+          <dd>
+            <select name="guojing" id="guojing" >
+              <option selected="selected" value="境外">境外</option>
+            </select>
+            <input name="mudidi" type="text" id="mudidi" style="height:18px;" value="<{$postdata['mudidi']}>" >
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_c">
+          <dt><span>*</span>出发地：</dt>
+          <dd>
+            <select name="chufashengfen_id" id="chufashengfen_id" onchange="change_pos_go()">
+              <option selected="selected" value="0">请选择</option>
+              <option value="101">北京</option>
+              <option value="102">河北</option>
+            </select>
+            <input type="hidden" name="chufashengfen" id="chufashengfen" value="北京"/>
+            <select name="chufachengshi_id" id="chufachengshi_id" onchange="chufachengshi_gaopeng()" >
+              <option selected="selected" value="0">请选择</option>
+              <option value="101001">北京</option>
+            </select>
+            <input type="hidden" name="chufachengshi" id="chufachengshi" value="北京"/>
+            <div style="display:none" >
+              <select name="chufadiqu" id="chufadiqu">
+              </select>
+            </div>
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_g">
+          <dt><span>*</span>计划人数：</dt>
+          <dd>
+            <input name="renshu" type="text" id="renshu" value="<{$postdata['renshu']}>">
+            <p>人</p>
+                <php>if($postdata[ischild] == 1){</php>
+            <input type="checkbox" name="ischild" value="1" checked="checked"  />儿童不占位
+                <php>}else{</php>
+            <input type="checkbox" name="ischild" value="1"  />儿童不占位
+                <php>}</php>
+                
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_h">
+          <dt><span>*</span>行程天数：</dt>
+          <dd>
+            <input name="tianshu" type="text" id="tianshu" value="<{$postdata['tianshu']}>">
+            <p>天</p>
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_i">
+          <dt><span>*</span>出团日期：</dt>
+          <dd>
+            <textarea readonly="readonly" name="chutuanriqi" id="chutuanriqi" style="height:70px; " onclick="openCalenderDetail(this.id,'<{:__PUBLIC__}>/gulianstyle/date.html');"><{$postdata['chutuanriqi']}></textarea>
+            <img width="24" height="22" onclick="openCalenderDetail(this.id.replace('imgbtnSelectDay','chutuanriqi'),'<{:__PUBLIC__}>/gulianstyle/date.html');" alt="选择出团日期" style="cursor: pointer;" id="imgbtnSelectDay" src="<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg"> <img width="24" height="22" onclick="cleanCalender();" alt="清空日期" style="cursor: pointer;" id="imgbtnSelectDay" src="<{:__PUBLIC__}>/gulianstyle/styles/mydel.jpeg"> </dd>
+        </dl>
+        
+        <dl id="hlt_fit_published_a">
+          <dt>线路资料：</dt>
+          <dd>
+           <input style="height:30px;" type="file" name="attachment"  />
+           <font color="#FF0000"><php>if($postdata['attachment']) {echo '已上传文件目录为'.$postdata['attachment'].',重新上传将删除该文件！';</php><a target="_blank" style="color:blue" href="<{:SITE_DATA}><{$postdata['attachment']}>">点击查看</a> <php>}</php></font>
+          </dd>
+        </dl>
+        
+        
+        <dl id="hlt_fit_published_a" style=" width:30%">
+          <dt><span>*</span>成本：</dt>
+          <dd>
+          	<input style="height:30px;width:30%" name="chengbenID" type="hidden" id="chengbenID" value="<{$chengbenID}>" >
+            <input style="height:30px;width:30%" name="chengben_x" type="text" id="chengben_x" value="<{$chengben_x}>" >
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_a" style=" width:30%">
+          <dt><span>*</span>售价：</dt>
+          <dd>
+          	<input style="height:30px;width:30%" name="shoujiaID" type="hidden" id="shoujiaID" value="<{$shoujiaID}>" >
+            <input style="height:30px;width:30%" name="shoujia_x" type="text" id="shoujia_x"  value="<{$shoujia_x}>" >
+          </dd>
+        </dl>
+        <dl id="hlt_fit_published_a" style=" width:30%">
+          <dt><span>*</span>折扣：</dt>
+          <dd>
+            <input style="height:30px;width:30%" name="cut_x" type="text" id="cut_x"  value="<{$cut_x}>" >
+          </dd>
+        </dl>
+        
+        
+        
+      </div>
+    </div>
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+    <div role="navigation" id="site-nav">
+        <div id="site-nav-bd">
+                <p class="login-info">
+                您好，欢迎购买线路产品！
+                
+                <php>
+                if($roleuser){
+                </php>
+                <{$roleuser['realname']}> | <a target="_top" href="<{:SITE_HOME}>logout" >退出登录</a>
+                <php>
+                }else{
+                </php>
+                <a target="_top" href="<{:SITE_HOME}>" >请登录</a> | <a target="_top" href="<{:SITE_HOME}>?s=register" >免费注册</a>
+                <php>
+                }
+                </php>
+                
+                </p>
+                <ul class="quick-menu">
+                <li class="home"><a href="http://www.dlgulian.com/" target="_blank" >古莲国旅首页</a></li>
+                </ul>
+        </div>
+    </div>
+
+    <div id="header">
+            <div id="comm-header">
+            <div id="comm-header-inner">
+                <h1 id="logo">
+                    <a href="http://www.dlgulian.com/" target="_blank"><img class="itempic" src="<{:__PUBLIC__}>/gulianstyle/images/topbg.jpg"></a>
+                </h1>
+                <div class="wrap-box">
+                    <div class="tsearch tsearch-lite" id="J_TSearch">
+                        <div class="tsearch-tabs" id="J_TSearchTabs">
+                            <ul>
+                                <li class="tsearch-tabs-active" style="width:100px; text-align:center">旅游产品<s class="rc-tp-l"></s><s class="rc-tp-r"></s></li>
+                            </ul>
+                        </div>
+                        <div class="tsearch-panel">
+                                <div class="tsearch-panel-fields " style="margin:4px 0 0 3px;">
+                                    <input id="q" name="q" >
+                                </div>
+                                <button style="margin:4px 0 0 3px;" onclick="dedecmssearch()">搜索</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+
+<script>
+
+function dedecmssearch()
+{
+		var keyword = document.getElementById('q').value;
+		window.open ('http://www.dlgulian.com//search.php?keyword='+keyword+'&pagesize=25');
+	
+}
+
+</script>
+

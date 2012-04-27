@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>互动旅游-发布机票</title>
+
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script type="text/javascript">
+   jquery= $;
+</script>
+
+<script>	
+	jquery(document).ready(function(){
+
+									
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=0&type=pos",
+										  success:	function(msg){
+														jquery("#pos1").empty();
+														jquery(msg).appendTo("#pos1");
+														jquery("#pos21").empty();
+														jquery(msg).appendTo("#pos21");
+													}
+									  });
+									  
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=1&type=pos",
+										  success:	function(msg){
+														jquery("#pos2").empty();
+														jquery(msg).appendTo("#pos2");
+														jquery("#pos22").empty();
+														jquery(msg).appendTo("#pos22");
+													}
+									  });
+									  
+									jquery.ajax({
+										  type:	"POST",
+										  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+										  async: false,
+										  data:	"pid=101&type=pos",
+										  success:	function(msg){
+														jquery("#pos3").empty();
+														jquery(msg).appendTo("#pos3");
+														jquery("#pos23").empty();
+														jquery(msg).appendTo("#pos23");
+													}
+									  });
+									
+
+									
+									
+									
+								});
+
+	function change_pos(sid){
+			
+			while (sid <= '3')
+			{
+				jquery('#pos_name' + sid).val(jquery('#pos' + sid).find("option:selected").text());
+				
+				pid = jquery('#pos' + sid).val();
+				sid++;
+				nexts = 'pos' + sid;				
+				change(pid ,nexts);
+			}
+			
+				  
+		}
+		
+	function change_pos2(sid){
+			
+			while (sid <= '3')
+			{
+				
+				pid = jquery('#pos2' + sid).val();
+				sid++;
+				nexts = 'pos2' + sid;				
+				change(pid ,nexts);
+			}
+				  
+		}	
+		
+	function change(pid ,nexts){
+		jquery.ajax({
+					  type:	"POST",
+					  url:	"<{:SITE_ADMIN}>Liandong/liandong",
+					  async: false,
+					  data:	"pid=" + pid + "&type=pos",
+					  success:	function(msg){
+									jquery("#" + nexts).empty();
+									jquery(msg).appendTo("#" +nexts);
+								}
+				  });
+	}
+</script>
+<script>
+	function openCalenderDetail(objID,url) {
+		url = url + '?oid='+objID+'&selectdates=' + document.getElementById(objID).value;
+		if(navigator.userAgent.toLowerCase().indexOf('msie')>=0)
+		{
+			window.showModalDialog(url,window,'dialogHeight=270px;dialogWidth=405px;top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+		else		
+		{
+			window.open(url,'','height=230, width=450, top=420, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes,location=no, status=no');
+		}
+	}
+</script>
+
+
+<script type="text/javascript"> 
+function mysubmit(typ) {
+		if(checkdata()==false){ return false; }		//审核数据
+		if(typ=="baocun"){
+			document.form1.submit();return true;	//保存操作，审核通过
+		}else{
+			if(typ=="shenhe"){document.form1.zhuangtai.value="等待审核";document.form1.submit();return true;}
+		}
+		return true;
+}
+
+function checkdata()
+{
+	
+    var LineName=document.getElementById("ticket_name");
+    if(LineName.value=="")
+    {
+        alert("机票名称不能为空!");
+        LineName.focus();
+        return false;
+    }
+    var Prefix=document.getElementById("ticket_no");
+    if(Prefix.value=="")
+    {
+        alert("机票编号不能为空!");
+        Prefix.focus();
+        return false;
+    }
+   var KeyWords=document.getElementById("ticket_count");
+    if(KeyWords.value=="")
+    {
+        alert("机票数量不能为空!");
+        KeyWords.focus();
+        return false;
+    }
+	
+    var ApplyEndDay=document.getElementById("ticket_deadline");
+    if(ApplyEndDay.value=="")
+    {
+        alert("截止日期不能为空!");
+        ApplyEndDay.focus();
+        return false;
+    }
+	
+    var PayAllday=document.getElementById("ticket_takeoffdate");
+    if(PayAllday.value=="")
+    {
+        alert("出发日期不能为空!");
+        PayAllday.focus();
+        return false;
+    }
+   
+    var PersonNum=document.getElementById("ticket_airline_id");
+    if(PersonNum.value=="")
+    {
+        alert("请选择航空公司!");
+        PersonNum.focus();
+        return false;
+    }
+    var Totalday=document.getElementById("ticket_takeofftime");
+    if(Totalday.value=="")
+    {
+        alert("出发起飞时间不能为空!");
+        Totalday.focus();
+        return false;
+    }
+    var LineDate=document.getElementById("ticket_landtime");
+    if(LineDate.value=="")
+    {
+        alert("出发降落时间不能为空!");
+        LineDate.focus();
+        return false;
+    }
+    var Theis=document.getElementById("ticket_takeofftime");
+    if(Theis.value=="")
+    {
+        alert("出发起飞时间不能为空!");
+        Theis.focus();
+        return false;
+     }
+    
+    return true;
+}
+
+</script>
+
+</head>
+
+<body>
+    <div class="hdlyRight">
+	
+<form name="form1" method="post" action="<{:SITE_ADMIN}>Airticket/addguoneiTicket" id="form1">
+            <div id="content_bb">                
+				<div class="szwz">
+                    <ul>
+                      <li> <span>您所在的位置:</span> <{$typeurl}> </li>
+                    </ul>
+                </div>
+                <div class="ss">
+                    <table class="jbxx" width="84%" border="0">
+                        <tr>
+                            <td width="70" height="18" align="center">
+                                <a id="lkbBase" class="yyxxl" href="javascript:__doPostBack('lkbBase','')" style="color:Blue;">基本信息</a>                            </td>
+                            <td width="10">                            </td>
+                            <td width="50">
+                                <a id="lkbPrice" disabled="disabled" class="yyxxl">价 格</a>                            </td>
+                            <td width="426">                            </td>
+                            <td width="80">
+                                <a id="Submit" class="yyxxl" style="cursor:pointer" onclick="javascript:mysubmit('baocun')">保 存</a>                            </td>
+                            <td width="189">
+                                <a onclick="return confirm('确定提交审核吗？');" id="lkbCheck" class="yyxxl" href="javascript:mysubmit('shenhe')">提交审核</a>                            </td>
+                        </tr>
+                  </table>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="jbxxy">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="12%" height="42" align="right">
+                                <font color="red">*</font>名称：                            </td>
+                            <td width="28%" align="left">
+                                <input name="ticket_name" type="text" id="ticket_name" class="Textbox" />
+                                <span id="RequiredFieldValidator2" style="color:Red;display:none;"></span>
+                                <input name="zhuangtai" type="hidden" id="zhuangtai" value="准备" /></td>
+                            <td align="right" width="12%">                            </td>
+                            <td align="left" width="28%">                            </td>
+                            <td rowspan="9" width="16%">                            </td>
+                        </tr>
+                        <tr>
+                            <td width="12%" height="42" align="right">
+                                <font color="red">*</font>是否共享：                            </td>
+                            <td width="28%" align="left">
+                                <select name="ticket_share" id="ticket_share">
+									<option value="是" selected="selected">是</option>
+									<option value="否">否</option>
+									<option value="自由人独占">自由人独占</option>
+                                </select>                           
+						  </td>
+                            <td align="right" width="12%">
+                                <font color="red">*</font>机票编号：                            </td>
+                            <td align="left" width="28%">
+                                <input name="ticket_no" type="text" id="ticket_no" class="Textbox" />
+                                <span id="rfvPrefix" style="color:Red;display:none;"></span></td>
+                        </tr>
+                        <tr>
+                            <td height="42" align="right">
+                                <font color="red">*</font>机票类型：</td>
+                            <td align="left">
+                                系列机票                            </td>
+                            <td align="right">
+                                <font color="red">*</font>往返类型：</td>
+                            <td align="left">
+                                <span id="rbPlyType" onclick="GetDays()"><input id="rbPlyType_0" type="radio" name="ticket_goback" value="单程" checked="checked" />
+                                <label for="rbPlyType_0">单程</label><input id="rbPlyType_1" type="radio" name="ticket_goback" value="往返" />
+                                <label for="rbPlyType_1">往返</label></span>&nbsp; <span id="divDays" style="display: none">
+                                    天数：<input name="tbDays" type="text" value="1" id="tbDays" style="width:30px;" /></span>                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                <font color="red">*</font>机票数量：</td>
+                          <td align="left"><input name="ticket_count" type="text" value="0" id="ticket_count" class="Textbox" />
+                          <span id="rfvTicketNum" style="color:Red;display:none;"></span><span id="revTicketNum" style="color:Red;display:none;"></span></td>
+                            <td align="right" rowspan="3">
+                                <font color="red">*</font>出发日期：</td>
+                            <td align="left" rowspan="3"><table width="100%">
+                                    <tr>
+                                      <td rowspan="2" width="90%">
+                                          <textarea name="ticket_takeoffdate" rows="2" cols="20" id="ticket_takeoffdate" title="点击日历按钮选择日期" onclick="openCalenderDetail(this.id.replace('imgbtnSelectDay','ticket_takeoffdate'),'<{:__PUBLIC__}>/gulianstyle/date.html');" style="height:80px;width:95%;"></textarea>
+                                        <span id="rfvStartTime" style="color:Red;display:none;"></span></td>
+                                        <td>
+                                            <img width="24" height="22" onclick="openCalenderDetail(this.id.replace('imgbtnSelectDay','ticket_takeoffdate'),'<{:__PUBLIC__}>/gulianstyle/date.html');" alt="选择出团日期" style="cursor: pointer;" id="imgbtnSelectDay" src="<{:__PUBLIC__}>/gulianstyle/image/a_day.jpg"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="<{:__PUBLIC__}>/gulianstyle/mydel.jpeg" id="imgbtnClearDay" style="cursor: pointer;" width="22" height="22" onclick="document.getElementById('ticket_takeofftime').value='';" alt="清空出发日期" /></td>
+                                    </tr>
+                                </table>                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <font color="red">*</font>预定截止日期：</td>
+                          <td align="left">
+                                提前<input name="ticket_deadline" type="text" value="1" id="ticket_deadline" style="width:25px;" />
+                                天
+                            <span id="rfvEndDays" style="color:Red;display:none;"></span><span id="revEndDays" style="color:Red;display:none;"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                <font color="red">*</font>航空公司：</td>
+                          <td align="left">
+                              <select name="ticket_airline_id" id="ticket_airline_id">
+							  <option value="">请选择航空公司</option>
+							  <php>foreach($airlines as $airline){ </php>
+							  	<option value="<{$airline['id']}>"><{$airline['title']}></option>
+							  <php>}</php>								
+							</select>
+                            <span id="rfvTheis" style="color:Red;display:none;"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                <font color="red">*</font>去程起飞时间：</td>
+                          <td align="left">
+							  <input name="ticket_takeofftime" type="text" id="ticket_takeofftime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm:ss'})" readonly=""/>
+
+                            <span id="rfvGoHour" style="color:Red;display:none;"></span></td>
+                            <td align="right">
+                                <font color="red">*</font>去程抵达时间：</td>
+                          <td align="left">
+							   <input name="ticket_landtime" type="text" id="ticket_landtime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm:ss'})" readonly=""/>
+                            <span id="refGAHour" style="color:Red;display:none;"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                返程起飞时间：</td>
+                          <td align="left">
+							<input name="ticket_backtakeofftime" type="text" id="ticket_backtakeofftime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm:ss'})" readonly=""/>
+
+                            <span id="rfvBackHour" style="color:Red;display:none;"></span></td>
+                            <td align="right">
+                                返程抵达时间：</td>
+                          <td align="left">
+							  <input name="ticket_backlandtime" type="text" id="ticket_backlandtime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm:ss'})" readonly=""/>
+                            <span id="rfvBAHour" style="color:Red;display:none;"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                航班号：</td>
+                            <td align="left">
+                                <input name="ticket_airlineno" type="text" id="ticket_airlineno" class="Textbox" />                            </td>
+                            <td align="right">
+                                航段：</td>
+                            <td align="left">
+                                <input name="ticket_hangduan" type="text" id="ticket_hangduan" class="Textbox" />                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                起飞机场：                            </td>
+                            <td align="left">
+                                <input name="ticket_takeoffport" type="text" id="ticket_takeoffport" class="Textbox" />                            </td>
+                            <td align="right">
+                                抵达机场：                            </td>
+                            <td align="left">
+                                <input name="ticket_landport" type="text" id="ticket_landport" class="Textbox" />                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                出发城市：</td>
+                            <td align="left" colspan="3">
+                              <div id="UpdatePanel1">
+	
+                                
+									<select name="guojing" id="guojing" >
+										<option selected="selected" value="国内">国内</option>
+                                        </select>
+                                        
+                                        <!-- 三级联动开始 -->
+										
+										<select name="daqu_id" id="pos1" onchange="change_pos('1')">
+											<option selected="selected" value="1">华北地区</option>
+											<option value="2">东北地区</option>
+											
+										</select>
+										
+                                        <select name="shengfen_id" id="pos2" onchange="change_pos('2')">
+											<option selected="selected" value="101">北京</option>
+											<option value="102">河北</option>
+											<option value="103">内蒙古</option>
+											<option value="104">山西</option>
+											<option value="105">天津</option>
+										</select>
+										
+                                        <select name="ticket_gocity_id" id="pos3" onchange="change_pos('3')">
+											<option selected="selected" value="101001">北京</option>
+										</select>
+	</div>                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                目的地城市：</td>
+                            <td align="left" colspan="3">
+                                <div id="UpdatePanel2">
+	
+                                        <select name="guojing2" id="guojing2" >
+										<option selected="selected" value="国内">国内</option>
+                                        </select>
+                                        
+                                        <!-- 三级联动开始 -->
+										
+										<select name="daqu_id" id="pos21" onchange="change_pos2('1')">
+											<option selected="selected" value="1">华北地区</option>
+											<option value="2">东北地区</option>
+											<option value="3">华东地区</option>
+                                            <option value="4">中南地区</option>
+											<option value="5">西南地区</option>
+                                            <option value="6">西北地区</option>
+											<option value="7">港澳地区</option>
+										</select>
+										
+                                        <select name="shengfen_id" id="pos22" onchange="change_pos2('2')">
+											<option selected="selected" value="101">北京</option>
+											<option value="102">河北</option>
+											<option value="103">内蒙古</option>
+											<option value="104">山西</option>
+											<option value="105">天津</option>
+										</select>
+										
+                                        <select name="ticket_arrivecity_id" id="pos23" onchange="change_pos2('3')">
+											<option selected="selected" value="101001">北京</option>
+										</select></div>                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" height="42">
+                                备注：</td>
+                            <td align="left" colspan="3">
+                                <textarea name="remark" rows="8" cols="20" id="remark" style="width:98%;"></textarea>                            </td>
+                        </tr>
+                    </table>
+                    <div id="divKeywords" style="border: solid 1px #888888; display: none; font-size: 12px;
+                        width: 580px; text-align: center; z-index: 1000; position: absolute; background-color: white;
+                        color: blue; line-height: 18px;">
+                        <div id="divKeywordsTitle" style="background-color: #dddddd; color: gray; text-align: right;
+                            padding-right: 5px;">
+                            <a href="javascript:void(0)" onclick="document.getElementById('divKeywords').style.display='none';return false;">
+                                关闭</a></div>
+                        <div id="divKeywordsContent">
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+<div></div>
+ 
+
+</form>
+    </div>
+</body>
+</html>

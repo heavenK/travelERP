@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增频道</title>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/ckeditor/ckeditor.js"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.js" type="text/javascript"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/ckeditor/sample.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+td{ padding:2px; padding-left:6px; line-height:150%; }
+.STYLE2 {color: #666666; display:none; }
+-->
+</style>
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+</head>
+<body leftmargin="8" topmargin="8" background="<{:__PUBLIC__}>/gulianstyle/styles/allbg.gif">
+<table class="tbtitle" style="background: none repeat scroll 0% 0% rgb(207, 207, 207);" width="98%" align="center" border="0" cellpadding="1" cellspacing="1">
+
+    <tbody>
+    
+  <tr>
+   <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+    <div style="float:left">
+	<h3 style="float:left">您所在的位置:</h3><label style="float:left"><{$navlist}></label>
+    </div>
+    <div style="float:right"></div>
+     </td>
+  </tr>
+  <tr>
+    
+    
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	标题：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<{$newsnotice['title']}>
+      </td>
+    </tr>
+    <tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	接收部门：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	<{$newsnotice['jieshoutype']}>
+      </td>
+    </tr>
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	接收人：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+      	姓名:<{$user['realname']}> | 用户名:<{$user['user_name']}>
+      </td>
+    </tr>
+    
+	<tr> 
+      <td height="28" width="160" align="left" bgcolor="#FFFFFF">
+      	内容：<br>
+      </td>
+      <td bgcolor="#FFFFFF">
+				<{$newsnotice['content']}>
+      </td>
+    </tr>
+</tbody></table>
+
+
+
+</body>
+</html>
