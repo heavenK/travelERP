@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: extend.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -17,23 +17,27 @@
  * @category   Think
  * @package  Common
  * @author   liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: extend.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 
 // 获取客户端IP地址
-function get_client_ip(){
-   if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
-       $ip = getenv("HTTP_CLIENT_IP");
-   else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
-       $ip = getenv("HTTP_X_FORWARDED_FOR");
-   else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
-       $ip = getenv("REMOTE_ADDR");
-   else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
-       $ip = $_SERVER['REMOTE_ADDR'];
-   else
-       $ip = "unknown";
-   return($ip);
+function get_client_ip() {
+    static $ip = NULL;
+    if ($ip !== NULL) return $ip;
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $pos =  array_search('unknown',$arr);
+        if(false !== $pos) unset($arr[$pos]);
+        $ip   =  trim($arr[0]);
+    }elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    // IP地址合法验证
+    $ip = (false !== ip2long($ip)) ? $ip : '0.0.0.0';
+    return $ip;
 }
 
 /**
@@ -52,21 +56,24 @@ function get_client_ip(){
  * @return string
  +----------------------------------------------------------
  */
-function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true)
+function msubstr($str, $start, $length, $charset="utf-8", $suffix=true)
 {
-    if(function_exists("mb_substr"))
-        return mb_substr($str, $start, $length, $charset);
-    elseif(function_exists('iconv_substr')) {
-        return iconv_substr($str,$start,$length,$charset);
+    if(function_exists("mb_substr")){
+        $slice = mb_substr($str, $start, $length, $charset);
+    }elseif(function_exists('iconv_substr')) {
+        $slice = iconv_substr($str,$start,$length,$charset);
+        if(false === $slice) {
+            $slice = '';
+        }
+    }else{
+        $re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+        $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
+        $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+        $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+        preg_match_all($re[$charset], $str, $match);
+        $slice = join("",array_slice($match[0], $start, $length));
     }
-    $re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
-    $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-    $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-    $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
-    preg_match_all($re[$charset], $str, $match);
-    $slice = join("",array_slice($match[0], $start, $length));
-    if($suffix) return $slice."…";
-    return $slice;
+    return $suffix ? $slice.'...' : $slice;
 }
 
 /**
@@ -209,8 +216,7 @@ function highlight_code($str,$show=false)
 
     // Prior to PHP 5, the highlight function used icky font tags
     // so we'll replace them with span tags.
-    if (abs(phpversion()) < 5)
-    {
+    if (abs(phpversion()) < 5) {
         $str = str_replace(array('<font ', '</font>'), array('<span ', '</span>'), $str);
         $str = preg_replace('#color="(.*?)"#', 'style="color: \\1"', $str);
     }
@@ -569,5 +575,91 @@ function send_http_status($code) {
     if(array_key_exists($code,$_status)) {
         header('HTTP/1.1 '.$code.' '.$_status[$code]);
     }
+}
+
+// URL组装 支持不同模式和路由
+// 格式： U('/Admin/User/add/','aaa=1&bbb=2');
+// U('__URL__/add/','aaa=1&bbb=2');
+function url($url,$vars='',$suffix=true,$redirect=false,$domain=false) {
+    $replace =  array(
+        '__APP__'       => __APP__,        // 项目地址
+        '__GROUP__'   =>   defined('GROUP_NAME')?__GROUP__:__APP__, // 分组地址
+        '__URL__'       => __URL__, // 模块地址
+        '__ACTION__'    => __ACTION__,     // 操作地址
+    );
+    $url = str_replace(array_keys($replace),array_values($replace),$url,$count);
+    if($count>0) {
+        $url   =  substr_replace($url,'',0,strlen(__APP__)); 
+    }
+
+    if(is_string($vars)) { // aaa=1&bbb=2 转换成数组
+        parse_str($vars,$vars);
+    }elseif(!is_array($vars)){
+        $vars = array();
+    }
+
+    // 分析URL地址
+    $info =  parse_url($url);
+    $url   =  $info['path'];
+    // 子域名解析
+    if($domain===true){
+        $domain = $_SERVER['HTTP_HOST'];
+        if(C('APP_SUB_DOMAIN_DEPLOY') ) { // 开启子域名部署
+            $domain = $domain=='localhost'?'localhost':'www'.strstr($_SERVER['HTTP_HOST'],'.');
+            // '子域名'=>array('项目[/分组]');
+            foreach (C('APP_SUB_DOMAIN_RULES') as $key => $rule) {
+                if(false === strpos($key,'*') && 0=== strpos($url,$rule[0])) {
+                    $domain = $key.strstr($domain,'.'); // 生成对应子域名
+                    $url   =  substr_replace($url,'',0,strlen($rule[0]));
+                    break;
+                }
+            }
+        }else{
+            $domain = $_SERVER['HTTP_HOST'];
+        }
+    }
+    if(substr_count($url,'/') == 2 && substr($url,0,strpos($url,'/')) ==C('DEFAULT_GROUP') ) { // 处理默认分组
+        $url   =  strstr($url,'/');
+    }
+
+    if(isset($info['query'])) { // 解析地址里面参数 合并到vars
+        parse_str($info['query'],$params);
+        $vars = array_merge($params,$vars);
+    }
+    $depr = C('URL_PATHINFO_DEPR');
+    if('/' != $depr) {
+        // 安全替换
+        $url   =  str_replace('/',$depr,$url);
+    }
+    $url   =  trim($url,$depr);
+    if(C('URL_MODEL') == 0) { // 普通模式URL转换
+        $path = explode($depr,$url);
+        $var  =  array();
+        $var[C('VAR_ACTION')] = array_pop($path);
+        if(!empty($path)) $var[C('VAR_MODULE')] = array_pop($path);
+        if(!empty($path)) $var[C('VAR_GROUP')]   = array_pop($path);
+        $url   =  __APP__.'?'.http_build_query($var);
+        if(!empty($vars)) {
+            $vars = http_build_query($vars);
+            $url   .= '&'.$vars;
+        }
+    }else{ // PATHINFO模式或者兼容URL模式
+        $url   =  __APP__.'/'.str_replace(__APP__,'',$url);
+        if(!empty($vars)) { // 添加参数
+            $vars = http_build_query($vars);
+            $url .= $depr.str_replace(array('=','&'),$depr,$vars);
+        }
+        if($suffix) {
+            $suffix   =  $suffix===true?C('URL_HTML_SUFFIX'):$suffix;
+            $url  .=  '.'.ltrim($suffix,'.');
+        }
+    }
+    if($domain) {
+        $url   =  'http://'.$domain.$url;
+    }
+    if($redirect) // 直接跳转URL
+        redirect($url);
+    else
+        return $url;
 }
 ?>

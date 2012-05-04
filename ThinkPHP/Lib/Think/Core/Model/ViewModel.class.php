@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: ViewModel.class.php 2796 2012-03-02 15:37:05Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Core
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: ViewModel.class.php 2796 2012-03-02 15:37:05Z liu21st $
  +------------------------------------------------------------------------------
  */
 class ViewModel extends Model {
@@ -45,15 +45,18 @@ class ViewModel extends Model {
      * @return string
      +----------------------------------------------------------
      */
-    public function getTableName()
-    {
+    public function getTableName() {
         if(empty($this->trueTableName)) {
             $tableName = '';
             foreach ($this->viewFields as $key=>$view){
                 // 获取数据表名称
-                $class  =   $key.'Model';
-                $Model  =  class_exists($class)?new $class():M($key);
-                $tableName .= $Model->getTableName();
+                if(isset($view['_table'])) { // 2011/10/17 添加实际表名定义支持 可以实现同一个表的视图
+                    $tableName .= $view['_table'];
+                }else{
+                    $class  =   $key.'Model';
+                    $Model  =  class_exists($class)?new $class():M($key);
+                    $tableName .= $Model->getTableName();
+                }
                 // 表别名定义
                 $tableName .= !empty($view['_as'])?' '.$view['_as']:' '.$key;
                 // 支持ON 条件定义
@@ -157,7 +160,7 @@ class ViewModel extends Model {
      +----------------------------------------------------------
      */
     protected function checkOrder($order='') {
-         if(!empty($order)) {
+         if(is_string($order) && !empty($order)) {
             $orders = explode(',',$order);
             $_order = array();
             foreach ($orders as $order){

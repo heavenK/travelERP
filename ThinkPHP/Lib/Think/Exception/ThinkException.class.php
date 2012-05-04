@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: ThinkException.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Exception
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: ThinkException.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class ThinkException extends Exception
@@ -46,8 +46,7 @@ class ThinkException extends Exception
      * @param string $message  异常信息
      +----------------------------------------------------------
      */
-    public function __construct($message,$code=0,$extra=false)
-    {
+    public function __construct($message,$code=0,$extra=false) {
         parent::__construct($message,$code);
         $this->type = get_class($this);
         $this->extra = $extra;
@@ -64,8 +63,7 @@ class ThinkException extends Exception
      * @return array
      +----------------------------------------------------------
      */
-    public function __toString()
-    {
+    public function __toString() {
         $trace = $this->getTrace();
         if($this->extra)
             // 通过throw_exception抛出的异常要去掉多余的调试信息
@@ -101,7 +99,6 @@ class ThinkException extends Exception
         if(C('LOG_EXCEPTION_RECORD')) {
             Log::Write('('.$this->type.') '.$this->message);
         }
-
         return $error ;
     }
 

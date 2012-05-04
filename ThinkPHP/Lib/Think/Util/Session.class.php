@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: Session.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 define("HTTP_SESSION_STARTED",      1);
 define("HTTP_SESSION_CONTINUED",    2);
@@ -21,7 +21,7 @@ define("HTTP_SESSION_CONTINUED",    2);
  * @package  Think
  * @subpackage  Util
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: Session.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class Session extends Think
@@ -37,8 +37,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function start()
-    {
+    static function start() {
         session_start();
         if (!isset($_SESSION['__HTTP_Session_Info'])) {
             $_SESSION['__HTTP_Session_Info'] = HTTP_SESSION_STARTED;
@@ -58,8 +57,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function pause()
-    {
+    static function pause() {
         session_write_close();
     }
 
@@ -73,8 +71,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function clearLocal()
-    {
+    static function clearLocal() {
         $local = Session::localName();
         unset($_SESSION[$local]);
     }
@@ -89,8 +86,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function clear()
-    {
+    static function clear() {
         $_SESSION = array();
     }
 
@@ -104,8 +100,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function destroy()
-    {
+    static function destroy() {
         unset($_SESSION);
         session_destroy();
     }
@@ -120,10 +115,8 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function detectID()
-    {
-        if(session_id()!='')
-        {
+    static function detectID() {
+        if(session_id()!='') {
             return session_id();
         }
         if (Session::useCookies()) {
@@ -153,8 +146,7 @@ class Session extends Think
      * @return string 返回之前的Session name
      +----------------------------------------------------------
      */
-    static function name($name = null)
-    {
+    static function name($name = null) {
         return isset($name) ? session_name($name) : session_name();
     }
 
@@ -170,8 +162,7 @@ class Session extends Think
      * @return void 返回之前的sessionID
      +----------------------------------------------------------
      */
-    static function id($id = null)
-    {
+    static function id($id = null) {
         return isset($id) ? session_id($id) : session_id();
     }
 
@@ -186,8 +177,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function path($path = null)
-    {
+    static function path($path = null) {
         return !empty($path)? session_save_path($path):session_save_path();
     }
 
@@ -204,8 +194,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function setExpire($time, $add = false)
-    {
+    static function setExpire($time, $add = false) {
         if ($add) {
             if (!isset($_SESSION['__HTTP_Session_Expire_TS'])) {
                 $_SESSION['__HTTP_Session_Expire_TS'] = time() + $time;
@@ -233,8 +222,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function setIdle($time, $add = false)
-    {
+    static function setIdle($time, $add = false) {
         if ($add) {
             $_SESSION['__HTTP_Session_Idle'] = $time;
         } else {
@@ -252,8 +240,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function sessionValidThru()
-    {
+    static function sessionValidThru() {
         if (!isset($_SESSION['__HTTP_Session_Idle_TS']) || !isset($_SESSION['__HTTP_Session_Idle'])) {
             return 0;
         } else {
@@ -271,8 +258,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function isExpired()
-    {
+    static function isExpired() {
         if (isset($_SESSION['__HTTP_Session_Expire_TS']) && $_SESSION['__HTTP_Session_Expire_TS'] < time()) {
             return true;
         } else {
@@ -290,8 +276,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function isIdle()
-    {
+    static function isIdle() {
         if (isset($_SESSION['__HTTP_Session_Idle_TS']) && (($_SESSION['__HTTP_Session_Idle_TS'] + $_SESSION['__HTTP_Session_Idle']) < time())) {
             return true;
         } else {
@@ -309,8 +294,7 @@ class Session extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function updateIdle()
-    {
+    static function updateIdle() {
         $_SESSION['__HTTP_Session_Idle_TS'] = time();
     }
 
@@ -327,8 +311,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function setCallback($callback = null)
-    {
+    static function setCallback($callback = null) {
         $return = ini_get('unserialize_callback_func');
         if (!empty($callback)) {
             ini_set('unserialize_callback_func',$callback);
@@ -349,8 +332,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function useCookies($useCookies = null)
-    {
+    static function useCookies($useCookies = null) {
         $return = ini_get('session.use_cookies') ? true : false;
         if (isset($useCookies)) {
             ini_set('session.use_cookies', $useCookies ? 1 : 0);
@@ -370,8 +352,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function isNew()
-    {
+    static function isNew() {
         return !isset($_SESSION['__HTTP_Session_Info']) ||
             $_SESSION['__HTTP_Session_Info'] == HTTP_SESSION_STARTED;
     }
@@ -390,8 +371,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function getLocal($name)
-    {
+    static function getLocal($name) {
         $local = Session::localName();
         if (!is_array($_SESSION[$local])) {
             $_SESSION[$local] = array();
@@ -412,8 +392,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function get($name)
-    {
+    static function get($name) {
         if(isset($_SESSION[$name])) {
             return $_SESSION[$name];
         }else {
@@ -435,8 +414,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function setLocal($name, $value)
-    {
+    static function setLocal($name, $value) {
         $local = Session::localName();
         if (!is_array($_SESSION[$local])) {
             $_SESSION[$local] = array();
@@ -463,8 +441,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function set($name, $value)
-    {
+    static function set($name, $value) {
         if (null === $value) {
             unset($_SESSION[$name]);
         } else {
@@ -485,8 +462,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function is_setLocal($name)
-    {
+    static function is_setLocal($name) {
         $local = Session::localName();
         return isset($_SESSION[$local][$name]);
     }
@@ -503,8 +479,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function is_set($name)
-    {
+    static function is_set($name) {
         return isset($_SESSION[$name]);
     }
 
@@ -520,8 +495,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function localName($name = null)
-    {
+    static function localName($name = null) {
         $return = (isset($GLOBALS['__HTTP_Session_Localname'])) ? $GLOBALS['__HTTP_Session_Localname'] : null;
         if (!empty($name)) {
             $GLOBALS['__HTTP_Session_Localname'] = md5($name);
@@ -539,8 +513,7 @@ class Session extends Think
      * @return boolean
      +----------------------------------------------------------
      */
-    static function _init()
-    {
+    static function _init() {
         ini_set('session.auto_start', 0);
         if (is_null(Session::detectID())) {
             Session::id(uniqid(dechex(mt_rand())));
@@ -567,8 +540,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function useTransSID($useTransSID = null)
-    {
+    static function useTransSID($useTransSID = null) {
         $return = ini_get('session.use_trans_sid') ? true : false;
         if (isset($useTransSID)) {
             ini_set('session.use_trans_sid', $useTransSID ? 1 : 0);
@@ -589,8 +561,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function setCookieDomain($sessionDomain = null)
-    {
+    static function setCookieDomain($sessionDomain = null) {
         $return = ini_get('session.cookie_domain');
         if(!empty($sessionDomain)) {
             ini_set('session.cookie_domain', $sessionDomain);//跨域访问Session
@@ -612,8 +583,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function setGcMaxLifetime($gcMaxLifetime = null)
-    {
+    static function setGcMaxLifetime($gcMaxLifetime = null) {
         $return = ini_get('session.gc_maxlifetime');
         if (isset($gcMaxLifetime) && is_int($gcMaxLifetime) && $gcMaxLifetime >= 1) {
             ini_set('session.gc_maxlifetime', $gcMaxLifetime);
@@ -634,8 +604,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function setGcProbability($gcProbability = null)
-    {
+    static function setGcProbability($gcProbability = null) {
         $return = ini_get('session.gc_probability');
         if (isset($gcProbability) && is_int($gcProbability) && $gcProbability >= 1 && $gcProbability <= 100) {
             ini_set('session.gc_probability', $gcProbability);
@@ -652,8 +621,7 @@ class Session extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static function getFilename()
-    {
+    static function getFilename() {
         return Session::path().'/sess_'.session_id();
     }
 

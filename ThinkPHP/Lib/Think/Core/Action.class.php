@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: Action.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Core
  * @author   liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: Action.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 abstract class Action extends Think
@@ -36,8 +36,7 @@ abstract class Action extends Think
      * @access public
      +----------------------------------------------------------
      */
-    public function __construct()
-    {
+    public function __construct() {
         //实例化视图类
         $this->view       = Think::instance('View');
         //控制器初始化
@@ -95,8 +94,7 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function display($templateFile='',$charset='',$contentType='text/html')
-    {
+    protected function display($templateFile='',$charset='',$contentType='') {
         if(false === $templateFile) {
             $this->showTrace();
         }else{
@@ -119,8 +117,7 @@ abstract class Action extends Think
      * @return string
      +----------------------------------------------------------
      */
-    protected function fetch($templateFile='',$charset='',$contentType='text/html')
-    {
+    protected function fetch($templateFile='',$charset='',$contentType='') {
         return $this->view->fetch($templateFile,$charset,$contentType);
     }
 
@@ -140,7 +137,7 @@ abstract class Action extends Think
      * @return string
      +----------------------------------------------------------
      */
-    protected function buildHtml($htmlfile='',$htmlpath='',$templateFile='',$charset='',$contentType='text/html') {
+    protected function buildHtml($htmlfile='',$htmlpath='',$templateFile='',$charset='',$contentType='') {
         return $this->view->buildHtml($htmlfile,$htmlpath,$templateFile,$charset,$contentType);
     }
 
@@ -156,8 +153,7 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function assign($name,$value='')
-    {
+    protected function assign($name,$value='') {
         $this->view->assign($name,$value);
     }
 
@@ -176,11 +172,6 @@ abstract class Action extends Think
      * @return mixed
      +----------------------------------------------------------
      */
-    protected function get($name)
-    {
-        return $this->view->get($name);
-    }
-
     public function __get($name) {
         return $this->view->get($name);
     }
@@ -197,8 +188,7 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function trace($name,$value='')
-    {
+    protected function trace($name,$value='') {
         $this->view->trace($name,$value);
     }
 
@@ -209,15 +199,15 @@ abstract class Action extends Think
      * @access public
      +----------------------------------------------------------
      * @param string $method 方法名
-     * @param array $parms 参数
+     * @param array $args 参数
      +----------------------------------------------------------
      * @return mixed
      +----------------------------------------------------------
      */
-    public function __call($method,$parms) {
+    public function __call($method,$args) {
         if( 0 === strcasecmp($method,ACTION_NAME)) {
             // 检查扩展操作方法
-            $_action = C('_actions_');
+            $_action = C('actions');
             if($_action) {
                 // 'module:action'=>'callback'
                 if(isset($_action[MODULE_NAME.':'.ACTION_NAME])) {
@@ -231,21 +221,32 @@ abstract class Action extends Think
                     return ;
                 }
             }
-            // 如果定义了_empty操作 则调用
             if(method_exists($this,'_empty')) {
-                $this->_empty($method,$parms);
-            }else {
+                // 如果定义了_empty操作 则调用
+                $this->_empty($method,$args);
+            }elseif(file_exists_case(C('TMPL_FILE_NAME'))){
                 // 检查是否存在默认模版 如果有直接输出模版
-                if(file_exists_case(C('TMPL_FILE_NAME')))
-                    $this->display();
-                else
-                    // 抛出异常
-                    throw_exception(L('_ERROR_ACTION_').ACTION_NAME);
+                $this->display();
+            }elseif(C('APP_DEBUG')) {
+                // 抛出异常
+                throw_exception(L('_ERROR_ACTION_').ACTION_NAME);
+            }else{
+                header('HTTP/1.1 404 Not Found');
+                header('Status:404 Not Found');
+                exit;
             }
-        }elseif(in_array(strtolower($method),array('ispost','isget','ishead','isdelete','isput'))){
-            return strtolower($_SERVER['REQUEST_METHOD']) == strtolower(substr($method,2));
         }else{
-            throw_exception(__CLASS__.':'.$method.L('_METHOD_NOT_EXIST_'));
+            switch(strtolower($method)) {
+                // 判断提交方式
+                case 'ispost':
+                case 'isget':
+                case 'ishead':
+                case 'isdelete':
+                case 'isput':
+                    return strtolower($_SERVER['REQUEST_METHOD']) == strtolower(substr($method,2));
+                default:
+                    throw_exception(__CLASS__.':'.$method.L('_METHOD_NOT_EXIST_'));
+            }
         }
     }
 
@@ -261,8 +262,7 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function error($message,$ajax=false)
-    {
+    protected function error($message,$ajax=false) {
         $this->_dispatch_jump($message,0,$ajax);
     }
 
@@ -278,8 +278,7 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function success($message,$ajax=false)
-    {
+    protected function success($message,$ajax=false) {
         $this->_dispatch_jump($message,1,$ajax);
     }
 
@@ -297,14 +296,14 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    protected function ajaxReturn($data,$info='',$status=1,$type='')
-    {
-        // 保证AJAX返回后也能保存日志
-        if(C('LOG_RECORD')) Log::save();
+    protected function ajaxReturn($data,$info='',$status=1,$type='') {
         $result  =  array();
         $result['status']  =  $status;
         $result['info'] =  $info;
         $result['data'] = $data;
+        //扩展ajax返回数据, 在Action中定义function ajaxAssign(&$result){} 方法 扩展ajax返回数据。
+        if(method_exists($this,"ajaxAssign")) 
+            $this->ajaxAssign($result);
         if(empty($type)) $type  =   C('DEFAULT_AJAX_RETURN');
         if(strtoupper($type)=='JSON') {
             // 返回JSON数据格式到客户端 包含状态信息
@@ -338,7 +337,6 @@ abstract class Action extends Think
      +----------------------------------------------------------
      */
     protected function redirect($url,$params=array(),$delay=0,$msg='') {
-        if(C('LOG_RECORD')) Log::save();
         $url    =   U($url,$params);
         redirect($url,$delay,$msg);
     }
@@ -358,39 +356,50 @@ abstract class Action extends Think
      * @return void
      +----------------------------------------------------------
      */
-    private function _dispatch_jump($message,$status=1,$ajax=false)
-    {
+    private function _dispatch_jump($message,$status=1,$ajax=false) {
         // 判断是否为AJAX返回
         if($ajax || $this->isAjax()) $this->ajaxReturn($ajax,$message,$status);
+        if(!empty($jumpUrl)) $this->assign('jumpUrl',$jumpUrl);
         // 提示标题
         $this->assign('msgTitle',$status? L('_OPERATION_SUCCESS_') : L('_OPERATION_FAIL_'));
         //如果设置了关闭窗口，则提示完毕后自动关闭窗口
-        if($this->get('closeWin'))    $this->assign('jumpUrl','javascript:window.close();');
+        if($this->view->get('closeWin'))    $this->assign('jumpUrl','javascript:window.close();');
         $this->assign('status',$status);   // 状态
-        $this->assign('message',$message);// 提示信息
         //保证输出不受静态缓存影响
         C('HTML_CACHE_ON',false);
         if($status) { //发送成功信息
+            $this->assign('message',$message);// 提示信息
             // 成功操作后默认停留1秒
-            if(!$this->get('waitSecond'))    $this->assign('waitSecond',"1");
+            if(!$this->view->get('waitSecond'))    $this->assign('waitSecond',"1");
             // 默认操作成功自动返回操作前页面
-            if(!$this->get('jumpUrl')) $this->assign("jumpUrl",$_SERVER["HTTP_REFERER"]);
+            if(!$this->view->get('jumpUrl')) $this->assign("jumpUrl",$_SERVER["HTTP_REFERER"]);
             $this->display(C('TMPL_ACTION_SUCCESS'));
         }else{
+            $this->assign('error',$message);// 提示信息
             //发生错误时候默认停留3秒
-            if(!$this->get('waitSecond'))    $this->assign('waitSecond',"3");
+            if(!$this->view->get('waitSecond'))    $this->assign('waitSecond',"3");
             // 默认发生错误的话自动返回上页
-            if(!$this->get('jumpUrl')) $this->assign('jumpUrl',"javascript:history.back(-1);");
+            if(!$this->view->get('jumpUrl')) $this->assign('jumpUrl',"javascript:history.back(-1);");
             $this->display(C('TMPL_ACTION_ERROR'));
+            // 中止执行  避免出错后继续执行
+            exit ;
         }
-        if(C('LOG_RECORD')) Log::save();
-        // 中止执行  避免出错后继续执行
-        exit ;
     }
 
-    protected function showTrace(){
+    protected function showTrace() {
         $this->view->traceVar();
     }
 
+   /**
+     +----------------------------------------------------------
+     * 析构方法
+     +----------------------------------------------------------
+     * @access public
+     +----------------------------------------------------------
+     */
+    public function __destruct() {
+        // 保存日志
+        if(C('LOG_RECORD')) Log::save();
+    }
 }//类定义结束
 ?>

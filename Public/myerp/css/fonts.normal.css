@@ -1,0 +1,284 @@
+/*********************************************************************************
+ * SugarCRM is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2010 SugarCRM Inc.
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ * 
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ * 
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU General Public License version 3.
+ * 
+ * In accordance with Section 7(b) of the GNU General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo. If the display of the logo is not reasonably feasible for
+ * technical reasons, the Appropriate Legal Notices must display the words
+ * "Powered by SugarCRM".
+ ********************************************************************************/
+/*********************************************************************************
+
+ * Description:  Contains a variety of utility functions used to display UI 
+ * components such as form headers and footers.  Intended to be modified on a per 
+ * theme basis.
+ ********************************************************************************/
+ 
+/* Default Styles */
+body 
+{ 
+	font-size: 12px;
+}
+table, div 
+{
+	font-size: 11px;
+}
+h1, h2 
+{
+	font-size: 14px; 
+}
+h3
+{
+	font-size: 13px; 
+}
+h4, h5 
+{
+	font-size: 12px; 
+}
+input, select, textarea, button
+{
+	font-size: 12px;
+}
+
+/* YUI styles */
+.ygrid-row, 
+.ygrid-hd, 
+.ygrid-hd-body, 
+.ygrid-hd-body span    
+{
+    font-size: 8pt;
+}
+
+/* for the main screen navigation tabs */
+#moduleList ul li,
+#subModuleList span
+{
+    font-size: 12px;
+}
+
+/* left column and the hidden list menu */
+#leftColumn h3, #HideMenu h3
+{
+    font-size: 12px;
+}
+
+/* for lists of items in the left column ( such as the shortcuts or last view items lists ) */
+.leftList ul 
+{
+    font-size: 11px;
+}
+		
+/*welcome user and date bar and last view*/
+#welcome, #search, #sitemapLink, #globalLinks, #globalLinks a, #themepickerLinkSpan
+{
+    font-size: 12px;
+}
+    
+/* search */
+#search input[name=query_string]
+{
+    font-size: 11px;
+}
+
+/* side quickcreate */
+#newRecord form,
+#newRecord form button,
+#newRecord form input[type=submit],
+#newRecord form input[type=button],
+#newRecord form input[type=reset],
+#newRecord form .dataLabel,
+#newRecord form a:link,
+#newRecord form a:visited
+{
+    font-size: 11px;
+}
+	
+/* reports */
+.reportGroup1ByTable, 
+.reportGroupNByTable,
+.reportlistViewThS1, 
+.reportGroup1ByTableEvenListRowS1, 
+.reportGroupNByTableEvenListRowS1,
+.reportGroupByDataChildTablelistViewThS1,  
+.reportlistViewMatrixThS1, 
+.reportlistViewMatrixThS2, 
+.reportlistViewMatrixThS3, 
+.reportlistViewMatrixThS4, 
+.reportlistViewMatrixLeftEmptyData, 
+.reportlistViewMatrixRightEmptyData, 
+.reportlistViewMatrixRightEmptyData1
+{
+    font-size: 11px;
+}
+
+.reportevenListRowS1, 
+.reportoddListRowS1 , 
+.reportGroupByDataEvenListRowS1, 
+.reportGroupByDataOddListRowS1 , 
+.reportGroupByDataMatrixEvenListRowS1, 
+.reportGroupByDataMatrixEvenListRowS2, 
+.reportGroupByDataMatrixEvenListRowS3, 
+.reportGroupByDataMatrixEvenListRowS4,
+.reportDataChildtablelistView td
+{
+    font-size: 12px;
+}
+
+/* for all views */
+.view tr, .view td, .view h4, .view div
+{
+    font-size: 12px;
+}
+.view td a, .view div a, .list th div
+{
+    font-size: 11px;
+}
+.other td a, .detail td a
+{
+    font-size: 12px;
+}
+.subTabs td
+{
+    font-size: 12px;
+}
+
+/* for list views */
+.oddListRowS1 td a, .evenListRowS1 td a
+{
+    font-size: 12px;
+}
+
+/* misc links */
+a.utilsLink:link, 
+a.utilsLink:visited
+{
+    font-size: 11px;
+}
+a.tabFormAdvLink:link, 
+a.tabFormAdvLink:visited 
+{
+    font-size: 12px;
+}
+/* calendar styles */
+.monthBox,
+.monthCalBody td,
+.monthViewDayHeight a, 
+.monthHeader a, 
+.monthFooter a
+{
+    font-size: 12px;
+}
+
+.monthCalBodyWeek a
+{
+    font-size: 11px;
+}
+	 
+.monthCalBodyDayItem td a
+{
+    font-size: 10px;
+}
+
+/* misc font displays */
+.rssItemDate,
+.dateFormat,
+.chartFootnote 
+{
+    font-size: 11px;	
+}
+.tm
+{
+    font-size: 8px;
+}
+
+/* for subpanel tabs */
+ul.tablist, 
+ul.tablist li a,
+ul.subpanelTablist, 
+ul.subpanelTablist li a,
+.subpanelTabForm,
+.subpanelTabForm h3
+{
+    font-size: 12px;
+}
+.subTabMore 
+{
+    font-size: 11px;
+}
+
+/* for quick searches */
+.sqsMatchedSmartInputItem 
+{
+    font-size: 11px;
+}
+
+/* for overlib js library */
+.olCapFontClass A 
+{
+	font-size: 9px; 
+}
+
+/* sitemap */
+#sitemap a:link, #sitemap a:visited, #sitemap a:hover 
+{
+    font-size: 11px;
+}
+#sitemap h4 a:link, #sitemap h4 a:visited, #sitemap h4 a:hover 
+{
+    font-size: 13px;
+}
+
+/* for about page */
+.about, .about td, .about span
+{
+    font-size: 12px;
+}
+
+/* for edit view like forms that need a smaller font size */
+.edit.view.small td,.detail.view.small td
+{
+    font-size: 11px;
+}
+
+/* to make the reportwizard button text smaller */
+.reportwizard .buttonText
+{
+	font-size: 11px;
+}
+
+/* to fix the size of the fonts in the unified module search popup */
+#unified_search_advanced_div .edit.view td
+{
+    font-size: 11px;
+}
+
+/* overlib popups */
+.olCapFontClass div, .olFontClass
+{
+    font-size: 11px !important;
+}

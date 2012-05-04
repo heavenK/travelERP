@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: Log.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Core
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: Log.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class Log extends Think
@@ -64,7 +64,7 @@ class Log extends Think
     static function record($message,$level=self::ERR,$record=false) {
         if($record || in_array($level,C('LOG_RECORD_LEVEL'))) {
             $now = date(self::$format);
-            self::$log[] =   "{$now} {$level}: {$message}\r\n";
+            self::$log[] =   "{$now} ".$_SERVER['REQUEST_URI']." | {$level}: {$message}\r\n";
         }
     }
 
@@ -82,8 +82,7 @@ class Log extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function save($type=self::FILE,$destination='',$extra='')
-    {
+    static function save($type=self::FILE,$destination='',$extra='') {
         if(empty($destination))
             $destination = LOG_PATH.date('y_m_d').".log";
         if(self::FILE == $type) { // 文件方式记录日志信息
@@ -113,8 +112,7 @@ class Log extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function write($message,$level=self::ERR,$type=self::FILE,$destination='',$extra='')
-    {
+    static function write($message,$level=self::ERR,$type=self::FILE,$destination='',$extra='') {
         $now = date(self::$format);
         if(empty($destination))
             $destination = LOG_PATH.date('y_m_d').".log";
@@ -123,7 +121,7 @@ class Log extends Think
             if(is_file($destination) && floor(C('LOG_FILE_SIZE')) <= filesize($destination) )
                   rename($destination,dirname($destination).'/'.time().'-'.basename($destination));
         }
-        error_log("{$now} {$level}: {$message}\r\n", $type,$destination,$extra );
+        error_log("{$now} ".$_SERVER['REQUEST_URI']." | {$level}: {$message}\r\n", $type,$destination,$extra );
         //clearstatcache();
     }
 

@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: Dispatcher.class.php 2841 2012-03-23 05:58:37Z liu21st@gmail.com $
 
 /**
  +------------------------------------------------------------------------------
@@ -19,7 +19,7 @@
  * @package  Think
  * @subpackage  Util
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: Dispatcher.class.php 2841 2012-03-23 05:58:37Z liu21st@gmail.com $
  +------------------------------------------------------------------------------
  */
 class Dispatcher extends Think
@@ -34,8 +34,7 @@ class Dispatcher extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static public function dispatch()
-    {
+    static public function dispatch() {
         $urlMode  =  C('URL_MODEL');
         if($urlMode == URL_REWRITE ) {
             //当前项目地址
@@ -83,7 +82,6 @@ class Dispatcher extends Think
         $depr = C('URL_PATHINFO_DEPR');
         // 分析PATHINFO信息
         self::getPathInfo();
-
         if(!self::routerCheck()){   // 检测路由规则 如果没有则按默认规则调度URL
             $paths = explode($depr,trim($_SERVER['PATH_INFO'],'/'));
             $var  =  array();
@@ -99,13 +97,12 @@ class Dispatcher extends Think
             }
             $var[C('VAR_ACTION')]  =   array_shift($paths);
             // 解析剩余的URL参数
-            $res = preg_replace('@(\w+)'.$depr.'([^'.$depr.'\/]+)@e', '$var[\'\\1\']="\\2";', implode($depr,$paths));
+            $res = preg_replace('@(\w+)'.$depr.'([^'.$depr.'\/]+)@e', '$var[\'\\1\']=strip_tags(\'\\2\');', implode($depr,$paths));
             $_GET   =  array_merge($var,$_GET);
         }
 
         // 获取分组 模块和操作名称
-        if (C('APP_GROUP_LIST'))
-        {
+        if (C('APP_GROUP_LIST')) {
             define('GROUP_NAME', self::getGroup(C('VAR_GROUP')));
             // 加载分组配置文件
             if(is_file(CONFIG_PATH.GROUP_NAME.'/config.php'))
@@ -117,12 +114,10 @@ class Dispatcher extends Think
         define('MODULE_NAME',self::getModule(C('VAR_MODULE')));
         define('ACTION_NAME',self::getAction(C('VAR_ACTION')));
         // URL常量
-        // 当前页面地址
-        //define('__SELF__',$_SERVER['PHP_SELF']);
-        define('__SELF__',$_SERVER['REQUEST_URI']);
+        define('__SELF__',strip_tags($_SERVER['REQUEST_URI']));
         define('__INFO__',$_SERVER['PATH_INFO']);
         // 当前项目地址
-        define('__APP__',PHP_FILE);
+        define('__APP__',strip_tags(PHP_FILE));
         // 当前模块和分组地址
         $module = defined('P_MODULE_NAME')?P_MODULE_NAME:MODULE_NAME;
         if(defined('GROUP_NAME')) {
@@ -147,8 +142,7 @@ class Dispatcher extends Think
     * @return void
     +----------------------------------------------------------
     */
-    public static function getPathInfo()
-    {
+    public static function getPathInfo() {
         if(!empty($_GET[C('VAR_PATHINFO')])) {
             // 兼容PATHINFO 参数
             $path = $_GET[C('VAR_PATHINFO')];
@@ -167,10 +161,9 @@ class Dispatcher extends Think
                 $path = $pathInfo;
         }elseif (!empty($_SERVER['REDIRECT_PATH_INFO'])){
             $path = $_SERVER['REDIRECT_PATH_INFO'];
-        }elseif(!empty($_SERVER["REDIRECT_Url"])){
-            $path = $_SERVER["REDIRECT_Url"];
-            if(empty($_SERVER['QUERY_STRING']) || $_SERVER['QUERY_STRING'] == $_SERVER["REDIRECT_QUERY_STRING"])
-            {
+        }elseif(!empty($_SERVER["REDIRECT_URL"])){
+            $path = $_SERVER["REDIRECT_URL"];
+            if(empty($_SERVER['QUERY_STRING']) || $_SERVER['QUERY_STRING'] == $_SERVER["REDIRECT_QUERY_STRING"]) {
                 $parsedUrl = parse_url($_SERVER["REQUEST_URI"]);
                 if(!empty($parsedUrl['query'])) {
                     $_SERVER['QUERY_STRING'] = $parsedUrl['query'];
@@ -183,6 +176,7 @@ class Dispatcher extends Think
                 reset($_SERVER);
             }
         }
+        
         if(C('URL_HTML_SUFFIX') && !empty($path)) {
             $path = preg_replace('/\.'.trim(C('URL_HTML_SUFFIX'),'.').'$/', '', $path);
         }
@@ -205,11 +199,10 @@ class Dispatcher extends Think
         if(!C('URL_ROUTER_ON')) return false;
         // 路由定义文件优先于config中的配置定义
         $routes = C('URL_ROUTE_RULES');
-        if(is_array(C('_routes_')))
-            $routes = C('_routes_');
+        if(is_array(C('routes')))
+            $routes = C('routes');
         // 路由处理
-        if(!empty($routes))
-        {
+        if(!empty($routes)) {
             $depr = C('URL_PATHINFO_DEPR');
             foreach ($routes as $key=>$route){
                 if(0 === stripos($regx.$depr,$route[0].$depr)) {
@@ -221,7 +214,7 @@ class Dispatcher extends Think
                     for($i=0;$i<count($vars);$i++)
                         $var[$vars[$i]]     =   array_shift($paths);
                     // 解析剩余的URL参数
-                    $res = preg_replace('@(\w+)\/([^,\/]+)@e', '$var[\'\\1\']="\\2";', implode('/',$paths));
+                    $res = preg_replace('@(\w+)\/([^,\/]+)@e', '$var[\'\\1\']=strip_tags(\'\\2\');', implode('/',$paths));
                     $_GET   =  array_merge($var,$_GET);
                     if(isset($route[3])) {
                         parse_str($route[3],$params);
@@ -236,7 +229,7 @@ class Dispatcher extends Think
                     for($i=0;$i<count($vars);$i++)
                         $var[$vars[$i]]     =   $matches[$i+1];
                     // 解析剩余的URL参数
-                    $res = preg_replace('@(\w+)\/([^,\/]+)@e', '$var[\'\\1\']="\\2";', str_replace($matches[0],'',$regx));
+                    $res = preg_replace('@(\w+)\/([^,\/]+)@e', '$var[\'\\1\']=strip_tags(\'\\2\');', str_replace($matches[0],'',$regx));
                     $_GET   =  array_merge($var,$_GET);
                     if(isset($route[3])) {
                         parse_str($route[3],$params);
@@ -267,8 +260,7 @@ class Dispatcher extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static private function getModule($var)
-    {
+    static private function getModule($var) {
         $module = (!empty($_GET[$var])? $_GET[$var]:C('DEFAULT_MODULE'));
         if(C('URL_CASE_INSENSITIVE')) {
             // URL地址不区分大小写
@@ -277,7 +269,7 @@ class Dispatcher extends Think
             $module = ucfirst(parse_name(P_MODULE_NAME,1));
         }
         unset($_GET[$var]);
-        return $module;
+        return strip_tags($module);
     }
 
     /**
@@ -289,13 +281,13 @@ class Dispatcher extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static private function getAction($var)
-    {
+    static private function getAction($var) {
         $action   = !empty($_POST[$var]) ?
             $_POST[$var] :
             (!empty($_GET[$var])?$_GET[$var]:C('DEFAULT_ACTION'));
         unset($_POST[$var],$_GET[$var]);
-        return C('URL_CASE_INSENSITIVE')?strtolower($action):$action;
+        define('P_ACTION_NAME',$action);
+        return strip_tags(C('URL_CASE_INSENSITIVE')?strtolower($action):$action);
     }
 
     /**
@@ -307,11 +299,11 @@ class Dispatcher extends Think
      * @return string
      +----------------------------------------------------------
      */
-    static private function getGroup($var)
-    {
+    static private function getGroup($var) {
         $group   = (!empty($_GET[$var])?$_GET[$var]:C('DEFAULT_GROUP'));
         unset($_GET[$var]);
-        return ucfirst(strtolower($group));
+        return strip_tags(ucfirst(strtolower($group)));
     }
+
 }//类定义结束
 ?>

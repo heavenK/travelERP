@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: Cache.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Util
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: Cache.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class Cache extends Think
@@ -46,16 +46,6 @@ class Cache extends Think
 
     /**
      +----------------------------------------------------------
-     * 缓存存储前缀
-     +----------------------------------------------------------
-     * @var string
-     * @access protected
-     +----------------------------------------------------------
-     */
-    protected $prefix='~@';
-
-    /**
-     +----------------------------------------------------------
      * 缓存连接参数
      +----------------------------------------------------------
      * @var integer
@@ -63,26 +53,6 @@ class Cache extends Think
      +----------------------------------------------------------
      */
     protected $options = array();
-
-    /**
-     +----------------------------------------------------------
-     * 缓存类型
-     +----------------------------------------------------------
-     * @var integer
-     * @access protected
-     +----------------------------------------------------------
-     */
-    protected $type       ;
-
-    /**
-     +----------------------------------------------------------
-     * 缓存过期时间
-     +----------------------------------------------------------
-     * @var integer
-     * @access protected
-     +----------------------------------------------------------
-     */
-    protected $expire     ;
 
     /**
      +----------------------------------------------------------
@@ -98,8 +68,7 @@ class Cache extends Think
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function connect($type='',$options=array())
-    {
+    public function connect($type='',$options=array()) {
         if(empty($type))  $type = C('DATA_CACHE_TYPE');
         $cachePath = dirname(__FILE__).'/Cache/';
         $cacheClass = 'Cache'.ucwords(strtolower(trim($type)));
@@ -129,6 +98,7 @@ class Cache extends Think
     public function getOptions($name) {
         return $this->options[$name];
     }
+
     /**
      +----------------------------------------------------------
      * 取得缓存类实例
@@ -139,8 +109,7 @@ class Cache extends Think
      * @return mixed
      +----------------------------------------------------------
      */
-    static function getInstance()
-    {
+    static function getInstance() {
        $param = func_get_args();
         return get_instance_of(__CLASS__,'connect',$param);
     }

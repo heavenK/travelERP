@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: AdvModel.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Core
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: AdvModel.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class AdvModel extends Model {
@@ -643,7 +643,9 @@ class AdvModel extends Model {
                             unset($data[$name]);
                         }
                     }
-                    $data[$key] =   serialize($serialize);
+                    if(!empty($serialize)) {
+                        $data[$key] =   serialize($serialize);
+                    }
                 }
             }
         }
@@ -704,101 +706,6 @@ class AdvModel extends Model {
             }
         }
         return $data;
-    }
-
-    /**
-     +----------------------------------------------------------
-     * 增加数据库连接
-     +----------------------------------------------------------
-     * @access public
-     +----------------------------------------------------------
-     * @param mixed $config 数据库连接信息
-     * 支持批量添加 例如 array(1=>$config1,2=>$config2)
-     * @param mixed $linkNum  创建的连接序号
-     +----------------------------------------------------------
-     * @return boolean
-     +----------------------------------------------------------
-     */
-    public function addConnect($config,$linkNum=NULL) {
-        if(isset($this->_db[$linkNum]))
-            return false;
-        if(NULL === $linkNum && is_array($config)) {
-            // 支持批量增加数据库连接
-            foreach ($config as $key=>$val)
-                $this->_db[$key]            =    Db::getInstance($val);
-            return true;
-        }
-        // 创建一个新的实例
-        $this->_db[$linkNum]            =    Db::getInstance($config);
-        return true;
-    }
-
-    /**
-     +----------------------------------------------------------
-     * 删除数据库连接
-     +----------------------------------------------------------
-     * @access public
-     +----------------------------------------------------------
-     * @param integer $linkNum  创建的连接序号
-     +----------------------------------------------------------
-     * @return boolean
-     +----------------------------------------------------------
-     */
-    public function delConnect($linkNum) {
-        if(isset($this->_db[$linkNum])) {
-            $this->_db[$linkNum]->close();
-            unset($this->_db[$linkNum]);
-            // 恢复之前的数据表字段信息
-            $this->fields    =    $this->_fields;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     +----------------------------------------------------------
-     * 关闭数据库连接
-     +----------------------------------------------------------
-     * @access public
-     +----------------------------------------------------------
-     * @param integer $linkNum  创建的连接序号
-     +----------------------------------------------------------
-     * @return boolean
-     +----------------------------------------------------------
-     */
-    public function closeConnect($linkNum) {
-        if(isset($this->_db[$linkNum])) {
-            $this->_db[$linkNum]->close();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     +----------------------------------------------------------
-     * 切换数据库连接
-     +----------------------------------------------------------
-     * @access public
-     +----------------------------------------------------------
-     * @param integer $linkNum  创建的连接序号
-     * @param string $name  要操作的模型名称
-     +----------------------------------------------------------
-     * @return boolean
-     +----------------------------------------------------------
-     */
-    public function switchConnect($linkNum,$name='') {
-        if(isset($this->_db[$linkNum])) {
-            // 在不同实例直接切换
-            $this->db   =   $this->_db[$linkNum];
-            // 重置当前表名 可以在切换之前重新设置前缀
-            $this->trueTableName  =  '';
-            if(!empty($name))   $this->name   =  $name;
-            // 更新数据表字段缓存信息
-            $this->flush();
-            return true;
-        }else{
-            return false;
-        }
     }
 
     /**

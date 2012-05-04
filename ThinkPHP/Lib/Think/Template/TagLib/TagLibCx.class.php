@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: TagLibCx.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 import('TagLib');
 
@@ -20,7 +20,7 @@ import('TagLib');
  * @package  Think
  * @subpackage  Template
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: TagLibCx.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class TagLibCx extends TagLib
@@ -65,19 +65,11 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _include($attr,$content)
-    {
+    public function _include($attr,$content) {
         $tag    = $this->parseXmlAttr($attr,'include');
         $file   =   $tag['file'];
-        $parseStr = $this->tpl->parseInclude($file);
-		 foreach ($tag as $key=>$val) {
-            if ($key == 'file') {
-                continue;
-            }
-            //echo $key;
-            $parseStr = str_replace('['.$key.']',$val,$parseStr);
-        }
-        return $this->tpl->parse($parseStr);
+        unset($tag['file']);
+        return $this->tpl->parseInclude($file,$tag);
     }
 
     /**
@@ -114,8 +106,7 @@ class TagLibCx extends TagLib
      * @return string|void
      +----------------------------------------------------------
      */
-    public function _volist($attr,$content)
-    {
+    public function _volist($attr,$content) {
         static $_iterateParseCache = array();
         //如果已经解析过，则直接返回变量值
         $cacheIterateId = md5($attr.$content);
@@ -146,8 +137,8 @@ class TagLibCx extends TagLib
         $parseStr .= 'if( count($__LIST__)==0 ) : echo "'.$empty.'" ;';
         $parseStr .= 'else: ';
         $parseStr .= 'foreach($__LIST__ as $key=>$'.$id.'): ';
-        $parseStr .= '++$'.$key.';';
-        $parseStr .= '$mod = ($'.$key.' % '.$mod.' )?>';
+        $parseStr .= '$mod = ($'.$key.' % '.$mod.' );';
+        $parseStr .= '++$'.$key.';?>';
         $parseStr .= $this->tpl->parse($content);
         $parseStr .= '<?php endforeach; endif; else: echo "'.$empty.'" ;endif; ?>';
         $_iterateParseCache[$cacheIterateId] = $parseStr;
@@ -162,8 +153,7 @@ class TagLibCx extends TagLib
         return $this->_volist($attr,$content);
     }
 
-    public function _foreach($attr,$content)
-    {
+    public function _foreach($attr,$content) {
         static $_iterateParseCache = array();
         //如果已经解析过，则直接返回变量值
         $cacheIterateId = md5($attr.$content);
@@ -346,8 +336,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _compare($attr,$content,$type='eq')
-    {
+    public function _compare($attr,$content,$type='eq') {
         $tag      = $this->parseXmlAttr($attr,'compare');
         $name   = $tag['name'];
         $value   = $tag['value'];
@@ -468,8 +457,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _present($attr,$content)
-    {
+    public function _present($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'present');
         $name   = $tag['name'];
         $name   = $this->autoBuildVar($name);
@@ -491,8 +479,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _notpresent($attr,$content)
-    {
+    public function _notpresent($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'notpresent');
         $name   = $tag['name'];
         $name   = $this->autoBuildVar($name);
@@ -514,8 +501,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _empty($attr,$content)
-    {
+    public function _empty($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'empty');
         $name   = $tag['name'];
         $name   = $this->autoBuildVar($name);
@@ -523,8 +509,7 @@ class TagLibCx extends TagLib
         return $parseStr;
     }
 
-    public function _notempty($attr,$content)
-    {
+    public function _notempty($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'notempty');
         $name   = $tag['name'];
         $name   = $this->autoBuildVar($name);
@@ -538,16 +523,14 @@ class TagLibCx extends TagLib
      * @param <type> $content
      * @return string
      */
-    public function _defined($attr,$content)
-    {
+    public function _defined($attr,$content) {
         $tag        = $this->parseXmlAttr($attr,'defined');
         $name     = $tag['name'];
         $parseStr = '<?php if(defined("'.$name.'")): ?>'.$content.'<?php endif; ?>';
         return $parseStr;
     }
 
-    public function _notdefined($attr,$content)
-    {
+    public function _notdefined($attr,$content) {
         $tag        = $this->parseXmlAttr($attr,'_notdefined');
         $name     = $tag['name'];
         $parseStr = '<?php if(!defined("'.$name.'")): ?>'.$content.'<?php endif; ?>';
@@ -589,15 +572,13 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _import($attr,$content,$isFile=false,$type='')
-    {
+    public function _import($attr,$content,$isFile=false,$type='') {
         $tag  = $this->parseXmlAttr($attr,'import');
         $file   = isset($tag['file'])?$tag['file']:$tag['href'];
         $parseStr = '';
         $endStr   = '';
         // 判断是否存在加载条件 允许使用函数判断(默认为isset)
-        if (isset($tag['value']))
-        {
+        if (isset($tag['value'])) {
             $varArray  = explode('|',$tag['value']);
             $name      = array_shift($varArray);
             $name      = $this->autoBuildVar($name);
@@ -614,8 +595,7 @@ class TagLibCx extends TagLib
             // 文件方式导入
             $array =  explode(',',$file);
             foreach ($array as $val){
-                if (!$type || isset($reset))
-                {
+                if (!$type || isset($reset)) {
                     $type = $reset = strtolower(substr(strrchr($val, '.'),1));
                 }
                 switch($type) {
@@ -654,20 +634,17 @@ class TagLibCx extends TagLib
     }
 
     // import别名 采用文件方式加载(要使用命名空间必须用import) 例如 <load file="__PUBLIC__/Js/Base.js" />
-    public function _load($attr,$content)
-    {
+    public function _load($attr,$content) {
         return $this->_import($attr,$content,true);
     }
 
     // import别名使用 导入css文件 <css file="__PUBLIC__/Css/Base.css" />
-    public function _css($attr,$content)
-    {
+    public function _css($attr,$content) {
         return $this->_import($attr,$content,true,'css');
     }
 
     // import别名使用 导入js文件 <js file="__PUBLIC__/Js/Base.js" />
-    public function _js($attr,$content)
-    {
+    public function _js($attr,$content) {
         return $this->_import($attr,$content,true,'js');
     }
 
@@ -685,8 +662,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _assign($attr,$content)
-    {
+    public function _assign($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'assign');
         $name   = $this->autoBuildVar($tag['name']);
         if('$'==substr($tag['value'],0,1)) {
@@ -712,8 +688,7 @@ class TagLibCx extends TagLib
      * @return string
      +----------------------------------------------------------
      */
-    public function _define($attr,$content)
-    {
+    public function _define($attr,$content) {
         $tag      = $this->parseXmlAttr($attr,'define');
         $name   =  '\''.$tag['name']. '\'';
         if('$'==substr($tag['value'],0,1)) {

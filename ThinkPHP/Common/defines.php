@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: defines.php 2816 2012-03-13 07:31:21Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -17,17 +17,16 @@
  * @category   Think
  * @package  Common
  * @author   liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: defines.php 2816 2012-03-13 07:31:21Z liu21st $
  +------------------------------------------------------------------------------
  */
 //[RUNTIME]
 if (!defined('THINK_PATH')) exit();
 //   系统信息
-if(version_compare(PHP_VERSION,'6.0.0','<') ) {
+if(version_compare(PHP_VERSION,'5.4.0','<') ) {
     @set_magic_quotes_runtime (0);
     define('MAGIC_QUOTES_GPC',get_magic_quotes_gpc()?True:False);
 }
-define('MEMORY_LIMIT_ON',function_exists('memory_get_usage'));
 define('IS_CGI',substr(PHP_SAPI, 0,3)=='cgi' ? 1 : 0 );
 define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
@@ -60,10 +59,7 @@ if(!IS_CLI) {
     define('URL_COMPAT',      3);   // 兼容模式
 }
 //  版本信息
-define('THINK_VERSION', '2.1');
+define('THINK_VERSION', '2.2');
+define('THINK_RELEASE', '20120323');
 //[/RUNTIME]
-// 记录内存初始使用
-if(MEMORY_LIMIT_ON) {
-     $GLOBALS['_startUseMems'] = memory_get_usage();
-}
 ?>

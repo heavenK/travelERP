@@ -3,13 +3,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: functions.php 2796 2012-03-02 15:37:05Z liu21st $
 
 /**
   +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @category   Think
  * @package  Common
  * @author   liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: functions.php 2796 2012-03-02 15:37:05Z liu21st $
   +------------------------------------------------------------------------------
  */
 // 设置和获取统计数据
@@ -90,9 +90,10 @@ function U($url, $params=array(), $redirect=false, $suffix=true) {
             }
         }
     }
-
+    // 默认分组不显示
+    if(0 == strcasecmp($group, C('DEFAULT_GROUP')))  unset($group);
     if (C('URL_MODEL') > 0) {
-        $depr = C('URL_PATHINFO_MODEL') == 2 ? C('URL_PATHINFO_DEPR') : '/';
+        $depr = C('URL_PATHINFO_DEPR');
         $str = $depr;
         foreach ($params as $var => $val)
             $str .= $var . $depr . $val . $depr;
@@ -295,37 +296,17 @@ function get_instance_of($name, $method='', $args=array()) {
 }
 
 /**
-  +----------------------------------------------------------
+ +----------------------------------------------------------
  * 系统自动加载ThinkPHP基类库和当前项目的model和Action对象
  * 并且支持配置自动加载路径
-  +----------------------------------------------------------
+ +----------------------------------------------------------
  * @param string $name 对象类名
-  +----------------------------------------------------------
+ +----------------------------------------------------------
  * @return void
-  +----------------------------------------------------------
+ +----------------------------------------------------------
  */
 function __autoload($name) {
-    // 检查是否存在别名定义
-    if (alias_import($name))
-        return;
-    // 自动加载当前项目的Actioon类和Model类
-    if (substr($name, -5) == "Model") {
-        require_cache(LIB_PATH . 'Model/' . $name . '.class.php');
-    } elseif (substr($name, -6) == "Action") {
-        require_cache(LIB_PATH . 'Action/' . $name . '.class.php');
-    } else {
-        // 根据自动加载路径设置进行尝试搜索
-        if (C('APP_AUTOLOAD_PATH')) {
-            $paths = explode(',', C('APP_AUTOLOAD_PATH'));
-            foreach ($paths as $path) {
-                if (import($path . $name)) {
-                    // 如果加载类成功则返回
-                    return;
-                }
-            }
-        }
-    }
-    return;
+    return Think::autoload($name);
 }
 
 // 优化的require_once
@@ -435,7 +416,7 @@ function load($name, $baseUrl='', $ext='.php') {
     }
     if (substr($baseUrl, -1) != "/")
         $baseUrl .= "/";
-    include $baseUrl . $name . $ext;
+    require_cache($baseUrl . $name . $ext);
 }
 
 // 快速导入第三方框架类库
@@ -508,6 +489,7 @@ function D($name='', $app='') {
  * M函数用于实例化一个没有模型文件的Model
   +----------------------------------------------------------
  * @param string name Model名称
+ * @param string class 要实例化的模型类名
   +----------------------------------------------------------
  * @return Model
   +----------------------------------------------------------
@@ -543,7 +525,7 @@ function A($name, $app='@') {
         $className = $name . 'Action';
         import($app . '.Action.' . $className);
     }
-    if (class_exists($className)) {
+    if (class_exists($className,false)) {
         $action = new $className();
         $_action[$app . $OriClassName] = $action;
         return $action;
@@ -599,21 +581,22 @@ function C($name=null, $value=null) {
         }
         // 二维数组设置和获取支持
         $name = explode('.', $name);
-        $name[0] = strtolower($name[0]);
+        $name[0]   =  strtolower($name[0]);
         if (is_null($value))
             return isset($_config[$name[0]][$name[1]]) ? $_config[$name[0]][$name[1]] : null;
         $_config[$name[0]][$name[1]] = $value;
         return;
     }
     // 批量设置
-    if (is_array($name))
+    if (is_array($name)){
         return $_config = array_merge($_config, array_change_key_case($name));
+    }
     return null; // 避免非法参数
 }
 
 // 处理标签
 function tag($name, $params=array()) {
-    $tags = C('_TAGS_.' . $name);
+    $tags = C('TAGS.' . $name);
     if (!empty($tags)) {
         foreach ($tags as $key => $call) {
             $result = B($call, $params);
@@ -652,11 +635,11 @@ function W($name, $data=array(), $return=false) {
 }
 
 // 全局缓存设置和读取
-function S($name, $value='', $expire='', $type='') {
+function S($name, $value='', $expire='', $type='',$options=null) {
     static $_cache = array();
     alias_import('Cache');
     //取得缓存对象实例
-    $cache = Cache::getInstance($type);
+    $cache = Cache::getInstance($type,$options);
     if ('' !== $value) {
         if (is_null($value)) {
             // 删除缓存
@@ -693,7 +676,8 @@ function F($name, $value='', $path=DATA_PATH) {
             // 目录不存在则创建
             if (!is_dir($dir))
                 mkdir($dir);
-            return file_put_contents($filename, "<?php\nreturn " . var_export($value, true) . ";\n?>");
+            $_cache[$name] =   $value;
+            return file_put_contents($filename, strip_whitespace("<?php\nreturn " . var_export($value, true) . ";\n?>"));
         }
     }
     if (isset($_cache[$name]))
@@ -720,8 +704,6 @@ function to_guid_string($mix) {
     return md5($mix);
 }
 
-//[RUNTIME]
-// 编译文件
 // 去除代码中的空白和注释
 function strip_whitespace($content) {
     $stripStr = '';
@@ -745,6 +727,20 @@ function strip_whitespace($content) {
                         $last_space = true;
                     }
                     break;
+                case T_START_HEREDOC:
+                    $stripStr .= "<<<THINK\n";
+                    break;
+                case T_END_HEREDOC:
+                    $stripStr .= "THINK;\n";
+                    for($k = $i+1; $k < $j; $k++) {
+                        if(is_string($tokens[$k]) && $tokens[$k] == ";") {
+                            $i = $k;
+                            break;
+                        } else if($tokens[$k][0] == T_CLOSE_TAG) {
+                            break;
+                        }
+                    }
+                    break;
                 default:
                     $last_space = false;
                     $stripStr .= $tokens[$i][1];
@@ -754,11 +750,12 @@ function strip_whitespace($content) {
     return $stripStr;
 }
 
-function compile($filename, $runtime=false) {
+//[RUNTIME]
+// 编译文件
+function compile($filename) {
     $content = file_get_contents($filename);
-    if (true === $runtime)
     // 替换预编译指令
-        $content = preg_replace('/\/\/\[RUNTIME\](.*?)\/\/\[\/RUNTIME\]/s', '', $content);
+    $content = preg_replace('/\/\/\[RUNTIME\](.*?)\/\/\[\/RUNTIME\]/s', '', $content);
     $content = substr(trim($content), 5);
     if ('?>' == substr($content, -2))
         $content = substr($content, 0, -2);
@@ -770,8 +767,7 @@ function array_define($array) {
     $content = '';
     foreach ($array as $key => $val) {
         $key = strtoupper($key);
-        if (in_array($key, array('THINK_PATH', 'APP_NAME', 'APP_PATH', 'APP_CACHE_NAME', 'RUNTIME_PATH', 'RUNTIME_ALLINONE', 'THINK_MODE')))
-            $content .= 'if(!defined(\'' . $key . '\')) ';
+        $content .= 'if(!defined(\'' . $key . '\')) ';
         if (is_int($val) || is_float($val)) {
             $content .= "define('" . $key . "'," . $val . ");";
         } elseif (is_bool($val)) {
@@ -909,5 +905,4 @@ function cookie($name, $value='', $option=null) {
         }
     }
 }
-
 ?>

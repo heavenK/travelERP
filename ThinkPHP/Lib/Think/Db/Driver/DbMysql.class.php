@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: DbMysql.class.php 2771 2012-02-22 02:57:49Z liu21st $
 
 define('CLIENT_MULTI_RESULTS', 131072);
 /**
@@ -19,7 +19,7 @@ define('CLIENT_MULTI_RESULTS', 131072);
  * @package  Think
  * @subpackage  Db
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: DbMysql.class.php 2771 2012-02-22 02:57:49Z liu21st $
  +------------------------------------------------------------------------------
  */
 class DbMysql extends Db{
@@ -39,6 +39,9 @@ class DbMysql extends Db{
         }
         if(!empty($config)) {
             $this->config   =   $config;
+            if(empty($this->config['params'])) {
+                $this->config['params'] =   array();
+            }
         }
     }
 
@@ -56,7 +59,9 @@ class DbMysql extends Db{
             if(empty($config))  $config =   $this->config;
             // 处理不带端口号的socket连接情况
             $host = $config['hostname'].($config['hostport']?":{$config['hostport']}":'');
-            if($this->pconnect) {
+            // 是否长连接
+            $pconnect   = !empty($config['params']['persist'])? $config['params']['persist']:$this->pconnect;
+            if($pconnect) {
                 $this->linkID[$linkNum] = mysql_pconnect( $host, $config['username'], $config['password'],CLIENT_MULTI_RESULTS);
             }else{
                 $this->linkID[$linkNum] = mysql_connect( $host, $config['username'], $config['password'],true,CLIENT_MULTI_RESULTS);
@@ -193,8 +198,7 @@ class DbMysql extends Db{
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function commit()
-    {
+    public function commit() {
         if ($this->transTimes > 0) {
             $result = mysql_query('COMMIT', $this->_linkID);
             $this->transTimes = 0;
@@ -216,8 +220,7 @@ class DbMysql extends Db{
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function rollback()
-    {
+    public function rollback() {
         if ($this->transTimes > 0) {
             $result = mysql_query('ROLLBACK', $this->_linkID);
             $this->transTimes = 0;
@@ -259,7 +262,7 @@ class DbMysql extends Db{
      +----------------------------------------------------------
      */
     public function getFields($tableName) {
-        $result =   $this->query('SHOW COLUMNS FROM `'.$tableName.'`');
+        $result =   $this->query('SHOW COLUMNS FROM '.$this->parseKey($tableName));
         $info   =   array();
         if($result) {
             foreach ($result as $key => $val) {
@@ -314,7 +317,7 @@ class DbMysql extends Db{
             $value   =  $this->parseValue($val);
             if(is_scalar($value)) { // 过滤非标量数据
                 $values[]   =  $value;
-                $fields[]     =  $this->addSpecialChar($key);
+                $fields[]     =  $this->parseKey($key);
             }
         }
         $sql   =  'REPLACE INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES ('.implode(',', $values).')';
@@ -329,14 +332,15 @@ class DbMysql extends Db{
      +----------------------------------------------------------
      * @param mixed $datas 数据
      * @param array $options 参数表达式
+     * @param boolean $replace 是否replace
      +----------------------------------------------------------
      * @return false | integer
      +----------------------------------------------------------
      */
-    public function insertAll($datas,$options=array()) {
+    public function insertAll($datas,$options=array(),$replace=false) {
         if(!is_array($datas[0])) return false;
         $fields = array_keys($datas[0]);
-        array_walk($fields, array($this, 'addSpecialChar'));
+        array_walk($fields, array($this, 'parseKey'));
         $values  =  array();
         foreach ($datas as $data){
             $value   =  array();
@@ -348,7 +352,7 @@ class DbMysql extends Db{
             }
             $values[]    = '('.implode(',', $value).')';
         }
-        $sql   =  'INSERT INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES '.implode(',',$values);
+        $sql   =  ($replace?'REPLACE':'INSERT').' INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES '.implode(',',$values);
         return $this->execute($sql);
     }
 
@@ -400,20 +404,30 @@ class DbMysql extends Db{
      +----------------------------------------------------------
      */
     public function escape_string($str) {
-        return mysql_escape_string($str);
+        if($this->_linkID) {
+            return mysql_real_escape_string($str,$this->_linkID);
+        }else{
+            return mysql_escape_string($str);
+        }
     }
 
-   /**
+    /**
      +----------------------------------------------------------
-     * 析构方法
+     * 字段和表名处理添加`
      +----------------------------------------------------------
-     * @access public
+     * @access protected
+     +----------------------------------------------------------
+     * @param string $key
+     +----------------------------------------------------------
+     * @return string
      +----------------------------------------------------------
      */
-    public function __destruct()
-    {
-        // 关闭连接
-        $this->close();
+    protected function parseKey(&$key) {
+        $key   =  trim($key);
+        if(!preg_match('/[,\'\"\*\(\)`.\s]/',$key)) {
+           $key = '`'.$key.'`';
+        }
+        return $key;
     }
 }//类定义结束
 ?>

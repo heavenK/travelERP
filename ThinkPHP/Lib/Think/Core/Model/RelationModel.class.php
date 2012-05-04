@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: RelationModel.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Core
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: RelationModel.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class RelationModel extends Model {
@@ -58,12 +58,10 @@ class RelationModel extends Model {
      * @return string
      +----------------------------------------------------------
      */
-    public function getRelationTableName($relation)
-    {
+    public function getRelationTableName($relation) {
         $relationTable  = !empty($this->tablePrefix) ? $this->tablePrefix : '';
         $relationTable .= $this->tableName?$this->tableName:$this->name;
         $relationTable .= '_'.$relation->getModelName();
-        $relationTable .= !empty($this->tableSuffix) ? $this->tableSuffix : '';
         return strtolower($relationTable);
     }
 
@@ -152,8 +150,7 @@ class RelationModel extends Model {
      * @return array
      +----------------------------------------------------------
      */
-    protected function getRelation(&$result,$name='',$return=false)
-    {
+    protected function getRelation(&$result,$name='',$return=false) {
         if(!empty($this->_link)) {
             foreach($this->_link as $key=>$val) {
                     $mappingName =  !empty($val['mapping_name'])?$val['mapping_name']:$key; // 映射名称
@@ -169,7 +166,7 @@ class RelationModel extends Model {
                             $mappingFk   =   !empty($val['foreign_key'])?$val['foreign_key']:strtolower($this->name).'_id';     //  关联外键
                         }
                         // 获取关联模型对象
-                        $model = M($mappingClass);
+                        $model = D($mappingClass);
                         switch($mappingType) {
                             case HAS_ONE:
                                 $pk   =  $result[$this->getPk()];
@@ -254,8 +251,7 @@ class RelationModel extends Model {
      * @return mixed
      +----------------------------------------------------------
      */
-    protected function opRelation($opType,$data='',$name='')
-    {
+    protected function opRelation($opType,$data='',$name='') {
         $result =   false;
         if(empty($data) && !empty($this->data)){
             $data = $this->data;
@@ -282,7 +278,7 @@ class RelationModel extends Model {
                         }
                         $mappingCondition = !empty($val['condition'])?  $val['condition'] :  "{$mappingFk}='{$pk}'";
                         // 获取关联model对象
-                        $model = M($mappingClass);
+                        $model = D($mappingClass);
                         $mappingData    =   isset($data[$mappingName])?$data[$mappingName]:false;
                         if(!empty($mappingData) || $opType == 'DEL') {
                             switch($mappingType) {

@@ -1,0 +1,599 @@
+/*********************************************************************************
+ * SugarCRM is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2010 SugarCRM Inc.
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ * 
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ * 
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU General Public License version 3.
+ * 
+ * In accordance with Section 7(b) of the GNU General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo. If the display of the logo is not reasonably feasible for
+ * technical reasons, the Appropriate Legal Notices must display the words
+ * "Powered by SugarCRM".
+ ********************************************************************************/
+/*********************************************************************************
+
+ * Description:  Contains a variety of utility functions used to display UI
+ * components such as form headers and footers.  Intended to be modified on a per
+ * theme basis.
+ ********************************************************************************/
+
+/* Default Styles */
+body
+{
+	color: #444444;
+	background-color: #ffffff;
+}
+h1, h2, h3
+{
+	color: #000000;
+}
+.h3Row 
+{
+	background-image: url(../images/bg.gif);
+}
+h4, h5
+{
+	color: #444;
+}
+a:link, a:visited
+{
+    color: #0b578f;
+}
+a:hover
+{
+    color: #000000;
+}
+button, input[type=submit], input[type=reset], input[type=button], .button
+{
+	border-color: #abc3d7;
+	background-color: #ecf1f4;
+	color: #000;
+	background-image: url(../images/bgBtn.gif);
+}
+button:hover, input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover,
+button:focus, input[type=submit]:focus, input[type=reset]:focus, input[type=button]:focus,
+button[selected], input[type=submit][selected], input[type=reset][selected], input[type=button][selected]
+{
+	background-color: #4e8ccf;
+	border-color: #4e8ccf;
+}
+button[disabled], input[type=submit][disabled], input[type=reset][disabled], input[type=button][disabled]
+{
+	border-color: #c1c1c1;
+	background-color: #f0f0f0;
+	color: #000;
+	background-image: url(../images/bgBtnGray.gif);
+}
+input,select 
+{
+	border-color: #94c1e8;
+	background-color: #ffffff;
+}
+
+input:focus,textarea:focus, select:focus 
+{
+	background-color: #fff;
+	border-color: #abc3d7;
+}
+textarea 
+{
+	border-color: #abc3d7;
+	background-color: #fff;
+}
+
+/* for team notices dashlet */
+.teamNoticeBox 
+{
+    border-color: #abc3d7;
+    color: #444444;
+}
+
+/* header */
+#header div.line {
+    background-color:#4e8ccf;
+	border-bottom-color: #0046ad;
+    color:#0046ad;
+}
+
+/* for the main screen navigation tabs */
+#moduleList 
+{
+    background-image:url(../images/untitled.gif);
+    background-repeat: repeat-x;
+    border-bottom-color: #0046ad;
+}
+#moduleList > ul > li
+{
+    background-image:url(../images/otherTab.gif);
+}
+#moduleList ul li span.currentTab a:link, 
+#moduleList ul li span.currentTab a:visited, 
+#moduleList ul li span.currentTab a:hover 
+{
+    color: #ffffff;
+}
+#moduleList ul li a:link, 
+#moduleList ul li a:visited 
+{
+    color: #444444;
+}
+#moduleList ul li a:hover 
+{
+    color: #000000;
+}
+#moduleList ul li span.currentTabLeft, 
+#moduleList ul li span.currentTabRight, 
+#moduleList ul li span.currentTab 
+{
+    background-image : url(../images/currentTab.gif);
+    background-repeat: no-repeat;
+    border-bottom-color: #4e8ccf;
+}
+#subModuleList 
+{
+	background-color:#4e8ccf;
+	border-color:#0046ad;
+}
+#subModuleList span a
+{
+	border-right-color:#0046ad;
+	border-left-color:#79a7d8;
+}
+#subModuleList span a:link, 
+#subModuleList span a:visited 
+{ 
+    color: #ffffff;
+}
+#subModuleList span a:hover
+{
+    background-color:#0046ad;
+	border-left-color:#0046ad;
+}
+
+/* lists in the header */
+.headerList 
+{
+    color: #444;
+    border-top-color:#0046ad;
+    border-bottom-color: #abc3d7;
+    background-color: #f4f9fc;
+}
+.headerList a:link, 
+.headerList a:visited, 
+.headerList a 
+{
+    color: #444444;	
+    border-color: #CBDAE6;
+}
+.headerList a:hover
+{
+    color: #0b578f;	
+}
+/* for lists of items in the left column ( such as the shortcuts or last view items lists ) */
+.leftList ul, 
+.leftList ul li, 
+#newRecord form 
+{
+    background-color: #fff;
+    border-color: #cbdae6;
+}
+#leftColumn h3, #HideMenu h3 
+{
+    border-color: #abc3d7;
+}
+.leftList ul li a:hover, 
+.leftList ul li span:hover  
+{
+    color: #000000;
+    background-color: #f4f9fc;
+}
+/* global links and theme picker */
+#globalLinks ul li a:hover, #themepickerLinkSpan a:hover
+{
+    color: #0b578f;
+}
+/* for subpanel tabs */
+ul.tablist li a.activeSubTab:hover
+{
+    border-bottom-color: #ddd;
+    color: #000000;
+}
+ul.subpanelTablist li a.activeSubTab:hover
+{
+    color: #000000;
+}
+                                                                                             
+/* search */
+#search input[name=query_string] 
+{
+	border-color: #6fb0e4;
+	background-color: #f6fafd;
+}
+
+/* new record form */
+#newRecord form a:link, 
+#newRecord form a:visited 
+{
+    color: #666666;
+}
+#newRecord form a:hover 
+{
+    color: #444444;
+}
+
+/* listviews */
+.list tr.pagination td table td a:link,
+.list tr.pagination td table td a:visited,
+.reportGroupByDataChildTablelistViewThS1 a:link,
+.reportGroupByDataChildTablelistViewThS1 a:visited,
+.list tr th,
+.list tr th a:link,
+.list tr th a:visited,
+.list tr td[scope=col],
+.list tr td[scope=col] a:link,
+.list tr td[scope=col] a:visited,
+.list tr.pagination td table td span.pageNumbers
+{
+    color: #444444;
+}
+.list
+{
+	border-color: #ABC3D7 !important;
+}
+.evenListRowS1 td, 
+.oddListRowS1 td
+{
+    color: #000000;
+    border-bottom: 1px solid #cbdae6;
+}
+.evenListRowS1:hover td, 
+.oddListRowS1:hover td
+{
+    background: #f6f6f6;
+}
+
+/* detailviews */
+.detail table, 
+table.detail
+{
+    background-color: #cbdae6;
+}
+.detail tr td[scope="row"] 
+{
+    color: #000000;
+    background-color: #f6f6f6;
+    border-color: #cbdae6;
+}
+.detail h4 {
+    color: #444444;
+}
+.detail tr th 
+{
+    border-color: #cbdae6;
+}
+.detail tr td 
+{
+    color: #444444;
+    border-color: #cbdae6;
+    background-color: #fff;
+}
+.detail tr td a:link, 
+.detail tr td a:visited,
+.detail tr td a:hover 
+{
+    color: #0b578f;
+}
+
+/* editviews */
+.edit td[scope=row]
+{
+    color: #444444;
+}
+
+#EditView hr{
+    border-color:#abc3d7; 
+}
+
+.edit, .edit > table, .detail, .detail > table
+{
+    border-bottom-color: #abc3d7 !important;
+    border-top-color: #4e8ccf !important;
+}
+.edit
+{
+    color: #000000;
+    background-color: #f6f6f6;
+}
+.detail .edit td
+{
+    background-color: #fff !important;
+    border-bottom: 0 !important;
+}
+
+/* other views */
+.other 
+{
+    border-color: #abc3d7;
+    background-color: #cbdae6;
+}
+.other td
+{
+    color: #444444;
+    background-color: #ffffff;
+    border-left-color: #dfdfdf;
+}
+.other td[scope=row]
+{
+    color: #000000;
+    background-color: #fafafa;
+}
+.other td.edit
+{
+    color: #000000;
+    background-color: #f6f6f6;
+}
+
+/* misc links */
+a.utilsLink:link, a.utilsLink:visited 
+{
+    color: #0b578f;
+}
+a.tabFormAdvLink:link, a.tabFormAdvLink:visited 
+{
+    color: #444444;
+}
+
+/* calendar styles */
+.monthCalBody
+{
+	background-color: #abc3d7;
+}
+.monthFooter td 
+{
+	border-top-color: #abc3d7;
+	border-bottom-color: #abc3d7;
+	background-color: #ffffff;
+}
+.monthHeader a:hover, 
+.monthViewDayHeight a:hover
+{
+	color: #0b578f;
+}
+.monthCalBodyTH th[scope=row], 
+.monthViewDayHeight td[scope=row] 
+{
+	background-color: #ebebeb;
+}
+.monthCalBodyTH th 
+{
+	background-color: #fafafa;
+	color: #444444;
+	border-color: #abc3d7 !important;
+}
+.monthViewDayHeight td
+{
+	border-color: #abc3d7;
+	background-color: #ffffff;
+	color: #444444;
+}
+.monthViewDayHeight td[class=weekEnd]
+{
+	background-color: #f6f6f6;
+}
+.monthCalBodyDayItem 
+{
+	background-color: #ffffff;
+	border-top-color: #abc3d7;
+	border-bottom-color: #ddd;
+}
+.monthCalBody td 
+{
+	background-color: #fff;
+	color: #444444;
+}
+.monthCalBody th a
+{
+	color: #000000;
+}
+.yearCalBody 
+{
+	border: none;
+}
+.yearCalBodyMonth 
+{
+	background-color: #abc3d7 !important;
+	border-top: 2px solid #4e8ccf;
+	border-bottom: 2px solid #fff;
+}
+.yearCalBody .monthHeader 
+{
+    border: none;
+}
+.yearCalBodyMonth #daily_cal_table 
+{
+	border-top: #abc3d7;
+}
+.yearCalBodyMonth #daily_cal_table .monthCalBodyTHDay 
+{
+	border-color: #abc3d7;
+}
+.yearCalBodyMonth > a
+{
+	color: #000000;
+}
+h5.calSharedUser 
+{
+	color: #444444;
+}
+.monthHeader 
+{
+    color: #444;
+    background-color: #fff;
+    border-color: #abc3d7;
+    background-image: url(../images/bg.gif);
+}
+
+/* for subpanel tabs */
+.subpanelTabForm
+{
+    border-color: #abc3d7;
+    color: #000000;
+    background-color: #ffffff;
+}
+ul.tablist, ul.subpanelTablist
+{
+    border-bottom-color: #abc3d7;
+}
+ul.tablist li a:hover, 
+ul.subpanelTablist li a:hover
+{
+    background: #fafafa;
+    border-color: #abc3d7;
+}
+ul.tablist li a, 
+ul.subpanelTablist li a
+{
+    background-color: #fff;
+    border-color: #dddddd;
+}
+ul.tablist li a:link, 
+ul.tablist li a:visited, 
+ul.subpanelTablist li a:link, 
+ul.subpanelTablist li a:visited 
+{ 
+    color: #444444;
+}
+ul.tablist li a:hover, 
+ul.subpanelTablist li a:hover
+{
+    background: #fafafa;
+}
+ul.subpanelTablist li a.current, 
+ul.subpanelTablist li a.current:hover
+{
+    color: #4f4f4f;
+	background: #fff;
+    border-right-color: #abc3d7;
+    border-top-color: #abc3d7;
+    border-bottom-color: #fff;
+}
+
+ul.tablist li a.current:link, ul.tablist li a.current:visited, ul.tablist li a.current:hover
+{
+    background: #f6f6f6;
+    border-bottom-color: #f6f6f6;
+    border-right-color: #abc3d7;
+    border-top-color: #abc3d7;
+}
+/* for overlib js library */
+.olCgClass td
+{
+	border-bottom-color: #abc3d7;
+}
+.olBgClass 
+{
+	background-color: #abc3d7;
+}
+
+/* sitemap */
+#sitemap .edit.view
+{
+    border-color: #4e8ccf !important;
+}
+
+/* for edit view like forms that need a smaller font size */
+.edit.view.small td
+{
+    color: #444;
+}
+
+/* YUI theme */
+.yui-dt th, .yui-dt-hd {
+    /*background: #D8D8DA url('../images/sugar-yui-sprites.png') repeat-x 0 -30px;*/
+    background:#EBEBED none repeat scroll 0 0;
+}
+
+.yui-layout .yui-layout-unit-left div.yui-layout-hd .collapse
+{
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat 0 -110px;
+}
+
+ .yui-layout .yui-layout-clip-left .collapse, .yui-layout .yui-layout-unit-right div.yui-layout-hd .collapse, 
+ .yui-layout .yui-layout-unit-bottom div.yui-layout-hd .collapse {
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat 0 -90px;
+}
+
+ .yui-layout .yui-layout-clip-right .collapse {
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat -0 -110px;
+}
+
+ .yui-layout .yui-layout-unit-top div.yui-layout-hd .collapse {
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat -20px -220px;
+}
+
+ .yui-layout .yui-layout-clip-top .collapse {
+    background: transparent url('../images/sugar-yui-sprites.png')no-repeat -20px -240px;
+}
+
+ .yui-layout .yui-layout-clip-bottom .collapse {
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat -20px -180px;
+}
+
+ .yui-layout .yui-layout-unit div.yui-layout-hd .close {
+    background: transparent url('../images/sugar-yui-sprites.png') no-repeat -20px -100px;
+}
+
+.yui-navset .yui-nav, .yui-navset .yui-navset-top .yui-nav, .yui-layout .yui-layout-hd {
+    background:#DDD url('../images/sugar-yui-sprites.png') repeat-x scroll 0 0;
+    border-color: #ABC3D7;
+}
+
+.yui-layout .yui-layout-unit div.yui-layout-bd, .yui-navset .yui-content, .yui-navset .yui-navset-top .yui-content {
+	border-color:#ABC3D7;
+}
+
+.yuimenuitem-hassubmenu > a{
+    background-image: url(../images/sugar-yui-sprites.png);
+}
+
+ .yui-navset .yui-nav li a,.yui-navset-top .yui-nav li a, .yui-navset-bottom .yui-nav li a,
+.yui-navset .yui-nav a, .yui-navset .yui-navset-top .yui-nav a
+    {
+    background:#DDD url('../images/sugar-yui-sprites.png') repeat-x scroll 0 -131px;  
+}
+ 
+ .sugar-progress-bar, .yui-navset .yui-nav .selected a, .yui-navset .yui-nav .selected a:focus, .yui-navset .yui-nav .selected a:hover
+{
+    background:#666666 url('../images/sugar-yui-sprites.png') repeat-x scroll 0 -157px;
+    
+}
+
+.yui-navset .yui-nav .selected a, .yui-navset .yui-nav .selected a em, .yui-navset .yui-nav a, .yui-navset .yui-nav a em, .yui-navset .yui-nav a, .yui-navset .yui-navset-top .yui-nav a  {
+    border-color: #ABC3D7;
+}
+
+ a.sugar-tab-close, .yui-navset .yui-nav a.sugar-tab-close, .yui-navset .yui-nav .selected a.sugar-tab-close {
+    background : transparent url('../images/sugar-yui-sprites.png')  no-repeat scroll 0px -70px;
+ }

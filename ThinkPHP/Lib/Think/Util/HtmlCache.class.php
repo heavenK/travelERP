@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: HtmlCache.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -19,7 +19,7 @@
  * @package  Think
  * @subpackage  Util
  * @author liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: HtmlCache.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class HtmlCache extends Think
@@ -30,7 +30,7 @@ class HtmlCache extends Think
     // 判断是否需要静态缓存
     static private function requireHtmlCache() {
         // 分析当前的静态规则
-         $htmls = C('_htmls_'); // 读取静态规则
+         $htmls = C('htmls'); // 读取静态规则
          if(!empty($htmls)) {
             // 静态规则文件定义格式 actionName=>array(‘静态规则’,’缓存时间’,’附加规则')
             // 'read'=>array('{id},{name}',60,'md5') 必须保证静态规则的唯一性 和 可判断性
@@ -86,8 +86,7 @@ class HtmlCache extends Think
      * @return void
      +----------------------------------------------------------
      */
-    static function readHTMLCache()
-    {
+    static function readHTMLCache() {
         if(self::requireHtmlCache() && self::checkHTMLCache(HTML_FILE_NAME,self::$cacheTime)) { //静态页面有效
             if(C('HTML_READ_TYPE')==1) {
                 // 重定向到静态页面
@@ -114,8 +113,7 @@ class HtmlCache extends Think
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    static public function writeHTMLCache($content)
-    {
+    static public function writeHTMLCache($content) {
         if(self::$requireCache) {
             //静态文件写入
             // 如果开启HTML功能 检查并重写HTML文件
@@ -141,8 +139,7 @@ class HtmlCache extends Think
      * @return boolen
      +----------------------------------------------------------
      */
-    static public function checkHTMLCache($cacheFile='',$cacheTime='')
-    {
+    static public function checkHTMLCache($cacheFile='',$cacheTime='') {
         if(!is_file($cacheFile)){
             return false;
         }elseif (filemtime(C('TMPL_FILE_NAME')) > filemtime($cacheFile)) {
@@ -159,7 +156,7 @@ class HtmlCache extends Think
     }
 
     //检测是否是空操作
-    static private function isEmptyAction($module,$action){
+    static private function isEmptyAction($module,$action) {
         $className =  $module.'Action';
         $class=new $className;
         return !method_exists($class,$action);

@@ -54,12 +54,12 @@ h2{
 <body>
 <div class="notice">
 <h2>系统发生错误 </h2>
-<div >您可以选择 [ <A HREF="<?php echo($_SERVER['PHP_SELF'])?>">重试</A> ] [ <A HREF="javascript:history.back()">返回</A> ] 或者 [ <A HREF="<?php echo(__APP__);?>">回到首页</A> ]</div>
+<div >您可以选择 [ <A HREF="<?php echo(strip_tags($_SERVER['PHP_SELF']))?>">重试</A> ] [ <A HREF="javascript:history.back()">返回</A> ] 或者 [ <A HREF="<?php echo(__APP__);?>">回到首页</A> ]</div>
 <?php if(isset($e['file'])) {?>
 <p><strong>错误位置:</strong>　FILE: <span class="red"><?php echo $e['file'] ;?></span>　LINE: <span class="red"><?php echo $e['line'];?></span></p>
 <?php }?>
 <p class="title">[ 错误信息 ]</p>
-<p class="message"><?php echo $e['message'];?></p>
+<p class="message"><?php echo strip_tags($e['message']);?></p>
 <?php if(isset($e['trace'])) {?>
 <p class="title">[ TRACE ]</p>
 <p id="trace">
@@ -67,7 +67,7 @@ h2{
 </p>
 <?php }?>
 </div>
-<div align="center" style="color:#FF3300;margin:5pt;font-family:Verdana"> ThinkPHP <sup style='color:gray;font-size:9pt'><?php echo THINK_VERSION;?></sup><span style='color:silver'> { Fast & Simple OOP PHP Framework } -- [ WE CAN DO IT JUST THINK IT ]</span>
+<div align="center" style="color:#FF3300;margin:5pt;font-family:Verdana"> ThinkPHP <sup style='color:gray;font-size:9pt'><?php echo THINK_VERSION;?></sup><span style='color:silver'> { Fast & Simple OOP PHP Framework } -- [ WE CAN DO IT JUST THINK ]</span>
 </div>
 </body>
 </html>

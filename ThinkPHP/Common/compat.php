@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: compat.php 2207 2011-11-30 13:17:26Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -17,13 +17,12 @@
  * @category   Think
  * @package  Common
  * @author   liu21st <liu21st@gmail.com>
- * @version  $Id$
+ * @version  $Id: compat.php 2207 2011-11-30 13:17:26Z liu21st $
  +------------------------------------------------------------------------------
  */
 
 if (!function_exists('json_encode')) {
-     function format_json_value(&$value)
-    {
+     function format_json_value(&$value) {
         if(is_bool($value)) {
             $value = $value?'true':'false';
         }elseif(is_int($value)) {
@@ -38,8 +37,7 @@ if (!function_exists('json_encode')) {
         return $value;
     }
 
-    function json_encode($data)
-    {
+    function json_encode($data) {
         if(is_object($data)) {
             //对象转换成数组
             $data = get_object_vars($data);
@@ -72,8 +70,7 @@ if (!function_exists('json_encode')) {
     }
 }
 if (!function_exists('json_decode')) {
-    function json_decode($json,$assoc=false)
-    {
+    function json_decode($json,$assoc=false) {
         // 目前不支持二维数组或对象
         $begin  =  substr($json,0,1) ;
         if(!in_array($begin,array('{','[')))

@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: DbMysqli.class.php 2771 2012-02-22 02:57:49Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  * @package  Think
  * @subpackage  Db
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: DbMysqli.class.php 2771 2012-02-22 02:57:49Z liu21st $
  +------------------------------------------------------------------------------
  */
 class DbMysqli extends Db{
@@ -184,8 +184,7 @@ class DbMysqli extends Db{
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function commit()
-    {
+    public function commit() {
         if ($this->transTimes > 0) {
             $result = $this->_linkID->commit();
             $this->_linkID->autocommit( true);
@@ -208,8 +207,7 @@ class DbMysqli extends Db{
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function rollback()
-    {
+    public function rollback() {
         if ($this->transTimes > 0) {
             $result = $this->_linkID->rollback();
             $this->transTimes = 0;
@@ -254,7 +252,7 @@ class DbMysqli extends Db{
      +----------------------------------------------------------
      */
     function getFields($tableName) {
-        $result =   $this->query('SHOW COLUMNS FROM `'.$tableName.'`');
+        $result =   $this->query('SHOW COLUMNS FROM '.$this->parseKey($tableName));
         $info   =   array();
         if($result) {
             foreach ($result as $key => $val) {
@@ -309,7 +307,7 @@ class DbMysqli extends Db{
             $value   =  $this->parseValue($val);
             if(is_scalar($value)) { // 过滤非标量数据
                 $values[]   =  $value;
-                $fields[]     =  $this->addSpecialChar($key);
+                $fields[]     =  $this->parseKey($key);
             }
         }
         $sql   =  'REPLACE INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES ('.implode(',', $values).')';
@@ -324,14 +322,15 @@ class DbMysqli extends Db{
      +----------------------------------------------------------
      * @param mixed $datas 数据
      * @param array $options 参数表达式
+     * @param boolean $replace 是否replace
      +----------------------------------------------------------
      * @return false | integer
      +----------------------------------------------------------
      */
-    public function insertAll($datas,$options=array()) {
+    public function insertAll($datas,$options=array(),$replace=false) {
         if(!is_array($datas[0])) return false;
         $fields = array_keys($datas[0]);
-        array_walk($fields, array($this, 'addSpecialChar'));
+        array_walk($fields, array($this, 'parseKey'));
         $values  =  array();
         foreach ($datas as $data){
             $value   =  array();
@@ -343,7 +342,7 @@ class DbMysqli extends Db{
             }
             $values[]    = '('.implode(',', $value).')';
         }
-        $sql   =  'INSERT INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES '.implode(',',$values);
+        $sql   =  ($replace?'REPLACE':'INSERT').' INTO '.$this->parseTable($options['table']).' ('.implode(',', $fields).') VALUES '.implode(',',$values);
         return $this->execute($sql);
     }
 
@@ -405,17 +404,23 @@ class DbMysqli extends Db{
         }
     }
 
-   /**
+    /**
      +----------------------------------------------------------
-     * 析构方法
+     * 字段和表名处理添加`
      +----------------------------------------------------------
-     * @access public
+     * @access protected
+     +----------------------------------------------------------
+     * @param string $key
+     +----------------------------------------------------------
+     * @return string
      +----------------------------------------------------------
      */
-    public function __destruct()
-    {
-        // 关闭连接
-        $this->close();
+    protected function parseKey(&$key) {
+        $key   =  trim($key);
+        if(!preg_match('/[,\'\"\*\(\)`.\s]/',$key)) {
+           $key = '`'.$key.'`';
+        }
+        return $key;
     }
 }//类定义结束
 ?>

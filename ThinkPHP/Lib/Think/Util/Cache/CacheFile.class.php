@@ -2,13 +2,13 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2010 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: CacheFile.class.php 2701 2012-02-02 12:27:51Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,11 +18,21 @@
  * @package  Think
  * @subpackage  Util
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: CacheFile.class.php 2701 2012-02-02 12:27:51Z liu21st $
  +------------------------------------------------------------------------------
  */
 class CacheFile extends Cache
 {//类定义开始
+
+    /**
+     +----------------------------------------------------------
+     * 缓存存储前缀
+     +----------------------------------------------------------
+     * @var string
+     * @access protected
+     +----------------------------------------------------------
+     */
+    protected $prefix='~@';
 
     /**
      +----------------------------------------------------------
@@ -31,19 +41,16 @@ class CacheFile extends Cache
      * @access public
      +----------------------------------------------------------
      */
-    public function __construct($options='')
-    {
-        if(!empty($options['temp'])){
-            $this->options['temp'] = $options['temp'];
-        }else {
-            $this->options['temp'] = C('DATA_CACHE_PATH');
+    public function __construct($options='') {
+        if(!empty($options)) {
+            $this->options =  $options;
         }
-        $this->expire = isset($options['expire'])?$options['expire']:C('DATA_CACHE_TIME');
+        $this->options['temp'] = !empty($options['temp'])?$options['temp']:C('DATA_CACHE_PATH');
+        $this->options['expire'] = isset($options['expire'])?$options['expire']:C('DATA_CACHE_TIME');
+        $this->options['length']  =  isset($options['length'])?$options['length']:0;
         if(substr($this->options['temp'], -1) != "/")    $this->options['temp'] .= "/";
         $this->connected = is_dir($this->options['temp']) && is_writeable($this->options['temp']);
-        $this->type = strtoupper(substr(__CLASS__,6));
         $this->init();
-
     }
 
     /**
@@ -55,8 +62,7 @@ class CacheFile extends Cache
      * @return boolen
      +----------------------------------------------------------
      */
-    private function init()
-    {
+    private function init() {
         $stat = stat($this->options['temp']);
         $dir_perms = $stat['mode'] & 0007777; // Get the permission bits.
         $file_perms = $dir_perms & 0000666; // Remove execute bits for files.
@@ -78,8 +84,7 @@ class CacheFile extends Cache
      * @return boolen
      +----------------------------------------------------------
      */
-    private function isConnected()
-    {
+    private function isConnected() {
         return $this->connected;
     }
 
@@ -94,8 +99,7 @@ class CacheFile extends Cache
      * @return string
      +----------------------------------------------------------
      */
-    private function filename($name)
-    {
+    private function filename($name) {
         $name	=	md5($name);
         if(C('DATA_CACHE_SUBDIR')) {
             // 使用子目录
@@ -124,8 +128,7 @@ class CacheFile extends Cache
      * @return mixed
      +----------------------------------------------------------
      */
-    public function get($name)
-    {
+    public function get($name) {
         $filename   =   $this->filename($name);
         if (!$this->isConnected() || !is_file($filename)) {
            return false;
@@ -134,7 +137,7 @@ class CacheFile extends Cache
         $content    =   file_get_contents($filename);
         if( false !== $content) {
             $expire  =  (int)substr($content,8, 12);
-            if($expire != -1 && time() > filemtime($filename) + $expire) {
+            if($expire != 0 && time() > filemtime($filename) + $expire) {
                 //缓存过期删除缓存文件
                 unlink($filename);
                 return false;
@@ -168,16 +171,15 @@ class CacheFile extends Cache
      +----------------------------------------------------------
      * @param string $name 缓存变量名
      * @param mixed $value  存储数据
-     * @param int $expire  有效时间 -1 为永久
+     * @param int $expire  有效时间 0为永久
      +----------------------------------------------------------
      * @return boolen
      +----------------------------------------------------------
      */
-    public function set($name,$value,$expire='')
-    {
+    public function set($name,$value,$expire=null) {
         N('cache_write',1);
-        if('' === $expire) {
-            $expire =  $this->expire;
+        if(is_null($expire)) {
+            $expire =  $this->options['expire'];
         }
         $filename   =   $this->filename($name);
         $data   =   serialize($value);
@@ -211,8 +213,7 @@ class CacheFile extends Cache
      * @return boolen
      +----------------------------------------------------------
      */
-    public function rm($name)
-    {
+    public function rm($name) {
         return unlink($this->filename($name));
     }
 
@@ -227,13 +228,10 @@ class CacheFile extends Cache
      * @return boolen
      +----------------------------------------------------------
      */
-    public function clear()
-    {
+    public function clear() {
         $path   =  $this->options['temp'];
-        if ( $dir = opendir( $path ) )
-        {
-            while ( $file = readdir( $dir ) )
-            {
+        if ( $dir = opendir( $path ) ) {
+            while ( $file = readdir( $dir ) ) {
                 $check = is_dir( $file );
                 if ( !$check )
                     unlink( $path . $file );

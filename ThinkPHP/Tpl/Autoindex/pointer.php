@@ -33,29 +33,24 @@ function check_env(){
         $run_env = strtoupper(php_sapi_name());//查看运行环境
         $os = PHP_OS;
         $is_rewrite = false;//预设rewrite为否定
-        if (($is_apache=strpos($run_env,'APACHE'))!==false)
-        {
+        if (($is_apache=strpos($run_env,'APACHE'))!==false) {
             $apache_list = apache_get_modules();
             $is_rewrite = array_search('mod_rewrite',$apache_list)?true:false;
             unset($apache_list);
         }
 
-        foreach ($info as $key => &$val)
-        {
+        foreach ($info as $key => &$val) {
             $var = get_cfg_var($key)?get_cfg_var($key):ini_get($key);
             $val['value'] = ($var==0)?'OFF':(($var==1)?'ON':$var);
-            if (is_numeric($val[1]) || $val['value']==$val[1])
-            {
+            if (is_numeric($val[1]) || $val['value']==$val[1]) {
                $val['message'] = '<span class="blue">√</span>';
             }else{
                 $val['message'] = '<span class="red">'.$val[2].'</span>';
             }
         }
-        foreach ($fun as $key => &$val)
-        {
+        foreach ($fun as $key => &$val) {
             $val['value'] = functiON_exists($key)?'ON':'OFF';
-            if (is_numeric($val[1]) || $val['value']==$val[1])
-            {
+            if (is_numeric($val[1]) || $val['value']==$val[1]) {
                $val['message'] = '<span class="blue">√</span>';
             }else{
                 $val['message'] = '<span class="red">'.$val[2].'</span>';
@@ -105,22 +100,19 @@ function check_env(){
         <tr><th class='tbhead'>PHP运行环境</th><td>{$run_env}</td><td></td></tr>
 HTML;
         $moban .="<tr><th class='tbhead'>是否开启rewrite</th><td>";
-        if ($is_apache===false)
-        {
+        if ($is_apache===false) {
             $moban .= "无法检测</td><td></td></tr>";
         }else{
             $moban .= ($is_rewrite)?'<span color="green">开启</span>':'<span class="red">未开启</span>';
             $moban .="</td><td></td></tr>";
         }
         $moban .="<tr class='thead'><td colspan='3'>PHP环境</td></tr>";
-        foreach ($info as $key => $val)
-        {
+        foreach ($info as $key => $val) {
             $moban.="<tr><th class='tbhead'>{$val[0]} [{$key}]</th><td>{$val['value']}</td><td>{$val['message']}</td></tr>";
         }
         $moban .="<tr class='thead'><td colspan='3'>PHP模块检测</td></tr>";
 
-        foreach($fun as $key=>$val)
-        {
+        foreach($fun as $key=>$val) {
             $moban.="<tr><th class='tbhead'>{$val[0]} [{$key}]</th><td>{$val['value']}</td><td>{$val['message']}</td></tr>";
         }
         $moban .="</tbody></table></body></html>";
