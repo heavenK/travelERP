@@ -7,8 +7,9 @@
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/style (2).css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/yui (2).css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/deprecated (2).css">
-<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css" id="current_color_style">
-<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css" id="current_font_style">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
 
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1_yui.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1.js"></script>
@@ -56,26 +57,14 @@ $(function() {
 <div id="main">
 
   <div id="leftColumn" style="margin-top:7px; width:147px;">
-   <style>
-ul.subpanelTablist li a.current, 
-ul.subpanelTablist li a.current:hover
-{
-    color: #4f4f4f;
-	background: #fff;
-    border-right-color: #abc3d7;
-    border-top-color: #abc3d7;
-    border-bottom-color: #fff;
-}
-   
-   </style>   
-        <ul id="searchTabs" class="tablist">
+        <ul id="searchTabs" class="tablist tablist_2">
           <li style="margin-right:1px;"><a id="shownavtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onmouseover="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
           <li style="margin-right:1px;"><a id="shownavtab_2" href="javascript:selectTabCSS('Calls|advanced_search');" onmouseover="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
           <li><a id="shownavtab_3" href="javascript:selectTabCSS('Calls|advanced_search');" onmouseover="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
         </ul>
                     
         <div id="navtab_1" class="leftList">
-          <h3><span>准备中的产品</span></h3>
+          <h3 style=" text-align:center; border:none">准备中的产品</h3>
           <h3><span>国内/拼团</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
@@ -112,7 +101,7 @@ ul.subpanelTablist li a.current:hover
         </div>
         
         <div id="navtab_2" class="leftList" style="display:none">
-          <h3><span>报名中的产品</span></h3>
+          <h3 style=" text-align:center; border:none">报名中的产品</h3>
           <h3><span>国内/拼团</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
@@ -149,7 +138,7 @@ ul.subpanelTablist li a.current:hover
         </div>
         
         <div id="navtab_3" class="leftList" style="display:none">
-          <h3><span>已截止的产品</span></h3>
+          <h3 style=" text-align:center; border:none">已截止的产品</h3>
           <h3><span>国内/拼团</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
