@@ -1,18 +1,18 @@
 <?php
 
 class ChanpinModel extends Model {
+	//protected $tableName = 'categories'; 	
+	protected $trueTableName = 'myerp_chanpin';	
 	
    // 自动验证设置 
     protected $_validate = array( 
-//        array('title', 'require', '标题必须！', 1), 
-//        array('email', 'email', '邮箱格式错误！', 2), 
-//        array('content', 'require', '内容必须', 1), 
-//        array('title', '', '标题已经存在', 0, 'unique', 1), 
+        array('title', 'require', '标题必须！', 1), 
+//        array('user_name', 'require', '用户名必须！', 1), 
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-//        array('status', '1', self::MODEL_INSERT), 
-//        array('create_time', 'time', self::MODEL_INSERT, 'function'), 
+        array('status', '准备', 1), 
+        array('time', 'time', 1, 'function'), 
     ); 
 
 	
@@ -38,7 +38,10 @@ class ChanpinModel extends Model {
 		
 	}
 
-
+//	public function _before_insert(&$data,$options)
+//	{
+//		
+//	}
 
 
 

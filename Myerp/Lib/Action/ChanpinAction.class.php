@@ -33,6 +33,8 @@ class ChanpinAction extends Action{
 		}
 		if(!$condition['zhuangtai'])
 			$condition['zhuangtai'] = array('in','准备,审核不通过,等待审核'); 	
+			
+			
 		//查询
 		$chanpin_list = D('Chanpin')->chanpin_list();
 		$this->assign("page",$chanpin_list['page']);
@@ -40,6 +42,26 @@ class ChanpinAction extends Action{
 		//dump($chanpin_list);
 		$this->display('Chanpin/index');
     }
+	
+	public function dopostfabu() {
+		$Chanpin = D("Chanpin");
+        if ($Chanpin->create()) { 
+            if (false !== $Chanpin->add()) { 
+                $this->success('数据添加成功！'); 
+            } else { 
+                $this->error($Chanpin->getError()); 
+            } 
+        } else { 
+			$this->error($Chanpin->getError()); 
+        } 
+	
+	}
+	
+	public function xingcheng() {
+		$this->display('Chanpin/xingcheng');
+	}
+	
+	
 	
 	
 	public function message() {
@@ -49,9 +71,20 @@ class ChanpinAction extends Action{
 		echo json_encode($message);
 	}
 	
+	public function left_fabu() {
+		$this->display('Chanpin/left_fabu');
+	}
+	
 	public function showheader() {
 		$this->display('Chanpin/header');
 	}
+	
+	public function footer() {
+		$this->display('Chanpin/footer');
+	}
+	
+	
+	
 	
 	
 	

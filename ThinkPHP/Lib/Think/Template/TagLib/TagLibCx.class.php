@@ -51,8 +51,9 @@ class TagLibCx extends TagLib
         'import'=>array('attr'=>'file,href,type,value,basepath','close'=>0,'alias'=>'load,css,js'),
         'assign'=>array('attr'=>'name,value','close'=>0),
         'define'=>array('attr'=>'name,value','close'=>0),
+		
         );
-
+		
     /**
      +----------------------------------------------------------
      * include标签解析

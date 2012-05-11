@@ -1,11 +1,10 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" /> 
-<title>datepicker</title> 
-<link href="css/rqys.css" type="text/css" rel="stylesheet" /> 
-</head> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>datepicker</title>
+<link href="css/rqys.css" type="text/css" rel="stylesheet" />
+</head>
 <script language="javascript" type="text/javascript"> 
 var str = '', i, j, yy, mm, openbound, callback;
 var fld1, fld2;
@@ -57,7 +56,7 @@ function initCalendar() {
 	days = Request["selectdates"];
 	}
 	catch(err){days='';}
-	po=wp.document.getElementById(Request["oid"]);
+	po=document.getElementById(Request["oid"]);
 	if(fld1 && fld1.value.length > 0) {
         curday = parseDate(fld1.value);
     } else if(fld2 && fld2.value.length > 0) {
@@ -281,23 +280,14 @@ function ClearInput()
         }
     }
 }
-</script> 
-<body> 
-<div id="yiying"> 
-	<div id="rq"> 
-		<div class="title"> 
-			<em id="prev"><img class="left" src="./image/blank_bg.gif" alt="" /></em> 
-			<span id="minfo" style="width:280px;"></span> 
-			<a href='javascript:void(0)' onclick='drawTitle(yy,mm+2);drawCalendar(yy,mm+2,"d");drawCalendar(yy,mm-1,"b");return false;'><img alt="" class="left" src="./image/rq_bg2.gif" /></a> 
-			<a href="javascript:void(0);" onclick="window.close();return false;"><img alt="" class="right" src="./image/rq_bg3.gif"/></a> 
-		</div> 
-		<div class="yue"> 
-			<div class="week"> 
-				<font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> 
-            </div> 
-			
-			
-			<script language="javascript" type="text/ecmascript"> 
+</script>
+<body>
+<div id="yiying">
+<div id="rq">
+<div class="title"> <em id="prev"><img class="left" src="./image/blank_bg.gif" alt="" /></em> <span id="minfo" style="width:280px;"></span> <a href='javascript:void(0)' onclick='drawTitle(yy,mm+2);drawCalendar(yy,mm+2,"d");drawCalendar(yy,mm-1,"b");return false;'><img alt="" class="left" src="./image/rq_bg2.gif" /></a> <a href="javascript:void(0);" onclick="window.close();return false;"><img alt="" class="right" src="./image/rq_bg3.gif"/></a> </div>
+<div class="yue">
+  <div class="week"> <font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> </div>
+  <script language="javascript" type="text/ecmascript"> 
 			<!--//
 			document.write("<table width='100%'>");
 			var str = "";
@@ -324,14 +314,11 @@ function ClearInput()
 			document.write("</table>");
 			//-->
 			</script> 
-			</div> 
-		<div class="yue border"> 
-			<div class="week"> 
-                <font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> 
-			</div> 
-			
-			<table width="100%"> 
-			<script language="javascript" type="text/javascript"> 
+</div>
+<div class="yue border">
+<div class="week"> <font color="red">日</font>&nbsp;一&nbsp;二&nbsp;三&nbsp;四&nbsp;五&nbsp;<font color="green">六</font> </div>
+<table width="100%">
+<script language="javascript" type="text/javascript"> 
 			<!--//
 			document.write("<table width='100%'>");
 			var str = "";
@@ -357,18 +344,16 @@ function ClearInput()
 			document.write(str);
 			document.write("</table>");
 			//-->
-			</script> 
-		</div> 
-	</div> 
-</div> 
-<div style="position:absolute;left:50px;top:190px; width:40px; text-align:center;vertical-align:middle;border:solid 1px gray;line-height:18px; height:18px;cursor:pointer;" onmouseover="this.style.backgroundColor='#dddddd';" onmouseout="this.style.backgroundColor='#ffffff';" onclick="window.close();return false;">确定</div> 
- 
+			</script>
+</div>
+</div>
+</div>
+<div style="position:absolute;left:50px;top:190px; width:40px; text-align:center;vertical-align:middle;border:solid 1px gray;line-height:18px; height:18px;cursor:pointer;" onmouseover="this.style.backgroundColor='#dddddd';" onmouseout="this.style.backgroundColor='#ffffff';" onclick="window.close();return false;">确定</div>
 <script language="javascript" type="text/javascript"> 
 <!--//
 var bCalLoaded = true;
 //-->
 initCalendar();
-</script> 
-</body> 
- 
-</html> 
+</script>
+</body>
+</html>

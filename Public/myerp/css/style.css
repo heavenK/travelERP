@@ -1292,7 +1292,7 @@ div.indent_right {
 }	
     
 #horizWrapper {position:relative; margin-left:60px;width:218px;float:left;}
-#horizBGDiv {position:relative; top:60px; background:url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=horizBg.png) no-repeat; height:26px; width:218px;zindex:5 }	
+#horizBGDiv {position:relative; top:60px; background:url(../images/horizBg.png) no-repeat; height:26px; width:218px;zindex:5 }	
 #horizHandleDiv { 
     position:absolute; 
     left: 100px; /* the default position is the center of the bg */
@@ -2030,7 +2030,7 @@ margin-bottom: 10px;
     margin-left: 2px; 
     margin-bottom: 2px;
     text-align: center;
-    background: url('../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=more.gif') no-repeat bottom left;
+    background: url('../images/more.gif') no-repeat bottom left;
 	color: #444;
 }
 
@@ -2532,7 +2532,7 @@ a:link, a:visited, a:hover
 }
 
 .buttonSlide.yui-module .yui-hd .toggle em { 
-	background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=slider_button_more.png);
+	background-image: url(../images/slider_button_more.png);
 	background-repeat: no-repeat;
 	display: inline; /* prevent IE margin doubling */
     overflow:hidden;
@@ -2545,7 +2545,7 @@ a:link, a:visited, a:hover
 }
 
 .buttonSlide.yui-module.yui-closed .yui-hd .toggle em { 
-	background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=slider_button_less.png);
+	background-image: url(../images/slider_button_less.png);
 }
 
 .buttonSlide .yui-bd { 
@@ -2947,7 +2947,7 @@ ul.subpanelTablist li a.current, ul.subpanelTablist li a.current:hover
     border-color: #c1c1c1;
     background-color: #f0f0f0;
     color: #000;
-    background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=bgBtnGray.gif);
+    background-image: url(../images/bgBtnGray.gif);
 }
 
 .pagination button [title="Return to List"]:hover{
@@ -3232,7 +3232,7 @@ h1, h2, h3
 }
 .h3Row 
 {
-	background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=bg.gif);
+	background-image: url(../images/bg.gif);
 }
 h4, h5
 {
@@ -3251,7 +3251,7 @@ button, input[type=submit], input[type=reset], input[type=button], .button
 	border-color: #abc3d7;
 	background-color: #ecf1f4;
 	color: #000;
-	background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=bgBtn.gif);
+	background-image: url(../images/bgBtn.gif);
 }
 button:hover, input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover,
 button:focus, input[type=submit]:focus, input[type=reset]:focus, input[type=button]:focus,
@@ -3265,7 +3265,7 @@ button[disabled], input[type=submit][disabled], input[type=reset][disabled], inp
 	border-color: #c1c1c1;
 	background-color: #f0f0f0;
 	color: #000;
-	background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=bgBtnGray.gif);
+	background-image: url(../images/bgBtnGray.gif);
 }
 input,select 
 {
@@ -3301,7 +3301,7 @@ textarea
 /* for the main screen navigation tabs */
 #moduleList 
 {
-    background-image : url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=tabRowBg.gif);
+    background-image : url(../images/tabRowBg.gif);
     background-repeat: repeat-x;
     border-bottom-color: #0046ad;
 }
@@ -3328,7 +3328,7 @@ textarea
 #moduleList ul li span.currentTabRight, 
 #moduleList ul li span.currentTab 
 {
-    background-image : url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=currentTab.gif);
+    background-image : url(../images/currentTab.gif);
     background-repeat: no-repeat;
     border-bottom-color: #4e8ccf;
 }
@@ -3633,7 +3633,7 @@ h5.calSharedUser
     color: #444;
     background-color: #fff;
     border-color: #abc3d7;
-    background-image: url(../../../../index.php?entryPoint=getImage&themeName=Sugar5&imageName=bg.gif);
+    background-image: url(../images/bg.gif);
 }
 
 /* for subpanel tabs */

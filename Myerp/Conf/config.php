@@ -40,6 +40,20 @@ $array = array(
 	'RBAC_NODE_TABLE'	=>  'node',
 	//显示页面Trace信息
 	//'SHOW_PAGE_TRACE' =>true,
+	'SHOW_ERROR_MSG' =>true,
+	
+	'TAGLIB_PRE_LOAD' => 'Tp' ,
+    'TOKEN_ON'  => true,
+	'TOKEN_RESET'=>true,  //令牌验证出错后是否重置令牌 默认为true
+	'DB_FIELDTYPE_CHECK'=>true,  // 开启字段类型验证
+	
+//    'TMPL_ACTION_SUCCESS'   => 'Public:success', // 默认成功跳转对应的模板文件
+//    'SESSION_AUTO_START'=>true,
+//    'URL_ROUTE_RULES' => array(
+//        'cate/:id\d'                 => 'Blog/category',
+//        '/^Blog\/(\d+)$/is'       => 'Blog/show?id=:1',
+//        '/^Blog\/(\d+)\/(\d+)/is'=> 'Blog/archive?year=:1&month=:2',
+//    ),
 );
 
 //合并输出配置

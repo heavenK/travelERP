@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>旅游ERP</title>
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+
+<script>
+function save(){
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
+}
+
+function doComplete(data,status){
+	if (status==1){
+		window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/';
+	}
+ 
+}
+
+
+
+</script>
+</head>
+<style>
+#content {
+	paggin-buttom:0px;
+}
+</style>
+
+<body>
+<tp:includeCA file="Chanpin:showheader" />
+
+<div id="main">
+
+  <tp:includeCA file="Chanpin:left_fabu" />
+    
+  <div id="content" style="margin-left:170px;">
+  
+    <div class="moduleTitle" style="margin-bottom:10px;">
+      <h2 style="margin-top:10px;">产品发布：行程编辑</h2>
+      <span style="margin-top:10px;"> 
+      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
+      </span> 
+    </div>
+    
+    <div id="mysearchdiv" style="margin-bottom:10px;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|basic_search');">基本信息</a> </li>
+        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">子团管理</a> </li>
+        <li style="margin-right:1px;"> <a class="current" href="javascript:selectTabCSS('Calls|advanced_search');">行程编辑</a> </li>
+        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">成本售价</a> </li>
+      </ul>
+    </div>
+    
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+   
+    
+<form name="form" method="post" id="form">
+  <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
+  
+  
+    <div class="buttons">
+      <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
+      <input type="submit" value="提交审核" name="button" class="button primary" style="float:right">
+      <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+    </div>
+    
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4>行程：第一天</h4>
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px;"> 日期: </td>
+          <td valign="top" scope="row"><input name="title" type="text" id="title" value="<{$postdata['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 餐饮: </td>
+          <td valign="top" scope="row">
+              <input type="checkbox" name="time<{$count}>[]" value="早餐"/ <php>if(strstr($xingcheng[$count]['time'],'早餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">早餐</label>
+              <input type="checkbox" name="time<{$count}>[]" value="午餐"/ <php>if(strstr($xingcheng[$count]['time'],'午餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">午餐</label>
+              <input type="checkbox" name="time<{$count}>[]" value="晚餐"/ <php>if(strstr($xingcheng[$count]['time'],'晚餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">晚餐</label>
+          </td>
+        </tr>
+        
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px;"> 住宿: </td>
+          <td valign="top" scope="row"><input name="title" type="text" id="title" value="<{$postdata['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 交通: </td>
+          <td valign="top" scope="row">
+              <input type="checkbox" name="tools<{$count}>[]" value="飞机"/ <php>if(strstr($xingcheng[$count]['tools'],'飞机')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">飞机</label>
+              <input type="checkbox" name="tools<{$count}>[]" value="火车"/ <php>if(strstr($xingcheng[$count]['tools'],'火车')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">火车</label>
+              <input type="checkbox" name="tools<{$count}>[]" value="轮船"/ <php>if(strstr($xingcheng[$count]['tools'],'轮船')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">轮船</label>
+              <input type="checkbox" name="tools<{$count}>[]" value="汽车"/ <php>if(strstr($xingcheng[$count]['tools'],'汽车')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">汽车</label>
+          </td>
+        </tr>
+        
+        <tr>
+          <td valign="top" colspan="4" scope="row">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td valign="top">
+                        <fieldset style="border:#CBDAE6 1px solid">
+                          <legend>内容</legend>
+                          <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                            <tbody>
+                              <tr>
+                                <td>
+                                <textarea style="width:99%; resize:none" rows="8" name="chutuanriqi" id="chutuanriqi" onclick="setdate(this.id);"><{$postdata['chutuanriqi']}></textarea>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </fieldset>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    
+    
+    
+    
+    <div class="buttons">
+      <input type="submit" value="保存" name="button" class="button primary">
+      <input type="button" value="取消" name="button" class="button">
+    </div>
+    
+</form>
+    
+  </div>
+</div>
+</body>
+</html>
+
+

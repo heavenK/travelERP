@@ -11,3 +11,19 @@ ul.tablist_2
 {
     border-bottom-color: #0046ad;
 }
+.moduleTitle {
+    background-image: url("../images/index.php.gif");
+    background-color: #FFFFFF;
+    background-position: center top;
+    background-repeat: repeat-x;
+    vertical-align: middle;
+}
+.leftList ul li a{ color:#0B578F}
+.leftList ul li a:hover{ color:black;}
+
+.button{ margin-right:4px;}
+
+.resultdiv{border-bottom:1px solid #CBDAE6;border-top:2px solid #CBDAE6; background-color:#F6F6F6; margin-bottom:10px; height:30px; line-height:30px; display:none}
+
+.cke_toolgroup { border: 1px solid #94C1E8;}
+.cke_icon{ border: 1px solid #94C1E8;}
