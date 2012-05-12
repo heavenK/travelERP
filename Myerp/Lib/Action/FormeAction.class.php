@@ -26,6 +26,8 @@ class FormeAction extends Action{
 			$myerp_chanpin_xianlu->add($dat);
 			//message
 			$this->chanpinxiaoxi($v,$chanpinID);
+			//xingcheng
+			$this->xingcheng($v,$chanpinID);
 		}
 		
 		echo "结束";
@@ -51,6 +53,22 @@ class FormeAction extends Action{
 		}
     }
 	
+	
+    private function xingcheng($v,$chanpinID) {
+		
+		$glxingcheng=M("glxingcheng");
+		$xingchengAll = $glxingcheng->where("`xianluID` = '$v[xianluID]'")->findall();
+		$myerp_chanpin_xingcheng=D("myerp_chanpin_xingcheng");
+		//线路
+		foreach($xingchengAll as $v)
+		{
+			$dat = $v;
+			$dat['chanpinID'] = $chanpinID;
+			$dat['chanyin'] = $v['time'];
+			$myerp_chanpin_xingcheng->add($dat);
+		}
+		
+    }
 	
 	
 	

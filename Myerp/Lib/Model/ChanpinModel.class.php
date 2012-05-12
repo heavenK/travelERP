@@ -38,11 +38,6 @@ class ChanpinModel extends Model {
 		
 	}
 
-//	public function _before_insert(&$data,$options)
-//	{
-//		
-//	}
-
 
 
 

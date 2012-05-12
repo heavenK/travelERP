@@ -57,7 +57,16 @@ class ChanpinAction extends Action{
 	
 	}
 	
-	public function xingcheng() {
+	public function xingcheng()
+	{
+		$chanpinID = $_REQUEST["chanpinID"];
+		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
+		$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
+		
+		$Xingcheng = D("xingcheng");
+		$xingchengAll = $Xingcheng->where("`chanpinID` = '$chanpinID'")->findall();
+		$this->assign("xianlu",$xianlu);
+		$this->assign("xingchengAll",$xingchengAll);
 		$this->display('Chanpin/xingcheng');
 	}
 	
