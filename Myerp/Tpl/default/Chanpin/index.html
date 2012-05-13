@@ -5,7 +5,6 @@
 <title>旅游ERP</title>
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script>
@@ -253,7 +252,7 @@ $(function() {
                   <input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox">
                   </td>
                   <td scope="row" align="left" valign="top" style="min-width:300px;">
-                  <a href="<{:SITE_ADMIN}>Chanpin/editlvyouxianlu/xianluID/<{$v['xianluID']}>"><{$v['title']}></a>
+                  <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a>
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['ext']['bianhao']}>

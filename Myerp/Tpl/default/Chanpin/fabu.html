@@ -84,7 +84,7 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
-          <td valign="top"><input name="title" type="text" id="title" value="<{$postdata['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
+          <td valign="top"><input name="title" type="text" id="title" value="<{$xianlu['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row"> 报名截止: </td>
           <td valign="top" scope="row"><span>出团前</span><input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<php> if ($postdata['baomingjiezhi']) echo $postdata['baomingjiezhi']; else echo 1</php>" id="baomingjiezhi" ><span>天</span></td>
         </tr>

@@ -39,9 +39,16 @@ class ChanpinAction extends Action{
 		$chanpin_list = D('Chanpin')->chanpin_list();
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
-		//dump($chanpin_list);
 		$this->display('Chanpin/index');
     }
+	
+	public function fabu() {
+		$chanpinID = $_REQUEST["chanpinID"];
+		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
+		$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
+		$this->assign("xianlu",$xianlu);
+		$this->display('Chanpin/fabu');
+	}
 	
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");

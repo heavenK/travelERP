@@ -6,7 +6,7 @@ class XingchengModel extends Model {
 	
    // 自动验证设置 
     protected $_validate = array( 
-        array('ChanpinID', 'require', '产品ID不能为空！', 1), 
+        array('chanpinID', 'require', '产品ID不能为空！', 1), 
 //        array('user_name', 'require', '用户名必须！', 1), 
     ); 
     // 自动填充设置 
