@@ -1,44 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>旅游ERP</title>
+<tp:includeCA file="Chanpin:showheader" />
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
-<script>
-var names = [
-	 <php>foreach($kehu_all as $kehu){</php>
-			  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
-	 <php>}</php>
- ];
-$(function() {
-		 $('#user_name').autocomplete(names, {
-			 max: 20,    //列表里的条目数
-			 minChars: 0,    //自动完成激活之前填入的最小字符
-			 width: 400,     //提示的宽度，溢出隐藏
-			 scrollHeight: 300,   //提示的高度，溢出显示滚动条
-			 matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-			 autoFill: false,    //自动填充
-			 formatItem: function(row, i, max) {
-				 return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
-			 },
-			 formatMatch: function(row, i, max) {
-				 return row.name + row.to;
-			 },
-			 formatResult: function(row) {
-				 return row.to;
-			 }
-		 }).result(function(event, row, formatted) {
-		 });
-	 });
-</script>
-</head>
-
-<body>
-
-<tp:includeCA file="Chanpin:showheader" />
 
 <div id="main">
 
@@ -86,8 +50,8 @@ $(function() {
                               </tbody>
                             </table>
                         </div>
-                      <input tabindex="2" title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
-                      <input tabindex="2" title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+                      <input title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
+                      <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
                 </div>
                 
                 <div class="search_form" id="searchdiv_2" style="display:none;margin-bottom:0px;">
@@ -129,11 +93,11 @@ $(function() {
                               </tbody>
                             </table>
                         </div>
-                      <input tabindex="2" title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
-                      <input tabindex="2" title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+                      <input title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
+                      <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
                 </div>
                 
-                <div>
+                <div style="margin-top:10px;">
                     <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
                       <tbody>
                         <tr>
@@ -255,10 +219,10 @@ $(function() {
                   <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a>
                   </td>
                   <td scope="row" align="left" valign="top">
-                  <{$v['ext']['bianhao']}>
+                  <{$v['bianhao']}>
                   </td>
                   <td scope="row" align="center" valign="top">
-                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v['ext'][chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
+                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['user_name']}>
@@ -309,11 +273,7 @@ $(function() {
   </div>
 </div>
 
-<includeCA file="Chanpin:footer" />
-
-</body>
-</html>
-
+<tp:includeCA file="Chanpin:footer" />
 
 <script language="javascript"> 
 function myCheckBoxSelect(o,st)
@@ -409,15 +369,15 @@ function showmessage(obj,chanpinID)
 		url:	"<{:SITE_INDEX}>Chanpin/message",
 		data:	"chanpinID="+chanpinID,
 		success:	function(msg){
-				  if(msg != 'false' && msg){
+				  var str = '';
+				  if(msg != 'null' && msg){
 					  var msg = eval('(' + msg + ')');
-					  var str = '';
 					  for(var i =0; i<msg.length;i++){
 						  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">'+msg[i].title+'<br>'+getLocalTime(msg[i].time)+'</a>';
 					  }
 				  }
 				  else
-						  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">暂无数据</a>';
+				  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">暂无数据</a>';
 				  $("#themessage").empty();
 				  $("#themessage").append(str);
 			}
@@ -447,5 +407,32 @@ function getLocalTime(nS) {
 	return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,17);
     return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
 }
-</script>  
+
+
+var names = [
+	 <php>foreach($kehu_all as $kehu){</php>
+			  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
+	 <php>}</php>
+ ];
+$(function() {
+		 $('#user_name').autocomplete(names, {
+			 max: 20,    //列表里的条目数
+			 minChars: 0,    //自动完成激活之前填入的最小字符
+			 width: 400,     //提示的宽度，溢出隐藏
+			 scrollHeight: 300,   //提示的高度，溢出显示滚动条
+			 matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+			 autoFill: false,    //自动填充
+			 formatItem: function(row, i, max) {
+				 return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+			 },
+			 formatMatch: function(row, i, max) {
+				 return row.name + row.to;
+			 },
+			 formatResult: function(row) {
+				 return row.to;
+			 }
+		 }).result(function(event, row, formatted) {
+		 });
+	 });
+</script>
 

@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'chanpinID', 1 => 'date', 2 => 'chanyin', 3 => 'tools', 4 => 'place', 5 => 'content', '_autoinc' => false, '_pk' => 'chanpinID', '_type' => array ( 'chanpinID' => 'int(11)', 'date' => 'varchar(50)', 'chanyin' => 'varchar(50)', 'tools' => 'varchar(50)', 'place' => 'varchar(50)', 'content' => 'text', ), ); ?>

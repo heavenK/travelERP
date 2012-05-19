@@ -1,8 +1,9 @@
 <?php
 
-class ChanpinModel extends Model {
+class ChanpinModel extends RelationModel {
 	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_chanpin';	
+	protected $pk = 'chanpinID';	
 	
    // 自动验证设置 
     protected $_validate = array( 
@@ -14,32 +15,14 @@ class ChanpinModel extends Model {
         array('status', '准备', 1), 
         array('time', 'time', 1, 'function'), 
     ); 
-
 	
-    //显示产品列表
-    public function chanpin_list($where,$pagenum = 20) {
-		$myerp_chanpin = D("myerp_chanpin");
-		$myerp_chanpin_xianlu = D("myerp_chanpin_xianlu");
-        import("@.ORG.Page");
-        C('PAGE_NUMBERS',10);
-		$count = $myerp_chanpin->where($where)->count();
-		$p= new Page($count,$pagenum);
-		$page = $p->show();
-        $chanpin = $myerp_chanpin->where($where)->order("time DESC")->limit($p->firstRow.','.$p->listRows)->select();
-		$i = 0;
-		foreach($chanpin as $v){
-			$d = $myerp_chanpin_xianlu->where("`chanpinID` ='$v[chanpinID]'")->find();
-			$chanpin[$i]['ext'] = $d;
-			$i++;
-		}
-		$redata['page'] = $page;
-		$redata['chanpin'] = $chanpin;
-		return $redata;
-		
-	}
-
-
-
+	protected $_link = array(
+		'zituanview'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_ztian','foreign_key'=>'parentID'),
+		'xianluview'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
+		'xianlu'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
+		'zituan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
+	);
+	
 
 }
 ?>

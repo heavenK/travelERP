@@ -1,0 +1,18 @@
+    <div class="moduleTitle" style="margin-bottom:10px;">
+      <h2 style="margin-top:10px;"><{$nav}></h2>
+      <span style="margin-top:10px;"> 
+      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
+      </span> 
+    </div>
+    
+    <div id="mysearchdiv" style="margin-bottom:10px;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li style="margin-right:1px;"> <a <php>if($pos == '基本信息'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$chanpinID}>">基本信息</a> </li>
+        <li style="margin-right:1px;"> <a <php>if($pos == '子团管理'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituan/chanpinID/<{$chanpinID}>">子团管理</a> </li>
+        <li style="margin-right:1px;"> <a <php>if($pos == '行程'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/<{$chanpinID}>">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
+        <li style="margin-right:1px;"> <a <php>if($pos == '成本售价'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/chengbenshoujia/chanpinID/<{$chanpinID}>">成本售价</a> </li>
+      </ul>
+    </div>
+    
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>

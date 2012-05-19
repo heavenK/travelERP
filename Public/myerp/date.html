@@ -143,52 +143,52 @@ function drawCalendar(y, m, id, startdate) {
         }
 		if(x.getFullYear() == today.getFullYear() && x.getMonth() == today.getMonth() && x.getDate() == today.getDate()) {
             if(today.getTime() >= startdate.getTime() || startdate == null) {            
-			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\" >" + d + "</a>";
             } 
             else {            
                 de.innerHTML = "<font color=#888888>" + d + "</font>";
             }
 		//edit by gaopeng		
-			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\" >" + d + "</a>";
         } 
         else if(x.getTime() < cdate.getTime()) {
         //»ÒÉ«²¿·Ö
                 de.innerHTML = "<font color=#888888>" + d + "</font>";
 		//edit by gaopeng		
-			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\";>" + d + "</a>";
+			    de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "'); return false;\" >" + d + "</a>";
 				
         } 
-        else {
-			var dm = x.getMonth()+1;
-			var sm ='';
-			if(dm<10)
-			{
-				sm = '0' + dm;
-			}
-			else
-			{
-				sm = dm;
-			}
-			var dday = x.getDate();
-			var sdday='';
-			if(dday<10)
-			{
-				sdday = '0' + dday;
-			}
-			else
-			{
-				sdday = dday;
-			}
-		    var dd = x.getFullYear() + '-' + sm + '-' + sdday;
-			if(days.indexOf(dd)>=0)
-			{
-				de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\" style='color:#FF6600'>"+d+"</a>";
-			}
-			else
-			{
-				de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\">"+d+"</a>";
-			}
-        }
+		//edit by gaopeng		
+		var dm = x.getMonth()+1;
+		var sm ='';
+		if(dm<10)
+		{
+			sm = '0' + dm;
+		}
+		else
+		{
+			sm = dm;
+		}
+		var dday = x.getDate();
+		var sdday='';
+		if(dday<10)
+		{
+			sdday = '0' + dday;
+		}
+		else
+		{
+			sdday = dday;
+		}
+		var dd = x.getFullYear() + '-' + sm + '-' + sdday;
+		if(days.indexOf(dd)>=0)
+		{
+			de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\" style='color:#FF6600'>"+d+"</a>";
+		}
+		else
+		{
+			de.innerHTML = "<a href=javascript:void(0) onclick=\"setDate(this," + d + ",'" + id + "');return false;\">"+d+"</a>";
+		}
+        //edit end
 		x.setDate(++d);
 		
 	}

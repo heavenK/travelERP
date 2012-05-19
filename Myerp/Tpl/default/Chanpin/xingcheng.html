@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
+<script src="<{:__PUBLIC__}>/myerp/jquery-1.4.2.js" language="javascript"></script>
 
 <load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
@@ -46,24 +46,7 @@ function doComplete(data,status){
     
   <div id="content" style="margin-left:170px;">
   
-    <div class="moduleTitle" style="margin-bottom:10px;">
-      <h2 style="margin-top:10px;">产品发布：行程编辑</h2>
-      <span style="margin-top:10px;"> 
-      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
-      </span> 
-    </div>
-    
-    <div id="mysearchdiv" style="margin-bottom:10px;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|basic_search');">基本信息</a> </li>
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">子团管理</a> </li>
-        <li style="margin-right:1px;"> <a class="current" href="javascript:selectTabCSS('Calls|advanced_search');">行程编辑</a> </li>
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">成本售价</a> </li>
-      </ul>
-    </div>
-    
-    <div id="resultdiv" class="resultdiv"></div>
-    <div id="resultdiv_2" class="resultdiv"></div>
+    <include file="Chanpin:header_chanpin" />
    
     
 <form name="form" method="post" id="form">

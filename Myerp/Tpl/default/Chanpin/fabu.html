@@ -1,13 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>旅游ERP</title>
+<tp:includeCA file="Chanpin:showheader" />
 
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
-
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery-1.4.2.js" language="javascript"></script>
 
 <load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
@@ -15,61 +9,28 @@
 <load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 
-<script>
-function save(){
-	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
-}
-
-function doComplete(data,status){
-	if (status==1){
-		window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/';
-	}
- 
-}
-
-
-
-</script>
-</head>
-<style>
-#content {
-	paggin-buttom:0px;
-}
-</style>
-
-<body>
-<tp:includeCA file="Chanpin:showheader" />
-
 <div id="main">
 
   <tp:includeCA file="Chanpin:left_fabu" />
     
   <div id="content" style="margin-left:170px;">
   
-    <div class="moduleTitle" style="margin-bottom:10px;">
-      <h2 style="margin-top:10px;">旅游产品：产品发布</h2>
-      <span style="margin-top:10px;"> 
-      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
-      </span> 
-    </div>
-    
-    <div id="mysearchdiv" style="margin-bottom:10px;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li style="margin-right:1px;"> <a class="current" href="javascript:selectTabCSS('Calls|basic_search');">基本信息</a> </li>
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">子团管理</a> </li>
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
-        <li style="margin-right:1px;"> <a href="javascript:selectTabCSS('Calls|advanced_search');">成本售价</a> </li>
-      </ul>
-    </div>
-    
-    <div id="resultdiv" class="resultdiv"></div>
-    <div id="resultdiv_2" class="resultdiv"></div>
+    <include file="Chanpin:header_chanpin" />
    
     
-<form name="form" method="post" id="form">
+<form name="form" method="post" id="form" action="<{:SITE_INDEX}>Chanpin/dopostfabu/">
+  <php>if($xianlu[chanpinID]){</php>
+  <input name="chanpinID" id="chanpinID" type="hidden" value="<{$xianlu['chanpinID']}>" >
+  <php>}else{</php>
+  <input name="guojing" type="hidden" id="guojing" value="<{$guojing}>" >
   <input name="kind" type="hidden" id="kind" value="<{$kind}>" >
   <input name="xianlutype" id="xianlutype" type="hidden" value="<{$xianlutype}>">
+  <php>}</php>
+  
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
+  
+  
+  
     <div class="buttons">
       <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
       <input type="submit" value="提交审核" name="button" class="button primary" style="float:right">
@@ -84,9 +45,9 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
-          <td valign="top"><input name="title" type="text" id="title" value="<{$xianlu['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
+          <td valign="top"><input name="title" type="text" id="title" value="<php>echo trim($xianlu['title'])</php>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row"> 报名截止: </td>
-          <td valign="top" scope="row"><span>出团前</span><input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<php> if ($postdata['baomingjiezhi']) echo $postdata['baomingjiezhi']; else echo 1</php>" id="baomingjiezhi" ><span>天</span></td>
+          <td valign="top" scope="row"><span>出团前</span><input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<php> if ($xianlu['baomingjiezhi']) echo $xianlu['baomingjiezhi']; else echo 1</php>" id="baomingjiezhi" ><span>天</span></td>
         </tr>
         <tr>
           <td valign="top" scope="row" style="min-width:100px;"> 始发地: </td>
@@ -128,9 +89,12 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td valign="top" scope="row"> 计划人数: </td>
-          <td valign="top"><input type="text" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" ><span>人</span></td>
+          <td valign="top">
+          <input type="text" id="renshu" name="renshu" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" value="<{$xianlu['renshu']}>" ><span style=" margin:0 10px 0 4px">人</span>
+          <input id="ischild" type="checkbox" name="ischild" value="1" <php>if($xianlu[ischild] == 1){</php> checked="checked"<php>}</php> ><label style=" margin:0 4px 0 4px">儿童不占位</label>
+          </td>
           <td valign="top" scope="row"> 行程天数: </td>
-          <td valign="top"><input type="text" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" ><span>天</span></td>
+          <td valign="top"><input type="text" id="tianshu" name="tianshu" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" value="<{$xianlu['tianshu']}>"><span>天</span></td>
         </tr>
       </tbody>
     </table>
@@ -144,7 +108,7 @@ function doComplete(data,status){
                     <tbody>
                       <tr>
                         <td>
-                        <textarea style="width:100%; resize:none" rows="3" readonly="readonly" name="chutuanriqi" id="chutuanriqi" onclick="setdate(this.id);"><{$postdata['chutuanriqi']}></textarea>
+                        <textarea style="width:100%; resize:none" rows="3" readonly name="chutuanriqi" id="chutuanriqi" onclick="setdate(this.id);"><{$xianlu['chutuanriqi']}></textarea>
                         </td>
                         <td>
                         <span class="id-ff multiple" style="margin:0 0 0 10px;">
@@ -171,29 +135,30 @@ function doComplete(data,status){
           <td valign="top">
 
             <select name="zhuti" id="zhuti">
-              <php>if($postdata['zhuti']){</php>
-              <option value="<{$postdata['zhuti']}>"><{$postdata['zhuti']}></option>
+              <php>if($xianlu['zhuti']){</php>
+              <option value="<{$xianlu['zhuti']}>"><{$xianlu['zhuti']}></option>
               <php>}else{</php>
               <option value="">请选择...</option>
               <php>}</php>
-              <php>foreach($theme_all as $theme){</php>
+              <php>foreach($xianlu['theme_all'] as $theme){</php>
               <option value="<{$theme['title']}>"><{$theme['title']}></option>
               <php>}</php>
             </select>
             <input id="addTheme" type="button" name="adds_theme" value="添加" onclick="add_theme()" class="button" style="margin: 0 0 2px 4px;"/>
-            <input type="text" id="theme_name" style="width:100px; display:none;"/>
+            <input type="text" id="zhutititle" name="zhutititle" style="width:100px; display:none;"/>
+            <input type="text" id="zhutitype" name="zhutitype" value="产品主题" style="width:100px; display:none;"/>
             <input type="button" id="submitTheme" onclick="submit_theme()" value="确定" style="display:none;margin: 0 0 2px 4px;" />
 
           </td>
           <td valign="top" scope="row" style="min-width:100px;"> 导游服务: </td>
           <td valign="top">
-            <php>if($postdata['quanpei']){ </php>
+            <php>if($xianlu['quanpei']){ </php>
             <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="全陪" checked="checked">
             <php>}else{ </php>
             <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="全陪">
             <php>} </php>
             <label style=" margin:0 4px 0 4px">全陪</label>
-            <php>if($postdata['dipei']){ </php>
+            <php>if($xianlu['dipei']){ </php>
             <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="地陪" checked="checked">
             <php>}else{ </php>
             <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="地陪">
@@ -204,13 +169,13 @@ function doComplete(data,status){
         <tr>
           <td valign="top" scope="row"> 视频: </td>
           <td valign="top">
-            <input readonly="readonly" name="shipin" type="text" id="shipin" value="<{$postdata['shipin']}>" onclick="showdiv_2('shipin')" style="width:200px;">
+            <input readonly name="shipin" type="text" id="shipin" value="<{$xianlu['shipin']}>" onclick="showdiv_2('shipin')" style="width:200px;">
             <input type="hidden" id="Videos_id" />
             <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('shipin')" id="selectshipin"/>
           </td>
           <td valign="top" scope="row"> 图片: </td>
           <td valign="top">
-            <input readonly="readonly" name="tupian" type="text" id="tupian" value="<{$postdata['tupian']}>" onclick="showdiv_2('tupian')" style="width:200px;">
+            <input readonly name="tupian" type="text" id="tupian" value="<{$xianlu['tupian']}>" onclick="showdiv_2('tupian')" style="width:200px;">
             <input type="hidden" id="Images_id" />
             <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('tupian')" id="selecttupian"/>
             <input type="button" value="清空" class="button" style="margin: 0 0 2px 4px;" onclick="clearinput('tupian')" id="selecttupian"/>
@@ -218,7 +183,10 @@ function doComplete(data,status){
         </tr>
       </tbody>
     </table>
-    
+    <style>
+	.cke_toolgroup { border: 1px solid #94C1E8;}
+	.cke_icon{ border: 1px solid #94C1E8;}
+	</style>
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
       <tbody>
         <tr>
@@ -229,7 +197,7 @@ function doComplete(data,status){
         <tr>
           <td valign="top" scope="row" style="min-width:50px;"> 特色: </td>
           <td valign="top" colspan="3">
-          <input type="text"  name="xingchengtese" id="xingchengtese">
+          <textarea name="xingchengtese" id="xingchengtese"><{$xianlu['xingchengtese']}></textarea>
 		  <script type="text/javascript">
           var editor = CKEDITOR.replace( 'xingchengtese' );
           CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
@@ -239,7 +207,7 @@ function doComplete(data,status){
         <tr>
           <td valign="top" scope="row"> 须知: </td>
           <td valign="top" colspan="3">
-          <input type="text"  name="cantuanxuzhi" id="cantuanxuzhi">
+          <textarea name="cantuanxuzhi" id="cantuanxuzhi"><{$xianlu['cantuanxuzhi']}></textarea>
 		  <script type="text/javascript">
           var editor = CKEDITOR.replace( 'cantuanxuzhi' );
           CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
@@ -257,17 +225,15 @@ function doComplete(data,status){
     
   </div>
 </div>
-</body>
-</html>
 
-
+<tp:includeCA file="Chanpin:footer" />
 
 <script>	
 jQuery(document).ready(function(){
 	  pid = jQuery('#pos2').val();
 	  change_jingshe(pid);
 	  
-	  mudidi = "<{$postdata[mudidi]}>";
+	  mudidi = "<{$xianlu[mudidi]}>";
 	  mudidi_arr = mudidi.split(',');
 	  
 	  if (!mudidi_arr[0]) {
@@ -294,7 +260,7 @@ jQuery(document).ready(function(){
 		});
 	  jQuery("#chufashengfen_id").prepend("<option selected='selected' value='0'>请选择</option>");
 	   
-	  chufadi = "<{$postdata[chufadi]}>";
+	  chufadi = "<{$xianlu[chufadi]}>";
 	  chufadi_arr = chufadi.split(',');
 	  
 	  if (!chufadi_arr[0]) {
@@ -392,8 +358,11 @@ function div_close(id){
 	jQuery('#'+id+'').hide();
 }
 
-function clearinput(id){
-	jQuery('#'+id+'').val('');
+function clearinput(objID){
+	jQuery('#'+objID+'').val('');
+	var url = '<{:__PUBLIC__}>/myerp/date.html';
+	url = url + '?oid='+objID+'&selectdates=' + document.getElementById(objID).value;
+	jQuery('#dateiframe').attr("src",url);
 }
 
 function getPosLeft(obj)
@@ -416,43 +385,36 @@ function getPosTop(obj)
 }
 
 function add_theme(){
-	jQuery("#theme_name").val('');
+	jQuery("#zhutititle").val('');
 	jQuery("#zhuti").hide();
 	jQuery("#addTheme").hide();
-	jQuery("#theme_name").show();
+	jQuery("#zhutititle").show();
 	jQuery("#submitTheme").show();
 }
 
 function submit_theme(){
-	var themeName = jQuery("#theme_name").val();
+	var themeName = jQuery("#zhutititle").val();
 	if(themeName == '') {
 		alert('请填写线路主题！');
-		jQuery("#theme_name").hide();
+		jQuery("#zhutititle").hide();
 		jQuery("#submitTheme").hide();
 		jQuery("#zhuti").show();
 		jQuery("#addTheme").show();
 		return false;	
 	}
-	jQuery.ajax({
-	  type:	"POST",
-	  url:	"<{:SITE_ADMIN}>Basedata/ajax_add",
-	  async: false,
-	  data:	"opera=line_theme&title=" + themeName,
-	  success:	function(msg){
-			if(msg == 'true') {
-				jQuery("#theme_name").hide();
-				jQuery("#submitTheme").hide();
-				jQuery("#zhuti").show();
-				jQuery("#addTheme").show();
-				var option_new = "<option value='" + themeName + "'>" + themeName + "</option>";
-				jQuery("#zhuti").append(option_new);
-				jQuery("#zhuti").val(themeName);
-			}else{
-				alert("添加入库失败，你可能没有权限！");	
-			}
-		}
-	});
-	
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Info/addinfo/',doComplete_11,'resultdiv');
+}
+
+function doComplete_11(data,status){
+	if (status==1){
+		jQuery("#zhutititle").hide();
+		jQuery("#submitTheme").hide();
+		jQuery("#zhuti").show();
+		jQuery("#addTheme").show();
+		var option_new = "<option value='" + data + "'>" + data + "</option>";
+		jQuery("#zhuti").append(option_new);
+		jQuery("#zhuti").val(data);
+	}
 }
 
 function showdiv_2(id){
@@ -482,8 +444,22 @@ function showdiv_2(id){
 	
 }
 
-</script>
+function save(){
+	document.getElementById('xingchengtese').value = CKEDITOR.instances.xingchengtese.getData();
+	document.getElementById('cantuanxuzhi').value = CKEDITOR.instances.cantuanxuzhi.getData();
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
+}
 
+function doComplete(data,status){
+	if(status == 1){
+		var chanpinID = document.getElementById('chanpinID').value;
+		if (chanpinID)
+			window.location.href='<{:SITE_INDEX}>Chanpin/fabu/chanpinID/'+chanpinID;
+		else
+			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+chanpinID;
+	}
+}
+</script>
 <div style="position: absolute; display:none;" id="divselect">
   <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
