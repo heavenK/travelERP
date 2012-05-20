@@ -17,10 +17,11 @@ class ChanpinModel extends RelationModel {
     ); 
 	
 	protected $_link = array(
-		'zituanview'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_ztian','foreign_key'=>'parentID'),
-		'xianluview'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
-		'xianlu'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
-		'zituan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
+		'zituanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_ztian','foreign_key'=>'parentID'),
+		'xianlulist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),
+		'xianlu'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Xianlu','foreign_key'=>'chanpinID'),
+		'zituan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Zituan','foreign_key'=>'chanpinID'),
+		'xingcheng'=>array('mapping_type'=>HAS_MANY,'class_name'=>'Xingcheng','foreign_key'=>'chanpinID'),
 	);
 	
 

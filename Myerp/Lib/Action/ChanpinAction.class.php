@@ -5,38 +5,28 @@ class ChanpinAction extends Action{
 	
     public function index() {
 		//搜索
-		$kind = $_GET['kind'];
-		$guojing = $_GET['guojing'];
-		$navlist = '线路产品发布 》  '.$_GET['guojing'].' 》  '.$_GET['xianlutype'].' 》 '.$_GET['kind'];
-        $this->assign('navlist',$navlist);
-		
 		foreach($_GET as $key => $value)
 		{
-			if($key == 'p' || $key == 'chufariqi' || $key == 'jiezhiriqi'){
+			if($key == 'p' || $key == 'chufariqi' || $key == 'jiezhiriqi')
 				continue;
-			}
-			if($key == 'zhuangtai' || $value == '全部' )
-				$condition['zhuangtai'] = array('in','报名,截止'); 	
+			if($key == 'status' || $value == '全部' )
+				$wherelist['status'] = array('in','报名,截止'); 	
 			else
-				$condition[$key] = array('like','%'.$value.'%');
+				$wherelist[$key] = array('like','%'.$value.'%');
 		}
 		$start_date = $_GET['chufariqi'];
 		$end_date = $_GET['jiezhiriqi'];
-		if ($start_date && $end_date){
-			$condition['chutuanriqi'] = array(array('like','%'.$start_date.'%'),array('like','%'.$end_date.'%'),'or');
-		}
-		elseif ($end_date){
-			$condition['chutuanriqi'] = array('like','%'.$end_date.'%'); 	
-		}
-		elseif ($start_date){
-			$condition['chutuanriqi'] = array('like','%'.$start_date.'%'); 	
-		}
-		if(!$condition['zhuangtai'])
-			$condition['zhuangtai'] = array('in','准备,审核不通过,等待审核'); 	
-			
-			
+		if ($start_date && $end_date)
+			$wherelist['chutuanriqi'] = array(array('like','%'.$start_date.'%'),array('like','%'.$end_date.'%'),'or');
+		elseif ($end_date)
+			$wherelist['chutuanriqi'] = array('like','%'.$end_date.'%'); 	
+		elseif ($start_date)
+			$wherelist['chutuanriqi'] = array('like','%'.$start_date.'%'); 	
+		if(!$wherelist['status'])
+			$wherelist['status'] = array('in','准备,审核不通过,等待审核'); 	
+		$wherelist['typeName'] = '线路'; 	
 		//查询
-		$chanpin_list = A('ChanpinMethod')->chanpin_list();
+		$chanpin_list = A('ChanpinMethod')->chanpin_list($wherelist);
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('Chanpin/index');
@@ -95,7 +85,8 @@ class ChanpinAction extends Action{
 			if($Chanpin->getLastmodel() == 'add')
 				$_REQUEST['chanpinID'] = $Chanpin->getLastInsID();
 			C('TOKEN_ON',false);
-            if (false !== $Xianlu->mycreate($_REQUEST) && A('ChanpinMethod')->shengchengzituan($_REQUEST['chanpinID'])){
+//            if (false !== $Xianlu->mycreate($_REQUEST) && A('ChanpinMethod')->shengchengzituan($_REQUEST['chanpinID'])){
+            if (false !== $Xianlu->mycreate($_REQUEST)){
 				$Chanpin->commit();
 				$this->success('保存成功！');
 			}
@@ -114,8 +105,8 @@ class ChanpinAction extends Action{
 		$this->assign("pos",'子团管理');
 		$chanpinID = $_REQUEST["chanpinID"];
 		$Zituan = D('Chanpin');
-		$xianlu = $Zituan->relation("zituanview")->where("`chanpinID` = '$chanpinID'")->find();
-		$zituanAll = $xianlu['zituanview'];
+		$xianlu = $Zituan->relation("zituanlist")->where("`chanpinID` = '$chanpinID'")->find();
+		$zituanAll = $xianlu['zituanlist'];
 		$this->assign("zituanAll",$zituanAll);
 		$this->display('Chanpin/zituan');
 	}
@@ -126,17 +117,33 @@ class ChanpinAction extends Action{
 		$this->assign("nav",'旅游产品：行程管理');
 		$this->assign("pos",'行程');
 		$chanpinID = $_REQUEST["chanpinID"];
-		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
-		$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
-		
-		$Xingcheng = D("xingcheng");
-		$xingchengAll = $Xingcheng->where("`chanpinID` = '$chanpinID'")->findall();
-		$this->assign("xianlu",$xianlu);
-		$this->assign("xingchengAll",$xingchengAll);
+		$Chanpin = D("Chanpin");
+		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
+		$xingcheng = $Chanpin->relationGet("xingcheng");
+		$this->assign("chanpin",$chanpin);
+		$this->assign("xingcheng",$xingcheng);
 		$this->display('Chanpin/xingcheng');
 	}
 	
-	
+	public function dopostxingcheng()
+	{
+		$Chanpin = D("Chanpin");
+		$chanpinID = $_REQUEST["chanpinID"];
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		for($t = 0; $t < $_REQUEST['tianshu']; $t++){
+			$dat['chanpinID'] = $_REQUEST['chanpinID'];
+			$dat['xingchengID'] = $_REQUEST['xingchengID'][$t];
+			$dat['place'] = $_REQUEST['place'][$t];
+			$dat['tools'] = serialize($_REQUEST['tools'.$t]);
+			$dat['chanyin'] = serialize($_REQUEST['chanyin'.$t]);
+			$dat['content'] = $_REQUEST['content'][$t];
+			$cp['xingcheng'][$t] = $dat;
+		}
+		if (false !== $Chanpin->relation('xingcheng')->save($cp))
+			$this->success('保存成功！');
+		else
+			$this->error($Chanpin->getError());
+	}
 	
 	
 	public function message() {

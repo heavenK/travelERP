@@ -219,10 +219,10 @@
                   <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a>
                   </td>
                   <td scope="row" align="left" valign="top">
-                  <{$v['bianhao']}>
+                  <{$v['xianlu']['bianhao']}>
                   </td>
                   <td scope="row" align="center" valign="top">
-                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
+                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v['xianlu'][chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['user_name']}>
@@ -240,7 +240,7 @@
                   <{$v['islock']}>
                   </td>
                   <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <{$v['ispub']}>
+                  <{$v['xianlu']['ispub']}>
                   </td>
                   <td scope="row" align="center" valign="top">
                   <img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />

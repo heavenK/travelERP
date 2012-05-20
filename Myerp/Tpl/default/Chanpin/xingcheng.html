@@ -1,44 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>旅游ERP</title>
+<tp:includeCA file="Chanpin:showheader" />
 
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
-
-<script src="<{:__PUBLIC__}>/myerp/jquery-1.4.2.js" language="javascript"></script>
 
 <load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
-
-<script>
-function save(){
-	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
-}
-
-function doComplete(data,status){
-	if (status==1){
-		window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/';
-	}
- 
-}
-
-
-
-</script>
-</head>
-<style>
-#content {
-	paggin-buttom:0px;
-}
-</style>
-
-<body>
-<tp:includeCA file="Chanpin:showheader" />
 
 <div id="main">
 
@@ -49,37 +18,40 @@ function doComplete(data,status){
     <include file="Chanpin:header_chanpin" />
    
     
-<form name="form" method="post" id="form">
+<form name="form" method="post" id="form" action="<{:SITE_INDEX}>Chanpin/dopostxingcheng/">
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
+  <input type="hidden" name="tianshu" value="<{$chanpin['xianlu']['tianshu']}>"> <!--ajax提示-->
+  <input type="hidden" name="chanpinID" value="<{$chanpin['chanpinID']}>"> <!--ajax提示-->
   
   
     <div class="buttons">
       <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
       <input type="submit" value="提交审核" name="button" class="button primary" style="float:right">
-      <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+      <input type="button" value="保存" name="button" class="button primary" onClick="save();">
     </div>
     
-    <php>$count = 0 ;$t =-1;while ($count < $xianlu['tianshu']) {$t++; </php>
+    <php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
+	<input type="hidden" name="xingchengID[]" value="<{$xingcheng[$count]['xingchengID']}>" />
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
         <tr>
-          <th align="left" colspan="8"> <h4>行程：第一天</h4>
+          <th align="left" colspan="8"> <h4>行程：第<{$t+1}>天</h4>
           </th>
         </tr>
         <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 日期: </td>
-          <td valign="top" scope="row"><input name="title" type="text" id="title" value="<{$postdata['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 住宿: </td>
+          <td valign="top" scope="row">
+          <input type="text" name="place[]" value="<{$xingcheng[$count]['place']}>" style="width:200px;"/>
+          </td>
           <td valign="top" scope="row" style="min-width:100px;"> 餐饮: </td>
           <td valign="top" scope="row">
-              <input type="checkbox" name="time<{$count}>[]" value="早餐"/ <php>if(strstr($xingcheng[$count]['time'],'早餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">早餐</label>
-              <input type="checkbox" name="time<{$count}>[]" value="午餐"/ <php>if(strstr($xingcheng[$count]['time'],'午餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">午餐</label>
-              <input type="checkbox" name="time<{$count}>[]" value="晚餐"/ <php>if(strstr($xingcheng[$count]['time'],'晚餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">晚餐</label>
+              <input type="checkbox" name="chanyin<{$count}>[]" value="早餐"/ <php>if(strstr($xingcheng[$count]['chanyin'],'早餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">早餐</label>
+              <input type="checkbox" name="chanyin<{$count}>[]" value="午餐"/ <php>if(strstr($xingcheng[$count]['chanyin'],'午餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">午餐</label>
+              <input type="checkbox" name="chanyin<{$count}>[]" value="晚餐"/ <php>if(strstr($xingcheng[$count]['chanyin'],'晚餐')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">晚餐</label>
           </td>
         </tr>
         
         <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 住宿: </td>
-          <td valign="top" scope="row"><input name="title" type="text" id="title" value="<{$postdata['title']}>" style="width:200px;" check="^\S+$" warning="账号不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row" style="min-width:100px;"> 交通: </td>
           <td valign="top" scope="row">
               <input type="checkbox" name="tools<{$count}>[]" value="飞机"/ <php>if(strstr($xingcheng[$count]['tools'],'飞机')){</php>checked="checked"<php>}</php> /> <label style=" margin:0 4px 0 4px">飞机</label>
@@ -101,7 +73,7 @@ function doComplete(data,status){
                             <tbody>
                               <tr>
                                 <td>
-                                <textarea style="width:99%; resize:none" rows="8" name="chutuanriqi" id="chutuanriqi" onclick="setdate(this.id);"><{$postdata['chutuanriqi']}></textarea>
+                                <textarea style="width:99%; resize:none" rows="6" id="content<{$count}>" name="content[]"><{$xingcheng[$count]['content']}></textarea>
                                 </td>
                               </tr>
                             </tbody>
@@ -133,4 +105,13 @@ function doComplete(data,status){
 </body>
 </html>
 
-
+<script>
+function save(){
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostxingcheng/',doComplete,'resultdiv');
+}
+function doComplete(data,status){
+	if (status==1){
+		//window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/';
+	}
+}
+</script>

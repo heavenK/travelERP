@@ -4,25 +4,24 @@ class ChanpinMethodAction extends Action{
 
     //显示产品列表
     public function chanpin_list($where,$pagenum = 20) {
-		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
+		$Chanpin = D('Chanpin');
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
-		$count = $myerpview_chanpin_xianlu->where($where)->count();
+		$count = $Chanpin->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $myerpview_chanpin_xianlu->where($where)->order("time DESC")->limit($p->firstRow.','.$p->listRows)->select();
+        $chanpin = $Chanpin->relation('xianlu')->where($where)->order("time DESC")->limit($p->firstRow.','.$p->listRows)->select();
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		return $redata;
-		
 	}
 	//生成子团
     private function shengchengzituan($chanpinID) {
 		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
 		$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
 		$Chanpin = D('Chanpin');
-		$d = $Chanpin->relation("zituanview")->where("`chanpinID` = '$chanpinID'")->find();
-		$zituanAll = $d['zituanview'];
+		$d = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$chanpinID'")->find();
+		$zituanAll = $d['zituanlist'];
 		$riqiAll = split(';',$xianlu['chutuanriqi']);
 		//先根据子团判断修改和删除
 		foreach($zituanAll as $zituan){

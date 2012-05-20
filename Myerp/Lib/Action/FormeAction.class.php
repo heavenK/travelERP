@@ -7,7 +7,7 @@ class FormeAction extends Action{
 		echo "<br>";
 		
 		$gl_xianlu=D("glxianlu");
-		$xianluAll = $gl_xianlu->limit(0,100)->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->limit(100)->findall();
 		$myerp_chanpin=D("myerp_chanpin");
 		$myerp_chanpin_xianlu=D("myerp_chanpin_xianlu");
 		//线路
@@ -60,7 +60,7 @@ class FormeAction extends Action{
 		
 		$glxingcheng=M("glxingcheng");
 		$xingchengAll = $glxingcheng->where("`xianluID` = '$v[xianluID]'")->findall();
-		$myerp_chanpin_xingcheng=D("myerp_chanpin_xingcheng");
+		$myerp_chanpin_xingcheng=M("myerp_chanpin_xingcheng");
 		//线路
 		foreach($xingchengAll as $v)
 		{
