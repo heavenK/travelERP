@@ -82,8 +82,12 @@ class RelationModel extends Model {
     // 写入成功后的回调方法
     protected function _after_insert($data,$options) {
         // 关联写入
+		//add by gaopeng
         if(!empty($options['link']))
-            $this->opRelation('ADD',$data,$options['link']);
+            return $this->opRelation('ADD',$data,$options['link']);
+		else
+			return true;
+		//end	
     }
 
     // 更新成功后的回调方法
@@ -111,11 +115,12 @@ class RelationModel extends Model {
      * @return boolean
      +----------------------------------------------------------
      */
-     protected function _facade($data) {
-        $this->_before_write($data);
-        return $data;
-     }
-
+	 //add by gaopeng
+//     protected function _facade($data) {
+//        $this->_before_write($data);
+//        return $data;
+//     }
+	//end
     /**
      +----------------------------------------------------------
      * 获取返回数据集的关联记录
@@ -407,5 +412,67 @@ class RelationModel extends Model {
             return false;
         return $this->getRelation($this->data,$name,true);
     }
+	
+	
+	
+	//add by gaopeng	
+    public function add($data='',$options=array(),$replace=false) {
+        if(empty($data)) {
+            // 没有传递数据，获取当前数据对象的值
+            if(!empty($this->data)) {
+                $data    =   $this->data;
+                // 重置数据
+                $this->data = array();
+            }else{
+                $this->error = L('_DATA_TYPE_INVALID_');
+                return false;
+            }
+        }
+        // 分析表达式
+        $options =  $this->_parseOptions($options);
+        // 数据处理
+		//add by gaopeng
+        $data2 = $data;
+		//end
+        $data = $this->_facade($data);
+        if(false === $this->_before_insert($data,$options)) {
+            return false;
+        }
+        // 写入数据到数据库
+		$this->startTrans();
+        $result = $this->db->insert($data,$options,$replace);
+        if(false !== $result ) {
+            $insertId   =   $this->getLastInsID();
+            if($insertId) {
+                // 自增主键返回插入ID
+                $data[$this->getPk()]  = $insertId;
+				//add by gaopeng
+                $data2[$this->getPk()]  = $insertId;
+				$result = $this->_after_insert($data2,$options);
+				if(false !== $result){
+					$this->commit();	
+					return $insertId;
+				}
+				else{
+					$this->rollback();
+					$this->error = D($this->_link[$options['link']]['class_name'])->getError();
+					return $result;
+				}
+				//end
+            }
+        }
+		$this->rollback();
+        return $result;
+    }
+	//end
+	
+	
+    // 插入数据前的回调方法
+    protected function _before_insert(&$data,$options) {
+		$data = $this->create($data);
+		return $data;
+	}
+	
+	
 }
 ?>

@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'shoujiaID', 1 => 'chanpinID', 2 => 'type', 3 => 'adultprice', 4 => 'childprice', 5 => 'cut', 6 => 'chengben', 7 => 'renshu', '_autoinc' => true, '_pk' => 'shoujiaID', '_type' => array ( 'shoujiaID' => 'int(11)', 'chanpinID' => 'int(11)', 'type' => 'varchar(50)', 'adultprice' => 'int(11)', 'childprice' => 'int(11)', 'cut' => 'int(11)', 'chengben' => 'int(11)', 'renshu' => 'int(11)', ), ); ?>

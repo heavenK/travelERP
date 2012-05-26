@@ -5,25 +5,25 @@ class ChanpinAction extends Action{
 	
     public function index() {
 		//搜索
-		foreach($_GET as $key => $value)
-		{
-			if($key == 'p' || $key == 'chufariqi' || $key == 'jiezhiriqi')
-				continue;
-			if($key == 'status' || $value == '全部' )
-				$wherelist['status'] = array('in','报名,截止'); 	
-			else
-				$wherelist[$key] = array('like','%'.$value.'%');
-		}
-		$start_date = $_GET['chufariqi'];
-		$end_date = $_GET['jiezhiriqi'];
-		if ($start_date && $end_date)
-			$wherelist['chutuanriqi'] = array(array('like','%'.$start_date.'%'),array('like','%'.$end_date.'%'),'or');
-		elseif ($end_date)
-			$wherelist['chutuanriqi'] = array('like','%'.$end_date.'%'); 	
-		elseif ($start_date)
-			$wherelist['chutuanriqi'] = array('like','%'.$start_date.'%'); 	
-		if(!$wherelist['status'])
-			$wherelist['status'] = array('in','准备,审核不通过,等待审核'); 	
+//		foreach($_GET as $key => $value)
+//		{
+//			if($key == 'p' || $key == 'chufariqi' || $key == 'jiezhiriqi')
+//				continue;
+//			if($key == 'status' || $value == '全部' )
+//				$wherelist['status'] = array('in','报名,截止'); 	
+//			else
+//				$wherelist[$key] = array('like','%'.$value.'%');
+//		}
+//		$start_date = $_GET['chufariqi'];
+//		$end_date = $_GET['jiezhiriqi'];
+//		if ($start_date && $end_date)
+//			$wherelist['chutuanriqi'] = array(array('like','%'.$start_date.'%'),array('like','%'.$end_date.'%'),'or');
+//		elseif ($end_date)
+//			$wherelist['chutuanriqi'] = array('like','%'.$end_date.'%'); 	
+//		elseif ($start_date)
+//			$wherelist['chutuanriqi'] = array('like','%'.$start_date.'%'); 	
+//		if(!$wherelist['status'])
+//			$wherelist['status'] = array('in','准备,审核不通过,等待审核'); 	
 		$wherelist['typeName'] = '线路'; 	
 		//查询
 		$chanpin_list = A('ChanpinMethod')->chanpin_list($wherelist);
@@ -144,6 +144,73 @@ class ChanpinAction extends Action{
 		else
 			$this->error($Chanpin->getError());
 	}
+	
+	public function chengbenshoujia()
+	{
+		$this->assign("nav",'旅游产品：成本售价');
+		$this->assign("pos",'成本售价');
+		$Chanpin = D("Chanpin");
+		$chanpinID = $_REQUEST["chanpinID"];
+		$cp = $Chanpin->relation('chengben')->where("`chanpinID` = '$chanpinID'")->find();
+		$shoujia = $Chanpin->relationGet("shoujialist");
+		$chengben = $cp['chengben'];
+		$this->assign("chengben",$chengben);
+		$this->assign("shoujia",$shoujia);
+		$this->display('Chanpin/chengbenshoujia');
+	}
+	
+	public function dopostchengben()
+	{
+		C('TOKEN_ON',false);
+		$d = $_REQUEST;
+		$Chengben = D("Chengben");
+		if (false !== $Chengben->mycreate($d)){
+			if($Chengben->getLastmodel() == 'add')
+				$_REQUEST['chengbenID'] = $Chengben->getLastInsID();
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}else
+			$this->ajaxReturn($_REQUEST, $Chengben->getError(), 0);
+		
+		
+	}
+	
+	public function deletechengben()
+	{
+		$chengbenID = $_REQUEST['chengbenID'];
+		$Chengben = D("Chengben");
+		if (false !== $Chengben->where("`chengbenID` = '$chengbenID'")->delete())
+			$this->ajaxReturn('', '删除成功！', 1);
+		else
+			$this->ajaxReturn('', $Chengben->getError(), 0);
+	}
+	
+	
+	public function dopostshoujia()
+	{
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$_REQUEST['typeName'] = '售价';
+		$data = $_REQUEST;
+		$data['shoujia'] = $_REQUEST;
+		if (false !== $Chanpin->relation("shoujia")->add($data)){
+			if($Chanpin->getLastmodel() == 'add')
+				$_REQUEST['chanpinID'] = $Chanpin->getLastInsID();
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}else
+			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+	}
+	
+	
+	public function deleteshoujia()
+	{
+		$chanpinID = $_REQUEST['chanpinID'];
+		$Chanpin = D("Chanpin");
+		if (false !== $Chanpin->where("`chanpinID` = '$chanpinID'")->delete())
+			$this->ajaxReturn('', '删除成功！', 1);
+		else
+			$this->ajaxReturn('', $Chanpin->getError(), 0);
+	}
+	
 	
 	
 	public function message() {

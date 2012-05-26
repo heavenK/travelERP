@@ -16,6 +16,7 @@ require(THINK_PATH.'/ThinkPHP.php');
 require(APP_PATH.'/Common/Function.php');
 require(APP_PATH.'/Common/MyFunction.php');
 require(APP_PATH.'/Common/FusionCharts.php');
+require(APP_PATH.'/Common/NewFunction.php');
 
 App::run();
 ?>

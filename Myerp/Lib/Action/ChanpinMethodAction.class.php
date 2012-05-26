@@ -10,7 +10,7 @@ class ChanpinMethodAction extends Action{
 		$count = $Chanpin->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $Chanpin->relation('xianlu')->where($where)->order("time DESC")->limit($p->firstRow.','.$p->listRows)->select();
+        $chanpin = $Chanpin->relation('xianlu')->where($where)->order("chanpinID DESC")->limit($p->firstRow.','.$p->listRows)->select();
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		return $redata;
