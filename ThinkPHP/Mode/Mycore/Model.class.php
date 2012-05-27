@@ -860,64 +860,18 @@ class Model extends Think
 
 	//add by gaopeng
 	//调用顺序 create save add,如果save失败并且主键存在则调用add
-     public function mycreate($data='',$type='',$options='') {
-        // 如果没有传值默认取POST数据
-        if(empty($data)) {
-            $data    =   $_POST;
-        }elseif(is_object($data)){
-            $data   =   get_object_vars($data);
-        }
-        // 验证数据
-        if(empty($data) || !is_array($data)) {
-            $this->error = L('_DATA_TYPE_INVALID_');
-            return false;
-        }
-
-        // 检查字段映射
-        $this->parseFieldsMap($data,0);
-
+     public function mycreate($data='',$type='',$options=array()) {
+		$vo = $this->create($data,$type);
         // 状态
         $type = $type?$type:(!empty($data[$this->getPk()])?self::MODEL_UPDATE:self::MODEL_INSERT);
-
-        // 数据自动验证
-        if(!$this->autoValidation($data,$type)) return false;
-
-        // 表单令牌验证
-        if(C('TOKEN_ON') && !$this->autoCheckToken($data)) {
-            $this->error = L('_TOKEN_ERROR_');
-            return false;
-        }
-
-        // 验证完成生成数据对象
-        if($this->autoCheckFields) { // 开启字段检测 则过滤非法字段数据
-            $vo   =  array();
-            foreach ($this->fields as $key=>$name){
-                if(substr($key,0,1)=='_') continue;
-                $val = isset($data[$name])?$data[$name]:null;
-                //保证赋值有效
-                if(!is_null($val)){
-                    $vo[$name] = (MAGIC_QUOTES_GPC && is_string($val))?   stripslashes($val)  :  $val;
-                }
-            }
-        }else{
-            $vo   =  $data;
-        }
-
-        // 创建完成对数据进行自动处理
-        $this->autoOperation($vo,$type);
-        // 赋值当前数据对象
-        $this->data =   $vo;
-		//判断调用
 		if($type == self::MODEL_UPDATE){
 			$this->lastmodeltype = 'save';
 			$result = $this->save($vo,$options);
-			if(false !== $result)
-				return 	$result;
-			else
-				if($data[$this->getPk()]){
-					$this->lastmodeltype = 'add';
-					return $this->add($vo,$options);
-				}
+			if(0 == $result && !$this->find($data[$this->getPk()])){//未出现错误
+				$this->lastmodeltype = 'add';
+				return $this->add($vo,$options);
+			}
+			return 	$result;
 		}
 		if($type == self::MODEL_INSERT){
 			$this->lastmodeltype = 'add';
@@ -1345,7 +1299,12 @@ class Model extends Think
      +----------------------------------------------------------
      */
     public function getError(){
+		//add by gaopeng
+		if($this->error)
         return $this->error;
+		else
+        return $this->error = "发生错误：".$this->getDbError();
+		//end
     }
 
     /**

@@ -24,8 +24,8 @@
 class RelationModel extends Model {
     // 关联定义
     protected    $_link = array();
-	
     // add by gaopeng
+    // 最后一次操作类型
     protected $lastRelationID = array();
 	//end
     /**
@@ -419,31 +419,129 @@ class RelationModel extends Model {
 	
 	
 	//add by gaopeng	
-     public function myRcreate($data='',$options=array()) {
-			// 分析表达式
-			$options =  $this->_parseOptions($options);
-			$this->startTrans();
-			if (false !== $this->mycreate($data)){
-				C('TOKEN_ON',false);
-				if($this->getLastmodel() == 'add'){
-					$data[$this->getPk()] = $this->getLastInsID();
-					$this->lastRelationID = $this->getLastInsID();
-				}
-				$class_name = $this->_link[$options['link']]['class_name'];
-				$relationClass = D("$class_name");
-				if (false !== $relationClass->mycreate($data)){
-					$this->commit();
-					return true;
+    public function add($data='',$options=array(),$replace=false) {
+        if(empty($data)) {
+            // 没有传递数据，获取当前数据对象的值
+            if(!empty($this->data)) {
+                $data    =   $this->data;
+                // 重置数据
+                $this->data = array();
+            }else{
+                $this->error = L('_DATA_TYPE_INVALID_');
+                return false;
+            }
+        }
+        // 分析表达式
+        $options =  $this->_parseOptions($options);
+        // 数据处理
+		//add by gaopeng
+        $data2 = $data;
+		//end
+        $data = $this->_facade($data);
+        if(false === $this->_before_insert($data,$options)) {
+            return false;
+        }
+        // 写入数据到数据库
+		$this->startTrans();
+        $result = $this->db->insert($data,$options,$replace);
+        if(false !== $result ) {
+            $insertId   =   $this->getLastInsID();
+            if($insertId) {
+                // 自增主键返回插入ID
+                $data[$this->getPk()]  = $insertId;
+				//add by gaopeng
+                $data2[$this->getPk()]  = $insertId;
+				$this->lastRelationID = $insertId;
+				$result = $this->_after_insert($data2,$options);
+				if(false !== $result){
+					$this->commit();	
+					return $insertId;
 				}
 				else{
 					$this->rollback();
-					$this->error = $relationClass->getError(); 
-					return false;
+					$this->error = D($this->_link[$options['link']]['class_name'])->getError();
+					return $result;
 				}
+				//end
+            }
+        }
+        return $result;
+    }
+	
+	
+    // 插入数据前的回调方法
+    protected function _before_insert(&$data,$options) {
+		$data = $this->create($data);
+		return $data;
+	}
+	
+	
+    public function save($data='',$options=array()) {
+        if(empty($data)) {
+            // 没有传递数据，获取当前数据对象的值
+            if(!empty($this->data)) {
+                $data    =   $this->data;
+                // 重置数据
+                $this->data = array();
+            }else{
+                $this->error = L('_DATA_TYPE_INVALID_');
+                return false;
+            }
+        }
+        // 数据处理
+		//add by gaopeng
+        $data2 = $data;
+		//end
+        $data = $this->_facade($data);
+        // 分析表达式
+        $options =  $this->_parseOptions($options);
+        if(false === $this->_before_update($data,$options)) {
+            return false;
+        }
+        if(!isset($options['where']) ) {
+            // 如果存在主键数据 则自动作为更新条件
+            if(isset($data[$this->getPk()])) {
+                $pk   =  $this->getPk();
+                $where[$pk]   =  $data[$pk];
+                $options['where']  =  $where;
+                $pkValue = $data[$pk];
+                unset($data[$pk]);
+            }else{
+                // 如果没有任何更新条件则不执行
+                $this->error = L('_OPERATION_WRONG_');
+                return false;
+            }
+        }
+		$this->startTrans();
+        $result = $this->db->update($data,$options);
+        if(false !== $result) {
+            if(isset($pkValue)) $data[$pk]   =  $pkValue;
+			//add by gaopeng
+            if(isset($pkValue)) $data2[$pk]   =  $pkValue;
+            $result = $this->_after_update($data2,$options);
+			if(false !== $result){
+				$this->commit();	
 			}
 			else{
 				$this->rollback();
-				return false;
+				$this->error = D($this->_link[$options['link']]['class_name'])->getError();
+			}
+			
+			//end
+        }
+        return $result;
+    }
+	
+	
+	//根据主键判断调用save和add
+     public function mycreate($data='',$options=array()) {
+            if(isset($data[$this->getPk()]))
+			{
+				$this->lastmodeltype = 'save';
+				$this->save($data,$options);
+			}else{
+				$this->lastmodeltype = 'add';
+				$this->add($data,$options);
 			}
 	 }
 	 

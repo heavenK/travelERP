@@ -2,6 +2,7 @@
  var i=0;
  function insertchengben()
  {
+	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"chengbenrow_t"+i+"\">";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"typeName_t"+i+"\" >";
@@ -20,7 +21,6 @@
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"addchengben("+i+",'_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#chengben").append(htmlcontent);
-	i++;	 
  }
 
  function addchengben(id,mark)
@@ -106,6 +106,7 @@
  
  function insertshoujia()
  {
+	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"shoujiarow_t"+i+"\">";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select>";
@@ -128,7 +129,6 @@
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"addshoujia("+i+",'_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#shoujia").append(htmlcontent);
-	i++;	 
  }
 
  function addshoujia(id,mark)
@@ -157,7 +157,32 @@
  
  function shoujia_save(data,status,info,type,id)
  {
-	 
+	if(status == 1){
+		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"shoujiarow"+data['chanpinID']+"\">";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select>";
+		htmlcontent += "<option>代理商级别</option>";
+		htmlcontent += "</select></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select>";
+		htmlcontent += "<option>代理商</option>";
+		htmlcontent += "</select></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"type"+data['chanpinID']+"\">";
+		htmlcontent += "<option value=\""+data['type']+"\">"+data['type']+"</option>";
+		htmlcontent += "<option disabled>-------</option>";
+		htmlcontent += "<option value=\"标准\">标准</option>";
+		htmlcontent += "<option value=\"酒店机票\">酒店机票</option>";
+		htmlcontent += "</select></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" name=\"title\" id=\"adultprice"+data['chanpinID']+"\" value=\""+data['adultprice']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" name=\"title\" id=\"childprice"+data['chanpinID']+"\" value=\""+data['childprice']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" name=\"title\" id=\"chengben"+data['chanpinID']+"\" value=\""+data['chengben']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" name=\"title\" id=\"cut"+data['chanpinID']+"\" value=\""+data['cut']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" name=\"title\" id=\"renshu"+data['chanpinID']+"\" value=\""+data['renshu']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteshoujia("+data['chanpinID']+",'temp');\" />";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"修改\" onclick=\"addshoujia("+data['chanpinID']+");\" /></td>";
+		htmlcontent += "</tr>";
+		jQuery("#shoujiarow_t"+id).replaceWith(htmlcontent);
+	}
  }
 
  function deleteshoujia(id,type)

@@ -95,8 +95,10 @@ class ChanpinAction extends Action{
 				$this->error($Xianlu->getError()); 
 			}
 		}
-        else
+        else{
+			$this->rollback();
 			$this->error($Chanpin->getError()); 
+		}
 	}
 	
 	public function zituan()
@@ -192,12 +194,20 @@ class ChanpinAction extends Action{
 		$_REQUEST['typeName'] = '售价';
 		$data = $_REQUEST;
 		$data['shoujia'] = $_REQUEST;
-		if (false !== $Chanpin->relation("shoujia")->add($data)){
+		
+		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			if($Chanpin->getLastmodel() == 'add')
-				$_REQUEST['chanpinID'] = $Chanpin->getLastInsID();
+				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+		
+//		if (false !== $Chanpin->relation("shoujia")->mycreate($data)){
+//			if($Chanpin->getLastmodel() == 'add')
+//				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+//			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+//		}else
+//			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
 	
@@ -205,7 +215,7 @@ class ChanpinAction extends Action{
 	{
 		$chanpinID = $_REQUEST['chanpinID'];
 		$Chanpin = D("Chanpin");
-		if (false !== $Chanpin->where("`chanpinID` = '$chanpinID'")->delete())
+		if (false !== $Chanpin->relation("shoujia")->delete("$chanpinID"))
 			$this->ajaxReturn('', '删除成功！', 1);
 		else
 			$this->ajaxReturn('', $Chanpin->getError(), 0);
