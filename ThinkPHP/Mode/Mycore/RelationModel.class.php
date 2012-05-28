@@ -425,7 +425,9 @@ class RelationModel extends Model {
 				C('TOKEN_ON',false);
 				$class_name = $this->_link[$options['link']]['class_name'];
 				$relationClass = D("$class_name");
+				$key = $data[$this->getPk()];
 				$data = $data[$options['link']];
+				$data[$this->getPk()] = $key;
 				if($this->getLastmodel() == 'add'){
 					$data[$this->getPk()] = $this->getLastInsID();
 					$this->lastRelationID = $this->getLastInsID();

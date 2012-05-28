@@ -64,46 +64,26 @@ class ChanpinAction extends Action{
 	
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
-		$Xianlu = D("Xianlu");
+		$_REQUEST['xianlu'] = $_REQUEST;
 		//修改已有
 		if($_REQUEST['chanpinID']){
-			$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
-			$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
-			$_REQUEST['kind'] = $xianlu['kind'];
-			$_REQUEST['xianlutype'] = $xianlu['xianlutype'];
+			$xianlu = $Chanpin->relation("xianlu")->find($_REQUEST['chanpinID']);
+			$_REQUEST['xianlu']['kind'] = $xianlu['xianlu']['kind'];
+			$_REQUEST['xianlu']['xianlutype'] = $xianlu['xianlu']['xianlutype'];
 		}
 		//数据处理
 		if($_REQUEST['guojing'] == "国内")
-		$_REQUEST['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
-		$_REQUEST['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
-		$_REQUEST['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
-		$_REQUEST['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
+		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
+		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
+		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
+		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
 		$_REQUEST['typeName'] = '线路';
 		//end
-			C('TOKEN_ON',false);
-A('ChanpinMethod')->shengchengzituan($_REQUEST['chanpinID']);
-exit;
-		
-		//事务，mycreate 调用顺序 create save add,如果save失败并且主键存在则调用add
-		//$Chanpin->startTrans();
-        if (false !== $Chanpin->mycreate($_REQUEST)){
-			if($Chanpin->getLastmodel() == 'add')
-				$_REQUEST['chanpinID'] = $Chanpin->getLastInsID();
-			C('TOKEN_ON',false);
-            if (false !== $Xianlu->mycreate($_REQUEST) && A('ChanpinMethod')->shengchengzituan($_REQUEST['chanpinID'])){
-//            if (false !== $Xianlu->mycreate($_REQUEST)){
-				//$Chanpin->commit();
-				$this->success('保存成功！');
-			}
-			else{
-				//$Chanpin->rollback();
-				$this->error($Xianlu->getError()); 
-			}
+		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
-        else{
-			//$Chanpin->rollback();
-			$this->error($Chanpin->getError()); 
-		}
+		else
+			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
 	public function zituan()

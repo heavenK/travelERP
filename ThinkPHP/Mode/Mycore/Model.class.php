@@ -869,17 +869,22 @@ class Model extends Think
 		if($type == self::MODEL_UPDATE){
 			$this->lastmodeltype = 'save';
 			$result = $this->save($vo,$options);
-			
-		dump($this);
-		dump($this->error);exit;
-			
-			if(0 == $result && $this->getPk() != '' && !$this->find($data[$this->getPk()])){//未出现错误
-				$this->lastmodeltype = 'add';
-				return $this->add($vo,$options);
+			$findresult = $this->find($data[$this->getPk()]);
+			if(false !== $result && 0 != $result){//影响数据
+				return 	$result;
 			}
-			else
-			return 	$this->error = "发生错误：".$this->trueTableName.'表无主键';
-			return 	$result;
+			elseif(0 == $result && $this->getPk() != ''){
+				if(null == $findresult && false !== $findresult){//未影响数据，且数据不存在
+					$this->lastmodeltype = 'add';
+					return $this->add($vo,$options);
+				}
+				else{//未影响数据，且数据存在
+					return 	$result;
+				}
+			}
+			else{
+				return 	$this->error;
+			}
 		}
 		if($type == self::MODEL_INSERT){
 			$this->lastmodeltype = 'add';
@@ -888,6 +893,7 @@ class Model extends Think
 			
      }
 	//end
+
 
     // 自动表单令牌验证
     public function autoCheckToken($data) {

@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'chanpinID', 1 => 'tuanhao', 2 => 'chutuanriqi', 3 => 'baomingjiezhi', 4 => 'renshu', 5 => 'adultxiuzheng', 6 => 'childxiuzheng', '_autoinc' => false, '_pk' => 'chanpinID', '_type' => array ( 'chanpinID' => 'int(11)', 'tuanhao' => 'varchar(50)', 'chutuanriqi' => 'varchar(50)', 'baomingjiezhi' => 'int(11)', 'renshu' => 'int(11)', 'adultxiuzheng' => 'int(11)', 'childxiuzheng' => 'int(11)', ), ); ?>
