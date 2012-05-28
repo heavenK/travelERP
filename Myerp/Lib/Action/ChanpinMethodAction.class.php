@@ -15,85 +15,68 @@ class ChanpinMethodAction extends Action{
 		$redata['chanpin'] = $chanpin;
 		return $redata;
 	}
+	
 	//生成子团
-    private function shengchengzituan($chanpinID) {
-		$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
-		$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
-		$Chanpin = D('Chanpin');
-		$d = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$chanpinID'")->find();
-		$zituanAll = $d['zituanlist'];
-		$riqiAll = split(';',$xianlu['chutuanriqi']);
-		//先根据子团判断修改和删除
-		foreach($zituanAll as $zituan){
-			$c=explode($zituan['chutuanriqi'],$xianlu['chutuanriqi']);
-			//修改已存在
-			if(count($c)> 1)
-			{ 
-			
+    public function shengchengzituan($chanpinID) {
+		$Chanpin = D("Chanpin");
+		$xianlu = $Chanpin->relation("xianlu")->where("`chanpinID` = '$chanpinID'")->find();
+		$riqiAll = split(';',$xianlu['xianlu']['chutuanriqi']);
+		//根据线路判断生成
+		$ViewZituan = D("ViewZituan");
+		foreach($riqiAll as $riqi){
+			$zituan = $ViewZituan->where("`parentID` = '$chanpinID' and `chutuanriqi` = '$riqi' ")->find();
+			$datazituan['zituan']['baomingjiezhi'] = $xianlu['xianlu']['baomingjiezhi'];
+//			$datazituan['zituan']['renshu'] = $xianlu['xianlu']['renshu'];
+			$datazituan['zituan']['renshu'] = 111;
+			$datazituan['zituan']['chutuanriqi'] = $riqi;
+			$datazituan['zituan']['tuanhao'] =  $xianlu['xianlu']['bianhao'].'/'.$riqi;
+			if(!$zituan){
+				$datazituan['parentID'] = $chanpinID;
+				$datazituan['typeName'] = '子团';
+				$datazituan['user_name'] = $xianlu['user_name'];
+				$datazituan['user_id'] = $xianlu['user_id'];
+				$datazituan['departmentName'] = $xianlu['departmentName'];
+				$datazituan['departmentID'] = $xianlu['departmentID'];
+				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
+			}
+			else{
+				if($zituan['islock'] != '已锁定'){
 					//修改子团内容
-					$zituan['baomingjiezhi'] = $xianlu['baomingjiezhi'];
-					$zituan['quankuanriqi'] = $xianlu['quankuanriqi'];
-					$zituan['mingcheng'] = $xianlu['mingcheng'];
-					$zituan['keyword'] = $xianlu['keyword'];
-					$zituan['tianshu'] = $xianlu['tianshu'];
-					$zituan['mudidi'] = $xianlu['mudidi'];
-					$zituan['chufadi'] = $xianlu['chufadi'];
-					$zituan['renshu'] = $xianlu['renshu'];
-					
-					$Glzituan->save($zituan);
-//					$temxianlu = $xianlu;
-//					$temxianlu['chutuanriqi'] = $zituan['chutuanriqi'];
-//					$this->shengchengzituan($temxianlu,$xianluID);
-			} 
-			else
-			{
-				//不存在删除
-				//判断锁定
-				if($zituan['zhuangtai'] == '准备')
-				{
-					//删除
-					$gl_baozhang = D("gl_baozhang");
-					$bzd = $gl_baozhang->where("`zituanID` = '$zituan[zituanID]'")->find();
-					$gldingdan = D("gldingdan");
-					$dd = $gldingdan->where("`zituanID` = '$zituan[zituanID]'")->find();
-					
-					if($bzd || $dd)
-						$locklist .= $zituan['chutuanriqi'].";";
-					else
-						$Glzituan->where("`zituanID` = '$zituan[zituanID]'")->delete_My();
-						
+					$datazituan['chanpinID'] = $zituan['chanpinID'];
+					$datazituan['typeName'] = '子团11';
+					//$datazituan['zituan']['chanpinID'] = $zituan['chanpinID'];
+					if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
 				}
 				else
-				{
 					$locklist .= $zituan['chutuanriqi'].";";
-				}
 			}
 		}
-		if($locklist)
-				justalert($locklist."日期的子团已被锁定，无法修改或删除！");
-		//根据线路判断生成
-		foreach($riqiAll as $riqi)
-		{
-			$zituan = $Glzituan->where("`xianluID` = '$xianluID' and chutuanriqi = '$riqi' ")->find();
-			if(!$zituan)
-			{
-					$temxianlu = $xianlu;
-					$temxianlu['chutuanriqi'] = $riqi;
-					$this->shengchengzituan($temxianlu,$xianluID);
-			}
-		}
-	  //由于可能存在子团锁定状态不能删除，要逆更新出团时间到线路
-		$zituanAll = $Glzituan->where("`xianluID` = '$xianluID'")->findall();
-		foreach($zituanAll as $zituan)
-		{
-			if($chutuanriqi)
-			$chutuanriqi .= ";".$zituan['chutuanriqi'];
-			else
-			$chutuanriqi .= $zituan['chutuanriqi'];
-		}
-		$xianlu['chutuanriqi'] = $chutuanriqi;
-		$Glxianlu = D("Glxianlu");
-		$Glxianlu->save_My($xianlu);
+		//根据子团判断修改和删除
+//		$viewxianlu = D("ViewXianlu");
+//		$xianlu = $viewxianlu->relation("zituanlist")->where("`chanpinID` = '$chanpinID'")->find();
+//		$zituanlist = $xianlu['zituanlist'];
+//		foreach($zituanlist as $zituan){
+//			$c=explode($zituan['chutuanriqi'],$xianlu['chutuanriqi']);
+//			if(count($c) <= 1){
+//				if($zituan['islock'] != '已锁定'){
+//					//删除
+//					if (false !== $Chanpin->relation("zituan")->delete($zituan['chanpinID'])){
+//						continue;	
+//					}
+//				}
+//				else
+//					$locklist .= $zituan['chutuanriqi'].";";
+//			}
+//			if($chutuanlist)
+//			$chutuanlist .= ";".$zituan['chutuanriqi'];
+//			else
+//			$chutuanlist .= $zituan['chutuanriqi'];
+//		}
+	   //由于可能存在子团锁定状态不能删除，要逆更新出团时间到线路
+		$xianlu['chutuanriqi'] = $chutuanlist;
+		$xianlu['xianlu'] = $xianlu;
+		$Chanpin->relation("xianlu")->myRcreate($xianlu);
+		return true;
 	}
 
 	

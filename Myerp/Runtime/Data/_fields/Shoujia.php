@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'chanpinID', 1 => 'type', 2 => 'adultprice', 3 => 'childprice', 4 => 'cut', 5 => 'chengben', 6 => 'renshu', '_autoinc' => false, '_pk' => 'chanpinID', '_type' => array ( 'chanpinID' => 'int(11)', 'type' => 'varchar(50)', 'adultprice' => 'int(11)', 'childprice' => 'int(11)', 'cut' => 'int(11)', 'chengben' => 'int(11)', 'renshu' => 'int(11)', ), ); ?>

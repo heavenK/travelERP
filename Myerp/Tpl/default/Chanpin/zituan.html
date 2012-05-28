@@ -1,20 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>旅游ERP</title>
+<tp:includeCA file="Chanpin:showheader" />
 
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
-
-<script src="<{:__PUBLIC__}>/myerp/jquery-1.4.2.js" language="javascript"></script>
-
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/chengbenshoujia.js"></script>
 <load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 
+<div id="main">
+
+  <tp:includeCA file="Chanpin:left_fabu" />
+    
+  <div id="content" style="margin-left:170px;">
+  
+    <include file="Chanpin:header_chanpin" />
+    
+    
 <script>
 function save(){
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
@@ -26,27 +29,7 @@ function doComplete(data,status){
 	}
  
 }
-
-
-
 </script>
-</head>
-<style>
-#content {
-	paggin-buttom:0px;
-}
-</style>
-
-<body>
-<tp:includeCA file="Chanpin:showheader" />
-
-<div id="main">
-
-  <tp:includeCA file="Chanpin:left_fabu" />
-    
-  <div id="content" style="margin-left:170px;">
-  
-    <include file="Chanpin:header_chanpin" />
     
 <form name="form" method="post" id="form">
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
@@ -76,7 +59,6 @@ function doComplete(data,status){
                   <th scope="col" nowrap="nowrap"> 
                   <input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)">
                   </th>
-                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 标题 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 团编号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报名截止 </div></th>
@@ -92,16 +74,13 @@ function doComplete(data,status){
                   <input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox">
                   </td>
                   <td scope="row" align="left" valign="top">
-                  <{$v['title']}>
-                  </td>
-                  <td scope="row" align="left" valign="top">
                   <{$v['chutuanriqi']}>
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['tuanhao']}>
                   </td>
                   <td scope="row" align="left" valign="top">
-                  <{$v['zituan']['baomingjiezhi']}>
+                  <{$v['baomingjiezhi']}>
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['renshu']}>
@@ -177,9 +156,9 @@ function showbox(obj,divname,pos)
 	objleft = getPosLeft(obj) + 0;
 	objtop = getPosTop(obj) + 20;
 	if(pos == 'r')
-		$("#"+divname).css({top:objtop , right:20 });
+		jQuery("#"+divname).css({top:objtop , right:20 });
 	else
-		$("#"+divname).css({top:objtop , left:objleft });
+		jQuery("#"+divname).css({top:objtop , left:objleft });
 	var divRili = document.getElementById(divname); 
 	if(divRili.style.display=='')
 		divRili.style.display = 'none';
@@ -189,25 +168,33 @@ function showbox(obj,divname,pos)
 
 function showmessage(obj,chanpinID)
 {
-	$.ajax({
+	jQuery.ajax({
 		type:	"POST",
 		url:	"<{:SITE_INDEX}>Chanpin/message",
 		data:	"chanpinID="+chanpinID,
 		success:	function(msg){
-				  var str = '';
-				  if(msg != 'null' && msg){
-					  var msg = eval('(' + msg + ')');
-					  for(var i =0; i<msg.length;i++){
-						  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">'+msg[i].title+'<br>'+getLocalTime(msg[i].time)+'</a>';
-					  }
-				  }
-				  else
-				  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">暂无数据</a>';
-				  $("#themessage").empty();
-				  $("#themessage").append(str);
+			ThinkAjax.myAjaxResponse(msg,'',messagetodo);
 			}
 		});
 }
+
+function messagetodo(data,status,info,type,id)
+{
+	
+	var megstr = '';
+	if(status == 1){
+		var msg = eval('(' + data + ')');
+		for(var i =0; i<msg.length;i++){
+			megstr += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">'+msg[i].title+'<br>'+getLocalTime(msg[i].time)+'</a>';
+		}
+	}
+	else
+		megstr += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">暂无数据</a>';
+	jQuery("#themessage").empty();
+	jQuery("#themessage").append(megstr);
+}
+
+
 function getPosLeft(obj)
 {
     var l = obj.offsetLeft;

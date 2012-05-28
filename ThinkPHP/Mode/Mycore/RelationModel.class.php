@@ -118,12 +118,10 @@ class RelationModel extends Model {
      * @return boolean
      +----------------------------------------------------------
      */
-	 //add by gaopeng
-//     protected function _facade($data) {
-//        $this->_before_write($data);
-//        return $data;
-//     }
-	//end
+     protected function _facade($data) {
+        $this->_before_write($data);
+        return $data;
+     }
     /**
      +----------------------------------------------------------
      * 获取返回数据集的关联记录
@@ -425,12 +423,13 @@ class RelationModel extends Model {
 			$this->startTrans();
 			if (false !== $this->mycreate($data)){
 				C('TOKEN_ON',false);
+				$class_name = $this->_link[$options['link']]['class_name'];
+				$relationClass = D("$class_name");
+				$data = $data[$options['link']];
 				if($this->getLastmodel() == 'add'){
 					$data[$this->getPk()] = $this->getLastInsID();
 					$this->lastRelationID = $this->getLastInsID();
 				}
-				$class_name = $this->_link[$options['link']]['class_name'];
-				$relationClass = D("$class_name");
 				if (false !== $relationClass->mycreate($data)){
 					$this->commit();
 					return true;

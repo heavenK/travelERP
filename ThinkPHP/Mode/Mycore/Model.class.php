@@ -862,15 +862,23 @@ class Model extends Think
 	//调用顺序 create save add,如果save失败并且主键存在则调用add
      public function mycreate($data='',$type='',$options=array()) {
 		$vo = $this->create($data,$type);
+		if(false == $vo)
+		return false;	
         // 状态
         $type = $type?$type:(!empty($data[$this->getPk()])?self::MODEL_UPDATE:self::MODEL_INSERT);
 		if($type == self::MODEL_UPDATE){
 			$this->lastmodeltype = 'save';
 			$result = $this->save($vo,$options);
-			if(0 == $result && !$this->find($data[$this->getPk()])){//未出现错误
+			
+		dump($this);
+		dump($this->error);exit;
+			
+			if(0 == $result && $this->getPk() != '' && !$this->find($data[$this->getPk()])){//未出现错误
 				$this->lastmodeltype = 'add';
 				return $this->add($vo,$options);
 			}
+			else
+			return 	$this->error = "发生错误：".$this->trueTableName.'表无主键';
 			return 	$result;
 		}
 		if($type == self::MODEL_INSERT){
