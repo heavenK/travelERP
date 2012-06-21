@@ -1,13 +1,7 @@
-<tp:includeCA file="Chanpin:showheader" />
+<tp:includeCA file="Index:showheader" />
 
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
-
-<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 
 <div id="main">
 
@@ -17,8 +11,7 @@
   
     <include file="Chanpin:header_chanpin" />
    
-    
-<form name="form" method="post" id="form" action="<{:SITE_INDEX}>Chanpin/dopostfabu/">
+<form name="form" method="post" id="form">
   <php>if($xianlu[chanpinID]){</php>
   <input name="chanpinID" id="chanpinID" type="hidden" value="<{$xianlu['chanpinID']}>" >
   <php>}else{</php>
@@ -29,13 +22,6 @@
   
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
   
-  
-  
-    <div class="buttons">
-      <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-      <input type="submit" value="提交审核" name="button" class="button primary" style="float:right">
-      <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
-    </div>
     
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
@@ -226,7 +212,7 @@
   </div>
 </div>
 
-<tp:includeCA file="Chanpin:footer" />
+<tp:includeCA file="Index:footer" />
 
 <script>	
 jQuery(document).ready(function(){
@@ -456,9 +442,24 @@ function doComplete(data,status){
 		if (chanpinID)
 			window.location.href='<{:SITE_INDEX}>Chanpin/fabu/chanpinID/'+chanpinID;
 		else
-			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+chanpinID;
+			window.location.href='<{:SITE_INDEX}>Chanpin/zituan/chanpinID/'+chanpinID;
 	}
 }
+
+function doshenhe(){
+	var chanpinID = document.getElementById('chanpinID').value;
+	var dataID = chanpinID;
+	var datatype = '线路';
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/doshenhe",
+		data:	"dataID="+dataID+"&dotype=提交审核&processID=1"+"&datatype="+datatype,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+
 </script>
 <div style="position: absolute; display:none;" id="divselect">
   <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">

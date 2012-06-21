@@ -1,40 +1,21 @@
 <?php
 
-class ChanpinAction extends Action{
-
+class ChanpinAction extends CommonAction{
+	
+    public function _myinit() {
+		$this->assign("navposition",'旅游产品');
+	}
 	
     public function index() {
-		//搜索
-//		foreach($_GET as $key => $value)
-//		{
-//			if($key == 'p' || $key == 'chufariqi' || $key == 'jiezhiriqi')
-//				continue;
-//			if($key == 'status' || $value == '全部' )
-//				$wherelist['status'] = array('in','报名,截止'); 	
-//			else
-//				$wherelist[$key] = array('like','%'.$value.'%');
-//		}
-//		$start_date = $_GET['chufariqi'];
-//		$end_date = $_GET['jiezhiriqi'];
-//		if ($start_date && $end_date)
-//			$wherelist['chutuanriqi'] = array(array('like','%'.$start_date.'%'),array('like','%'.$end_date.'%'),'or');
-//		elseif ($end_date)
-//			$wherelist['chutuanriqi'] = array('like','%'.$end_date.'%'); 	
-//		elseif ($start_date)
-//			$wherelist['chutuanriqi'] = array('like','%'.$start_date.'%'); 	
-//		if(!$wherelist['status'])
-//			$wherelist['status'] = array('in','准备,审核不通过,等待审核'); 	
-		$wherelist['typeName'] = '线路'; 	
-		//查询
-		$chanpin_list = A('ChanpinMethod')->chanpin_list($wherelist);
+		A("Method")->showDirectory("旅游产品");
+		$chanpin_list = A('Method')->xianlu_list($_GET);
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('Chanpin/index');
     }
 	
 	public function fabu() {
-		$this->assign("nav",'旅游产品：产品');
-		$this->assign("pos",'基本信息');
+		A("Method")->showDirectory("基本信息");
 		$chanpinID = $_REQUEST["chanpinID"];
 		if($chanpinID){
 			$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
@@ -55,11 +36,12 @@ class ChanpinAction extends Action{
 			$xianlu['chufadi'] = '辽宁,大连';
 		
 		//主题
-		$Info = D("Info");
-		$xianlu['theme_all'] = $Info->where("`typeName` = '产品主题'")->findall();
+//		$Info = D("Info");
+//		$xianlu['theme_all'] = $Info->where("`typeName` = '产品主题'")->findall();
 		
 		$this->assign("xianlu",$xianlu);
-		$this->display('Chanpin/fabu');
+		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
+		$this->display('fabu');
 	}
 	
 	public function dopostfabu() {
@@ -77,46 +59,66 @@ class ChanpinAction extends Action{
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
 		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
 		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
-		$_REQUEST['typeName'] = '线路';
 		//end
+		$Chanpin->startTrans();
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
-			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+			if($Chanpin->getLastmodel() == 'add')
+				$_REQUEST['chanpinID'] = $Chanpin->getLastInsID();
+			if(A("Method")->shengchengzituan($_REQUEST['chanpinID'])){
+				$Chanpin->commit();
+				$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+			}
 		}
-		else
-			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+		$Chanpin->rollback();
+		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
 	public function zituan()
 	{
-		$this->assign("nav",'旅游产品：子团信息');
-		$this->assign("pos",'子团管理');
+		A("Method")->showDirectory("子团管理");
 		$chanpinID = $_REQUEST["chanpinID"];
 		$Chanpin = D('Chanpin');
 		$xianlu = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$chanpinID'")->find();
 		$zituanAll = $xianlu['zituanlist'];
 		$this->assign("zituanAll",$zituanAll);
-		$this->display('Chanpin/zituan');
+		$xianlu = $Chanpin->relationGet("xianlu");
+		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
+		$this->display('zituan');
 	}
 	
+	public function deletezituan()
+	{
+		$chanpinID = $_REQUEST['chanpinID'];
+		$parentID = $_REQUEST['parentID'];
+		$Chanpin = D("Chanpin");
+		$Chanpin->startTrans();
+		if (false !== $Chanpin->relation("zituan")->delete($chanpinID)){
+			if(A("Method")->shengchengzituan_2($parentID)){
+				$Chanpin->commit();
+				$this->ajaxReturn('', '删除成功！', 1);
+			}
+		}
+		$Chanpin->rollback();
+		$this->ajaxReturn('', $Chengben->getError(), 0);
+	}
 	
 	public function xingcheng()
 	{
-		$this->assign("nav",'旅游产品：行程管理');
-		$this->assign("pos",'行程');
+		A("Method")->showDirectory("行程");
 		$chanpinID = $_REQUEST["chanpinID"];
 		$Chanpin = D("Chanpin");
 		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
 		$xingcheng = $Chanpin->relationGet("xingcheng");
 		$this->assign("chanpin",$chanpin);
 		$this->assign("xingcheng",$xingcheng);
+		$this->assign("datatitle",' : "'.$chanpin['xianlu']['title'].'"');
 		$this->display('Chanpin/xingcheng');
 	}
 	
 	public function dopostxingcheng()
 	{
 		$Chanpin = D("Chanpin");
-		$chanpinID = $_REQUEST["chanpinID"];
-		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		$chanpin = $_REQUEST;
 		for($t = 0; $t < $_REQUEST['tianshu']; $t++){
 			$dat['chanpinID'] = $_REQUEST['chanpinID'];
 			$dat['xingchengID'] = $_REQUEST['xingchengID'][$t];
@@ -124,18 +126,17 @@ class ChanpinAction extends Action{
 			$dat['tools'] = serialize($_REQUEST['tools'.$t]);
 			$dat['chanyin'] = serialize($_REQUEST['chanyin'.$t]);
 			$dat['content'] = $_REQUEST['content'][$t];
-			$cp['xingcheng'][$t] = $dat;
+			$chanpin['xingcheng'][$t] = $dat;
 		}
-		if (false !== $Chanpin->relation('xingcheng')->save($cp))
+		if (false !== $Chanpin->relation('xingcheng')->myRcreate($chanpin))
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		else
-			$this->ajaxReturn($_REQUEST, $Chengben->getError(), 0);
+			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
 	public function chengbenshoujia()
 	{
-		$this->assign("nav",'旅游产品：成本售价');
-		$this->assign("pos",'成本售价');
+		A("Method")->showDirectory("成本售价");
 		$Chanpin = D("Chanpin");
 		$chanpinID = $_REQUEST["chanpinID"];
 		$cp = $Chanpin->relation('chengben')->where("`chanpinID` = '$chanpinID'")->find();
@@ -143,7 +144,9 @@ class ChanpinAction extends Action{
 		$chengben = $cp['chengben'];
 		$this->assign("chengben",$chengben);
 		$this->assign("shoujia",$shoujia);
-		$this->display('Chanpin/chengbenshoujia');
+		$xianlu = $Chanpin->relationGet("xianlu");
+		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
+		$this->display('chengbenshoujia');
 	}
 	
 	public function dopostchengben()
@@ -176,7 +179,6 @@ class ChanpinAction extends Action{
 	{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		$_REQUEST['typeName'] = '售价';//必须
 		$data = $_REQUEST;
 		$data['shoujia'] = $_REQUEST;
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
@@ -199,7 +201,6 @@ class ChanpinAction extends Action{
 	}
 	
 	
-	
 	public function message() {
 		C('TOKEN_ON',false);
 		$chanpinID = $_POST['chanpinID'];
@@ -209,27 +210,71 @@ class ChanpinAction extends Action{
 			$this->ajaxReturn(json_encode($message), '成功！', 1);
 		else
 			$this->ajaxReturn('', $myerp_message->getError(), 0);
-		
-		
-//		echo json_encode($message);
 	}
+	
+	
+	public function setsearch() {
+			if($_REQUEST['status'] == 1){
+				cookie('closesearch',null);
+				$this->ajaxReturn('', '开启搜索栏！', 1);
+			}
+			if($_REQUEST['status'] == 2){
+				cookie('closesearch',1,LOGIN_TIME);
+				$this->ajaxReturn('', '收起搜索栏！', 1);
+			}
+	}
+	
 	
 	public function left_fabu() {
 		$this->display('Chanpin/left_fabu');
 	}
 	
-	public function showheader() {
-		$this->display('Chanpin/header');
+	
+	
+	public function doshenhe() {
+		C('TOKEN_ON',false);
+		//检查OM
+		$omdata = A("Method")->_checkOM($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
+		if(false !== $omdata)
+			$this->ajaxReturn('', '错误！无OM权限', 0);
+		//检查审核流程
+		$processID = $_REQUEST['processID'];
+		$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID);
+		if(false === $process)
+			$this->ajaxReturn('', '错误！无审核权限', 0);
+		//审核任务
+		$System = D("System");
+		$data = $_REQUEST;
+		$data['taskShenhe'] = $_REQUEST;
+		$data['user_name'] = $this->user['title'];
+		$data['departmentID'] = $omdata['bumen']['departmentID'];
+		$data['taskShenhe']['processID'] = $processID;
+		$data['taskShenhe']['remark'] = $process['remark'];
+		$data['taskShenhe']['roles_copy'] = $omdata['roles']['title'];
+		$data['taskShenhe']['bumen_copy'] = $omdata['bumen']['title'];
+		if (false !== $System->relation("taskShenhe")->myRcreate($data)){
+			if($System->getLastmodel() == 'add')
+				$_REQUEST['systemID'] = $System->getRelationID();
+				
+			//生成待检出	
+			//检查审核流程
+			$processID += 1;
+			$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID);
+			if($process){
+				$data['taskShenhe']['remark'] = $process['remark'];
+				$data['user_name'] = -1;
+				$data['departmentID'] = -1;
+				unset($data['taskShenhe']['roles_copy']);
+				unset($data['taskShenhe']['bumen_copy']);
+				$System->relation("taskShenhe")->myRcreate($data);
+			}
+				
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}
+		else{
+			$this->ajaxReturn($_REQUEST, $System->getError(), 0);
+		}
 	}
-	
-	public function footer() {
-		$this->display('Chanpin/footer');
-	}
-	
-	
-	
-	
-	
 	
 	
 	

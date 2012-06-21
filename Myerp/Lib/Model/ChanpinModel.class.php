@@ -15,8 +15,6 @@ class ChanpinModel extends RelationModel {
         array('status', '准备', 1), 
         array('time', 'time', 1, 'function'), 
         array('user_name', 'NF_getusername', 1, 'function'), 
-        array('user_id', 'NF_getuserid', 1, 'function'), 
-        array('departmentName', 'NF_getmydepartmentname', 1, 'function'), 
         array('departmentID', 'NF_getmydepartmentid', 1, 'function'), 
     ); 
 	

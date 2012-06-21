@@ -188,14 +188,24 @@ class RelationModel extends Model {
                                 $relationData   =  $model->where($mappingCondition)->field($mappingFields)->find();
                                 break;
                             case BELONGS_TO:
-                                if(strtoupper($mappingClass)==strtoupper($this->name)) {
-                                    // 自引用关联 获取父键名
-                                    $mappingFk   =   !empty($val['parent_key'])? $val['parent_key'] : 'parent_id';
-                                }else{
-                                    $mappingFk   =   !empty($val['foreign_key'])?$val['foreign_key']:strtolower($model->getModelName()).'_id';     //  关联外键
-                                }
-                                $fk   =  $result[$mappingFk];
-                                $mappingCondition .= " AND {$model->getPk()}='{$fk}'";
+							//add by gaopeng
+								if($true_class_name){
+									$mappingFk   =   !empty($val['parent_key'])? $val['parent_key'] : 'parent_id';
+									$mappingPk   =   !empty($val['foreign_key'])?$val['foreign_key']:strtolower($model->getModelName()).'_id';     //  关联外键
+									$pk   =  $result[$mappingPk];
+									$mappingCondition .= " AND {$mappingFk}='{$pk}'";
+								}
+								else{
+									if(strtoupper($mappingClass)==strtoupper($this->name)) {
+										// 自引用关联 获取父键名
+										$mappingFk   =   !empty($val['parent_key'])? $val['parent_key'] : 'parent_id';
+									}else{
+										$mappingFk   =   !empty($val['foreign_key'])?$val['foreign_key']:strtolower($model->getModelName()).'_id';     //  关联外键
+									}
+									$fk   =  $result[$mappingFk];
+									$mappingCondition .= " AND {$model->getPk()}='{$fk}'";
+								}
+							//end	
                                 $relationData   =  $model2->where($mappingCondition)->field($mappingFields)->find();
                                 break;
                             case HAS_MANY:
@@ -427,19 +437,34 @@ class RelationModel extends Model {
 				$relationClass = D("$class_name");
 				$key = $data[$this->getPk()];
 				$data = $data[$options['link']];
-				$data[$this->getPk()] = $key;
-				if($this->getLastmodel() == 'add'){
-					$data[$this->getPk()] = $this->getLastInsID();
-					$this->lastRelationID = $this->getLastInsID();
-				}
-				if (false !== $relationClass->mycreate($data)){
+				if(is_array($data[0])){
+					$i = 0;
+					foreach($data as $v){
+						if (false === $relationClass->mycreate($data[$i])){
+							$this->rollback();
+							$this->error = $relationClass->getError(); 
+							return false;
+						}
+						$i++;
+					}
 					$this->commit();
 					return true;
 				}
 				else{
-					$this->rollback();
-					$this->error = $relationClass->getError(); 
-					return false;
+					$data[$this->getPk()] = $key;
+					if($this->getLastmodel() == 'add'){
+						$data[$this->getPk()] = $this->getLastInsID();
+						$this->lastRelationID = $this->getLastInsID();
+					}
+					if (false !== $relationClass->mycreate($data)){
+						$this->commit();
+						return true;
+					}
+					else{
+						$this->rollback();
+						$this->error = $relationClass->getError(); 
+						return false;
+					}
 				}
 			}
 			else{

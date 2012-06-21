@@ -28,8 +28,6 @@ abstract class Action extends Think
     protected $view   =  null;
     // 当前Action名称
     private $name =  '';
-    protected $admin     =  '';
-    protected $loginname     =  '';
    /**
      +----------------------------------------------------------
      * 架构函数 取得模板对象实例
@@ -52,22 +50,15 @@ abstract class Action extends Think
 		//默认传值
 		foreach($_GET as $key => $value)
 			$this->assign($key,$value);
+		$this->assign('_GET',$_GET);
 		//登录	
-        $authcookie = Cookie::get('authcookie');
-        $adminauth = Cookie::get('adminauth');
-        list($user_name,$user_id) = explode("\t", authcode($authcookie,'DECODE'));
-        list($unadmin,$uidadmin) = explode("\t", authcode($adminauth,'DECODE'));
-        $this->loginname=$user_name;
-        if ($user_name==$unadmin && $user_id==$uidadmin) {
-            Cookie::set('adminauth', authcode("$user_name\t$user_id",'ENCODE'));
-            $this->admin = M('Users')->where("user_id='$user_id' AND user_name='$user_name'")->find();
+		$user = cookie('user');
+        list($user_name,$systemID) = explode("\t", authcode($user,'DECODE'));
+        if ($user_name && $systemID) {
+            $this->user = D('ViewUser')->where("`systemID`='$systemID' AND `title`='$user_name'")->find();
         } else {
-            $this->admin='';
+            $this->user='';
         }
-
-        $this->assign('loginname',$user_name);
-        $this->assign('admin',$this->admin);
-		
     }
 
    /**

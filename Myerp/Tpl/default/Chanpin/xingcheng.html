@@ -1,13 +1,4 @@
-<tp:includeCA file="Chanpin:showheader" />
-
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
-
-<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Ajax/ThinkAjax.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+<tp:includeCA file="Index:showheader" />
 
 <div id="main">
 
@@ -22,13 +13,6 @@
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
   <input type="hidden" name="tianshu" value="<{$chanpin['xianlu']['tianshu']}>"> <!--ajax提示-->
   <input type="hidden" name="chanpinID" value="<{$chanpin['chanpinID']}>"> <!--ajax提示-->
-  
-  
-    <div class="buttons">
-      <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-      <input type="submit" value="提交审核" name="button" class="button primary" style="float:right">
-      <input type="button" value="保存" name="button" class="button primary" onClick="save();">
-    </div>
     
     <php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
 	<input type="hidden" name="xingchengID[]" value="<{$xingcheng[$count]['xingchengID']}>" />
@@ -93,25 +77,20 @@
     
     
     
-    <div class="buttons">
-      <input type="submit" value="保存" name="button" class="button primary">
-      <input type="button" value="取消" name="button" class="button">
-    </div>
-    
 </form>
     
   </div>
 </div>
-</body>
-</html>
+
+<tp:includeCA file="Index:footer" />
 
 <script>
 function save(){
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostxingcheng/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
-	if (status==1){
-		//window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/';
+	if(status == 1){
+			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+data['chanpinID'];
 	}
 }
 </script>

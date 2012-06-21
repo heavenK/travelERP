@@ -7,7 +7,7 @@ class ShoujiaModel extends Model {
 		
    // 自动验证设置 
     protected $_validate = array( 
-        array('type', 'require', 'type不能为空！', 1), 
+        array('type', 'require', 'type不能为空！', 1,'',1), 
         //array('renshu', 'require', 'type不能为空！', 1), 
     ); 
     // 自动填充设置 

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$nowDir['title']}><{$datatitle}></title>
+<script language="javascript" src="<{:__PUBLIC__}>/myerp/jquery-1.7.2.min.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/style (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/yui (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/deprecated (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1_yui.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/style.js"></script>
+
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+
+
+</head>
+
+<body>
+
+<div id="header">
+
+  <div id="companyLogo"> <img src="<{:__PUBLIC__}>/myerp/images/company_logo.png" width="212" height="40" alt="Company Logo" border="0"> </div>
+  <div id="globalLinks">
+    <ul>
+      <li> <a href="#">我的帐户</a> </li>
+      <li> <span>|</span> <a href="#">员工</a> </li>
+      <li> <span>|</span> <a href="#">系统管理</a> </li>
+      <li> <span>|</span> <a href="#">培训</a> </li>
+      <li> <span>|</span> <a href="#">关于</a> </li>
+    </ul>
+  </div>
+  <div id="welcome"> 欢迎, <strong><php> echo $this->tVar['user']['user_name'];</php></strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
+<script>
+
+function logout(){
+  jQuery.ajax({
+	  type:	"POST",
+	  url:	"<{:SITE_INDEX}>Index/logout",
+	  data:	"",
+	  success:function(msg){
+		  ThinkAjax.myAjaxResponse(msg,'resultdiv',todo_logout);
+	  }
+  });
+}
+function todo_logout(data,status){
+	if(status == 1){
+			window.location.href='<{:SITE_INDEX}>Index';
+	}
+}
+</script>
+  
+  <div class="clear"></div>
+  <div id="search">
+    <form name="">
+      <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
+      <input type="text" name="query_string" id="query_string" size="20" value="">
+      &nbsp;
+      <input type="submit" class="button" value="查找">
+    </form>
+    <br>
+    <div id="unified_search_advanced_div"> </div>
+  </div>
+  <div id="sitemapLink"> <span id="sitemapLinkSpan"> 站点地图 <img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png"> </span> </div>
+  <span id="sm_holder"></span>
+  <div class="clear"></div>
+  <div id="moduleList">
+    <ul>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '销售'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '旅游产品'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Chanpin" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Chanpin" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '财务管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '系统管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '信息'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      
+    </ul>
+  </div>
+  <div class="clear"></div>
+  <div id="subModuleList"> 
+  	<span id="moduleLink_0" <php>if($navposition == '旅游产品'){</php>class="selected"<php>}</php> >
+    <ul>
+      <li class="subTabMore" style="font-size:12px;"> <a href="<{:SITE_INDEX}>Chanpin">发布产品&gt;&gt;</a> 
+          <ul class="cssmenu">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/近郊/guojing/国内/xianlutype/散客产">国内近郊 </a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/长线/guojing/国内/xianlutype/散客产品">国内长线 </a> </li>
+            <li> <a href="#">国内自由人 </a> </li>
+            <li> <a href="#">国内包团 </a> </li>
+            <li> <a href="#">境外海岛 </a> </li>
+            <li> <a href="#">境外欧美澳非 </a> </li>
+            <li> <a href="#">境外游 </a> </li>
+            <li> <a href="#">境外自由人 </a> </li>
+            <li> <a href="#">境外包团 </a> </li>
+            <li> <a href="#">机票 </a> </li>
+            <li> <a href="#">酒店 </a> </li>
+          </ul>
+      
+      </li>
+      <li> <a href="#">产品审核</a> </li>
+      <li> <a href="#">产品控管</a> </li>
+      <li> <a href="#">订单控管</a> </li>
+      <li> <a href="#">客户管理</a> </li>
+      <li> <a href="#">数据字典</a> </li>
+      <li> <a href="#">统计</a> </li>
+    </ul>
+    </span>
+    <span id="moduleLink_1" <php>if($navposition == '财务管理'){</php>class="selected"<php>}</php> >
+    <ul>
+      <li> <a href="#">报表项审核</a> </li>
+      <li> <a href="#">报表审核管理</a> </li>
+      <li> <a href="#">签证</a> </li>
+      <li> <a href="#">单项服务</a> </li>
+      <li> <a href="#">统计</a> </li>
+    </ul>
+    </span> 
+    <span id="moduleLink_2" <php>if($navposition == '系统管理'){</php>class="selected"<php>}</php> >
+    <ul>
+      <li> <a href="#">用户</a> </li>
+      <li> <a href="#">系统工具</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/setting">系统设置</a> </li>
+      <li> <a href="#">站内信息</a> </li>
+      <li> <a href="#">产品平移</a> </li>
+    </ul>
+    </span> 
+    <span id="moduleLink_3" <php>if($navposition == '销售'){</php>class="selected"<php>}</php> >
+    <ul>
+      <li> <a href="#">线路产品</a> </li>
+      <li> <a href="#">机票</a> </li>
+      <li> <a href="#">酒店</a> </li>
+      <li> <a href="#">门票</a> </li>
+    </ul>
+    </span> 
+    <span id="moduleLink_4" <php>if($navposition == '信息'){</php>class="selected"<php>}</php> >
+    <ul>
+      <li> <a href="#">公告</a> </li>
+      <li> <a href="#">排团表</a> </li>
+      <li> <a href="#">系统提示</a> </li>
+    </ul>
+    </span> 
+  </div>
+  <div class="clear"></div>
+  <div class="line"></div>
+  <div id="lastView" class="headerList">
+   </div>
+</div>

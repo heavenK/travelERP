@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'parentID', 1 => 'time', 2 => 'islock', 3 => 'user_name', 4 => 'departmentID', 5 => 'status', 6 => 'systemID', 7 => 'title', '_autoinc' => false, '_type' => array ( 'parentID' => 'int(11)', 'time' => 'int(11)', 'islock' => 'enum(\'未锁定\',\'锁定\')', 'user_name' => 'varchar(20)', 'departmentID' => 'int(11)', 'status' => 'enum(\'等待审核\',\'报名\',\'截止\',\'审核不通过\',\'准备\')', 'systemID' => 'int(11)', 'title' => 'varchar(255)', ), ); ?>

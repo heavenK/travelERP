@@ -825,7 +825,6 @@ class Model extends Think
 
         // 状态
         $type = $type?$type:(!empty($data[$this->getPk()])?self::MODEL_UPDATE:self::MODEL_INSERT);
-
         // 数据自动验证
         if(!$this->autoValidation($data,$type)) return false;
 
@@ -868,14 +867,20 @@ class Model extends Think
         $type = $type?$type:(!empty($data[$this->getPk()])?self::MODEL_UPDATE:self::MODEL_INSERT);
 		if($type == self::MODEL_UPDATE){
 			$this->lastmodeltype = 'save';
+			if(count($vo) > 1)
 			$result = $this->save($vo,$options);
-			$findresult = $this->find($data[$this->getPk()]);
+			else
+			$result = 0;
+			$findresult = $this->find($vo[$this->getPk()]);
 			if(false !== $result && 0 != $result){//影响数据
 				return 	$result;
 			}
 			elseif(0 == $result && $this->getPk() != ''){
 				if(null == $findresult && false !== $findresult){//未影响数据，且数据不存在
 					$this->lastmodeltype = 'add';
+					$vo = $this->create($data,self::MODEL_INSERT);
+					if(false == $vo)
+					return false;	
 					return $this->add($vo,$options);
 				}
 				else{//未影响数据，且数据存在
@@ -1449,6 +1454,14 @@ class Model extends Think
             $this->$name = $value;
         return $this;
     }
-
+	
+	
+	//add by gaopeng
+	//解析条件到字符串
+    public function parseWhere($where) {
+		return $this->db->parseWhere($where,true);
+	}
+	//end
+	
 };
 ?>

@@ -1,14 +1,14 @@
 <?php
 
 class FormeAction extends Action{
-
+	//产品相关
     public function chanpinxianlu() {
 		echo "开始";
 		echo "<br>";
 		
 		$gl_xianlu=D("glxianlu");
-		//$xianluAll = $gl_xianlu->order('time DESC')->limit(50)->findall();
-		$xianluAll = $gl_xianlu->where("`xianluID` = '278'")->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->limit(20)->findall();
+//		$xianluAll = $gl_xianlu->where("`xianluID` = '278'")->findall();
 		$myerp_chanpin=D("myerp_chanpin");
 		$myerp_chanpin_xianlu=D("myerp_chanpin_xianlu");
 		//线路
@@ -16,7 +16,6 @@ class FormeAction extends Action{
 		{
 			//chanpin
 			$dat = $v;
-			$dat['typeName'] = '线路';
 			$dat['status'] = $v['zhuangtai'];
 			$chanpinID = $myerp_chanpin->add($dat);
 			//chanpin_xianlu
@@ -41,6 +40,207 @@ class FormeAction extends Action{
     }
 	
 	
+    public function fillSystemAll() {
+	
+ 		$this->filldepartment();
+		$this->fillrole();
+		$this->filluser();
+	
+	}
+	//用户相关
+    public function filluser() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$gladminuser=M("gladminuser");
+		$userall = $gladminuser->findall();
+		$System = D("System");
+		$users=M("Users");
+		foreach($userall as $v)
+		{
+			$b = $users->where("`user_id` = '$v[user_id]'")->find();
+			$b['user'] = $b;
+			$System->relation("user")->myRcreate($b);
+			$systemID = $System->getRelationID();
+			$this->fillDUR($v,$systemID);
+		}
+		echo "结束";
+	}
+	
+	//部门相关
+    public function filldepartment() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$gllvxingshe=M("gllvxingshe");
+		$all = $gllvxingshe->findall();
+		$System = D("System");
+		$glbasedata=M("glbasedata");
+		foreach($all as $v)
+		{
+			if($v['admintype'] == '系统'){
+				$v['title'] = $v['companyname'];
+				$v['department'] = $v;
+				$System->relation("department")->myRcreate($v);
+				$parentID = $System->getRelationID();
+				$bball = $glbasedata->where("`type` = '部门'")->findall();
+				foreach($bball as $c)
+				{
+					$c['parentID'] = $parentID;
+					$c['department'] = $c;
+					$System->relation("department")->myRcreate($c);
+				}
+			}
+			
+		}
+		foreach($all as $v)
+		{
+			if($v['admintype'] != '系统' && $v['type'] == '办事处'){
+				$v['title'] = $v['companyname'];
+				$v['parentID'] = $parentID;
+				$v['department'] = $v;
+				$System->relation("department")->myRcreate($v);
+			}
+			
+		}
+		echo "结束";
+		return true;
+	}
+	
+	
+	//角色相关
+    public function fillrole() {
+		
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$glbasedata=M("glbasedata");
+		$all = $glbasedata->where("`type` = '职位'")->findall();
+		$System = D("System");
+		foreach($all as $v)
+		{
+			$v['roles'] = $v;
+			$System->relation("roles")->myRcreate($v);
+		}
+		echo "结束";
+		
+	}
+	
+	//角色相关
+    public function fillDUR($user,$newuser_ID) {
+		//unserialize
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$list = unserialize($user['department_list']);
+		$glbasedata = M("glbasedata");
+		$Department = D("Department");
+		$glkehu = M("glkehu");
+		$gllvxingshe = M("gllvxingshe");
+		$glkehu = M("glkehu");
+		$Roles = D("Roles");
+		
+		foreach($list as $v)
+		{
+			$data = '';
+			$bumen = $glbasedata->where("`id` = '$v'")->find();
+			$dd = $Department->where("`title`='$bumen[title]'")->find();
+			$r = $Roles->where("`title` = '前台'")->find();
+			$data['systemDUR']['departmentID'] = $dd['systemID'];//部门
+			$data['systemDUR']['userID'] = $newuser_ID;//用户
+			$data['systemDUR']['rolesID'] = $r['systemID'];
+			//默认项,门市权限
+			$System->relation("systemDUR")->myRcreate($data);
+			
+			$gets = explode(',',$user['adminlevel']);
+			foreach($gets as $cc)
+			{
+				if($cc == '地接操作员' || $cc == '计调操作员'){
+					$r = $Roles->where("`title` = '计调'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '地接经理' || $cc == '计调经理'){
+					$r = $Roles->where("`title` = '经理'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '财务操作员' || $cc == '财务总监'){
+					$r = $Roles->where("`title` = '会计'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+					$r = $Roles->where("`title` = '出纳'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '网管'){
+					$r = $Roles->where("`title` = '技术支持'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '总经理'){
+					$r = $Roles->where("`title` = '总经理'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '联合体成员' || $cc == '联合体管理员'){
+					$r = $Roles->where("`title` = '联合体'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+				if($cc == '办事处管理员'){
+					$r = $Roles->where("`title` = '同业'")->find();
+					$data['systemDUR']['rolesID'] = $r['systemID'];
+					$System->relation("systemDUR")->myRcreate($data);
+				}
+			}
+		}
+		
+		echo "结束";
+		
+	}
+	
+	//角色相关
+    public function filldc($department,$systemID) {
+		
+		C('TOKEN_ON',false);
+		$SystemDC=D("SystemDC");
+		
+		if($department['type'] == '办事处' )
+		{
+			$data['systemID'] = $systemID;
+			$data['category'] = '办事处';
+			$SystemDC->add($v);
+		}
+		elseif($department['title'] == '联合体' )
+		{
+			$data['systemID'] = $systemID;
+			$data['category'] = '联合体';
+			$SystemDC->add($v);
+		}
+		elseif(false !== strpos($department['title'],'直营'))
+		{
+			$data['systemID'] = $systemID;
+			$data['category'] = '直营门市';
+			$SystemDC->add($v);
+		}
+		elseif(false !== strpos($department['title'],'加盟'))
+		{
+			$data['systemID'] = $systemID;
+			$data['category'] = '加盟门市';
+			$SystemDC->add($v);
+		}
+		else
+		{
+			$data['systemID'] = $systemID;
+			$data['category'] = '加盟门市';
+			$SystemDC->add($v);
+		}
+		
+		
+	}
+	
     private function chanpinxiaoxi($v,$chanpinID) {
 		$glmessage=M("glmessage");
 		$myerp_message=M("myerp_message");
@@ -48,7 +248,6 @@ class FormeAction extends Action{
 		foreach($message as $b)
 		{
 			//message
-			$dat['typeName'] = '线路';
 			$dat['user_name'] = $b['username'];
 			$dat['departmentID'] = $b['laiyuan'];
 			$dat['chanpinID'] = $chanpinID;
@@ -84,7 +283,6 @@ class FormeAction extends Action{
 		{
 			//chanpin
 			$dat = $v;
-			$dat['typeName'] = '子团';
 			$dat['parentID'] = $chanpinID;
 			$dat['status'] = $v['zhuangtai'];
 			$zituanchanpinID = $myerp_chanpin->add($dat);
@@ -107,7 +305,6 @@ class FormeAction extends Action{
 		foreach($theme_all as $v)
 		{
 			$d = $v;
-			$d['typeName'] = '产品主题';
 			$d['time'] = $v['pubdate'];
 			$d['islock'] = '未锁定';
 			$d['user_name'] = '系统';
@@ -153,7 +350,6 @@ class FormeAction extends Action{
 			//chanpin
 			$data = $v;
 			$data['parentID'] = $chanpinID;
-			$data['typeName'] = '售价';
 			$data['user_name'] = $xianlu['user_name'];
 			$data['user_id'] = $xianlu['user_id'];
 			$data['departmentName'] = $xianlu['departmentName'];
@@ -193,7 +389,6 @@ class FormeAction extends Action{
 			  $i = 0;
 			  foreach($oldchengben as $v)
 			  {
-				$chengben[$i]['typeName'] = $v['leixing'];
 				$chengben[$i]['title'] = $v['miaoshu'];
 				$chengben[$i]['price'] = $v['jiage'] * $v['cishu'] * $v['shuliang'];
 				$chengben[$i]['jifeitype'] = $v['jifeileixing'];

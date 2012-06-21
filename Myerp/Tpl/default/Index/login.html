@@ -6,6 +6,14 @@
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/yui.css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/deprecated.css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/style.css">
+
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
+
 </head>
 
 <div id="header">
@@ -32,6 +40,9 @@
 </div>
 <div id="main">
   <div id="content" class="noLeftColumn">
+            <div id="resultdiv" class="resultdiv" style="text-align:center"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
     <table style="width:100%">
       <tbody>
         <tr>
@@ -49,7 +60,8 @@
                             </tr>
                             <tr>
                               <td align="center"><div class="login">
-            <form id="dologin" method="post" action="<{:SITE_INDEX}>Index/dologin" >
+            <form id="form" name="form" method="post">
+              <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
                                     <table cellpadding="0" cellspacing="2" border="0" align="center" width="100%">
                                       <tbody>
                                         <tr>
@@ -81,7 +93,7 @@
                                         </tr>
                                         <tr>
                                           <td>&nbsp;</td>
-                                          <td><input title="登录" class="button primary" type="submit" tabindex="4" id="login_button" name="Login" value="登录">
+                                          <td><input title="登录" class="button primary" type="button" tabindex="4" id="login_button" name="Login" value="登录" onclick="dologin();">
                                             <br>
                                             &nbsp;</td>
                                         </tr>
@@ -109,4 +121,18 @@
 <div id="footer"> 旅游ERP<br>
   <div id="copyright">这里是版权信息</div>
 </div>
-</body></html>
+</body>
+</html>
+
+
+<script>
+
+function dologin(){
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Index/dologin',doComplete,'resultdiv');
+}
+function doComplete(data,status){
+	if(status == 1){
+			window.location.href='<{:SITE_INDEX}>Chanpin';
+	}
+}
+</script>

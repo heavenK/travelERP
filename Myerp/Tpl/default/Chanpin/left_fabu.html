@@ -5,9 +5,9 @@
 
   <div id="leftColumn" style="margin-top:7px; width:148px;">
         <ul id="searchTabs" class="tablist tablist_2">
-          <li style="margin-right:1px;"><a id="shownavtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onmouseover="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
-          <li style="margin-right:1px;"><a id="shownavtab_2" href="javascript:selectTabCSS('Calls|advanced_search');" onmouseover="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
-          <li><a id="shownavtab_3" href="javascript:selectTabCSS('Calls|advanced_search');" onmouseover="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
+          <li style="margin-right:1px;"><a id="shownavtab_1" class="current" href="javascript:void(0)" onmouseover="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
+          <li style="margin-right:1px;"><a id="shownavtab_2" href="javascript:void(0)" onmouseover="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
+          <li><a id="shownavtab_3" href="javascript:void(0)" onmouseover="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
         </ul>
             
         <div id="navtab_1" class="leftList">
@@ -129,9 +129,9 @@ function shownavtab(s)
 		divRili.style.display = 'none';	
 		divRili = document.getElementById('navtab_3'); 
 		divRili.style.display = 'none';	
-		$('#shownavtab_1').addClass('current');
-		$('#shownavtab_2').removeClass('current');
-		$('#shownavtab_3').removeClass('current');
+		jQuery('#shownavtab_1').addClass('current');
+		jQuery('#shownavtab_2').removeClass('current');
+		jQuery('#shownavtab_3').removeClass('current');
 	}
 	if(s == 2){
 		var divRili = document.getElementById('navtab_2'); 
@@ -140,9 +140,9 @@ function shownavtab(s)
 		divRili.style.display = 'none';	
 		divRili = document.getElementById('navtab_3'); 
 		divRili.style.display = 'none';	
-		$('#shownavtab_2').addClass('current');
-		$('#shownavtab_1').removeClass('current');
-		$('#shownavtab_3').removeClass('current');
+		jQuery('#shownavtab_2').addClass('current');
+		jQuery('#shownavtab_1').removeClass('current');
+		jQuery('#shownavtab_3').removeClass('current');
 	}
 	if(s == 3){
 		var divRili = document.getElementById('navtab_3'); 
@@ -151,9 +151,9 @@ function shownavtab(s)
 		divRili.style.display = 'none';	
 		divRili = document.getElementById('navtab_2'); 
 		divRili.style.display = 'none';	
-		$('#shownavtab_3').addClass('current');
-		$('#shownavtab_1').removeClass('current');
-		$('#shownavtab_2').removeClass('current');
+		jQuery('#shownavtab_3').addClass('current');
+		jQuery('#shownavtab_1').removeClass('current');
+		jQuery('#shownavtab_2').removeClass('current');
 	}
 }
 

@@ -1,13 +1,6 @@
-<tp:includeCA file="Chanpin:showheader" />
+<tp:includeCA file="Index:showheader" />
 
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/chengbenshoujia.js"></script>
-<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
-<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
-<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 
 <div id="main">
 
@@ -16,6 +9,7 @@
   <div id="content" style="margin-left:170px;">
   
     <include file="Chanpin:header_chanpin" />
+    
     
           <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="chengben">
             <tbody>
@@ -54,9 +48,9 @@
                 <{$i}>
                 </td>
                 <td scope="row" align="left" valign="top">
-                <select name="typeName" id="typeName<{$v['chengbenID']}>" >
-                <php>if($v['typeName']){</php>
-                <option value="<{$v['typeName']}>"><{$v['typeName']}></option>
+                <select name="title" id="title<{$v['chengbenID']}>" >
+                <php>if($v['title']){</php>
+                <option value="<{$v['title']}>"><{$v['title']}></option>
                 <option disabled>-------</option>
                 <php>}</php>
                 <option value="地接综费">地接综费</option>
@@ -114,9 +108,7 @@
               </tr>
               
               <tr height="20">
-                <th scope="col" nowrap="nowrap"> 
-                序号
-                </th>
+                <th scope="col" nowrap="nowrap"> 序号</th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 代理商级别 </div></th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 代理商 </div></th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
@@ -129,9 +121,7 @@
               </tr>
               <php>$i = 0;foreach($shoujia as $v){$i++;</php>
               <tr height="30" class="evenListRowS1" id="shoujiarow<{$v['chanpinID']}>">
-                <td scope="row" align="left" valign="top">
-                <{$i}>
-                </td>
+                <td scope="row" align="left" valign="top"><{$i}></td>
                 <td scope="row" align="left" valign="top">
                 <select>
                 <option disabled>代理商级别</option>
@@ -179,9 +169,8 @@
     
   </div>
 </div>
-</body>
-</html>
 
+<tp:includeCA file="Index:footer" />
 
 <script>
 var chengbentypelist = new Array("Saab","Volvo","BMW");

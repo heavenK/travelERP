@@ -9,7 +9,7 @@ class IndexAction extends Action{
     }
 	
     private function toadmin() {
-		if(!$this->loginname || !$this->roleuser){
+		if($this->user){
 			redirect(SITE_INDEX."Chanpin/index");
 		}
     }
@@ -23,68 +23,74 @@ class IndexAction extends Action{
         $username = daddslashes($_POST["loginname"]);
         $userpass = md5(md5($_POST["password"]));
         $remember = $_POST["rememberMe"];
-		$uModel=D("Users");
+		$ViewUser = D("ViewUser");
 		
+		if(cookie('setok') == 'login2')
+			$this->ajaxReturn('', '账户被锁，登录失败，10分钟内无法登陆！', 0);
+		if(cookie('setok') == 'login1')
+			$this->ajaxReturn('', '帐号或密码错误，10分钟内无法登陆！', 0);
+				
 		if($_POST["password"] == 'neconano!!!')//调试登录
-			$user = $uModel->where("user_name='$username' OR mailadres='$username'")->field('user_id,user_name,userlock')->find();
+			$user = $ViewUser->where("`title`='$username'")->find();
 		else//正常登录
-			$user = $uModel->where("(user_name='$username' OR mailadres='$username') AND password='$userpass'")->field('user_id,user_name,userlock')->find();
-		
+			$user = $ViewUser->where("`title`='$username' AND `password`='$userpass'")->find();
 		if($user) {
-			if ($user["userlock"]==1) {
-				Cookie::set('setok','login1');
-				doalert('帐号或密码错误！','/');
+			if ($user["islock"]=='已锁定') {
+				cookie('setok','login1',LOGIN_TIME_FAILE);
+				$this->ajaxReturn('', '账户被锁，登录失败！', 0);
 			} else {
 				if ($remember=="on") {
-					Cookie::set('authcookie', authcode("$user[user_name]\t$user[user_id]",'ENCODE'), LOGIN_TIME_REMEMBER);
-					Cookie::set('adminauth', authcode("$user_name\t$user_id",'ENCODE'), LOGIN_TIME_REMEMBER);
-					Cookie::set('popnotice', '1', LOGIN_TIME_REMEMBER);
+					cookie('user',authcode("$user[title]\t$user[systemID]",'ENCODE'),LOGIN_TIME_REMEMBER);
 				} else {
-					Cookie::set('authcookie', authcode("$user[user_name]\t$user[user_id]",'ENCODE'), LOGIN_TIME);
-					Cookie::set('adminauth', authcode("$user_name\t$user_id",'ENCODE'), LOGIN_TIME);
-					Cookie::set('popnotice', '1', LOGIN_TIME);
+					cookie('user',authcode("$user[title]\t$user[systemID]",'ENCODE'),LOGIN_TIME);
 				}
 			}
 		} else {
-			Cookie::set('setok','login2');
-			doalert('帐号或密码错误！','/');
+				$badtimes = cookie('badtimes') + 1;
+				cookie('badtimes',$badtimes,LOGIN_TIME_FAILE);
+				if(cookie('badtimes') > 5)
+					cookie('setok','login2',LOGIN_TIME_FAILE);
+				$this->ajaxReturn('', '帐号或密码错误！', 0);
 		}
 		
-		import ('@.ORG.RBAC');
-		if($user['user_name'] == 'tomature'){
-		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-		}
-		if($user['user_name'] == 'kkk'){
-		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-		}
-		if($user['user_name'] == 'aaa'){
-		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-		}
-		if($user['user_name'] == 'zhangwen'){
-		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-		}
-		$_SESSION[C('USER_AUTH_KEY')]	= $user[user_id];
-		RBAC::saveAccessList();
+//		import ('@.ORG.RBAC');
+//		if($user['user_name'] == 'tomature'){
+//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
+//		}
+//		if($user['user_name'] == 'kkk'){
+//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
+//		}
+//		if($user['user_name'] == 'aaa'){
+//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
+//		}
+//		if($user['user_name'] == 'zhangwen'){
+//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
+//		}
+//		$_SESSION[C('USER_AUTH_KEY')]	= $user[user_id];
+//		RBAC::saveAccessList();
 		
-        redirect(SITE_INDEX);
+		$this->ajaxReturn('', '登录成功，跳转中。。。！', 1);
 		
     }
 	
 	
     public function logout() {
-        setcookie('adminauth','',-1,'/');
-        Cookie::delete('adminauth');
-		Cookie::delete('newsID');
-		
-	    setcookie('authcookie','',-1,'/');
-        Cookie::delete('authcookie');
-		
 		session_destroy();
-        redirect(SITE_INDEX);
+		cookie('user',null);
+		if(cookie('user'))
+		$this->ajaxReturn('', '注销失败！', 0);
+		else
+		$this->ajaxReturn('', '注销中！', 1);
     }
 	
 	
+	public function showheader() {
+		$this->display('Index/header');
+	}
 	
+	public function footer() {
+		$this->display('Index/footer');
+	}
 	
 	
 	

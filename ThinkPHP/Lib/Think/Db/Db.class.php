@@ -444,7 +444,7 @@ class Db extends Think
      * @return string
      +----------------------------------------------------------
      */
-    protected function parseWhere($where) {
+    public function parseWhere($where,$mark=false) {
         $whereStr = '';
         if(is_string($where)) {
             // 直接使用字符串条件
@@ -475,6 +475,8 @@ class Db extends Think
             }
             $whereStr = substr($whereStr,0,-strlen($operate));
         }
+		if($mark)
+        return empty($whereStr)?'':$whereStr;
         return empty($whereStr)?'':' WHERE '.$whereStr;
     }
 

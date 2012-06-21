@@ -1,172 +1,20 @@
-<tp:includeCA file="Chanpin:showheader" />
+<tp:includeCA file="Index:showheader" />
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
 
   <tp:includeCA file="Chanpin:left_fabu" />
 
   <div id="content" style="margin-left:170px;">
-      
-            <div class="moduleTitle" style="margin-bottom:10px;">
-              <h2 style="margin-top:10px;">旅游产品：产品发布</h2>
-              <div style="float:left; margin-left:50px; margin-top:6px;">
-                  <span style="display: none;" id="show_link_insideview"> 
-                  <a href="javascript:void(0);" onclick="showmysearchdiv(1)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_collapsed.png"></a> 
-                  </span> 
-                  <span style="" id="hide_link_insideview"> 
-                  <a href="javascript:void(0);" onclick="showmysearchdiv(2)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_expanded.png"></a> 
-                  </span> 
-              </div>
-              <span style="margin-top:10px;">
-              <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
-              </span>
-            </div>
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
             
-            <div id="mysearchdiv">
-                <ul id="searchTabs" class="tablist">
-                  <li style="margin-right:1px;">
-                      <a id="searchtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
-                  </li>
-                  <li>
-                      <a id="searchtab_2" href="javascript:selectTabCSS('Calls|advanced_search');" onclick="showsearch(2)">高级查找</a>
-                  </li>
-                </ul>
-                
-                <div class="search_form" id="searchdiv_1" style="margin-bottom:0px;">
-                      <div class="edit view search ">
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                              <tbody>
-                                <tr>
-                                  <td scope="row" nowrap="nowrap"> 名称 </td>
-                                  <td nowrap="nowrap"><input type="text" name="title" id="title"></td>
-                                  <td scope="row" nowrap="nowrap"> 编号 </td>
-                                  <td nowrap="nowrap"><input type="text" name="bianhao" id="bianhao"></td>
-                                  <td scope="row" nowrap="nowrap"> 团期 </td>
-                                  <td nowrap="nowrap">
-                                  <input type="text" onfocus="WdatePicker()" id="chufariqi" name="chufariqi" value="<{$chufariqi}>" >
-                              </tbody>
-                            </table>
-                        </div>
-                      <input title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
-                      <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
-                </div>
-                
-                <div class="search_form" id="searchdiv_2" style="display:none;margin-bottom:0px;">
-                      <div class="edit view search ">
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                              <tbody>
-                                <tr>
-                                  <td scope="row" nowrap="nowrap"> 名称 </td>
-                                  <td nowrap="nowrap"><input type="text" name="title" id="title"></td>
-                                  <td scope="row" nowrap="nowrap"> 团期 </td>
-                                  <td nowrap="nowrap">
-                                  <input type="text" onfocus="WdatePicker()" id="chufariqi" name="chufariqi" value="<{$chufariqi}>">
-                                  <span>--</span>
-                                  <input type="text" onfocus="WdatePicker()" id="jiezhiriqi" name="jiezhiriqi" value="<{$jiezhiriqi}>"></td>
-                                  <td scope="row" nowrap="nowrap"> 员工 </td>
-                                  <td nowrap="nowrap"><input type="text" id="user_name" value="<{$user_name}>"/></td>
-                                  <td scope="row" nowrap="nowrap"> 状态 </td>
-                                  <td nowrap="nowrap">
-                                <select name="zhuangtai" id="zhuangtai"> 
-                                    <php> if($zhuangtai){</php>
-                                    <option value="<{$zhuangtai}>"><{$zhuangtai}></option>
-                                    <option disabled="disabled">-----------------</option>
-                                    <php> }</php>
-                                    <option value="">全部</option> 
-                                    <option value="准备">准备</option> 
-                                    <option value="等待审核">等待审核</option> 
-                                    <option value="审核不通过">审核不通过</option> 
-                                    <option value="报名">报名</option> 
-                                    <option value="截止">截止</option> 
-                                </select>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td scope="row" nowrap="nowrap"> 始发地 </td>
-                                  <td nowrap="nowrap"><input type="text" id="chufadi" value="<{$chufadi}>"/></td>
-                                  <td scope="row" nowrap="nowrap"> 目的地 </td>
-                                  <td nowrap="nowrap"><input type="text" id="mudidi" value="<{$mudidi}>"/></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                        </div>
-                      <input title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
-                      <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
-                </div>
-                
-                <div style="margin-top:10px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
-                      <tbody>
-                        <tr>
-                          <td nowrap=""><h3><span>查询：</span></h3></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            
-            <div id="selectitem" style=" display:none; position:absolute;">
-              <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-                <tbody>
-                  <tr>
-                    <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-                        <tbody>
-                          <tr>
-                            <td valign="top" class="olOptionsFgClass">
-                            <div class="olFontClass">
-                            <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a>
-                            <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a>
-                            </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>            
-            
-            <div id="dateitem" style=" display:none; position:absolute;">
-              <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-                <tbody>
-                  <tr>
-                    <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-                        <tbody>
-                          <tr>
-                            <td valign="top" class="olOptionsFgClass">
-                            <div class="olFontClass" id="thedate">
-                            </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>            
-            
-            <div id="messageitem" style=" display:none; position:absolute;">
-              <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-                <tbody>
-                  <tr>
-                    <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-                        <tbody>
-                          <tr>
-                            <td valign="top" class="olOptionsFgClass">
-                            <div class="olFontClass" id="themessage">
-                            </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>            
+            <include file="Index:searchxianlu" />
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -195,9 +43,8 @@
                 </tr>
                 
                 <tr height="20">
-                  <th scope="col" nowrap="nowrap"> 
-                  <input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)">
-                  </th>
+                  <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
@@ -212,17 +59,16 @@
                 
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="30" class="evenListRowS1">
-                  <td scope="row" align="left" valign="top">
-                  <input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox">
-                  </td>
+                  <td scope="row" align="left" valign="top"><input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox"></td>
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top" style="min-width:300px;">
-                  <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['xianlu']['title']}></a>
+                  <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a>
                   </td>
                   <td scope="row" align="left" valign="top">
-                  <{$v['xianlu']['bianhao']}>
+                  <{$v['bianhao']}>
                   </td>
                   <td scope="row" align="center" valign="top">
-                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v['xianlu'][chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
+                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
                   </td>
                   <td scope="row" align="left" valign="top">
                   <{$v['user_name']}>
@@ -240,7 +86,7 @@
                   <{$v['islock']}>
                   </td>
                   <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <{$v['xianlu']['ispub']}>
+                  <{$v['ispub']}>
                   </td>
                   <td scope="row" align="center" valign="top">
                   <img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
@@ -248,191 +94,80 @@
                 </tr>
                 <php> }</php>
                 
-                <tr class="pagination">
-                  <td colspan="11">
-                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
-                      <tbody>
-                        <tr>
-                          <td nowrap="nowrap" class="paginationActionButtons">
-                          	<a id="select_link" href="#">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>
-                            <input name="Delete" class="button" type="button" value="删除" />
-                            <input class="button" type="button" value="导出">
-                          </td>
-                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
-                          	<{$page}>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </td>
-                </tr>
-                
               </tbody>
             </table>
             
   </div>
 </div>
 
-<tp:includeCA file="Chanpin:footer" />
+<tp:includeCA file="Index:footer" />
 
 <script language="javascript"> 
-function myCheckBoxSelect(o,st)
+
+function dosearch()
 {
-    var id = 'chanpinitem';
-    var i = 0;
-    for(;;)
-    {
-        id = 'chanpinitem' + i;
-        var c = document.getElementById(id);
-		if(st)
-			var s = false;
-		else
-			if(o)
-			var s = o.checked;
-			else
-			var s = true;
-        if(c)
-            c.checked = s;
-        else
-            break;
-        i ++;
-    }
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
 }
 
-function showmysearchdiv(s)
-{
-		var divRili = document.getElementById('mysearchdiv');
-		var divRili_1 = document.getElementById('show_link_insideview');
-		var divRili_2 = document.getElementById('hide_link_insideview');
-	if(s == 1){
-		divRili.style.display = ''
-		divRili_1.style.display = 'none'
-		divRili_2.style.display = ''
-	}
-	if(s == 2){
-		divRili.style.display = 'none'
-		divRili_1.style.display = ''
-		divRili_2.style.display = 'none'
-	}
-}
-
-function showsearch(s)
-{
-	if(s == 1){
-		var divRili = document.getElementById('searchdiv_1'); 
-		divRili.style.display = '';			
-		divRili = document.getElementById('searchdiv_2'); 
-		divRili.style.display = 'none';	
-		$('#searchtab_1').addClass('current');
-		$('#searchtab_2').removeClass('current');
-	}
-	if(s == 2){
-		var divRili = document.getElementById('searchdiv_2'); 
-		divRili.style.display = '';			
-		divRili = document.getElementById('searchdiv_1'); 
-		divRili.style.display = 'none';	
-		$('#searchtab_2').addClass('current');
-		$('#searchtab_1').removeClass('current');
-	}
-}
-
-
-function showbox(obj,divname,pos)
-{
-	objleft = getPosLeft(obj) + 0;
-	objtop = getPosTop(obj) + 20;
-	if(pos == 'r')
-		$("#"+divname).css({top:objtop , right:20 });
-	else
-		$("#"+divname).css({top:objtop , left:objleft });
-	var divRili = document.getElementById(divname); 
-	if(divRili.style.display=='')
-		divRili.style.display = 'none';
-	else 
-		divRili.style.display = '';			
-}
-function showdate(datelist)
-{
-	datelist=datelist.replace(/'/g,"");
-	datelist=datelist.split(";");
-	 var str = '';
-	 for(var i =0; i<datelist.length;i++){
-		 str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 150px">'+datelist[i]+'</a>';
-	 }
-	$("#thedate").empty();
-	$("#thedate").append(str);
-}
-function showmessage(obj,chanpinID)
-{
-	$.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/message",
-		data:	"chanpinID="+chanpinID,
-		success:	function(msg){
-				  var str = '';
-				  if(msg != 'null' && msg){
-					  var msg = eval('(' + msg + ')');
-					  for(var i =0; i<msg.length;i++){
-						  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">'+msg[i].title+'<br>'+getLocalTime(msg[i].time)+'</a>';
-					  }
-				  }
-				  else
-				  str += '<a href="#" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,\'yes\');" class="menuItem" style="width: 300px">暂无数据</a>';
-				  $("#themessage").empty();
-				  $("#themessage").append(str);
-			}
-		});
-}
-function getPosLeft(obj)
-{
-    var l = obj.offsetLeft;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetLeft;
-    }
-    return l;
-}
-function getPosTop(obj)
-{
-    var l = obj.offsetTop;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetTop;
-    }
-    return l;
-}
-
-function getLocalTime(nS) {  
-	//return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '); 
-	return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,17);
-    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
-}
-
-
-var names = [
-	 <php>foreach($kehu_all as $kehu){</php>
-			  { name: "<{$kehu[realname]}>(<{$kehu['user_name']}>)", to: "<{$kehu['user_name']}>" },
-	 <php>}</php>
- ];
-$(function() {
-		 $('#user_name').autocomplete(names, {
-			 max: 20,    //列表里的条目数
-			 minChars: 0,    //自动完成激活之前填入的最小字符
-			 width: 400,     //提示的宽度，溢出隐藏
-			 scrollHeight: 300,   //提示的高度，溢出显示滚动条
-			 matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-			 autoFill: false,    //自动填充
-			 formatItem: function(row, i, max) {
-				 return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
-			 },
-			 formatMatch: function(row, i, max) {
-				 return row.name + row.to;
-			 },
-			 formatResult: function(row) {
-				 return row.to;
-			 }
-		 }).result(function(event, row, formatted) {
-		 });
-	 });
 </script>
+
+<div id="selectitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass">
+                <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a>
+                <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
+
+<div id="dateitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass" id="thedate">
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
+
+<div id="messageitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass" id="themessage">
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
 

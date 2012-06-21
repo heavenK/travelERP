@@ -406,11 +406,11 @@ var ThinkAjax = {
 			// 需要在客户端定义ajaxReturn方法
 			if (response == undefined)
 			{
-				try	{(ajaxReturn).apply(this,[this.data,this.status,this.info,this.type,id]);}
+				try	{(ajaxReturn).apply(this,[this.data,this.status,this.info,this.type,id,tips,effect]);}
 				catch (e){}
 				 
 			}else {
-				try	{ (response).apply(this,[this.data,this.status,this.info,this.type,id]);}
+				try	{ (response).apply(this,[this.data,this.status,this.info,this.type,id,tips,effect]);}
 				catch (e){}
 			}
 		}
