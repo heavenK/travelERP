@@ -68,7 +68,7 @@ class SetSystemAction extends CommonAction{
 			else
 			{
 				$DataShenhe = D("DataShenhe");
-				$DataShenhe->where("`shenheID` = '$_REQUEST]'")->delete();
+				$DataShenhe->where("`shenheID` = '$_REQUEST[systemID]'")->delete();
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
@@ -184,7 +184,6 @@ class SetSystemAction extends CommonAction{
 		$data['systemDUR'] = $_REQUEST;
 		if (false !== $System->relation("systemDUR")->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
-		
 				$_REQUEST['systemID'] = $System->getRelationID();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}

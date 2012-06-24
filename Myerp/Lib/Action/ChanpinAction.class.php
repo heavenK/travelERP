@@ -233,43 +233,50 @@ class ChanpinAction extends CommonAction{
 	
 	public function doshenhe() {
 		C('TOKEN_ON',false);
+		$processID = $_REQUEST['processID'];
 		//检查OM
 		$omdata = A("Method")->_checkOM($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
-		if(false !== $omdata)
-			$this->ajaxReturn('', '错误！无OM权限', 0);
+		if(false === $omdata)
+			$this->ajaxReturn('', '错误！无开放与管理权限', 0);
 		//检查审核流程
-		$processID = $_REQUEST['processID'];
 		$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID);
-		if(false === $process)
+		if(!$process)
 			$this->ajaxReturn('', '错误！无审核权限', 0);
 		//审核任务
 		$System = D("System");
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
-		$data['user_name'] = $this->user['title'];
-		$data['departmentID'] = $omdata['bumen']['departmentID'];
+		if($processID == 1)
+		$data['status'] = '申请';
+		elseif(A("Method")->_checkShenhe($_REQUEST['datatype'],$processID+1))
+		$data['status'] = '检出';
+		else
+		$data['status'] = '批准';
+		//检查流程状态
+		if(false !== A("Method")->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID))
+			$this->ajaxReturn('', '错误！该流程已被执行，请勿重复执行！', 0);
+		
 		$data['taskShenhe']['processID'] = $processID;
 		$data['taskShenhe']['remark'] = $process['remark'];
-		$data['taskShenhe']['roles_copy'] = $omdata['roles']['title'];
-		$data['taskShenhe']['bumen_copy'] = $omdata['bumen']['title'];
+		$data['taskShenhe']['roles_copy'] = $omdata['roles'];
+		$data['taskShenhe']['bumen_copy'] = $omdata['bumen'];
 		if (false !== $System->relation("taskShenhe")->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
 				
 			//生成待检出	
 			//检查审核流程
-			$processID += 1;
-			$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID);
+			$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID+1);
 			if($process){
+				$data['status'] = '待检出';
 				$data['taskShenhe']['remark'] = $process['remark'];
-				$data['user_name'] = -1;
-				$data['departmentID'] = -1;
+				$data['taskShenhe']['processID'] = $processID+1;
 				unset($data['taskShenhe']['roles_copy']);
 				unset($data['taskShenhe']['bumen_copy']);
 				$System->relation("taskShenhe")->myRcreate($data);
 			}
 				
-			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+			$this->ajaxReturn($_REQUEST, '提交审核成功！', 1);
 		}
 		else{
 			$this->ajaxReturn($_REQUEST, $System->getError(), 0);

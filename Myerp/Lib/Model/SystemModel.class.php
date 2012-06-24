@@ -10,7 +10,6 @@ class SystemModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-        array('status', '准备', 1), 
         array('time', 'time', 1, 'function'), 
         array('user_name', 'NF_getusername', 1, 'function'), 
         array('departmentID', 'NF_getmydepartmentid', 1, 'function'), 

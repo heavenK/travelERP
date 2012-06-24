@@ -365,53 +365,42 @@ class LiandongAction extends Action {
 		{
 			$liandong = D('Liandong');
 			$user=$liandong->where("pid='$pid'")->findAll();
-			
 			$i = 1;
-			
 			foreach ($user as $row){
 				if ($i == 1)	echo "<option value='" . $row['id'] . "' selected='selected'>" . $row['position']	. "</option>";
 				else echo "<option value='" . $row['id'] . "'>" . $row['position']	. "</option>";
 				$i++;
 			}
 		}
-		
 		if ($type == 'pos_go')
 		{
 			$liandong = D('Liandong');
-			
 			$condition['pid'] = array('between','1,99'); 
-			
 			$user=$liandong->where($condition)->findAll();
-			
 			$i = 1;
-			
 			foreach ($user as $row){
 				if ($i == 1)	echo "<option value='" . $row['id'] . "' selected='selected'>" . $row['position']	. "</option>";
 				else echo "<option value='" . $row['id'] . "'>" . $row['position']	. "</option>";
 				$i++;
 			}
 		}
-		
 		if ($type == 'jingshe')
 		{
 			$jingshe = D('Jingshe');
 			$jing=$jingshe->where("pid='$pid'")->findAll();
-			
 			foreach ($jing as $row){
 				echo "<a onclick='addWords(this, \"". $row['title'] ."\");' href='javascript:void(0)'>" . $row['title'] . "</a>&nbsp;";
 			}
 		}
-		
 		if ($type == 'all')
 		{
 			$jingshe = M("Jingshe");
 			$jing=$jingshe->where("pid='$pid'")->findAll();
-			
 			foreach ($jing as $row){
 				echo $row['title'] . " ";
 			}
 		}
-		 $this->display();
+	   //$this->display();
 	}
 	
 	public function select(){

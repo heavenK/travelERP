@@ -1,28 +1,31 @@
 ﻿<?php
 
 function NF_getusername(){  
- 
-	return "高鹏";
-	return A("Chanpin")->roleuser['user_name'];
-}
-
-function NF_getuserid(){  
- 
-	return "-1";
-	return A("Chanpin")->roleuser['user_id'];
-}
-
-function NF_getmydepartmentname(){  
- 
-	return "高鹏";
-	return A("Chanpin")->roleuser['user_name'];
+	return A("Method")->user['title'];
 }
 
 function NF_getmydepartmentid(){  
- 
-	return "-1";
-	return A("Chanpin")->roleuser['user_id'];
+	$bumenID = A("Method")->_getOMUsedBumen();
+	if(!$bumenID)
+	{
+		$DURlist = A("Method")->_getDURlist(A("Method")->user['systemID']);
+		return $DURlist[0]['departmentID'];
+	}
+	return $bumenID;
 }
+
+//function NF_getuserid(){  
+// 
+//	return "-1";
+//	return A("Chanpin")->roleuser['user_id'];
+//}
+//
+//function NF_getmydepartmentname(){  
+// 
+//	return "高鹏";
+//	return A("Chanpin")->roleuser['user_name'];
+//}
+
 
 
 
