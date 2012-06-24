@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'xingchengID', 1 => 'chanpinID', 2 => 'chanyin', 3 => 'tools', 4 => 'place', 5 => 'content', '_autoinc' => true, '_pk' => 'xingchengID', '_type' => array ( 'xingchengID' => 'int(11)', 'chanpinID' => 'int(11)', 'chanyin' => 'varchar(50)', 'tools' => 'varchar(50)', 'place' => 'varchar(50)', 'content' => 'text', ), ); ?>

@@ -1,7 +1,26 @@
 <?php
 
 class MethodAction extends Action{
-
+    // 最后一次OM使用的部门
+    private $_usedbumenID =  null;
+    private $_usedbumen =  null;
+    // 最后一次OM使用的角色
+    private $_usedrolesID =  null;
+    private $_usedroles =  null;
+    public function _getOMUsedBumenID() {
+		return $this->$_usedbumenID;
+	}
+    public function _getOMUsedRolesID() {
+		return $this->$_usedrolesID;
+	}
+    public function _getOMUsedBumen() {
+		return $this->$_usedbumen;
+	}
+    public function _getOMUsedRoles() {
+		return $this->$_usedroles;
+	}
+	
+	
     //显示产品列表
     public function xianlu_list($where,$type='管理',$pagenum = 20) {
 		$class_name = 'OMViewXianlu';
@@ -541,16 +560,36 @@ class MethodAction extends Action{
 		$DataOM = D("DataOM");
 		$datalist = array();
 		foreach($DURlist as $v){
-			$DUR = $v['bumenID'].','.$v['rolesID'].','.$v['userID'];
-			$OMlist = $DataOM->Distinct(true)->field('dataID')->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `UDR` = '$UDR'")->find();
+			$DUR = $v['departmentID'].',,';
+			$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			if(!$OMlist){
+				$DUR = $v['departmentID'].','.$v['rolesID'].',';
+				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
+			if(!$OMlist){
+				$DUR = ','.$v['rolesID'].',';
+				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
+			if(!$OMlist){
+				$DUR = ',,'.$v['userID'];
+				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
 			if($OMlist){
 				$ViewRoles = D("ViewRoles");
 				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
 				$ViewDepartment = D("ViewDepartment");
-				$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+				$bumen = $ViewDepartment->where("`systemID` = '$v[departmentID]'")->find();
 				$omdata['roles'] = $roles['title'];
 				$omdata['bumen'] = $bumen['title'];
 				$omdata['departmentID'] = $bumen['systemID'];
+				$this->$_usedbumenID = $bumen['systemID'];
+				$this->$_usedrolesID = $roles['systemID'];
+				$this->$_usedbumen = $bumen['title'];
+				$this->$_usedroles = $roles['title'];
 				return $omdata;
 			}
 		}
@@ -568,11 +607,11 @@ class MethodAction extends Action{
 		$DataShenhe = D("DataShenhe");
 		foreach($DURlist as $v){
 			$UR = $v['rolesID'].',';
-			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `$processID` = '$processID' and `UR` = '$UR'")->find();
+			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
 			if($shenhe)
 				return $shenhe;
 			$UR = ','.$v['userID'];
-			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `$processID` = '$processID' and `UR` = '$UR'")->find();
+			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
 			if($shenhe)
 				return $shenhe;
 		}
@@ -580,6 +619,29 @@ class MethodAction extends Action{
 		
 	 }
 	 
-	 
+	//检查审核流程
+     public function _checkDataShenhe($dataID,$datatype,$status,$processID) {
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$has = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '$status' and `processID` = '$processID'")->find();
+		if($has)
+		return $has;
+		return false;
+	 }
+		 
+		 
+	//历史记录
+     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$status='') {
+		$data['message'] = A("Method")->_getOMUsedBumen().A("Method")->_getOMUsedRoles().$this->user['title'].$message;
+		$data['DUR'] = A("Method")->_getOMUsedBumenID().','.A("Method")->_getOMUsedRolesID().','.$this->user['systemID'];
+		$data['dataID'] = $dataID;
+		$data['datatype'] = $datatype;
+		$data['url'] = $url;
+		$Message = D("Message");
+		$Message->relation("infohistory")->myRcreate($data);
+   }
+		 
+		 
+		 
+		 
 }
 ?>
