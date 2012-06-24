@@ -68,7 +68,7 @@ class SetSystemAction extends CommonAction{
 			else
 			{
 				$DataShenhe = D("DataShenhe");
-				$DataShenhe->where("`shenheID` = '$_REQUEST]'")->delete();
+				$DataShenhe->where("`shenheID` = '$_REQUEST[]'")->delete();
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
