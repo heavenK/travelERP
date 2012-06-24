@@ -2,9 +2,17 @@
 
 class MethodAction extends Action{
     // 最后一次OM使用的部门
+    private $_usedbumenID =  null;
     private $_usedbumen =  null;
     // 最后一次OM使用的角色
+    private $_usedrolesID =  null;
     private $_usedroles =  null;
+    public function _getOMUsedBumenID() {
+		return $this->$_usedbumenID;
+	}
+    public function _getOMUsedRolesID() {
+		return $this->$_usedrolesID;
+	}
     public function _getOMUsedBumen() {
 		return $this->$_usedbumen;
 	}
@@ -578,8 +586,10 @@ class MethodAction extends Action{
 				$omdata['roles'] = $roles['title'];
 				$omdata['bumen'] = $bumen['title'];
 				$omdata['departmentID'] = $bumen['systemID'];
-				$this->$_usedbumen = $bumen['systemID'];
-				$this->$_usedroles = $roles['systemID'];
+				$this->$_usedbumenID = $bumen['systemID'];
+				$this->$_usedrolesID = $roles['systemID'];
+				$this->$_usedbumen = $bumen['title'];
+				$this->$_usedroles = $roles['title'];
 				return $omdata;
 			}
 		}
@@ -617,6 +627,18 @@ class MethodAction extends Action{
 		return $has;
 		return false;
 	 }
+		 
+		 
+	//历史记录
+     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$status='') {
+		$data['message'] = A("Method")->_getOMUsedBumen().A("Method")->_getOMUsedRoles().$this->user['title'].$message;
+		$data['DUR'] = A("Method")->_getOMUsedBumenID().','.A("Method")->_getOMUsedRolesID().','.$this->user['systemID'];
+		$data['dataID'] = $dataID;
+		$data['datatype'] = $datatype;
+		$data['url'] = $url;
+		$Message = D("Message");
+		$Message->relation("infohistory")->myRcreate($data);
+   }
 		 
 		 
 		 

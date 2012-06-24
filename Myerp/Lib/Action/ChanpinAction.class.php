@@ -263,7 +263,9 @@ class ChanpinAction extends CommonAction{
 		if (false !== $System->relation("taskShenhe")->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
-				
+			//记录
+			$url = '';
+			A("Method")->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],'提交审核申请',$url,'提醒');	
 			//生成待检出	
 			//检查审核流程
 			$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID+1);
