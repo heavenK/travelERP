@@ -1,5 +1,4 @@
 <?php
-    if (!defined('IN_ET')) exit();
 
     return array(
         'DB_TYPE'=>'mysql',

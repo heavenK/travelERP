@@ -185,6 +185,8 @@ class SetSystemAction extends CommonAction{
 		if (false !== $System->relation("systemDUR")->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
+			//选填RBAC权限
+			//A("Method")->_opentoRBACbyUser($_REQUEST['systemID'],$_REQUEST['rolesID']);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -198,8 +200,18 @@ class SetSystemAction extends CommonAction{
 	{
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
+		
+		if($_REQUEST['tableName'] == 'datadictionary'){
+			$System = D("System");
+			$dd = $System->relation('datadictionary')->where("`systemID` = '$systemID'")->find();
+		}
+		
 		if (false !== $System->relation($_REQUEST['tableName'])->delete("$systemID"))
 		{
+			if($dd){
+				unlink('./Data/Attachments/m_'.$dd['datadictionary']['pic_url']);
+				unlink('./Data/Attachments/s_'.$dd['datadictionary']['pic_url']);
+			}
 			while($d = $System->where("`parentID` = '$systemID'")->find())
 			{
 				if(null == $d || false === $d)
@@ -311,14 +323,173 @@ class SetSystemAction extends CommonAction{
 	
 	
 	
+	public function dataDictionary()
+	{
+		A("Method")->showDirectory("数据字典");
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$where['type'] = $_REQUEST['type'];
+		$data = $ViewDataDictionary->where($where)->findall();
+		$this->assign("datalist",$data);
+		if($where['type'] == '视频'){
+			A("Method")->showDirectory("视频");
+			if($_REQUEST['version'] == 'full')
+			$this->display('templatelist');
+			else{
+				$this->assign("datatitle",'视频选择');
+				$this->display('shipin');
+			}
+		}
+		elseif($where['type'] == '图片'){
+			A("Method")->showDirectory("图片");
+			if($_REQUEST['version'] == 'full')
+			$this->display('templatelist');
+			else{
+				$tupianlist = split(',',$_REQUEST['title']);
+				$this->assign("tupianlist",$tupianlist);
+				$this->assign("datatitle",'图片选择');
+				$this->display('tupian');
+			}
+		}
+		elseif($where['type'] == '主题'){
+			A("Method")->showDirectory("主题");
+			$this->display('templatelist');
+		}
+		else
+			$this->display('DDindex');
+	}
 	
 	
 	
+	public function dopostDataDictionary()
+	{
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$data = $_REQUEST;
+		$data["datadictionary"] = $_REQUEST;
+        if ($_FILES['image']['name'] != '') { 
+            //如果有文件上传 上传附件
+			$savepath = './Data/Attachments/'; 
+            $data["datadictionary"]['pic_url'] = A("Method")->_upload($savepath); 
+        }
+		if($data['systemID'] && $data["datadictionary"]['pic_url']){
+			$dd = $System->relation('datadictionary')->where("`systemID` = '$data[systemID]'")->find();
+			if($dd)
+			{
+				unlink('./Data/Attachments/m_'.$dd['datadictionary']['pic_url']);
+				unlink('./Data/Attachments/s_'.$dd['datadictionary']['pic_url']);
+			}
+		}
+		elseif(!$data['systemID'] && false === $data["datadictionary"]['pic_url'])
+			$data["datadictionary"]['pic_url'] = '';
+		if (false !== $System->relation('datadictionary')->myRcreate($data)){
+			if($System->getLastmodel() == 'add')
+				$_REQUEST['systemID'] = $System->getRelationID();
+			$dd = $System->relation('datadictionary')->where("`systemID` = '$_REQUEST[systemID]'")->find();	
+			$_REQUEST['pic_url'] = $dd['datadictionary']['pic_url'];
+			A("Method")->ajaxUploadResult($_REQUEST,'保存成功',1);
+		}
+		else{
+			A("Method")->ajaxUploadResult($_REQUEST,$System->getError(),0);
+		}
+		
+	}
 	
 	
+	public function liandong(){
+		A("Method")->showDirectory("地区联动");
+		$t=$_GET['t']?$_GET['t']:0;
+		$name = D("myerp_liandong");
+		$condition['id'] = $t; 
+		$pname = $name->where($condition)->find();
+		
+		if (!$pname) {
+			$pname['position'] = '顶级分类';
+			$pname['level'] = '一级选择';
+			$condition['id']    = array('elt',99); 
+		}
+		else if ($t >= '1' && $t <= '99') {
+			$pname['position'] = '<a href=SITE_INDEX."SetSystem/liandong/t/' . floor($t/100) . '" style="color:red">'.$pname['position'].'</a>';
+			$pname['level'] = '二级选择';
+			$condition['id']    = array('between','100,999'); 
+		}else{
+			$pname['position'] = '<a href=SITE_INDEX."SetSystem/liandong/t/' . floor($t/100) . '" style="color:red">'.$pname['position'].'</a>';
+			$pname['level'] = '三级选择';
+			$condition['id']    = array('egt',1000); 
+		}
+		$liandong = D("myerp_liandong");
+		$condition['pid']	= $t;
+		import("@.ORG.Page");
+		C('PAGE_NUMBERS',10);
+		$count = $liandong->where($condition)->count();
+		$p = new Page ( $count, 10 ); 
+		$list=$liandong->where($condition)->limit($p->firstRow.','.$p->listRows)->order('id desc')->findAll(); 
+		$p->setConfig('header','篇记录');
+        $p->setConfig('prev',"上一页");
+        $p->setConfig('next','下一页');
+        $p->setConfig('first','首页');
+        $p->setConfig('last','末页'); 
+		$page = $p->show (SITE_INDEX.'SetSystem/liandong/t/' . $t . '/p/');
+		$this->assign ( "t", $t );
+		$this->assign ( "pname", $pname );
+        $this->assign ( "page", $page );
+        $this->assign ( "list", $list );
+        $this->display(); 
+	}
 	
-	
-	
+	//联动增加
+	public function liandongInsert(){
+		$pid = $_POST['pid'];
+		$ename = $_POST['ename'];
+		$names = split(',',$ename);
+		$lian = D("myerp_liandong");
+		$condition['pid']	= $pid;
+		$max_lian = $lian->where($condition)->order('id desc')->find();
+		if ($max_lian){
+			$max_id = $max_lian['id'] + 1;
+			echo "1";
+		}else{
+			if ($pid == '0') {
+				$max_id = 1;
+			}
+			else if ($pid >= '1' && $pid <= '99') {
+				$max_id = $pid * 100 + 1;
+			}else{
+				$max_id = $pid * 1000 + 1;
+			}
+		}
+		foreach($names as $name){
+			$liandong = D("myerp_liandong");
+			$liandong->id = $max_id;
+			$liandong->position = $name;
+			$liandong->pid = $pid;
+			$liandong->add();
+			$max_id++;
+		}
+		$this->redirect('SetSystem/liandong/t/'.$pid);
+	}
+	//联动编辑
+	public function liandongEdit(){
+		$pid = $_POST['pid']?$_POST['pid']:0;
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+		if(!empty($id)) { 
+			$liandong    =    D("myerp_liandong");
+			$liandong->find($id);
+			$liandong->position = $name;
+			$res = $liandong->save();
+		}
+	}
+	//联动删除
+	public function liandongDelete(){
+		$t=$_GET['t']?$_GET['t']:0;
+		$id = $_REQUEST['id'];
+		if(!empty($id)) { 
+			$liandong    =    D("myerp_liandong");
+			$condition['id']	= array('like',$id.'%');
+			$result    =    $liandong->where($condition)->delete(); 
+			$this->redirect('SetSystem/liandong/t/'.$t);
+		}
+	}
 	
 	
 	

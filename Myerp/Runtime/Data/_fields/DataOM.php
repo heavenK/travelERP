@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'OMID', 2 => 'dataID', 3 => 'datatype', 4 => 'type', 5 => 'DUR', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'int(11)', 'OMID' => 'int(11)', 'dataID' => 'int(11)', 'datatype' => 'varchar(30)', 'type' => 'varchar(30)', 'DUR' => 'varchar(30)', ), ); ?>

@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'systemID', 1 => 'dataID', 2 => 'datatype', 3 => 'processID', 4 => 'remark', 5 => 'roles_copy', 6 => 'bumen_copy', '_autoinc' => false, '_pk' => 'systemID', '_type' => array ( 'systemID' => 'int(11)', 'dataID' => 'int(11)', 'datatype' => 'varchar(30)', 'processID' => 'int(11)', 'remark' => 'varchar(255)', 'roles_copy' => 'varchar(30)', 'bumen_copy' => 'varchar(30)', ), ); ?>

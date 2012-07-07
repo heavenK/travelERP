@@ -99,6 +99,39 @@ var ThinkAjax = {
 			myEffect.custom(effect);
 		}
 	},
+	myloading:function (target,tips,effect){
+		if (target == undefined)	{
+			target = (this.options['target'])?this.options['target']:this.tipTarget;
+		}
+		if (effect == undefined)	{
+			effect = (this.options['effect'])?this.options['effect']:this.updateEffect;
+		}
+		if (tips == undefined) {
+			tips = (this.options['tip'])?this.options['tip']: this.updateTip;
+		}
+		if ($(target))
+		{
+			//var arrayPageSize = getPageSize();
+			var arrayPageScroll = getPageScroll();
+			$(target).style.display = 'block';
+			$(target).style.top = (arrayPageScroll[1] +  'px');
+			$(target).style.right = '5px';
+			// 显示正在更新
+			if ($('loader'))
+			{
+				$('loader').style.display = 'none';
+			}
+			if ('' != this.image[0])
+			{
+				$(target).innerHTML = '<IMG SRC="'+this.image[0]+'"  BORDER="0" ALT="loading..." align="absmiddle"> '+tips;
+			}else{
+				$(target).innerHTML = tips;
+			}
+			//使用更新效果
+			var myEffect = $(target).effects();
+			myEffect.custom(effect);
+		}
+	},
 	ajaxResponse:function(request,target,response){
 		// 获取ThinkPHP后台返回Ajax信息和数据
 		// 此格式为ThinkPHP专用格式

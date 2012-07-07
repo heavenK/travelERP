@@ -1,0 +1,171 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+
+<div id="main">
+
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:searchxianlu" />
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          	<a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                            <input class="button" type="button" value=" 复制 ">
+                            <input class="button" type="button" value=" 发布 ">
+                            <input class="button" type="button" value=" 删除 ">
+                            <input class="button" type="button" value=" 锁定 ">
+                            <input class="button" type="button" value=" 解锁 ">
+                            <input class="button" type="button" value=" 截止 ">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 发布人 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 网站发布 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
+                </tr>
+                
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox"></td>
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top" style="min-width:300px;">
+                  <a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a>
+                  </td>
+                  <td scope="row" align="left" valign="top">
+                  <{$v['bianhao']}>
+                  </td>
+                  <td scope="row" align="center" valign="top">
+                  <img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
+                  </td>
+                  <td scope="row" align="left" valign="top">
+                  <{$v['user_name']}>
+                  </td>
+                  <td scope="row" align="left" valign="top">
+                  <php>echo date('Y/m/d H:i',$v['time']);</php>
+                  </td>
+                  <td scope="row" align="left" valign="top" style="min-width:50px;">
+                  <{$v['departmentName']}>
+                  </td>
+                  <td scope="row" align="left" valign="top" style="min-width:50px;">
+                  <{$v['status']}>
+                  </td>
+                  <td scope="row" align="left" valign="top" style="min-width:50px;">
+                  <{$v['islock']}>
+                  </td>
+                  <td scope="row" align="left" valign="top" style="min-width:50px;">
+                  <{$v['ispub']}>
+                  </td>
+                  <td scope="row" align="center" valign="top">
+                  <img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
+                  </td>
+                </tr>
+                <php> }</php>
+                
+              </tbody>
+            </table>
+            
+  </div>
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+</script>
+
+<div id="selectitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass">
+                <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a>
+                <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
+
+<div id="dateitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass" id="thedate">
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
+
+<div id="messageitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass">
+                <div class="olFontClass" id="themessage">
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>            
+

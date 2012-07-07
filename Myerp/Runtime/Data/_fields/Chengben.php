@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'chengbenID', 1 => 'chanpinID', 2 => 'typeName', 3 => 'title', 4 => 'price', 5 => 'jifeitype', '_autoinc' => true, '_pk' => 'chengbenID', '_type' => array ( 'chengbenID' => 'int(11)', 'chanpinID' => 'int(11)', 'typeName' => 'varchar(50)', 'title' => 'varchar(50)', 'price' => 'int(11)', 'jifeitype' => 'varchar(50)', ), ); ?>

@@ -1,10 +1,10 @@
 <?php
 
 class IndexAction extends Action{
-
+	
     public function index() {
 		$this->toadmin();
-		$this->display('Index/login');
+		$this->display('login');
 		
     }
 	
@@ -15,12 +15,12 @@ class IndexAction extends Action{
     }
 	
     public function login() {
-		$this->display('Index/login');
+		$this->display('login');
 		
     }
 	
     public function dologin() {
-        $username = daddslashes($_POST["loginname"]);
+        $username = addslashes($_POST["loginname"]);
         $userpass = md5(md5($_POST["password"]));
         $remember = $_POST["rememberMe"];
 		$ViewUser = D("ViewUser");
@@ -53,29 +53,18 @@ class IndexAction extends Action{
 				$this->ajaxReturn('', '帐号或密码错误！', 0);
 		}
 		
-//		import ('@.ORG.RBAC');
-//		if($user['user_name'] == 'tomature'){
-//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-//		}
-//		if($user['user_name'] == 'kkk'){
-//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-//		}
-//		if($user['user_name'] == 'aaa'){
-//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-//		}
-//		if($user['user_name'] == 'zhangwen'){
-//		$_SESSION[C('ADMIN_AUTH_KEY')]	= true;
-//		}
-//		$_SESSION[C('USER_AUTH_KEY')]	= $user[user_id];
-//		RBAC::saveAccessList();
-		
+		A("Method")->_opentoRBAC($user);
+				
 		$this->ajaxReturn('', '登录成功，跳转中。。。！', 1);
 		
     }
 	
 	
     public function logout() {
+		unset($_SESSION[C('USER_AUTH_KEY')]);
+		unset($_SESSION);
 		session_destroy();
+		session(null);
 		cookie('user',null);
 		if(cookie('user'))
 		$this->ajaxReturn('', '注销失败！', 0);
@@ -85,14 +74,12 @@ class IndexAction extends Action{
 	
 	
 	public function showheader() {
-		$this->display('Index/header');
+		$this->display('Index:header');
 	}
 	
 	public function footer() {
-		$this->display('Index/footer');
+		$this->display('Index:footer');
 	}
-	
-	
 	
 	
 }

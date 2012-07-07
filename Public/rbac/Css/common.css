@@ -2,7 +2,8 @@ html, body, img, a img, form{margin:0; padding:0; border:0 none}
 img{text-align:absmiddle; background-color:transparent}
 html, body, p, table{font:normal normal normal 14PX Tahoma,Verdana,Helvetica,Arial,sans-serif; line-height:150%}
 body, table{background-color:white}
-@media print{body *{color:#000 !important; border-color:#ccc !important}
+@media print{
+    body *{color:#000 !important; border-color:#ccc !important}
 }
 
 h1, h2, h3, h4, h5, h6{margin:0; padding:0; text-shadow:gray 0px 0px 5px; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size-adjust:none; font-stretch:normal; font-style:normal; font-variant:normal; font-weight:bold; line-height:1.5em}

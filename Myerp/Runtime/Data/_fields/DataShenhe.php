@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'shenheID', 2 => 'datatype', 3 => 'processID', 4 => 'remark', 5 => 'UR', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'int(11)', 'shenheID' => 'int(11)', 'datatype' => 'varchar(30)', 'processID' => 'int(11)', 'remark' => 'varchar(255)', 'UR' => 'varchar(50)', ), ); ?>

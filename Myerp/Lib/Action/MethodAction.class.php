@@ -8,19 +8,40 @@ class MethodAction extends Action{
     private $_usedrolesID =  null;
     private $_usedroles =  null;
     public function _getOMUsedBumenID() {
-		return $this->$_usedbumenID;
+		return $this->_usedbumenID;
 	}
     public function _getOMUsedRolesID() {
-		return $this->$_usedrolesID;
+		return $this->_usedrolesID;
 	}
     public function _getOMUsedBumen() {
-		return $this->$_usedbumen;
+		return $this->_usedbumen;
 	}
     public function _getOMUsedRoles() {
-		return $this->$_usedroles;
+		return $this->_usedroles;
 	}
 	
 	
+    //DataOM显示列表
+    public function getDataOMlist($datatype,$where,$type='管理') {
+		if($datatype == '审核任务')
+			$class_name = 'OMViewXianlu';
+			
+		$where['type'] = $type;
+		$where = $this->_facade($class_name,$where);//过滤搜索项
+		$where = $this->_openAndManage_filter($where);
+		$DataOM = D($class_name);
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+		$count = $DataOM->Distinct(true)->field('dataID')->where($where)->count();
+		$p= new Page($count,$pagenum);
+		$page = $p->show();
+        $chanpin = $DataOM->relation("xianlu")->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+		$chanpin = $this->_getRelation_select_after($chanpin,"xianlu");
+		$redata['page'] = $page;
+		$redata['chanpin'] = $chanpin;
+		return $redata;
+	}
+
     //显示产品列表
     public function xianlu_list($where,$type='管理',$pagenum = 20) {
 		$class_name = 'OMViewXianlu';
@@ -401,6 +422,18 @@ class MethodAction extends Action{
 		return $datas4;
 	 }
 	 
+	//获得用户列表
+     public function _getUserlist($bumenID,$rolesID) {
+		$ViewSystemDUR = D("ViewSystemDUR");
+		if($bumenID && $rolesID)
+		$data = $ViewSystemDUR->Distinct(true)->field('userID')->where("`bumenID` = '$bumenID' and `rolesID` = '$rolesID'")->findall();
+		elseif($bumenID)
+		$data = $ViewSystemDUR->Distinct(true)->field('userID')->where("`bumenID` = '$bumenID'")->findall();
+		elseif($rolesID)
+		$data = $ViewSystemDUR->Distinct(true)->field('userID')->where("`rolesID` = '$rolesID'")->findall();
+		return $data;
+	 }
+	 
 	 
 	//获得分类包含项列表
      public function _getDClist($systemID) {
@@ -410,15 +443,18 @@ class MethodAction extends Action{
 	 }
 	
 	
+	
 	//同步开放管理到对象
      public function _OMToDataOM($data) {
 		$DataOM = D("DataOM");
-		$DataOM->where("`OMID` = '$data[systemID]'")->delete();
-		$OM = null;
-		$OM['OMID'] = $data['systemID'];
+		if($data['systemID']){
+			$DataOM->where("`OMID` = '$data[systemID]'")->delete();
+			$OM['OMID'] = $data['systemID'];
+		}
 		$OM['dataID'] = $data['dataID'];
 		$OM['datatype'] = $data['datatype'];
 		$OM['type'] = $data['type'];
+		$OM['DUR'] = $data['DUR'];
 		if($data['roleslimitID'] != '-1')
 		$OM['rolesID'] = $data['roleslimitID'];
 		if($data['parenttype'] == '分类'){
@@ -445,7 +481,8 @@ class MethodAction extends Action{
 			unset($OM['userID']);
 			$OM['rolesID'] = $data['parentID'];
 		}
-		$OM['DUR'] = $this->_OMToDataOM_filter($OM);
+		if($data['parenttype'])
+			$OM['DUR'] = $this->_OMToDataOM_filter($OM);
 		$DataOM->mycreate($OM);
 	 }
 	
@@ -535,7 +572,7 @@ class MethodAction extends Action{
 	 }
 	
 	
-	//获得用户权限
+	//获得审核流程
      public function _getdatashenhe($datatype) {
 		$DataShenhe = D("DataShenhe");
 		$data =  $DataShenhe->where("`datatype` = '$datatype'")->findall();
@@ -550,8 +587,16 @@ class MethodAction extends Action{
 	 }
 	 
 	 
+	//获得DataOM
+     public function _getDataOM($dataID,$datatype,$type) {
+		$DataOM = D("DataOM");
+		$data = $DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type'")->findall();
+	 	return $data;
+	 }
+	 
+	 
 	//检查OM
-     public function _checkOM($dataID,$datatype,$type,$userID) {
+     public function _checkDataOM($dataID,$datatype,$type,$userID) {
 		if($userID)
 			$myuserID = $userID;
 		else
@@ -586,10 +631,12 @@ class MethodAction extends Action{
 				$omdata['roles'] = $roles['title'];
 				$omdata['bumen'] = $bumen['title'];
 				$omdata['departmentID'] = $bumen['systemID'];
-				$this->$_usedbumenID = $bumen['systemID'];
-				$this->$_usedrolesID = $roles['systemID'];
-				$this->$_usedbumen = $bumen['title'];
-				$this->$_usedroles = $roles['title'];
+				
+				$this->_usedbumenID = $bumen['systemID'];
+				$this->_usedrolesID = $roles['systemID'];
+				$this->_usedbumen = $bumen['title'];
+				$this->_usedroles = $roles['title'];
+				
 				return $omdata;
 			}
 		}
@@ -598,22 +645,26 @@ class MethodAction extends Action{
 	 
 	 
 	//检查审核流程
-     public function _checkShenhe($datatype,$processID) {
-		if($userID)
-			$myuserID = $userID;
-		else
-			$myuserID = $this->user['systemID'];
-		$DURlist = $this->_getDURlist($myuserID);
+     public function _checkShenhe($datatype,$processID,$userID='') {
 		$DataShenhe = D("DataShenhe");
-		foreach($DURlist as $v){
-			$UR = $v['rolesID'].',';
-			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
-			if($shenhe)
-				return $shenhe;
-			$UR = ','.$v['userID'];
-			$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
-			if($shenhe)
-				return $shenhe;
+		if($userID){
+			$myuserID = $userID;
+			$DURlist = $this->_getDURlist($myuserID);
+			foreach($DURlist as $v){
+				$UR = $v['rolesID'].',';
+				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
+				if($shenhe != null)
+					return $shenhe;
+				$UR = ','.$v['userID'];
+				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
+				if($shenhe != null)
+					return $shenhe;
+			}
+		}
+		else{
+			$shenheAll = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID'")->findall();
+			if($shenheAll != null)
+				return $shenheAll;
 		}
 		return false;
 		
@@ -630,18 +681,185 @@ class MethodAction extends Action{
 		 
 		 
 	//历史记录
-     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$status='') {
-		$data['message'] = A("Method")->_getOMUsedBumen().A("Method")->_getOMUsedRoles().$this->user['title'].$message;
-		$data['DUR'] = A("Method")->_getOMUsedBumenID().','.A("Method")->_getOMUsedRolesID().','.$this->user['systemID'];
-		$data['dataID'] = $dataID;
-		$data['datatype'] = $datatype;
-		$data['url'] = $url;
+     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$userIDlist) {
+		$data['infohistory']['message'] = $this->_getOMUsedBumen().$this->_getOMUsedRoles().'"'.$this->user['title'].'":'.$message;
+		$data['infohistory']['usedDUR'] = $this->_getOMUsedBumenID().','.$this->_getOMUsedRolesID().','.$this->user['systemID'];
+		$data['infohistory']['dataID'] = $dataID;
+		$data['infohistory']['datatype'] = $datatype;
+		$data['infohistory']['url'] = $url;
 		$Message = D("Message");
-		$Message->relation("infohistory")->myRcreate($data);
-   }
+		if (false !== $Message->relation("infohistory")->myRcreate($data)){
+			if($Message->getLastmodel() == 'add')
+				$data['messageID'] = $Message->getRelationID();
+		}
+		//生成OM
+		$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+		$DataOM = D("DataOM");
+		foreach($dataOMlist as $d){
+			$dom['DUR'] = $d["DUR"];
+			$dom['type'] = '管理';
+			$dom['datatype'] = '消息';
+			$dom['dataID'] = $data['messageID'];
+			$DataOM->mycreate($dom);
+		}
+		//生成提示
+		if($userIDlist)
+			$this->_OMToDataNotice($data['infohistory'],$userIDlist);
+	}
+		 
+		 
+	
+	//根据DUR获得提示用户列表
+     public function _getuserlistByDUR($DUR) {
+		list($bumen,$roles,$user) = split(',',$DUR);
+		if($roles)
+			$userIDlist = $this->_getUserlist($bumen,$roles);
+		elseif($user)
+			$userIDlist[0]['userID'] = $user;
+		else
+			$userIDlist = $this->_getUserlist($bumen);
+		return $userIDlist;
+	 }
+	
+		 
+		 
+	//同步提示信息
+     public function _OMToDataNotice($data,$userIDlist) {
+		$DataNotice = D("DataNotice");
+		foreach($userIDlist as $v){
+			$data['userID'] = $v['userID'];
+			$DataNotice->mycreate($data);
+		}
+	 }
+	
+		 
+		 
+	// 文件上传 
+    public function _upload($savePath) { 
+        import("@.ORG.UploadFile"); 
+        //导入上传类 
+        $upload = new UploadFile(); 
+        //设置上传文件大小 
+        $upload->maxSize = 3292200; 
+        //设置上传文件类型 
+        $upload->allowExts = explode(',', 'jpg,gif,png,jpeg'); 
+        //设置附件上传目录 
+        $upload->savePath = $savePath; 
+        //设置需要生成缩略图，仅对图像文件有效 
+        $upload->thumb = true; 
+        // 设置引用图片类库包路径 
+        $upload->imageClassPath = '@.ORG.Image'; 
+        //设置需要生成缩略图的文件后缀 
+        $upload->thumbPrefix = 'm_,s_';  //生产2张缩略图 
+        //设置缩略图最大宽度 
+        $upload->thumbMaxWidth = '400,100'; 
+        //设置缩略图最大高度 
+        $upload->thumbMaxHeight = '400,100'; 
+        //设置上传文件规则 
+        $upload->saveRule = uniqid; 
+        //删除原图 
+        $upload->thumbRemoveOrigin = true; 
+		
+        if (!$upload->upload()) { 
+            //捕获上传异常 
+            return false; 
+        } else { 
+		
+            //取得成功上传的文件信息 
+            $uploadList = $upload->getUploadFileInfo(); 
+            import("@.ORG.Image"); 
+            //给m_缩略图添加水印, Image::water('原文件名','水印图片地址') 
+            Image::water($uploadList[0]['savepath'] . 'm_' . $uploadList[0]['savename'], '/Public/myerp/images/logo.png');
+            $_POST['image'] = $uploadList[0]['savename']; 
+        } 
+		return $_POST['image'];
+    } 
 		 
 		 
 		 
 		 
+    /**
+     +----------------------------------------------------------
+     * Ajax上传页面返回信息
+     +----------------------------------------------------------
+     */
+    public function ajaxUploadResult($data,$info='',$status=1,$type='')
+    {
+        // Ajax方式附件上传提示信息设置
+        // 默认使用mootools opacity效果
+        $show   = '<script language="JavaScript" src="'.WEB_PUBLIC_PATH.'/myerp/Thinkjs/mootools.js"></script><script language="JavaScript" type="text/javascript">'."\n";
+        $show  .= ' var parDoc = window.parent.document;';
+		
+        if(isset($data['uploadFormId'])) {
+                $show  .= ' parDoc.getElementById("'.$data['uploadFormId'].'").reset();';
+        }
+		
+        // 保证AJAX返回后也能保存日志
+        if(C('LOG_RECORD')) Log::save();
+        $result  =  array();
+        $result['status']  =  $status;
+        $result['info'] =  $info;
+        $result['data'] = $data;
+        if(empty($type)) $type  =   C('DEFAULT_AJAX_RETURN');
+        if(strtoupper($type)=='JSON') {
+            // 返回JSON数据格式到客户端 包含状态信息
+            header("Content-Type:text/html; charset=utf-8");
+            $msg = json_encode($result);
+        }elseif(strtoupper($type)=='XML'){
+            // 返回xml格式数据
+            header("Content-Type:text/xml; charset=utf-8");
+            $msg = xml_encode($result);
+        }elseif(strtoupper($type)=='EVAL'){
+            // 返回可执行的js脚本
+            header("Content-Type:text/html; charset=utf-8");
+            $msg = $data;
+        }else{
+            // TODO 增加其它格式
+        }
+		
+		if(isset($data['uploadResponse'])) {
+			$show  .= 'window.parent.'.$data['uploadResponse'].'(\''.$msg.'\');';
+		}
+		
+        $show .= "\n".'</script>';
+        exit($show);
+        return ;
+	}
+
+		 
+	//同步RBAC
+     public function _opentoRBAC($user) {
+		import ( '@.ORG.Util.RBAC' );
+		session(null);
+		session(C('USER_AUTH_KEY'),$user['systemID']);
+		if($user['title']=='aaa' || $user['title'] == 'kkk' || $user['title'] == 'zhangwen') {
+			session(C('ADMIN_AUTH_KEY'),true);
+		}
+		// 缓存访问权限
+		RBAC::saveAccessList();
+	 }
+		 
+	//同步RBAC角色组
+     public function _opentoRBACbyUser($userID,$rolesID) {
+		$ViewRoles = D("ViewRoles");
+		$role = $ViewRoles->where("`systemID` = '$rolesID'")->find();
+		 
+		$group_role    =   M("think_role_user");
+		$group_role->where("``")->find();
+		
+		$group_user    =   M("think_role_user");
+        $id     = $_POST['userGroupId'];
+		$group_user    =   D("Role_user");
+		$group_user->where("`user_id` = $userId")->delete();
+		foreach($id as $groupId){
+			$datas['role_id'] = $groupId;
+			$datas['user_id'] = $userId;
+			$result = $group_user->add($datas);
+		}
+	 }
+	 
+	 
+	 
+	 
 }
 ?>

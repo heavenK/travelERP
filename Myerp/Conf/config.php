@@ -1,7 +1,7 @@
 <?php
 //载入公共配置
 $config	=	require 'config.inc.php';
-
+$config['VAR_PAGE'] =  'p';//分页配置
 //设定项目配置
 $array = array(
     'URL_MODEL'=>3,
@@ -24,31 +24,41 @@ $array = array(
 
 
 	//RBAC配置增加设置  
-	'USER_AUTH_MODEL'    =>'Users',  
+	'USER_AUTH_MODEL'    =>'User',  
 	'USER_AUTH_ON'   =>true,  //是否需要认证  
 	'USER_AUTH_TYPE'     =>'2',   //认证类型:1为登录模式，2为实时模式  
-	'USER_AUTH_KEY'  =>'user_id',    //认证识别号（SEESION的用户ID名）  
-	'ADMIN_AUTH_KEY'     =>'admin',  //管理员SEESION  
+	'USER_AUTH_KEY'  =>'systemID',    //认证识别号（SEESION的用户ID名）  
+	'ADMIN_AUTH_KEY'     =>'superAdmin',  //管理员SEESION  
 	'REQUIRE_AUTH_MODULE'   =>'',     //需要认证模块（模块名之间用短号分开）  
 	'NOT_AUTH_MODULE'    =>'',    //无需认证模块（模块名之间用短号分开）  
 	'REQUIRE_AUTH_ACTION'   =>'',     //需要认证方法（方法名之间用短号分开）  
 	'NOT_AUTH_ACTION'    =>'',    //无需认证方法（方法名之间用短号分开）  
 	'USER_AUTH_GATEWAY'  =>'',    //认证网关  
-	'RBAC_ROLE_TABLE'	=>	'role',
-	'RBAC_USER_TABLE'	=>	'role_user',
-	'RBAC_ACCESS_TABLE' =>	'access',
-	'RBAC_NODE_TABLE'	=>  'node',
+        'RBAC_ROLE_TABLE'           =>'think_role',
+        'RBAC_USER_TABLE'           =>'think_role_user',
+        'RBAC_ACCESS_TABLE'         =>'think_access',
+        'RBAC_NODE_TABLE'           =>'think_node',
+	
 	//显示页面Trace信息
 	//'SHOW_PAGE_TRACE' =>true,
 	'SHOW_ERROR_MSG' =>true,
 	
-	'TAGLIB_PRE_LOAD' => 'Tp' ,
-    'TOKEN_ON'  => true,
-	'TOKEN_RESET'=>true,  //令牌验证出错后是否重置令牌 默认为true
+	'TAGLIB_PRE_LOAD' => 'Tp' ,//加载标签库
+	'APP_AUTOLOAD_PATH'=>'@.TagLib',//加载标签库
 	'DB_FIELDTYPE_CHECK'=>true,  // 开启字段类型验证
 	
-//    'TMPL_ACTION_SUCCESS'   => 'Public:success', // 默认成功跳转对应的模板文件
-//    'SESSION_AUTO_START'=>true,
+	'TOKEN_ON'=>true,  // 是否开启令牌验证
+	'TOKEN_NAME'=>'__hash__',    // 令牌验证的表单隐藏字段名称
+	'TOKEN_TYPE'=>'md5',  //令牌哈希验证规则 默认为MD5
+	'TOKEN_RESET'=>true,  //令牌验证出错后是否重置令牌 默认为true	
+	
+	'DB_LIKE_FIELDS' => 'title|remark',//模糊搜索设置
+	
+	'SESSION_OPTIONS'=>array(
+		//session配置，不同浏览器共享
+		//'id'=> 'think',
+	),	
+
 //    'URL_ROUTE_RULES' => array(
 //        'cate/:id\d'                 => 'Blog/category',
 //        '/^Blog\/(\d+)$/is'       => 'Blog/show?id=:1',

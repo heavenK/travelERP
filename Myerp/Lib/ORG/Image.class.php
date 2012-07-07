@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id: Image.class.php 2600 2012-01-15 04:29:27Z liu21st $
+// $Id: Image.class.php 2601 2012-01-15 04:59:14Z liu21st $
 
 /**
   +------------------------------------------------------------------------------
@@ -19,10 +19,10 @@
  * @package  ORG
  * @subpackage  Util
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id: Image.class.php 2600 2012-01-15 04:29:27Z liu21st $
+ * @version   $Id: Image.class.php 2601 2012-01-15 04:59:14Z liu21st $
   +------------------------------------------------------------------------------
  */
-class Image extends Think {//类定义开始
+class Image {
 
     /**
       +----------------------------------------------------------
@@ -321,8 +321,8 @@ class Image extends Think {//类定义开始
       +----------------------------------------------------------
      */
     static function buildImageVerify($length=4, $mode=1, $type='png', $width=48, $height=22, $verifyName='verify') {
-        import('@.ORG.String');
-        $randval = String::rand_string($length, $mode);
+        import('ORG.Util.String');
+        $randval = String::randString($length, $mode);
         $_SESSION[$verifyName] = md5($randval);
         $width = ($length * 10 + 10) > $width ? $length * 10 + 10 : $width;
         if ($type != 'gif' && function_exists('imagecreatetruecolor')) {
@@ -337,7 +337,6 @@ class Image extends Think {//类定义开始
 
         $backColor = imagecolorallocate($im, $r[$key], $g[$key], $b[$key]);    //背景色（随机）
         $borderColor = imagecolorallocate($im, 100, 100, 100);                    //边框色
-
         imagefilledrectangle($im, 0, 0, $width - 1, $height - 1, $backColor);
         imagerectangle($im, 0, 0, $width - 1, $height - 1, $borderColor);
         $stringColor = imagecolorallocate($im, mt_rand(0, 200), mt_rand(0, 120), mt_rand(0, 120));
@@ -357,7 +356,7 @@ class Image extends Think {//类定义开始
     // 中文验证码
     static function GBVerify($length=4, $type='png', $width=180, $height=50, $fontface='simhei.ttf', $verifyName='verify') {
         import('ORG.Util.String');
-        $code = String::rand_string($length, 4);
+        $code = String::randString($length, 4);
         $width = ($length * 45) > $width ? $length * 45 : $width;
         $_SESSION[$verifyName] = md5($code);
         $im = imagecreatetruecolor($width, $height);
@@ -568,6 +567,3 @@ class Image extends Think {//类定义开始
     }
 
 }
-
-//类定义结束
-?>

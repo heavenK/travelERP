@@ -1,0 +1,113 @@
+<tp:includeCA file="Index:showheader" />
+
+<div id="main">
+  <div id="content" style="margin-left:0;">
+  
+    <table cellspacing="0" cellpadding="0" width="100%" class="h3Row" style="margin-top:0px;">
+      <tbody>
+        <tr>
+          <td width="20%" valign="bottom"><h3><{$navigation}><{$datatitle}></h3></td>
+        </tr>
+        <tr>
+          <td width="20%" valign="bottom"><h3><{$nowDir['remark']}></h3></td>
+        </tr>
+      </tbody>
+    </table>
+		<script>
+            function confirmAct()
+            {
+                if(confirm('你确定要删除吗？'))
+                    return true;
+                return false;
+            }
+            
+            function updateLiandong(id)
+            {	
+                        $.ajax({
+                              type:	"POST",
+                              url:	"<{:SITE_INDEX}>SetSystem/liandongEdit",
+                              async: false,
+                              data:	"pid=" + <{$t}> + "&id=" + id + "&name=" + $("#ename"+id).val(),
+                              success:	function(msg){
+                                            alert("更新成功！");
+                                        }
+                          });
+            }
+        </script>
+        
+        <table style="margin-bottom: 8px;" width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+          <tbody><tr>
+           <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+            <div style="float:left">
+            </div>
+             </td>
+          </tr>
+          <tr height="48" bgcolor="#ffffff"> 
+           <td>
+        <form action="<{:SITE_INDEX}>SetSystem/liandongInsert" method="post">
+        <input name="pid" value="<{$t}>" type="hidden">
+        <div style="float:left;">
+        </div>
+        <div style="float:left;">
+        <b>&nbsp;分类名称：</b><input name="ename" class="iptxt" style="width: 350px;" type="text">
+        </div>
+        <div style="float:left;padding-left:6px">
+            <input name="sb2" value="增加分类" class="np coolbg" type="submit">
+        </div>
+        <div style="clear:both;color:#333333;line-height:24px;">
+        &nbsp; 用半角逗号","分开可以一次增加多个分类。
+        </div>
+        </form>    
+           </td>
+          </tr>
+        </tbody></table>
+        <table width="98%" align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1">
+          <tbody><tr>
+           <td colspan="8" height="28" background="<{:__PUBLIC__}>/gulianstyle/styles/tbg.gif">
+            <div style="float:left">
+            </div>
+            <div style="float:right"></div>
+             </td>
+          </tr>
+          <tr height="24" align="center" bgcolor="#FBFCE2"> 
+              <td width="6%">编号</td>
+              <td width="20%">枚举名</td>
+              <td width="20%">类别组名</td>
+              <td width="10%">枚举类型</td>
+              <td width="18%">操作</td>
+           </tr>
+               <php>foreach($list as $val){</php>
+               <tr onmousemove="javascript:this.bgColor='#FCFDEE';" onmouseout="javascript:this.bgColor='#FFFFFF';" height="24" align="center" bgcolor="#FFFFFF"> 
+                <td><{$val[id]}></td>
+                <td>
+                                <input id="ename<{$val[id]}>" value="<{$val[position]}>" class="abt" type="text">
+                </td>
+                <td><{$pname[position]}></td>
+                    <td>
+                    <{$pname[level]}></td>
+                <td>
+                            <php>if($val[id]>999){</php>
+                            <php>}else{</php> 
+                                <a href="<{:SITE_INDEX}>SetSystem/liandong/t/<{$val[id]}>/">[查看]</a>
+                            <php>}</php>
+                                <a href="javascript:void(0);" onclick="updateLiandong('<{$val[id]}>')">[更新]</a>
+                <a href="<{:SITE_INDEX}>SetSystem/liandongDelete/t/<{$t}>/id/<{$val[id]}>/" onclick="return confirmAct();">[删除]</a>
+                        </td>
+             </tr>
+             <php>}</php> 
+              <tr height="28" align="center" bgcolor="#F9FCEF"> 
+               <td colspan="8">
+                  <div class="pagelistbox">
+                    <{$page}>
+                </div>
+        
+              </td>
+             </tr>
+        </tbody></table>
+        
+        
+        
+        
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />

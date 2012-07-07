@@ -419,5 +419,59 @@ class FormeAction extends Action{
 			  return $re;
 	}
 	
+	
+	//地区联动
+	public function liandong()
+	{
+		C('TOKEN_ON',false);
+		echo "开始";
+		echo "<br>";
+			$System = D("System");
+			//中国0
+			$v['parentID'] = 0;
+			$v['datadictionary']['type'] = '地区联动';
+			$v['datadictionary']['title'] = '中国';
+			$SystemID = $System->relation("datadictionary")->myRcreate($v);
+			
+			$liandong  = D("liandong");
+			$all = $liandong->findall();
+			
+			foreach($all as $v){
+				//地区
+				if($v['pid'] == 0 )
+				{
+					$v['parentID'] = $SystemID;
+					$v['datadictionary']['type'] = '地区联动';
+					$v['datadictionary']['title'] = $v['position'];
+					$System->relation("datadictionary")->myRcreate($v);
+					$new_id = $System->getRelationID();
+					$c_all = $liandong->where("`pid` = '$v[id]'")->findall();
+					//省
+					foreach($c_all as $c){
+						$v['parentID'] = $new_id;
+						$v['datadictionary']['type'] = '地区联动';
+						$v['datadictionary']['title'] = $c['position'];
+						$System->relation("datadictionary")->myRcreate($v);
+						$new_id_2 = $System->getRelationID();
+						$c_all_2 = $liandong->where("`pid` = '$c[id]'")->findall();
+						//市
+						foreach($c_all_2 as $b){
+							$v['parentID'] = $new_id_2;
+							$v['datadictionary']['type'] = '地区联动';
+							$v['datadictionary']['title'] = $b['position'];
+							$System->relation("datadictionary")->myRcreate($v);
+						}
+					}
+				}
+			}
+		echo "开始222";
+		echo "<br>";
+	}
+	
+	
+	
+	
+	
+	
 }
 ?>

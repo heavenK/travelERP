@@ -13,7 +13,15 @@ class SystemModel extends RelationModel {
         array('time', 'time', 1, 'function'), 
         array('user_name', 'NF_getusername', 1, 'function'), 
         array('departmentID', 'NF_getmydepartmentid', 1, 'function'), 
+        array('status', 'set_status', 1,'callback','status',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
+	
+	protected function set_status($args) {
+		if($args != '')	
+			return $args;
+		else
+			return 1;
+	}
 	
 	protected $_link = array(
 		//user
@@ -32,13 +40,15 @@ class SystemModel extends RelationModel {
 		//systemOM
 		'systemOM'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemOM','foreign_key'=>'systemID'),
 		//systemDUR
-		'systemDUR'=>array('mapping_type'=>HAS_ONE,'class_name'=>'systemDUR','foreign_key'=>'systemID'),
+		'systemDUR'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemDUR','foreign_key'=>'systemID'),
 		//dirctory
 		'directory'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemDirectory','foreign_key'=>'systemID'),
 		//shenhe
 		'shenhe'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Shenhe','foreign_key'=>'systemID'),
 		//taskShenhe
 		'taskShenhe'=>array('mapping_type'=>HAS_ONE,'class_name'=>'TaskShenhe','foreign_key'=>'systemID'),
+		//datadictionary
+		'datadictionary'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemDataDictionary','foreign_key'=>'systemID'),
 	);
 	
 

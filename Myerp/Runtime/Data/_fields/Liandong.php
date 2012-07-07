@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'position', 2 => 'pid', '_autoinc' => false, '_pk' => 'id', '_type' => array ( 'id' => 'int(10) unsigned', 'position' => 'varchar(60)', 'pid' => 'int(11)', ), ); ?>

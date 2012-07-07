@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'systemID', 1 => 'parenttype', 2 => 'processID', 3 => 'datatype', 4 => 'remark', '_autoinc' => false, '_pk' => 'systemID', '_type' => array ( 'systemID' => 'int(11)', 'parenttype' => 'varchar(30)', 'processID' => 'int(11)', 'datatype' => 'varchar(30)', 'remark' => 'varchar(255)', ), ); ?>

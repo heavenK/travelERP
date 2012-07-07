@@ -1,7 +1,6 @@
 <?php
 
 class SystemDURModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_DUR';	
 		
    // 自动验证设置 

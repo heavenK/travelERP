@@ -8,7 +8,7 @@
  * @date 2010-04-18
  * Copyright (c) 2010-2010 明河共影
  * @example
- *    $("#to-right").float({position:"rm"}); //右中位置浮动
+ *    jQuery("#to-right").float({position:"rm"}); //右中位置浮动
  */
 jQuery.fn.float= function(settings){
 	if(typeof settings == "object"){
@@ -27,8 +27,8 @@ jQuery.fn.float= function(settings){
 			height:200, //高度
 			position:"rm" //位置
 		}, settings || {});	
-		var winW = $(window).width();
-		var winH = $(window).height();
+		var winW = jQuery(window).width();
+		var winH = jQuery(window).height();
 		
 		 //根据参数获取位置数值
 		function getPosition($applyTo,position){
@@ -71,19 +71,19 @@ jQuery.fn.float= function(settings){
 		}
 		//设置容器位置
 		function setPosition($applyTo,position,isUseAnimate){
-			var scrollTop = $(window).scrollTop();
-			var scrollLeft = $(window).scrollLeft();
+			var scrollTop = jQuery(window).scrollTop();
+			var scrollLeft = jQuery(window).scrollLeft();
 			var _pos = getPosition($applyTo,position);
 			_pos.top += scrollTop;
 			isUseAnimate && $applyTo.stop().animate(_pos,settings.delay) || $applyTo.css(_pos);
 		} 
 		return this.each(function(){
-			var $this =  $(this);
+			var $this =  jQuery(this);
 			$this.css("position","absolute");
 			settings.style && $this.css(settings.style);
 			setPosition($this,settings.position);
-			$(this).data("isAllowScroll",true);
-			$(window).scroll(function(){
+			jQuery(this).data("isAllowScroll",true);
+			jQuery(window).scroll(function(){
 				$this.data("isAllowScroll") && setPosition($this,settings.position,true);
 			});
 		})	
@@ -92,23 +92,23 @@ jQuery.fn.float= function(settings){
 		this.each(function(){		   
 			if(settings == "clearOffset"){
 					var _c = {};
-					if($(this).data("offset")){
-						 _c[$(this).data("offset")] = 0; 
-						 $(this).data("isAllowScroll",false);
-						 $(this).stop().animate(_c,speed);
+					if(jQuery(this).data("offset")){
+						 _c[jQuery(this).data("offset")] = 0; 
+						 jQuery(this).data("isAllowScroll",false);
+						 jQuery(this).stop().animate(_c,speed);
 					}
 			}else if(settings == "addOffset"){
 					var _c = {};
-					if($(this).data("offset") && $(this).data("offsetPostion")){
-						 _c[$(this).data("offset")] = $(this).data("offsetPostion"); 
-						 $(this).stop().animate(_c,speed);
-						 $(this).data("isAllowScroll",true);
+					if(jQuery(this).data("offset") && jQuery(this).data("offsetPostion")){
+						 _c[jQuery(this).data("offset")] = jQuery(this).data("offsetPostion"); 
+						 jQuery(this).stop().animate(_c,speed);
+						 jQuery(this).data("isAllowScroll",true);
 					}
 									   
 			}else if(settings == "setScrollDisable"){
-				$(this).data("isAllowScroll",false);
+				jQuery(this).data("isAllowScroll",false);
 			}else if(settings == "setScrollUsable"){
-				$(this).data("isAllowScroll",true);	
+				jQuery(this).data("isAllowScroll",true);	
 			}
 		})
 	}

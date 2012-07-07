@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | ThinkPHP
+// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2009 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id$
+// $Id: UploadFile.class.php 2601 2012-01-15 04:59:14Z liu21st $
 
 /**
  +------------------------------------------------------------------------------
@@ -18,25 +18,29 @@
  * @package  ORG
  * @subpackage  Net
  * @author    liu21st <liu21st@gmail.com>
- * @version   $Id$
+ * @version   $Id: UploadFile.class.php 2601 2012-01-15 04:59:14Z liu21st $
  +------------------------------------------------------------------------------
  */
-class UploadFile extends Think {
+class UploadFile {//类定义开始
 
     // 上传文件的最大值
     public $maxSize = -1;
+
     // 是否支持多文件上传
     public $supportMulti = true;
+
     // 允许上传的文件后缀
     //  留空不作后缀检查
     public $allowExts = array();
+
     // 允许上传的文件类型
     // 留空不做检查
     public $allowTypes = array();
-    // 是否缩放
-    public $suofang=0;
+
     // 使用对上传图片进行缩略图处理
     public $thumb   =  false;
+    // 图库类包路径
+    public $imageClassPath = 'ORG.Util.Image';
     // 缩略图最大宽度
     public $thumbMaxWidth;
     // 缩略图最大高度
@@ -63,8 +67,7 @@ class UploadFile extends Think {
     public $autoCheck = true; // 是否自动检查附件
     // 存在同名是否覆盖
     public $uploadReplace = false;
-    // 远程图片地址
-    public $outpicurl = '';
+
     // 上传文件命名规则
     // 例如可以是 time uniqid com_create_guid 等
     // 必须是一个无需任何参数的函数名 可以使用自定义函数
@@ -87,8 +90,7 @@ class UploadFile extends Think {
      * @access public
      +----------------------------------------------------------
      */
-    public function __construct($maxSize='',$allowExts='',$allowTypes='',$savePath=UPLOAD_PATH,$saveRule='')
-    {
+    public function __construct($maxSize='',$allowExts='',$allowTypes='',$savePath='',$saveRule='') {
         if(!empty($maxSize) && is_numeric($maxSize)) {
             $this->maxSize = $maxSize;
         }
@@ -128,41 +130,38 @@ class UploadFile extends Think {
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    private function save($file)
-    {
+    private function save($file) {
         $filename = $file['savepath'].$file['savename'];
         if(!$this->uploadReplace && is_file($filename)) {
             // 不覆盖同名文件
             $this->error	=	'文件已经存在！'.$filename;
             return false;
         }
-        if ($this->outpicurl) {
-            if(!rename($file['tmp_name'], auto_charset($filename,'utf-8','gbk'))) {
-                $this->error = '文件上传保存错误！';
-                return false;
-            }
-        } else {
-            if(!move_uploaded_file($file['tmp_name'], auto_charset($filename,'utf-8','gbk'))) {
-                $this->error = '文件上传保存错误！';
-                return false;
-            }
+        // 如果是图像文件 检测文件格式
+        if( in_array(strtolower($file['extension']),array('gif','jpg','jpeg','bmp','png','swf')) && false === getimagesize($file['tmp_name'])) {
+            $this->error = '非法图像文件';
+            return false;
         }
-        if($this->thumb) {
-            // 生成图像缩略图
-            import("@.ORG.Image");
-            $image =  Image::getImageInfo($filename);
+        if(!move_uploaded_file($file['tmp_name'], $this->auto_charset($filename,'utf-8','gbk'))) {
+            $this->error = '文件上传保存错误！';
+            return false;
+        }
+        if($this->thumb && in_array(strtolower($file['extension']),array('gif','jpg','jpeg','bmp','png'))) {
+            $image =  getimagesize($filename);
             if(false !== $image) {
                 //是图像文件生成缩略图
                 $thumbWidth		=	explode(',',$this->thumbMaxWidth);
                 $thumbHeight		=	explode(',',$this->thumbMaxHeight);
                 $thumbPrefix		=	explode(',',$this->thumbPrefix);
-                $thumbSuffix        =   explode(',',$this->thumbSuffix);
+                $thumbSuffix = explode(',',$this->thumbSuffix);
                 $thumbFile			=	explode(',',$this->thumbFile);
-                $thumbsuofang			=	explode(',',$this->suofang);
                 $thumbPath    =  $this->thumbPath?$this->thumbPath:$file['savepath'];
+                // 生成图像缩略图
+                import($this->imageClassPath);
+                $realFilename  =  $this->autoSub?basename($file['savename']):$file['savename'];
                 for($i=0,$len=count($thumbWidth); $i<$len; $i++) {
-                    $thumbname	=	$thumbPath.$thumbPrefix[$i].substr($file['savename'],0,strrpos($file['savename'], '.')).$thumbSuffix[$i].'.'.$file['extension'];
-                    Image::thumb($filename,$thumbname,'',$thumbWidth[$i],$thumbHeight[$i],true,$thumbsuofang[$i]);
+                    $thumbname	=	$thumbPath.$thumbPrefix[$i].substr($realFilename,0,strrpos($realFilename, '.')).$thumbSuffix[$i].'.'.$file['extension'];
+                    Image::thumb($filename,$thumbname,'',$thumbWidth[$i],$thumbHeight[$i],true);
                 }
                 if($this->thumbRemoveOrigin) {
                     // 生成缩略图之后删除原图
@@ -170,12 +169,16 @@ class UploadFile extends Think {
                 }
             }
         }
+        if($this->zipImags) {
+            // TODO 对图片压缩包在线解压
+
+        }
         return true;
     }
 
     /**
      +----------------------------------------------------------
-     * 上传文件
+     * 上传所有文件
      +----------------------------------------------------------
      * @access public
      +----------------------------------------------------------
@@ -186,12 +189,10 @@ class UploadFile extends Think {
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    public function upload($savePath ='')
-    {
+    public function upload($savePath ='') {
         //如果不指定保存文件名，则由系统默认
-        if(empty($savePath)) {
+        if(empty($savePath))
             $savePath = $this->savePath;
-        }
         // 检查上传目录
         if(!is_dir($savePath)) {
             // 检查目录是否编码后的
@@ -214,25 +215,6 @@ class UploadFile extends Think {
         $isUpload   = false;
 
         // 获取上传的文件信息
-        if ($this->outpicurl) {
-            $ext=strrchr($this->outpicurl,".");
-            $filename=date("YmdHis").$ext;
-            ob_start();
-            readfile($this->outpicurl);
-            $img = ob_get_contents();
-            ob_end_clean();
-            $fp2=@fopen($filename, "a");
-            fwrite($fp2,$img);
-            fclose($fp2);
-            $fileinfo=$this->getImagesInfo($filename);
-            $_FILES=array('image'=>array(
-                'name'=>$fileinfo['name'],
-                'type'=>$fileinfo['type'],
-                'tmp_name'=>$filename,
-                'error'=>0,
-                'size'=>$fileinfo['size']
-            ));
-        }
         // 对$_FILES数组信息处理
         $files	 =	 $this->dealFiles($_FILES);
         foreach($files as $key => $file) {
@@ -241,26 +223,20 @@ class UploadFile extends Think {
                 //登记上传文件的扩展信息
                 $file['key']          =  $key;
                 $file['extension']  = $this->getExt($file['name']);
-                if($this->autoSub) {
-                    $file['savepath'] = $savePath;
-                    $file['savepath'] = $savePath.$this->getSubName($file).'/';
-                } else {
-                    $file['savepath']   = $savePath;
-                }
+                $file['savepath']   = $savePath;
                 $file['savename']   = $this->getSaveName($file);
+
                 // 自动检查附件
                 if($this->autoCheck) {
-                    if(!$this->check($file)) {
+                    if(!$this->check($file))
                         return false;
-                    }
                 }
+
                 //保存上传文件
-                if(!$this->save($file)) {
-                    return false;
-                }
+                if(!$this->save($file)) return false;
                 if(function_exists($this->hashType)) {
                     $fun =  $this->hashType;
-                    $file['hash']   =  $fun(auto_charset($file['savepath'].$file['savename'],'utf-8','gbk'));
+                    $file['hash']   =  $fun($this->auto_charset($file['savepath'].$file['savename'],'utf-8','gbk'));
                 }
                 //上传成功后保存文件信息，供其他地方调用
                 unset($file['tmp_name'],$file['error']);
@@ -270,9 +246,6 @@ class UploadFile extends Think {
         }
         if($isUpload) {
             $this->uploadFileInfo = $fileInfo;
-            if ($filename) {
-                @unlink($filename);
-            }
             return true;
         }else {
             $this->error  =  '没有选择上传文件';
@@ -280,18 +253,108 @@ class UploadFile extends Think {
         }
     }
 
-    function getImagesInfo($images) {
-        $img_info = getimagesize($images);
-        $new_img_info = array (
-            "name"=>basename($images),
-            "width"=>$img_info[0],
-            "height"=>$img_info[1],
-            "type"=>$img_info['mime'],
-            "size"=>filesize($images)
-        );
-        return $new_img_info;
+    /**
+     +----------------------------------------------------------
+     * 上传单个上传字段中的文件 支持多附件
+     +----------------------------------------------------------
+     * @access public
+     +----------------------------------------------------------
+     * @param array $file  上传文件信息
+     * @param string $savePath  上传文件保存路径
+     +----------------------------------------------------------
+     * @return string
+     +----------------------------------------------------------
+     * @throws ThinkExecption
+     +----------------------------------------------------------
+     */
+    public function uploadOne($file,$savePath=''){
+        //如果不指定保存文件名，则由系统默认
+        if(empty($savePath))
+            $savePath = $this->savePath;
+        // 检查上传目录
+        if(!is_dir($savePath)) {
+            // 尝试创建目录
+            if(!mk_dir($savePath)){
+                $this->error  =  '上传目录'.$savePath.'不存在';
+                return false;
+            }
+        }else {
+            if(!is_writeable($savePath)) {
+                $this->error  =  '上传目录'.$savePath.'不可写';
+                return false;
+            }
+        }
+        //过滤无效的上传
+        if(!empty($file['name'])) {
+            $fileArray = array();
+            if(is_array($file['name'])) {
+               $keys = array_keys($file);
+               $count	 =	 count($file['name']);
+               for ($i=0; $i<$count; $i++) {
+                   foreach ($keys as $key)
+                       $fileArray[$i][$key] = $file[$key][$i];
+               }
+            }else{
+                $fileArray[] =  $file;
+            }
+            $info =  array();
+            foreach ($fileArray as $key=>$file){
+                //登记上传文件的扩展信息
+                $file['extension']  = $this->getExt($file['name']);
+                $file['savepath']   = $savePath;
+                $file['savename']   = $this->getSaveName($file);
+                // 自动检查附件
+                if($this->autoCheck) {
+                    if(!$this->check($file))
+                        return false;
+                }
+                //保存上传文件
+                if(!$this->save($file)) return false;
+                if(function_exists($this->hashType)) {
+                    $fun =  $this->hashType;
+                    $file['hash']   =  $fun($this->auto_charset($file['savepath'].$file['savename'],'utf-8','gbk'));
+                }
+                unset($file['tmp_name'],$file['error']);
+                $info[] = $file;
+            }
+            // 返回上传的文件信息
+            return $info;
+        }else {
+            $this->error  =  '没有选择上传文件';
+            return false;
+        }
     }
 
+    // 自动转换字符集 支持数组转换
+    private function auto_charset($fContents, $from='gbk', $to='utf-8') {
+        $from = strtoupper($from) == 'UTF8' ? 'utf-8' : $from;
+        $to = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
+        if (strtoupper($from) === strtoupper($to) || empty($fContents) || (is_scalar($fContents) && !is_string($fContents))) {
+            //如果编码相同或者非字符串标量则不转换
+            return $fContents;
+        }
+        if (is_string($fContents)) {
+            if (function_exists('mb_convert_encoding')) {
+                return mb_convert_encoding($fContents, $to, $from);
+            } elseif (function_exists('iconv')) {
+                return iconv($from, $to, $fContents);
+            } else {
+                return $fContents;
+            }
+        } elseif (is_array($fContents)) {
+            foreach ($fContents as $key => $val) {
+                $_key = $this->auto_charset($key, $from, $to);
+                $fContents[$_key] = $this->auto_charset($val, $from, $to);
+                if ($key != $_key)
+                    unset($fContents[$key]);
+            }
+            return $fContents;
+        }
+        else {
+            return $fContents;
+        }
+    }
+    
     /**
      +----------------------------------------------------------
      * 转换上传文件数组变量为正确的方式
@@ -305,19 +368,20 @@ class UploadFile extends Think {
      */
     private function dealFiles($files) {
        $fileArray = array();
+       $n = 0;
        foreach ($files as $file){
            if(is_array($file['name'])) {
                $keys = array_keys($file);
                $count	 =	 count($file['name']);
                for ($i=0; $i<$count; $i++) {
-                   foreach ($keys as $key) {
-                       $fileArray[$i][$key] = $file[$key][$i];
-                   }
+                   foreach ($keys as $key)
+                       $fileArray[$n][$key] = $file[$key][$i];
+                   $n++;
                }
            }else{
-               $fileArray	=	$files;
+               $fileArray[$n] = $file;
+               $n++;
            }
-           break;
        }
        return $fileArray;
     }
@@ -335,8 +399,7 @@ class UploadFile extends Think {
      * @throws ThinkExecption
      +----------------------------------------------------------
      */
-    protected function error($errorNo)
-    {
+    protected function error($errorNo) {
          switch($errorNo) {
             case 1:
                 $this->error = '上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值';
@@ -373,8 +436,7 @@ class UploadFile extends Think {
      * @return string
      +----------------------------------------------------------
      */
-    private function getSaveName($filename)
-    {
+    private function getSaveName($filename) {
         $rule = $this->saveRule;
         if(empty($rule)) {//没有定义命名规则，则保持文件名不变
             $saveName = $filename['name'];
@@ -387,12 +449,11 @@ class UploadFile extends Think {
                 $saveName = $rule.".".$filename['extension'];
             }
         }
-        /*
         if($this->autoSub) {
             // 使用子目录保存文件
-            $this->thumbPath   =  $filename['savepath'].$this->getSubName($filename).'/';
+            $filename['savename'] = $saveName;
+            $saveName = $this->getSubName($filename).'/'.$saveName;
         }
-        */
         return $saveName;
     }
 
@@ -407,8 +468,7 @@ class UploadFile extends Think {
      * @return string
      +----------------------------------------------------------
      */
-    private function getSubName($file)
-    {
+    private function getSubName($file) {
         switch($this->subType) {
             case 'date':
                 $dir   =  date($this->dateFormat,time());
@@ -417,11 +477,9 @@ class UploadFile extends Think {
             default:
                 $name = md5($file['savename']);
                 $dir   =  '';
-                $dir2=array();
                 for($i=0;$i<$this->hashLevel;$i++) {
-                    $dir2[] = $name{$i};
+                    $dir   .=  $name{$i}.'/';
                 }
-                $dir=implode('/',$dir2);
                 break;
         }
         if(!is_dir($file['savepath'].$dir)) {
@@ -454,6 +512,7 @@ class UploadFile extends Think {
             $this->error = '上传文件大小不符！';
             return false;
         }
+
         //检查文件Mime类型
         if(!$this->checkType($file['type'])) {
             $this->error = '上传文件MIME类型不允许！';
@@ -464,8 +523,9 @@ class UploadFile extends Think {
             $this->error ='上传文件类型不允许';
             return false;
         }
+
         //检查是否合法上传
-        if(!$this->outpicurl && !$this->checkUpload($file['tmp_name'])) {
+        if(!$this->checkUpload($file['tmp_name'])) {
             $this->error = '非法上传文件！';
             return false;
         }
@@ -483,11 +543,9 @@ class UploadFile extends Think {
      * @return boolean
      +----------------------------------------------------------
      */
-    private function checkType($type)
-    {
-        if(!empty($this->allowTypes)) {
+    private function checkType($type) {
+        if(!empty($this->allowTypes))
             return in_array(strtolower($type),$this->allowTypes);
-        }
         return true;
     }
 
@@ -503,11 +561,9 @@ class UploadFile extends Think {
      * @return boolean
      +----------------------------------------------------------
      */
-    private function checkExt($ext)
-    {
-        if(!empty($this->allowExts)) {
+    private function checkExt($ext) {
+        if(!empty($this->allowExts))
             return in_array(strtolower($ext),$this->allowExts,true);
-        }
         return true;
     }
 
@@ -522,8 +578,7 @@ class UploadFile extends Think {
      * @return boolean
      +----------------------------------------------------------
      */
-    private function checkSize($size)
-    {
+    private function checkSize($size) {
         return !($size > $this->maxSize) || (-1 == $this->maxSize);
     }
 
@@ -538,8 +593,7 @@ class UploadFile extends Think {
      * @return boolean
      +----------------------------------------------------------
      */
-    private function checkUpload($filename)
-    {
+    private function checkUpload($filename) {
         return is_uploaded_file($filename);
     }
 
@@ -554,8 +608,7 @@ class UploadFile extends Think {
      * @return boolean
      +----------------------------------------------------------
      */
-    private function getExt($filename)
-    {
+    private function getExt($filename) {
         $pathinfo = pathinfo($filename);
         return $pathinfo['extension'];
     }
@@ -569,8 +622,7 @@ class UploadFile extends Think {
      * @return array
      +----------------------------------------------------------
      */
-    public function getUploadFileInfo()
-    {
+    public function getUploadFileInfo() {
         return $this->uploadFileInfo;
     }
 
@@ -583,10 +635,8 @@ class UploadFile extends Think {
      * @return string
      +----------------------------------------------------------
      */
-    public function getErrorMsg()
-    {
+    public function getErrorMsg() {
         return $this->error;
     }
 
-}//类定义结束
-?>
+}
