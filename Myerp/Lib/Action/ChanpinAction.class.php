@@ -18,6 +18,17 @@ class ChanpinAction extends CommonAction{
 		A("Method")->showDirectory("基本信息");
 		$chanpinID = $_REQUEST["chanpinID"];
 		if($chanpinID){
+			//检查OM
+			$dataom = A("Method")->_checkDataOM($chanpinID,'线路','管理');
+			if(false !== $dataom){
+				$root_shenqing = true;
+				$this->assign("root_shenqing",true);
+			}
+			$taskom = A("Method")->_checkDataShenheOM($chanpinID,'线路');
+			if(false !== $taskom){
+				$root_shenhe = true;
+				$this->assign("root_shenhe",true);
+			}
 			$myerpview_chanpin_xianlu = D('myerpview_chanpin_xianlu');
 			$xianlu = $myerpview_chanpin_xianlu->where("`chanpinID` = '$chanpinID'")->find();
 			list($fuwu1,$fuwu2) = split('[,]',$xianlu['daoyoufuwu']);
@@ -233,89 +244,30 @@ class ChanpinAction extends CommonAction{
 	
 	public function doshenhe() {
 		C('TOKEN_ON',false);
-		$processID = $_REQUEST['processID'];
-		//检查OM
-		$omdata = A("Method")->_checkDataOM($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
-		if(false === $omdata)
-			$this->ajaxReturn('', '错误！无开放与管理权限', 0);
-		//检查审核流程
-		$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID);
-		if(!$process)
-			$this->ajaxReturn('', '错误！无审核权限', 0);
-		//审核任务
-		$System = D("System");
-		$data = $_REQUEST;
-		$data['taskShenhe'] = $_REQUEST;
-		if($processID == 1)
-		$data['status'] = '申请';
-		elseif(A("Method")->_checkShenhe($_REQUEST['datatype'],$processID+1))
-		$data['status'] = '检出';
-		else
-		$data['status'] = '批准';
-		
-		//检查流程状态
-		if(false !== A("Method")->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID))
-			$this->ajaxReturn('', '错误！该流程已被执行，请勿重复执行！', 0);
-		
-		$data['taskShenhe']['processID'] = $processID;
-		$data['taskShenhe']['remark'] = $process[0]['remark'];
-		$data['taskShenhe']['roles_copy'] = $omdata['roles'];
-		$data['taskShenhe']['bumen_copy'] = $omdata['bumen'];
-		if (false !== $System->relation("taskShenhe")->myRcreate($data)){
-			if($System->getLastmodel() == 'add')
-				$_REQUEST['systemID'] = $System->getRelationID();
-			//生成待检出	
-			//检查审核流程
-			$process = A("Method")->_checkShenhe($_REQUEST['datatype'],$processID+1);
-			if($process){
-				$data['status'] = '待检出';
-				$data['taskShenhe']['remark'] = $process[0]['remark'];
-				$data['taskShenhe']['processID'] = $processID+1;
-				unset($data['taskShenhe']['roles_copy']);
-				unset($data['taskShenhe']['bumen_copy']);
-				$System->relation("taskShenhe")->myRcreate($data);
-				$to_dataID = $System->getRelationID();
-				//生成OM
-				$to_dataomlist = A("Method")->_getDataOM($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
-				$DataOM = D("DataOM");
-				foreach($to_dataomlist as $vo){
-					list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
-					$to_dataom['type'] = '管理';
-					$to_dataom['dataID'] = $to_dataID;
-					$to_dataom['datatype'] = '审核任务';
-					foreach($process as $p){
-						$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
-						$DataOM->mycreate($to_dataom);
-						//需要提示的用户
-						$userIDlist = A("Method")->_getuserlistByDUR($to_dataom['DUR']);	
-						$userIDlist = array_merge($userIDlist,$userIDlist);
-						$userIDlist = array_unique($userIDlist);
-					}
-				}
-			}
+		//检查OM权限
+		//检查流程权限及状态
+		//生成审核任务
+		//生成待检出	
+		$userIDlist = A("Method")->_shenheDO($_REQUEST,$_REQUEST['dotype']);
+		if (false !== $userIDlist){
 			//记录
 			$url = '';
 			$message = '提交'.$_REQUEST['datatype'].'审核申请《'.$_REQUEST['title']."》";
 			A("Method")->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url,$userIDlist);	
-				
-			$this->ajaxReturn($_REQUEST, '提交审核成功！', 1);
+			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
-		else{
-			$this->ajaxReturn($_REQUEST, $System->getError(), 0);
-		}
+		else
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
 	}
 	
 	
 	
 	public function shenhe() {
-		
-		$ViewTaskShenhe = D("ViewTaskShenhe");
-		//$ViewTaskShenhe->where("``")->
-		
-		
-		
+		A("Method")->showDirectory("产品审核");
+		$datalist = A('Method')->getDataOMlist('审核任务',$_GET);
+		$this->assign("page",$datalist['page']);
+		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->display('shenhe');
-		
 	}
 	
 	

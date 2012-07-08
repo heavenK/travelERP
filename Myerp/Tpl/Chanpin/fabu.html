@@ -5,9 +5,7 @@
 
 <div id="main">
 
-  <tp:includeCA file="Chanpin:left_fabu" />
-    
-  <div id="content" style="margin-left:170px;">
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
   
     <include file="Chanpin:header_chanpin" />
    
@@ -447,7 +445,7 @@ function doComplete(data,status){
 	}
 }
 
-function doshenhe(){
+function doshenhe(dotype){
 	ThinkAjax.myloading('resultdiv');
 	var chanpinID = document.getElementById('chanpinID').value;
 	var title = document.getElementById('title').value;
@@ -456,7 +454,7 @@ function doshenhe(){
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/doshenhe",
-		data:	"dataID="+dataID+"&dotype=提交审核&processID=1"+"&datatype="+datatype+"&title="+title,
+		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv');
 		}

@@ -1,31 +1,11 @@
 <?php
 
 class MethodAction extends Action{
-    // 最后一次OM使用的部门
-    private $_usedbumenID =  null;
-    private $_usedbumen =  null;
-    // 最后一次OM使用的角色
-    private $_usedrolesID =  null;
-    private $_usedroles =  null;
-    public function _getOMUsedBumenID() {
-		return $this->_usedbumenID;
-	}
-    public function _getOMUsedRolesID() {
-		return $this->_usedrolesID;
-	}
-    public function _getOMUsedBumen() {
-		return $this->_usedbumen;
-	}
-    public function _getOMUsedRoles() {
-		return $this->_usedroles;
-	}
-	
 	
     //DataOM显示列表
-    public function getDataOMlist($datatype,$where,$type='管理') {
+    public function getDataOMlist($datatype,$where,$type='管理',$pagenum = 20) {
 		if($datatype == '审核任务')
-			$class_name = 'OMViewXianlu';
-			
+			$class_name = 'OMViewTaskShenhe';
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
@@ -80,8 +60,8 @@ class MethodAction extends Action{
 	
     //开放与管理
     public function _openAndManage_filter($where,$user_ID = '') {
-		$where = M('Model')->parseWhere($where);
 		$ViewSystemDUR = D("ViewSystemDUR");
+		$where = $ViewSystemDUR->parseWhere($where);
 		if($user_ID)
 			$myuserID = $user_ID;
 		else
@@ -99,11 +79,11 @@ class MethodAction extends Action{
 				$whereitem .= "(`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,')";//部门
 				$whereitem .= " OR (`DUR` = ',$v[rolesID],')";//角色
-				$whereitem .= " OR (`DUR` = ',,$v[uesrID]')";//用户
+				$whereitem .= " OR (`DUR` = ',,$v[userID]')";//用户
 			}
 		}
 		else
-				$whereitem .= "(`DUR` = ',,$v[uesrID]' )";//用户
+				$whereitem .= "(`DUR` = ',,$v[userID]' )";//用户
 		$where .= $whereitem.")";
 		return $where;
 	}
@@ -570,6 +550,84 @@ class MethodAction extends Action{
 		}
 		return $datalist;
 	 }
+	//审核任务
+	//生成待检出	
+	//检查审核流程
+     public function _shenheDO($_REQUEST,$dotype='') {
+		//检查OM
+		$omdata = $this->_checkDataOM($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
+		if(false === $omdata){
+			cookie('errormessage','您没有产品操管理权限！',30);
+			return false;
+		}
+		$data = $_REQUEST;
+		$data['taskShenhe'] = $_REQUEST;
+		if($dotype == '申请'){
+			$processID = 1;
+			$data['status'] = '申请';
+			cookie('successmessage','提交审核成功！',30);
+		}
+		else{
+			$need = $this->_checkTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);
+			$processID = $need['processID'];
+			$data['systemID'] = $need['systemID'];
+			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
+			$data['status'] = '检出';
+			else
+			$data['status'] = '批准';
+			cookie('successmessage','操作成功！'.$data['status'],30);
+		}
+		//检查流程状态
+		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID);
+		if(false === $process){
+			cookie('errormessage','错误！该流程不存在或已被执行，请勿重复执行！',30);
+			return false;
+		}
+		$data['taskShenhe']['processID'] = $processID;
+		$data['taskShenhe']['remark'] = $process[0]['remark'];
+		$data['taskShenhe']['roles_copy'] = $omdata['roles'];
+		$data['taskShenhe']['bumen_copy'] = $omdata['bumen'];
+		//审核任务
+		$System = D("System");
+		if (false === $System->relation("taskShenhe")->myRcreate($data)){
+			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
+			return false;
+		}
+		//生成待检出	
+		$process = $this->_checkShenhe($data['datatype'],$processID+1);
+		if($process){
+			$to_dataID = $System->getRelationID();
+			$data['status'] = '待检出';
+			if($processID == 1)
+				$data['parentID'] = $to_dataID;
+			else
+				$data['parentID'] = $need['parentID'];
+			$data['taskShenhe']['remark'] = $process[0]['remark'];
+			$data['taskShenhe']['processID'] = $processID+1;
+			unset($data['taskShenhe']['roles_copy']);
+			unset($data['taskShenhe']['bumen_copy']);
+			$System->relation("taskShenhe")->myRcreate($data);
+			//生成待检出OM
+			$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
+			$DataOM = D("DataOM");
+			foreach($to_dataomlist as $vo){
+				list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
+				$to_dataom['type'] = '管理';
+				$to_dataom['dataID'] = $to_dataID;
+				$to_dataom['datatype'] = '审核任务';
+				foreach($process as $p){
+					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
+					$DataOM->mycreate($to_dataom);
+					//返回需要提示的用户
+					$userIDlist = $this->_getuserlistByDUR($to_dataom['DUR']);	
+					$userIDlist = array_merge($userIDlist,$userIDlist);
+					$userIDlist = array_unique($userIDlist);
+				}
+			}
+			return $userIDlist;
+		}
+		return true;
+	 }
 	
 	
 	//获得审核流程
@@ -592,6 +650,19 @@ class MethodAction extends Action{
 		$DataOM = D("DataOM");
 		$data = $DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type'")->findall();
 	 	return $data;
+	 }
+	 
+	 
+	//检查数据审核任务OM
+     public function _checkDataShenheOM($dataID,$datatype) {
+	 	//流程
+		$process = $this->_checkTaskDJC($dataID,$datatype);
+		if(false !== $process){
+			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
+			if(false !== $omdata)
+				return $omdata;
+		}
+		return false;
 	 }
 	 
 	 
@@ -632,10 +703,10 @@ class MethodAction extends Action{
 				$omdata['bumen'] = $bumen['title'];
 				$omdata['departmentID'] = $bumen['systemID'];
 				
-				$this->_usedbumenID = $bumen['systemID'];
-				$this->_usedrolesID = $roles['systemID'];
-				$this->_usedbumen = $bumen['title'];
-				$this->_usedroles = $roles['title'];
+				cookie('_usedbumenID',$bumen['systemID'],30);
+				cookie('_usedrolesID',$roles['systemID'],30);
+				cookie('_usedbumen',$bumen['title'],30);
+				cookie('_usedroles',$roles['title'],30);
 				
 				return $omdata;
 			}
@@ -670,20 +741,51 @@ class MethodAction extends Action{
 		
 	 }
 	 
-	//检查审核流程
+	//检查流程状态待检出
+     public function _checkTaskDJC($dataID,$datatype) {
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		if($processID == ''){
+		  $need = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '待检出'")->find();
+		  return $need;
+		}
+		return false;
+	 }
+	 
+	 
+	//检查流程状态
      public function _checkDataShenhe($dataID,$datatype,$status,$processID) {
 		$ViewTaskShenhe = D("ViewTaskShenhe");
-		$has = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '$status' and `processID` = '$processID'")->find();
-		if($has)
-		return $has;
-		return false;
+		//检查审核流程权限
+		$process = $this->_checkShenhe($_REQUEST['datatype'],$processID);
+		if(!$process)
+			return false;
+		$has = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `processID` = '1'")->findall();
+		if($processID == 1){
+			foreach($has as $vol){
+				$ov = $ViewTaskShenhe->where("`parentID` = '$vol[systemID]' and `status` = '批准' ")->find();
+				if(!$ov)
+				return false;
+			}
+			return $process;
+		}
+		else{
+			foreach($has as $vol){
+				$ov = $ViewTaskShenhe->where("`parentID` = '$vol[systemID]' and `status` = '批准' ")->find();
+				if(!$ov){
+					$pro = $ViewTaskShenhe->where("`parentID` = '$vol[systemID]' and `status` = '$status' and `processID` = '$processID'")->find();
+					if($pro)
+					return false;
+				}
+			}
+			return $process;
+		}
 	 }
 		 
 		 
 	//历史记录
      public function _setMessageHistory($dataID,$datatype,$message='',$url='',$userIDlist) {
-		$data['infohistory']['message'] = $this->_getOMUsedBumen().$this->_getOMUsedRoles().'"'.$this->user['title'].'":'.$message;
-		$data['infohistory']['usedDUR'] = $this->_getOMUsedBumenID().','.$this->_getOMUsedRolesID().','.$this->user['systemID'];
+		$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
+		$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
 		$data['infohistory']['dataID'] = $dataID;
 		$data['infohistory']['datatype'] = $datatype;
 		$data['infohistory']['url'] = $url;
@@ -703,8 +805,16 @@ class MethodAction extends Action{
 			$DataOM->mycreate($dom);
 		}
 		//生成提示
-		if($userIDlist)
-			$this->_OMToDataNotice($data['infohistory'],$userIDlist);
+		if($userIDlist === true){
+			foreach($dataOMlist as $d){
+				//返回需要提示的用户
+				$userIDlist = $this->_getuserlistByDUR($d['DUR']);	
+				$userIDlist = array_merge($userIDlist,$userIDlist);
+				$userIDlist = array_unique($userIDlist);
+			}
+		}
+		elseif($userIDlist)
+		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
 	}
 		 
 		 

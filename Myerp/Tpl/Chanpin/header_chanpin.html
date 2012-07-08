@@ -23,7 +23,12 @@
     
       <div class="buttons">
         <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-        <input type="submit" value="提交审核" name="button" class="button primary" style="float:right" onclick="doshenhe();">
+      <php>if($root_shenqing){</php>
+        <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+        <php>}</php>
+      <php>if($root_shenhe){</php>
+        <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
+        <php>}</php>
       <php>if('基本信息' == $nowDir['title']){</php>
         <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
         <php>}</php>

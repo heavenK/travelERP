@@ -5,7 +5,7 @@ function NF_getusername(){
 }
 
 function NF_getmydepartmentid(){  
-	$bumenID = A("Method")->_getOMUsedBumenID();
+	$bumenID = cookie('_usedbumenID');
 	if(!$bumenID)
 	{
 		$DURlist = A("Method")->_getDURlist(A("Method")->user['systemID']);

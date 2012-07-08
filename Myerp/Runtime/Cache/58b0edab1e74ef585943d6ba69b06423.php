@@ -215,7 +215,7 @@ function showsearch(s)
                   <td scope="row" align="left" valign="top"><input value="<?php echo ($v['xianluID']); ?>" id="chanpinitem<?php echo ($i); ?>" type="checkbox" name="itemlist[]" class="checkbox"></td>
                   <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
                   <td scope="row" align="left" valign="top" style="min-width:300px;">
-                  <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a>
+                  <a target="_blank" href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a>
                   </td>
                   <td scope="row" align="left" valign="top">
                   <?php echo ($v['bianhao']); ?>

@@ -5,9 +5,7 @@
 
 <div id="main">
 
-  <?php A("Chanpin")->left_fabu(); ?>
-    
-  <div id="content" style="margin-left:170px;">
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
   
     
 	<script type="text/javascript">
@@ -34,7 +32,12 @@
     
       <div class="buttons">
         <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-        <input type="submit" value="提交审核" name="button" class="button primary" style="float:right" onclick="doshenhe();">
+      <?php if($root_shenqing){ ?>
+        <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+        <?php } ?>
+      <?php if($root_shenhe){ ?>
+        <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
+        <?php } ?>
       <?php if('基本信息' == $nowDir['title']){ ?>
         <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
         <?php } ?>
@@ -482,7 +485,7 @@ function doComplete(data,status){
 	}
 }
 
-function doshenhe(){
+function doshenhe(dotype){
 	ThinkAjax.myloading('resultdiv');
 	var chanpinID = document.getElementById('chanpinID').value;
 	var title = document.getElementById('title').value;
@@ -491,7 +494,7 @@ function doshenhe(){
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/doshenhe",
-		data:	"dataID="+dataID+"&dotype=提交审核&processID=1"+"&datatype="+datatype+"&title="+title,
+		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv');
 		}
