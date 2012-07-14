@@ -1,0 +1,329 @@
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ route_check ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run CheckRoute Behavior [ RunTime:0.000579s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ route_check ] --END-- [ RunTime:0.000652s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ app_begin ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000396s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000440s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003108s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000332s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002945s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000304s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.002749s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '线路产品' LIMIT 1   [ RunTime:0.000296s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40972' LIMIT 1   [ RunTime:0.000281s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002894s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000291s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.003056s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 316 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 316 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_dur` [ RunTime:0.002932s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_dur` WHERE `userID` = 40449  [ RunTime:0.000409s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 69 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 70 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.002927s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT DISTINCT  COUNT(*) AS tp_count FROM `myerpview_om_chanpin` WHERE ( `datatype` = '售价' ) AND ( `type` = '开放' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 1   [ RunTime:0.000566s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [2] Division by zero Page.class.php 第 51 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [2] Division by zero Page.class.php 第 75 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT DISTINCT  `dataID` FROM `myerpview_om_chanpin` WHERE ( `datatype` = '售价' ) AND ( `type` = '开放' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 0,20   [ RunTime:0.000426s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerp_chanpin_shoujia` [ RunTime:0.002810s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerp_chanpin_shoujia` [ RunTime:0.002594s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_chanpin_shoujia` [ RunTime:0.002845s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_chanpin_shoujia` WHERE 1=1 AND chanpinID='31193' LIMIT 1   [ RunTime:0.000327s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: j MethodAction.class.php 第 529 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002604s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.002912s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerp_dataCopy` [ RunTime:0.002628s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerp_dataCopy` WHERE `dataID` = '31175' and `datatype` = '线路' ORDER BY time desc LIMIT 1   [ RunTime:0.000231s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `parentID` = '31175'  [ RunTime:0.000526s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run LocationTemplate Behavior [ RunTime:0.000868s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --END-- [ RunTime:0.000917s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003284s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000335s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run LocationTemplate Behavior [ RunTime:0.000365s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --END-- [ RunTime:-0.039466s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: datatitle b30cabab87d73a25ac5418e1b290c6d0.php 第 5 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ParseTemplate Behavior [ RunTime:0.006342s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --END-- [ RunTime:0.006389s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ContentReplace Behavior [ RunTime:0.000487s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run TokenBuild Behavior [ RunTime:0.000500s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000364s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowRuntime Behavior [ RunTime:0.000515s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --END-- [ RunTime:0.001990s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowPageTrace Behavior [ RunTime:0.000507s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --END-- [ RunTime:0.000551s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: datatitle 5e02a2db8a567c55599f8f49e26034e1.php 第 24 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: title 5e02a2db8a567c55599f8f49e26034e1.php 第 53 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: bianhao 5e02a2db8a567c55599f8f49e26034e1.php 第 55 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: chufariqi 5e02a2db8a567c55599f8f49e26034e1.php 第 58 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: chufariqi 5e02a2db8a567c55599f8f49e26034e1.php 第 75 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: jiezhiriqi 5e02a2db8a567c55599f8f49e26034e1.php 第 77 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: user_name 5e02a2db8a567c55599f8f49e26034e1.php 第 79 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: zhuangtai 5e02a2db8a567c55599f8f49e26034e1.php 第 83 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: chufadi 5e02a2db8a567c55599f8f49e26034e1.php 第 98 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined variable: mudidi 5e02a2db8a567c55599f8f49e26034e1.php 第 100 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  time 5e02a2db8a567c55599f8f49e26034e1.php 第 217 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | NOTIC: [8] Undefined index:  departmentID 5e02a2db8a567c55599f8f49e26034e1.php 第 218 行.
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003281s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000335s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run LocationTemplate Behavior [ RunTime:0.000428s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_template ] --END-- [ RunTime:-0.054138s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ParseTemplate Behavior [ RunTime:0.001474s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.008345s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ContentReplace Behavior [ RunTime:0.000042s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run TokenBuild Behavior [ RunTime:0.000040s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowRuntime Behavior [ RunTime:0.000054s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.007878s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --END-- [ RunTime:-0.007562s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ParseTemplate Behavior [ RunTime:0.000068s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.008345s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ContentReplace Behavior [ RunTime:0.000122s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run TokenBuild Behavior [ RunTime:0.000113s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000010s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowRuntime Behavior [ RunTime:0.000070s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.008297s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-14T09:31:37+08:00 ] /Index.php?s=/Xiaoshou | INFO: Tag[ view_end ] --END-- [ RunTime:-0.008158s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ route_check ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run CheckRoute Behavior [ RunTime:0.000845s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ route_check ] --END-- [ RunTime:0.000936s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ app_begin ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000466s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000520s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003704s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000427s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003492s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000365s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003577s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '旅游产品' LIMIT 1   [ RunTime:0.000351s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003161s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000325s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.003165s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 319 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 319 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_dur` [ RunTime:0.003115s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_dur` WHERE `userID` = 40449  [ RunTime:0.000380s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 72 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 73 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.003031s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT DISTINCT  COUNT(*) AS tp_count FROM `myerpview_om_chanpin` WHERE ( `datatype` = '线路' ) AND ( `type` = '管理' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 1   [ RunTime:0.000419s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [2] Division by zero Page.class.php 第 51 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [2] Division by zero Page.class.php 第 75 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT DISTINCT  `dataID` FROM `myerpview_om_chanpin` WHERE ( `datatype` = '线路' ) AND ( `type` = '管理' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 0,20   [ RunTime:0.000417s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerp_chanpin_xianlu` [ RunTime:0.003303s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerp_chanpin_xianlu` [ RunTime:0.002811s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005387s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31175' LIMIT 1   [ RunTime:0.000460s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: j MethodAction.class.php 第 532 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000843s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:0.000891s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003108s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000319s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000348s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.023465s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: datatitle b30cabab87d73a25ac5418e1b290c6d0.php 第 5 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.006477s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:0.006526s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000521s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000515s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000376s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000530s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002067s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000522s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:0.000568s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003269s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000327s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000470s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.037602s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.015076s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.007735s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000068s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000061s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000057s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.020803s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000017s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.020520s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: datatitle f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 19 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: title f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 48 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: bianhao f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 50 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufariqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 53 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufariqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 70 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: jiezhiriqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 72 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: user_name f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 74 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: zhuangtai f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 78 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufadi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 93 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: mudidi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 95 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  xianluID f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 217 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Use of undefined constant chutuanriqi - assumed 'chutuanriqi' f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 226 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  departmentName f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 235 行.
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003100s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000379s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000443s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.058914s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.001511s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.029026s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000044s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000040s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000012s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000053s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.028517s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.028181s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.000072s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.029026s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000166s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000141s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000010s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000076s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.028939s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-14T09:53:55+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.028864s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ route_check ] --START--
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Run CheckRoute Behavior [ RunTime:0.000604s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ route_check ] --END-- [ RunTime:0.000683s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ app_begin ] --START--
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000380s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000427s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003314s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000403s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003105s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000316s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.002685s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '旅游产品' LIMIT 1   [ RunTime:0.000277s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002822s ]
+[ 2012-07-14T09:56:24+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000319s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.002927s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 320 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  _type MethodAction.class.php 第 320 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_dur` [ RunTime:0.002784s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_dur` WHERE `userID` = 40449  [ RunTime:0.000340s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 72 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: whereitem MethodAction.class.php 第 73 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_om_chanpin` [ RunTime:0.002842s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT DISTINCT  COUNT(*) AS tp_count FROM `myerpview_om_chanpin` WHERE ( `datatype` = '线路' ) AND ( `type` = '管理' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 1   [ RunTime:0.000361s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [2] Division by zero Page.class.php 第 51 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [2] Division by zero Page.class.php 第 75 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT DISTINCT  `dataID` FROM `myerpview_om_chanpin` WHERE ( `datatype` = '线路' ) AND ( `type` = '管理' ) AND ((`DUR` = '40150,40185,') OR (`DUR` = '40150,,') OR (`DUR` = ',40185,') OR (`DUR` = ',,40449') OR (`DUR` = '40178,40189,') OR (`DUR` = '40178,,') OR (`DUR` = ',40189,') OR (`DUR` = ',,40449')) LIMIT 0,20   [ RunTime:0.000386s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerp_chanpin_xianlu` [ RunTime:0.002786s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerp_chanpin_xianlu` [ RunTime:0.003074s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005177s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31175' LIMIT 1   [ RunTime:0.000377s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: j MethodAction.class.php 第 533 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000771s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:0.000817s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003113s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000394s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000439s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.017346s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: datatitle b30cabab87d73a25ac5418e1b290c6d0.php 第 5 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.006408s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:0.006458s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000497s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000529s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000369s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000522s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002038s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000511s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:0.000554s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003088s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000361s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000422s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.031278s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.004364s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.007441s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000066s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000064s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000010s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000058s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.009811s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.009547s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: datatitle f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 19 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: title f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 48 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: bianhao f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 50 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufariqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 53 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufariqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 70 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: jiezhiriqi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 72 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: user_name f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 74 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: zhuangtai f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 78 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: chufadi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 93 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined variable: mudidi f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 95 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  xianluID f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 217 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Use of undefined constant chutuanriqi - assumed 'chutuanriqi' f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 226 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | NOTIC: [8] Undefined index:  departmentName f35ed8b8f2c6901afe2dfb4cbf4d4ea6.php 第 235 行.
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002861s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000300s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run LocationTemplate Behavior [ RunTime:0.000397s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_template ] --END-- [ RunTime:-0.041343s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.001354s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017480s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000039s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000037s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000010s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000049s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.016838s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000017s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.016502s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ParseTemplate Behavior [ RunTime:0.000066s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017480s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ContentReplace Behavior [ RunTime:0.000157s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run TokenBuild Behavior [ RunTime:0.000139s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000013s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowRuntime Behavior [ RunTime:0.000092s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.017233s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --START--
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Run ShowPageTrace Behavior [ RunTime:0.000017s ]
+[ 2012-07-14T09:56:25+08:00 ] /Index.php?s=/Chanpin | INFO: Tag[ view_end ] --END-- [ RunTime:-0.017184s ]
