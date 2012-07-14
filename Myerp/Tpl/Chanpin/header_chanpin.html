@@ -1,6 +1,21 @@
 
 	<script type="text/javascript">
     var SITE_INDEX = '<{:SITE_INDEX}>';
+    var chanpinID = '<{$chanpinID}>';
+	var title =  '<{$chanpin[xianlu][title]}>';
+	function doshenhe(dotype){
+		ThinkAjax.myloading('resultdiv');
+		var dataID = chanpinID;
+		var datatype = '线路';
+		jQuery.ajax({
+			type:	"POST",
+			url:	SITE_INDEX+"Chanpin/doshenhe",
+			data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			}
+		});
+	}
     </script>
     <div class="moduleTitle" style="margin-bottom:10px;">
       <h3 style=""><{$navigation}><{$datatitle}></h3>

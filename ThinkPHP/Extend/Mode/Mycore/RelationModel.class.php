@@ -438,27 +438,28 @@ class RelationModel extends Model {
 				C('TOKEN_ON',false);
 				$class_name = $this->_link[$options['link']]['class_name'];
 				$relationClass = D("$class_name");
+				if($this->getLastmodel() == 'add'){
+					$data[$this->getPk()] = $this->getLastInsID();
+					$this->lastRelationID = $this->getLastInsID();
+				}
 				$key = $data[$this->getPk()];
+				$this->lastRelationID = $key;
 				$data = $data[$options['link']];
 				if(is_array($data[0])){
-					$i = 0;
 					foreach($data as $v){
-						if (false === $relationClass->mycreate($data[$i])){
+						//HAS_MANY
+						//$v[$this->getPk()] = $key;
+						if (false === $relationClass->mycreate($v)){
 							$this->rollback();
 							$this->error = $relationClass->getError(); 
 							return false;
 						}
-						$i++;
 					}
 					$this->commit();
 					return true;
 				}
 				else{
 					$data[$this->getPk()] = $key;
-					if($this->getLastmodel() == 'add'){
-						$data[$this->getPk()] = $this->getLastInsID();
-						$this->lastRelationID = $this->getLastInsID();
-					}
 					if (false !== $relationClass->mycreate($data)){
 						$this->commit();
 						return true;

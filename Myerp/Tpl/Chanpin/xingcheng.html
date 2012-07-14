@@ -4,16 +4,16 @@
 
   <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
   
-    <include file="Chanpin:header_chanpin" />
+    <tp:includeCA file="Chanpin:header_chanpin" />
    
     
 <form name="form" method="post" id="form" action="<{:SITE_INDEX}>Chanpin/dopostxingcheng/">
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
-  <input type="hidden" name="tianshu" value="<{$chanpin['xianlu']['tianshu']}>"> <!--ajax提示-->
-  <input type="hidden" name="chanpinID" value="<{$chanpin['chanpinID']}>"> <!--ajax提示-->
+  <input type="hidden" name="tianshu" value="<{$chanpin['xianlu']['tianshu']}>"> 
+  <input type="hidden" name="parentID" value="<{$chanpin['chanpinID']}>"> 
     
     <php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
-	<input type="hidden" name="xingchengID[]" value="<{$xingcheng[$count]['xingchengID']}>" />
+	<input type="hidden" name="chanpinID[]" value="<{$xingcheng[$count]['chanpinID']}>" />
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
         <tr>
@@ -87,8 +87,8 @@ function save(){
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostxingcheng/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
-	if(status == 1){
-			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+data['chanpinID'];
-	}
+//	if(status == 1){
+//			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+data['chanpinID'];
+//	}
 }
 </script>

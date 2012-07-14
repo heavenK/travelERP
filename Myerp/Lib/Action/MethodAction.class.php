@@ -3,9 +3,18 @@
 class MethodAction extends Action{
 	
     //DataOM显示列表
-    public function getDataOMlist($datatype,$where,$type='管理',$pagenum = 20) {
-		if($datatype == '审核任务')
+    public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20) {
+		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
+		}
+		if($datatype == '线路'){
+			$class_name = 'OMViewChanpin';
+			$where['datatype'] = $datatype;
+		}
+		if($datatype == '售价'){
+			$class_name = 'OMViewChanpin';
+			$where['datatype'] = $datatype;
+		}
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
@@ -15,31 +24,13 @@ class MethodAction extends Action{
 		$count = $DataOM->Distinct(true)->field('dataID')->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $DataOM->relation("xianlu")->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->select();
-		$chanpin = $this->_getRelation_select_after($chanpin,"xianlu");
+        $chanpin = $DataOM->relation($relation)->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		return $redata;
 	}
 
-    //显示产品列表
-    public function xianlu_list($where,$type='管理',$pagenum = 20) {
-		$class_name = 'OMViewXianlu';
-		$where['type'] = $type;
-		$where = $this->_facade($class_name,$where);//过滤搜索项
-		$where = $this->_openAndManage_filter($where);
-		$DataOM = D($class_name);
-        import("@.ORG.Page");
-        C('PAGE_NUMBERS',10);
-		$count = $DataOM->Distinct(true)->field('dataID')->where($where)->count();
-		$p= new Page($count,$pagenum);
-		$page = $p->show();
-        $chanpin = $DataOM->relation("xianlu")->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->select();
-		$chanpin = $this->_getRelation_select_after($chanpin,"xianlu");
-		$redata['page'] = $page;
-		$redata['chanpin'] = $chanpin;
-		return $redata;
-	}
 
     //显示产品列表
     public function xianlu_list_noOM($where,$pagenum = 20) {
@@ -100,9 +91,6 @@ class MethodAction extends Action{
 		$i = 0;
 		foreach($DURlist as $v)
 		{
-			//$departmentList[$i]
-			
-			
 			if($v['parenttype'] == '部门'){
 				$where['userID'] = $myuserID;
 				$where['bumenID'] = $v['parentID'];
@@ -268,6 +256,24 @@ class MethodAction extends Action{
 		
 		return $dat;
 	 }
+
+		
+	//分类解析
+     public function _fenlei_filter($dat) {
+		$ViewCategory = D("ViewCategory");
+		$ViewDepartment = D("ViewDepartment");
+		$i=0;
+		foreach($dat as $v){
+			if($v['opentype'] == '分类')
+				$d = $ViewCategory->where("`systemID` = '$v[openID]'")->find();
+			if($v['opentype'] == '部门')
+				$d = $ViewDepartment->where("`systemID` = '$v[openID]'")->find();
+			$dat[$i]['title'] = $d['title'];
+			$i++;
+		}
+		return $dat;
+	 }
+	
 	
      public function _xianluOMlist($dataID,$datatype,$method) {
 		$ViewSystemOM = D("ViewSystemOM");
@@ -402,6 +408,20 @@ class MethodAction extends Action{
 		return $datas4;
 	 }
 	 
+	//获得用户部门角色列表
+     public function _getDURlist_name($user_name) {
+		if(!$user_name)
+			$user_name = $this->user['title'];
+		$ViewUser = D("ViewUser");
+		$user = $ViewUser->where("`title` = '$user_name'")->find();
+		if($user){
+			$SystemDUR = D("SystemDUR");
+			$datas4 = $SystemDUR->where("`userID` = '$user[systemID]'")->findall();
+			return $datas4;
+		}
+		return false;
+	 }
+	 
 	//获得用户列表
      public function _getUserlist($bumenID,$rolesID) {
 		$ViewSystemDUR = D("ViewSystemDUR");
@@ -423,12 +443,37 @@ class MethodAction extends Action{
 	 }
 	
 	
+	//同步DataOM:售价开放管理到对象
+     public function _shoujiaToDataOM($data) {
+		$DataOM = D("DataOM");
+		$DataOM->where("`dataID` = '$data[chanpinID]' and `datatype` = '售价'")->delete();
+		$OM['dataID'] = $data['chanpinID'];
+		$OM['datatype'] = '售价';
+		$OM['type'] = '开放';
+		if($data['opentype'] == '分类'){
+			$departmentlist = $this->_getDClist($data['openID']);
+			foreach($departmentlist as $s){
+				$OM['bumenID'] = $s['dataID'];
+				$OM['DUR'] = _OMToDataOM_filter($OM);
+				$DataOM->mycreate($OM);
+			}
+			return;
+		}
+		if($data['opentype'] == '部门'){
+			$OM['bumenID'] = $data['openID'];
+		}
+		$OM['DUR'] = $this->_OMToDataOM_filter($OM);
+		$DataOM->mycreate($OM);
+	 }
+	 
+	 
+	 
 	
 	//同步开放管理到对象
      public function _OMToDataOM($data) {
 		$DataOM = D("DataOM");
 		if($data['systemID']){
-			$DataOM->where("`OMID` = '$data[systemID]'")->delete();
+			$DataOM->where("`OMID` = '$data[systemID]' and `datatype` = '$data[datatype]'")->delete();
 			$OM['OMID'] = $data['systemID'];
 		}
 		$OM['dataID'] = $data['dataID'];
@@ -550,6 +595,26 @@ class MethodAction extends Action{
 		}
 		return $datalist;
 	 }
+	 
+	 //数据备份：生成
+     public function makefiledatacopy($dataID,$datatype,$taskID) {
+	 	if($datatype == '线路'){
+			$ViewXianlu = D('ViewXianlu');
+			$data['xianlu'] = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
+			$ViewXingcheng = D('ViewXingcheng');
+			$data['xingcheng'] = $ViewXingcheng->where("`parentID` = '$dataID'")->findall();
+			$ViewChengben = D('ViewChengben');
+			$data['chengben'] = $ViewChengben->where("`parentID` = '$dataID'")->findall();
+			$data['copy'] = serialize($data);
+			$DataCopy = D('DataCopy');
+			$data['dataID'] = $dataID;
+			$data['datatype'] = $datatype;
+			$data['taskID'] = $taskID;
+			$DataCopy->myCreate($data);
+		}
+	 }
+	 
+	 
 	//审核任务
 	//生成待检出	
 	//检查审核流程
@@ -593,10 +658,15 @@ class MethodAction extends Action{
 			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
 			return false;
 		}
+		$to_dataID = $System->getRelationID();
+		//生成数据备份
+		if($data['status'] == '批准'){
+			$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$to_dataID);
+		}
+		
 		//生成待检出	
 		$process = $this->_checkShenhe($data['datatype'],$processID+1);
 		if($process){
-			$to_dataID = $System->getRelationID();
 			$data['status'] = '待检出';
 			if($processID == 1)
 				$data['parentID'] = $to_dataID;
@@ -707,6 +777,8 @@ class MethodAction extends Action{
 				cookie('_usedrolesID',$roles['systemID'],30);
 				cookie('_usedbumen',$bumen['title'],30);
 				cookie('_usedroles',$roles['title'],30);
+				cookie('_usedbumenaddr',$bumen['addr'],30);
+				cookie('_usedbumenfax',$bumen['fax'],30);
 				
 				return $omdata;
 			}
@@ -967,6 +1039,24 @@ class MethodAction extends Action{
 			$result = $group_user->add($datas);
 		}
 	 }
+	 
+	 
+	 //生成客户订单中间表
+     public function createCustomerDingdan($data) {
+	 	//删除原始
+		$DataCD = D("DataCD");
+		$DataCD->where("`customerID` = '$data[customerID]' and `dingdanID` = '$data[dingdanID]'")->delete();
+	 	//生成新
+		$DataCD->mycreate($data);
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	 
 	 

@@ -26,7 +26,7 @@ var SITE_INDEX = '<?php echo SITE_INDEX;?>';
     </div>
     <div id="mysearchdiv"  <?php if(cookie('closesearch')) echo 'style="display:none"'; ?> >
         <ul id="searchTabs" class="tablist">
-          <li style="margin-right:1px;">
+          <li>
               <a id="searchtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
           </li>
           <li>
@@ -931,6 +931,88 @@ function showsearch(s)
         <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
         <td scope="row" align="left" valign="top"><form id="form<?php echo ($v['systemID']); ?>" ><input type="text" name="title" id="title<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['title']); ?>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['description']); ?>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<?php echo ($v['systemID']); ?>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<?php echo ($v[systemID]); ?>','resultdiv_2'))save(<?php echo ($v['systemID']); ?>,'itemlist<?php echo ($v[systemID]); ?>');"/>
+        </td>
+      </tr>
+      <?php }} ?>
+      
+      
+      
+      
+      <?php if('成本' == $nowDir['title']){ ?>
+		<script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/SetSystem/chengben.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><?php echo ($nowDir['title']); ?></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 描述 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+        
+      <?php $i = 0; foreach($datalist as $v){ $i++; ?>
+      <tr height="30" class="evenListRowS1" id="itemlist<?php echo ($v['systemID']); ?>">
+        <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
+        <td scope="row" align="left" valign="top"><form id="form<?php echo ($v['systemID']); ?>" ><input type="text" name="title" id="title<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['title']); ?>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['description']); ?>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<?php echo ($v['systemID']); ?>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<?php echo ($v[systemID]); ?>','resultdiv_2'))save(<?php echo ($v['systemID']); ?>,'itemlist<?php echo ($v[systemID]); ?>');"/>
+        </td>
+      </tr>
+      <?php }} ?>
+      
+      
+      
+      
+      <?php if('部门设置' == $nowDir['title']){ ?>
+		<script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/SetSystem/department.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><?php echo ($nowDir['title']); ?></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 地址 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 传真 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 电子邮箱 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+        
+      <?php $i = 0; foreach($datalist as $v){ $i++; ?>
+      <tr height="30" class="evenListRowS1" id="itemlist<?php echo ($v['systemID']); ?>">
+        <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
+        <td scope="row" align="left" valign="top"><form id="form<?php echo ($v['systemID']); ?>" ><input type="text" name="title" id="title<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['title']); ?>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['lianxiren']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="officetel<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['officetel']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="postal<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['postal']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="addr<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['addr']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="fax<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['fax']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="email<?php echo ($v['systemID']); ?>" style="width:100px" value="<?php echo ($v['email']); ?>"></td>
         <td scope="row" align="left" valign="top">
         <input class="button" type="button" value="删除" onClick="deleteSystemItem(<?php echo ($v['systemID']); ?>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<?php echo ($v[systemID]); ?>','resultdiv_2'))save(<?php echo ($v['systemID']); ?>,'itemlist<?php echo ($v[systemID]); ?>');"/>

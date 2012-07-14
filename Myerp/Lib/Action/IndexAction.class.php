@@ -81,6 +81,10 @@ class IndexAction extends Action{
 		$this->display('Index:footer');
 	}
 	
-	
+    public function verify() {  
+        $type = isset($_GET['type']) ? $_GET['type'] : 'gif'; 
+        import("@.ORG.Image"); 
+		Image::buildImageVerify(4, 1, $type); 
+    } 	
 }
 ?>

@@ -1,0 +1,116 @@
+
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<style>
+.mytem td { border:none}
+.list_new tr td {
+	padding: 0px 8px 0px 5px !important;
+	vertical-align: middle;
+}
+</style>
+<div id="main">
+
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:searchxianlu" />
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          	分类&nbsp;&nbsp;
+                            <input class="button" type="button" value=" 出境 ">
+                            <input class="button" type="button" value=" 国内 ">
+                            <input class="button" type="button" value=" 联合体 ">
+                            <input class="button" type="button" value=" 办事处 ">
+                            <input class="button" type="button" value=" 自由人 ">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
+                </tr>
+                
+                
+                <php>foreach($chanpin_list as $v){</php>
+                <tr height="30" class="evenListRowS1">
+                  <td valign="top" align="left" scope="row">1</td>
+                  <td valign="top" align="left" style="min-width:300px;" scope="row"><{$v['xianlu']['xianlu']['title']}></td>
+                  <td valign="top" align="left" scope="row"><{$v['xianlu']['xianlu']['bianhao']}></td>
+                  <td valign="top" align="left" scope="row"><php>echo date('Y/m/d H:i',$v['xianlu']['time']);</php></td>
+                  <td valign="top" align="left" style="min-width:50px;" scope="row"><{$v['xianlu']['departmentID']}></td>
+                </tr>  
+                <tr height="30" class="evenListRowS1">
+                    <td valign="top" align="left" scope="row" colspan="10">
+                    <table cellpadding="0" cellspacing="0" width="100%" class="list_new view mytem" style="border:none">
+                      <tbody>
+                        <tr>
+                          <td valign="top" align="left" style="vertical-align:top;" width="10" >
+                          <input class="button" type="button" value=" 展开 " onclick="opendatelist()" id="buttomopen" style="float:left">
+                          <input class="button" type="button" value=" 收起 " onclick="closedatelist()" id="buttomclose" style="display:none; float:left; ">
+                          </td>
+                          <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td">
+                            <php>foreach($v['zituan'] as $vol){</php>
+                                <a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/zituan/chanpinID/<{$vol['chanpinID']}>/xianluID/<{$vol['parentID']}>/shoujiaID/<{$v['dataID']}>" ><{$vol['chutuanriqi']}><br /><{$v['adultprice']}>元 剩余:<{$vol['renshu']}></a>
+                            <php>}</php>
+                          </td>
+                        </tr>  
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>  
+                <php>}</php>
+                
+                
+              </tbody>
+            </table>
+            
+            
+                
+  </div>
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+function opendatelist(){
+		jQuery("#sall_td").css( "height","100%"); 
+		jQuery("#buttomclose").show();
+		jQuery("#buttomopen").hide();
+}
+function closedatelist(){
+		jQuery("#sall_td").css( "height","37px"); 
+		jQuery("#buttomopen").show();
+		jQuery("#buttomclose").hide();
+}
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+</script>
+
+

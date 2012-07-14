@@ -34,3 +34,8 @@ ul.tablist_2
 }
 
 .headerList a{float:left; margin:0px; }
+
+.sall_td a{height:30px; width:100px; border:1px solid #993; float:left; line-height:14px; margin:2px 2px 3px; text-align:center; background:#FC9; text-decoration:none }
+.sall_td a:hover{height:30px; width:100px; border:1px solid #993; float:left; line-height:14px; margin:2px 2px 3px; text-align:center ; background:#FC3; text-decoration:none; cursor:pointer}
+
+

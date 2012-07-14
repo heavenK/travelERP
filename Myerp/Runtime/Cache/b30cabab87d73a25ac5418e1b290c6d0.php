@@ -178,9 +178,9 @@ function todo_logout(data,status){
     <ul>
       <li class="noBorder">&nbsp;</li>
       <?php if($navposition == '销售'){ ?>
-      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<?php echo SITE_INDEX;?>Xiaoshou" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <?php }else{ ?>
-      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<?php echo SITE_INDEX;?>Xiaoshou" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <?php } ?>
       
       <li class="noBorder">&nbsp;</li>

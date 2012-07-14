@@ -21,7 +21,7 @@ class SetSystemAction extends CommonAction{
 		$ViewCategory = D("ViewCategory");
 		$datas = $ViewCategory->findall();
 		$this->assign("datalist",$datas);
-		$this->display('templateList');
+		$this->display('templatelist');
 	}
 	
 	public function dopostCategory(){
@@ -53,7 +53,7 @@ class SetSystemAction extends CommonAction{
 		$this->assign("systemDClist",$datas2['systemDClist']);
 		$this->assign("category",$datas2);
 		$this->assign("datatitle",' : "'.$datas2['category']['title'].'"');
-		$this->display('templateList');
+		$this->display('templatelist');
 		
 	}
 	
@@ -102,7 +102,7 @@ class SetSystemAction extends CommonAction{
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("listdatas",$datas);
-			$this->display('templateList');
+			$this->display('templatelist');
 		}
 		else{
 			A("Method")->showDirectory("数据开放与管理");
@@ -119,7 +119,7 @@ class SetSystemAction extends CommonAction{
 		A('Method')->unitlist();
 		A("Method")->showDirectory("数据开放与管理");
 		$this->assign("datatitle",' > '.$_REQUEST['method'].' : "'.$_REQUEST['datatitle'].'"');
-		$this->display('templateList');
+		$this->display('templatelist');
 		
 	}
 	
@@ -160,7 +160,7 @@ class SetSystemAction extends CommonAction{
 		$users = A('Method')->search_list("ViewUser",$_REQUEST);
 		$this->assign("users",$users);
 		A("Method")->unitlist();
-		$this->display('templateList');
+		$this->display('templatelist');
 	}
 	
 	public function userDUR(){
@@ -173,7 +173,7 @@ class SetSystemAction extends CommonAction{
 		A('Method')->unitlist();
 		$this->assign("DURlist",$DURlist);
 		$this->assign("datatitle",' : "'.$_REQUEST['datatitle'].'"');
-		$this->display('templateList');
+		$this->display('templatelist');
 	}
 	
 	
@@ -240,7 +240,7 @@ class SetSystemAction extends CommonAction{
 		$dd = $ViewDirectory->relation("directory")->where("`systemID` = '$parentID'")->find();
 		if($dd)
 		$this->assign("datatitle",' : "'.$dd['title'].'"');
-		$this->display('templateList');
+		$this->display('templatelist');
 	}
 	
 	//统一system内表数据增加
@@ -273,7 +273,7 @@ class SetSystemAction extends CommonAction{
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("datatitle",' : "'.$datatype.'"');
-			$this->display('templateList');
+			$this->display('templatelist');
 		}
 		else{
 			A("Method")->showDirectory("审核流程");
@@ -352,6 +352,10 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == '主题'){
 			A("Method")->showDirectory("主题");
+			$this->display('templatelist');
+		}
+		elseif($where['type'] == '成本'){
+			A("Method")->showDirectory("成本");
 			$this->display('templatelist');
 		}
 		else
@@ -492,7 +496,12 @@ class SetSystemAction extends CommonAction{
 	}
 	
 	
-	
+	public function department(){
+		A("Method")->showDirectory("部门设置");
+		$datas = A('Method')->_getDepartmentList();
+		$this->assign("datalist",$datas);
+		$this->display('templatelist');
+	}
 	
 }
 ?>

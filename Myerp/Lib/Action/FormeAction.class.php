@@ -261,14 +261,15 @@ class FormeAction extends Action{
 		
 		$glxingcheng=M("glxingcheng");
 		$xingchengAll = $glxingcheng->where("`xianluID` = '$v[xianluID]'")->findall();
-		$myerp_chanpin_xingcheng=M("myerp_chanpin_xingcheng");
+		$Chanpin=D("Chanpin");
 		//线路
 		foreach($xingchengAll as $v)
 		{
 			$dat = $v;
-			$dat['chanpinID'] = $chanpinID;
-			$dat['chanyin'] = $v['time'];
-			$myerp_chanpin_xingcheng->add($dat);
+			$dat['parentID'] = $chanpinID;
+			$dat['xingcheng'] = $v;
+			$dat['xingcheng']['chanyin'] = $v['time'];
+			$Chanpin->relation("xingcheng")->myRcreate($dat);
 		}
 		
     }
@@ -330,7 +331,7 @@ class FormeAction extends Action{
 //		//zituan
 		$Zituan = D("Zituan");
 		$Xianlu = D("Xianlu");
-		$xl = $Xianlu->where("`ChanpinID` = '$chanpinID'")->find();
+		$xl = $Xianlu->where("`chanpinID` = '$chanpinID'")->find();
 		$xl['remark'] = $dd['xianlu']['remark'];
 		$Xianlu->save($xl);
 		

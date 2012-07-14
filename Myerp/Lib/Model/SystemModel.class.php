@@ -49,6 +49,8 @@ class SystemModel extends RelationModel {
 		'taskShenhe'=>array('mapping_type'=>HAS_ONE,'class_name'=>'TaskShenhe','foreign_key'=>'systemID'),
 		//datadictionary
 		'datadictionary'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemDataDictionary','foreign_key'=>'systemID'),
+		//customer
+		'customer'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Customer','foreign_key'=>'systemID'),
 	);
 	
 

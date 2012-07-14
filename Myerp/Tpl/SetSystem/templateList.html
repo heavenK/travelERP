@@ -678,6 +678,88 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       
       
+      <php>if('成本' == $nowDir['title']){</php>
+		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/chengben.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 描述 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+        
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
+        </td>
+      </tr>
+      <php>}}</php>
+      
+      
+      
+      
+      <php>if('部门设置' == $nowDir['title']){</php>
+		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/department.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 地址 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 传真 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 电子邮箱 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+        
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<{$v['systemID']}>" style="width:80px" value="<{$v['lianxiren']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="officetel<{$v['systemID']}>" style="width:80px" value="<{$v['officetel']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="postal<{$v['systemID']}>" style="width:80px" value="<{$v['postal']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="addr<{$v['systemID']}>" style="width:200px" value="<{$v['addr']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="fax<{$v['systemID']}>" style="width:80px" value="<{$v['fax']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="email<{$v['systemID']}>" style="width:100px" value="<{$v['email']}>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
+        </td>
+      </tr>
+      <php>}}</php>
+      
+      
+      
+      
       
       
         </tbody>

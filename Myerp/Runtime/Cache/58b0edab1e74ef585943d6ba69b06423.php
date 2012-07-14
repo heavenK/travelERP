@@ -29,7 +29,7 @@
     </div>
     <div id="mysearchdiv"  <?php if(cookie('closesearch')) echo 'style="display:none"'; ?> >
         <ul id="searchTabs" class="tablist">
-          <li style="margin-right:1px;">
+          <li>
               <a id="searchtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
           </li>
           <li>

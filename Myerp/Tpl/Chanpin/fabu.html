@@ -7,7 +7,7 @@
 
   <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
   
-    <include file="Chanpin:header_chanpin" />
+    <tp:includeCA file="Chanpin:header_chanpin" />
    
 <form name="form" method="post" id="form">
   <php>if($xianlu[chanpinID]){</php>
@@ -412,7 +412,7 @@ function showdiv_2(id){
 		url = url + "/title/"+document.getElementById("shipin").value;
 		obj =document.getElementById('selectshipin');
 		jQuery("#iftitle").html('选择视频');
-		objleft = getPosLeft(obj) - 430;
+		objleft = getPosLeft(obj) -230;
    }
    if(id == 'tupian'){
 		var url = '<{:SITE_INDEX}>/SetSystem/dataDictionary/type/图片';
@@ -445,21 +445,6 @@ function doComplete(data,status){
 	}
 }
 
-function doshenhe(dotype){
-	ThinkAjax.myloading('resultdiv');
-	var chanpinID = document.getElementById('chanpinID').value;
-	var title = document.getElementById('title').value;
-	var dataID = chanpinID;
-	var datatype = '线路';
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/doshenhe",
-		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		}
-	});
-}
 
 </script>
 <div style="position: absolute; display:none;" id="divselect">
