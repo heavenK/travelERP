@@ -12,11 +12,25 @@ class ChanpinModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-        array('status', '准备', 1), 
+//        array('status', '准备', 1),
+        array('status', 'set_status', 1,'callback','status',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('time', 'time', 1, 'function'), 
         array('user_name', 'NF_getusername', 1, 'function'), 
         array('departmentID', 'NF_getmydepartmentid', 1, 'function'), 
+        array('marktype', 'set_marktype', 1,'callback'),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
+	
+	protected function set_status($args) {
+		if($args != '')	
+			return $args;
+		else
+			return '准备';
+	}
+	
+	protected function set_marktype() {
+		$options = $this->getRelationOptions();
+		return $options;
+	}
 	
 	protected $_link = array(
 		//xianlu

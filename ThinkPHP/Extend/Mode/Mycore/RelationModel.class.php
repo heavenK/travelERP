@@ -29,7 +29,8 @@ class RelationModel extends Model {
     // 关联定义
     protected    $_link = array();
     // add by gaopeng
-    protected $lastRelationID = array();
+    protected $_lastRelationID = array();
+    protected $_relationname = array();
 	//end
     /**
      +----------------------------------------------------------
@@ -433,6 +434,7 @@ class RelationModel extends Model {
      public function myRcreate($data='',$options=array()) {
 			// 分析表达式
 			$options =  $this->_parseOptions($options);
+			$this->_relationname = $options['link'];
 			$this->startTrans();
 			if (false !== $this->mycreate($data)){
 				C('TOKEN_ON',false);
@@ -440,10 +442,10 @@ class RelationModel extends Model {
 				$relationClass = D("$class_name");
 				if($this->getLastmodel() == 'add'){
 					$data[$this->getPk()] = $this->getLastInsID();
-					$this->lastRelationID = $this->getLastInsID();
+					$this->_lastRelationID = $this->getLastInsID();
 				}
 				$key = $data[$this->getPk()];
-				$this->lastRelationID = $key;
+				$this->_lastRelationID = $key;
 				$data = $data[$options['link']];
 				if(is_array($data[0])){
 					foreach($data as $v){
@@ -478,7 +480,11 @@ class RelationModel extends Model {
 	 }
 	 
     public function getRelationID() {
-        return $this->lastRelationID;
+        return $this->_lastRelationID;
+    }
+	 
+    public function getRelationOptions() {
+		return $this->_relationname;
     }
 	 
 	//end

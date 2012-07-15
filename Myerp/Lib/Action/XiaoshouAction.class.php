@@ -83,7 +83,13 @@ class XiaoshouAction extends CommonAction{
 	
 	
     public function baoming() {
-	
+		C('TOKEN_ON',false);
+//		if (md5($_REQUEST['verifyTest']) != session('verify')) {  
+//				justalert('验证码错误,请刷新验证码并重新填写！');
+//				gethistoryback();
+//		  } 
+//		else
+//		session('verify',null);
 		//检查dataOM
 		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 		if(false === $xiaoshou){
@@ -120,12 +126,30 @@ class XiaoshouAction extends CommonAction{
 				justalert('成人价格必须！');
 				gethistoryback();
 		} 	
-		unset($_REQUEST['__hash__']);
 		
-		$renshu = $_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];
-		$this->assign("renshu",$renshu);
-		$this->assign("_REQUEST",$_REQUEST);
-		$this->display('baomingnext');
+		if($_REQUEST['status'] == '确认'){
+			unset($_REQUEST['__hash__']);
+			$renshu = $_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];
+			$this->assign("renshu",$renshu);
+			$this->assign("_REQUEST",$_REQUEST);
+			$this->display('baomingnext');
+		}
+		if($_REQUEST['status'] == '占位'){
+			//生成订单
+			$Chanpin = D("Chanpin");
+			$data = $_REQUEST;
+			$data['dingdan'] = $data;
+			$data['dingdan']['jiage'] = $_REQUEST['chengrenshu']*$_REQUEST['adultprice']+$_REQUEST['ertongshu']*$_REQUEST['childprice'];
+			$data['dingdan']['bumen_copy'] = cookie('_usedbumen');
+			if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
+				$chanpinID = $Chanpin->getRelationID();
+				justalert('占位成功！');
+				redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$chanpinID);
+			}
+			
+			dump($Chanpin);
+		}
+		
 	
 	}
 	
@@ -177,22 +201,23 @@ class XiaoshouAction extends CommonAction{
 				$cust['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$i];
 				$cust['price'] = $_REQUEST['price'.$i];
 				$cust['remark'] = $_REQUEST['remark'.$i];
-				if($_REQUEST['telnum'.$i]){ 
+				//
+				if($cust['zhengjiantype'] && $cust['zhengjianhaoma']){
 					//查询客户表
-					$c = $ViewCustomer->where("`telnum` = '$tel'")->find();
+					$c = $ViewCustomer->where("`zhengjiantype` = '$cust[zhengjiantype]' and `zhengjianhaoma` = '$cust[zhengjianhaoma]'")->find();
 					if($c)
-						$cust['customerID'] = $c['systemID'];	
+						$cust['customerID'] = $c['systemID'];
+				}
+				if(!$cust['telnum'] || !$c){
+					$cust['customer'] = $cust;
+					if(false !== $System->relation("customer")->myRcreate($cust))
+					$cust['customerID'] = $System->getRelationID();
 				}
 				//生成客户订单中间表
 				A("Method")->createCustomerDingdan($cust);
-			
-			
 			}
-			
-			
-			
 		}
-		dump($Chanpin);
+		//dump($Chanpin);
 	}
 	
 	
