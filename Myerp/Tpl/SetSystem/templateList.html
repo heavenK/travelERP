@@ -759,6 +759,42 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       
       
+      <php>if('提成' == $nowDir['title']){</php>
+		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/ticheng.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成百分比（例如提成5%即填5） </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+        
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
+        </td>
+      </tr>
+      <php>}}</php>
+      
+      
+      
+      
       
       
       

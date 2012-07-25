@@ -5,7 +5,7 @@ class DataCDModel extends Model {
 	
    // 自动验证设置 
     protected $_validate = array( 
-        array('customerID', 'require', 'customerID不能为空！', 1,'',1), 
+        array('name', 'require', 'name不能为空！', 1,'',1), 
         array('dingdanID', 'require', 'dingdanID不能为空！', 1,'',1), 
         array('price', 'require', 'price不能为空！', 1,'',1), 
     ); 
@@ -16,7 +16,8 @@ class DataCDModel extends Model {
     ); 
 
 	protected $_link = array(
-
+		//customer
+		'customer'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'System','true_class_name'=>'myerpview_system_customer','foreign_key'=>'customerID','parent_key'=>'systemID'),
 	);
 
 

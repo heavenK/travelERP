@@ -57,7 +57,7 @@
 		for ( var b=0;b<chengbentypelist.length; b++)
 		htmlcontent += "<option value=\""+chengbentypelist[b]+"\">"+chengbentypelist[b]+"</option>";
 		htmlcontent += "</select></td>";
-		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"title"+data['chanpinID']+"\" value=\""+data['title']+"\"></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"price\" class=\"jisuanchengben\" id=\"price"+data['chanpinID']+"\" value=\""+data['price']+"\"></td>";
 		
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select name=\"jifeitype\" id=\"jifeitype"+data['chanpinID']+"\">";

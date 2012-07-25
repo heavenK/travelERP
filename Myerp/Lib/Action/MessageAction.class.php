@@ -8,7 +8,7 @@ class MessageAction extends Action{
 		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,10')->findall();
 		if($notice != null){
 			foreach($notice as $v){
-				$str .= '<a href="javascript:void(0)" style="padding:0 2px 4px 8px;" onclick="del_alert('.$v['id'].');window.open('.$v['url'].')">
+				$str .= '<a href="javascript:void(0)" style="padding:0 2px 4px 8px; width:100%" onclick="del_alert('.$v['id'].');window.open('.$v['url'].')">
 						<img border="0" width="16" height="16" align="absmiddle" src="'.__PUBLIC__.'/myerp/images/icon_SugarFeed.gif">&nbsp;<span>'.$v['message'].'</span>
 						</a>';
 			}

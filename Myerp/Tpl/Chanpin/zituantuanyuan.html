@@ -1,0 +1,103 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+<div id="main">
+  <include file="Chanpin:left_kongguan" />
+  <div id="content" style="margin-left:170px;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    <tp:includeCA file="Chanpin:header_kongguan" />
+    
+            <php> foreach($dingdanlist as $v){</php>
+    
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div style=" background:#4E8CCF; color:#FFF"> 订单编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 订单来源 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 订单状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 成人人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 儿童人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 领队人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 订单售价 </div></th>
+                </tr>
+                
+                <tr style="cursor:pointer" height="30" class="evenListRowS1" onclick="showinfo(<{$v['chanpinID']}>)">
+                  <td scope="row" align="left" valign="top"><{$v['chanpinID']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['bumen_copy']}>-<{$v['user_name']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['status']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chengrenshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['ertongshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['lingdui_num']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['jiage']}></td>
+                </tr>
+                
+                
+              </tbody>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div style=" background:#090; color:#FFF"> 姓名 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团费 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 需求 </div></th>
+                </tr>
+                <php> foreach($v['tuanyuanlist'] as $vol){</php>
+                <tr style="cursor:pointer" height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$vol['name']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['sex']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['manorchild']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['price']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjiantype']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjianhaoma']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['telnum']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
+                </tr>
+                <php> }</php>
+                
+              </tbody>
+            </table>
+      
+                <php> }</php>
+      
+  </div>
+  
+</div>
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+
+function showinfo(chanpinID){
+	window.location = '<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/'+chanpinID;
+}
+
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+function doprint(zituanID)
+{
+//    var url = '<{:SITE_ADMIN}>Kongguan/jiedaijihua/zituanID/'+zituanID+'/isprint/打印';
+//    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
+	alert("暂无");
+}
+function exports(chanpinID,type)
+{
+	window.location.href = '<{:SITE_INDEX}>Chanpin/_tuanyuan_exports/chanpinID/'+chanpinID+'/type/'+type;
+}
+function exports_word(zituanID)
+{
+	window.location.href = '<{:SITE_INDEX}>Kongguan/exports_word/zituanID/'+zituanID;
+}
+
+</script>

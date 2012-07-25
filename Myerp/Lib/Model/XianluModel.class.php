@@ -1,7 +1,6 @@
 <?php
 
 class XianluModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_chanpin_xianlu';	
 	
    // 自动验证设置 
@@ -13,12 +12,11 @@ class XianluModel extends Model {
         array('chufadi', 'require', 'chufadi不能为空！', 1,'',1), 
         array('renshu', 'require', 'renshu不能为空！', 1,'',1), 
         array('tianshu', 'require', 'tianshu不能为空！', 1,'',1), 
-//        array('user_name', 'require', '用户名必须！', 1), 
+        array('chutuanriqi', 'require', 'chutuanriqi不能为空！', 1,'',1), 
     ); 
     // 自动填充设置 
     protected $_auto = array( 
         array('ischild', '0', 1), 
-//        array('time', 'time', 1, 'function'), 
     ); 
 
 	

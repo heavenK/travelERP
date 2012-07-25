@@ -215,6 +215,12 @@ class RelationModel extends Model {
                                 break;
                             case HAS_MANY:
                                 $pk   =  $result[$this->getPk()];
+							//add by gaopeng
+								if(!$pk || count($result) == 1){
+									$data_result   =  array_values($result);
+									$pk   =  $data_result[0];
+								}
+							//end	
                                 $mappingCondition .= " AND {$mappingFk}='{$pk}'";
                                 $mappingOrder =  !empty($val['mapping_order'])?$val['mapping_order']:'';
                                 $mappingLimit =  !empty($val['mapping_limit'])?$val['mapping_limit']:'';

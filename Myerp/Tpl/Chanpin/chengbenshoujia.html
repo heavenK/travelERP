@@ -1,155 +1,120 @@
 <tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/chengbenshoujia.js"></script>
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+<script type="text/javascript">
+var chengbentypelist = new Array(<{$chengbenlist}>);
+var chanpinID = '<{$chanpinID}>';
+var parentID = '<{$chanpinID}>';
+var SITE_INDEX = '<{:SITE_INDEX}>';
+var category = [
+	 <php>foreach($categoryAll as $v){</php>
+		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
 
-		<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/chengbenshoujia.js"></script>
+var department = [
+	 <php>foreach($departmentAll as $v){</php>
+		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
 
-		<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
-        <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
-		<script type="text/javascript">
-		var chengbentypelist = new Array(<{$chengbenlist}>);
-		var chanpinID = <{$chanpinID}>;
-		var parentID = <{$chanpinID}>;
-		var SITE_INDEX = '<{:SITE_INDEX}>';
-        var category = [
-             <php>foreach($categoryAll as $v){</php>
-                  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
-             <php>}</php>
-         ];
-        
-        var department = [
-             <php>foreach($departmentAll as $v){</php>
-                  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
-             <php>}</php>
-         ];
-        
-		jQuery().ready(function() {
-				<php>foreach($shoujia as $v){</php>
-					myautocomplete("#<{$v[chanpinID]}>",'<{$v[opentype]}>');	
-				 <php>}</php>
-				var t =jisuanchengben();
-				var str = '成人总成本：'+t['chengren']+',儿童总成本：'+t['ertong'];
-				jQuery("#chengbenjisuan").html(str); 
-				});
-        </script>
+jQuery().ready(function() {
+		<php>foreach($shoujia as $v){</php>
+			myautocomplete("#<{$v[chanpinID]}>",'<{$v[opentype]}>');	
+		 <php>}</php>
+		var t =jisuanchengben();
+		var str = '成人总成本：'+t['chengren']+',儿童总成本：'+t['ertong'];
+		jQuery("#chengbenjisuan").html(str); 
+		});
+</script>
 <div id="main">
-
   <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
-  
     <tp:includeCA file="Chanpin:header_chanpin" />
-    
-    
-          <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="chengben">
-            <tbody>
-            
-              <tr class="pagination">
-                <td colspan="6">
-                <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
-                    <tbody>
-                      <tr>
-                        <td nowrap="nowrap" class="paginationActionButtons">
-                          <strong>成本项目</strong>&nbsp;
-                          <input class="button" type="button" value="新增" onclick="insertchengben();" />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </td>
-              </tr>
-              
-              <tr height="20">
-                <th scope="col" nowrap="nowrap"> 
-                序号
-                </th>
-                <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 描述 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 对象 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
-              </tr>
-              <php>$i = 0;foreach($chengben as $v){$i++;</php>
-				<input type="hidden" class="jisuanchengben" value="<{$v['chanpinID']}>" >
-              <tr height="30" class="evenListRowS1" id="chengbenrow<{$v['chanpinID']}>">
-                <td scope="row" align="left" valign="top">
-                <{$i}>
-                </td>
-                <td scope="row" align="left" valign="top">
-                <select name="title" id="title<{$v['chanpinID']}>" >
-                <php>if($v['title']){</php>
-                <option value="<{$v['title']}>"><{$v['title']}></option>
-                <option disabled>-------</option>
-                <php>}</php>
-                <php>foreach($chengbenlist_1 as $tb){</php>
-                <option value="<{$tb['title']}>"><{$tb['title']}></option>
-                <php>}</php>
-                </select>
-                </td>
-                <td scope="row" align="left" valign="top">
-				<input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-				<input type="text" name="price" id="price<{$v['chanpinID']}>" value="<{$v['price']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <select name="jifeitype" id="jifeitype<{$v['chanpinID']}>" >
-                <php>if($v['jifeitype']){</php>
-                <option><{$v['jifeitype']}></option>
-                <option disabled>-------</option>
-                <php>}</php>
-                <option value="全部">全部</option>
-                <option value="成人">成人</option>
-                <option value="儿童">儿童</option>
-                </select>
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input class="button" type="button" value="删除" onClick="deletechengben(<{$v['chanpinID']}>)" />
-                <input class="button" type="button" value="修改" onClick="addchengben(<{$v['chanpinID']}>)" />
-                </td>
-              </tr>
-              <php>}</php>
-              
-            </tbody>
-          </table>
-          
-          
-          <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
-            <tbody>
-              <tr class="pagination">
-                <td colspan="6">
-                <table cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                      <tr>
-                        <td nowrap="nowrap">
-                          <strong>总成本:</strong>&nbsp;&nbsp;&nbsp;
-                          <span id="chengbenjisuan"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </td>
-            </tbody>
-          </table>
-    
-    
-          <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
-            <tbody>
-              <tr class="pagination">
-                <td colspan="6">
-                <table cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                      <tr>
-                        <td nowrap="nowrap">
-                          <strong>对外统一显示价格:</strong>&nbsp;&nbsp;&nbsp;
-                          <input type="text" id="xianlushoujia" value="<{$chanpin['shoujia']}>" >&nbsp;&nbsp;&nbsp;
-                          <strong>儿童及其他说明:</strong>&nbsp;&nbsp;&nbsp;
-                          <input style="width:400px;" type="text" id="xianluremark" value="<{$chanpin['remark']}>"  >&nbsp;&nbsp;&nbsp;
-                          <input style="margin-top:-2px;" class="button" type="button" value="保存" onclick="saveshoujia()"/>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </td>
-            </tbody>
-          </table>
-          <script>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="chengben">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong>成本项目</strong>&nbsp;
+                    <input class="button" type="button" value="新增" onclick="insertchengben();" /></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号 </th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 描述 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 对象 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = 0;foreach($chengben as $v){$i++;
+        </php>
+      
+      <input type="hidden" class="jisuanchengben" value="<{$v['chanpinID']}>" >
+      <tr height="30" class="evenListRowS1" id="chengbenrow<{$v['chanpinID']}>">
+        <td scope="row" align="left" valign="top"><{$i}> </td>
+        <td scope="row" align="left" valign="top"><select name="title" id="title<{$v['chanpinID']}>" >
+            <php>if($v['title']){</php>
+            <option value="<{$v['title']}>"><{$v['title']}></option>
+            <option disabled>-------</option>
+            <php>}</php>
+            <php>foreach($chengbenlist_1 as $tb){</php>
+            <option value="<{$tb['title']}>"><{$tb['title']}></option>
+            <php>}</php>
+          </select></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" ></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="price" id="price<{$v['chanpinID']}>" value="<{$v['price']}>" ></td>
+        <td scope="row" align="left" valign="top"><select name="jifeitype" id="jifeitype<{$v['chanpinID']}>" >
+            <php>if($v['jifeitype']){</php>
+            <option><{$v['jifeitype']}></option>
+            <option disabled>-------</option>
+            <php>}</php>
+            <option value="全部">全部</option>
+            <option value="成人">成人</option>
+            <option value="儿童">儿童</option>
+          </select></td>
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deletechengben(<{$v['chanpinID']}>)" />
+          <input class="button" type="button" value="修改" onClick="addchengben(<{$v['chanpinID']}>)" /></td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>总成本:</strong>&nbsp;&nbsp;&nbsp; <span id="chengbenjisuan"></span></td>
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>对外统一显示价格:</strong>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="xianlushoujia" value="<{$chanpin['shoujia']}>" >
+                    &nbsp;&nbsp;&nbsp; <strong>儿童及其他说明:</strong>&nbsp;&nbsp;&nbsp;
+                    <input style="width:400px;" type="text" id="xianluremark" value="<{$chanpin['remark']}>"  >
+                    &nbsp;&nbsp;&nbsp;
+                    <input style="margin-top:-2px;" class="button" type="button" value="保存" onclick="saveshoujia()"/></td>
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+    <script>
 		 function saveshoujia()
 		 {
 			var shoujia = jQuery("#xianlushoujia").val();
@@ -165,89 +130,61 @@
 			
 		 }
 		  </script>
-          
-          
-          <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="shoujia">
-            <tbody>
-            
-              <tr class="pagination">
-                <td colspan="11">
-                <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
-                    <tbody>
-                      <tr>
-                        <td nowrap="nowrap" class="paginationActionButtons">
-                          <strong>指定销售</strong>&nbsp;
-                          <input class="button" type="button" value="新增分类" onclick="insertshoujia('分类');" />
-                          <input class="button" type="button" value="+部门" onclick="insertshoujia('部门');" />
-                        </td>
-                        <td nowrap="nowrap" align="right" class="paginationChangeButtons">
-                          <{$page}>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </td>
-              </tr>
-              
-              <tr height="20">
-                <th scope="col" nowrap="nowrap"> 序号</th>
-                <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 对象 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 对象类型 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 成人价 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 儿童价 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 折扣范围 </div></th>
-                <th scope="col" nowrap="nowrap"><div> 开放人数 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
-              </tr>
-              <php>$i = 0;foreach($shoujia as $v){$i++;</php>
-              <tr height="30" class="evenListRowS1" id="shoujiarow<{$v['chanpinID']}>">
-                <td scope="row" align="left" valign="top"><{$i}></td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="title" id="<{$v['chanpinID']}>" value="<{$v['title']}>" >
-                <input type="hidden" id="openID<{$v['chanpinID']}>" value="<{$v['openID']}>">
-                </td>
-                <td scope="row" align="left" valign="top">
-                <{$v['opentype']}>
-                </td>
-                <td scope="row" align="left" valign="top">
-                <select name="type" id="type<{$v['chanpinID']}>" >
-                <php>if($v['type']){</php>
-                <option value="<{$v['type']}>"><{$v['type']}></option>
-                <option disabled>-------</option>
-                <php>}</php>
-                <option value="标准">标准</option>
-                <option value="机票酒店">机票酒店</option>
-                </select>
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="adultprice" id="adultprice<{$v['chanpinID']}>" value="<{$v['adultprice']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="childprice" id="childprice<{$v['chanpinID']}>" value="<{$v['childprice']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="chengben" id="chengben<{$v['chanpinID']}>" value="<{$v['chengben']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="cut" id="cut<{$v['chanpinID']}>" value="<{$v['cut']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input style="width:80px;" type="text" name="renshu" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" >
-                </td>
-                <td scope="row" align="left" valign="top">
-                <input class="button" type="button" value="删除" onClick="deleteshoujia(<{$v['chanpinID']}>)" />
-                <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'<{$v['opentype']}>'))addshoujia(<{$v['chanpinID']}>,'<{$v['opentype']}>')" />
-                </td>
-              </tr>
-              <php>}</php>
-            </tbody>
-          </table>
-          
-    
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="shoujia">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong>指定销售</strong>&nbsp;
+                    <input class="button" type="button" value="新增分类" onclick="insertshoujia('分类');" />
+                    <input class="button" type="button" value="+部门" onclick="insertshoujia('部门');" /></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 对象 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 对象类型 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成人价 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 儿童价 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 折扣范围 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 开放人数 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = 0;foreach($shoujia as $v){$i++;
+        </php>
+      
+      <tr height="30" class="evenListRowS1" id="shoujiarow<{$v['chanpinID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="title" id="<{$v['chanpinID']}>" value="<{$v['title']}>" >
+          <input type="hidden" id="openID<{$v['chanpinID']}>" value="<{$v['openID']}>"></td>
+        <td scope="row" align="left" valign="top"><{$v['opentype']}> </td>
+        <td scope="row" align="left" valign="top"><select name="type" id="type<{$v['chanpinID']}>" >
+            <php>if($v['type']){</php>
+            <option value="<{$v['type']}>"><{$v['type']}></option>
+            <option disabled>-------</option>
+            <php>}</php>
+            <option value="标准">标准</option>
+            <option value="机票酒店">机票酒店</option>
+          </select></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="adultprice" id="adultprice<{$v['chanpinID']}>" value="<{$v['adultprice']}>" ></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="childprice" id="childprice<{$v['chanpinID']}>" value="<{$v['childprice']}>" ></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="chengben" id="chengben<{$v['chanpinID']}>" value="<{$v['chengben']}>" ></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="cut" id="cut<{$v['chanpinID']}>" value="<{$v['cut']}>" ></td>
+        <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="renshu" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" ></td>
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteshoujia(<{$v['chanpinID']}>)" />
+          <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'<{$v['opentype']}>'))addshoujia(<{$v['chanpinID']}>,'<{$v['opentype']}>')" /></td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
   </div>
 </div>
-
 <tp:includeCA file="Index:footer" />
-

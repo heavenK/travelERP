@@ -1,0 +1,112 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+<div id="main">
+  <include file="Chanpin:left_kongguan" />
+  <div id="content" style="margin-left:170px;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    <tp:includeCA file="Chanpin:header_kongguan" />
+    
+    
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
+              <tbody>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 计划人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 剩余名额 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 确认人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 占位人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 候补人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 成人人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 儿童人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 领队人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 总团费 </div></th>
+                </tr>
+                
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$zituan['renshu']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo $zituan['renshu'] - $tuanrenshu['querenrenshu'] - $tuanrenshu['zhanweirenshu']</php></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[querenrenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[zhanweirenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[houburenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[chengrenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[ertongrenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[lingduirenshu]}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanrenshu[baomingjiage]}></td>
+                </tr>
+                
+                
+              </tbody>
+            </table>
+    
+    
+    
+    
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团名 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 来源 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 联系人 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 成人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 儿童数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 领队数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 售价 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 提成类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 所属人 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 订单类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 时间 </div></th>
+                </tr>
+                
+                <php> $i = -1; foreach($dingdanlist as $v){ $i++;</php>
+                <tr style="cursor:pointer" height="30" class="evenListRowS1" onclick="showinfo(<{$v['chanpinID']}>)">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top" style=" color:#0B578F"><{$v['chanpinID']}></td>
+                  <td scope="row" align="left" valign="top" style="min-width:200px; width:20%;"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top" style="min-width:100px;"><{$v['bumen_copy']}>-<{$v['user_name']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['lianxiren']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['telnum']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chengrenshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['ertongshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['lingdui_num']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['jiage']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['owner']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['status']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo date('m/d H:i',$v['time'])</php></td>
+                </tr>
+                <php> }</php>
+                
+                
+              </tbody>
+            </table>
+      
+      
+      
+  </div>
+  
+</div>
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+
+function showinfo(chanpinID){
+	window.location = '<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/'+chanpinID;
+}
+
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+</script>

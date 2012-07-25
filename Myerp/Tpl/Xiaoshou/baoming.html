@@ -4,21 +4,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><{$xianlu['xianlu']['title']}></title>
 <link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
-<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js" type="text/javascript"></script>
 
-		<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
-        <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
-		<script type="text/javascript">
-		 
-        var user = [
-             <php>foreach($userlist as $v){</php>
-                  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
-             <php>}</php>
-         ];
-        
-		jQuery().ready(function() {
-			  myautocomplete("#owner",'用户');
-		});
+<script language="javascript" src="<{:__PUBLIC__}>/myerp/jquery-1.7.2.min.js" ></script>
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+<script type="text/javascript">
+function save(){
+	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Xiaoshou/baoming/ajaxtest/1',doComplete,'resultdiv');
+}
+function doComplete(data,status){
+	if(status == 1){
+		document.getElementById('form1').action='<{:SITE_INDEX}>Xiaoshou/baoming';
+		document.getElementById('form1').submit();
+	}
+}
+var user = [
+	 <php>foreach($userlist as $v){</php>
+		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+
+jQuery().ready(function() {
+	  myautocomplete("#owner",'用户');
+});
 		
  function myautocomplete(target,parenttype)
 {
@@ -43,116 +57,29 @@
 		})
 }
 		
-		
-        </script>
-
-
-<script type="text/javascript">
-
-    function setMeg()
-    {
-		return true;
-		
-         var synum="";
-         var adult=document.getElementById("chengrenshu");
-         var child=document.getElementById("ertongshu");
-         var state=document.getElementById("status");
-         var person=document.getElementById("lianxiren");
-         var phone=document.getElementById("telnum");
-		 var adult_price=document.getElementById("adultprice");
-		 var child_price=document.getElementById("childprice");
-        if(person.value=="")
-        {
-            alert("请填写联系人");
-            person.focus();
-            return false;
-        }
-		
-         if(phone.value=="")
-        {
-            alert("请填写联系人电话");
-            phone.focus();
-            return false;
-        }
-        
-        if((adult.value=="")&&(child.value==""))
-        {
-            alert("请输入人数");
-             adult.focus();
-            return false;
-        }
-        if((adult.value==0)&&(child.value==0))
-        {
-            alert("请输入大于0的数字");
-            adult.focus();
-            return false;
-        }
-		if((adult_price.value<0)&& (adult_price.value<0))
-        {
-            alert("请保证成人价格不小于0");
-            adult.focus();
-            return false;
-        }
-		if((child_price.value<0)&&(child_price.value<0))
-        {
-            alert("请保证儿童价格不小于0");
-            adult.focus();
-            return false;
-        }
-        if((adult.value>=50)||(child.value>=50))
-        {
-            alert("请输入小于50的数字");
-            adult.focus();
-            return false;
-        }
-        if(state.value=="1"&&(parseInt(adult.value)>parseInt(synum)||parseInt(child.value)>parseInt(synum)||(parseInt(adult.value)+parseInt(child.value))>parseInt(synum)))
-        {
-            alert("余位不足，请重新填写人数");
-            adult.focus();
-            return false;
-        }
-        
-        if(state.value=="2"&&(parseInt(adult.value)>parseInt(synum)||parseInt(child.value)>parseInt(synum)||(parseInt(adult.value)+parseInt(child.value))>parseInt(synum)))
-        {
-            return confirm("余位不足，订单将转为候补状态，确认继续?");
-        }
-       
-        if(if(checktitle())
-        {
-            alert("所属人填写错误");
-            return false;
-        }
-       
-        return　true;
-    }
-
-	function Getthisvalue(obj,maxcut,price,tab)
+function checktable()
+{
+	if(CheckForm('form1','resultdiv_2'))
 	{
-		if (Number(obj.value) > maxcut) {
-			obj.value = 0;
-			alert('您输入的值超过' +maxcut + '了！');
+		if(checktitle()){
+			var state=document.getElementById("status");
+			if(state.value=="占位")
+				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
+			save();
 		}
-		document.getElementById(tab).value  = price - Number(obj.value);
+		else
+			ajaxalert("所属人填写错误");
 	}
+}
 
-    function CheckState()
-    {
-        var state=document.getElementById("status");
-        if(state.value=="1")
-        {
-            alert("您选择了占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
-        }
-        return true;
-    }
-	
-	
-	function dochange(id)
-	{
-		var type = document.getElementById("type").value;
-		window.location.href = "<{:SITE_MENSHI}>Index/baoming/zituanID/"+id+"/type/"+type;
-	}
-	
-	
+function CheckState()
+{
+	var state=document.getElementById("status");
+	if(state.value=="占位")
+		alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
+	return true;
+}
+
 function checktitle(){
 	datas = user;
 	var title = jQuery("#owner").val();
@@ -170,10 +97,16 @@ function checktitle(){
 		return true;
 	}
 }
-    </script>    
-    
-    
-    
+
+function ajaxalert(title){
+	document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
+	jQuery("#resultdiv_2").show("fast"); 
+	this.intval = window.setTimeout(function (){
+		document.getElementById('resultdiv_2').style.display='none';
+		document.getElementById('resultdiv_2').innerHTML='';
+		},3000);
+}
+</script>    
     
     <style>
 .tb1 {
@@ -199,19 +132,21 @@ function checktitle(){
 </style>
     <div class="ks_box" style="margin-top:40px;">
     <!--整体-->
-
-    <form name="form1" method="post" action="<{:SITE_INDEX}>Xiaoshou/baoming" id="form1">
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+    <form name="form1" method="post" id="form1" >
+      <input type="hidden" name="title" value="<{$xianlu['xianlu']['title']}>" />
       <input type="hidden" name="zituanID" value="<{$chanpinID}>" />
       <input type="hidden" name="shoujiaID" value="<{$shoujiaID}>" />
       <table width="100%" class="tb1" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
-            <td colspan="3" height="27" align="left" ><h4><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 报名表 </h4></td>
+            <td colspan="3" height="32" align="left" ><h4><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 报名表 </h4></td>
             <td align="right"><a href="javascript:void(0)" onclick="window.history.back();"> <img src="<{:__PUBLIC__}>/gulianstyle/styles/A_ddgl-03.jpg"> </a></td>
           </tr>
           <tr>
             <td align="left" style="height: 32px"> 线路名称： </td>
-            <td colspan="3" style="height: 32px"><span id="lbLinename"><{$xianlu['xianlu']['title']}></span></td>
+            <td colspan="3" style="height: 32px"><{$xianlu['xianlu']['title']}></td>
           </tr>
           <tr>
             <td align="left" style="height: 32px"> 团号：</td>
@@ -221,20 +156,21 @@ function checktitle(){
           </tr>
           <tr>
             <td align="left" style="height: 27px;"> 剩余名额：</td>
-            <td style="height: 27px; width: 288px;"><span id="lbSyno"><{$shengyu}></span></td>
+            <td style="height: 27px; width: 288px;"><php>echo $shengyurenshu</php></td>
             <td align="left" style="height: 27px; width: 156px;">所属人：</td>
             <td align="left" style="height: 32px">
             	<input type="text" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">（绩效奖金）
             </td>
           </tr>
         <tr>
-          <td align="left" style="height: 32px"> 可选大客户：</td>
-          <td align="left" style="height: 32px"><select name="bigmanID" id="bigmanID">
-              <option value="">散客</option>
-              <option value="<{$bigman[id]}>"><{$bigman[title]}></option>
+          <td align="left" style="height: 32px"> 提成类型：</td>
+          <td align="left" style="height: 32px"><select name="tichengID" id="tichengID">
+          		<php>foreach($ticheng as $tiv){</php>
+                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
+                <php>}</php>
             </select>（提成依据）</td>
           <td align="left" style="height: 32px"> 订单类型：</td>
-          <td align="left" style="height: 32px"><select name="type" id="type" onchange="javascript:dochange('<{$zituan['zituanID']}>')" >
+          <td align="left" style="height: 32px"><select name="type" id="type">
               <php>if($type){</php>
               <option value="<php>echo $shoujia['chengben']</php>"><php>echo $shoujia['type']</php></option>
               <option disabled="disabled">--------------</option>
@@ -245,9 +181,9 @@ function checktitle(){
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 联系人：</td>
-          <td align="left" style="height: 32px"><input name="lianxiren" type="text" id="lianxiren"></td>
+          <td align="left" style="height: 32px"><input name="lianxiren" type="text" id="lianxiren" check="^\S+$" warning="联系人不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"> 联系电话：</td>
-          <td align="left" style="height: 32px"><input name="telnum" type="text" id="telnum" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')"></td>
+          <td align="left" style="height: 32px"><input name="telnum" type="text" id="telnum" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 包含领队数：</td>
@@ -282,15 +218,8 @@ function checktitle(){
           </td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px"> 目前以有<{$renshu}>人报名。</td>
-          <td align="left" style="height: 32px" colspan="3"><php>foreach($chengben_all as $key => $chengben){
-              if($key == 0) echo "当人数小于".$chengben['renshu']."时，成本为".$chengben['chengben']."元。<br />
-              ";
-              else {
-              echo "当人数小于".$chengben['renshu']."，大于".$chengben_all[$key-1]['renshu']."时，成本为".$chengben['chengben']."元。<br />
-              ";
-              }
-              }</php></td>
+          <td align="left" style="height: 32px"> 儿童及其他说明。</td>
+          <td align="left" style="height: 32px" colspan="3"><{$xianlu['xianlu']['remark']}></td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 备注：</td>
@@ -300,7 +229,18 @@ function checktitle(){
         <tr>
           <td align="left" style="height: 32px" colspan="4"></td>
         </tr>
+        <tr>
+          <td align="left" style="height: 32px"> 验证码：</td>
+          <td align="left" style="height: 32px" colspan="7"><input style=" height:18px;width:80px;float:left; margin-right:5px;" type='text' name='verifyTest'>
+            <img style="float:left" style='cursor:pointer' title='刷新验证码' src='<{:SITE_INDEX}>Index/verify' id='verifyImg' onClick='freshVerify()'/>（提示验证码错误可点击图片重新生成验证码）</td>
+        </tr>
         
+        <script type='text/javascript'>  
+		//重载验证码  
+		function freshVerify() {  
+		  document.getElementById('verifyImg').src='<{:SITE_INDEX}>Index/verify/'+Math.random();  
+		}  
+		</script>
           </tbody>
         
       </table>
@@ -308,7 +248,7 @@ function checktitle(){
       <table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
-            <td align="center" colspan="5" style="height: 32px"><input type="submit" value="保 存" id="Button1" onclick="return setMeg();"  class="anu"></td>
+            <td align="center" colspan="5" style="height: 32px"><input type="button" value="提交" onClick="return checktable();"  class="anu"></td>
           </tr>
         </tbody>
       </table>

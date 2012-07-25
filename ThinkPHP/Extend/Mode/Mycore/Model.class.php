@@ -958,16 +958,18 @@ class Model {
                         case 'function':    //  使用函数进行填充 字段的值作为参数
                         case 'callback': // 使用回调方法
                             $args = isset($auto[4])?(array)$auto[4]:array();
-							//add by gaooebg
-							if($auto[5] == 1){
-								$arg_list = explode(',',$args);
-								foreach($arg_list as $v)
-									$args[$v] = $data[$v];
-							}
-							//end
                             if(isset($data[$auto[0]])) {
                                 array_unshift($args,$data[$auto[0]]);
                             }
+							//add by gaooebg
+							if($auto[5] == 1){
+								$args = $auto[4];
+								$arg_list = explode(',',$args);
+								foreach($arg_list as $v)
+									$datalist[$v] = $data[$v];
+								$args = $datalist;	
+							}
+							//end
                             if('function'==$auto[3]) {
                                 $data[$auto[0]]  = call_user_func_array($auto[1], $args);
                             }else{

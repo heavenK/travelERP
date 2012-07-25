@@ -11,8 +11,8 @@ class SystemModel extends RelationModel {
     // 自动填充设置 
     protected $_auto = array( 
         array('time', 'time', 1, 'function'), 
-        array('user_name', 'NF_getusername', 1, 'function'), 
-        array('departmentID', 'NF_getmydepartmentid', 1, 'function'), 
+        array('user_name', 'NF_getusername', 3, 'function'), 
+        array('departmentID', 'NF_getmydepartmentid', 3, 'function'), 
         array('status', 'set_status', 1,'callback','status',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
 	

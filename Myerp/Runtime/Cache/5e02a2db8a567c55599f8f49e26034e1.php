@@ -34,6 +34,7 @@
       <img src="<?php echo __PUBLIC__;?>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
       </span>
     </div>
+    
     <div id="mysearchdiv"  <?php if(cookie('closesearch')) echo 'style="display:none"'; ?> >
         <ul id="searchTabs" class="tablist">
           <li>
@@ -203,7 +204,7 @@ function showsearch(s)
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 售价 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
                 </tr>
@@ -213,9 +214,9 @@ function showsearch(s)
                 <tr height="30" class="evenListRowS1">
                   <td valign="top" align="left" scope="row">1</td>
                   <td valign="top" align="left" style="min-width:300px;" scope="row"><?php echo ($v['xianlu']['xianlu']['title']); ?></td>
-                  <td valign="top" align="left" scope="row"><?php echo ($v['xianlu']['xianlu']['bianhao']); ?></td>
-                  <td valign="top" align="left" scope="row"><?php echo date('Y/m/d H:i',$v['xianlu']['time']); ?></td>
-                  <td valign="top" align="left" style="min-width:50px;" scope="row"><?php echo ($v['xianlu']['departmentID']); ?></td>
+                  <td valign="top" align="left" scope="row"><?php echo ($v['adultprice']); ?>元</td>
+                  <td valign="top" align="left" scope="row"><?php echo date('Y/m/d H:i',$v['xianlu']['xianlu']['time']); ?></td>
+                  <td valign="top" align="left" style="min-width:50px;" scope="row"><?php echo ($v['xianlu']['xianlu']['bumentitle']); ?></td>
                 </tr>  
                 <tr height="30" class="evenListRowS1">
                     <td valign="top" align="left" scope="row" colspan="10">
@@ -228,7 +229,7 @@ function showsearch(s)
                           </td>
                           <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td">
                             <?php foreach($v['zituan'] as $vol){ ?>
-                                <a target="_blank" href="<?php echo SITE_INDEX;?>Xiaoshou/zituan/chanpinID/<?php echo ($vol['chanpinID']); ?>/xianluID/<?php echo ($vol['parentID']); ?>/shoujiaID/<?php echo ($v['dataID']); ?>" ><?php echo ($vol['chutuanriqi']); ?><br /><?php echo ($v['adultprice']); ?>元 剩余:<?php echo ($vol['renshu']); ?></a>
+                                <a target="_blank" href="<?php echo SITE_INDEX;?>Xiaoshou/zituan/chanpinID/<?php echo ($vol['chanpinID']); ?>/xianluID/<?php echo ($vol['parentID']); ?>/shoujiaID/<?php echo ($v['dataID']); ?>" ><?php echo ($vol['chutuanriqi']); ?><br /> 报名:<?php echo ($baoming_renshu[$vol['chanpinID']]); ?>人 剩余:<?php echo ($vol['shengyurenshu']); ?></a>
                             <?php } ?>
                           </td>
                         </tr>  

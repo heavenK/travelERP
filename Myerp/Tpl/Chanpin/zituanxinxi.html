@@ -1,0 +1,308 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+function save(){
+	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Chanpin/dopostzituanxinxi',doComplete,'resultdiv');
+}
+function doComplete(data,status){
+}
+</script>
+
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+<div id="main"> <include file="Chanpin:left_kongguan" />
+  <div id="content" style="margin-left:170px;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    <tp:includeCA file="Chanpin:header_kongguan" />
+    
+    <form name="form1" method="post" id="form1" >
+    <input type="hidden" name="chanpinID" value="<{$zituan[chanpinID]}>">
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4>子团信息</h4>
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px;"> 团号: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="title" type="text" value="<php>echo trim($zituan['tuanhao'])</php>" check="^\S+$" warning="团号不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 报名截止: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><span>出团前</span>
+            <input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<php>echo trim($zituan['baomingjiezhi'])</php>" check="^\S+$" warning="报名截止不能为空,且不能含有空格">
+            <span>天</span></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 出团日期: </td>
+          <td valign="top" scope="row"><input name="title" type="text" value="<php>echo trim($zituan['chutuanriqi'])</php>" check="^\S+$" warning="出团日期不能为空,且不能含有空格" onfocus="WdatePicker()" ></td>
+          <td valign="top" scope="row"> 团队人数: </td>
+          <td valign="top" scope="row"><input name="renshu" type="text" value="<php>echo trim($zituan['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 报价修正: </td>
+          <td valign="top" scope="row"><span>成人价</span>
+            <input style="width:50px; margin:0 4px 0 4px;" name="adultxiuzheng" type="text" value="<php>echo trim($zituan['adultxiuzheng'])</php>">
+            <span>儿童价</span>
+            <input style="width:50px; margin:0 4px 0 4px;" name="childxiuzheng" type="text" value="<php>echo trim($zituan['childxiuzheng'])</php>"></td>
+          <td valign="top" scope="row" colspan="2"> (举例：加价200元，添入200即可，降价200则添入-200) </td>
+        </tr>
+      </tbody>
+    </table>
+    </form>
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4>线路信息</h4>
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><php>echo trim($zituan['xianlulist']['xianlu']['title'])</php></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 报名截止: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><span>出团前</span>
+            <php>echo trim($zituan['xianlulist']['xianlu']['baomingjiezhi'])</php>
+            <span>天</span></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 始发地: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['chufadi'])</php></td>
+          <td valign="top" scope="row"> 目的地: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['mudidi'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 计划人数: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['renshu'])</php>
+            <span style=" margin:0 10px 0 4px">人</span>
+            <php>if($xianlu[ischild] == 1){</php>
+            儿童占位
+            <php>}else{</php>
+            儿童不占位
+            <php>}</php></td>
+          <td valign="top" scope="row"> 行程天数: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['tianshu'])</php>
+            <span>天</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+      <tbody>
+        <tr>
+          <td valign="top" colspan="4" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                      <legend>出团日期</legend>
+                      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                        <tbody>
+                          <tr>
+                            <td scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['chutuanriqi'])</php></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </fieldset></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4>选填信息</h4>
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px;"> 主题: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><php>echo trim($zituan['xianlulist']['xianlu']['zhuti'])</php></td>
+          <td valign="top" scope="row" style="min-width:100px;"> 导游服务: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><php>if($xianlu['quanpei']){ </php>
+            全陪
+            <php>}</php>
+            <php>if($xianlu['dipei']){ </php>
+            地陪
+            <php>}</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 视频: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['shipin'])</php></td>
+          <td valign="top" scope="row"> 图片: </td>
+          <td valign="top" scope="row"><php>echo trim($zituan['xianlulist']['xianlu']['tupian'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:50px;"> 特色: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xingchengtese'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 须知: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['cantuanxuzhi'])</php></td>
+        </tr>
+      </tbody>
+    </table>
+    <php>$t =-1;foreach($zituan['xianlulist']['xingcheng'] as $xc) {$t++; </php>
+    <input type="hidden" name="chanpinID[]" value="<{$xc['chanpinID']}>" />
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4>行程：第<{$t+1}>天</h4>
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:40px; width:10%"> 住宿: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><{$xc['place']}></td>
+          <td valign="top" scope="row" style="min-width:40px; width:10%"> 餐饮: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><php>if(strstr($xc['chanyin'],'早餐')){</php>
+            早餐,
+            <php>}</php>
+            <php>if(strstr($xc['chanyin'],'午餐')){</php>
+            午餐,
+            <php>}</php>
+            <php>if(strstr($xc['chanyin'],'晚餐')){</php>
+            晚餐,
+            <php>}</php></td>
+          <td valign="top" scope="row" style="min-width:40px; width:10%"> 交通: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><php>if(strstr($xc['tools'],'飞机')){</php>
+            飞机,
+            <php>}</php>
+            <php>if(strstr($xc['tools'],'火车')){</php>
+            火车,
+            <php>}</php>
+            <php>if(strstr($xc['tools'],'轮船')){</php>
+            轮船,
+            <php>}</php>
+            <php>if(strstr($xc['tools'],'汽车')){</php>
+            汽车,
+            <php>}</php></td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                      <legend>内容</legend>
+                      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                        <tbody>
+                          <tr>
+                            <td scope="row"><{$xc['content']}> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </fieldset></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+      </tbody>
+    </table>
+    <php>}</php>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="chengben">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong>成本项目</strong>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号 </th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 描述 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 对象 </div></th>
+        </tr>
+          <php>
+      
+      $i = 0;foreach($zituan['xianlulist']['chengben'] as $v){$i++;$zongchengben += $v['price'];
+        </php>
+      
+      <tr height="30" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><{$i}> </td>
+        <td scope="row" align="left" valign="top"><{$v['title']}></td>
+        <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+        <td scope="row" align="left" valign="top"><{$v['price']}></td>
+        <td scope="row" align="left" valign="top"><{$v['jifeitype']}></td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>总成本:</strong>&nbsp;&nbsp;&nbsp; <span id="chengbenjisuan"><{$zongchengben}></span></td>
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>对外统一显示价格:</strong>&nbsp;&nbsp;&nbsp;
+                    <{$zituan['xianlulist']['xianlu']['shoujia']}>
+                    &nbsp;&nbsp;&nbsp; <strong>儿童及其他说明:</strong>&nbsp;&nbsp;&nbsp;
+                    <{$zituan['xianlulist']['xianlu']['remark']}>
+                    &nbsp;&nbsp;&nbsp; 
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="shoujia">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong>指定销售</strong>&nbsp; 
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px; width:20%"><div> 对象 </div></th>
+          <th scope="col" nowrap="nowrap" style="width:10%"><div> 对象类型 </div></th>
+          <th scope="col" nowrap="nowrap" style="width:10%"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成人价 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 儿童价 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 成本 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 折扣范围 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 开放人数 </div></th>
+        </tr>
+          <php>
+      
+      $i = 0;foreach($zituan['xianlulist']['shoujia'] as $v){$i++;
+        </php>
+      
+      <tr height="30" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><{$v['title']}></td>
+        <td scope="row" align="left" valign="top"><{$v['opentype']}> </td>
+        <td scope="row" align="left" valign="top"><{$v['type']}></td>
+        <td scope="row" align="left" valign="top"><{$v['adultprice']}></td>
+        <td scope="row" align="left" valign="top"><{$v['childprice']}></td>
+        <td scope="row" align="left" valign="top"><{$v['chengben']}></td>
+        <td scope="row" align="left" valign="top"><{$v['cut']}></td>
+        <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />

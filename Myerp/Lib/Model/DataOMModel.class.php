@@ -14,8 +14,7 @@ class DataOMModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-//        array('status', '准备', 1), 
-//        array('time', 'time', 1, 'function'), 
+        array('time', 'time', 1, 'function'), 
     ); 
 
 	protected $_link = array(
@@ -23,6 +22,8 @@ class DataOMModel extends RelationModel {
 		'xianlu'=>array('mapping_type'=>BELONGS_TO,'true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//infohistory
 		'infohistory'=>array('mapping_type'=>BELONGS_TO,'true_class_name'=>'merpview_message_infohistory','foreign_key'=>'dataID','parent_key'=>'messageID'),
+		//dingdan
+		'dingdan'=>array('mapping_type'=>BELONGS_TO,'true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 
 	);
 

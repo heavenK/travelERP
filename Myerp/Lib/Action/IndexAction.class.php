@@ -86,5 +86,17 @@ class IndexAction extends Action{
         import("@.ORG.Image"); 
 		Image::buildImageVerify(4, 1, $type); 
     } 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>

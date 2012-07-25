@@ -1,20 +1,15 @@
 <?php if (!defined('THINK_PATH')) exit(); A("Index")->showheader(); ?>
-
 <link href="<?php echo __PUBLIC__;?>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo __PUBLIC__;?>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
-
   <?php A("Chanpin")->left_fabu(); ?>
-
   <div id="content" style="margin-left:170px;">
-  
-            <div id="resultdiv" class="resultdiv"></div>
-            <div id="resultdiv_2" class="resultdiv"></div>
-            
-                
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+        
     <div class="moduleTitle" style="margin-bottom:10px;">
       <h2 style="margin-top:10px;"><?php echo ($navigation); echo ($datatitle); ?></h2>
       <div style="float:left; margin-left:50px; margin-top:6px;">
@@ -29,6 +24,7 @@
       <img src="<?php echo __PUBLIC__;?>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
       </span>
     </div>
+    
     <div id="mysearchdiv"  <?php if(cookie('closesearch')) echo 'style="display:none"'; ?> >
         <ul id="searchTabs" class="tablist">
           <li>
@@ -170,93 +166,57 @@ function showsearch(s)
 </script>
 
 
-            
-            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
-              
-                <tr class="pagination">
-                  <td colspan="11">
-                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
-                      <tbody>
-                        <tr>
-                          <td nowrap="nowrap" class="paginationActionButtons">
-                          	<a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<?php echo __PUBLIC__;?>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                            <input class="button" type="button" value=" 复制 ">
-                            <input class="button" type="button" value=" 发布 ">
-                            <input class="button" type="button" value=" 删除 ">
-                            <input class="button" type="button" value=" 锁定 ">
-                            <input class="button" type="button" value=" 解锁 ">
-                            <input class="button" type="button" value=" 截止 ">
-                          </td>
-                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
-                          	<?php echo ($page); ?>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </td>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<?php echo __PUBLIC__;?>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input class="button" type="button" value=" 复制 ">
+                    <input class="button" type="button" value=" 发布 ">
+                    <input class="button" type="button" value=" 删除 ">
+                    <input class="button" type="button" value=" 锁定 ">
+                    <input class="button" type="button" value=" 解锁 ">
+                    <input class="button" type="button" value=" 截止 "></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"><?php echo ($page); ?> </td>
                 </tr>
-                
-                <tr height="20">
-                  <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
-                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 发布人 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 网站发布 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
-                </tr>
-                
-                <?php $i = -1; foreach($chanpin_list as $v){ $i++; ?>
-                <tr height="30" class="evenListRowS1">
-                  <td scope="row" align="left" valign="top"><input value="<?php echo ($v['xianluID']); ?>" id="chanpinitem<?php echo ($i); ?>" type="checkbox" name="itemlist[]" class="checkbox"></td>
-                  <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
-                  <td scope="row" align="left" valign="top" style="min-width:300px;">
-                  <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a>
-                  </td>
-                  <td scope="row" align="left" valign="top">
-                  <?php echo ($v['bianhao']); ?>
-                  </td>
-                  <td scope="row" align="center" valign="top">
-                  <img name="aa" onclick="showdate('<?php echo Fi_ConvertChars($v[chutuanriqi]) ?>');showbox(this,'dateitem')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
-                  </td>
-                  <td scope="row" align="left" valign="top">
-                  <?php echo ($v['user_name']); ?>
-                  </td>
-                  <td scope="row" align="left" valign="top">
-                  <?php echo date('Y/m/d H:i',$v['time']); ?>
-                  </td>
-                  <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <?php echo ($v['departmentName']); ?>
-                  </td>
-                  <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <?php echo ($v['status']); ?>
-                  </td>
-                  <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <?php echo ($v['islock']); ?>
-                  </td>
-                  <td scope="row" align="left" valign="top" style="min-width:50px;">
-                  <?php echo ($v['ispub']); ?>
-                  </td>
-                  <td scope="row" align="center" valign="top">
-                  <img onclick="showmessage(this,'<?php echo ($v['chanpinID']); ?>','线路','操作记录');showbox(this,'messageitem','r')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" />
-                  </td>
-                </tr>
-                <?php } ?>
-                
               </tbody>
-            </table>
-            
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 发布人 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
+        </tr>
+          <?php $i = -1; foreach($chanpin_list as $v){ $i++; ?>
+      
+      <tr height="30" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><input value="<?php echo ($v['xianluID']); ?>" id="chanpinitem<?php echo ($i); ?>" type="checkbox" name="itemlist[]" class="checkbox"></td>
+        <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:300px; width:30%"><a href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a></td>
+        <td scope="row" align="center" valign="top"><img name="aa" onclick="showdate('<?php echo Fi_ConvertChars($v[chutuanriqi]) ?>');showbox(this,'dateitem')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+        <td scope="row" align="left" valign="top"><?php echo ($v['user_name']); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['bumen_copy']); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['status']); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['islock']); ?></td>
+        <td scope="row" align="left" valign="top"><?php echo date('Y/m/d',$v['time']); ?></td>
+        <td scope="row" align="center" valign="top"><img onclick="showmessage(this,'<?php echo ($v['chanpinID']); ?>','线路','操作记录');showbox(this,'messageitem','r')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+      </tr>
+      <?php } ?>
+        </tbody>
+      
+    </table>
   </div>
 </div>
-
 <?php A("Index")->footer(); ?>
-
 <script language="javascript"> 
 
 function dosearch()
@@ -264,9 +224,7 @@ function dosearch()
 		title = document.getElementById('title').value;
 		window.location = '<?php echo SITE_INDEX;?>Chanpin/index/title/'+title;
 }
-
 </script>
-
 <div id="selectitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -274,20 +232,14 @@ function dosearch()
         <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
             <tbody>
               <tr>
-                <td valign="top" class="olOptionsFgClass">
-                <div class="olFontClass">
-                <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a>
-                <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a>
-                </div>
-                </td>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass"> <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a> <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a> </div></td>
               </tr>
             </tbody>
           </table></td>
       </tr>
     </tbody>
   </table>
-</div>            
-
+</div>
 <div id="dateitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -295,18 +247,14 @@ function dosearch()
         <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
             <tbody>
               <tr>
-                <td valign="top" class="olOptionsFgClass">
-                <div class="olFontClass" id="thedate">
-                </div>
-                </td>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
               </tr>
             </tbody>
           </table></td>
       </tr>
     </tbody>
   </table>
-</div>            
-
+</div>
 <div id="messageitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -314,10 +262,7 @@ function dosearch()
         <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
             <tbody>
               <tr>
-                <td valign="top" class="olOptionsFgClass">
-                <div class="olFontClass" id="themessage">
-                </div>
-                </td>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="themessage"> </div></td>
               </tr>
             </tbody>
           </table></td>

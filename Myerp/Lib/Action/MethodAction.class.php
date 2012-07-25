@@ -2,10 +2,18 @@
 
 class MethodAction extends Action{
 	
+    public function _initialize() {
+		if($_REQUEST['_URL_'][0] == 'Method'){
+			$this->display('Index:error');
+			exit;
+		}
+	}
+	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20) {
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
+			$where['status'] = '待检出';
 		}
 		if($datatype == '线路'){
 			$class_name = 'OMViewChanpin';
@@ -14,6 +22,14 @@ class MethodAction extends Action{
 		if($datatype == '售价'){
 			$class_name = 'OMViewChanpin';
 			$where['datatype'] = $datatype;
+		}
+		if($datatype == '订单'){
+			$class_name = 'OMViewChanpin';
+			$where['datatype'] = $datatype;
+		}
+		if($datatype == '控管'){
+			$class_name = 'OMViewChanpin';
+			$where['datatype'] = '子团';
 		}
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
@@ -24,7 +40,7 @@ class MethodAction extends Action{
 		$count = $DataOM->Distinct(true)->field('dataID')->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $DataOM->relation($relation)->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+        $chanpin = $DataOM->relation($relation)->Distinct(true)->field('dataID')->where($where)->limit($p->firstRow.','.$p->listRows)->order("time desc")->select();
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
@@ -114,17 +130,22 @@ class MethodAction extends Action{
 		foreach($riqiAll as $riqi){
 			$datazituan = '';
 			$zituan = $ViewZituan->where("`parentID` = '$chanpinID' and `chutuanriqi` = '$riqi' ")->find();
-			$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
+			$datazituan['zituan']['title_copy'] = $chanpin['xianlu']['title'];
 			$datazituan['zituan']['renshu'] = $chanpin['xianlu']['renshu'];
+			$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
 			$datazituan['zituan']['chutuanriqi'] = $riqi;
-			$datazituan['zituan']['tuanhao'] =  $chanpin['xianlu']['bianhao'].'/'.$riqi;
+			$datazituan['zituan']['tuanhao'] =  $chanpinID.'/'.$riqi;
 			if(!$zituan){
 				$datazituan['parentID'] = $chanpinID;
 				$datazituan['user_name'] = $chanpin['user_name'];
 				$datazituan['user_id'] = $chanpin['user_id'];
 				$datazituan['departmentName'] = $chanpin['departmentName'];
 				$datazituan['departmentID'] = $chanpin['departmentID'];
-				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
+				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan)){
+					$zituanID = $Chanpin->getRelationID();
+					//生成OM
+					A("Method")->_createDataOM($zituanID,'子团','管理');
+				}
 			}
 			else{
 				if($zituan['islock'] != '已锁定'){
@@ -157,9 +178,9 @@ class MethodAction extends Action{
 		}
 	   //由于可能存在子团锁定状态不能删除，要逆更新出团时间到线路
 		$xianlu['xianlu']['chutuanriqi'] = $chutuanlist;
-		if(false !== $Chanpin->relation("xianlu")->myRcreate($xianlu))
-		return true;
-		else
+		if(false !== $Chanpin->relation("xianlu")->myRcreate($xianlu)){
+			return true;
+		}else
 		return false;
 	}
 
@@ -551,6 +572,8 @@ class MethodAction extends Action{
 			$str = '<a href="'.SITE_INDEX.$preDir['url'].'">'.$preDir['title'].'</a>  >  ' . $str;
 			$nowDir = $preDir;
 		}
+		$str = '<a href="javascript:window.history.back();">返回上一步 </a>  |  '. $str;
+		
 		$this->assign("navigation",$str);
 	 }
 	
@@ -605,6 +628,9 @@ class MethodAction extends Action{
 			$data['xingcheng'] = $ViewXingcheng->where("`parentID` = '$dataID'")->findall();
 			$ViewChengben = D('ViewChengben');
 			$data['chengben'] = $ViewChengben->where("`parentID` = '$dataID'")->findall();
+			$ViewShoujia = D('ViewShoujia');
+			$data['shoujia'] = $ViewShoujia->where("`parentID` = '$dataID'")->findall();
+			
 			$data['copy'] = serialize($data);
 			$DataCopy = D('DataCopy');
 			$data['dataID'] = $dataID;
@@ -629,8 +655,14 @@ class MethodAction extends Action{
 		$data['taskShenhe'] = $_REQUEST;
 		if($dotype == '申请'){
 			$processID = 1;
-			$data['status'] = '申请';
-			cookie('successmessage','提交审核成功！',30);
+			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1)){
+				$data['status'] = '申请';
+				cookie('successmessage','提交审核成功！',30);
+			}
+			else{
+				$data['status'] = '批准';
+				cookie('successmessage','操作成功！'.$data['status'],30);
+			}
 		}
 		else{
 			$need = $this->_checkTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);
@@ -645,7 +677,7 @@ class MethodAction extends Action{
 		//检查流程状态
 		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID);
 		if(false === $process){
-			cookie('errormessage','错误！该流程不存在或已被执行，请勿重复执行！',30);
+			cookie('errormessage','错误！该产品流程不存在或已被执行，请勿重复执行！',30);
 			return false;
 		}
 		$data['taskShenhe']['processID'] = $processID;
@@ -663,7 +695,7 @@ class MethodAction extends Action{
 		if($data['status'] == '批准'){
 			$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$to_dataID);
 		}
-		
+		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
 		//生成待检出	
 		$process = $this->_checkShenhe($data['datatype'],$processID+1);
 		if($process){
@@ -677,13 +709,13 @@ class MethodAction extends Action{
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
 			$System->relation("taskShenhe")->myRcreate($data);
+			$dshID = $System->getRelationID();
 			//生成待检出OM
-			$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
 			$DataOM = D("DataOM");
 			foreach($to_dataomlist as $vo){
 				list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
 				$to_dataom['type'] = '管理';
-				$to_dataom['dataID'] = $to_dataID;
+				$to_dataom['dataID'] = $dshID;
 				$to_dataom['datatype'] = '审核任务';
 				foreach($process as $p){
 					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
@@ -692,11 +724,19 @@ class MethodAction extends Action{
 					$userIDlist = $this->_getuserlistByDUR($to_dataom['DUR']);	
 					$userIDlist = array_merge($userIDlist,$userIDlist);
 					$userIDlist = array_unique($userIDlist);
+					
 				}
 			}
-			return $userIDlist;
 		}
-		return true;
+		else{
+			foreach($to_dataomlist as $vo){
+				//返回需要提示的用户
+				$userIDlist = $this->_getuserlistByDUR($vo['DUR']);	
+				$userIDlist = array_merge($userIDlist,$userIDlist);
+				$userIDlist = array_unique($userIDlist);
+			}
+		}
+		return $userIDlist;
 	 }
 	
 	
@@ -745,23 +785,25 @@ class MethodAction extends Action{
 		$DURlist = $this->_getDURlist($myuserID);
 		$DataOM = D("DataOM");
 		$datalist = array();
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
+		if($type == '管理')
+		$where['type'] = '管理';
+		else
+		$where['type'] = array('in','开放,管理');
 		foreach($DURlist as $v){
-			$DUR = $v['departmentID'].',,';
-			$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+			$where['DUR'] = $v['departmentID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			if(!$OMlist){
-				$DUR = $v['departmentID'].','.$v['rolesID'].',';
-				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$where['DUR'] = $v['departmentID'].','.$v['rolesID'].',';
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
 			if(!$OMlist){
-				$DUR = ','.$v['rolesID'].',';
-				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$where['DUR'] = ','.$v['rolesID'].',';
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
 			if(!$OMlist){
-				$DUR = ',,'.$v['userID'];
-				$where = "`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type' and `DUR` = '$DUR'";
+				$where['DUR'] = ',,'.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
 			if($OMlist){
@@ -813,6 +855,7 @@ class MethodAction extends Action{
 		
 	 }
 	 
+	 
 	//检查流程状态待检出
      public function _checkTaskDJC($dataID,$datatype) {
 		$ViewTaskShenhe = D("ViewTaskShenhe");
@@ -824,15 +867,20 @@ class MethodAction extends Action{
 	 }
 	 
 	 
+	 
 	//检查流程状态
      public function _checkDataShenhe($dataID,$datatype,$status,$processID) {
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		//检查审核流程权限
-		$process = $this->_checkShenhe($_REQUEST['datatype'],$processID);
+		$process = $this->_checkShenhe($datatype,$processID);
 		if(!$process)
 			return false;
 		$has = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `processID` = '1'")->findall();
 		if($processID == 1){
+			$process2 = $this->_checkShenhe($datatype,2);
+			if(!$process2)
+				return $process;
+			else	
 			foreach($has as $vol){
 				$ov = $ViewTaskShenhe->where("`parentID` = '$vol[systemID]' and `status` = '批准' ")->find();
 				if(!$ov)
@@ -868,26 +916,26 @@ class MethodAction extends Action{
 		}
 		//生成OM
 		$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+		$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist);
+		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
+	}
+	
+	
+		 
+	//生成OM
+     public function _createDataOM($dataID,$datatype,$type,$dataOMlist = '') {
+		$dom['type'] = $type;
+		$dom['datatype'] = $datatype;
+		$dom['dataID'] = $dataID;
 		$DataOM = D("DataOM");
 		foreach($dataOMlist as $d){
 			$dom['DUR'] = $d["DUR"];
-			$dom['type'] = '管理';
-			$dom['datatype'] = '消息';
-			$dom['dataID'] = $data['messageID'];
 			$DataOM->mycreate($dom);
 		}
-		//生成提示
-		if($userIDlist === true){
-			foreach($dataOMlist as $d){
-				//返回需要提示的用户
-				$userIDlist = $this->_getuserlistByDUR($d['DUR']);	
-				$userIDlist = array_merge($userIDlist,$userIDlist);
-				$userIDlist = array_unique($userIDlist);
-			}
-		}
-		elseif($userIDlist)
-		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
-	}
+		$dom['DUR'] = ',,'.$this->user['systemID'];
+		$DataOM->mycreate($dom);
+	 }
+		 
 		 
 		 
 	
@@ -909,8 +957,10 @@ class MethodAction extends Action{
      public function _OMToDataNotice($data,$userIDlist) {
 		$DataNotice = D("DataNotice");
 		foreach($userIDlist as $v){
-			$data['userID'] = $v['userID'];
-			$DataNotice->mycreate($data);
+			if($v['userID']){
+				$data['userID'] = $v['userID'];
+				$DataNotice->mycreate($data);
+			}
 		}
 	 }
 	
@@ -1020,7 +1070,9 @@ class MethodAction extends Action{
 		// 缓存访问权限
 		RBAC::saveAccessList();
 	 }
+	 
 		 
+/*		 
 	//同步RBAC角色组
      public function _opentoRBACbyUser($userID,$rolesID) {
 		$ViewRoles = D("ViewRoles");
@@ -1039,24 +1091,242 @@ class MethodAction extends Action{
 			$result = $group_user->add($datas);
 		}
 	 }
+*/	 
 	 
-	 
-	 //生成客户订单中间表
-     public function createCustomerDingdan($data) {
-	 	//删除原始
+	 //生成团员
+     public function createCustomer_new($_REQUEST,$dingdanID) {
+		//检查dataOM
+		$omdingdan = A('Method')->_checkDataOM($dingdanID,'订单');
+		if(false === $omdingdan){
+			$this->display('Index:error');
+			exit;
+		}
+		//检查dataOM
+		$omxiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价');
+		if(false === $omxiaoshou){
+			$this->display('Index:error');
+			exit;
+		}
+		$Chanpin = D("Chanpin");
+		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
+		$ViewDingdan = D("ViewDingdan");
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID'")->find();
 		$DataCD = D("DataCD");
-		$DataCD->where("`customerID` = '$data[customerID]' and `dingdanID` = '$data[dingdanID]'")->delete();
-	 	//生成新
-		$DataCD->mycreate($data);
+		$ViewCustomer = D("ViewCustomer");
+		$cus['dingdanID'] = $dingdanID;
+		$DataCD->startTrans();
+		//清空订单内客户,并重新生成
+		$DataCD->where("`dingdanID` = '$dingdanID'")->delete();
+		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
+			$id = $i+1;
+			$cus['name'] = $_REQUEST['name'.$id];
+			$cus['manorchild'] = $_REQUEST['manorchild'.$id];
+			$cus['sex'] = $_REQUEST['sex'.$id];
+			$cus['zhengjiantype'] = $_REQUEST['zhengjiantype'.$id];
+			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
+			$cus['telnum'] = $_REQUEST['telnum'.$id];
+			if($custmoer = $ViewCustomer->where("`zhengjiantype` = '$cus[zhengjiantype]' and `zhengjianhaoma` = '$cus[zhengjianhaoma]'")->find()){
+				$cus = array_merge($custmoer,$cus);
+				$cus['datatext'] = serialize($custmoer);
+			}
+			$cus['price'] = $_REQUEST['price'.$id];
+			//价格判断
+			if($cus['manorchild'] == '成人')
+			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+				cookie('errormessage','团员'.$cus['name'].'应付超过可折扣范围！',30);
+				$DataCD->rollback();
+				return false;
+			}
+			if($cus['manorchild'] == '儿童')
+			if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+				cookie('errormessage','团员'.$cus['name'].'应付超过可折扣范围！',30);
+				$DataCD->rollback();
+				return false;
+			}
+			$jiage += $cus['price'];
+			$cus['remark'] = $_REQUEST['remark'.$id];
+			if (false === $DataCD->mycreate($cus)){
+				cookie('errormessage','错误，请联系管理员！',30);
+				$DataCD->rollback();
+				return false;
+			}
+		}
+		$DataCD->commit();
+		//反补订单信息
+		$Chanpin = D("Chanpin");
+		$data['chanpinID'] = $dingdanID;
+		$data['dingdan']['jiage'] = $jiage;
+		$Chanpin->relation("dingdan")->myRcreate($data);
+	 	return true;
+	 
 	 }
 	 
 	 
 	 
+		//清空占位过期订单
+     public function _cleardingdan() {
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$zhanwei = $Chanpin->where("`marktype` = 'dingdan' and `status` = '占位'")->findall();
+		$t = 60*60*24*2;//2天
+		 foreach($zhanwei as $v){
+			 if(time() - $v['time'] > $t)
+			 $v['status'] = '候补';
+			 $Chanpin->mycreate($v);
+		 }
+	 }
 	 
 	 
 	 
+		//计算剩余名额
+     public function _getzituandingdan($zituanID,$shoujiaID) {
+		$Chanpin = D("Chanpin");
+		$dingdanlist = $Chanpin->relation("dingdanlist")->where("`chanpinID` = '$zituanID'")->find();
+		foreach($dingdanlist['dingdanlist'] as $dd){
+			$data['baomingrenshu'] += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+			$data['baomingjiage'] += $dd['jiage'];
+			//计算开放的人数
+			if($shoujiaID && $dd['shoujiaID'] != $shoujiaID){
+				continue;
+			}
+			$data['shoujiarenshu'] += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+			$data['shoujiajiage'] += $dd['jiage'];
+			$data['chengrenshu'] +=$dd['chengrenshu'];
+			$data['lingduirenshu'] +=$dd['lingdui_num'];
+			$data['ertongrenshu'] +=$dd['ertongshu'];
+			if($dd['status'] == '确认')
+			$data['querenrenshu'] += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+			if($dd['status'] == '占位')
+			$data['zhanweirenshu'] += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+			if($dd['status'] == '候补')
+			$data['houburenshu'] += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+		}
+		return $data;
+	 }
 	 
 	 
+	 //文件生成
+	public function _data_exports($chanpinID,$type) {
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$chanpinID'")->find();
+		$ViewDingdan = D("ViewDingdan");
+		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->where("`parentID` = '$chanpinID'")->findall();
+		$i = 0;
+		foreach($dingdanlist as $v){
+			foreach($v['tuanyuanlist'] as $vol){
+				$tuanyuan[$i] = $vol;
+				$tuanyuan[$i]['bumen'] = $v['bumen_copy'].'-'.$v['user_name'];
+				$i++;
+			}
+		}
+		$mingcheng = $zituan['xianlulist']['title'];
+		$tuanhao = $zituan['tuanhao'];
+		$tianshu = $zituan['xianlulist']['tianshu'];
+		$chutuanriqi = $zituan['chutuanriqi'];
+		$this->assign('mingcheng',$mingcheng);
+		$this->assign('tuanhao',$tuanhao);
+		$this->assign('tianshu',$tianshu);
+		$this->assign('chutuanriqi',$chutuanriqi);
+		$this->assign('tuanyuan',$tuanyuan);
+		$title = '团员名单--'.$mingcheng.'--'.$chutuanriqi;
+		if($type == '格式3'){	
+			//导出Excel必备头
+			header("Content-type:application/vnd.ms-excel");
+			header("Content-Disposition:attachment;filename=" . $title . ".xls");
+			$this->display("Chanpin:exports_1");
+		}
+		else
+		if($type == '格式2'){	
+			//导出Word必备头
+			header("Content-type:application/msword");
+			header("Content-Disposition:attachment;filename=" . $title . ".doc");
+			header("Pragma:no-cache");        
+			header("Expires:0"); 
+			$this->display("Chanpin:exports_1");
+		}
+		else
+		if($type == '格式1'){	
+			$this->exports_1($chanpinID,$type);
+		}
+	}
+	 
+	 
+	
+	public function exports_1($chanpinID,$type) {
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$chanpinID'")->find();
+		$ViewDingdan = D("ViewDingdan");
+		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->where("`parentID` = '$chanpinID'")->findall();
+		$i = 0;
+		foreach($dingdanlist as $v){
+			foreach($v['tuanyuanlist'] as $vol){
+				$tuanyuan[$i] = $vol;
+				if($vol['sex'] == '男')
+				$man_num++;
+				if($vol['sex'] == '女')
+				$woman_num++;
+				if($vol['manorchild'] != '领队')
+				$tuanyuan_num++;
+				else
+				$leader = $vol;
+				$i++;
+			}
+		}
+		$page_num = ceil ($tuanyuan_num / 20);
+		
+		$t = 0;
+		$m = 0;
+		foreach($tuanyuan as $v){
+			$renyuan[$t] = $v;
+			$t++;
+			$m++;
+			if($t%20 == 0){
+				$t = 0;
+				$dataren[$m/20] = $renyuan;
+			}
+		}
+		$dataren[$m/20] = $renyuan;
+		
+		//把所有的数据按页数分割
+		$page = 0;
+		while($page < $page_num){
+			$start_pos = $page*20;
+			$tuanyuan_part[$page] = $dataren[$page];
+			$page++;
+		}
+		$this->assign('tuanyuan_part',$tuanyuan_part);
+		$this->assign('leader',$leader);
+		$this->assign('man_num',$man_num);
+		$this->assign('woman_num',$woman_num);
+		$this->assign('num' ,$tuanyuan_num + 1);
+		$this->assign('page_num',$page_num);
+		
+		$mingcheng = $zituan['xianlulist']['title'];
+		$tuanhao = $zituan['tuanhao'];
+		$tianshu = $zituan['xianlulist']['tianshu'];
+		$chutuanriqi = $zituan['chutuanriqi'];
+		$chufadi = $zituan['xianlulist']['chufadi'];
+		$chufashijian = explode('-',$chutuanriqi);
+		$jieshushijian = explode('-',jisuanriqi($zituan['chutuanriqi'],$xianlu['xianlu']['tianshu']));
+		$this->assign('chufashijian',$chufashijian);
+		$this->assign('jieshushijian',$jieshushijian);
+		$this->assign('chufadi',$chufadi);
+		$this->assign('mingcheng',$mingcheng);
+		$this->assign('tuanhao',$tuanhao);
+		$this->assign('tianshu',$tianshu);
+		$this->assign('chutuanriqi',$chutuanriqi);
+		$this->assign('tuanyuan',$tuanyuan);
+		$title = '团员名单(旅游局格式)--'.$mingcheng.'--'.$chutuanriqi;
+		
+		//导出Word必备头
+		header("Content-type:application/msword");
+		header("Content-Disposition:attachment;filename=" . $title . ".doc");
+		header("Pragma:no-cache");        
+		header("Expires:0");    
+		
+		$this->display("Chanpin:exports_2");
+	}
+
 	 
 	 
 	 

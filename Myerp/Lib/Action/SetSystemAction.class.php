@@ -264,7 +264,7 @@ class SetSystemAction extends CommonAction{
 		$ViewShenhe = D("ViewShenhe");
 		A('Method')->unitlist();
 		$datatype = $_REQUEST['datatype'];
-		if($_REQUEST['datatype'] == '线路'){
+		if($_REQUEST['datatype'] == '线路' || $_REQUEST['datatype'] == '订单'){
 			A("Method")->showDirectory("审核流程");
 			$datalist = $ViewShenhe->where("`datatype` = '$datatype'")->findall();
 			$datalist = A("Method")->_systemUnitFilter($datalist);
@@ -279,8 +279,8 @@ class SetSystemAction extends CommonAction{
 			A("Method")->showDirectory("审核流程");
 			$this->display('shenheIndex');
 		}
-		
 	}
+	
 	
 	
 	public function dopostShenhe(){
@@ -356,6 +356,10 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == '成本'){
 			A("Method")->showDirectory("成本");
+			$this->display('templatelist');
+		}
+		elseif($where['type'] == '提成'){
+			A("Method")->showDirectory("提成");
 			$this->display('templatelist');
 		}
 		else

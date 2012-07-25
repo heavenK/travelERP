@@ -28,6 +28,15 @@
 }
 .renyuanxinxi tbody tr td input { width:80px; }
 </style>
+<script>
+
+function save(){
+	document.getElementById('form1').submit();
+}
+
+</script>
+
+
 <div class="ks_box" style="margin-top:40px;"> 
   <!--整体-->
             <div id="resultdiv" class="resultdiv"></div>
@@ -35,7 +44,7 @@
     <table width="100%" class="tb1" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
-          <td colspan="5" height="27" align="left" ><h4><img src="<?php echo __PUBLIC__;?>/gulianstyle/images/bmbbj.gif"></img> 报名表 </h4></td>
+          <td colspan="5" height="32" align="left" ><h4><img src="<?php echo __PUBLIC__;?>/gulianstyle/images/bmbbj.gif"></img> 报名表 </h4></td>
           <td align="right"><a href="javascript:void(0)" onclick="window.history.back();"> <img src="<?php echo __PUBLIC__;?>/gulianstyle/styles/A_ddgl-03.jpg"> </a></td>
         </tr>
         <tr>
@@ -89,14 +98,14 @@
       </tbody>
     </table>
     
-  <form name="form1" method="post" action="<?php echo SITE_INDEX;?>Xiaoshou/dopostbaoming" id="form1" onsubmit="return CheckForm(this)">
+  <form name="form1" method="post" action="<?php echo SITE_INDEX;?>Xiaoshou/dopostbaoming" id="form1" >
     <?php foreach($_REQUEST as $key => $val){ ?>
     <input type="hidden" name="<?php echo ($key); ?>" value="<?php echo ($val); ?>" />
     <?php } ?>
     <table width="100%" class="tb1 renyuanxinxi" cellpadding="0" cellspacing="0" >
       <tbody>
         <tr>
-          <td colspan="8" height="27" align="left" ><h4><img src="<?php echo __PUBLIC__;?>/gulianstyle/images/bmbbj.gif"></img> 人员信息 </h4></td>
+          <td colspan="8" height="32" align="left" ><h4><img src="<?php echo __PUBLIC__;?>/gulianstyle/images/bmbbj.gif"></img> 人员信息 </h4></td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 姓名： </td>
@@ -108,12 +117,11 @@
           <td align="left" style="height: 32px"> 应付： </td>
           <td align="left" style="height: 32px"> 备注： </td>
         </tr>
-        <?php $chengren = $_REQUEST['chengrenshu']+1;for($i=0;$i<$renshu;$i++){$chengren--;if($chengren > 0){$tv="成人";$price = $_REQUEST['adultprice'];}else{$tv="儿童";$price = $_REQUEST['childprice'];} ?>
+       <?php $i = 0; foreach($tuanyuan as $vo){$i++; ?>
         <tr>
-          <td align="left" style="height: 32px"><input name="name<?php echo ($i); ?>" type="text" id="name" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="name<?php echo ($i); ?>" type="text" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px">
-          <?php if($chengren > 0){$tv="成人";}else{$tv="儿童";} ?>
-          <input type="hidden" name="manorchild<?php echo ($i); ?>" value="<?php echo ($tv); ?>" /><?php echo ($tv); ?>
+          <input type="hidden" name="manorchild<?php echo ($i); ?>" value="<?php echo ($vo['manorchild']); ?>" /><?php echo ($vo['manorchild']); ?>
           </td>
           <td align="left" style="height: 32px">
           <select name="sex<?php echo ($i); ?>">
@@ -121,17 +129,17 @@
           <option value="女">女</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="telnum<?php echo ($i); ?>" type="text" id="telnum"></td>
+          <td align="left" style="height: 32px"><input name="telnum<?php echo ($i); ?>" type="text"></td>
           <td align="left" style="height: 32px">
-          <select name="zhengjiantype">
+          <select name="zhengjiantype<?php echo ($i); ?>">
           <option value="身份证">身份证</option>
           <option value="护照">护照</option>
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<?php echo ($i); ?>" type="text" id="zhengjianhaoma"></td>
-          <td align="left" style="height: 32px"><input name="price<?php echo ($i); ?>" type="text" id="price" value="<?php echo ($price); ?>"></td>
-          <td align="left" style="height: 32px"><input name="remark<?php echo ($i); ?>" type="text" id="remark"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<?php echo ($i); ?>" type="text"></td>
+          <td align="left" style="height: 32px"><input name="price<?php echo ($i); ?>" type="text" value="<?php echo ($vo['price']); ?>" ></td>
+          <td align="left" style="height: 32px"><input name="remark<?php echo ($i); ?>" type="text"></td>
         </tr>
         <?php } ?>
         
@@ -154,7 +162,7 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
-          <td align="center" colspan="5" style="height: 32px"><input type="submit" /><input type="button" value="保 存" id="Button1" class="anu" onClick="CheckForm('form1','resultdiv_2')" /></td>
+          <td align="center" colspan="5" style="height: 32px"><input type="button" value="保 存" id="Button1" class="anu" onClick="if(CheckForm('form1','resultdiv_2'))save()" /></td>
         </tr>
       </tbody>
     </table>

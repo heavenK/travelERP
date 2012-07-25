@@ -2,7 +2,7 @@
 	<script type="text/javascript">
     var SITE_INDEX = '<{:SITE_INDEX}>';
     var chanpinID = '<{$chanpinID}>';
-	var title =  '<{$chanpin[xianlu][title]}>';
+	var title =  '<{$datatitle}>';
 	function doshenhe(dotype){
 		ThinkAjax.myloading('resultdiv');
 		var dataID = chanpinID;
@@ -16,6 +16,14 @@
 			}
 		});
 	}
+	function ajaxalert(title){
+		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
+		jQuery("#resultdiv_2").show("fast"); 
+		this.intval = window.setTimeout(function (){
+			document.getElementById('resultdiv_2').style.display='none';
+			document.getElementById('resultdiv_2').innerHTML='';
+			},3000);
+	}
     </script>
     <div class="moduleTitle" style="margin-bottom:10px;">
       <h3 style=""><{$navigation}><{$datatitle}></h3>
@@ -24,14 +32,26 @@
       </span> 
     </div>
     
+    <php>if($chanpinID){</php>
     <div id="mysearchdiv" style="margin-bottom:10px;">
       <ul id="searchTabs" class="tablist tablist_2">
         <li> <a <php>if($nowDir['title'] == '基本信息'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$chanpinID}>">基本信息</a> </li>
-        <li> <a <php>if($nowDir['title'] == '子团管理'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituan/chanpinID/<{$chanpinID}>">子团管理</a> </li>
         <li> <a <php>if($nowDir['title'] == '行程'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/<{$chanpinID}>">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
         <li> <a <php>if($nowDir['title'] == '成本售价'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/chengbenshoujia/chanpinID/<{$chanpinID}>">成本售价</a> </li>
+        <php>if($showzituan === true){</php>
+        <li> <a <php>if($nowDir['title'] == '子团管理'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituan/chanpinID/<{$chanpinID}>">子团管理</a> </li>
+        <php>}</php>
       </ul>
     </div>
+    <php>}else{</php>
+    <div id="mysearchdiv" style="margin-bottom:10px;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a <php>if($nowDir['title'] == '基本信息'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">基本信息</a> </li>
+        <li> <a <php>if($nowDir['title'] == '行程'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
+        <li> <a <php>if($nowDir['title'] == '成本售价'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">成本售价</a> </li>
+      </ul>
+    </div>
+    <php>}</php>
     
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
@@ -40,7 +60,10 @@
         <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
       <php>if($root_shenqing){</php>
         <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-        <php>}</php>
+      <php>}</php>
+      <php>if($root_shenqing2){</php>
+        <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+      <php>}</php>
       <php>if($root_shenhe){</php>
         <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
         <php>}</php>

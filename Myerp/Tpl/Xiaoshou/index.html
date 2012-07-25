@@ -48,7 +48,7 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 售价 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
                 </tr>
@@ -58,9 +58,9 @@
                 <tr height="30" class="evenListRowS1">
                   <td valign="top" align="left" scope="row">1</td>
                   <td valign="top" align="left" style="min-width:300px;" scope="row"><{$v['xianlu']['xianlu']['title']}></td>
-                  <td valign="top" align="left" scope="row"><{$v['xianlu']['xianlu']['bianhao']}></td>
-                  <td valign="top" align="left" scope="row"><php>echo date('Y/m/d H:i',$v['xianlu']['time']);</php></td>
-                  <td valign="top" align="left" style="min-width:50px;" scope="row"><{$v['xianlu']['departmentID']}></td>
+                  <td valign="top" align="left" scope="row"><{$v['adultprice']}>元</td>
+                  <td valign="top" align="left" scope="row"><php>echo date('Y/m/d H:i',$v['xianlu']['xianlu']['time']);</php></td>
+                  <td valign="top" align="left" style="min-width:50px;" scope="row"><{$v['xianlu']['xianlu']['bumentitle']}></td>
                 </tr>  
                 <tr height="30" class="evenListRowS1">
                     <td valign="top" align="left" scope="row" colspan="10">
@@ -73,7 +73,7 @@
                           </td>
                           <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td">
                             <php>foreach($v['zituan'] as $vol){</php>
-                                <a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/zituan/chanpinID/<{$vol['chanpinID']}>/xianluID/<{$vol['parentID']}>/shoujiaID/<{$v['dataID']}>" ><{$vol['chutuanriqi']}><br /><{$v['adultprice']}>元 剩余:<{$vol['renshu']}></a>
+                                <a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/zituan/chanpinID/<{$vol['chanpinID']}>/xianluID/<{$vol['parentID']}>/shoujiaID/<{$v['dataID']}>" ><{$vol['chutuanriqi']}><br /> 报名:<{$baoming_renshu[$vol['chanpinID']]}>人 剩余:<{$vol['shengyurenshu']}></a>
                             <php>}</php>
                           </td>
                         </tr>  

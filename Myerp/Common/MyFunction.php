@@ -77,6 +77,7 @@ function gethistoryback()
 
 function jisuanriqi($date,$num,$mark = '增加')
 {
+	  if($mark == '增加')
 		$num -= 1;
 	  $date = strtotime($date);
 	  $tianshu = 60 * 60 *24 * $num; 
@@ -86,8 +87,6 @@ function jisuanriqi($date,$num,$mark = '增加')
 	  $shijian = date('Y-m-d',($date - $tianshu));
 	  
 	  return $shijian;
-
-
 }
 
 function islock($tablename,$idname,$id) {

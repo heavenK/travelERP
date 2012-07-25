@@ -45,6 +45,9 @@ jQuery(document).ready(function(){
 		timer = setInterval('AutoScroll("#alertNewsView")',5000);
 	});
 	
+	//清空占位过期订单
+	window.setInterval(cleardingdan,50000);
+	
 	// Dialog
 	jQuery('#dialog').dialog({
 		autoOpen: false,
@@ -93,6 +96,10 @@ function getNewsAll(posturl){
 				ThinkAjax.myAjaxResponse(msg,'',getnewsall_after);
 		}
 	});
+}
+
+function cleardingdan(){
+	getNewsAll("Index.php?s=/Method/_cleardingdan");
 }
   
 function getnews_after(data,status)
@@ -218,7 +225,7 @@ function todo_logout(data,status){
   <div id="subModuleList"> 
   	<span id="moduleLink_0" <php>if($navposition == '旅游产品'){</php>class="selected"<php>}</php> >
     <ul>
-      <li class="subTabMore" style="font-size:12px;"> <a href="<{:SITE_INDEX}>Chanpin">发布产品&gt;&gt;</a> 
+      <li class="subTabMore" style="font-size:12px;"> <a href="<{:SITE_INDEX}>Chanpin">线路发布及控管&gt;&gt;</a> 
           <ul class="cssmenu">
             <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/近郊/guojing/国内/xianlutype/散客产">国内近郊 </a> </li>
             <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/长线/guojing/国内/xianlutype/散客产品">国内长线 </a> </li>
@@ -229,13 +236,10 @@ function todo_logout(data,status){
             <li> <a href="#">境外游 </a> </li>
             <li> <a href="#">境外自由人 </a> </li>
             <li> <a href="#">境外包团 </a> </li>
-            <li> <a href="#">机票 </a> </li>
-            <li> <a href="#">酒店 </a> </li>
           </ul>
-      
       </li>
       <li> <a href="<{:SITE_INDEX}>Chanpin/shenhe">产品审核</a> </li>
-      <li> <a href="#">产品控管</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan">产品控管</a> </li>
       <li> <a href="#">订单控管</a> </li>
       <li> <a href="#">客户管理</a> </li>
       <li> <a href="#">数据字典</a> </li>
@@ -262,10 +266,8 @@ function todo_logout(data,status){
     </span> 
     <span id="moduleLink_3" <php>if($navposition == '销售'){</php>class="selected"<php>}</php> >
     <ul>
-      <li> <a href="#">线路产品</a> </li>
-      <li> <a href="#">机票</a> </li>
-      <li> <a href="#">酒店</a> </li>
-      <li> <a href="#">门票</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Xiaoshou">线路产品</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Xiaoshou/dingdanlist">订单控管</a> </li>
     </ul>
     </span> 
     <span id="moduleLink_4" <php>if($navposition == '信息'){</php>class="selected"<php>}</php> >

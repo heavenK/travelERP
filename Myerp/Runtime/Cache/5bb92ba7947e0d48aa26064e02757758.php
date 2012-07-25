@@ -75,7 +75,7 @@ $(function(){
       <ul>
         <li>
           <p>团号：<b><?php echo ($zituan['tuanhao']); ?></b></p>
-          <p>剩余名额：<b><?php echo ($shengyu); ?></b></p>
+          <p>剩余名额：<b><?php echo $shengyurenshu ?></b></p>
         </li>
         <li>
           <p>天数：<b><?php echo ($xianlu['xianlu']['tianshu']); ?>天</b></p>
@@ -90,13 +90,19 @@ $(function(){
           <p>目的城市：<b><?php echo ($xianlu['xianlu']['mudidi']); ?></b></p>
         </li>
         <li>
-          <p>截止日期：<b><?php echo jisuanriqi($zituan['chutuanriqi'],$xianlu['xianlu']['baomingjiezhi'],'减少'); ?></b></p>
-          <p>儿童：<b><?php echo ($xianlu['xianlu']['remark']); ?></b></p>
+          <p>截止日期：<b><?php echo jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少'); ?></b></p>
+          <p>儿童及其他说明：<b><?php echo ($xianlu['xianlu']['remark']); ?></b></p>
         </li>
         <li><span>导游服务：<b><?php echo ($xianlu['xianlu']['daoyoufuwu']); ?></b></span></li>
         <li><span>创建者：<b>[<?php echo ($zituan['user_name']); ?>]办公电话:<?php foreach($userdurlist as $v) echo $v['officetel'].',' ?> </b></span></li>
       </ul>
-      <u><a href="<?php echo SITE_INDEX;?>Xiaoshou/zituan/dobaoming/报名/chanpinID/<?php echo ($chanpinID); ?>/xianluID/<?php echo ($xianluID); ?>/shoujiaID/<?php echo ($shoujiaID); ?>"></a></u> </em> </dd>
+      <u>
+      <?php if($baoming_root == 1){ ?>
+      <a href="<?php echo SITE_INDEX;?>Xiaoshou/zituan/dobaoming/报名/chanpinID/<?php echo ($chanpinID); ?>/xianluID/<?php echo ($xianluID); ?>/shoujiaID/<?php echo ($shoujiaID); ?>"></a>
+      <?php }else{ ?>
+      <a href="javascript:alert('报名截止');"></a>
+      <?php } ?>
+      </u> </em> </dd>
   </dl>
   <div class="ks_inof">
     <h2><?php echo ($xianlu['xianlu']['xingchengtese']); ?></h2>
