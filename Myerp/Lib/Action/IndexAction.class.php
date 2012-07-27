@@ -88,9 +88,7 @@ class IndexAction extends Action{
     } 	
 	
 	
-	
-	
-	
+					
 	
 	
 	

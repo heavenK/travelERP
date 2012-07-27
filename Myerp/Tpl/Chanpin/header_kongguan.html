@@ -23,6 +23,9 @@
         <li> <a <php>if($markpos == '基本信息'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$chanpinID}>">基本信息</a> </li>
         <li> <a <php>if($markpos == '子团订单'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituandingdan/chanpinID/<{$chanpinID}>">子团订单</a> </li>
         <li> <a <php>if($markpos == '团员名单'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituantuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
+        <li> <a <php>if($markpos == '分房安排'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanfenfang/chanpinID/<{$chanpinID}>">分房安排</a> </li>
+        <li> <a <php>if($markpos == '接待计划'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/接待计划/chanpinID/<{$chanpinID}>">接待计划</a> </li>
+        <li> <a <php>if($markpos == '出团通知'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/出团通知/chanpinID/<{$chanpinID}>">出团通知</a> </li>
       </ul>
     </div>
     
@@ -40,8 +43,19 @@
       <input type="button" value="导出Word（旅游局格式）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式1');">
       <input type="button" value="导出Word（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式2');">
       <input type="button" value="导出Excel（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式3');">
-      <input type="button" value=" 打印 " name="button" class="button primary" onClick="javascript:doprint('<{$chanpinID}>')">
         <php>}</php>
+      <php>if('分房安排' == $markpos){</php>
+      <input type="button" value="创建房间" name="button" class="button primary" id="room_create">
+      <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+        <php>}</php>
+        
+      <php>if('接待计划' == $markpos || '出团通知' == $markpos){</php>
+      <input type="button" value=" 保存 " name="button" class="button primary" onclick="save()">
+      <input type="button" value=" 发布 " name="button" class="button primary" onclick="dofabu('<{$chanpinID}>')">
+      <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+        <php>}</php>
+        
+        
       </div>
     
     

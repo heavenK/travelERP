@@ -335,6 +335,7 @@ function TravelerDetail(id)
           <td align="left" style="height: 32px"> 详细资料： </td>
         </tr>
        <?php $i = 0; foreach($tuanyuan as $vo){$i++; ?>
+       <input type="hidden" name="tuanyuanID<?php echo ($i); ?>" value="<?php echo ($vo['id']); ?>" />
        <input type="hidden" name="datatext<?php echo ($i); ?>" value="<?php echo ($vo['datatext']); ?>" />
         <tr>
           <td align="left" style="height: 32px"><input type="text" name="name<?php echo ($i); ?>" value="<?php echo ($vo['name']); ?>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>

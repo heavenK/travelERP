@@ -43,6 +43,19 @@
     <div id="resultdiv_2" class="resultdiv"></div>
     <?php A("Chanpin")->header_kongguan(); ?>
     
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 订单个数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团员人数 </div></th>
+                </tr>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><?php echo ($dingdan_num); ?></td>
+                  <td scope="row" align="left" valign="top"><?php echo ($tuanyuan_num); ?></td>
+                </tr>
+              </tbody>
+            </table>
+    
             <?php foreach($dingdanlist as $v){ ?>
     
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
@@ -50,7 +63,7 @@
                 
                 <tr height="20">
                   <th scope="col" nowrap="nowrap" style="width:100px;"><div style=" background:#4E8CCF; color:#FFF"> 订单编号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 订单来源 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:150px;"><div> 订单来源 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 订单状态 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 成人人数 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 儿童人数 </div></th>
@@ -58,7 +71,7 @@
                   <th scope="col" nowrap="nowrap"><div> 订单售价 </div></th>
                 </tr>
                 
-                <tr style="cursor:pointer" height="30" class="evenListRowS1" onclick="showinfo(<?php echo ($v['chanpinID']); ?>)">
+                <tr style="cursor:pointer; background:#EBEBED" height="30" class="evenListRowS1" onclick="showinfo(<?php echo ($v['chanpinID']); ?>)">
                   <td scope="row" align="left" valign="top"><?php echo ($v['chanpinID']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['bumen_copy']); ?>-<?php echo ($v['user_name']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['status']); ?></td>
@@ -82,6 +95,7 @@
                   <th scope="col" nowrap="nowrap"><div> 证件号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 需求 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 详细资料 </div></th>
                 </tr>
                 <?php foreach($v['tuanyuanlist'] as $vol){ ?>
                 <tr style="cursor:pointer" height="30" class="evenListRowS1">
@@ -93,6 +107,7 @@
                   <td scope="row" align="left" valign="top"><?php echo ($vol['zhengjianhaoma']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($vol['telnum']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($vol['remark']); ?></td>
+                  <td scope="row" align="left" valign="top"><a href="javascript:TravelerDetail(<?php echo ($vol['id']); ?>)">查看</a></td>
                 </tr>
                 <?php } ?>
                 
@@ -118,19 +133,13 @@ function dosearch()
 		window.location = '<?php echo SITE_INDEX;?>Chanpin/index/title/'+title;
 }
 
-function doprint(zituanID)
-{
-//    var url = '<?php echo SITE_ADMIN;?>Kongguan/jiedaijihua/zituanID/'+zituanID+'/isprint/打印';
-//    var winvalue=	window.open(url,null,"height=600,width=800,status=yes,toolbar=no,menubar=no,location=no");
-	alert("暂无");
-}
 function exports(chanpinID,type)
 {
 	window.location.href = '<?php echo SITE_INDEX;?>Chanpin/_tuanyuan_exports/chanpinID/'+chanpinID+'/type/'+type;
 }
-function exports_word(zituanID)
+function TravelerDetail(id)
 {
-	window.location.href = '<?php echo SITE_INDEX;?>Kongguan/exports_word/zituanID/'+zituanID;
+    var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
 }
-
 </script>

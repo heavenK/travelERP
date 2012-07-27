@@ -28,4 +28,24 @@ function NF_getbumen(){
 	return $_usedbumen;
 }
 
+
+//俩数组相连，并去掉重复元素
+function NF_combin_unique($a,$b){
+	$a = array_values($a);
+	$b = array_values($b);
+	$i = count($a);
+	for($j = 0; $j<count($b);$j++){
+		$a[$i] = $b[$j];
+		$i++;
+	}
+	return array_unique($a);
+}
+
+
+
+
+
+
+
+
 ?>

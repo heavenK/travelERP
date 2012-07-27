@@ -84,7 +84,6 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 团名 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 来源 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 联系人 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
@@ -103,9 +102,8 @@
                 <tr style="cursor:pointer" height="30" class="evenListRowS1" onclick="showinfo(<?php echo ($v['chanpinID']); ?>)">
                   <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
                   <td scope="row" align="left" valign="top" style=" color:#0B578F"><?php echo ($v['chanpinID']); ?></td>
-                  <td scope="row" align="left" valign="top" style="min-width:200px; width:20%;"><?php echo ($v['title']); ?></td>
-                  <td scope="row" align="left" valign="top" style="min-width:100px;"><?php echo ($v['bumen_copy']); ?>-<?php echo ($v['user_name']); ?></td>
-                  <td scope="row" align="left" valign="top"><?php echo ($v['lianxiren']); ?></td>
+                  <td scope="row" align="left" valign="top" style="min-width:150px;"><?php echo ($v['bumen_copy']); ?>-<?php echo ($v['user_name']); ?></td>
+                  <td scope="row" align="left" valign="top" style="min-width:60px;"><?php echo ($v['lianxiren']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['telnum']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['chengrenshu']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['ertongshu']); ?></td>
@@ -114,8 +112,8 @@
                   <td scope="row" align="left" valign="top"><?php echo ($v['ticheng']['title']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['owner']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['type']); ?></td>
-                  <td scope="row" align="left" valign="top"><?php echo ($v['status']); ?></td>
-                  <td scope="row" align="left" valign="top"><?php echo date('m/d H:i',$v['time']) ?></td>
+                  <td scope="row" align="left" valign="top" style="min-width:40px;"><?php echo ($v['status']); ?></td>
+                  <td scope="row" align="left" valign="top" style="min-width:80px;"><?php echo date('m/d H:i',$v['time']) ?></td>
                 </tr>
                 <?php } ?>
                 

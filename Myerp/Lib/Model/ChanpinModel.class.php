@@ -42,6 +42,7 @@ class ChanpinModel extends RelationModel {
 		'xianlulist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
 		'zituan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Zituan','foreign_key'=>'chanpinID'),
 		'dingdanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'parentID'),
+		'fenfanglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_fenfang','foreign_key'=>'parentID'),
 		//shoujia
 		'shoujia'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Shoujia','foreign_key'=>'chanpinID'),
 		//chengbenlist
@@ -50,6 +51,8 @@ class ChanpinModel extends RelationModel {
 		'xingcheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Xingcheng','foreign_key'=>'chanpinID'),
 		//dingdan
 		'dingdan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Dingdan','foreign_key'=>'chanpinID'),
+		//dingdan
+		'fenfang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Fenfang','foreign_key'=>'chanpinID'),
 	);
 	
 

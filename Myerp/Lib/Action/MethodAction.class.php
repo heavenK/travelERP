@@ -144,7 +144,7 @@ class MethodAction extends Action{
 				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan)){
 					$zituanID = $Chanpin->getRelationID();
 					//生成OM
-					A("Method")->_createDataOM($zituanID,'子团','管理');
+					$this->_createDataOM($zituanID,'子团','管理');
 				}
 			}
 			else{
@@ -698,6 +698,7 @@ class MethodAction extends Action{
 		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
 		//生成待检出	
 		$process = $this->_checkShenhe($data['datatype'],$processID+1);
+		$userIDlist = array();
 		if($process){
 			$data['status'] = '待检出';
 			if($processID == 1)
@@ -721,19 +722,16 @@ class MethodAction extends Action{
 					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
 					$DataOM->mycreate($to_dataom);
 					//返回需要提示的用户
-					$userIDlist = $this->_getuserlistByDUR($to_dataom['DUR']);	
-					$userIDlist = array_merge($userIDlist,$userIDlist);
-					$userIDlist = array_unique($userIDlist);
-					
+					$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
+					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 				}
 			}
 		}
 		else{
 			foreach($to_dataomlist as $vo){
 				//返回需要提示的用户
-				$userIDlist = $this->_getuserlistByDUR($vo['DUR']);	
-				$userIDlist = array_merge($userIDlist,$userIDlist);
-				$userIDlist = array_unique($userIDlist);
+				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
 		}
 		return $userIDlist;
@@ -756,10 +754,45 @@ class MethodAction extends Action{
 	 
 	 
 	//获得DataOM
-     public function _getDataOM($dataID,$datatype,$type) {
+     public function _getDataOM($dataID,$datatype,$type = '') {
 		$DataOM = D("DataOM");
+		if($type == '')
+		$data = $DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->findall();
+		else
 		$data = $DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `type` = '$type'")->findall();
-	 	return $data;
+		//过滤相同DUR字段数组
+		$i = 0;
+		foreach($data as $v){
+			if($newdat){
+				foreach($newdat as $vol){
+					if($vol['DUR'] == $v['DUR']){
+						$ishas = 1;
+						break;
+					}
+				}
+				if($ishas != 1){
+					$ishas = 0;
+					$newdat[$i] = $v;
+				}
+				$i++;
+			}
+			else
+			$newdat[$i] = $v;
+		}
+	 	return $newdat;
+	 }
+	 
+	 
+	//根据产品相关DUR获得提示用户列表
+     public function _getUserlistByDataOM($dataID,$datatype,$type = '') {
+		$omlist = $this->_getDataOM($dataID,$datatype,$type);
+		$userIDlist = array();
+		foreach($omlist as $vo){
+			//返回需要提示的用户
+			$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+			$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+		}
+		return $userIDlist;
 	 }
 	 
 	 
@@ -903,20 +936,27 @@ class MethodAction extends Action{
 		 
 		 
 	//历史记录
-     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$userIDlist) {
+     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$dataOMlist='',$userIDlist='') {
 		$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
 		$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
 		$data['infohistory']['dataID'] = $dataID;
 		$data['infohistory']['datatype'] = $datatype;
 		$data['infohistory']['url'] = $url;
 		$Message = D("Message");
-		if (false !== $Message->relation("infohistory")->myRcreate($data)){
-			if($Message->getLastmodel() == 'add')
-				$data['messageID'] = $Message->getRelationID();
-		}
+		if (false !== $Message->relation("infohistory")->myRcreate($data))
+			$data['messageID'] = $Message->getRelationID();
 		//生成OM
-		$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+		if($dataOMlist == '')
+			$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
 		$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist);
+		if($userIDlist == ''){
+			$userIDlist = array();
+			foreach($dataOMlist as $vo){
+				//返回需要提示的用户
+				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+			}
+		}
 		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
 	}
 	
@@ -932,8 +972,10 @@ class MethodAction extends Action{
 			$dom['DUR'] = $d["DUR"];
 			$DataOM->mycreate($dom);
 		}
-		$dom['DUR'] = ',,'.$this->user['systemID'];
-		$DataOM->mycreate($dom);
+		if($dataOMlist == ''){
+			$dom['DUR'] = ',,'.$this->user['systemID'];
+			$DataOM->mycreate($dom);
+		}
 	 }
 		 
 		 
@@ -1116,9 +1158,27 @@ class MethodAction extends Action{
 		$cus['dingdanID'] = $dingdanID;
 		$DataCD->startTrans();
 		//清空订单内客户,并重新生成
-		$DataCD->where("`dingdanID` = '$dingdanID'")->delete();
+		//$DataCD->where("`dingdanID` = '$dingdanID'")->delete();
+		
 		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
 			$id = $i+1;
+			if($_REQUEST['tuanyuanID'.$id]){
+				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
+				$dt = $DataCD->where("`id` = '$cus[id]'")->find();
+				if(!$dt){
+					cookie('errormessage','错误，请联系管理员！',30);
+					$DataCD->rollback();
+					return false;
+				}
+			}
+			else{
+				$datanum = $DataCD->where("`dingdanID` = '$dingdanID'")->count();
+				if($datanum > 0){
+					cookie('errormessage','错误，请联系管理员！',30);
+					$DataCD->rollback();
+					return false;
+				}
+			}
 			$cus['name'] = $_REQUEST['name'.$id];
 			$cus['manorchild'] = $_REQUEST['manorchild'.$id];
 			$cus['sex'] = $_REQUEST['sex'.$id];

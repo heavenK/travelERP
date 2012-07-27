@@ -24,6 +24,7 @@ var SITE_INDEX = '<?php echo SITE_INDEX;?>';
       <img src="<?php echo __PUBLIC__;?>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
       </span>
     </div>
+    
     <div id="mysearchdiv"  <?php if(cookie('closesearch')) echo 'style="display:none"'; ?> >
         <ul id="searchTabs" class="tablist">
           <li>
