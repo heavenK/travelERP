@@ -3949,3 +3949,659 @@
 [ 2012-07-27T17:49:07+08:00 ] /Index.php?s=/Chanpin/sendzituanplan/typemark/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92 | SQL: SHOW COLUMNS FROM `myerp_dataNotice` [ RunTime:0.003349s ]
 [ 2012-07-27T17:49:07+08:00 ] /Index.php?s=/Chanpin/sendzituanplan/typemark/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92 | SQL: INSERT INTO `myerp_dataNotice` (`message`,`url`,`userID`) VALUES ('大连古莲国际旅行社总经理\"aaa\":《测试8/2012-07-31》的接待计划','http://www.myerp.com/Index.php?s=/Chanpin/zituanxinxi/typemark/接待计划/chanpinID/31353','40449') [ RunTime:0.248661s ]
 [ 2012-07-27T17:49:07+08:00 ] /Index.php?s=/Chanpin/sendzituanplan/typemark/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92 | SQL: INSERT INTO `myerp_dataNotice` (`message`,`url`,`userID`) VALUES ('大连古莲国际旅行社总经理\"aaa\":《测试8/2012-07-31》的接待计划','http://www.myerp.com/Index.php?s=/Chanpin/zituanxinxi/typemark/接待计划/chanpinID/31353','40658') [ RunTime:0.237613s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000711s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000822s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000445s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000503s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003562s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000452s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003687s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000393s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.003112s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000339s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.003169s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000627s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000601s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000924s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000679s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.004446s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000501s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.005161s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000528s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004569s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000588s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.004600s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000821s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.000651s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000391s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.007291s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000457s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.004816s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.003435s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005711s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000444s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000744s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.000794s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004564s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000471s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000509s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.017292s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.008558s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.008672s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000617s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000596s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000794s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000443s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002667s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000425s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000484s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003711s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000360s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000710s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.035086s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.004786s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.009415s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000090s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000081s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000021s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000098s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.011647s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000032s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.011641s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003628s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000343s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000456s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.047593s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.001677s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.021574s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000048s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000041s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000013s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000054s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.020621s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000020s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.020352s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000071s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.021574s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000111s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000113s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000069s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.021057s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:21:17+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.020944s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000672s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000777s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000430s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000493s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003237s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000348s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003461s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000398s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.003038s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000230s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.002616s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000479s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000419s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000458s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000355s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003253s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000567s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.004211s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000445s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003038s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000337s ]
+[ 2012-07-27T18:21:19+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E5%87%BA%E5%9B%A2%E9%80%9A%E7%9F%A5/chanpinID/31353 | ERR: (ThinkException) 模板不存在[./Myerp/Tpl/Chanpin/chutuantongzhi.html]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000634s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000723s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000393s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000444s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003530s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000399s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003232s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000401s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.003333s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000384s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.003645s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000807s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000498s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000457s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000353s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003699s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000646s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.003853s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000452s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003014s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000421s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003181s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000752s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.000304s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000261s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.005506s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000416s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002815s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002625s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005928s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000519s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000783s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.000843s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003487s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000374s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000268s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.015761s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.006897s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.006976s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000444s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000443s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000469s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000381s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.001875s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000353s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000406s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003517s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000394s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000471s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.030398s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.004175s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.007867s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000055s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000050s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000013s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000057s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.010231s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000019s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.010084s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003278s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000330s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000470s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.040776s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.001884s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.018283s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000045s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000047s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000024s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000057s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.018356s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.018220s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000080s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.018283s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000113s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000117s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000070s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.018864s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:21:22+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.018843s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000725s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000850s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000432s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000495s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003703s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000410s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003590s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000370s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.002686s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000203s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.003589s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000630s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000473s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000446s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000351s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003053s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000319s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.002839s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000327s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003438s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000394s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003146s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000475s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.000288s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000282s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.005254s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000365s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.003198s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002890s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005943s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000438s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000990s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.001043s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003918s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000555s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000273s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.020748s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.007263s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.007349s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000503s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000514s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000556s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000521s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002221s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000552s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000596s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003364s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000444s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000403s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.036247s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.004046s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.008265s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000054s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000049s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000012s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000054s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.010151s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.009831s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003796s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000452s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000456s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.047185s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.001849s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.019259s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000073s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000066s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000021s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000100s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.018976s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000033s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.018838s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000122s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.019259s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000169s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000184s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000020s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000119s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.019732s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000029s ]
+[ 2012-07-27T18:21:45+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.019858s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000666s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000759s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000510s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000585s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004448s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000522s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003957s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000338s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.003589s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000331s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.003423s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000704s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000547s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000647s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000417s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003712s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000575s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.003884s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000506s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003943s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000374s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003079s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000567s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.001223s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000755s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.006906s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000693s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.003328s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002803s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005306s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000429s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000716s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.000767s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003012s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000286s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000250s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.014832s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.006992s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.007067s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000418s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000436s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000489s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000329s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.001808s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000312s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000358s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003072s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000340s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000316s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.028922s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.003678s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.007107s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000051s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000045s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000012s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000054s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.009029s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000019s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.008922s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003337s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000337s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000427s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.038721s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.001841s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017008s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000048s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000043s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000012s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000054s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.017099s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000019s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.016994s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000072s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017008s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000141s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000136s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000012s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000071s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.017559s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000020s ]
+[ 2012-07-27T18:21:59+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.017698s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000774s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000874s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000689s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000756s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004876s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000619s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003542s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000456s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.002979s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000256s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.002749s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000482s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.000446s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000436s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000339s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003062s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000360s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.003182s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000486s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003180s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000371s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003088s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000350s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.000296s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000280s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.005660s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000444s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002815s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002763s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.005991s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000567s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000795s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.000849s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004714s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000531s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000486s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.017451s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.007159s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.007240s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000319s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000442s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000484s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000331s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.001713s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000320s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000366s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003754s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000519s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000503s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.032784s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.003924s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.008096s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000053s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000047s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000056s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.010356s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000019s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.010252s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003136s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000322s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000412s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.042604s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.001646s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017823s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000059s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000049s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000052s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.017808s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.017717s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000066s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.017823s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000106s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000107s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000088s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.018270s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000019s ]
+[ 2012-07-27T18:23:26+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.018322s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run CheckRoute Behavior [ RunTime:0.000678s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000766s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000427s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000487s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004109s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000387s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003578s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000392s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [2] Missing argument 4 for MethodAction::_checkDataOM(), called in E:\Myerp\Myerp\Lib\Action\ChanpinAction.class.php on line 673 and defined MethodAction.class.php 第 813 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined variable: userID MethodAction.class.php 第 815 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_system_DUR` [ RunTime:0.003150s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerp_system_DUR` WHERE `userID` = '40449'  [ RunTime:0.000417s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_dataOM` [ RunTime:0.004803s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,,' ) LIMIT 1   [ RunTime:0.000759s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = '40150,40185,' ) LIMIT 1   [ RunTime:0.004482s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',40185,' ) LIMIT 1   [ RunTime:0.000724s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT DISTINCT  `dataID` FROM `myerp_dataOM` WHERE ( `dataID` = 31353 ) AND ( `datatype` = '子团' ) AND ( `type` = '管理' ) AND ( `DUR` = ',,40449' ) LIMIT 1   [ RunTime:0.000506s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_roles` [ RunTime:0.003890s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_roles` WHERE `systemID` = '40185' LIMIT 1   [ RunTime:0.000503s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_department` [ RunTime:0.004423s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_department` WHERE `systemID` = '40150' LIMIT 1   [ RunTime:0.000659s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003467s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000478s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_directory` [ RunTime:0.003124s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `title` = '子团产品' LIMIT 1   [ RunTime:0.000357s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40990' LIMIT 1   [ RunTime:0.000301s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_directory` WHERE `systemID` = '40973' LIMIT 1   [ RunTime:0.000295s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_zituan` [ RunTime:0.005907s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_zituan` WHERE `chanpinID` = '31353' LIMIT 1   [ RunTime:0.000452s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.003080s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002491s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_chanpin_xianlu` [ RunTime:0.006139s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_chanpin_xianlu` WHERE 1=1 AND chanpinID='31334' LIMIT 1   [ RunTime:0.000521s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000761s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:0.000816s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Undefined index:  includeca_gp TagLib.class.php 第 122 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004602s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000418s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000453s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.019271s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.008714s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.008822s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000441s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000606s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000705s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000423s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002374s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000395s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000449s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004356s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000409s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000501s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.037488s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.004353s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.009425s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000078s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000055s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000014s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000058s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.011646s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000020s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.011507s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | NOTIC: [8] Use of undefined constant chanpinID - assumed 'chanpinID' 3c242559296de46c31eaca7f706e21d9.php 第 69 行.
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.006886s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000496s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run LocationTemplate Behavior [ RunTime:0.000721s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_template ] --END-- [ RunTime:-0.052723s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.002788s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.024960s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000052s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000043s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000013s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000055s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.025447s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000020s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.025262s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ParseTemplate Behavior [ RunTime:0.000071s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_parse ] --END-- [ RunTime:-0.024960s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ContentReplace Behavior [ RunTime:0.000115s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run TokenBuild Behavior [ RunTime:0.000115s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000011s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowRuntime Behavior [ RunTime:0.000070s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_filter ] --END-- [ RunTime:-0.025922s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --START--
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000018s ]
+[ 2012-07-27T18:23:36+08:00 ] /Index.php?s=/Chanpin/zituanplan/marktype/%E6%8E%A5%E5%BE%85%E8%AE%A1%E5%88%92/chanpinID/31353 | INFO: Tag[ view_end ] --END-- [ RunTime:-0.025863s ]
