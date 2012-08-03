@@ -551,6 +551,40 @@ function showsearch(s)
       <?php }} ?>
       
       
+      <?php if('报账单数据' == $nowDir['title']){ ?>
+            <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/SetSystem/OMlist.js"></script>
+            <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/Chanpin/xianlu.js"></script>
+            <tr class="pagination" style="height:28px;">
+              <td colspan="6">
+              <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                  <tbody>
+                    <tr>
+                      <td nowrap="nowrap" class="paginationActionButtons"><strong><?php echo ($datatype); ?>列表</strong>&nbsp;</td>
+                      <td nowrap="nowrap" align="right" class="paginationChangeButtons"><?php echo ($listdatas[page]); ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+                </td>
+            </tr>
+            <tr height="20">
+              <th scope="col" nowrap="nowrap"> 序号</th>
+              <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 标题 </div></th>
+              <th scope="col" nowrap="nowrap" style="min-width:50px;"><div> 状态 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+            </tr>
+            <?php $i=0;foreach($listdatas['chanpin'] as $v){$i++; ?>
+            <tr height="30" class="evenListRowS1">
+              <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
+              <td scope="row" align="left" valign="top"><?php echo ($v['title']); ?></td>
+              <td scope="row" align="left" valign="top"><?php echo ($v['status']); ?></td>
+              <td scope="row" align="left" valign="top">
+              <input class="button" type="button" value="开放" onClick="openlist(<?php echo ($v['chanpinID']); ?>,'<?php echo ($datatype); ?>','<?php echo ($v['title']); ?>')" />
+              <input class="button" type="button" value="管理" onClick="managelist(<?php echo ($v['chanpinID']); ?>,'<?php echo ($datatype); ?>','<?php echo ($v['title']); ?>')" />
+              </td>
+            </tr>
+      <?php }} ?>
+      
+      
       <?php if('分类数据' == $nowDir['title']){ ?>
             <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/SetSystem/OMlist.js"></script>
             <tr height="20">

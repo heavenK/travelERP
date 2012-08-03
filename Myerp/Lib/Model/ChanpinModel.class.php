@@ -34,25 +34,29 @@ class ChanpinModel extends RelationModel {
 	protected $_link = array(
 		//xianlu
 		'xianlu'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Xianlu','foreign_key'=>'chanpinID'),
-		'zituanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID'),
-		'shoujialist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_shoujia','foreign_key'=>'parentID'),
-		'xingchenglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_xingcheng','foreign_key'=>'parentID'),
-		'chengben'=>array('mapping_type'=>HAS_MANY,'class_name'=>'Chengben','foreign_key'=>'chanpinID'),
+		'zituanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		'shoujialist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_shoujia','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		'xingchenglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_xingcheng','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		'chengben'=>array('mapping_type'=>HAS_MANY,'class_name'=>'Chengben','foreign_key'=>'chanpinID','condition'=>'`status` != -1'),
 		//zituan
 		'xianlulist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
 		'zituan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Zituan','foreign_key'=>'chanpinID'),
-		'dingdanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'parentID'),
-		'fenfanglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_fenfang','foreign_key'=>'parentID'),
+		'dingdanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		'fenfanglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_fenfang','foreign_key'=>'parentID','condition'=>'`status` != -1'),
 		//shoujia
 		'shoujia'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Shoujia','foreign_key'=>'chanpinID'),
 		//chengbenlist
-		'chengbenlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_chengben','foreign_key'=>'parentID'),
+		'chengbenlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_chengben','foreign_key'=>'parentID','condition'=>'`status` != -1'),
 		//xingcheng
 		'xingcheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Xingcheng','foreign_key'=>'chanpinID'),
 		//dingdan
 		'dingdan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Dingdan','foreign_key'=>'chanpinID'),
-		//dingdan
+		//fenfang
 		'fenfang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Fenfang','foreign_key'=>'chanpinID'),
+		//baozhang
+		'baozhang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID'),
+		//baozhangitem
+		'baozhangitem'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhangitem','foreign_key'=>'chanpinID'),
 	);
 	
 

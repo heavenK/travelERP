@@ -22,9 +22,10 @@ function dofabu(chanpinID){
 	});
 }
 
+function exports(chanpinID){
+	window.location.href = '<?php echo SITE_INDEX;?>Chanpin/zituanxinxi/typemark/接待计划/export/1/chanpinID/'+chanpinID;
+}
 </script>
-
-
 <link href="<?php echo __PUBLIC__;?>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main">         <style>
 		#navtab_2 h3 { color:#0B578F}
@@ -64,67 +65,65 @@ function dofabu(chanpinID){
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
     <?php A("Chanpin")->header_kongguan(); ?>
-    
     <form name="form1" method="post" id="form1" >
-    <input type="hidden" name="chanpinID" value="<?php echo ($zituan[chanpinID]); ?>">
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <th align="left" colspan="8"> <h4>接待计划（该计划将发布给产品的开放用户）</h4>
-          </th>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 致: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="toperson" type="text" value="<?php echo ($zituan['jiedaijihua']['toperson']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="totelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['totelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="tofax" type="text" value="<?php echo ($zituan['jiedaijihua']['tofax']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 发件人: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="formperson" type="text" value="<?php echo ($zituan['jiedaijihua']['formperson']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="formtelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['formtelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="formfax" type="text" value="<?php echo ($zituan['jiedaijihua']['formfax']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-      </tbody>
-    </table>
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 去程交通: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="tojiaotong" type="text" value="<?php echo ($zituan['jiedaijihua']['tojiaotong']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 返程交通: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="formjiaotong" type="text" value="<?php echo ($zituan['jiedaijihua']['formjiaotong']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 集合标志: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="jihemark" type="text" value="<?php echo ($zituan['jiedaijihua']['jihemark']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 领队: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="lingdui" type="text" value="<?php echo ($zituan['jiedaijihua']['lingdui']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 领队电话: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="lingduitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['lingduitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 接团标志: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="jietuanmark" type="text" value="<?php echo ($zituan['jiedaijihua']['jietuanmark']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 地陪: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="dipei" type="text" value="<?php echo ($zituan['jiedaijihua']['dipei']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 地陪电话: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="dipeitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['dipeitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="min-width:100px;"> 紧急联系人: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="jinjilianxiren" type="text" value="<?php echo ($zituan['jiedaijihua']['jinjilianxiren']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-          <td valign="top" scope="row" style="min-width:100px;"> 紧急联系人电话: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="jinjitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['jinjitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
-        </tr>
-      </tbody>
-    </table>
+      <input type="hidden" name="chanpinID" value="<?php echo ($zituan[chanpinID]); ?>">
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>接待计划（该计划将发布给产品的开放用户）</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 致: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="toperson" type="text" value="<?php echo ($zituan['jiedaijihua']['toperson']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="totelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['totelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="tofax" type="text" value="<?php echo ($zituan['jiedaijihua']['tofax']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 发件人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fromperson" type="text" value="<?php echo ($zituan['jiedaijihua']['fromperson']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fromtelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['fromtelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fromfax" type="text" value="<?php echo ($zituan['jiedaijihua']['fromfax']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+        </tbody>
+      </table>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 去程交通: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="tojiaotong" type="text" value="<?php echo ($zituan['jiedaijihua']['tojiaotong']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 返程交通: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="backjiaotong" type="text" value="<?php echo ($zituan['jiedaijihua']['backjiaotong']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 集合标志: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="jihemark" type="text" value="<?php echo ($zituan['jiedaijihua']['jihemark']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 领队: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="lingdui" type="text" value="<?php echo ($zituan['jiedaijihua']['lingdui']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 领队电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="lingduitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['lingduitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 接团标志: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="jietuanmark" type="text" value="<?php echo ($zituan['jiedaijihua']['jietuanmark']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 地陪: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="dipei" type="text" value="<?php echo ($zituan['jiedaijihua']['dipei']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 地陪电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="dipeitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['dipeitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 紧急联系人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="jinjilianxiren" type="text" value="<?php echo ($zituan['jiedaijihua']['jinjilianxiren']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 紧急联系人电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="jinjitelnum" type="text" value="<?php echo ($zituan['jiedaijihua']['jinjitelnum']); ?>" check="^\S+$" warning="所有信息必填,没有请写无,且不能含有空格" ></td>
+          </tr>
+        </tbody>
+      </table>
     </form>
-    
   </div>
 </div>
 <?php A("Index")->footer(); ?>

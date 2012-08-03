@@ -34,6 +34,7 @@ class MethodAction extends Action{
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
+		$where .= "AND (`status` != '-1')";
 		$DataOM = D($class_name);
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
@@ -49,17 +50,15 @@ class MethodAction extends Action{
 
 
     //显示产品列表
-    public function xianlu_list_noOM($where,$pagenum = 20) {
-		$class_name = 'ViewXianlu';
-		$where['type'] = $type;
+    public function chanpin_list_noOM($class_name,$where,$pagenum = 20) {
 		$where = $this->_facade($class_name,$where);//过滤搜索项
-		$ViewXianlu = D($class_name);
+		$ViewClass = D($class_name);
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
-		$count = $ViewXianlu->where($where)->count();
+		$count = $ViewClass->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $ViewXianlu->where($where)->order("time desc")->limit($p->firstRow.','.$p->listRows)->select();
+        $chanpin = $ViewClass->where($where)->order("time desc")->limit($p->firstRow.','.$p->listRows)->select();
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		return $redata;
@@ -84,8 +83,11 @@ class MethodAction extends Action{
 				if($whereitem)
 					$whereitem .= " OR ";
 				$whereitem .= "(`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
+				$whereitem .= " OR (`DUR` = '$v[bumenID],$v[rolesID],$v[userID]')";//部门，角色，用户
+				$whereitem .= " OR (`DUR` = '$v[bumenID],,$v[userID]')";//部门，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,')";//部门
 				$whereitem .= " OR (`DUR` = ',$v[rolesID],')";//角色
+				$whereitem .= " OR (`DUR` = ',$v[rolesID],$v[userID]')";//角色，用户
 				$whereitem .= " OR (`DUR` = ',,$v[userID]')";//用户
 			}
 		}
@@ -313,7 +315,7 @@ class MethodAction extends Action{
 	 
 	 }
 	 
-	 
+	 //过滤字段
      public function _facade($classname,$data) {
 		$class = D($classname);
 		$DbFields = $class->getDbFields();
@@ -630,14 +632,23 @@ class MethodAction extends Action{
 			$data['chengben'] = $ViewChengben->where("`parentID` = '$dataID'")->findall();
 			$ViewShoujia = D('ViewShoujia');
 			$data['shoujia'] = $ViewShoujia->where("`parentID` = '$dataID'")->findall();
-			
-			$data['copy'] = serialize($data);
-			$DataCopy = D('DataCopy');
-			$data['dataID'] = $dataID;
-			$data['datatype'] = $datatype;
-			$data['taskID'] = $taskID;
-			$DataCopy->myCreate($data);
 		}
+	 	if($datatype == '报账项'){
+			$ViewBaozhangitem = D('ViewBaozhangitem');
+			$data['baozhangitem'] = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
+		}
+	 	if($datatype == '报账单'){
+			$ViewBaozhang = D('ViewBaozhang');
+			$data['baozhang'] = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
+			$ViewBaozhangitem = D('ViewBaozhangitem');
+			$data['baozhangitem'] = $ViewBaozhangitem->where("`parentID` = '$dataID'")->findall();
+		}
+		$data['copy'] = serialize($data);
+		$DataCopy = D('DataCopy');
+		$data['dataID'] = $dataID;
+		$data['datatype'] = $datatype;
+		$data['taskID'] = $taskID;
+		$DataCopy->myCreate($data);
 	 }
 	 
 	 
@@ -672,7 +683,18 @@ class MethodAction extends Action{
 			$data['status'] = '检出';
 			else
 			$data['status'] = '批准';
+			//报账单特殊设置
+			if($_REQUEST['datatype'] == '报账单'){
+				if($processID == 3)
+				$data['status'] = '批准';
+			}
 			cookie('successmessage','操作成功！'.$data['status'],30);
+		}
+		//检查审核流程权限
+		$checkds = $this->_checkShenhe($_REQUEST['datatype'],$processID,$this->user['systemID']);
+		if(false === $checkds){
+			cookie('errormessage','您没有产品审核权限！',30);
+			return false;
 		}
 		//检查流程状态
 		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID);
@@ -682,7 +704,7 @@ class MethodAction extends Action{
 		}
 		$data['taskShenhe']['processID'] = $processID;
 		$data['taskShenhe']['remark'] = $process[0]['remark'];
-		$data['taskShenhe']['roles_copy'] = $omdata['roles'];
+		$data['taskShenhe']['roles_copy'] = $checkds['roletitle'];
 		$data['taskShenhe']['bumen_copy'] = $omdata['bumen'];
 		//审核任务
 		$System = D("System");
@@ -691,9 +713,14 @@ class MethodAction extends Action{
 			return false;
 		}
 		$to_dataID = $System->getRelationID();
+		if($processID == 1 && $data['status'] == '批准'){
+			$md['systemID'] = $to_dataID;
+			$md['parentID'] = $to_dataID;
+			$System->mycreate($md);
+		}
 		//生成数据备份
 		if($data['status'] == '批准'){
-			$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$to_dataID);
+			$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
 		}
 		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
 		//生成待检出	
@@ -707,6 +734,7 @@ class MethodAction extends Action{
 				$data['parentID'] = $need['parentID'];
 			$data['taskShenhe']['remark'] = $process[0]['remark'];
 			$data['taskShenhe']['processID'] = $processID+1;
+			unset($data['systemID']);
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
 			$System->relation("taskShenhe")->myRcreate($data);
@@ -828,7 +856,19 @@ class MethodAction extends Action{
 			$where['DUR'] = $v['departmentID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			if(!$OMlist){
+				$where['DUR'] = $v['departmentID'].','.$v['rolesID'].','.$v['userID'];
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
+			if(!$OMlist){
 				$where['DUR'] = $v['departmentID'].','.$v['rolesID'].',';
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
+			if(!$OMlist){
+				$where['DUR'] = $v['departmentID'].',,'.$v['userID'];
+				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			}
+			if(!$OMlist){
+				$where['DUR'] = ','.$v['rolesID'].','.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
 			if(!$OMlist){
@@ -868,15 +908,24 @@ class MethodAction extends Action{
 		if($userID){
 			$myuserID = $userID;
 			$DURlist = $this->_getDURlist($myuserID);
+			
+			$ViewRoles = D("ViewRoles");
+			$ViewUser = D("ViewUser");
 			foreach($DURlist as $v){
 				$UR = $v['rolesID'].',';
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
-				if($shenhe != null)
+				if($shenhe != null){
+					$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
+					$shenhe['roletitle'] = $roletitle['title'];
 					return $shenhe;
+				}
 				$UR = ','.$v['userID'];
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
-				if($shenhe != null)
+				if($shenhe != null){
+					$roletitle = $ViewUser->where("`systemID` = '$v[userID]'")->find();
+					$shenhe['roletitle'] = $roletitle['title'];
 					return $shenhe;
+				}
 			}
 		}
 		else{
@@ -917,7 +966,7 @@ class MethodAction extends Action{
 			foreach($has as $vol){
 				$ov = $ViewTaskShenhe->where("`parentID` = '$vol[systemID]' and `status` = '批准' ")->find();
 				if(!$ov)
-				return false;
+				return false;//false 则审核流程失败
 			}
 			return $process;
 		}
@@ -1389,7 +1438,27 @@ class MethodAction extends Action{
 
 	 
 	 
-	 
+	//检查获得用户拥有角色
+     public function _checkRolesByUser($roles,$userID = '') {
+		$durlist = A("Method")->_getDURlist($userID);
+		$ViewRoles = D("ViewRoles");
+		$roleslist = explode(',',$roles);
+		$m = 0;
+		foreach($roleslist as $vol){
+			$datrole = $ViewRoles->where("`title` = '$vol' and `status` != '-1'")->find();
+			if($datrole){
+				$i = 0;
+				foreach($durlist as $v){
+					if($v['rolesID'] == $datrole['systemID']){
+						$dur[$m] =  $v;
+						$m++;
+					}
+				}
+			}
+		}
+		if($dur) return $dur;
+		return false;
+	 }
 	 
 }
 ?>

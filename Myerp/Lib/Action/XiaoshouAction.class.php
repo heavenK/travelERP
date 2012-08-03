@@ -22,7 +22,7 @@ class XiaoshouAction extends CommonAction{
 			$bumen = $System->relation("department")->where("`systemID` = '$bumenID'")->find();
 			$xianlu['xianlu']['bumentitle'] = $bumen['department']['title'];
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
-			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]'")->findall();
+			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status` != '-1'")->findall();
 			//剩余名额
 			$jj = 0;
 			foreach($zituan as $zt){
@@ -100,7 +100,7 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("userdurlist",$durlist);
 		//提成数据
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$ticheng = $ViewDataDictionary->where("`type` = '提成'")->findall();
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status` != '-1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//报名截止
 		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
@@ -113,7 +113,7 @@ class XiaoshouAction extends CommonAction{
 			//清空占位过期订单
 			A('Method')->_cleardingdan();
 			$ViewUser = D("ViewUser");
-			$userlist = $ViewUser->findall();
+			$userlist = $ViewUser->where("`status` != '-1'")->findall();
 			$this->assign("userlist",$userlist);
 			$this->display('baoming');
 		}
@@ -346,11 +346,11 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("tuanyuan",$tuanyuan);
 		//提成数据
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$ticheng = $ViewDataDictionary->where("`type` = '提成'")->findall();
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status` != '-1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//用户列表
 		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->findall();
+		$userlist = $ViewUser->where("`status` != '-1'")->findall();
 		$this->assign("userlist",$userlist);
 		
 		if($_REQUEST['showtype'] == 1){

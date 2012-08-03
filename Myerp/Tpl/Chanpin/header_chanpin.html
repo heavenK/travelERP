@@ -1,5 +1,4 @@
-
-	<script type="text/javascript">
+<script type="text/javascript">
     var SITE_INDEX = '<{:SITE_INDEX}>';
     var chanpinID = '<{$chanpinID}>';
 	var title =  '<{$datatitle}>';
@@ -25,55 +24,75 @@
 			},3000);
 	}
     </script>
-    <div class="moduleTitle" style="margin-bottom:10px;">
-      <h3 style=""><{$navigation}><{$datatitle}></h3>
-      <span style="margin-top:10px;"> 
-      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
-      </span> 
-    </div>
-    
-    <php>if($chanpinID){</php>
-    <div id="mysearchdiv" style="margin-bottom:10px;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li> <a <php>if($nowDir['title'] == '基本信息'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$chanpinID}>">基本信息</a> </li>
-        <li> <a <php>if($nowDir['title'] == '行程'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/<{$chanpinID}>">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
-        <li> <a <php>if($nowDir['title'] == '成本售价'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/chengbenshoujia/chanpinID/<{$chanpinID}>">成本售价</a> </li>
-        <php>if($showzituan === true){</php>
-        <li> <a <php>if($nowDir['title'] == '子团管理'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituan/chanpinID/<{$chanpinID}>">子团管理</a> </li>
-        <php>}</php>
-      </ul>
-    </div>
-    <php>}else{</php>
-    <div id="mysearchdiv" style="margin-bottom:10px;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li> <a <php>if($nowDir['title'] == '基本信息'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">基本信息</a> </li>
-        <li> <a <php>if($nowDir['title'] == '行程'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
-        <li> <a <php>if($nowDir['title'] == '成本售价'){</php> class="current" <php>}</php> href="javascript:ajaxalert('请先创建基本信息')">成本售价</a> </li>
-      </ul>
-    </div>
+
+<div class="moduleTitle" style="margin-bottom:10px;">
+  <h3 style=""><{$navigation}><{$datatitle}></h3>
+  <span style="margin-top:10px;"> <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> </span> </div>
+<php>if($chanpinID){</php>
+<div id="mysearchdiv" style="margin-bottom:10px;">
+  <ul id="searchTabs" class="tablist tablist_2">
+    <li> <a 
+      <php>if($nowDir['title'] == '基本信息'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$chanpinID}>">基本信息</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '行程'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/<{$chanpinID}>">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '成本售价'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/chengbenshoujia/chanpinID/<{$chanpinID}>">成本售价</a> </li>
+    <php>if($showzituan === true){</php>
+    <li> <a 
+      <php>if($nowDir['title'] == '子团管理'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituan/chanpinID/<{$chanpinID}>">子团管理</a> </li>
     <php>}</php>
-    
-    <div id="resultdiv" class="resultdiv"></div>
-    <div id="resultdiv_2" class="resultdiv"></div>
-    
-      <div class="buttons">
-        <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-      <php>if($root_shenqing){</php>
-        <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+  </ul>
+</div>
+<php>}else{</php>
+<div id="mysearchdiv" style="margin-bottom:10px;">
+  <ul id="searchTabs" class="tablist tablist_2">
+    <li> <a 
+      <php>if($nowDir['title'] == '基本信息'){</php>
+      class="current"
       <php>}</php>
-      <php>if($root_shenqing2){</php>
-        <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+      href="javascript:ajaxalert('请先创建基本信息')">基本信息</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '行程'){</php>
+      class="current"
       <php>}</php>
-      <php>if($root_shenhe){</php>
-        <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
-        <php>}</php>
-      <php>if('基本信息' == $nowDir['title']){</php>
-        <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
-        <php>}</php>
-      <php>if('行程' == $nowDir['title']){</php>
-      <input type="button" value="保存" name="button" class="button primary" onClick="save();">
-        <php>}</php>
-      </div>
-    
-    
-    
+      href="javascript:ajaxalert('请先创建基本信息')">&nbsp;&nbsp;行&nbsp;&nbsp;程&nbsp;&nbsp;</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '成本售价'){</php>
+      class="current"
+      <php>}</php>
+      href="javascript:ajaxalert('请先创建基本信息')">成本售价</a> </li>
+  </ul>
+</div>
+<php>}</php>
+<div id="resultdiv" class="resultdiv"></div>
+<div id="resultdiv_2" class="resultdiv"></div>
+<div class="buttons">
+  <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
+  <php>if($root_shenqing){</php>
+  <input type="button" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+  <php>}</php>
+  <php>if($root_shenqing2){</php>
+  <input type="button" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
+  <php>}</php>
+  <php>if($root_shenhe){</php>
+  <input type="button" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
+  <php>}</php>
+  <php>if('基本信息' == $nowDir['title']){</php>
+  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+  <php>}</php>
+  <php>if('行程' == $nowDir['title']){</php>
+  <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <php>}</php>
+</div>
