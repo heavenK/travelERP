@@ -79,20 +79,103 @@
 <div id="resultdiv" class="resultdiv"></div>
 <div id="resultdiv_2" class="resultdiv"></div>
 <div class="buttons">
-  <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-  <?php if($root_shenqing){ ?>
-  <input type="button" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-  <?php } ?>
-  <?php if($root_shenqing2){ ?>
-  <input type="button" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-  <?php } ?>
-  <?php if($root_shenhe){ ?>
-  <input type="button" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
-  <?php } ?>
+  <input type="button" value="审核记录" name="button" class="button primary" style="float:right" id="showshenhe" onclick="shenheshow_doit(<?php echo ($chanpinID); ?>);">
+  
+      <?php $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'线路'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe('检出');">
+      <?php }if(cookie('show_action') == '申请'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe('申请');">
+      <?php }}if(A("Method")->checkshenheback($chanpinID,'线路')){ ?>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($chanpinID); ?>,'线路');">
+	  <?php } ?>
+  
   <?php if('基本信息' == $nowDir['title']){ ?>
   <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
   <?php } ?>
   <?php if('行程' == $nowDir['title']){ ?>
   <input type="button" value="保存" name="button" class="button primary" onClick="save();">
   <?php } ?>
+</div>
+
+<script>
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+function shenheshow_doit(chanpinID){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+    getshenhemessage("Index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+	obj =document.getElementById('showshenhe');
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+function getPosLeft(obj)
+{
+    var l = obj.offsetLeft;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetLeft;
+    }
+    return l;
+}
+function getPosTop(obj)
+{
+    var l = obj.offsetTop;
+    while(obj = obj.offsetParent)
+    {
+        l += obj.offsetTop;
+    }
+    return l;
+}
+function getshenhemessage(posturl){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<?php echo ET_URL;?>"+posturl,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
+		}
+	});
+}
+
+function getshenhemessage_after(data,status)
+{
+	if(status == 1){
+		jQuery("#shenhe_box").html(data);
+	}
+}
+
+</script>
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<?php echo __PUBLIC__;?>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

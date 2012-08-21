@@ -6,7 +6,6 @@ class XianluModel extends Model {
    // 自动验证设置 
     protected $_validate = array( 
         array('kind', 'require', 'kind不能为空！', 1,'',1), 
-        array('xianlutype', 'require', 'xianlutype不能为空！', 1,'',1), 
         array('guojing', 'require', 'guojing不能为空！', 1,'',1), 
         array('baomingjiezhi', 'require', 'baomingjiezhi不能为空！', 1,'',1), 
         array('chufadi', 'require', 'chufadi不能为空！', 1,'',1), 

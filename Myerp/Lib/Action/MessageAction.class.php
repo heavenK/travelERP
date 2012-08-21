@@ -106,6 +106,46 @@ class MessageAction extends Action{
 
 
 
+	public function getshenhemessage($pagenum = 10){
+		$where['dataID'] = $_REQUEST['chanpinID'];
+		$InfoHistory = D("InfoHistory");
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+        $dataall = $InfoHistory->Distinct(true)->field('message')->where($where)->select();
+		$count = count($dataall);
+		$p= new Page($count,$pagenum);
+		$page = $p->show_ajax("getshenhemessage");
+        $data = $InfoHistory->Distinct(true)->field('message')->where($where)->limit($p->firstRow.','.$p->listRows)->order("messageID desc")->select();
+		$str = '
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+                <tr>
+                  <th height="24px" width="30px"><div> 序号 </div></th>
+                  <th width="400px"><div> 内容 </div></th>
+                </tr>
+		';
+		$i = 0;
+		foreach($data as $v){$i++;
+			$str .= '
+			<tr class="evenListRowS1">
+			  <td>'.$i.'</td>
+			  <td>
+			  <a style="text-decoration:none" href="javascript:void(0)">
+			  '.$v['message'].'
+			  </td>
+			</tr>
+			';
+		}
+		$str .= '
+			<tr class="evenListRowS1">
+			  <td align="right" colspan="3">
+			  '.$page.'
+			  </td>
+			</tr>
+            </table>
+		';
+		$this->ajaxReturn($str, '', 1);
+	}
+
 
 
 

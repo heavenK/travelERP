@@ -165,16 +165,21 @@ function TravelerDetail(id)
     </div>
       
       <div class="buttons">
-            <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-          <php>if($root_shenqing){</php>
-            <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-          <php>}</php>
-          <php>if($root_shenqing2){</php>
-            <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-          <php>}</php>
-          <php>if($root_shenhe){</php>
-            <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
-          <php>}</php>
+            <input type="button" value="审核记录" name="button" class="button primary" style="float:right">
+            
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'订单');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
+      <php>}}if(A("Method")->checkshenheback($chanpinID,'订单')){</php>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<{$chanpinID}>,'订单');">
+	  <php>}</php>
+      
           <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>');">
           <input type="button" value=" 订单解锁 " name="button" class="button primary" onClick="save();">
       </div>

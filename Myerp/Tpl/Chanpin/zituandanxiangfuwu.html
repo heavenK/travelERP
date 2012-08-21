@@ -28,10 +28,10 @@
           <tr height="30" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
-            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
@@ -65,7 +65,7 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['hangbanhao']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'机票');">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
@@ -98,7 +98,7 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['hoteltelnum']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'订房');">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
@@ -126,7 +126,7 @@
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'补账');">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
@@ -359,15 +359,4 @@ jQuery(document).ready(function(){
 		
 	}
 	
-function deletebaozhang(baozhangID)
-{
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/deleteBaozhang",
-		data:	"baozhangID="+id,
-		success:	function(msg){
-			  ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		  }
-	});
-}
 </script> 

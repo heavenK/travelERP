@@ -14,25 +14,28 @@
         <div id="navtab_1" class="leftList">
           <h3><span>产品分类</span></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>子团产品</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/kongguan">&nbsp;<span>子团产品</span></a> </li>
             <li id="subModuleList" style="padding:0px; border-top:none">
                   <ul>
                     <li class="subTabMore" style="font-size:12px;"> <a href="<?php echo SITE_INDEX;?>Chanpin">&nbsp;线路发布及控管&gt;&gt;</a> 
                         <ul class="cssmenu" style="margin-top:8px;">
-                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊/guojing/国内/xianlutype/散客产">国内近郊 </a> </li>
-                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线/guojing/国内/xianlutype/散客产品">国内长线 </a> </li>
-                          <li> <a href="#">国内自由人 </a> </li>
-                          <li> <a href="#">国内包团 </a> </li>
-                          <li> <a href="#">境外海岛 </a> </li>
-                          <li> <a href="#">境外欧美澳非 </a> </li>
-                          <li> <a href="#">境外游 </a> </li>
-                          <li> <a href="#">境外自由人 </a> </li>
-                          <li> <a href="#">境外包团 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊游/guojing/国内">近郊游 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线游/guojing/国内">长线游 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/国内">国内自由人 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/国内">国内包团 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/韩国/guojing/境外">韩国 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/日本/guojing/境外">日本 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/台湾/guojing/境外">台湾 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/港澳/guojing/境外">港澳 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/东南亚/guojing/境外">东南亚 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/欧美岛/guojing/境外">欧美岛 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/境外">境外自由人 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/境外">境外包团 </a> </li>
                         </ul>
                     </li>
                   </ul>
             </li>
-            <li> <a href="#">&nbsp;<span>签证及票务</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/danxiangfuwu">&nbsp;<span>签证及票务</span></a> </li>
             <li> <a href="#">&nbsp;<span>回收站</span></a> </li>
           </ul>
         </div>
@@ -199,6 +202,67 @@ function showsearch(s)
 </script>
 
 
+    
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <?php if($markpos == '全部'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan">全部</a> </li>
+        <li> <a 
+          <?php if($markpos == '近郊游'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/国内/kind_copy/近郊游">近郊游</a> </li>
+        <li> <a 
+          <?php if($markpos == '长线游'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/国内/kind_copy/长线游">长线游</a> </li>
+        <li> <a 
+          <?php if($markpos == '韩国'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/韩国">韩国</a> </li>
+        <li> <a 
+          <?php if($markpos == '日本'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/日本">日本</a> </li>
+        <li> <a 
+          <?php if($markpos == '台湾'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/台湾">台湾</a> </li>
+        <li> <a 
+          <?php if($markpos == '港澳'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/港澳">港澳</a> </li>
+        <li> <a 
+          <?php if($markpos == '东南亚'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/东南亚">东南亚</a> </li>
+        <li> <a 
+          <?php if($markpos == '欧美岛'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/guojing_copy/境外/kind_copy/欧美岛">欧美岛</a> </li>
+        <li> <a 
+          <?php if($markpos == '自由人'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/kind_copy/自由人">自由人</a> </li>
+        <li> <a 
+          <?php if($markpos == '包团'){ ?>
+          class="current"
+          <?php } ?>
+          href="<?php echo SITE_INDEX;?>Chanpin/kongguan/kind_copy/包团">包团</a> </li>
+      </ul>
+    </div>
+    
     <table cellpadding="0" cellspacing="0" width="100%" class="list view">
       <tbody>
         <tr class="pagination">
@@ -237,7 +301,7 @@ function showsearch(s)
         <td scope="row" align="left" valign="top" style="min-width:300px; width:30%"><a href="<?php echo SITE_INDEX;?>Chanpin/zituanxinxi/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title_copy']); ?></a></td>
         <td scope="row" align="left" valign="top"><?php echo ($v['chutuanriqi']); ?></td>
         <td scope="row" align="left" valign="top"><?php echo ($v['user_name']); ?></td>
-        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['departmentID']); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['bumen_copy']); ?></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['status']); ?></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['islock']); ?></td>
         <td scope="row" align="left" valign="top"><?php echo date('Y/m/d',$v['time']); ?></td>

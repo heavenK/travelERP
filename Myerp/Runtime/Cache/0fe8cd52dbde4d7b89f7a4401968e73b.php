@@ -1,5 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?>
 <?php A("Index")->showheader(); ?>
+<script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/Chanpin/xianlu.js"></script>
 <style>
 .tb1 {
 	border-left:1px dashed #CCCCCC;
@@ -128,11 +129,18 @@ function checktitle(){
 		url:	SITE_INDEX+"Xiaoshou/quxiaodingdan",
 		data:	"dingdanID="+id,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv_2');
+			ThinkAjax.myAjaxResponse(msg,'resultdiv_2',quxiao_after);
 		}
 	});
 	
  }
+ 
+function quxiao_after(data,status){
+	if(status == 1){
+		window.location = SITE_INDEX+'Xiaoshou/dingdanlist';
+	}
+}
+ 
  
 function TravelerDetail(id)
 {
@@ -140,7 +148,46 @@ function TravelerDetail(id)
     window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
 }
 
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<?php echo SITE_INDEX;?>Chanpin/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
 
+function shenheshow_doit(chanpinID,obj){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+    getshenhemessage("Index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+function getshenhemessage(posturl){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<?php echo ET_URL;?>"+posturl,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
+		}
+	});
+}
+function getshenhemessage_after(data,status)
+{
+	if(status == 1){
+		jQuery("#shenhe_box").html(data);
+	}
+}
 </script>
 
 
@@ -163,18 +210,17 @@ function TravelerDetail(id)
     </div>
       
       <div class="buttons">
-            <input type="button" value="审核失败记录" name="button" class="button primary" style="float:right">
-          <?php if($root_shenqing){ ?>
-            <input type="submit" value="申请审核" name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-          <?php } ?>
-          <?php if($root_shenqing2){ ?>
-            <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('申请');">
-          <?php } ?>
-          <?php if($root_shenhe){ ?>
-            <input type="submit" value=" 批准 " name="button" class="button primary" style="float:right" onclick="doshenhe('检出');">
-          <?php } ?>
+            <input type="button" value="审核记录" name="button" class="button primary" style="float:right" onclick="shenheshow_doit(<?php echo ($chanpinID); ?>,this);">
+          
+      <?php $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'订单'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe('检出');">
+      <?php }if(cookie('show_action') == '申请'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe('申请');">
+      <?php }}if(A("Method")->checkshenheback($chanpinID,'订单')){ ?>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($chanpinID); ?>,'订单');">
+	  <?php } ?>
+          
           <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<?php echo ($chanpinID); ?>');">
-          <input type="button" value=" 订单解锁 " name="button" class="button primary" onClick="save();">
       </div>
       
   <form name="form2" method="post" action="<?php echo SITE_INDEX;?>Xiaoshou/dopostdingdanxinxi" id="form2" >
@@ -186,7 +232,7 @@ function TravelerDetail(id)
           <td align="right"><a href="javascript:void(0)" onclick="window.history.back();"> <img src="<?php echo __PUBLIC__;?>/gulianstyle/styles/A_ddgl-03.jpg"> </a></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px"> 团名： </td>
+          <td align="left" style="height: 32px"> 标题： </td>
           <td colspan="5" style="height: 32px"><?php echo ($dingdan['title']); ?></td>
         </tr>
         <tr>
@@ -198,9 +244,18 @@ function TravelerDetail(id)
           <td align="left" style="height: 32px; min-width:80px; width:20%"><?php echo ($shengyu); ?></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">所属人：</td>
+          <td align="left" style="height: 32px;">所属人及部门：</td>
           <td align="left" style="height: 32px">
-            <input type="text" name="owner" id="owner" style="width:80px;" value="<?php echo ($dingdan['owner']); ?>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
+            <input type="text" name="owner" id="owner" style="width:50px;" value="<?php echo ($dingdan['owner']); ?>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
+              <select name="departmentID">
+              <?php if($dingdan['bumen_copy']){ ?>
+                <option value="<?php echo ($dingdan['departmentID']); ?>"><?php echo ($dingdan['bumen_copy']); ?></option>
+                <option disabled="disabled">-----------</option>
+              <?php } ?>
+              <?php foreach($bumenfeilei as $v){ ?>
+                <option value="<?php echo ($v['bumenID']); ?>"><?php echo ($v['title']); ?></option>
+              <?php } ?>
+              </select>
             <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 提成类型：</td>
@@ -300,6 +355,7 @@ function TravelerDetail(id)
           <td align="left" style="height: 32px"> 详细资料： </td>
         </tr>
        <?php $i = 0; foreach($tuanyuan as $vo){$i++; ?>
+       <input type="hidden" name="tuanyuanID<?php echo ($i); ?>" value="<?php echo ($vo['id']); ?>" />
        <input type="hidden" name="datatext<?php echo ($i); ?>" value="<?php echo ($vo['datatext']); ?>" />
         <tr>
           <td align="left" style="height: 32px"><input type="text" name="name<?php echo ($i); ?>" value="<?php echo ($vo['name']); ?>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
@@ -348,3 +404,23 @@ function TravelerDetail(id)
 </div>
 
 <?php A("Index")->footer(); ?>
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<?php echo __PUBLIC__;?>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

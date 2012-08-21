@@ -60,8 +60,8 @@ function save(){
           <td align="left" style="height: 32px; "><span id="lbSyno"><?php echo ($shengyu); ?></span></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">所属人：</td>
-          <td align="left" style="height: 32px"><?php echo $_REQUEST['owner'] ?></td>
+          <td align="left" style="height: 32px;">所属人及所属部门：</td>
+          <td align="left" style="height: 32px"><?php echo $_REQUEST['owner'] ?>/<?php echo $bumen['title'] ?></td>
           <td align="left" style="height: 32px"> 可选大客户：</td>
           <td align="left" style="height: 32px"><?php echo $_REQUEST['bigmanID'] ?></td>
           <td align="left" style="height: 32px"> 订单类型：</td>

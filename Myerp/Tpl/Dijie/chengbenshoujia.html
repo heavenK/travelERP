@@ -1,0 +1,122 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Dijie/chengben.js"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+<script>
+var renshu = '<{$djtuan[renshu]}>';
+function save(){
+	if(CheckForm('form','resultdiv_2')){
+		scroll(0,0);
+		jisuanchengben();
+		ThinkAjax.sendForm('form','<{:SITE_INDEX}>Dijie/dopostchengbenshoujia',doComplete,'resultdiv');
+	}
+}
+function doComplete(){
+}
+jQuery().ready(function() {
+		jisuanchengben();
+		});
+function ajaxalert(title){
+	document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
+	jQuery("#resultdiv_2").show("fast"); 
+	this.intval = window.setTimeout(function (){
+		document.getElementById('resultdiv_2').style.display='none';
+		document.getElementById('resultdiv_2').innerHTML='';
+		},3000);
+}
+</script>
+<div id="main">
+  <tp:includeCA file="Dijie:left_chanpin" />
+  <div id="content" style="margin-left:170px;">
+    <tp:includeCA file="Dijie:header_chanpin" />
+    <form name="form" id="form" method="post">
+      <input name="chanpinID" id="chanpinID" type="hidden" value="<{$chanpinID}>" >
+      <input type="hidden" name="ajax" value="1">
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="chengben">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong>成本项目</strong>&nbsp;
+                    <input class="button" type="button" value="新增大交通" onclick="insertItem('大交通');" />
+                    <input class="button" type="button" value="+旅游车" onclick="insertItem('旅游车');" />
+                    <input class="button" type="button" value="+酒店" onclick="insertItem('酒店');" />
+                    <input class="button" type="button" value="+餐饮" onclick="insertItem('餐饮');" />
+                    <input class="button" type="button" value="+门票" onclick="insertItem('门票');" />
+                    <input class="button" type="button" value="+导游" onclick="insertItem('导游');" />
+                    <input class="button" type="button" value="+其他" onclick="insertItem('其他');" />
+                    </td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号 </th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 开始时间 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 结束时间 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注描述 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应付金额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = 0;foreach($chengben as $v){$i++; list($type,$title,$renshu,$time_start,$time_end,$remark_t,$price) = explode('@_@',$v)
+        </php>
+      <tr height="30" class="evenListRowS1" id="chengbenrow<{$i}>">
+        <td scope="row" align="left" valign="top"><{$i}> </td>
+        <td scope="row" align="left" valign="top"><input type="hidden" name="type[]" value="<{$type}>" check="^\S+$" warning="类型不能为空,且不能含有空格"><{$type}></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="title[]" value="<{$title}>" check="^\S+$" warning="标题不能为空,且不能含有空格"></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="renshu[]" value="<{$renshu}>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+        <php>if($type == '大交通'){</php>
+        <td scope="row" align="left" valign="top"><input type="text" name="time_start[]" value="<{$time_start}>" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="time_end[]" value="<{$time_end}>" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
+        <php>}else{</php>
+        <td scope="row" align="left" valign="top"><input type="text" name="time_start[]" value="<{$time_start}>" onfocus="WdatePicker()" ></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="time_end[]" value="<{$time_end}>" onfocus="WdatePicker()" ></td>
+        <php>}</php>
+        <td scope="row" align="left" valign="top"><input type="text" name="remark[]" value="<{$remark_t}>" ></td>
+        <td scope="row" align="left" valign="top"><input type="text" name="price[]" value="<{$price}>" class='priceitem' check="^\S+$" warning="金额不能为空,且不能含有空格"></td>
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem('chengbenrow<{$i}>')" />
+          <input class="button" type="button" value="修改" onClick="save()" /></td>
+      </tr>
+      <php>}</php>
+        </tbody>
+      
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>总成本:</strong>&nbsp;&nbsp;&nbsp; <span id="chengbenjisuan"></span></td>
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view" style="margin:10px 0 10px 0;">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="6"><table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap"><strong>报价:</strong>&nbsp;&nbsp;&nbsp;
+                    <input type="text" name="baojia" value="<{$djtuan['baojia']}>" >
+                    &nbsp;&nbsp;&nbsp; <strong>备注说明:</strong>&nbsp;&nbsp;&nbsp;
+                    <input style="width:400px;" type="text" name="remark" value="<{$remark}>">
+                </tr>
+              </tbody>
+            </table></td>
+      </tbody>
+    </table>
+      <div class="buttons">
+        <input type="button" value="保存" name="button" class="button primary" onclick="save();">
+      </div>
+    </form>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />

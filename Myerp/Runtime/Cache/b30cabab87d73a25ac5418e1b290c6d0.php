@@ -94,7 +94,7 @@ function getNewsAll(posturl){
 }
 
 function cleardingdan(){
-	getNewsAll("Index.php?s=/Method/_cleardingdan");
+	getNewsAll("Index.php?s=/Xiaoshou/cleardingdan");
 }
   
 function getnews_after(data,status)
@@ -189,6 +189,12 @@ function todo_logout(data,status){
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<?php echo SITE_INDEX;?>Chanpin" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <?php } ?>
       <li class="noBorder">&nbsp;</li>
+      <?php if($navposition == '产品地接'){ ?>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<?php echo SITE_INDEX;?>Dijie" id="grouptab_5">&nbsp;产品地接&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <?php }else{ ?>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<?php echo SITE_INDEX;?>Dijie" id="grouptab_5">&nbsp;产品地接&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <?php } ?>
+      <li class="noBorder">&nbsp;</li>
       <?php if($navposition == '财务管理'){ ?>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <?php }else{ ?>
@@ -217,20 +223,23 @@ function todo_logout(data,status){
     <ul>
       <li class="subTabMore" style="font-size:12px;"> <a href="<?php echo SITE_INDEX;?>Chanpin">线路发布及控管&gt;&gt;</a>
         <ul class="cssmenu">
-          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊/guojing/国内/xianlutype/散客产">国内近郊 </a> </li>
-          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线/guojing/国内/xianlutype/散客产品">国内长线 </a> </li>
-          <li> <a href="#">国内自由人 </a> </li>
-          <li> <a href="#">国内包团 </a> </li>
-          <li> <a href="#">境外海岛 </a> </li>
-          <li> <a href="#">境外欧美澳非 </a> </li>
-          <li> <a href="#">境外游 </a> </li>
-          <li> <a href="#">境外自由人 </a> </li>
-          <li> <a href="#">境外包团 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊游/guojing/国内">近郊游 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线游/guojing/国内">长线游 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/国内">国内自由人 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/国内">国内包团 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/韩国/guojing/境外">韩国 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/日本/guojing/境外">日本 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/台湾/guojing/境外">台湾 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/港澳/guojing/境外">港澳 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/东南亚/guojing/境外">东南亚 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/欧美岛/guojing/境外">欧美岛 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/境外">境外自由人 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/境外">境外包团 </a> </li>
         </ul>
       </li>
       <li> <a href="<?php echo SITE_INDEX;?>Chanpin/shenhe">产品审核</a> </li>
       <li> <a href="<?php echo SITE_INDEX;?>Chanpin/kongguan">产品控管</a> </li>
-      <li> <a href="#">订单控管</a> </li>
+      <li> <a href="<?php echo SITE_INDEX;?>Xiaoshou/dingdanlist">订单控管</a> </li>
       <li> <a href="#">客户管理</a> </li>
       <li> <a href="#">数据字典</a> </li>
       <li> <a href="#">统计</a> </li>
@@ -268,7 +277,9 @@ function todo_logout(data,status){
       <li> <a href="<?php echo SITE_INDEX;?>Xiaoshou">线路产品</a> </li>
       <li> <a href="<?php echo SITE_INDEX;?>Xiaoshou/dingdanlist">订单控管</a> </li>
     </ul>
-    </span> <span id="moduleLink_4" 
+    </span> 
+    
+    <span id="moduleLink_4" 
     <?php if($navposition == '信息'){ ?>
     class="selected"
     <?php } ?>
@@ -278,7 +289,25 @@ function todo_logout(data,status){
       <li> <a href="#">排团表</a> </li>
       <li> <a href="#">系统提示</a> </li>
     </ul>
-    </span> </div>
+    </span> 
+    
+    <span id="moduleLink_5" 
+    <?php if($navposition == '产品地接'){ ?>
+    class="selected"
+    <?php } ?>
+    >
+    <ul>
+      <li class="subTabMore" style="font-size:12px;"> <a href="<?php echo SITE_INDEX;?>Dijie">团队创建与控管&gt;&gt;</a>
+        <ul class="cssmenu">
+          <li> <a href="<?php echo SITE_INDEX;?>Dijie/fabu/guojing/国内/kind/国内">国内团队 </a> </li>
+          <li> <a href="<?php echo SITE_INDEX;?>Dijie/fabu/guojing/境外/kind/日本">境外团队（日本） </a> </li>
+        </ul>
+      </li>
+      <li> <a href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu">单项服务</a> </li>
+    </ul>
+    </span> 
+    
+    </div>
   <div class="clear"></div>
   <div class="line"></div>
   <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> <b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> <b style="white-space:nowrap;float:right;"> <a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">

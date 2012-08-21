@@ -18,8 +18,8 @@ class BaozhangitemModel extends Model {
 
 	protected $_link = array(
 		//baozhang
-		//'baozhangitemlist'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID','condition'=>'`status` != -1'),
-		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		//'baozhangitemlist'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID','condition'=>"`status_system` = '1'"),
+		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		
 	);
 	

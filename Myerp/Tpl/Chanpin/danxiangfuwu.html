@@ -1,0 +1,236 @@
+<tp:includeCA file="Index:showheader" />
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+
+<div id="main">
+  <include file="Chanpin:left_kongguan" />
+  <div id="content" style="margin-left:170px;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    <include file="Index:searchxianlu" />
+    
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <php>if($markpos == '签证'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/签证">签证</a> </li>
+        <li> <a 
+          <php>if($markpos == '办证'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/办证">办证</a> </li>
+        <li> <a 
+          <php>if($markpos == '机票'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/机票">机票</a> </li>
+        <li> <a 
+          <php>if($markpos == '订房'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/订房">订房</a> </li>
+        <li> <a 
+          <php>if($markpos == '交通'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/交通">订车</a> </li>
+        <li> <a 
+          <php>if($markpos == '餐饮'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/餐饮">订餐</a> </li>
+        <li> <a 
+          <php>if($markpos == '门票'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/门票">门票</a> </li>
+        <li> <a 
+          <php>if($markpos == '导游'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/导游">导游</a> </li>
+        <li> <a 
+          <php>if($markpos == '补账'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/danxiangfuwu/type/补账">补账</a> </li>
+      </ul>
+    </div>
+    
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input class="button" type="button" value=" 复制 ">
+                    <input class="button" type="button" value=" 发布 ">
+                    <input class="button" type="button" value=" 删除 ">
+                    <input class="button" type="button" value=" 锁定 ">
+                    <input class="button" type="button" value=" 解锁 ">
+                    <input class="button" type="button" value=" 截止 "></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"><{$page}> </td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <php>if($type == '签证'|| $type == '办证'|| $type == '餐饮'|| $type == '门票'|| $type == '导游'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="30" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
+      
+        <php>if($type == '机票'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 航班号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="30" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['hangbanhao']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
+      
+        <php>if($type == '订房'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 酒店名称 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="30" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['hotel']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['hoteltelnum']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
+      
+        <php>if($type == '交通'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 列车航班号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="30" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['hangbanhao']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
+      
+        <php>if($type == '补账'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="30" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
+      
+      
+        </tbody>
+    </table>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />
+<script language="javascript"> 
+
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+	function showinfo(baozhangID){
+		window.location = '<{:SITE_INDEX}>Chanpin/danxiangfuwu_info/baozhangID/'+baozhangID;
+	}
+	
+	function deletebaozhang(baozhangID){
+		window.location = '<{:SITE_INDEX}>Chanpin/deleteBaozhang/chanpinID/'+baozhangID;
+	}
+
+</script>

@@ -187,10 +187,11 @@ function showsearch(s)
         <tr height="20">
           <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 发布人 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 发布人 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 单位 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类 </div></th>
           <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
           <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
           <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
@@ -201,14 +202,15 @@ function showsearch(s)
       <tr height="30" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><input value="<?php echo ($v['xianluID']); ?>" id="chanpinitem<?php echo ($i); ?>" type="checkbox" name="itemlist[]" class="checkbox"></td>
         <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
-        <td scope="row" align="left" valign="top" style="min-width:300px; width:30%"><a href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a></td>
+        <td scope="row" align="left" valign="top"><a href="<?php echo SITE_INDEX;?>Chanpin/fabu/chanpinID/<?php echo ($v['chanpinID']); ?>"><?php echo ($v['title']); ?></a></td>
         <td scope="row" align="center" valign="top"><img name="aa" onclick="showdate('<?php echo Fi_ConvertChars($v[chutuanriqi]) ?>');showbox(this,'dateitem')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
         <td scope="row" align="left" valign="top"><?php echo ($v['user_name']); ?></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['bumen_copy']); ?></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['guojing']); ?>/<?php echo ($v['kind']); ?></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['status']); ?></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><?php echo ($v['islock']); ?></td>
         <td scope="row" align="left" valign="top"><?php echo date('Y/m/d',$v['time']); ?></td>
-        <td scope="row" align="center" valign="top"><img onclick="showmessage(this,'<?php echo ($v['chanpinID']); ?>','线路','操作记录');showbox(this,'messageitem','r')" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+        <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<?php echo ($v['chanpinID']); ?>,this);" src="<?php echo __PUBLIC__;?>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
       </tr>
       <?php } ?>
         </tbody>
@@ -218,6 +220,37 @@ function showsearch(s)
 </div>
 <?php A("Index")->footer(); ?>
 <script language="javascript"> 
+function shenheshow_doit(chanpinID,obj){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+    getshenhemessage("Index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+function getshenhemessage(posturl){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<?php echo ET_URL;?>"+posturl,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
+		}
+	});
+}
+
+function getshenhemessage_after(data,status)
+{
+	if(status == 1){
+		jQuery("#shenhe_box").html(data);
+	}
+}
+function div_close(id){
+	jQuery('#'+id+'').hide();
+}
 
 function dosearch()
 {
@@ -225,6 +258,29 @@ function dosearch()
 		window.location = '<?php echo SITE_INDEX;?>Chanpin/index/title/'+title;
 }
 </script>
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<?php echo __PUBLIC__;?>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 <div id="selectitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -248,21 +304,6 @@ function dosearch()
             <tbody>
               <tr>
                 <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="messageitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="themessage"> </div></td>
               </tr>
             </tbody>
           </table></td>

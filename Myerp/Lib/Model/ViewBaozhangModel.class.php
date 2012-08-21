@@ -6,7 +6,7 @@ class ViewBaozhangModel extends RelationModel {
 	
 	protected $_link = array(
 		//baozhang
-		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>'`status` != -1'),
+		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 	
 	
 	);

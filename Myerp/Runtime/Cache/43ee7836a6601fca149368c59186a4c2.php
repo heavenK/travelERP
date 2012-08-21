@@ -83,18 +83,6 @@ function showbox(obj,divname,pos)
 		divRili.style.display = '';			
 }
 
-function showmessage(obj,chanpinID)
-{
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<?php echo SITE_INDEX;?>Chanpin/message",
-		data:	"chanpinID="+chanpinID,
-		success:	function(msg){
-			ThinkAjax.myAjaxResponse(msg,'',messagetodo);
-			}
-		});
-}
-
 function messagetodo(data,status,info,type,id)
 {
 	

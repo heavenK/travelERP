@@ -28,6 +28,10 @@
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<?php echo __PUBLIC__;?>/myerp/images/icon_Charts_Vertical_32.gif">&nbsp;<a href="<?php echo SITE_INDEX;?>SetSystem/shenhe/datatype/报账单">报账单</a></td>
           <td width="30%">报账单</td>
         </tr>
+        <tr>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<?php echo __PUBLIC__;?>/myerp/images/ACLRoles.gif">&nbsp;<a href="<?php echo SITE_INDEX;?>SetSystem/shenhe/datatype/地接">地接</a></td>
+          <td width="30%">地接</td>
+        </tr>
       </tbody>
     </table>
     

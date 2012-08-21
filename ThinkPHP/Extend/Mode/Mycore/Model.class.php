@@ -965,6 +965,7 @@ class Model {
 							if($auto[5] == 1){
 								$args = $auto[4];
 								$arg_list = explode(',',$args);
+								$datalist = array();
 								foreach($arg_list as $v)
 									$datalist[$v] = $data[$v];
 								$args = $datalist;	

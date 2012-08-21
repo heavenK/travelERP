@@ -9,11 +9,25 @@
 			document.getElementById('resultdiv_2').innerHTML='';
 			},3000);
 	}
+	
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
     </script>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
   <h3 style=""><?php echo ($navigation); ?> > <?php echo ($markpos); echo ($datatitle); ?></h3>
   <span style="margin-top:10px;"> <img src="<?php echo __PUBLIC__;?>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> </span> </div>
+    <?php if($chanpinID){ ?>
 <div id="mysearchdiv" style="margin-bottom:10px;">
   <ul id="searchTabs" class="tablist tablist_2">
     <li> <a 
@@ -51,8 +65,19 @@
       class="current"
       <?php } ?>
       href="<?php echo SITE_INDEX;?>Chanpin/zituandanxiangfuwu/chanpinID/<?php echo ($chanpinID); ?>">单项服务及补账</a> </li>
+    <li> <a 
+      <?php if($markpos == '应收及应付'){ ?>
+      class="current"
+      <?php } ?>
+      href="<?php echo SITE_INDEX;?>Chanpin/zituanxiangmu/chanpinID/<?php echo ($chanpinID); ?>">应收及应付</a> </li>
+    <li> <a 
+      <?php if($markpos == '团队报账单'){ ?>
+      class="current"
+      <?php } ?>
+      href="<?php echo SITE_INDEX;?>Chanpin/zituanbaozhang/type/团队报账单/chanpinID/<?php echo ($chanpinID); ?>">团队报账单</a> </li>
   </ul>
 </div>
+    <?php } ?>
 <div id="resultdiv" class="resultdiv"></div>
 <div id="resultdiv_2" class="resultdiv"></div>
 <div class="buttons">
@@ -82,21 +107,21 @@
   <input type="button" value=" +订房结算报告 " name="button" class="button primary" id="dingfang_create">
   <input type="button" value=" 添加补账 " name="button" class="button primary" id="buzhang_create">
   <?php } ?>
-  <?php if('单项服务' == $markpos){ ?>
-  <input type="button" value=" 保存 " name="button" class="button primary" id="qianzheng_create" onclick="save_baozhang();">
+  <?php if('单项服务' == $markpos || '团队报账单' == $markpos){ ?>
+  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
   <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
   <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
   <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
-  
-  <?php $taskom = A("Method")->_checkDataShenheOM($baozhangID,'报账单'); if(false !== $taskom){ ?>
-  <input type="button" style="float:right" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<?php echo ($baozhangID); ?>,'<?php echo ($baozhang[title]); ?>');">
+      <?php if('单项服务' == $markpos) $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<?php echo ($baozhangID); ?>,'<?php echo ($baozhang[title]); ?>');">
+      <?php }if(cookie('show_action') == '申请'){ ?>
+      <input type="button" style="float:right" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<?php echo ($baozhangID); ?>,'<?php echo ($baozhang[title]); ?>');">
+      <?php }}if(A("Method")->checkshenheback($baozhangID,'报账单')){ ?>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($baozhangID); ?>,'报账单');">
+	  <?php } ?>
   <?php } ?>
-  <?php if($shenqing_baozhangdan){ ?>
-  <input type="button" style="float:right" value="申请审核" name="button" onclick="doshenhe_baozhangitem('申请','报账单',<?php echo ($baozhangID); ?>,'<?php echo ($baozhang[title]); ?>');">
-  <?php } ?>
-  <?php if($shenqing_baozhangdan2){ ?>
-  <input type="button" style="float:right" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<?php echo ($baozhangID); ?>,'<?php echo ($baozhang[title]); ?>');">
-  <?php } ?>
-  
+  <?php if('应收及应付' == $markpos){ ?>
+  <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">
+  <input type="button" value=" +应付项目 " name="button" class="button primary" id="yingfu_create">
   <?php } ?>
 </div>

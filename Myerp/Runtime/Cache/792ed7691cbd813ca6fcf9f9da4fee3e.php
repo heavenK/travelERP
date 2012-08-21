@@ -5,115 +5,90 @@
 
   <div id="leftColumn" style="margin-top:7px; width:150px;">
         <ul id="searchTabs" class="tablist tablist_2">
-          <li><a id="shownavtab_1" class="current" href="javascript:void(0)" onmouseover="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
-          <li><a id="shownavtab_2" href="javascript:void(0)" onmouseover="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
-          <li><a id="shownavtab_3" href="javascript:void(0)" onmouseover="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
+          <li><a id="shownavtab_1" class="current" href="javascript:void(0)" onclick="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
+          <li><a id="shownavtab_2" href="javascript:void(0)" onclick="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
+          <li><a id="shownavtab_3" href="javascript:void(0)" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
         </ul>
-            
         <div id="navtab_1" class="leftList">
           <h3 style=" text-align:center; border:none">准备中的产品</h3>
-          <h3><span>国内/拼团</span></h3>
+          <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/准备">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/近郊游/status/准备">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/长线游/status/准备">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/自由人/status/准备">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/包团/status/准备">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内/散客</span></h3>
+          <h3><span>境外</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/status/准备">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>全部</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---我爱中华</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---印象之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---爱之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---夏之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---成都海悦</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---通话假期</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---西部国旅</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/韩国/status/准备">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/日本/status/准备">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/台湾/status/准备">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/港澳/status/准备">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/东南亚/status/准备">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/欧美岛/status/准备">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/自由人/status/准备">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/包团/status/准备">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内</span></h3>
+          <h3><span>散客（联合体提供）</span></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
-            <li> <a href="#">&nbsp;<span>机票</span></a> </li>
-            <li> <a href="#">&nbsp;<span>酒店</span></a> </li>
-          </ul>
-          <h3><span>境外</span></h3>
-          <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>海岛游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>出境游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>欧美澳非</span></a> </li>
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
+            <?php foreach($bumenlist as $v){ ?>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/status/准备/departmentID/<?php echo ($v['systemID']); ?>">&nbsp;<span>|---<?php echo ($v['title']); ?></span></a> </li>
+            <?php } ?>
           </ul>
         </div>
         <div id="navtab_2" class="leftList" style="display:none;">
           <h3 style=" text-align:center; border:none;">报名中的产品</h3>
-          <h3><span>国内/拼团</span></h3>
+          <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/报名">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/近郊游/status/报名">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/长线游/status/报名">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/自由人/status/报名">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/包团/status/报名">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内/散客</span></h3>
+          <h3><span>境外</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/status/报名">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>全部</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---我爱中华</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---印象之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---爱之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---夏之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---成都海悦</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---通话假期</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---西部国旅</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/韩国/status/报名">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/日本/status/报名">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/台湾/status/报名">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/港澳/status/报名">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/东南亚/status/报名">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/欧美岛/status/报名">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/自由人/status/报名">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/包团/status/报名">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内</span></h3>
+          <h3><span>散客（联合体提供）</span></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
-            <li> <a href="#">&nbsp;<span>机票</span></a> </li>
-            <li> <a href="#">&nbsp;<span>酒店</span></a> </li>
-          </ul>
-          <h3><span>境外</span></h3>
-          <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>海岛游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>出境游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>欧美澳非</span></a> </li>
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
+            <?php foreach($bumenlist as $v){ ?>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/status/报名/departmentID/<?php echo ($v['systemID']); ?>">&nbsp;<span>|---<?php echo ($v['title']); ?></span></a> </li>
+            <?php } ?>
           </ul>
         </div>
         
         <div id="navtab_3" class="leftList" style="display:none; color:black">
           <h3 style=" text-align:center; border:none">已截止的产品</h3>
-          <h3><span>国内/拼团</span></h3>
+          <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/截止">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>近郊游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/近郊游/status/截止">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/长线游/status/截止">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/自由人/status/截止">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/kind/包团/status/截止">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内/散客</span></h3>
+          <h3><span>境外</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/status/截止">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>全部</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---我爱中华</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---印象之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---爱之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---夏之旅</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---成都海悦</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---通话假期</span></a> </li>
-            <li> <a href="#">&nbsp;<span>|---西部国旅</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/韩国/status/截止">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/日本/status/截止">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/台湾/status/截止">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/港澳/status/截止">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/东南亚/status/截止">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/欧美岛/status/截止">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/自由人/status/截止">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/境外/kind/包团/status/截止">&nbsp;<span>包团</span></a> </li>
           </ul>
-          <h3><span>国内</span></h3>
+          <h3><span>散客（联合体提供）</span></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
-            <li> <a href="#">&nbsp;<span>机票</span></a> </li>
-            <li> <a href="#">&nbsp;<span>酒店</span></a> </li>
-          </ul>
-          <h3><span>境外</span></h3>
-          <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>海岛游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>出境游</span></a> </li>
-            <li> <a href="#">&nbsp;<span>欧美澳非</span></a> </li>
-            <li> <a href="#">&nbsp;<span>自由人</span></a> </li>
-            <li> <a href="#">&nbsp;<span>包团</span></a> </li>
+            <?php foreach($bumenlist as $v){ ?>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/index/status/截止/departmentID/<?php echo ($v['systemID']); ?>">&nbsp;<span>|---<?php echo ($v['title']); ?></span></a> </li>
+            <?php } ?>
           </ul>
         </div>
     

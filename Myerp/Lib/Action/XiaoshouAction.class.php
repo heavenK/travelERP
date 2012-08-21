@@ -22,7 +22,7 @@ class XiaoshouAction extends CommonAction{
 			$bumen = $System->relation("department")->where("`systemID` = '$bumenID'")->find();
 			$xianlu['xianlu']['bumentitle'] = $bumen['department']['title'];
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
-			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status` != '-1'")->findall();
+			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status_system` = '1'")->findall();
 			//剩余名额
 			$jj = 0;
 			foreach($zituan as $zt){
@@ -100,7 +100,7 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("userdurlist",$durlist);
 		//提成数据
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status` != '-1'")->findall();
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//报名截止
 		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
@@ -110,10 +110,13 @@ class XiaoshouAction extends CommonAction{
 		$this->display('printzituan');
 		else
 		if($_REQUEST['dobaoming'] == '报名'){
+			//获得个人部门及分类列表
+			$bumenfeilei = A("Method")->_getbumenfenleilist();
+			$this->assign("bumenfeilei",$bumenfeilei);
 			//清空占位过期订单
 			A('Method')->_cleardingdan();
 			$ViewUser = D("ViewUser");
-			$userlist = $ViewUser->where("`status` != '-1'")->findall();
+			$userlist = $ViewUser->where("`status_system` = '1'")->findall();
 			$this->assign("userlist",$userlist);
 			$this->display('baoming');
 		}
@@ -197,6 +200,10 @@ class XiaoshouAction extends CommonAction{
 				$tuanyuan[$i]['manorchild'] = '领队';
 				$tuanyuan[$i]['price'] = 0;
 			}
+			//所属部门显示
+			$ViewDepartment = D("ViewDepartment");
+			$bumen = $ViewDepartment->where("`systemID` = '$_REQUEST[departmentID]' and `status_system` = '1'")->find();
+			$this->assign("bumen",$bumen);
 			$this->assign("tuanyuan",$tuanyuan);
 			$this->display('baomingnext');
 		}
@@ -303,15 +310,6 @@ class XiaoshouAction extends CommonAction{
 			$this->display('Index:error');
 			exit;
 		}
-		else{
-			if(A('Method')->_checkShenhe('订单',2))
-			$this->assign("root_shenqing",true);
-			else
-			$this->assign("root_shenqing2",true);
-		}
-		$taskom = A("Method")->_checkDataShenheOM($_REQUEST['chanpinID'],'订单');
-		if(false !== $taskom)
-			$this->assign("root_shenhe",true);
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituan")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
@@ -346,13 +344,15 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("tuanyuan",$tuanyuan);
 		//提成数据
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status` != '-1'")->findall();
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//用户列表
 		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->where("`status` != '-1'")->findall();
+		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
 		$this->assign("userlist",$userlist);
-		
+		//获得个人部门及分类列表
+		$bumenfeilei = A("Method")->_getbumenfenleilist();
+		$this->assign("bumenfeilei",$bumenfeilei);
 		if($_REQUEST['showtype'] == 1){
 			A("Method")->showDirectory("子团产品");
 			$this->assign("markpos",'订单信息');
@@ -381,6 +381,7 @@ class XiaoshouAction extends CommonAction{
 		}
 		$Chanpin = D("Chanpin");
 		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
+		$dat['departmentID'] = $_REQUEST['departmentID'];
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
 		$dat['dingdan']['tichengID'] = $_REQUEST['tichengID'];
@@ -405,7 +406,9 @@ class XiaoshouAction extends CommonAction{
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
 		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
-		$dat['status'] = '候补';
+		if($dat['islock'] == '已锁定')
+			$this->ajaxReturn($_REQUEST, '失败，该订单已经锁定，请审核回退后重试', 0);
+		$dat['status_system'] = -1;
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat))
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		else
@@ -439,10 +442,9 @@ class XiaoshouAction extends CommonAction{
 	}
 	
 	
-	
-	
-	
-	
+    public function cleardingdan() {
+		A("Method")->_cleardingdan();
+	}
 	
 }
 ?>

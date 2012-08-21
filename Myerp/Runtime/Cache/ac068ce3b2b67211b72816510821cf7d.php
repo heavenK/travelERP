@@ -24,11 +24,24 @@
           </tr>
           <tr>
             <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
-            <td valign="top" scope="row" style="min-width:400px;"><input name="title" type="text" id="title" value="<?php echo trim($xianlu['title']) ?>" style="width:98%;" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:400px;">
+            <input name="title" type="text" id="title" style="width:200px;" value="<?php echo trim($xianlu['title']) ?>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+              所属部门: 
+              <select name="departmentID">
+              <?php if($xianlu['bumen_copy']){ ?>
+                <option value="<?php echo ($xianlu['departmentID']); ?>"><?php echo ($xianlu['bumen_copy']); ?></option>
+                <option disabled="disabled">-----------</option>
+              <?php } ?>
+              <?php foreach($bumenfeilei as $v){ ?>
+                <option value="<?php echo ($v['bumenID']); ?>"><?php echo ($v['title']); ?></option>
+              <?php } ?>
+              </select>
+            </td>
             <td valign="top" scope="row"> 报名截止: </td>
             <td valign="top" scope="row" style="min-width:300px;"><span>出团前</span>
               <input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<?php if ($xianlu['baomingjiezhi']) echo $xianlu['baomingjiezhi']; else echo 1 ?>" id="baomingjiezhi"  check="^\S+$" warning="报名截止不能为空,且不能含有空格">
-              <span>天</span></td>
+              <span>天</span>
+              </td>
           </tr>
           <tr>
             <td valign="top" scope="row" style="min-width:100px;"> 始发地: </td>
@@ -41,7 +54,7 @@
               <input type="hidden" name="chufashengfen" id="chufashengfen"/>
               <input type="hidden" name="chufachengshi" id="chufachengshi"/></td>
             <td valign="top" scope="row" style="min-width:100px;"> 目的地: </td>
-            <td valign="top"><select name="guojing" id="guojing" class="button">
+            <td valign="top" style="min-width:350px;"><select name="guojing" id="guojing" class="button">
                 <option value="国内">国内</option>
               </select>
               <select name="daqu_id" id="pos1" onchange="change_pos('1')" class="button">

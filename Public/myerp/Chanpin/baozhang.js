@@ -54,6 +54,7 @@
 		url:	SITE_INDEX+"Chanpin/dopost_baozhangitem",
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&parentID="+parentID+it,
 		success:function(msg){
+			scroll(0,0);
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
 		}
 	});

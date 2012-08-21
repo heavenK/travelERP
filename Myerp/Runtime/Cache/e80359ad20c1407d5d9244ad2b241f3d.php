@@ -1,12 +1,11 @@
 <?php if (!defined('THINK_PATH')) exit(); A("Index")->showheader(); ?>
-<script type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="<?php echo __PUBLIC__;?>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo __PUBLIC__;?>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
 var SITE_INDEX = '<?php echo SITE_INDEX;?>';
 var parentID = '<?php echo ($baozhangID); ?>';
 function save_baozhang(){
+	if(CheckForm('form1','resultdiv_2'))
 	ThinkAjax.sendForm('form1','<?php echo SITE_INDEX;?>Chanpin/dopost_zituanbaozhang',doComplete,'resultdiv');
 }
 function doComplete(data,status){
@@ -59,6 +58,7 @@ function exports()
 			document.getElementById('resultdiv_2').innerHTML='';
 			},3000);
 	}
+	
 </script>
 <link href="<?php echo __PUBLIC__;?>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main">         <style>
@@ -70,25 +70,28 @@ function exports()
         <div id="navtab_1" class="leftList">
           <h3><span>产品分类</span></h3>
           <ul id="ul_shortcuts">
-            <li> <a href="#">&nbsp;<span>子团产品</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/kongguan">&nbsp;<span>子团产品</span></a> </li>
             <li id="subModuleList" style="padding:0px; border-top:none">
                   <ul>
                     <li class="subTabMore" style="font-size:12px;"> <a href="<?php echo SITE_INDEX;?>Chanpin">&nbsp;线路发布及控管&gt;&gt;</a> 
                         <ul class="cssmenu" style="margin-top:8px;">
-                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊/guojing/国内/xianlutype/散客产">国内近郊 </a> </li>
-                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线/guojing/国内/xianlutype/散客产品">国内长线 </a> </li>
-                          <li> <a href="#">国内自由人 </a> </li>
-                          <li> <a href="#">国内包团 </a> </li>
-                          <li> <a href="#">境外海岛 </a> </li>
-                          <li> <a href="#">境外欧美澳非 </a> </li>
-                          <li> <a href="#">境外游 </a> </li>
-                          <li> <a href="#">境外自由人 </a> </li>
-                          <li> <a href="#">境外包团 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/近郊游/guojing/国内">近郊游 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/长线游/guojing/国内">长线游 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/国内">国内自由人 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/国内">国内包团 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/韩国/guojing/境外">韩国 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/日本/guojing/境外">日本 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/台湾/guojing/境外">台湾 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/港澳/guojing/境外">港澳 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/东南亚/guojing/境外">东南亚 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/欧美岛/guojing/境外">欧美岛 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/自由人/guojing/境外">境外自由人 </a> </li>
+                          <li> <a href="<?php echo SITE_INDEX;?>Chanpin/fabu/kind/包团/guojing/境外">境外包团 </a> </li>
                         </ul>
                     </li>
                   </ul>
             </li>
-            <li> <a href="#">&nbsp;<span>签证及票务</span></a> </li>
+            <li> <a href="<?php echo SITE_INDEX;?>Chanpin/danxiangfuwu">&nbsp;<span>签证及票务</span></a> </li>
             <li> <a href="#">&nbsp;<span>回收站</span></a> </li>
           </ul>
         </div>
@@ -104,9 +107,20 @@ function exports()
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
         <tbody>
           <tr>
-            <th align="left" colspan="8"> <h4 style="color:#090"><?php echo ($baozhang['type']); ?>结算报告(注意：报账项只有在审核通过后才可以被打印或导出) <span style="float:right; color:#4e8ccf">审核阶段：<?php echo ($baozhang['shenhe_remark']); ?></span></h4>
+            <th align="left" colspan="8"> <h4 style="color:#090"><?php echo ($baozhang['type']); ?>结算报告(注意：报账项只有在审核通过后才可以被打印或导出) <span style="float:right; color:#4e8ccf; margin-right:100px;">审核阶段：<?php echo ($baozhang['shenhe_remark']); ?></span></h4>
             </th>
           </tr>
+            <?php if($baozhang['type'] == '团队报账单'){ ?>
+        <input type="hidden" name="title" value="<?php echo trim($baozhang['title']) ?>"/>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 人数: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<?php echo trim($baozhang['renshu']) ?>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 接团单位: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="jietuandanwei" type="text" value="<?php echo trim($baozhang['datatext']['jietuandanwei']) ?>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 全陪: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="quanpei" type="text" value="<?php echo trim($baozhang['datatext']['quanpei']) ?>" check="^\S+$" warning="全陪不能为空,且不能含有空格"></td>
+        </tr>
+        <?php } ?>
             <?php if($baozhang['type'] == '签证'){ ?>
         
         <tr>
@@ -193,7 +207,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <?php $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '结算项目') continue;$i++; ?>
@@ -205,6 +219,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<?php echo ($v['chanpinID']); ?>">
               <option value="<?php echo ($v['method']); ?>"><?php echo ($v['method']); ?></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>
@@ -217,15 +232,15 @@ function exports()
           <td scope="row" align="left" valign="top"><?php echo ($v['shenhe_remark']); ?></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<?php echo ($v['chanpinID']); ?>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<?php echo ($v['chanpinID']); ?>,'itemlist<?php echo ($v[chanpinID]); ?>');"/>
-  <?php if($root_shenqing){ ?>
-  <input type="button" value="申请审核" name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
-  <?php if($root_shenqing2){ ?>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
-  <?php $taskom = A("Method")->_checkDataShenheOM($v['chanpinID'],'报账项'); if(false !== $taskom){ ?>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
+  
+      <?php $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
+      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
+      <?php }if(cookie('show_action') == '申请'){ ?>
+      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
+      <?php }}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){ ?>
+      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($v['chanpinID']); ?>,'报账项');">
+	  <?php } ?>
+      
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <?php if($v['is_print'] =='不打印'){ ?>
             checked="checked"
@@ -257,7 +272,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <?php $i = 0;foreach($baozhang['baozhangitemlist'] as $v){ if($v['type'] != '支出项目') continue;$i++; ?>
@@ -269,6 +284,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<?php echo ($v['chanpinID']); ?>">
               <option value="<?php echo ($v['method']); ?>"><?php echo ($v['method']); ?></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>
@@ -281,15 +297,14 @@ function exports()
           <td scope="row" align="left" valign="top"><?php echo ($v['status']); ?></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<?php echo ($v['chanpinID']); ?>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<?php echo ($v['chanpinID']); ?>,'itemlist<?php echo ($v[chanpinID]); ?>');"/>
-  <?php if($root_shenqing){ ?>
-  <input type="button" value="申请审核" name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
-  <?php if($root_shenqing2){ ?>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
-  <?php $taskom = A("Method")->_checkDataShenheOM($v['chanpinID'],'报账项'); if(false !== $taskom){ ?>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-  <?php } ?>
+      <?php $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
+      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
+      <?php }if(cookie('show_action') == '申请'){ ?>
+      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
+      <?php }}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){ ?>
+      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($v['chanpinID']); ?>,'报账项');">
+	  <?php } ?>
+      
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <?php if($v['is_print'] =='不打印'){ ?>
             checked="checked"
@@ -321,7 +336,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <?php $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++; ?>
@@ -333,6 +348,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<?php echo ($v['chanpinID']); ?>">
               <option value="<?php echo ($v['method']); ?>"><?php echo ($v['method']); ?></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>

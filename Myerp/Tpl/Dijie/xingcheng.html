@@ -1,0 +1,82 @@
+<tp:includeCA file="Index:showheader" />
+<script>
+function save(){
+	scroll(0,0);
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Dijie/dopostxingcheng',doComplete,'resultdiv');
+}
+function doComplete(){
+}
+</script>
+<div id="main">
+  <tp:includeCA file="Dijie:left_chanpin" />
+  <div id="content" style="margin-left:170px;">
+    <tp:includeCA file="Dijie:header_chanpin" />
+    <form name="form" id="form" method="post">
+      <input name="chanpinID" id="chanpinID" type="hidden" value="<{$chanpinID}>" >
+      <input type="hidden" name="ajax" value="1">
+      <!--ajax提示-->
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>基本信息（选填）</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 导游: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="daoyou" type="text" value="<{$djtuan['daoyou']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 导游电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="daoyoutelnum" type="text" value="<{$djtuan['daoyoutelnum']}>" ></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 团队标志: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="tuanbiao" type="text" value="<{$djtuan['tuanbiao']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 备注说明: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input style=" width:400px;" name="remark" type="text" value="<{$remark}>" ></td>
+          </tr>
+        </tbody>
+      </table>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+        
+      <php>for($i=1;$i<$djtuan[tianshu];$i++){ list($zaocan,$wucan,$wancan,$content) = explode('@_@',$xingcheng_array[$i-1]);</php>
+          <tr>
+            <th align="left" colspan="8"> <h4>日程安排：第<{$i}>天</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 早餐: </td>
+            <td valign="top" scope="row"><input type="text" name="zaocan[]" value="<{$zaocan}>" style="width:200px;"/></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 午餐: </td>
+            <td valign="top" scope="row"><input type="text" name="wucan[]" value="<{$wucan}>" style="width:200px;"/></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 晚餐: </td>
+            <td valign="top" scope="row"><input type="text" name="wancan[]" value="<{$wancan}>" style="width:200px;"/></td>
+          </tr>
+          <tr>
+            <td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>内容</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><textarea style="width:99%; resize:none" rows="4" name="content[]"><{$content}></textarea></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  </tr>
+                </tbody>
+              </table></td>
+          </tr>
+      <php>}</php>
+          
+        </tbody>
+      </table>
+      <div class="buttons">
+        <input type="button" value="保存" name="button" class="button primary" onclick="save();">
+      </div>
+    </form>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />

@@ -704,7 +704,7 @@ function showsearch(s)
               <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
               <td scope="row" align="left" valign="top">
               <input type="text" id="department<?php echo ($v[systemID]); ?>" style="width:200px;" value="<?php echo ($v[department][title]); ?>"/>
-              <input type="hidden" id="departmentID<?php echo ($v[systemID]); ?>" value="<?php echo ($v[department][systemID]); ?>"/>
+              <input type="hidden" id="bumenID<?php echo ($v[systemID]); ?>" value="<?php echo ($v[department][systemID]); ?>"/>
               </td>
               <td scope="row" align="left" valign="top">
               <input type="text" id="roles<?php echo ($v[systemID]); ?>" style="width:200px;" value="<?php echo ($v[roles][title]); ?>"/>
@@ -1027,25 +1027,53 @@ function showsearch(s)
         
         <tr height="20">
           <th scope="col" nowrap="nowrap"> 序号</th>
-          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 职能类型 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 地址 </div></th>
+          <th scope="col" nowrap="nowrap" ><div> 地址 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 传真 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 电子邮箱 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
         </tr>
-        
         
       <?php $i = 0; foreach($datalist as $v){ $i++; ?>
       <tr height="30" class="evenListRowS1" id="itemlist<?php echo ($v['systemID']); ?>">
         <td scope="row" align="left" valign="top"><?php echo ($i); ?></td>
-        <td scope="row" align="left" valign="top"><form id="form<?php echo ($v['systemID']); ?>" ><input type="text" name="title" id="title<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['title']); ?>"></form></td>
+        <td scope="row" align="left" valign="top"><form id="form<?php echo ($v['systemID']); ?>" ><input type="text" name="title" id="title<?php echo ($v['systemID']); ?>" value="<?php echo ($v['title']); ?>"></form></td>
+        <td scope="row" align="left" valign="top">
+        <?php $typearray = explode(',',$v['type']); ?>
+        <?php if(in_array('组团',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="组团" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">组团</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="组团" class="type<?php echo ($v['systemID']); ?>"/>组团
+        <?php }if(in_array('地接',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="地接" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">地接</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="地接" class="type<?php echo ($v['systemID']); ?>"/>地接
+        <?php }if(in_array('销售（直营）',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="销售（直营）" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">销售（直营）</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="销售（直营）" class="type<?php echo ($v['systemID']); ?>"/>销售（直营）
+        <?php }if(in_array('销售（加盟）',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="销售（加盟）" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">销售（加盟）</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="销售（加盟）" class="type<?php echo ($v['systemID']); ?>"/>销售（加盟）
+        <?php }if(in_array('办事处',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="办事处" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">办事处</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="办事处" class="type<?php echo ($v['systemID']); ?>"/>办事处
+        <?php }if(in_array('联合体',$typearray)){ ?>
+        <input type="checkbox" name="type[]" value="联合体" class="type<?php echo ($v['systemID']); ?>" checked="checked"/><label style="color:#4e8ccf">联合体</label>
+        <?php }else{ ?>
+        <input type="checkbox" name="type[]" value="联合体" class="type<?php echo ($v['systemID']); ?>"/>联合体
+        <?php } ?>
+        </td>
         <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['lianxiren']); ?>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="officetel<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['officetel']); ?>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="postal<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['postal']); ?>"></td>
-        <td scope="row" align="left" valign="top"><input type="text" id="addr<?php echo ($v['systemID']); ?>" style="width:200px" value="<?php echo ($v['addr']); ?>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="addr<?php echo ($v['systemID']); ?>" value="<?php echo ($v['addr']); ?>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="fax<?php echo ($v['systemID']); ?>" style="width:80px" value="<?php echo ($v['fax']); ?>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="email<?php echo ($v['systemID']); ?>" style="width:100px" value="<?php echo ($v['email']); ?>"></td>
         <td scope="row" align="left" valign="top">

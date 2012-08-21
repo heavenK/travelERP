@@ -1,12 +1,11 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
 var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
 function save_baozhang(){
+	if(CheckForm('form1','resultdiv_2'))
 	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Chanpin/dopost_zituanbaozhang',doComplete,'resultdiv');
 }
 function doComplete(data,status){
@@ -59,6 +58,7 @@ function exports()
 			document.getElementById('resultdiv_2').innerHTML='';
 			},3000);
 	}
+	
 </script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> <include file="Chanpin:left_kongguan" />
@@ -71,9 +71,22 @@ function exports()
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
         <tbody>
           <tr>
-            <th align="left" colspan="8"> <h4 style="color:#090"><{$baozhang['type']}>结算报告(注意：报账项只有在审核通过后才可以被打印或导出) <span style="float:right; color:#4e8ccf">审核阶段：<{$baozhang['shenhe_remark']}></span></h4>
+            <th align="left" colspan="8"> <h4 style="color:#090"><{$baozhang['type']}>结算报告(注意：报账项只有在审核通过后才可以被打印或导出) <span style="float:right; color:#4e8ccf; margin-right:100px;">审核阶段：<{$baozhang['shenhe_remark']}></span></h4>
             </th>
           </tr>
+            <php>
+        if($baozhang['type'] == '团队报账单'){
+          </php>
+        <input type="hidden" name="title" value="<php>echo trim($baozhang['title'])</php>"/>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 人数: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 接团单位: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="jietuandanwei" type="text" value="<php>echo trim($baozhang['datatext']['jietuandanwei'])</php>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 全陪: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="quanpei" type="text" value="<php>echo trim($baozhang['datatext']['quanpei'])</php>" check="^\S+$" warning="全陪不能为空,且不能含有空格"></td>
+        </tr>
+        <php>}</php>
             <php>
         if($baozhang['type'] == '签证'){
           </php>
@@ -162,7 +175,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <php>
@@ -176,6 +189,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>
@@ -188,18 +202,20 @@ function exports()
           <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
-  <php>if($root_shenqing){</php>
-  <input type="button" value="申请审核" name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
-  <php>if($root_shenqing2){</php>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
-  <php>
-  $taskom = A("Method")->_checkDataShenheOM($v['chanpinID'],'报账项');
-  if(false !== $taskom){
-  </php>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
+  
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
+      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<{$v['chanpinID']}>,'报账项');">
+	  <php>}</php>
+      
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
@@ -231,7 +247,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <php>
@@ -245,6 +261,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>
@@ -257,18 +274,19 @@ function exports()
           <td scope="row" align="left" valign="top"><{$v['status']}></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
-  <php>if($root_shenqing){</php>
-  <input type="button" value="申请审核" name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
-  <php>if($root_shenqing2){</php>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
-  <php>
-  $taskom = A("Method")->_checkDataShenheOM($v['chanpinID'],'报账项');
-  if(false !== $taskom){
-  </php>
-  <input type="button" value=" 批准 " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-  <php>}</php>
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
+      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<{$v['chanpinID']}>,'报账项');">
+	  <php>}</php>
+      
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
@@ -300,7 +318,7 @@ function exports()
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:210px;"><div> 操作 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
             <php>
@@ -314,6 +332,7 @@ function exports()
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
+              <option value="现金">现金</option>
               <option value="网拨">网拨</option>
               <option value="银行卡">银行卡</option>
               <option value="汇款">汇款</option>

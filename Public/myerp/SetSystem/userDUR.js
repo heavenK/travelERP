@@ -7,7 +7,7 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"department_t"+i+"\" style=\"width:200px;\" >";
-	htmlcontent += "<input type=\"hidden\" id=\"departmentID_t"+i+"\">";
+	htmlcontent += "<input type=\"hidden\" id=\"bumenID_t"+i+"\">";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"roles_t"+i+"\" style=\"width:200px;\" >";
@@ -107,13 +107,13 @@ function checktitle(id,parenttype,inputid,mark){
 		mark = '';
 	}
 	var department = jQuery("#department"+mark+id).val();
-	var departmentID = jQuery("#departmentID"+mark+id).val();
+	var bumenID = jQuery("#bumenID"+mark+id).val();
 	var roles = jQuery("#roles"+mark+id).val();
 	var rolesID = jQuery("#rolesID"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostUserDUR",
-		data:	"departmentID="+departmentID+"&rolesID="+rolesID+"&department="+department+"&roles="+roles+"&userID="+userID+it,
+		data:	"bumenID="+bumenID+"&rolesID="+rolesID+"&department="+department+"&roles="+roles+"&userID="+userID+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
@@ -129,7 +129,7 @@ function checktitle(id,parenttype,inputid,mark){
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"department"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['department']+"\">";
-		htmlcontent += "<input type=\"hidden\" id=\"departmentID"+data['systemID']+"\">";
+		htmlcontent += "<input type=\"hidden\" id=\"bumenID"+data['systemID']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"roles"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['roles']+"\">";
