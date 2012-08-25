@@ -247,7 +247,7 @@
           <td valign="top" scope="row" style="width:80px;"> 人数: </td>
           <td valign="top" scope="row"><input name="renshu" type="text"check="^\S+$" warning="人数号不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row" style="width:80px;"> 列车航班编号: </td>
-          <td valign="top" scope="row"><input name="bianhao" type="text"></td>
+          <td valign="top" scope="row"><input name="hangbanhao" type="text"></td>
         </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 结算时间: </td>
@@ -263,9 +263,9 @@
         </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 开始时间: </td>
-          <td valign="top" scope="row"><input name="time_start" type="text" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
+          <td valign="top" scope="row"><input name="leavetime" type="text" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
           <td valign="top" scope="row" style="width:80px;"> 结束时间: </td>
-          <td valign="top" scope="row"><input name="time_end" type="text" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
+          <td valign="top" scope="row"><input name="arrivetime" type="text" onfocus="WdatePicker({startDate:'',dateFmt:'yyyy-MM-dd HH:mm:00',alwaysUseStartDate:true})" ></td>
         </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 备注说明: </td>
@@ -394,7 +394,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_dingfang','resultdiv_2'))
-				ThinkAjax.sendForm('form_dingfang','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_dingfang','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -408,7 +408,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_jiaotong','resultdiv_2'))
-				ThinkAjax.sendForm('form_jiaotong','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_jiaotong','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -422,7 +422,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_dingcan','resultdiv_2'))
-				ThinkAjax.sendForm('form_dingcan','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_dingcan','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -436,7 +436,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_menpiao','resultdiv_2'))
-				ThinkAjax.sendForm('form_menpiao','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_menpiao','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -450,7 +450,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_daoyou','resultdiv_2'))
-				ThinkAjax.sendForm('form_daoyou','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_daoyou','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -464,7 +464,7 @@ jQuery(document).ready(function(){
 		buttons: {
 			"确认": function() {
 				if(CheckForm('form_buzhang','resultdiv_2'))
-				ThinkAjax.sendForm('form_buzhang','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang/',save_after,'resultdiv');
+				ThinkAjax.sendForm('form_buzhang','<{:SITE_INDEX}>Dijie/dopost_baozhang/parenttype/地接',save_after,'resultdiv');
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");

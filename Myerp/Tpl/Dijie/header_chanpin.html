@@ -52,12 +52,12 @@
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Dijie/chengbenshoujia/chanpinID/<{$chanpinID}>">成本及报价</a> </li>
-    <php>if($show_chengtuan === true){</php>
+    <php>if($show_chengtuan === true || $baozhangID){</php>
     <li> <a 
       <php>if($markpos == '单项服务及补账' || $markpos == '单项服务'){</php>
       class="current"
       <php>}</php>
-      href="<{:SITE_INDEX}>Dijie/djtuanxiangmu/chanpinID/<{$chanpinID}>">订房及其他服务</a> </li>
+      href="<{:SITE_INDEX}>Dijie/djtuandanxiangfuwu/chanpinID/<{$chanpinID}>">订房及其他服务</a> </li>
     <li> <a 
       <php>if($markpos == '应收及应付'){</php>
       class="current"
@@ -72,7 +72,7 @@
     <php>}</php>
   </ul>
 </div>
-<php>}else{</php>
+<php>}elseif(!$baozhangID){</php>
 <div id="mysearchdiv" style="margin-bottom:10px;">
   <ul id="searchTabs" class="tablist tablist_2">
     <li> <a 
@@ -124,7 +124,7 @@
   
   
   <php>if('单项服务及补账' == $markpos){</php>
-  <input type="button" value="添加订房" name="button" class="button primary" id="dingfang_create">
+  <input type="button" value="添加订房结算报告" name="button" class="button primary" id="dingfang_create">
   <input type="button" value="+交通" name="button" class="button primary" id="jiaotong_create">
   <input type="button" value="+订餐" name="button" class="button primary" id="dingcan_create">
   <input type="button" value="+门票" name="button" class="button primary" id="menpiao_create">

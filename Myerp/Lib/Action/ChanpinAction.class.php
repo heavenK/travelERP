@@ -53,7 +53,7 @@ class ChanpinAction extends CommonAction{
 		$this->assign("xianlu",$xianlu);
 		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
 		//获得个人部门及分类列表
-		$bumenfeilei = A("Method")->_getbumenfenleilist();
+		$bumenfeilei = A("Method")->_getbumenfenleilist('组团');
 		$this->assign("bumenfeilei",$bumenfeilei);
 		$this->display('fabu');
 	}
@@ -288,7 +288,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, '该线路已经截止，不能开放销售！', 0);
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			//同步售价表线路状态
-			A("Method")->_tongbushoujia($_REQUEST['parentID'],$xianlu['status']);
+			A("Method")->_tongbushoujia($_REQUEST['parentID']);
 			if($Chanpin->getLastmodel() == 'add')
 				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成开放OM	
@@ -364,36 +364,7 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function shenhe() {
-		if($_REQUEST['type'] == '团队收支项'){
-			$relation = 'baozhangitem';
-			$this->assign("markpos",'团队收支项');
-		}elseif($_REQUEST['type'] == '收支项') {
-			$relation = 'baozhangitem';
-			$this->assign("markpos",'收支项');
-		}elseif($_REQUEST['type'] == '报账单') {
-			$relation = 'baozhang';
-			$this->assign("markpos",'报账单');
-		}elseif($_REQUEST['type'] == '订单审核') {
-			$relation = 'dingdan';
-			$this->assign("markpos",'订单审核');
-		}
-		else{
-			$relation = 'xianlu';
-			$this->assign("markpos",'线路产品');
-		}
-		A("Method")->showDirectory("产品审核");
-		$datalist = A('Method')->getDataOMlist('审核任务',$relation,$_REQUEST);
-		if($_REQUEST['type'] == '订单审核') {
-			//ticheng
-			$i = 0;
-			$ViewDataDictionary = D("ViewDataDictionary");
-			foreach($datalist['chanpin'] as $v){
-				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-				$i++;
-			}
-		}
-		$this->assign("page",$datalist['page']);
-		$this->assign("chanpin_list",$datalist['chanpin']);
+		A("Method")->_shenhe();
 		$this->display('shenhe');
 	}
 	
@@ -790,21 +761,26 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function zituandanxiangfuwu() {
-		A("Method")->danxiangfuwu('子团');
+		A("Method")->_tuandanxiangfuwu('子团');
 		$this->display('zituandanxiangfuwu');
 	}
 	
-	public function dopost_zituanbaozhang() {
+	public function dopost_baozhang() {
 		A("Method")->dosavebaozhang('子团');
 	}
 	
 	public function zituanbaozhang() {
-		A("Method")->_baozhang('子团');
+		if(!$_REQUEST['chanpinID']){
+			A("Method")->_baozhang();
+			A("Method")->showDirectory("签证及票务");
+		}
+		else
+			A("Method")->_baozhang('子团');
 		$this->display('zituanbaozhang');
 	}
 	
 	public function deleteBaozhang() {
-		A("Method")->_deleteBaozhang('子团');
+		A("Method")->_deleteBaozhang();
 	}
 	
 	public function dopost_baozhangitem() {
@@ -812,7 +788,7 @@ class ChanpinAction extends CommonAction{
 	}
 		
 	public function deleteBaozhangitem() {
-		A("Method")->_deleteBaozhangitem('子团');
+		A("Method")->_deleteBaozhangitem();
 	}
 	
 	public function zituanxiangmu() {
@@ -830,36 +806,11 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function danxiangfuwu() {
-		if($_REQUEST['type'] == '办证')$this->assign("markpos",'办证');
-		elseif($_REQUEST['type'] == '机票')$this->assign("markpos",'机票');
-		elseif($_REQUEST['type'] == '订房')$this->assign("markpos",'订房');
-		elseif($_REQUEST['type'] == '交通')$this->assign("markpos",'交通');
-		elseif($_REQUEST['type'] == '餐饮')$this->assign("markpos",'餐饮');
-		elseif($_REQUEST['type'] == '门票')$this->assign("markpos",'门票');
-		elseif($_REQUEST['type'] == '导游')$this->assign("markpos",'导游');
-		elseif($_REQUEST['type'] == '补账')$this->assign("markpos",'补账');
-		else{
-			$_REQUEST['type'] = '签证';
-			$this->assign("type",'签证');
-			$this->assign("markpos",'签证');
-		}
-		A("Method")->showDirectory("签证及票务");
-		//A("Method")->danxiangfuwu('子团');
-		$chanpin_list = A('Method')->getDataOMlist('报账单','baozhang',$_REQUEST,$_REQUEST['type']);
-		$this->assign("page",$chanpin_list['page']);
-		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		A("Method")->_danxiangfuwu('组团');
 		$this->display('danxiangfuwu');
 	}
 	
 	  
-	public function danxiangfuwu_info() {
-		A("Method")->_baozhang();
-		A("Method")->showDirectory("签证及票务");
-		$this->display('zituanbaozhang');
-	}
-	
-	
-	
 	
 	
 	

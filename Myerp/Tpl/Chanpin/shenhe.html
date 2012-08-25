@@ -109,18 +109,7 @@
                   <td scope="row" align="left" valign="top"><{$v['remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<{$v['chanpinID']}>,'报账项');">
-	  <php>}</php>
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['parentID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -144,7 +133,7 @@
                   <td scope="row" align="left" valign="top"><{$v['remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['chanpinID']}>,<{$v['parentID']}>);">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['chanpinID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -283,7 +272,7 @@ function shenhe_back(dataID,datatype){
 	});
 }
 	function showinfo(baozhangID,parentID){
-		window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/chanpinID/'+parentID+'/baozhangID/'+baozhangID);
+		window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
 	}
 	function show_dingdan(chanpinID){
 		window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);

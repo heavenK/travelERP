@@ -406,7 +406,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 			jQuery().ready(function() {
 				
 					<php>foreach($DURlist as $v){</php>
-						myautocomplete("#department<{$v[systemID]}>",'部门');
+						myautocomplete("#bumen<{$v[systemID]}>",'部门');
 						myautocomplete("#roles<{$v[systemID]}>",'角色');
 					 <php>}</php>
 				
@@ -439,7 +439,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
             <tr height="30" class="evenListRowS1" id="durlist<{$v[systemID]}>">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top">
-              <input type="text" id="department<{$v[systemID]}>" style="width:200px;" value="<{$v[department][title]}>"/>
+              <input type="text" id="bumen<{$v[systemID]}>" style="width:200px;" value="<{$v[department][title]}>"/>
               <input type="hidden" id="bumenID<{$v[systemID]}>" value="<{$v[department][systemID]}>"/>
               </td>
               <td scope="row" align="left" valign="top">
@@ -449,7 +449,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <td scope="row" align="left" valign="top"><{$v['islock']}></td>
               <td scope="row" align="left" valign="top">
               <input class="button" type="button" value="删除" onclick="delUserDUR(<{$v[systemID]}>)"/>
-              <input class="button" type="button" value="修改" onclick="if(checktitle(<{$v[systemID]}>,'部门','department') && checktitle(<{$v[systemID]}>,'角色','roles'))save(<{$v[systemID]}>);"/>
+              <input class="button" type="button" value="修改" onclick="if(checktitle(<{$v[systemID]}>,'部门','bumen') && checktitle(<{$v[systemID]}>,'角色','roles'))save(<{$v[systemID]}>);"/>
               </td>
             </tr>
         <php>}}</php>
@@ -853,6 +853,51 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         </td>
       </tr>
       <php>}}</php>
+      
+      
+      
+      <php>if('角色设置' == $nowDir['title']){</php>
+		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/roels.js"></script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 备注 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+        </tr>
+        
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="remark<{$v['systemID']}>" style="width:400px" value="<{$v['remark']}>"></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
+        </td>
+      </tr>
+      <php>}}</php>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       

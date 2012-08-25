@@ -84,6 +84,8 @@
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<?php echo __PUBLIC__;?>/myerp/images/ProductTypes.gif">&nbsp;<a href="<?php echo SITE_INDEX;?>SetSystem/department">部门设置</a></td>
           <td width="30%">部门设置</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<?php echo __PUBLIC__;?>/myerp/images/ACLRoles.gif">&nbsp;<a href="<?php echo SITE_INDEX;?>SetSystem/roles">角色设置</a></td>
+          <td width="30%">角色设置</td>
         </tr>
       </tbody>
     </table>

@@ -5,12 +5,12 @@
 
   <div id="leftColumn" style="margin-top:7px; width:150px;">
         <ul id="searchTabs" class="tablist tablist_2">
-          <li><a id="shownavtab_1" class="current" href="javascript:void(0)" onclick="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
-          <li><a id="shownavtab_2" href="javascript:void(0)" onclick="shownavtab(2)">&nbsp;在线&nbsp;</a></li>
-          <li><a id="shownavtab_3" href="javascript:void(0)" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
+          <li><a id="shownavtab_1" <php>if($status == '准备' || !$status){</php>class="current"<php>}</php> href="javascript:void(0)" onclick="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
+          <li><a id="shownavtab_2" <php>if($status == '在线'){</php>class="current"<php>}</php> href="javascript:void(0)" onclick="shownavtab(2)">&nbsp;在线&nbsp;</a></li>
+          <li><a id="shownavtab_3" <php>if($status == '截止'){</php>class="current"<php>}</php> href="javascript:void(0)" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
         </ul>
             
-        <div id="navtab_1" class="leftList">
+        <div id="navtab_1" class="leftList" <php>if($status != '准备' && $status){</php>style="display:none;"<php>}</php>>
           <h3 style=" text-align:center; border:none">准备中的产品</h3>
           <h3><span>国内</span></h3>
           <ul id="ul_shortcuts">
@@ -19,11 +19,11 @@
           <h3><span>境外</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="<{:SITE_INDEX}>Dijie/index/status/准备/guojing/境外/kind/日本">&nbsp;<span>日本来团</span></a> </li>
-            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/准备/guojing/境外/kind/日本">&nbsp;<span>台湾来团</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/准备/guojing/境外/kind/台湾">&nbsp;<span>台湾来团</span></a> </li>
           </ul>
         </div>
         
-        <div id="navtab_2" class="leftList" style="display:none;">
+        <div id="navtab_2" class="leftList" <php>if($status != '在线'){</php>style="display:none;"<php>}</php>>
           <h3 style=" text-align:center; border:none;">在线中的产品</h3>
           <h3><span>国内</span></h3>
           <ul id="ul_shortcuts">
@@ -32,11 +32,11 @@
           <h3><span>境外</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="<{:SITE_INDEX}>Dijie/index/status/在线/guojing/境外/kind/日本">&nbsp;<span>日本来团</span></a> </li>
-            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/在线/guojing/境外/kind/日本">&nbsp;<span>台湾来团</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/在线/guojing/境外/kind/台湾">&nbsp;<span>台湾来团</span></a> </li>
           </ul>
         </div>
         
-        <div id="navtab_3" class="leftList" style="display:none; color:black">
+        <div id="navtab_3" class="leftList" <php>if($status != '截止'){</php>style="display:none;"<php>}</php>>
           <h3 style=" text-align:center; border:none">已截止的产品</h3>
           <h3><span>国内</span></h3>
           <ul id="ul_shortcuts">
@@ -45,7 +45,7 @@
           <h3><span>境外</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="<{:SITE_INDEX}>Dijie/index/status/截止/guojing/境外/kind/日本">&nbsp;<span>日本来团</span></a> </li>
-            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/截止/guojing/境外/kind/日本">&nbsp;<span>台湾来团</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Dijie/index/status/截止/guojing/境外/kind/台湾">&nbsp;<span>台湾来团</span></a> </li>
           </ul>
         </div>
     

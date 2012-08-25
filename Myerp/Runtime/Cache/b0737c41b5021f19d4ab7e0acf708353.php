@@ -170,7 +170,7 @@ function showsearch(s)
 
 
             
-            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
               
                 <tr class="pagination">
@@ -179,12 +179,6 @@ function showsearch(s)
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                          	分类&nbsp;&nbsp;
-                            <input class="button" type="button" value=" 出境 ">
-                            <input class="button" type="button" value=" 国内 ">
-                            <input class="button" type="button" value=" 联合体 ">
-                            <input class="button" type="button" value=" 办事处 ">
-                            <input class="button" type="button" value=" 自由人 ">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<?php echo ($page); ?>
@@ -215,7 +209,7 @@ function showsearch(s)
                 <?php $i = -1; foreach($chanpin_list as $v){ $i++; ?>
                 <tr style="cursor:pointer" height="30" class="evenListRowS1" onclick="showinfo(<?php echo ($v['chanpinID']); ?>)">
                   <td scope="row" align="left" valign="top"><?php echo ($i+1); ?></td>
-                  <td scope="row" align="left" valign="top" style="min-width:300px; width:30%; color:#990"><?php echo ($v['title']); ?></td>
+                  <td scope="row" align="left" valign="top" style="min-width:300px; width:30%;"><?php echo ($v['title']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['chanpinID']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['lianxiren']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo ($v['telnum']); ?></td>
@@ -246,7 +240,7 @@ function showsearch(s)
 <script language="javascript"> 
 
 function showinfo(chanpinID){
-	window.location = '<?php echo SITE_INDEX;?>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID;
+	window.open('<?php echo SITE_INDEX;?>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
 
 function dosearch()

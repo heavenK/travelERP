@@ -265,13 +265,7 @@ function showsearch(s)
                   <td scope="row" align="left" valign="top"><?php echo ($v['remark']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo date('Y/m/d H:i',$v['time']); ?></td>
                   <td scope="row" align="left" valign="top">
-      <?php $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项'); if(false !== $taskom){ if(cookie('show_action') == '批准'){ ?>
-      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-      <?php }if(cookie('show_action') == '申请'){ ?>
-      <input type="button" value=" <?php echo cookie('show_word'); ?> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<?php echo ($v['chanpinID']); ?>,'<?php echo ($v['title']); ?>');">
-      <?php }}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){ ?>
-      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<?php echo ($v['chanpinID']); ?>,'报账项');">
-	  <?php } ?>
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<?php echo ($v['parentID']); ?>);">
                   </td>
                 </tr>
                 <?php }} ?>
@@ -295,7 +289,7 @@ function showsearch(s)
                   <td scope="row" align="left" valign="top"><?php echo ($v['remark']); ?></td>
                   <td scope="row" align="left" valign="top"><?php echo date('Y/m/d H:i',$v['time']); ?></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<?php echo ($v['chanpinID']); ?>,<?php echo ($v['parentID']); ?>);">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<?php echo ($v['chanpinID']); ?>);">
                   </td>
                 </tr>
                 <?php }} ?>
@@ -434,7 +428,7 @@ function shenhe_back(dataID,datatype){
 	});
 }
 	function showinfo(baozhangID,parentID){
-		window.open('<?php echo SITE_INDEX;?>Chanpin/zituanbaozhang/chanpinID/'+parentID+'/baozhangID/'+baozhangID);
+		window.open('<?php echo SITE_INDEX;?>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
 	}
 	function show_dingdan(chanpinID){
 		window.open('<?php echo SITE_INDEX;?>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);

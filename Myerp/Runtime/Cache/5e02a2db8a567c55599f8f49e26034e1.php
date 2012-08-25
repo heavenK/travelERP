@@ -177,6 +177,63 @@ function showsearch(s)
 
 
             
+            <div id="mysearchdiv" style="margin:10px 0 0 0;">
+              <ul id="searchTabs" class="tablist tablist_2">
+                <li> <a 
+                  <?php if($markpos == '签证'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/签证">近郊游</a> </li>
+                <li> <a 
+                  <?php if($markpos == '办证'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/办证">长线游</a> </li>
+                <li> <a 
+                  <?php if($markpos == '交通'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/交通">自由人</a> </li>
+                <li> <a 
+                  <?php if($markpos == '订房'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/订房">包团</a> </li>
+                <li> <a 
+                  <?php if($markpos == '餐饮'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/餐饮">韩国</a> </li>
+                <li> <a 
+                  <?php if($markpos == '门票'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/门票">日本</a> </li>
+                <li> <a 
+                  <?php if($markpos == '导游'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/导游">台湾</a> </li>
+                <li> <a 
+                  <?php if($markpos == '补账'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/补账">港澳</a> </li>
+                <li> <a 
+                  <?php if($markpos == '补账'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/补账">东南亚</a> </li>
+                <li> <a 
+                  <?php if($markpos == '补账'){ ?>
+                  class="current"
+                  <?php } ?>
+                  href="<?php echo SITE_INDEX;?>Dijie/danxiangfuwu/type/补账">欧美岛</a> </li>
+              </ul>
+            </div>
+            
+            
+            
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
               <tbody>
               
@@ -186,12 +243,6 @@ function showsearch(s)
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                          	分类&nbsp;&nbsp;
-                            <input class="button" type="button" value=" 出境 ">
-                            <input class="button" type="button" value=" 国内 ">
-                            <input class="button" type="button" value=" 联合体 ">
-                            <input class="button" type="button" value=" 办事处 ">
-                            <input class="button" type="button" value=" 自由人 ">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<?php echo ($page); ?>
@@ -209,10 +260,9 @@ function showsearch(s)
                   <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
                 </tr>
                 
-                
-                <?php foreach($chanpin_list as $v){ ?>
+                <?php $i = 0;foreach($chanpin_list as $v){$i++; ?>
                 <tr height="30" class="evenListRowS1">
-                  <td valign="top" align="left" scope="row">1</td>
+                  <td valign="top" align="left" scope="row"><?php echo ($i); ?></td>
                   <td valign="top" align="left" style="min-width:300px;" scope="row"><?php echo ($v['xianlu']['xianlu']['title']); ?></td>
                   <td valign="top" align="left" scope="row"><?php echo ($v['adultprice']); ?>元</td>
                   <td valign="top" align="left" scope="row"><?php echo date('Y/m/d H:i',$v['xianlu']['xianlu']['time']); ?></td>
@@ -224,10 +274,10 @@ function showsearch(s)
                       <tbody>
                         <tr>
                           <td valign="top" align="left" style="vertical-align:top;" width="10" >
-                          <input class="button" type="button" value=" 展开 " onclick="opendatelist()" id="buttomopen" style="float:left">
-                          <input class="button" type="button" value=" 收起 " onclick="closedatelist()" id="buttomclose" style="display:none; float:left; ">
+                          <input class="button" type="button" value=" 展开 " onclick="opendatelist(<?php echo ($i); ?>)" id="buttomopen<?php echo ($i); ?>" style="float:left">
+                          <input class="button" type="button" value=" 收起 " onclick="closedatelist(<?php echo ($i); ?>)" id="buttomclose<?php echo ($i); ?>" style="display:none; float:left; ">
                           </td>
-                          <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td">
+                          <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td<?php echo ($i); ?>">
                             <?php foreach($v['zituan'] as $vol){ ?>
                                 <a target="_blank" href="<?php echo SITE_INDEX;?>Xiaoshou/zituan/chanpinID/<?php echo ($vol['chanpinID']); ?>/xianluID/<?php echo ($vol['parentID']); ?>/shoujiaID/<?php echo ($v['dataID']); ?>" ><?php echo ($vol['chutuanriqi']); ?><br /> 报名:<?php echo ($baoming_renshu[$vol['chanpinID']]); ?>人 剩余:<?php echo ($vol['shengyurenshu']); ?></a>
                             <?php } ?>
@@ -238,7 +288,6 @@ function showsearch(s)
                     </td>
                 </tr>  
                 <?php } ?>
-                
                 
               </tbody>
             </table>
@@ -251,15 +300,15 @@ function showsearch(s)
 <?php A("Index")->footer(); ?>
 
 <script language="javascript"> 
-function opendatelist(){
-		jQuery("#sall_td").css( "height","100%"); 
-		jQuery("#buttomclose").show();
-		jQuery("#buttomopen").hide();
+function opendatelist(mark){
+		jQuery("#sall_td"+mark).css( "height","100%"); 
+		jQuery("#buttomclose"+mark).show();
+		jQuery("#buttomopen"+mark).hide();
 }
-function closedatelist(){
-		jQuery("#sall_td").css( "height","37px"); 
-		jQuery("#buttomopen").show();
-		jQuery("#buttomclose").hide();
+function closedatelist(mark){
+		jQuery("#sall_td"+mark).css( "height","37px"); 
+		jQuery("#buttomopen"+mark).show();
+		jQuery("#buttomclose"+mark).hide();
 }
 function dosearch()
 {

@@ -508,5 +508,19 @@ class SetSystemAction extends CommonAction{
 		$this->display('templatelist');
 	}
 	
+	public function roles(){
+		A("Method")->showDirectory("角色设置");
+		$datas = A('Method')->_getRolesList();
+		$this->assign("datalist",$datas);
+		$this->display('templatelist');
+	}
+	
+
+
+
+
+
+
+
 }
 ?>

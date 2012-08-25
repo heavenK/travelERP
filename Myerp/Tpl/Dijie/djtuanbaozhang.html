@@ -6,7 +6,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
 function save_baozhang(){
 	if(CheckForm('form1','resultdiv_2'))
-	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Dijie/dopost_djtuanbaozhang',doComplete,'resultdiv');
+	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Dijie/dopost_baozhang',doComplete,'resultdiv');
 }
 function doComplete(data,status){
 }
@@ -62,8 +62,12 @@ function ajaxalert(title){
 </script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> 
+<php>if($chanpinID){</php>
   <tp:includeCA file="Dijie:left_chanpin" />
   <div id="content" style="margin-left:170px;">
+<php>}else{</php>
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+<php>}</php>
     <tp:includeCA file="Dijie:header_chanpin" />
     <form name="form1" method="post" id="form1" >
       <input type="hidden" name="chanpinID" value="<{$baozhangID}>">

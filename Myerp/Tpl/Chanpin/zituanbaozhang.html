@@ -6,7 +6,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
 function save_baozhang(){
 	if(CheckForm('form1','resultdiv_2'))
-	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Chanpin/dopost_zituanbaozhang',doComplete,'resultdiv');
+	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Chanpin/dopost_baozhang',doComplete,'resultdiv');
 }
 function doComplete(data,status){
 }
@@ -88,7 +88,7 @@ function exports()
         </tr>
         <php>}</php>
             <php>
-        if($baozhang['type'] == '签证'){
+        if($baozhang['type'] == '签证' || $baozhang['type'] == '办证' || $baozhang['type'] == '餐饮' || $baozhang['type'] == '门票' || $baozhang['type'] == '导游'){
           </php>
         
         <tr>
@@ -98,7 +98,7 @@ function exports()
           <td valign="top" scope="row" style="min-width:200px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
         </tr>
         <php>}</php>
-        <php>if($baozhang['type'] == '机票'){</php>
+        <php>if($baozhang['type'] == '机票' ||$baozhang['type'] == '交通' ){</php>
         <tr>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 标题: </td>
           <td valign="top" scope="row" style="min-width:300px;"><input name="title" type="text" style="width:200px;" value="<php>echo trim($baozhang['title'])</php>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>

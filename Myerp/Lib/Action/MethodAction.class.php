@@ -16,25 +16,21 @@ class MethodAction extends Action{
 			$where['status'] = '待检出';
 			if($relation == 'xianlu')
 			$where['datatype'] = '线路';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
+			if($relation == 'baozhangitem')
+			$where['datatype'] = '报账项';
+			if($relation == 'baozhang')
+			$where['datatype'] = '报账单';
+			if($relation == 'dingdan')
+			$where['datatype'] = '订单';
 		}
 		if($datatype == '线路'){
 			$class_name = 'OMViewXianlu';
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '售价'){
-			$class_name = 'OMViewChanpin';
+			$class_name = 'OMViewShoujia';
 			$where['datatype'] = $datatype;
-			$where['status_xianlu'] = '报名';
+			$where['xianlu_status'] = '报名';
 		}
 		if($datatype == '订单'){
 			$class_name = 'OMViewChanpin';
@@ -45,13 +41,16 @@ class MethodAction extends Action{
 			$where['datatype'] = '子团';
 		}
 		if($datatype == '地接'){
-			$class_name = 'OMViewChanpin';
+			$class_name = 'OMViewDJtuan';
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '报账单'){
 			$class_name = 'OMViewBaozhang';
 			$where['datatype'] = $datatype;
 		}
+		if($datatype == '售价')
+		$where['omtype'] = $type;
+		else
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
@@ -446,7 +445,7 @@ class MethodAction extends Action{
 	 }
 	 
 	 
-	//获得角色列表
+	//获得角色设置列表
      public function _getRolesList() {
 		$ViewRoles = D("ViewRoles");
 		//角色
@@ -463,18 +462,41 @@ class MethodAction extends Action{
 		return $datas2;
 	 }
 	
+	
 	//获得用户部门角色列表
-     public function _getDURlist($userID,$bumen='') {
+     public function _getDURlist($userID,$bumen='',$bumentype='') {
 		if($userID)
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
 		$ViewSystemDUR = D("ViewSystemDUR");
-		if($bumen)
-		$datas4 = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
+		if($bumen)//获得部门关联
+		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
 		else
-		$datas4 = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
-		return $datas4;
+		$data = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
+		if($bumentype){//过滤部门类型
+			$ViewDepartment = D("ViewDepartment");
+			$bumentypelist = explode(',',$bumentype);
+			$m = 0;
+			foreach($data as $v){
+				$ok_d = 0;
+				//比对部门类型
+				$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
+				$typelist = explode(',',$bumen['type']);
+				foreach($typelist as $vaa){
+					if(in_array($vaa,$bumentypelist)){
+						$ok_d = 1;
+						break;	
+					}
+				}
+				if($ok_d == 1){
+					$data_2[$m] = $v;
+					$m++;
+				}
+			}
+			return $data_2;
+		}
+		return $data;
 	 }
 	 
 	//获得用户部门角色列表
@@ -702,14 +724,14 @@ class MethodAction extends Action{
 	//生成待检出	
 	//检查审核流程
      public function _shenheDO($_REQUEST,$dotype='') {
-		$omdata = $this->_checkOMTaskShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');
-		if(false === $omdata){
-			cookie('errormessage',cookie('errormessage'),30);
-			return false;
-		}
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
 		if($dotype == '申请'){
+			$omdata = $this->_checkOMTaskShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');//检查产品的管理权限！
+			if(false === $omdata){
+				cookie('errormessage','您没有管理权限！',30);
+				return false;
+			}
 			$processID = 1;
 			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1)){
 				$data['status'] = '申请';
@@ -725,10 +747,14 @@ class MethodAction extends Action{
 				$this->ajaxReturn('', '没有计调或经理权限！', 0);
 		}
 		else{
-			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);
+			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
+			if(false === $need){
+				cookie('errormessage','您没有操作权限！',30);
+				return false;
+			}
 			$processID = $need['processID'];
 			$data['systemID'] = $need['systemID'];
-			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
+			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))//检查流程是否存在
 			$data['status'] = '检出';
 			else
 			$data['status'] = '批准';
@@ -801,10 +827,14 @@ class MethodAction extends Action{
 				$to_dataom['datatype'] = '审核任务';
 				foreach($process as $p){
 					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
-					$DataOM->mycreate($to_dataom);
-					//返回需要提示的用户
-					$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
-					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+					//过滤统一部门DUR
+					$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
+					if(!$tmp_d){
+						$DataOM->mycreate($to_dataom);
+						//返回需要提示的用户
+						$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
+						$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+					}
 				}
 			}
 		}
@@ -1015,12 +1045,27 @@ class MethodAction extends Action{
 	 
 	 
 	//检查流程状态待检出
-     public function _getTaskDJC($dataID,$datatype) {
-		$ViewTaskShenhe = D("ViewTaskShenhe");
-		if($processID == ''){
-		  $need = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '待检出' AND (`status_system` = '1')")->find();
-		  return $need;
-		}
+     public function _getTaskDJC($dataID,$datatype,$checkright=0) {
+		 if($checkright){
+			$OMViewTaskShenhe = D("OMViewTaskShenhe");
+			$where['dataID'] = $dataID;
+			$where['datatype'] = $datatype;
+			$where['status'] = '待检出';
+			$where['status_system'] = 1;
+			$where = $this->_openAndManage_filter($where);
+			$need = $OMViewTaskShenhe->where($where)->find();
+			if($need)
+			  return $need;
+		 }
+		 else
+		 {
+			$ViewTaskShenhe = D("ViewTaskShenhe");
+			if($processID == ''){
+			  $need = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '待检出' AND (`status_system` = '1')")->find();
+				if($need)
+				  return $need;
+			}
+		 }
 		return false;
 	 }
 	 
@@ -1516,6 +1561,7 @@ class MethodAction extends Action{
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			  $i++;
 		  }
+		  return $dataOMlist;
 	 }
 	 
 	 
@@ -1594,19 +1640,32 @@ class MethodAction extends Action{
 		$durlist = A("Method")->_checkRolesByUser($omrole,$omtype);
 		if (false === $durlist)
 			$this->ajaxReturn('', '没有'.$omrole.'权限！', 0);
-		//检查OM
-		$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'报账单','管理');
-		if(false === $xianlu)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
-		$Chanpin = D("Chanpin");
 		$data = $_REQUEST;
 		$data['baozhang'] = $data;
 		$data['baozhang']['datatext'] = serialize($data);
-		$baozhang = $Chanpin->where("`chanpinID` = '$data[chanpinID]'")->find();
-		if($baozhang['islock'] == '已锁定' ){
-			$this->ajaxReturn($_REQUEST, '错误！该产品已经被锁定！', 0);
+		$Chanpin = D("Chanpin");
+		if($data['chanpinID']){
+			$baozhang = $Chanpin->where("`chanpinID` = '$data[chanpinID]'")->find();
+			//检查OM
+			$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'报账单','管理');
+			if(false === $xianlu)
+			$this->ajaxReturn($_REQUEST,'错误，无管理权限！！！', 0);
+			if($baozhang['islock'] == '已锁定' ){
+				$this->ajaxReturn($_REQUEST, '错误！该产品已经被锁定！', 0);
+			}
 		}
+		else{
+			//检查OM
+			if($_REQUEST['parentID']){
+				$xianlu = A('Method')->_checkDataOM($_REQUEST['parentID'],$_REQUEST['parenttype'],'管理');
+				if(false === $xianlu)
+				$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+				$cpdata = $Chanpin->where("`chanpinID` = '$data[parentID]'")->find();
+				$data['departmentID'] = $cpdata['departmentID'];
+			}
+		}
+			
 		if (false !== $Chanpin->relation("baozhang")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
 			//生成OM
@@ -1621,7 +1680,7 @@ class MethodAction extends Action{
 	
 	
 	
-	public function danxiangfuwu($type) {
+	public function _tuandanxiangfuwu($type) {
 		$chanpinID = $_REQUEST['chanpinID'];
 		$this->assign("markpos",'单项服务及补账');
 		if($type == '子团'){
@@ -1662,6 +1721,41 @@ class MethodAction extends Action{
 	
 	
 	
+	public function _danxiangfuwu($type) {
+		//获得个人部门及分类列表
+		$bumenfeilei = A("Method")->_getbumenfenleilist($type);
+		$this->assign("bumenfeilei",$bumenfeilei);
+		if($type == '组团'){
+			A("Method")->showDirectory("签证及票务");
+		}
+		if($type == '地接'){
+			A("Method")->showDirectory("预订单项服务");
+		}
+		if($_REQUEST['type'] == '办证')$this->assign("markpos",'办证');
+		elseif($_REQUEST['type'] == '机票')$this->assign("markpos",'机票');
+		elseif($_REQUEST['type'] == '订房')$this->assign("markpos",'订房');
+		elseif($_REQUEST['type'] == '交通')$this->assign("markpos",'交通');
+		elseif($_REQUEST['type'] == '餐饮')$this->assign("markpos",'餐饮');
+		elseif($_REQUEST['type'] == '门票')$this->assign("markpos",'门票');
+		elseif($_REQUEST['type'] == '导游')$this->assign("markpos",'导游');
+		elseif($_REQUEST['type'] == '补账')$this->assign("markpos",'补账');
+		else{
+			$_REQUEST['type'] = '签证';
+			$this->assign("type",'签证');
+			$this->assign("markpos",'签证');
+		}
+		$chanpin_list = A('Method')->getDataOMlist('报账单','baozhang',$_REQUEST,$_REQUEST['type']);
+		$i = 0;
+		foreach($chanpin_list['chanpin'] as $v){
+			$chanpin_list['chanpin'][$i]['datatext'] = unserialize($v['datatext']);
+			$i++;
+		}
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+	}
+	
+	
+	
 	public function _baozhang($type) {
 		if($_REQUEST['type'] == '团队报账单'){
 			$this->assign("markpos",'团队报账单');
@@ -1677,9 +1771,10 @@ class MethodAction extends Action{
 			$baozhangID = $_REQUEST['baozhangID'];
 			$ViewBaozhang = D("ViewBaozhang");
 			$baozhang = $ViewBaozhang->relation("baozhangitemlist")->where("`chanpinID` = '$baozhangID'")->find();
+			$this->assign("chanpinID",$baozhang['parentID']);
+			if($baozhang['type'] == '团队报账单')
+				$this->assign("markpos",'团队报账单');
 		}
-		if($baozhang['type'] == '团队报账单')
-			$this->assign("markpos",'团队报账单');
 		$baozhang['datatext'] = unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
 		if($type == '子团'){
@@ -1754,12 +1849,12 @@ class MethodAction extends Action{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$data['chanpinID'] = $_REQUEST['chanpinID'];
+		$xianlu = A('Method')->_checkDataOM($data['chanpinID'],'报账单','管理');
+		if(false === $xianlu)
+			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$baozhang = $Chanpin->relation('baozhangitem')->where("`chanpinID` = '$data[chanpinID]'")->find();
 		if($baozhang['islock'] == '已锁定' )
 			$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
-		$xianlu = A('Method')->_checkDataOM($baozhang['parentID'],$type,'管理');
-		if(false === $xianlu)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		//检查报账项是否有批准项目
 		foreach($baozhang['baozhangitem'] as $v){
 			if(false !== $this->_getTaskPZ($v['chanpinID'],'报账项'))
@@ -1830,7 +1925,7 @@ class MethodAction extends Action{
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
-					$this->_tongbushoujia($_REQUEST['dataID'],'报名');
+					$this->_tongbushoujia($_REQUEST['dataID']);
 				}
 			}
 			if($_REQUEST['datatype'] == '订单'){
@@ -1920,6 +2015,7 @@ class MethodAction extends Action{
 		else{
 			$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 			$data = $_REQUEST;
+			$data['deparmentID'] = $baozhang['deparmentID'];
 			$data['baozhangitem'] = $_REQUEST;
 			if($_REQUEST['chanpinID'])
 				unset($data['baozhangitem']['type']);
@@ -1943,17 +2039,17 @@ class MethodAction extends Action{
 	
 	
 	
-	public function _deleteBaozhangitem($type) {
+	public function _deleteBaozhangitem() {
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$data['chanpinID'] = $_REQUEST['chanpinID'];
+		$xianlu = A('Method')->_checkDataOM($data['chanpinID'],'报账项','管理');
+		if(false === $xianlu)
+			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]'")->find();
 		if($baozhang['islock'] == '已锁定' )
 			$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
-		$xianlu = A('Method')->_checkDataOM($baozhang['parentID'],$type,'管理');
-		if(false === $xianlu)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
@@ -2057,8 +2153,8 @@ class MethodAction extends Action{
 
 	
 	//获得个人部门及分类
-	public function _getbumenfenleilist() {
-		$bumenlist = $this->_getDURlist($this->user['systemID'],1);
+	public function _getbumenfenleilist($bumentype = '') {
+		$bumenlist = $this->_getDURlist($this->user['systemID'],1,$bumentype);
 		$t = 0;
 		foreach($bumenlist as $v){
 			if(!$bumen){
@@ -2075,6 +2171,7 @@ class MethodAction extends Action{
 				$t++;
 			}
 		}
+		//附加分类
 //		$i = 0;
 //		foreach($bumen as $v){
 //			$fenlei = $this->_getfenleibybumen($v['bumenID']);
@@ -2106,12 +2203,17 @@ class MethodAction extends Action{
 	
 	
 	//同步售价表线路状态字段
-	public function _tongbushoujia($xianluID,$status) {
+	public function _tongbushoujia($xianluID) {
 		$ViewShoujia = D("ViewShoujia");
 		$Shoujia = D("Shoujia");
-		$sjall = $ViewShoujia->where("`parenetID` = '$xianluID'")->findall();
+		$sjall = $ViewShoujia->where("`parentID` = '$xianluID'")->findall();
+		$ViewXianlu = D("ViewXianlu");
+		$xianlu = $ViewXianlu->where("`chanpinID` = '$xianluID'")->find();
 		foreach($sjall as $v){
-			$v['status_xianlu'] = $status;
+			$v['xianlu_status'] = $xianlu['status'];
+			$v['xianlu_chutuanriqi'] = $xianlu['chutuanriqi'];
+			$v['xianlu_kind'] = $xianlu['kind'];
+			$v['xianlu_title'] = $xianlu['title'];
 			$Shoujia->save($v);
 		}
 	}
@@ -2124,6 +2226,52 @@ class MethodAction extends Action{
 		$cp['xianludata_copy'] = $xianlucopy;
 		$Zituan->save($cp);
 	}
+	
+	
+	
+	public function _shenhe() {
+		if($_REQUEST['type'] == '团队收支项'){
+			$relation = 'baozhangitem';
+			$this->assign("markpos",'团队收支项');
+		}elseif($_REQUEST['type'] == '收支项') {
+			$relation = 'baozhangitem';
+			$this->assign("markpos",'收支项');
+		}elseif($_REQUEST['type'] == '报账单') {
+			$relation = 'baozhang';
+			$this->assign("markpos",'报账单');
+		}elseif($_REQUEST['type'] == '订单审核') {
+			$relation = 'dingdan';
+			$this->assign("markpos",'订单审核');
+		}
+		else{
+			$relation = 'xianlu';
+			$this->assign("markpos",'线路产品');
+		}
+		A("Method")->showDirectory("产品审核");
+		$datalist = A('Method')->getDataOMlist('审核任务',$relation,$_REQUEST);
+		if($_REQUEST['type'] == '订单审核') {
+			//ticheng
+			$i = 0;
+			$ViewDataDictionary = D("ViewDataDictionary");
+			foreach($datalist['chanpin'] as $v){
+				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+				$i++;
+			}
+		}
+		$this->assign("page",$datalist['page']);
+		$this->assign("chanpin_list",$datalist['chanpin']);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

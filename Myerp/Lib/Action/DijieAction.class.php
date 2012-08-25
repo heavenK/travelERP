@@ -28,6 +28,7 @@ class DijieAction extends CommonAction{
 		$this->display('index');
     }
 	
+	
 	public function left_chanpin() {
 		$this->display('Dijie:left_chanpin');
 	}
@@ -217,21 +218,26 @@ class DijieAction extends CommonAction{
 	}
 	
 	public function djtuandanxiangfuwu() {
-		A("Method")->danxiangfuwu('地接');
+		A("Method")->_tuandanxiangfuwu('地接');
 		$this->display('djtuandanxiangfuwu');
 	}
 	
-	public function dopost_djtuanbaozhang() {
+	public function dopost_baozhang() {
 		A("Method")->dosavebaozhang('地接');
 	}
 	
 	public function djtuanbaozhang() {
-		A("Method")->_baozhang('地接');
+		if(!$_REQUEST['chanpinID']){
+			A("Method")->_baozhang();
+			A("Method")->showDirectory("预订单项服务");
+		}
+		else
+			A("Method")->_baozhang('地接');
 		$this->display('djtuanbaozhang');
 	}
 	
 	public function deleteBaozhang() {
-		A("Method")->_deleteBaozhang('地接');
+		A("Method")->_deleteBaozhang();
 	}
 	
 	public function dopost_baozhangitem() {
@@ -239,7 +245,7 @@ class DijieAction extends CommonAction{
 	}
 	
 	public function deleteBaozhangitem() {
-		A("Method")->_deleteBaozhangitem('地接');
+		A("Method")->_deleteBaozhangitem();
 	}
 	
 	public function shenheback() {
@@ -254,6 +260,13 @@ class DijieAction extends CommonAction{
 	public function getBaozhangitem() {
 		A("Method")->_getBaozhangitem();
 	}
+	
+	public function danxiangfuwu() {
+		A("Method")->_danxiangfuwu('地接');
+		$this->display('danxiangfuwu');
+	}
+	
+	
 	
 	
 }

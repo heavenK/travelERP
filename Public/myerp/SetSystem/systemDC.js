@@ -113,7 +113,7 @@
 		datas = roles;
 	
 		jQuery(target).unautocomplete().autocomplete(datas, {
-		   max: 10,    //列表里的条目数
+		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符
 		   width: 150,     //提示的宽度，溢出隐藏
 		   scroll:false,

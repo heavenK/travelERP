@@ -5,11 +5,11 @@
 
   <div id="leftColumn" style="margin-top:7px; width:150px;">
         <ul id="searchTabs" class="tablist tablist_2">
-          <li><a id="shownavtab_1" class="current" href="javascript:void(0)" onclick="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
-          <li><a id="shownavtab_2" href="javascript:void(0)" onclick="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
-          <li><a id="shownavtab_3" href="javascript:void(0)" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
+          <li><a id="shownavtab_1" <?php if($status == '准备' || !$status){ ?>class="current"<?php } ?> href="javascript:void(0)" onclick="shownavtab(1)">&nbsp;准备&nbsp;</a></li>
+          <li><a id="shownavtab_2" <?php if($status == '报名'){ ?>class="current"<?php } ?> href="javascript:void(0)" onclick="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
+          <li><a id="shownavtab_3" <?php if($status == '截止'){ ?>class="current"<?php } ?> href="javascript:void(0)" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
         </ul>
-        <div id="navtab_1" class="leftList">
+        <div id="navtab_1" class="leftList" <?php if($status != '准备' && $status){ ?>style="display:none;"<?php } ?>>
           <h3 style=" text-align:center; border:none">准备中的产品</h3>
           <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/准备">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
@@ -36,7 +36,7 @@
             <?php } ?>
           </ul>
         </div>
-        <div id="navtab_2" class="leftList" style="display:none;">
+        <div id="navtab_2" class="leftList" <?php if($status != '报名'){ ?>style="display:none;"<?php } ?>>
           <h3 style=" text-align:center; border:none;">报名中的产品</h3>
           <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/报名">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
@@ -64,7 +64,7 @@
           </ul>
         </div>
         
-        <div id="navtab_3" class="leftList" style="display:none; color:black">
+        <div id="navtab_3" class="leftList" <?php if($status != '截止'){ ?>style="display:none;"<?php } ?>>
           <h3 style=" text-align:center; border:none">已截止的产品</h3>
           <h3><span>国内/拼团</span><a href="<?php echo SITE_INDEX;?>Chanpin/index/guojing/国内/status/截止">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">

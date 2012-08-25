@@ -40,7 +40,7 @@ class ChanpinModel extends RelationModel {
 			return $departmentID;
 		}
 		else
-		return NF_getmydepartmentid;
+		return NF_getmydepartmentid();
 	}
 	
 	protected $_link = array(

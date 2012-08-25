@@ -103,7 +103,7 @@ function shenhe_back(dataID,datatype){
   <?php } ?>
   <?php if('单项服务及补账' == $markpos){ ?>
   <input type="button" value=" 添加签证结算报告 " name="button" class="button primary" id="qianzheng_create">
-  <input type="button" value=" +机票结算报告 " name="button" class="button primary" id="jipiao_create">
+  <input type="button" value=" +交通结算报告 " name="button" class="button primary" id="jiaotong_create">
   <input type="button" value=" +订房结算报告 " name="button" class="button primary" id="dingfang_create">
   <input type="button" value=" 添加补账 " name="button" class="button primary" id="buzhang_create">
   <?php } ?>
