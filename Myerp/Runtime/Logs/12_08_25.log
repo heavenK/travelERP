@@ -1,0 +1,13 @@
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Tag[ route_check ] --START--
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Run CheckRoute Behavior [ RunTime:0.000612s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Tag[ route_check ] --END-- [ RunTime:0.000683s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Tag[ app_begin ] --START--
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000400s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000449s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003132s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000377s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002988s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000365s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SHOW COLUMNS FROM `myerp_chanpin` [ RunTime:0.002559s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | SQL: SELECT * FROM `myerp_chanpin` WHERE `marktype` = 'dingdan' and `status` = '占位' AND (`status_system` = '1')  [ RunTime:0.000524s ]
+[ 2012-08-25T13:15:35+08:00 ] /Index.php?s=/Xiaoshou/cleardingdan | NOTIC: [2] Invalid argument supplied for foreach() MethodAction.class.php 第 1392 行.

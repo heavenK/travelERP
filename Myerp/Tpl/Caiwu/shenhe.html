@@ -1,0 +1,282 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+
+<div id="main">
+
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:searchxianlu" />
+            
+            <div id="mysearchdiv" style="margin:10px 0 0 0;">
+              <ul id="searchTabs" class="tablist tablist_2">
+                <li> <a 
+                  <php>if($markpos == '收支项'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">收支项</a> </li>
+                <li> <a 
+                  <php>if($markpos == '报账单'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报账单</a> </li>
+                <li> <a 
+                  <php>if($markpos == '订单审核'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单审核">订单审核</a> </li>
+              </ul>
+            </div>
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <php>if($markpos == '线路产品'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 发布人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 单位 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
+                </tr>
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                    <td scope="row" align="left" valign="top"><{$i+1}></td>
+                    <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a></td>
+                    <td scope="row" align="center" valign="top"><img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+                    <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
+                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['bumen_copy']}></td>
+                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['guojing']}>/<{$v['kind']}></td>
+                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['status']}></td>
+                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['islock']}></td>
+                    <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
+                    <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<{$v['chanpinID']}>,this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+                </tr>
+                <php> }}</php>
+                
+                <php>if($markpos == '收支项'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 方式 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['value']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['method']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
+                  <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['parentID']}>);">
+                  </td>
+                </tr>
+                <php> }}</php>
+                
+                <php>if($markpos == '报账单'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
+                  <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['chanpinID']}>);">
+                  </td>
+                </tr>
+                <php> }}</php>
+                
+                <php>if($markpos == '订单审核'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 团名/日期 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 编号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人数/儿童/领队 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:140px;"><div> 所属人/部门 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chanpinID']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chengrenshu']}>/<{$v['ertongshu']}>/<{$v['lingdui_num']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>:<{$v['ticheng']['description']}>%</td>
+                  <td scope="row" align="left" valign="top"><{$v['owner']}>/<{$v['bumen_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['status']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
+                  <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="show_dingdan(<{$v['chanpinID']}>);">
+                  </td>
+                </tr>
+                <php> }}</php>
+                
+              </tbody>
+            </table>
+            
+  </div>
+</div>
+
+<tp:includeCA file="Index:footer" />
+<div id="dateitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<{:__PUBLIC__}>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script language="javascript"> 
+function shenheshow_doit(chanpinID,obj){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+    getshenhemessage("Index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+function getshenhemessage(posturl){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:ET_URL}>"+posturl,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
+		}
+	});
+}
+
+function getshenhemessage_after(data,status)
+{
+	if(status == 1){
+		jQuery("#shenhe_box").html(data);
+	}
+}
+function div_close(id){
+	jQuery('#'+id+'').hide();
+}
+
+	function doshenhe_baozhangitem(dotype,datatype,dataID,title){
+		ThinkAjax.myloading('resultdiv');
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Caiwu/doshenhe",
+			data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
+			success:function(msg){
+				scroll(0,0);
+				ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			}
+		});
+	}
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+	function showinfo(baozhangID){
+		window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
+	}
+	function show_dingdan(chanpinID){
+		window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
+	}
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+
+</script>
+

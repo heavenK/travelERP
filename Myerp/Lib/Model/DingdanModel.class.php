@@ -7,7 +7,6 @@ class DingdanModel extends Model {
         array('chanpinID', 'require', 'chanpinID不能为空！', 1,'',1), 
         array('lianxiren', 'require', 'lianxiren不能为空！', 1,'',1), 
 //        array('jiage', 'require', 'jiage不能为空！', 1,'',1), 
-        array('bumen_copy', 'require', 'bumen_copy不能为空！', 1,'',1), 
         array('owner', 'require', 'owner不能为空！', 1,'',1), 
         array('type', 'require', 'type不能为空！', 1,'',1), 
     ); 

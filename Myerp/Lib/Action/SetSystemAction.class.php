@@ -96,8 +96,11 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['datatype'] == '线路'){
 			A("Method")->showDirectory("线路数据");
-			$wherelist = A('Method')->_facade("ViewXianlu",$_GET);
-			$datas = A('Method')->xianlu_list_noOM($wherelist);
+			$datas = A('Method')->chanpin_list_noOM('ViewXianlu',$_GET);
+		}
+		if($_REQUEST['datatype'] == '报账单'){
+			A("Method")->showDirectory("报账单数据");
+			$datas = A('Method')->chanpin_list_noOM("ViewBaozhang",$_GET);
 		}
 		//显示
 		if($_REQUEST['datatype']){
@@ -264,12 +267,10 @@ class SetSystemAction extends CommonAction{
 		$ViewShenhe = D("ViewShenhe");
 		A('Method')->unitlist();
 		$datatype = $_REQUEST['datatype'];
-		if($_REQUEST['datatype'] == '线路' || $_REQUEST['datatype'] == '订单'){
-			A("Method")->showDirectory("审核流程");
-			$datalist = $ViewShenhe->where("`datatype` = '$datatype'")->findall();
-			$datalist = A("Method")->_systemUnitFilter($datalist);
-			$this->assign("datalist",$datalist);
-		}
+		A("Method")->showDirectory("审核流程");
+		$datalist = $ViewShenhe->where("`datatype` = '$datatype'")->findall();
+		$datalist = A("Method")->_systemUnitFilter($datalist);
+		$this->assign("datalist",$datalist);
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("datatitle",' : "'.$datatype.'"');
@@ -507,5 +508,19 @@ class SetSystemAction extends CommonAction{
 		$this->display('templatelist');
 	}
 	
+	public function roles(){
+		A("Method")->showDirectory("角色设置");
+		$datas = A('Method')->_getRolesList();
+		$this->assign("datalist",$datas);
+		$this->display('templatelist');
+	}
+	
+
+
+
+
+
+
+
 }
 ?>

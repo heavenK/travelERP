@@ -39,7 +39,7 @@ jQuery().ready(function() {
 		if(parenttype == '用户')
 		datas = user;
 		jQuery(target).unautocomplete().autocomplete(datas, {
-		   max: 10,    //列表里的条目数
+		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符
 		   width: 150,     //提示的宽度，溢出隐藏
 		   scroll:false,
@@ -135,7 +135,7 @@ function ajaxalert(title){
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
     <form name="form1" method="post" id="form1" >
-      <input type="hidden" name="title" value="<{$xianlu['xianlu']['title']}>" />
+      <input type="hidden" name="title" value="<{$xianlu['xianlu']['title']}>/<{$zituan['chutuanriqi']}>" />
       <input type="hidden" name="zituanID" value="<{$chanpinID}>" />
       <input type="hidden" name="shoujiaID" value="<{$shoujiaID}>" />
       <table width="100%" class="tb1" cellpadding="0" cellspacing="0">
@@ -157,9 +157,15 @@ function ajaxalert(title){
           <tr>
             <td align="left" style="height: 27px;"> 剩余名额：</td>
             <td style="height: 27px; width: 288px;"><php>echo $shengyurenshu</php></td>
-            <td align="left" style="height: 27px; width: 156px;">所属人：</td>
+            <td align="left" style="height: 27px; width: 156px;">所属人及所属部门：</td>
             <td align="left" style="height: 32px">
-            	<input type="text" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">（绩效奖金）
+            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
+              <select name="departmentID">
+              <php>foreach($bumenfeilei as $v){</php>
+                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+              <php>}</php>
+              </select>
+                （绩效奖金）
             </td>
           </tr>
         <tr>
@@ -187,7 +193,7 @@ function ajaxalert(title){
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 包含领队数：</td>
-          <td align="left" style="height: 32px"><input name="lingdui_num" type="text" id="lingdui_num" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')"></td>
+          <td align="left" style="height: 32px"><input name="lingdui_num" type="text" id="lingdui_num" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')" value="0"></td>
           <td align="left" style="height: 32px"> 订单状态：</td>
           <td align="left" style="height: 32px">
           	<select name="status" id="status" onchange="return CheckState();">
@@ -197,9 +203,9 @@ function ajaxalert(title){
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 成人人数：</td>
-          <td align="left" style="height: 32px"><input name="chengrenshu" type="text" maxlength="3" id="chengrenshu" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')"></td>
+          <td align="left" style="height: 32px"><input name="chengrenshu" type="text" maxlength="3" id="chengrenshu" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')" value="0"></td>
           <td align="left" style="height: 32px"> 儿童人数：</td>
-          <td align="left" style="height: 32px"><input name="ertongshu" type="text" maxlength="3" id="ertongshu" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')"></td>
+          <td align="left" style="height: 32px"><input name="ertongshu" type="text" maxlength="3" id="ertongshu" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')" value="0"></td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 建议售价：</td>

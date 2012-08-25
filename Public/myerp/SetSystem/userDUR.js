@@ -6,8 +6,8 @@
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"durlist_t"+i+"\">";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input type=\"text\" id=\"department_t"+i+"\" style=\"width:200px;\" >";
-	htmlcontent += "<input type=\"hidden\" id=\"departmentID_t"+i+"\">";
+	htmlcontent += "<input type=\"text\" id=\"bumen_t"+i+"\" style=\"width:200px;\" >";
+	htmlcontent += "<input type=\"hidden\" id=\"bumenID_t"+i+"\">";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"roles_t"+i+"\" style=\"width:200px;\" >";
@@ -17,11 +17,11 @@
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"delUserDUR("+i+",'temp');\" />";
-    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onClick=\"if(checktitle("+i+",'部门','department','_t') && checktitle("+i+",'角色','roles','_t'))save("+i+",'_t');\" /></td>";
+    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onClick=\"if(checktitle("+i+",'部门','bumen','_t') && checktitle("+i+",'角色','roles','_t'))save("+i+",'_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#itemlist_box").append(htmlcontent);
 	
-	myautocomplete("#department_t"+i,'部门');
+	myautocomplete("#bumen_t"+i,'部门');
 	myautocomplete("#roles_t"+i,'角色');
 	
  }
@@ -35,7 +35,7 @@
 		datas = roles;
 	
 		jQuery(target).unautocomplete().autocomplete(datas, {
-		   max: 10,    //列表里的条目数
+		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符
 		   width: 150,     //提示的宽度，溢出隐藏
 		   scroll:false,
@@ -107,13 +107,13 @@ function checktitle(id,parenttype,inputid,mark){
 		mark = '';
 	}
 	var department = jQuery("#department"+mark+id).val();
-	var departmentID = jQuery("#departmentID"+mark+id).val();
+	var bumenID = jQuery("#bumenID"+mark+id).val();
 	var roles = jQuery("#roles"+mark+id).val();
 	var rolesID = jQuery("#rolesID"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostUserDUR",
-		data:	"departmentID="+departmentID+"&rolesID="+rolesID+"&department="+department+"&roles="+roles+"&userID="+userID+it,
+		data:	"bumenID="+bumenID+"&rolesID="+rolesID+"&department="+department+"&roles="+roles+"&userID="+userID+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
@@ -129,7 +129,7 @@ function checktitle(id,parenttype,inputid,mark){
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"department"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['department']+"\">";
-		htmlcontent += "<input type=\"hidden\" id=\"departmentID"+data['systemID']+"\">";
+		htmlcontent += "<input type=\"hidden\" id=\"bumenID"+data['systemID']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"roles"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['roles']+"\">";
@@ -139,7 +139,7 @@ function checktitle(id,parenttype,inputid,mark){
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"delUserDUR("+data['systemID']+");\" />";
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"修改\" onClick=\"if(checktitle("+data['systemID']+",'部门','department') && checktitle("+data['systemID']+",'角色','roles'))save("+data['systemID']+");\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"修改\" onClick=\"if(checktitle("+data['systemID']+",'部门','bumen') && checktitle("+data['systemID']+",'角色','roles'))save("+data['systemID']+");\" /></td>";
 		htmlcontent += "</tr>";
 		
 		jQuery("#durlist_t"+id).replaceWith(htmlcontent);

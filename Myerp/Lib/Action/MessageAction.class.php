@@ -8,7 +8,7 @@ class MessageAction extends Action{
 		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,10')->findall();
 		if($notice != null){
 			foreach($notice as $v){
-				$str .= '<a href="javascript:void(0)" style="padding:0 2px 4px 8px; width:100%" onclick="del_alert('.$v['id'].');window.open('.$v['url'].')">
+				$str .= '<a href="javascript:void(0)" style="padding:0 2px 4px 8px; width:100%" onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">
 						<img border="0" width="16" height="16" align="absmiddle" src="'.__PUBLIC__.'/myerp/images/icon_SugarFeed.gif">&nbsp;<span>'.$v['message'].'</span>
 						</a>';
 			}
@@ -42,7 +42,7 @@ class MessageAction extends Action{
 		$count = $DataNotice->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show_ajax("getNewsAll");
-        $data = $DataNotice->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+        $data = $DataNotice->where($where)->limit($p->firstRow.','.$p->listRows)->order("id desc")->select();
 		$str = '
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
                 <tr>
@@ -57,7 +57,7 @@ class MessageAction extends Action{
 			<tr class="evenListRowS1">
 			  <td>'.$i.'</td>
 			  <td>
-			  <a style="text-decoration:none" href="javascript:void(0)" onclick="del_alert('.$v['id'].');window.open('.$v['url'].')">
+			  <a style="text-decoration:none" href="javascript:void(0)" onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">
 			  '.$v['message'].'
 			  </td>
 			  <td>
@@ -105,6 +105,46 @@ class MessageAction extends Action{
 
 
 
+
+	public function getshenhemessage($pagenum = 10){
+		$where['dataID'] = $_REQUEST['chanpinID'];
+		$InfoHistory = D("InfoHistory");
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+        $dataall = $InfoHistory->Distinct(true)->field('message')->where($where)->select();
+		$count = count($dataall);
+		$p= new Page($count,$pagenum);
+		$page = $p->show_ajax("getshenhemessage");
+        $data = $InfoHistory->Distinct(true)->field('message')->where($where)->limit($p->firstRow.','.$p->listRows)->order("messageID desc")->select();
+		$str = '
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+                <tr>
+                  <th height="24px" width="30px"><div> 序号 </div></th>
+                  <th width="400px"><div> 内容 </div></th>
+                </tr>
+		';
+		$i = 0;
+		foreach($data as $v){$i++;
+			$str .= '
+			<tr class="evenListRowS1">
+			  <td>'.$i.'</td>
+			  <td>
+			  <a style="text-decoration:none" href="javascript:void(0)">
+			  '.$v['message'].'
+			  </td>
+			</tr>
+			';
+		}
+		$str .= '
+			<tr class="evenListRowS1">
+			  <td align="right" colspan="3">
+			  '.$page.'
+			  </td>
+			</tr>
+            </table>
+		';
+		$this->ajaxReturn($str, '', 1);
+	}
 
 
 

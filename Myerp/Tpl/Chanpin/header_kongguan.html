@@ -1,5 +1,4 @@
-
-	<script type="text/javascript">
+<script type="text/javascript">
     var SITE_INDEX = '<{:SITE_INDEX}>';
     var chanpinID = '<{$chanpinID}>';
 	function ajaxalert(title){
@@ -10,53 +9,125 @@
 			document.getElementById('resultdiv_2').innerHTML='';
 			},3000);
 	}
+	
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
     </script>
-    <div class="moduleTitle" style="margin-bottom:10px;">
-      <h3 style=""><{$navigation}> > <{$markpos}><{$datatitle}></h3>
-      <span style="margin-top:10px;"> 
-      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> 
-      </span> 
-    </div>
-    
-    <div id="mysearchdiv" style="margin-bottom:10px;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li> <a <php>if($markpos == '基本信息'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$chanpinID}>">基本信息</a> </li>
-        <li> <a <php>if($markpos == '子团订单'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituandingdan/chanpinID/<{$chanpinID}>">子团订单</a> </li>
-        <li> <a <php>if($markpos == '团员名单'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituantuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
-        <li> <a <php>if($markpos == '分房安排'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanfenfang/chanpinID/<{$chanpinID}>">分房安排</a> </li>
-        <li> <a <php>if($markpos == '接待计划'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/接待计划/chanpinID/<{$chanpinID}>">接待计划</a> </li>
-        <li> <a <php>if($markpos == '出团通知'){</php> class="current" <php>}</php> href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/出团通知/chanpinID/<{$chanpinID}>">出团通知</a> </li>
-      </ul>
-    </div>
-    
-    <div id="resultdiv" class="resultdiv"></div>
-    <div id="resultdiv_2" class="resultdiv"></div>
-    
-      <div class="buttons">
-      <php>if('基本信息' == $markpos){</php>
-      <input type="button" value="保存" name="button" class="button primary" onClick="save();">
-        <php>}</php>
-      <php>if('子团订单' == $markpos){</php>
-      <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming();">
-        <php>}</php>
-      <php>if('团员名单' == $markpos){</php>
-      <input type="button" value="导出Word（旅游局格式）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式1');">
-      <input type="button" value="导出Word（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式2');">
-      <input type="button" value="导出Excel（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式3');">
-        <php>}</php>
-      <php>if('分房安排' == $markpos){</php>
-      <input type="button" value="创建房间" name="button" class="button primary" id="room_create">
-      <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
-        <php>}</php>
-        
-      <php>if('接待计划' == $markpos || '出团通知' == $markpos){</php>
-      <input type="button" value=" 保存 " name="button" class="button primary" onclick="save()">
-      <input type="button" value=" 发布 " name="button" class="button primary" onclick="dofabu('<{$chanpinID}>')">
-      <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
-        <php>}</php>
-        
-        
-      </div>
-    
-    
-    
+
+<div class="moduleTitle" style="margin-bottom:10px;">
+  <h3 style=""><{$navigation}> > <{$markpos}><{$datatitle}></h3>
+  <span style="margin-top:10px;"> <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> </span> </div>
+    <php>if($chanpinID){</php>
+<div id="mysearchdiv" style="margin-bottom:10px;">
+  <ul id="searchTabs" class="tablist tablist_2">
+    <li> <a 
+      <php>if($markpos == '基本信息'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$chanpinID}>">基本信息</a> </li>
+    <li> <a 
+      <php>if($markpos == '子团订单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituandingdan/chanpinID/<{$chanpinID}>">子团订单</a> </li>
+    <li> <a 
+      <php>if($markpos == '团员名单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituantuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
+    <li> <a 
+      <php>if($markpos == '分房安排'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanfenfang/chanpinID/<{$chanpinID}>">分房安排</a> </li>
+    <li> <a 
+      <php>if($markpos == '接待计划'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/接待计划/chanpinID/<{$chanpinID}>">接待计划</a> </li>
+    <li> <a 
+      <php>if($markpos == '出团通知'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/出团通知/chanpinID/<{$chanpinID}>">出团通知</a> </li>
+    <li> <a 
+      <php>if($markpos == '单项服务及补账' || $markpos == '单项服务'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituandanxiangfuwu/chanpinID/<{$chanpinID}>">单项服务及补账</a> </li>
+    <li> <a 
+      <php>if($markpos == '应收及应付'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanxiangmu/chanpinID/<{$chanpinID}>">应收及应付</a> </li>
+    <li> <a 
+      <php>if($markpos == '团队报账单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/type/团队报账单/chanpinID/<{$chanpinID}>">团队报账单</a> </li>
+  </ul>
+</div>
+    <php>}</php>
+<div id="resultdiv" class="resultdiv"></div>
+<div id="resultdiv_2" class="resultdiv"></div>
+<div class="buttons">
+  <php>if('基本信息' == $markpos){</php>
+  <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <php>}</php>
+  <php>if('子团订单' == $markpos){</php>
+  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming();">
+  <php>}</php>
+  <php>if('团员名单' == $markpos){</php>
+  <input type="button" value="导出Word（旅游局格式）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式1');">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式2');">
+  <input type="button" value="导出Excel（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式3');">
+  <php>}</php>
+  <php>if('分房安排' == $markpos){</php>
+  <input type="button" value="创建房间" name="button" class="button primary" id="room_create">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+  <php>}</php>
+  <php>if('接待计划' == $markpos || '出团通知' == $markpos){</php>
+  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save()">
+  <input type="button" value=" 发布 " name="button" class="button primary" onclick="dofabu('<{$chanpinID}>')">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+  <php>}</php>
+  <php>if('单项服务及补账' == $markpos){</php>
+  <input type="button" value=" 添加签证结算报告 " name="button" class="button primary" id="qianzheng_create">
+  <input type="button" value=" +交通结算报告 " name="button" class="button primary" id="jiaotong_create">
+  <input type="button" value=" +订房结算报告 " name="button" class="button primary" id="dingfang_create">
+  <input type="button" value=" 添加补账 " name="button" class="button primary" id="buzhang_create">
+  <php>}</php>
+  <php>if('单项服务' == $markpos || '团队报账单' == $markpos){</php>
+  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
+  <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
+  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+      <php>
+      if('单项服务' == $markpos)
+      $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <php>}}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<{$baozhangID}>,'报账单');">
+	  <php>}</php>
+  <php>}</php>
+  <php>if('应收及应付' == $markpos){</php>
+  <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">
+  <input type="button" value=" +应付项目 " name="button" class="button primary" id="yingfu_create">
+  <php>}</php>
+</div>

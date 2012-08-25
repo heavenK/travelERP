@@ -10,6 +10,67 @@
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
     <include file="Index:searchxianlu" />
+    
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <php>if($markpos == '全部'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan">全部</a> </li>
+        <li> <a 
+          <php>if($markpos == '近郊游'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/kind_copy/近郊游">近郊游</a> </li>
+        <li> <a 
+          <php>if($markpos == '长线游'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/kind_copy/长线游">长线游</a> </li>
+        <li> <a 
+          <php>if($markpos == '韩国'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/韩国">韩国</a> </li>
+        <li> <a 
+          <php>if($markpos == '日本'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/日本">日本</a> </li>
+        <li> <a 
+          <php>if($markpos == '台湾'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/台湾">台湾</a> </li>
+        <li> <a 
+          <php>if($markpos == '港澳'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/港澳">港澳</a> </li>
+        <li> <a 
+          <php>if($markpos == '东南亚'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/东南亚">东南亚</a> </li>
+        <li> <a 
+          <php>if($markpos == '欧美岛'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/欧美岛">欧美岛</a> </li>
+        <li> <a 
+          <php>if($markpos == '自由人'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人">自由人</a> </li>
+        <li> <a 
+          <php>if($markpos == '包团'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团">包团</a> </li>
+      </ul>
+    </div>
+    
     <table cellpadding="0" cellspacing="0" width="100%" class="list view">
       <tbody>
         <tr class="pagination">
@@ -51,7 +112,7 @@
         <td scope="row" align="left" valign="top" style="min-width:300px; width:30%"><a href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>"><{$v['title_copy']}></a></td>
         <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-        <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['departmentID']}></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['bumen_copy']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['status']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
