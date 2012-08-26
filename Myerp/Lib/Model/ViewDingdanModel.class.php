@@ -6,7 +6,7 @@ class ViewDingdanModel extends RelationModel {
 	
 	protected $_link = array(
 		//dingdan
-		'zituan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
+		'zituanlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
 		'tuanyuanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'DataCD','foreign_key'=>'dingdanID','parent_key'=>'chanpinID'),
 	);
 	

@@ -1929,8 +1929,11 @@ class MethodAction extends Action{
 				}
 			}
 			if($_REQUEST['datatype'] == '订单'){
-				if($data['status'] == '批准')
+				if($data['status'] == '批准'){
 					$editdat['status'] = '批准';
+					//填入客户表
+					$this->_customerbuild($_REQUEST['dataID']);
+				}
 				$Chanpin->relation("dingdan")->myRcreate($editdat);
 			}
 			if($_REQUEST['datatype'] == '报账项'){
@@ -2263,13 +2266,26 @@ class MethodAction extends Action{
 	}
 	
 	
+	public function _customerbuild($chanpinID) {
+		$ViewDingdan = D("ViewDingdan");
+		$dingdan = $ViewDingdan->relation("tuanyuanlist")->where("`chanpinID` = '$chanpinID'")->find();
+		$ViewCustomer = D("ViewCustomer");
+		$System = D("System");
+		$res['customer'] = unserialize($v['datatext']);
+		foreach($dingdan['tuanyuanlist'] as $v){
+			$sfz_haoma = $res['customer']['sfz_haoma'];
+			$hz_haoma = $res['customer']['hz_haoma'];
+			$txz_haoma = $res['customer']['txz_haoma'];
+			$cust = $ViewCustomer->where("`sfz_haoma` = '$sfz_haoma' or `hz_haoma` = '$hz_haoma' or `txz_haoma` = '$txz_haoma'")->find();
+			if($cust){
+				$res['systemID'] = $cust['systemID'];
+			}
+			$res['customer'] = unserialize($v['datatext']);
+			$System->relation('customer')->myRcreate($res);
+		}
 	
 	
-	
-	
-	
-	
-	
+	}
 	
 	
 	

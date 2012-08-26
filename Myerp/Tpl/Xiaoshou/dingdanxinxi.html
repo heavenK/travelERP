@@ -144,6 +144,11 @@ function quxiao_after(data,status){
  
 function TravelerDetail(id)
 {
+	if(id == ''){
+	ajaxalert("请填写团员基本信息，并保存后刷新后重试！！");
+	return ;
+	}
+	save();
     var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
     window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
 }
@@ -387,10 +392,16 @@ function getshenhemessage_after(data,status)
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
-          <td align="left" style="height: 32px"><a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a></td>
+          <td align="left" style="height: 32px">
+          <php>if($vo['id']){</php>
+          <a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a>
+          <php>}else{</php>
+          <a href="javascript:TravelerDetail('')">查看</a>
+          <php>}</php>
+          </td>
         </tr>
         <php>}</php>
         <tr>

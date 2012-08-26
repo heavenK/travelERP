@@ -25,6 +25,8 @@ function save(){
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Xiaoshou/doposttuanyuanxinxi/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
+	if(status == 1)
+	window.opener.location.reload();
 }
 </script>
 <style>
@@ -51,15 +53,37 @@ function doComplete(data,status){
       <tbody>
         <tr>
           <td width="20%" height="30" align="right">姓名：</td>
-          <td width="30%" align="left"><input name="name" type="text" value="<{$data['name']}>" check="^\S+$" warning="姓名不能为空,且不能含有空格"></td>
+          <td width="30%" align="left"><input name="name" type="text" value="<{$datacd['name']}>" check="^\S+$" warning="姓名不能为空,且不能含有空格"></td>
           <td align="right" width="20%"> 性别： </td>
-          <td align="left" width="30%"><input name="sex" type="text" value="<{$data['sex']}>"></td>
+          <td align="left" width="30%">
+          <select name="sex">
+          <option value="<{$datacd['sex']}>"><{$datacd['sex']}></option>
+          <option disabled="disabled">----------------</option>
+          <option value="男">男</option>
+          <option value="女">女</option>
+          </select>
         </tr>
         <tr>
           <td align="right" height="30"> 出生日期： </td>
           <td align="left"><input name="chushengriqi" onfocus="WdatePicker()" type="text" value="<{$data['chushengriqi']}>"></td>
           <td height="30" align="right"> 联系电话： </td>
-          <td align="left"><input name="telnum" type="text" value="<{$data[telnum]}>" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
+          <td align="left"><input name="telnum" type="text" value="<{$datacd[telnum]}>" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td align="right" height="30"> 身份证号码： </td>
+          <php>if($datacd['zhengjiantype'] == '身份证'){</php>
+          <td align="left"><input name="sfz_haoma" type="text" value="<{$datacd[zhengjianhaoma]}>"></td>
+          <php>}else{</php>
+          <td align="left"><input name="sfz_haoma" type="text" value="<{$data[sfz_haoma]}>"></td>
+          <php>}</php>
+          <td align="right" height="30"> 身份证签发地：</td>
+          <td align="left"><input name="sfz_qianfadi" type="text" value="<{$data[sfz_qianfadi]}>"></td>
+        </tr>
+        <tr>
+          <td align="right" height="30"> 身份证签有效期：</td>
+          <td align="left"><input name="sfz_youxiaoqi" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$data[sfz_youxiaoqi]}>"></td>
+          <td align="right"> 户籍地：</td>
+          <td align="left"><input name="hujidi" type="text" value="<{$data[hujidi]}>"></td>
         </tr>
         <tr>
           <td align="right" height="30"> 姓名拼音：</td>
@@ -71,19 +95,7 @@ function doComplete(data,status){
           <td align="right" height="30"> 通讯地址： </td>
           <td align="left"><input name="tongxundizhi" type="text" value="<{$data[tongxundizhi]}>"></td>
           <td align="right" height="30"> 邮政编码：</td>
-          <td align="left"><input name="pinyin" type="text" value="<{$data[pinyin]}>"></td>
-        </tr>
-        <tr>
-          <td align="right" height="30"> 身份证号码： </td>
-          <td align="left"><input name="shenfenzhenghaoma" type="text" value="<{$data[shenfenzhenghaoma]}>"></td>
-          <td align="right" height="30"> 身份证签发地：</td>
-          <td align="left"><input name="zhengjianfadi" type="text" value="<{$data[zhengjianfadi]}>"></td>
-        </tr>
-        <tr>
-          <td align="right" height="30"> 身份证签日期：</td>
-          <td align="left"><input name="zhengjianriqi" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$data[zhengjianriqi]}>"></td>
-          <td align="right"> 户籍地：</td>
-          <td align="left"><input name="hujidi" type="text" value="<{$data[hujidi]}>"></td>
+          <td align="left"><input name="postal" type="text" value="<{$data[postal]}>"></td>
         </tr>
         <tr>
           <td align="right" height="30"> 国籍：</td>
@@ -106,32 +118,40 @@ function doComplete(data,status){
         <tr>
           <td align="right" height="30" rowspan="4"> 护照： </td>
           <td align="left" height="30"> 护照号码：
-            <input name="huzhaohaoma" type="text" style="width:65%;" value="<{$data[huzhaohaoma]}>"></td>
+          <php>if($datacd['zhengjiantype']== '护照'){</php>
+          <td align="left"><input name="hz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
+          <php>}else{</php>
+            <input name="hz_haoma" type="text" style="width:65%;" value="<{$data[hz_haoma]}>"></td>
+          <php>}</php>
           <td align="right" rowspan="4"> 通行证：</td>
           <td align="left" height="30"> 通行证号：
-            <input name="tongxingzhenghao" type="text" style="width:65%;" value="<{$data[tongxingzhenghao]}>"></td>
+          <php>if($datacd['zhengjiantype']== '他通行证'){</php>
+          <td align="left"><input name="txz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
+          <php>}else{</php>
+            <input name="txz_haoma" type="text" style="width:65%;" value="<{$data[txz_haoma]}>"></td>
+          <php>}</php>
         </tr>
         <tr>
           <td align="left" height="30"> 签 发 地：
-            <input name="hzqianfadi" type="text" style="width:65%;" value="<{$data[hzqianfadi]}>"></td>
+            <input name="hz_qianfadi" type="text" style="width:65%;" value="<{$data[hz_qianfadi]}>"></td>
           <td align="left"> 签 发 地：
-            <input name="txzqianfadi" type="text" style="width:65%;" value="<{$data[txzqianfadi]}>"></td>
+            <input name="txz_qianfadi" type="text" style="width:65%;" value="<{$data[txz_qianfadi]}>"></td>
         </tr>
         <tr>
           <td align="left" height="30"> 签发日期：
-            <input name="hzqianfariqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[hzqianfariqi]}>"></td>
+            <input name="hz_qianfariqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[hz_qianfariqi]}>"></td>
           <td align="left"> 签发日期：
-            <input name="txzqianfariqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[txzqianfariqi]}>"></td>
+            <input name="txz_qianfariqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[txz_qianfariqi]}>"></td>
         </tr>
         <tr>
           <td align="left" height="30"> 有效日期：
-            <input name="hzyouxiaoriqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[hzyouxiaoriqi]}>"></td>
+            <input name="hz_youxiaoriqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[hz_youxiaoriqi]}>"></td>
           <td align="left"> 有效日期：
-            <input name="txzyouxiaoriqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[txzyouxiaoriqi]}>"></td>
+            <input name="txz_youxiaoriqi" type="text" class="Wdate" onfocus="WdatePicker()" style="width:65%;" value="<{$data[txz_youxiaoriqi]}>"></td>
         </tr>
         <tr>
           <td align="right" height="30"> 备注： </td>
-          <td align="left" colspan="3"><textarea name="beizhu" rows="5" cols="20" style="width:98%;"><{$data[beizhu]}></textarea></td>
+          <td align="left" colspan="3"><textarea name="remark" rows="5" cols="20" style="width:98%;"><{$data[remark]}></textarea></td>
         </tr>
       </tbody>
     </table>

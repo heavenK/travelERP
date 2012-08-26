@@ -810,11 +810,27 @@ class ChanpinAction extends CommonAction{
 		$this->display('danxiangfuwu');
 	}
 	
-	  
-	
-	
-	
-	
-	
+	public function doposttiaojia() {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($v,'子团');
+			if(false === $xianlu){
+				$mark = 1;
+				continue;
+			}
+			$dat['chanpinID'] = $v;
+			$dat['zituan']['adultxiuzheng'] = $_REQUEST['adultxiuzheng'];
+			$dat['zituan']['childxiuzheng'] = $_REQUEST['childxiuzheng'];
+			$Chanpin->relation("zituan")->myRcreate($dat);
+		}
+		if($mark == 1)
+			$this->ajaxReturn($_REQUEST,'完成！,一部分团队您没有操作权限！无法进行修改！！', 1);
+		$this->ajaxReturn($_REQUEST,'完成！', 1);
+	}
+
 }
 ?>

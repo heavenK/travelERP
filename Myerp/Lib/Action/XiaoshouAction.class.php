@@ -8,6 +8,7 @@ class XiaoshouAction extends CommonAction{
 	
 	
     public function index() {
+		$this->assign("markpos",$_REQUEST['xianlu_kind']);
 		A("Method")->showDirectory("线路产品");
 		$chanpin_list = A('Method')->getDataOMlist('售价','shoujia',$_REQUEST,'开放');
 		$ViewZituan = D("ViewZituan");
@@ -58,6 +59,12 @@ class XiaoshouAction extends CommonAction{
 		}
 		$Chanpin = D("Chanpin");
 		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		$this->assign("zituan",$zituan);
+		//价格计算
+		$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
+		$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
@@ -75,9 +82,6 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("shipin",$shipin);
 		$this->assign("tupian",$tupian);
 		$this->assign("xianlu",$xianlu);
-		$ViewZituan = D("ViewZituan");
-		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
-		$this->assign("zituan",$zituan);
 		//计算子团人数
 		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID'],$_REQUEST['shoujiaID']);
 		$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
@@ -147,6 +151,9 @@ class XiaoshouAction extends CommonAction{
 		if(false === $zituan || $zituan == '')
 			$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 		$this->assign("zituan",$zituan);
+		//价格计算
+		$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
+		$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
 		//检查数据
 		//owner
 		$ViewUser = D("ViewUser");
@@ -236,7 +243,6 @@ class XiaoshouAction extends CommonAction{
 	
     public function dopostbaoming() {
 		C('TOKEN_ON',false);
-		
 		if (md5($_REQUEST['verifyTest']) != session('verify')) {  
 				justalert('验证码错误,请刷新验证码并重新填写！');
 				gethistoryback();
@@ -311,7 +317,7 @@ class XiaoshouAction extends CommonAction{
 			exit;
 		}
 		$ViewDingdan = D("ViewDingdan");
-		$dingdan = $ViewDingdan->relation("zituan")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
 		$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 		if(false === $xiaoshou){
@@ -422,8 +428,28 @@ class XiaoshouAction extends CommonAction{
 		A("Method")->showDirectory("团员信息");
 		$DataCD = D("DataCD");
 		$dat = $DataCD->where("`id` = '$_REQUEST[id]'")->find();
+		$this->assign("datacd",$dat);
 		if($dat['datatext'])
 			$dat = unserialize($dat['datatext']);
+		else{//查询顾客表
+			$ViewCustomer = D("ViewCustomer");
+			if($dat['zhengjiantype'] == '身份证')
+				$where['sfz_haoma'] = $dat['zhengjianhaoma'];
+			if($dat['zhengjiantype'] == '护照')
+				$where['hz_haoma'] = $dat['zhengjianhaoma'];
+			if($dat['zhengjiantype'] == '通行证')
+				$where['txz_haoma'] = $dat['zhengjianhaoma'];
+			if($where)
+			$cust = $ViewCustomer->where($where)->find();
+			if($cust){
+				$remark = $dat['remark'];
+				$telnum = $dat['telnum'];
+				$dat = $cust;
+				$dat['id'] = $_REQUEST['id'];
+				$dat['remark'] = $remark;
+				$dat['telnum'] = $telnum;
+			}
+		}
 		$this->assign("data",$dat);
 		$this->display('tuanyuanxinxi');
 	}
@@ -434,7 +460,15 @@ class XiaoshouAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$DataCD = D("DataCD");
 		$data = $_REQUEST;
+		$dt = $DataCD->where("`id` = '$_REQUEST[id]'")->find();
+		if($dt['zhengjiantype'] == '身份证')
+			$data['zhengjianhaoma'] = $data['sfz_haoma'];
+		if($dt['zhengjiantype'] == '护照')
+			$data['zhengjianhaoma'] = $data['hz_haoma'];
+		if($dt['zhengjiantype'] == '通行证')
+			$data['zhengjianhaoma'] = $data['txz_haoma'];
 		$data['datatext'] = serialize($_REQUEST);
+		unset($data['remark']);
 		if( false !== $DataCD->save($data))
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		else
