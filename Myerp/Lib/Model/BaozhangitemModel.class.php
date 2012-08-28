@@ -1,6 +1,6 @@
 <?php
 
-class BaozhangitemModel extends Model {
+class BaozhangitemModel extends RelationModel {
 	protected $trueTableName = 'myerp_chanpin_baozhangitem';	
 	protected $pk = 'chanpinID';
 		
@@ -17,10 +17,8 @@ class BaozhangitemModel extends Model {
     ); 
 
 	protected $_link = array(
-		//baozhang
-		//'baozhangitemlist'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID','condition'=>"`status_system` = '1'"),
-		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
-		
+		//baozhangitem
+		'baozhanglist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerpview_chanpin_baozhang','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
 	);
 	
 }

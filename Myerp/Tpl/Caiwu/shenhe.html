@@ -14,64 +14,65 @@
             
             <include file="Index:searchxianlu" />
             
+            <php>if($type == '收支项' || $type == '报账单'){</php>
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
               <ul id="searchTabs" class="tablist tablist_2">
                 <li> <a 
-                  <php>if($markpos == '全部'){</php>
+                  <php>if($datakind == '全部'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">全部</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>">全部</a> </li>
                 <li> <a 
-                  <php>if($markpos == '团队'){</php>
+                  <php>if($datakind == '团队报账单'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项/datakind/团队">团队</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/团队报账单">团队</a> </li>
                 <li> <a 
-                  <php>if($markpos == '签证'){</php>
+                  <php>if($datakind == '签证'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">签证</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/签证">签证</a> </li>
                 <li> <a 
-                  <php>if($markpos == '办证'){</php>
+                  <php>if($datakind == '办证'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">办证</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/办证">办证</a> </li>
                 <li> <a 
-                  <php>if($markpos == '交通'){</php>
+                  <php>if($datakind == '交通'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">交通</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/交通">交通</a> </li>
                 <li> <a 
-                  <php>if($markpos == '订房'){</php>
+                  <php>if($datakind == '订房'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">订房</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/订房">订房</a> </li>
                 <li> <a 
-                  <php>if($markpos == '订餐'){</php>
+                  <php>if($datakind == '订餐'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">订餐</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/餐饮">订餐</a> </li>
                 <li> <a 
-                  <php>if($markpos == '门票'){</php>
+                  <php>if($datakind == '门票'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">门票</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/门票">门票</a> </li>
                 <li> <a 
-                  <php>if($markpos == '导游'){</php>
+                  <php>if($datakind == '导游'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">导游</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/导游">导游</a> </li>
                 <li> <a 
-                  <php>if($markpos == '补账'){</php>
+                  <php>if($datakind == '补账'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">补账</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/补账">补账</a> </li>
               </ul>
             </div>
-            
+            <php> }</php>
+                
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
-              
                 <tr class="pagination">
                   <td colspan="11">
                   <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
@@ -87,7 +88,6 @@
                     </table>
                     </td>
                 </tr>
-                
                 <php>if($type == '收支项'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
@@ -116,7 +116,7 @@
                 </tr>
                 <php> }}</php>
                 
-                <php>if($markpos == '报账单'){</php>
+                <php>if($type == '报账单'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
@@ -140,7 +140,7 @@
                 </tr>
                 <php> }}</php>
                 
-                <php>if($markpos == '订单审核'){</php>
+                <php>if($type == '订单'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 团名/日期 </div></th>
