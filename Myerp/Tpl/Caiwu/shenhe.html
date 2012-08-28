@@ -17,20 +17,55 @@
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
               <ul id="searchTabs" class="tablist tablist_2">
                 <li> <a 
-                  <php>if($markpos == '收支项'){</php>
+                  <php>if($markpos == '全部'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">收支项</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">全部</a> </li>
                 <li> <a 
-                  <php>if($markpos == '报账单'){</php>
+                  <php>if($markpos == '团队'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报账单</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项/datakind/团队">团队</a> </li>
                 <li> <a 
-                  <php>if($markpos == '订单审核'){</php>
+                  <php>if($markpos == '签证'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单审核">订单审核</a> </li>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">签证</a> </li>
+                <li> <a 
+                  <php>if($markpos == '办证'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">办证</a> </li>
+                <li> <a 
+                  <php>if($markpos == '交通'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">交通</a> </li>
+                <li> <a 
+                  <php>if($markpos == '订房'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">订房</a> </li>
+                <li> <a 
+                  <php>if($markpos == '订餐'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">订餐</a> </li>
+                <li> <a 
+                  <php>if($markpos == '门票'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">门票</a> </li>
+                <li> <a 
+                  <php>if($markpos == '导游'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">导游</a> </li>
+                <li> <a 
+                  <php>if($markpos == '补账'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">补账</a> </li>
               </ul>
             </div>
             
@@ -53,35 +88,7 @@
                     </td>
                 </tr>
                 
-                <php>if($markpos == '线路产品'){</php>
-                <tr height="20">
-                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 发布人 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 单位 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 锁定 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
-                </tr>
-                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
-                <tr height="30" class="evenListRowS1">
-                    <td scope="row" align="left" valign="top"><{$i+1}></td>
-                    <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a></td>
-                    <td scope="row" align="center" valign="top"><img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
-                    <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['bumen_copy']}></td>
-                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['guojing']}>/<{$v['kind']}></td>
-                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['status']}></td>
-                    <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['islock']}></td>
-                    <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
-                    <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<{$v['chanpinID']}>,this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
-                </tr>
-                <php> }}</php>
-                
-                <php>if($markpos == '收支项'){</php>
+                <php>if($type == '收支项'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>

@@ -358,6 +358,10 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function doshenhe() {
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+		if($cp['marktype'] == 'dingdan' && $cp['status'] != '确认')
+			$this->ajaxReturn($_REQUEST, '错误，订单不是确认状态！', 0);
 		A("Method")->_doshenhe();
 	}
 	
@@ -831,6 +835,71 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'完成！,一部分团队您没有操作权限！无法进行修改！！', 1);
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	}
+	
+	
+	
+	public function customer()
+	{
+		A("Method")->showDirectory("游客管理");
+		$chanpin_list = A('Method')->chanpin_list_noOM('ViewCustomer',$_REQUEST);
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		$this->display('customer');
+	}
+	
+	
+	
+    public function customer_info() {
+		A("Method")->showDirectory("团员信息");
+		$ViewCustomer = D("ViewCustomer");
+		$dat = $ViewCustomer->where("`systemID` = '$_REQUEST[systemID]'")->find();
+		$this->assign("data",$dat);
+		$this->display('customer_info');
+	}
+	
+	
+    public function dopostcustomer_info() {
+		C('TOKEN_ON',false);
+		$systemID = $_REQUEST['systemID'];
+		$data = $_REQUEST;
+		$data['customer'] = $_REQUEST;
+		$ViewCustomer = D("ViewCustomer");
+		$cust = $ViewCustomer->where("`systemID` = '$systemID'")->find();
+		$System = D("System");
+		if($_REQUEST['sfz_haoma']){
+			$tempcust = $ViewCustomer->where("`sfz_haoma` = '$_REQUEST[sfz_haoma]'")->find();
+			if($tempcust && $systemID!=$tempcust['systemID'])
+				$this->ajaxReturn('', '错误！身份证与已有其他用户冲突！！', 0);
+		}
+		if($_REQUEST['hz_haoma']){
+			$tempcust = $ViewCustomer->where("`hz_haoma` = '$_REQUEST[hz_haoma]'")->find();
+			if($tempcust && $systemID!=$tempcust['systemID'])
+				$this->ajaxReturn('', '错误！护照与已有其他用户冲突！！', 0);
+		}
+		if($_REQUEST['txz_haoma']){
+			$tempcust = $ViewCustomer->where("`sfz_haoma` = '$_REQUEST[txz_haoma]'")->find();
+			if($tempcust && $systemID!=$tempcust['systemID'])
+				$this->ajaxReturn('', '错误！通行证与已有其他用户冲突！！', 0);
+		}
+		if (false !== $System->relation('customer')->myRcreate($data)){
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}
+		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 ?>

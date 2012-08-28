@@ -775,6 +775,31 @@ class MethodAction extends Action{
 		$data['taskShenhe']['remark'] = $process[0]['remark'];
 		$data['taskShenhe']['roles_copy'] = cookie('_usedroles');
 		$data['taskShenhe']['bumen_copy'] = cookie('_usedbumen');
+		if($_REQUEST['datatype'] == '订单'){
+			$ViewDingdan = D("ViewDingdan");
+			$tmdt = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$data['taskShenhe']['datakind'] = $tmdt['type'];
+		}
+		if($_REQUEST['datatype'] == '线路'){
+			$ViewXianlu = D("ViewXianlu");
+			$tmdt = $ViewXianlu->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$data['taskShenhe']['datakind'] = $tmdt['kind'];
+		}
+		if($_REQUEST['datatype'] == '报账项'){
+			$ViewBaozhangitem = D("ViewBaozhangitem");
+			$tmdt = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$data['taskShenhe']['datakind'] = $tmdt['type'];
+		}
+		if($_REQUEST['datatype'] == '报账单'){
+			$ViewBaozhang = D("ViewBaozhang");
+			$tmdt = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$data['taskShenhe']['datakind'] = $tmdt['type'];
+		}
+		if($_REQUEST['datatype'] == '地接'){
+			$ViewDJtuan = D("ViewDJtuan");
+			$tmdt = $ViewDJtuan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$data['taskShenhe']['datakind'] = $tmdt['kind'];
+		}
 		//审核任务
 		$System = D("System");
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
@@ -1319,22 +1344,21 @@ class MethodAction extends Action{
 		$DataCD->startTrans();
 		//清空订单内客户,并重新生成
 		//$DataCD->where("`dingdanID` = '$dingdanID'")->delete();
-		
 		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
 			$id = $i+1;
-			if($_REQUEST['tuanyuanID'.$id]){
+			if($_REQUEST['tuanyuanID'.$id]){//游客已存在，数据丢失报错
 				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
 				$dt = $DataCD->where("`id` = '$cus[id]'")->find();
 				if(!$dt){
-					cookie('errormessage','错误，请联系管理员！',30);
+					cookie('errormessage','错误，请联系管理员！！！',30);
 					$DataCD->rollback();
 					return false;
 				}
 			}
-			else{
+			else{//游客不存在，数据异常报错
 				$datanum = $DataCD->where("`dingdanID` = '$dingdanID'")->count();
 				if($datanum > 0){
-					cookie('errormessage','错误，请联系管理员！',30);
+					cookie('errormessage','错误，请联系管理员！'.$datanum,30);
 					$DataCD->rollback();
 					return false;
 				}
@@ -2271,20 +2295,35 @@ class MethodAction extends Action{
 		$dingdan = $ViewDingdan->relation("tuanyuanlist")->where("`chanpinID` = '$chanpinID'")->find();
 		$ViewCustomer = D("ViewCustomer");
 		$System = D("System");
-		$res['customer'] = unserialize($v['datatext']);
 		foreach($dingdan['tuanyuanlist'] as $v){
-			$sfz_haoma = $res['customer']['sfz_haoma'];
-			$hz_haoma = $res['customer']['hz_haoma'];
-			$txz_haoma = $res['customer']['txz_haoma'];
-			$cust = $ViewCustomer->where("`sfz_haoma` = '$sfz_haoma' or `hz_haoma` = '$hz_haoma' or `txz_haoma` = '$txz_haoma'")->find();
+			$res['customer'] = unserialize($v['datatext']);
+			$where = array();
+			$newwhere = '';
+			if($res['customer']['sfz_haoma']){
+				$sfz_haoma = $res['customer']['sfz_haoma'];
+				$where[0] = "`sfz_haoma` = '$sfz_haoma'";
+			}
+			if($res['customer']['hz_haoma']){
+				$hz_haoma = $res['customer']['hz_haoma'];
+				$where[1] = "`hz_haoma` = '$hz_haoma'";
+			}
+			if($res['customer']['txz_haoma']){
+				$txz_haoma = $res['customer']['txz_haoma'];
+				$where[2] = "`txz_haoma` = '$txz_haoma'";
+			}
+			foreach($where as $vol){
+				if($vol && $newwhere == '')
+					$newwhere = $vol;
+				else if($vol)
+					$newwhere .= ' or '.$vol;
+			}
+			$cust = $ViewCustomer->where($newwhere)->find();
 			if($cust){
 				$res['systemID'] = $cust['systemID'];
 			}
 			$res['customer'] = unserialize($v['datatext']);
 			$System->relation('customer')->myRcreate($res);
 		}
-	
-	
 	}
 	
 	

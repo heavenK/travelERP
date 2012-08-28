@@ -4,7 +4,7 @@ class ChanpinModel extends RelationModel {
 	protected $trueTableName = 'myerp_chanpin';	
 	protected $pk = 'chanpinID';	
 	
-   // 自动验证设置,心情全部自动填充
+   // 自动验证设置
     protected $_validate = array( 
     ); 
     // 自动填充设置 

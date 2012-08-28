@@ -380,13 +380,16 @@ class XiaoshouAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, '错误，无管理权限', 0);
 		}
 		$dingdanID = $_REQUEST['dingdanID'];
+		$Chanpin = D("Chanpin");
+		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
+		if($dat['islock'] == '已锁定'){
+			$this->ajaxReturn($_REQUEST, '错误，订单已被锁定！', 0);
+		}
 		if($_REQUEST['tuanyuanmark'] == 1){
 			//生成团员
 			if( false === A("Method")->createCustomer_new($_REQUEST,$_REQUEST['dingdanID']))
 			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
 		}
-		$Chanpin = D("Chanpin");
-		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
 		$dat['departmentID'] = $_REQUEST['departmentID'];
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];

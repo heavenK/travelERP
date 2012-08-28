@@ -1,7 +1,6 @@
 <?php
 
 class TaskShenheModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_taskShenhe';	
 	protected $pk = 'systemID';
 		
@@ -12,10 +11,23 @@ class TaskShenheModel extends Model {
         array('datatype', 'require', 'datatype不能为空！', 1,'',1), 
         array('processID', 'require', 'processID不能为空！', 1,'',1), 
         array('remark', 'require', 'remark不能为空！', 1,'',1), 
+//        array('roles_copy', 'require', 'roles_copy不能为空！', 1,'',1), 
+//        array('bumen_copy', 'require', 'bumen_copy不能为空！', 1,'',1), 
+//        array('datakind', 'require', 'datakind不能为空！', 1,'',1), 
     ); 
+	
     // 自动填充设置 
     protected $_auto = array( 
+        array('datakind', 'set_datakind', 1,'callback','datakind',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
+	
+	protected function set_datakind($datakind) {
+		if($datakind)	
+			return $datakind;
+		else
+			return '';
+	}
+	
 
 
 }
