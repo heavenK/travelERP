@@ -2,7 +2,7 @@
 
 class DataOMModel extends RelationModel {
 	//protected $tableName = 'categories'; 	
-	protected $trueTableName = 'myerp_dataOM';	
+	protected $trueTableName = 'myerp_dataom';	
 	
    // 自动验证设置 
     protected $_validate = array( 
