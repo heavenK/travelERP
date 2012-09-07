@@ -994,6 +994,9 @@ class MethodAction extends Action{
 		else
 			$myuserID = $this->user['systemID'];
 		$DURlist = $this->_getDURlist($myuserID);
+		
+		dump($DURlist);
+		
 		$DataOM = D("DataOM");
 		$datalist = array();
 		if($type == '管理')
@@ -1027,6 +1030,10 @@ class MethodAction extends Action{
 				$where['DUR'] = ',,'.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
+			
+		dump($where);
+		dump($OMlist);
+			
 			if($OMlist){
 				$ViewRoles = D("ViewRoles");
 				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
@@ -1046,6 +1053,8 @@ class MethodAction extends Action{
 				return $omdata;
 			}
 		}
+		
+		
 		return false;
 	 }
 	 
