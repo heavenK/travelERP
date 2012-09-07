@@ -1007,6 +1007,8 @@ class MethodAction extends Action{
 			
 		dump($where);
 		dump($OMlist);
+		dump($DataOM);
+		exit;
 			if(!$OMlist){
 				$where['DUR'] = $v['bumenID'].','.$v['rolesID'].','.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
