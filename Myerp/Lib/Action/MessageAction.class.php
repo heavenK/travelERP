@@ -215,7 +215,7 @@ class MessageAction extends CommonAction{
 			  '.$v['message'].'
 			  </td>
 			  <td>
-			  <input class="button" type="button" value=" 删除 " onclick="del_alert('.$v['id'].');getNewsAll(\'Index.php?s=/Message/getNewsAll\')" >
+			  <input class="button" type="button" value=" 删除 " onclick="del_alert('.$v['id'].');getNewsAll(\'index.php?s=/Message/getNewsAll\')" >
 			  </td>
 			</tr>
 			';

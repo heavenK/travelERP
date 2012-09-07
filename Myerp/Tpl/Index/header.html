@@ -32,7 +32,7 @@ function AutoScroll(obj){
 jQuery(document).ready(function(){
 	timer = setInterval('AutoScroll("#alertNewsView")',5000);
 	getNews();
-	getNewsAll("Index.php?s=/Message/getNewsAll");
+	getNewsAll("index.php?s=/Message/getNewsAll");
 	window.setInterval(getNews,50000);
 	jQuery("#alertitem").mouseover(function(){
 		clearTimeout(timer);
@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
 	});
 	// Dialog Link
 	jQuery('#dialog_link').click(function(){
-		getNewsAll("Index.php?s=/Message/getNewsAll");
+		getNewsAll("index.php?s=/Message/getNewsAll");
 		jQuery('#dialog').dialog('open');
 		return false;
 	});
@@ -95,7 +95,7 @@ function getNewsAll(posturl){
 }
 
 function cleardingdan(){
-	getNewsAll("Index.php?s=/Xiaoshou/cleardingdan");
+	getNewsAll("index.php?s=/Xiaoshou/cleardingdan");
 }
   
 function getnews_after(data,status)
@@ -129,7 +129,7 @@ function del_alert(id,dowhat)
 		}
 	});
 	getNews();
-	getNewsAll("Index.php?s=/Message/getNewsAll");
+	getNewsAll("index.php?s=/Message/getNewsAll");
 }
 			
 function logout(){
