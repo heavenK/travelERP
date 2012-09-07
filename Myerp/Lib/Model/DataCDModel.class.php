@@ -1,7 +1,7 @@
 <?php
 
 class DataCDModel extends Model {
-	protected $trueTableName = 'myerp_dataCD';	
+	protected $trueTableName = 'myerp_datacd';	
 	
    // 自动验证设置 
     protected $_validate = array( 

@@ -1,7 +1,7 @@
 <?php
 
 class DataCopyModel extends Model {
-	protected $trueTableName = 'myerp_dataCopy';	
+	protected $trueTableName = 'myerp_datacopy';	
 	
    // 自动验证设置 
     protected $_validate = array( 

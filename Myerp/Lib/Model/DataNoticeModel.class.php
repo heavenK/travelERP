@@ -2,7 +2,7 @@
 
 class DataNoticeModel extends RelationModel {
 	//protected $tableName = 'categories'; 	
-	protected $trueTableName = 'myerp_dataNotice';	
+	protected $trueTableName = 'myerp_datanotice';	
 	
    // 自动验证设置 
     protected $_validate = array( 

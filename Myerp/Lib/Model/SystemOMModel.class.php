@@ -2,7 +2,7 @@
 
 class SystemOMModel extends Model {
 	//protected $tableName = 'categories'; 	
-	protected $trueTableName = 'myerp_system_OM';	
+	protected $trueTableName = 'myerp_system_om';	
 		
    // 自动验证设置 
     protected $_validate = array( 

@@ -1,7 +1,7 @@
 <?php
 
 class SystemDURModel extends Model {
-	protected $trueTableName = 'myerp_system_DUR';	
+	protected $trueTableName = 'myerp_system_dur';	
 		
    // 自动验证设置 
     protected $_validate = array( 
