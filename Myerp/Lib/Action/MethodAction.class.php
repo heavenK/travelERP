@@ -994,9 +994,6 @@ class MethodAction extends Action{
 		else
 			$myuserID = $this->user['systemID'];
 		$DURlist = $this->_getDURlist($myuserID);
-		
-		dump($DURlist);
-		
 		$DataOM = D("DataOM");
 		$datalist = array();
 		if($type == '管理')

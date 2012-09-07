@@ -53,7 +53,6 @@ class XiaoshouAction extends CommonAction{
     public function zituan() {
 		//检查dataOM
 		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
-		dump($xiaoshou);
 //		if(false === $xiaoshou){
 //			$this->display('Index:error');
 //			exit;
