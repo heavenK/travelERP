@@ -1000,6 +1000,7 @@ class MethodAction extends Action{
 		$where['type'] = '管理';
 		else
 		$where['type'] = array('in','开放,管理');
+		dump($DURlist);
 		foreach($DURlist as $v){
 			$where['DUR'] = $v['bumenID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
