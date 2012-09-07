@@ -343,6 +343,11 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       
       <php>if('用户' == $nowDir['title']){</php>
+      <script>
+		function dosearch(str){
+			window.location = '<{:SITE_INDEX}>SetSystem/systemUser'+str;
+		}
+	  </script>
             <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/systemUser.js"></script>
             <tr class="pagination" style="height:28px;">
               <td colspan="6">

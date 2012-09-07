@@ -143,6 +143,9 @@ class SetSystemAction extends CommonAction{
 	
 	
 	public function systemUser(){
+		if($_REQUEST['title']){
+			$_REQUEST['title'] = array('like','%'.$_REQUEST['title'].'%');
+		}
 		A("Method")->showDirectory("用户");
 		$this->assign("showtitle",$showtitle);
 		$users = A('Method')->data_list_noOM("ViewUser",$_REQUEST);

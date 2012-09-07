@@ -3,6 +3,7 @@
 class IndexAction extends Action{
 	
     public function index() {
+		$this->assign("datatitle","欢迎使用GULIANERP系统");
 		$this->toadmin();
 		$this->display('login');
 		
@@ -15,6 +16,7 @@ class IndexAction extends Action{
     }
 	
     public function login() {
+		$this->assign("datatitle","欢迎使用GULIANERP系统");
 		$this->display('login');
 		
     }

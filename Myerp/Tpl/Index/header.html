@@ -147,6 +147,12 @@ function todo_logout(data,status){
 			window.location.href='<{:SITE_INDEX}>Index';
 	}
 }
+
+function headsearch()
+{
+	title = jQuery("#query_string").val();
+	window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
 </script>
 </head>
 
@@ -164,12 +170,10 @@ function todo_logout(data,status){
     <php> echo $this->tVar['user']['title'];</php>
     </strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
   <div id="search" style="padding:18px 0 0 10px; border:none ">
-    <form name="">
       <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
-      <input type="text" name="query_string" id="query_string" size="20" value="">
+      <input type="text" id="query_string" size="20" >
       &nbsp;
-      <input style="margin-top:-2px;" type="submit" class="button" value="查找">
-    </form>
+      <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
   </div>
   <div class="clear"></div>
   <div id="moduleList">

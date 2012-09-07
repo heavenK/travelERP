@@ -16,8 +16,3 @@ function info ()
 	}
 }
 
-function dosearch()
-{
-		title = document.getElementById('title').value;
-		window.location = SITE_INDEX+'SetSystem/systemUser/title/'+title;
-}

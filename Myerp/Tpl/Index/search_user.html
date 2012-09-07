@@ -1,4 +1,3 @@
-    
     <div class="moduleTitle" style="margin-bottom:10px;">
       <h2 style="margin-top:10px;"><{$navigation}><{$datatitle}></h2>
       <div style="float:left; margin-left:50px; margin-top:6px;">
@@ -13,65 +12,30 @@
       <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
       </span>
     </div>
+    
     <div id="mysearchdiv"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php> >
         <ul id="searchTabs" class="tablist">
-          <li style="margin-right:1px;">
-              <a id="searchtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
-          </li>
           <li>
-              <a href="javascript:void(0)">高级查找</a>
+              <a id="searchtab_1" <PHP>if($sorttabid == 1 || !$sorttabid){</PHP>class="current" <PHP>}</PHP> href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
           </li>
         </ul>
         
-        <div class="search_form" id="searchdiv_1" style="margin-bottom:0px;">
+        <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
               <div class="edit view search ">
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
                           <td scope="row" nowrap="nowrap"> 姓名 </td>
-                          <td nowrap="nowrap"><input type="text" name="title" id="title" value="<{$title}>"></td>
+                          <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
                       </tbody>
                     </table>
                 </div>
-              <input title="查找" class="button" type="button" value=" 查找 " onclick="dosearch();">&nbsp;
+              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
               <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
         </div>
         
-        <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
-        <div style="margin-top:10px;">
-            <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
-              <tbody>
-                <tr>
-                  <td nowrap=""><h3><span>查询：<label style="color:red"><php>foreach($_REQUEST as $v) echo $v."&nbsp;"</php></label></span></h3></td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-        <php>}</php>
-    </div>
-
 
 <script>
-
-function showmysearchdiv(s)
-{
-		var divRili = document.getElementById('mysearchdiv');
-		var divRili_1 = document.getElementById('show_link_insideview');
-		var divRili_2 = document.getElementById('hide_link_insideview');
-	if(s == 1){
-		divRili.style.display = ''
-		divRili_1.style.display = 'none'
-		divRili_2.style.display = ''
-		setsearch(1);
-	}
-	if(s == 2){
-		divRili.style.display = 'none'
-		divRili_1.style.display = ''
-		divRili_2.style.display = 'none'
-		setsearch(2);
-	}
-}
-
 function setsearch(status)
 {
 	jQuery.ajax({
@@ -85,24 +49,25 @@ function setsearch(status)
 	  });
 }
 
-function showsearch(s)
-{
-	if(s == 1){
-		var divRili = document.getElementById('searchdiv_1'); 
-		divRili.style.display = '';			
-		divRili = document.getElementById('searchdiv_2'); 
-		divRili.style.display = 'none';	
-		jQuery('#searchtab_1').addClass('current');
-		jQuery('#searchtab_2').removeClass('current');
-	}
-	if(s == 2){
-		var divRili = document.getElementById('searchdiv_2'); 
-		divRili.style.display = '';			
-		divRili = document.getElementById('searchdiv_1'); 
-		divRili.style.display = 'none';	
-		jQuery('#searchtab_2').addClass('current');
-		jQuery('#searchtab_1').removeClass('current');
-	}
+function clearsearch(){
+		jQuery('.title_1').val('');
+		jQuery('.title_2').val('');
+		jQuery('.chufariqi').val('');
+		jQuery('.start_time').val('');
+		jQuery('.end_time').val('');
+		jQuery('.user_name').val('');
+		jQuery('.status').val('');
+		jQuery('.chufadi').val('');
+		jQuery('.mudidi').val('');
+		
+}
+
+function _dosearch(sorttabid){
+	var str ='';
+	if(jQuery('.title_'+sorttabid).val())
+	str += '/title/'+jQuery('.title_'+sorttabid).val();
+	str += '/sorttabid/'+sorttabid;
+	dosearch(str);
 }
 </script>
 
