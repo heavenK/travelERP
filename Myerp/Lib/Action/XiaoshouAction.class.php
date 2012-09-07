@@ -51,9 +51,6 @@ class XiaoshouAction extends CommonAction{
 	
 	
     public function zituan() {
-		dump(123);
-		
-		
 		//检查dataOM
 		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 		if(false === $xiaoshou){
@@ -71,10 +68,7 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
-		dump($xianlu);
 		$xianlu = unserialize($xianlu['copy']);
-		dump($xianlu);
-		dump($DataCopy);
 		//解析视频
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$nameshipin = $xianlu['xianlu']['shipin'];
