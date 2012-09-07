@@ -68,7 +68,10 @@ class XiaoshouAction extends CommonAction{
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
+		dump($xianlu);
 		$xianlu = unserialize($xianlu['copy']);
+		dump($xianlu);
+		
 		//解析视频
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$nameshipin = $xianlu['xianlu']['shipin'];
