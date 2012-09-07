@@ -40,7 +40,7 @@ function setsearch(status)
 {
 	jQuery.ajax({
 		  type:	"POST",
-		  url:	"<{:SITE_INDEX}>Chanpin/setsearch",
+		  url:	"<{:SITE_INDEX}>Index/setsearch",
 		  async: false,
 		  data:	"status=" + status ,
 		  success:	function(msg){
@@ -51,15 +51,6 @@ function setsearch(status)
 
 function clearsearch(){
 		jQuery('.title_1').val('');
-		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
-		jQuery('.start_time').val('');
-		jQuery('.end_time').val('');
-		jQuery('.user_name').val('');
-		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
-		
 }
 
 function _dosearch(sorttabid){

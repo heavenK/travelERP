@@ -314,17 +314,6 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	
-	public function setsearch() {
-			if($_REQUEST['status'] == 1){
-				cookie('closesearch',null);
-				$this->ajaxReturn('', '开启搜索栏！', 1);
-			}
-			if($_REQUEST['status'] == 2){
-				cookie('closesearch',1,LOGIN_TIME);
-				$this->ajaxReturn('', '收起搜索栏！', 1);
-			}
-	}
-	
 	
 	public function left_fabu() {
 		

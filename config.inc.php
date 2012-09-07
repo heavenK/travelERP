@@ -2,7 +2,7 @@
 
     return array(
         'DB_TYPE'=>'mysql',
-        'DB_HOST'=>'192.168.1.231',
+        'DB_HOST'=>'localhost',
         'DB_NAME'=>'myerp',
         'DB_USER'=>'erp',
         'DB_PWD'=>'travelERP@234',

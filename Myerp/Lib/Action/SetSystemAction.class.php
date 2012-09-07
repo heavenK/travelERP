@@ -241,6 +241,18 @@ class SetSystemAction extends CommonAction{
 		$System = D("System");
 		$data = $_REQUEST;
 		$data[$_REQUEST['tableName']] = $_REQUEST;
+		if($_REQUEST['tableName'] == 'user'){
+			$ViewUser = D("ViewUser");
+			$user = $ViewUser->where("`systemID` = '$_REQUEST[systemID]'")->find();
+			$data[$_REQUEST['tableName']]['user_name'] = $user['user_name'];
+			if($user['islock'] == '已锁定'){
+				$data['islock'] = '未锁定';
+				$data['status_system'] = 1;
+			}
+		}
+		
+		
+		
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
@@ -504,8 +516,6 @@ class SetSystemAction extends CommonAction{
 		$this->display('templatelist');
 	}
 	
-
-
 
 
 

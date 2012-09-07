@@ -347,6 +347,46 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 		function dosearch(str){
 			window.location = '<{:SITE_INDEX}>SetSystem/systemUser'+str;
 		}
+		function setlock(){
+			var elm=document.getElementsByName('select');
+			checked=false;
+			for(ii=0;ii<elm.length;ii++)
+				if(elm[ii].checked){
+					jQuery.ajax({
+						type:	"POST",
+						url:	"<{:SITE_INDEX}>SetSystem/dopostSystemHas/tableName/user/systemID/"+elm[ii].value,
+						data:	'islock=已锁定&status_system=-1',
+						success:	function(msg){
+								ThinkAjax.myAjaxResponse(msg,'resultdiv',setafter);
+						}
+					});
+					checked=true;
+					break;
+					}
+			if (!checked){alert('请选择')}
+		}
+		function resetpwd(str){
+			var elm=document.getElementsByName('select');
+			checked=false;
+			for(ii=0;ii<elm.length;ii++)
+				if(elm[ii].checked){
+					jQuery.ajax({
+						type:	"POST",
+						url:	"<{:SITE_INDEX}>SetSystem/dopostSystemHas/tableName/user/systemID/"+elm[ii].value,
+						data:	'password=-1',
+						success:	function(msg){
+								ThinkAjax.myAjaxResponse(msg,'resultdiv',setafter);
+						}
+					});
+					checked=true;
+					break;
+					}
+			if (!checked){alert('请选择')}
+		}
+		function setafter(data,status){
+			if(status == 1)
+			location.reload();
+		}
 	  </script>
             <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/systemUser.js"></script>
             <tr class="pagination" style="height:28px;">
@@ -356,8 +396,8 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
                     <tr>
                       <td nowrap="nowrap" class="paginationActionButtons">
                         <strong><{$nowDir['title']}>列表</strong>&nbsp;
-                          <input class="button" type="button" value="开/关锁"  onclick="info()"/>
-                          <input class="button" type="button" value="重置密码"  />
+                          <input class="button" type="button" value="开/关锁" onclick="setlock()"/>
+                          <input class="button" type="button" value="重置密码" onclick="resetpwd()"/>
                       </td>
                       <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                         <{$users[page]}>
