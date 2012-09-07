@@ -249,10 +249,9 @@ class SetSystemAction extends CommonAction{
 				$data['islock'] = '未锁定';
 				$data['status_system'] = 1;
 			}
+			if($_REQUEST['password'])
+				$data[$_REQUEST['tableName']]['password'] = md5($_REQUEST['password']);
 		}
-		
-		
-		
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
