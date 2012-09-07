@@ -71,7 +71,7 @@ class XiaoshouAction extends CommonAction{
 		dump($xianlu);
 		$xianlu = unserialize($xianlu['copy']);
 		dump($xianlu);
-		
+		dump($DataCopy);
 		//解析视频
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$nameshipin = $xianlu['xianlu']['shipin'];
