@@ -1004,6 +1004,9 @@ class MethodAction extends Action{
 		foreach($DURlist as $v){
 			$where['DUR'] = $v['bumenID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			
+		dump($where);
+		dump($OMlist);
 			if(!$OMlist){
 				$where['DUR'] = $v['bumenID'].','.$v['rolesID'].','.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
@@ -1028,9 +1031,6 @@ class MethodAction extends Action{
 				$where['DUR'] = ',,'.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
-			
-		dump($where);
-		dump($OMlist);
 			
 			if($OMlist){
 				$ViewRoles = D("ViewRoles");
