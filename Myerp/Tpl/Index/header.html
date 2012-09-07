@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<link rel="shortcut icon" type="image/x-icon" href="<{:__PUBLIC__}>/myerp/images/sugar_icon.ico" media="screen" />
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><{$nowDir['title']}><{$datatitle}></title>
@@ -155,8 +156,6 @@ function todo_logout(data,status){
   <div id="globalLinks" style="padding:18px 0 0 10px;">
     <ul>
       <li> <a href="#">我的帐户</a> </li>
-      <li> <span>|</span> <a href="#">员工</a> </li>
-      <li> <span>|</span> <a href="#">系统管理</a> </li>
       <li> <span>|</span> <a href="#">培训</a> </li>
       <li> <span>|</span> <a href="#">关于</a> </li>
     </ul>
@@ -172,7 +171,6 @@ function todo_logout(data,status){
       <input style="margin-top:-2px;" type="submit" class="button" value="查找">
     </form>
   </div>
-  <div id="sitemapLink" style="padding:18px 0 0 10px; border:none "> 站点地图 <img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png"> </div>
   <div class="clear"></div>
   <div id="moduleList">
     <ul>
@@ -196,21 +194,21 @@ function todo_logout(data,status){
       <php>}</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '财务管理'){</php>
-      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
-      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '系统管理'){</php>
-      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
-      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
-      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="#" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
-      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="#" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
     </ul>
   </div>
@@ -251,7 +249,8 @@ function todo_logout(data,status){
       <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">报表项审核</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报表审核</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单">订单审核</a> </li>
-      <li> <a href="#">统计</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/jixiao_tongji/type/员工">统计(绩效)</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">统计(营收)</a> </li>
     </ul>
     </span> <span id="moduleLink_2" 
     <php>if($navposition == '系统管理'){</php>
@@ -259,11 +258,10 @@ function todo_logout(data,status){
     <php>}</php>
     >
     <ul>
-      <li> <a href="#">用户</a> </li>
-      <li> <a href="#">系统工具</a> </li>
-      <li> <a href="<{:SITE_INDEX}>SetSystem/setting">系统设置</a> </li>
-      <li> <a href="#">站内信息</a> </li>
-      <li> <a href="#">产品平移</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/用户">用户</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统工具">系统工具</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/产品平移">产品平移</a> </li>
     </ul>
     </span> <span id="moduleLink_3" 
     <php>if($navposition == '销售'){</php>
@@ -282,9 +280,9 @@ function todo_logout(data,status){
     <php>}</php>
     >
     <ul>
-      <li> <a href="#">公告</a> </li>
-      <li> <a href="#">排团表</a> </li>
-      <li> <a href="#">系统提示</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Message/index/datatype/公告">公告</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Message/index/datatype/排团表">排团表</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Message/infohistory">系统提示</a> </li>
     </ul>
     </span> 
     
@@ -308,8 +306,13 @@ function todo_logout(data,status){
     </div>
   <div class="clear"></div>
   <div class="line"></div>
-  <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> <b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> <b style="white-space:nowrap;float:right;"> <a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">
+  <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> 
+  	<b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> 
+    <span style="float:left; width:70%" id="alertitem"> </span> 
+  	<b style="white-space:nowrap;float:right;"> 
+  	<a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">
     <div class="ui-icon ui-icon-newwin" style="float:left"></div>
-    显示全部</a> </b> <span style="float:left; width:70%" id="alertitem"> </span> </div>
+    显示全部</a> </b> 
+  </div>
 </div>
 <div id="dialog" title="提示消息" style="background:#FFF"> </div>

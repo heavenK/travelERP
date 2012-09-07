@@ -1,0 +1,384 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+
+<div id="main">
+  <tp:includeCA file="Caiwu:left_fabu:'left_tongji','绩效'" />
+  <div id="content" style="margin-left:170px;">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:search_xianlu" />
+            
+            <div id="mysearchdiv" style="margin:10px 0 0 0;">
+              <ul id="searchTabs" class="tablist tablist_2">
+                <li> <a 
+                  <php>if($type == '员工'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/jixiao_tongji/type/员工">按员工统计</a> </li>
+                <li> <a 
+                  <php>if($type == '部门'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Caiwu/jixiao_tongji/type/部门">按部门统计</a> </li>
+              </ul>
+            </div>
+             
+            <php>if($systemID || $title){</php>
+            <php>}else{</php>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 开始时间 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 截止时间 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 参团人数：成人/儿童/全部 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 操作费（元） </div></th>
+                </tr>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$start_time}></td>
+                  <td scope="row" align="left" valign="top"><{$end_time}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($tongji['chengrenshu'])</php>/<php> echo number_format($tongji['ertongshu'])</php>/<php> echo number_format($tongji['zongrenshu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($tongji['ticheng'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($tongji['caozuofei'])</php></td>
+                </tr>
+              </tbody>
+            </table>
+            <php>}</php>
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                            <input class="button" type="button" value=" 导出 " onclick="exports()">
+                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                <php>if($type == '员工'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 姓名 </div></th>
+            <php>if($title){</php>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 时间范围 </div></th>
+			<php> }</php>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客：成人/儿童/全部 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作：成人/儿童/全部  </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元）</div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($unitdata as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+            <php>if($title){</php>
+                  <td scope="row" align="left" valign="top"><{$start_time}>至<{$end_time}></td>
+			<php> }</php>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_chengren'])</php>/<php> echo number_format($v['shouke_ertong'])</php>/<php> echo number_format($v['shouke_shu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
+                  <td scope="row" align="left" valign="top">
+                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_1();">
+                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_2();">
+                  </td>
+                </tr>
+                <php> }}</php>
+                
+                
+                <php>if($type == '部门'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 部门 </div></th>
+            <php>if($systemID){</php>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 时间范围 </div></th>
+			<php> }</php>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客：成人/儿童/全部 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作：成人/儿童/全部  </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元）</div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($unitdata as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+            <php>if($systemID){</php>
+                  <td scope="row" align="left" valign="top"><{$start_time}>至<{$end_time}></td>
+			<php> }</php>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_chengren'])</php>/<php> echo number_format($v['shouke_ertong'])</php>/<php> echo number_format($v['shouke_shu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
+                  <td scope="row" align="left" valign="top">
+                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_1_1();">
+                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_2_2();">
+                  </td>
+                </tr>
+                <php> }}</php>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          
+          
+          <php>if($title && $type == '员工'){</php>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 绩效类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客人/操作人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人/儿童/领队 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 售价（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费提成 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元） </div></th>
+                </tr>
+                <php> $i = -1; foreach($unitdata[0]['dingdan'] as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
+                  <td scope="row" align="left" valign="top"><{$v['jixiaotype']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['owner']}>/<{$v['fuzeren']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['chengrenshu'])</php>/<php> echo number_format($v['ertongshu'])</php>/<php> echo number_format($v['lingdui_num'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['jiage'])</php></td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['ticheng']['description']}>%</td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top">2元/人</td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
+                </tr>
+                <php> }</php>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          <php> }</php>
+          
+                
+          <php>if($systemID && $type == '部门'){</php>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 绩效类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客人/操作人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人/儿童/领队 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 售价（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费提成 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元） </div></th>
+                </tr>
+                <php> $i = -1; foreach($unitdata[0]['dingdan'] as $v){ $i++;</php>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
+                  <td scope="row" align="left" valign="top"><{$v['jixiaotype']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['owner']}>/<{$v['fuzeren']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['chengrenshu'])</php>/<php> echo number_format($v['ertongshu'])</php>/<php> echo number_format($v['lingdui_num'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['jiage'])</php></td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['ticheng']['description']}>%</td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top">2元/人</td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
+                </tr>
+                <php> }</php>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          <php> }</php>
+            
+            
+            
+            
+  </div>
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+</script>
+
+<div id="dialog_shouke" title="收客详细信息" style="background:#FFF">
+</div>
+
+<div id="dialog_caozuo" title="操作详细信息" style="background:#FFF">
+</div>
+
+<script language="javascript"> 
+var title ='';
+function setuser(name){
+	title = name;
+}
+var systemID ='';
+function setbumen(id){
+	systemID = id;
+}
+jQuery(document).ready(function(){
+	// Dialog
+	jQuery('#dialog_shouke').dialog({
+		autoOpen: false,
+		width: 800,
+		buttons: {
+			"确认": function() {
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog
+	jQuery('#dialog_caozuo').dialog({
+		autoOpen: false,
+		width: 800,
+		buttons: {
+			"确认": function() {
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	
+});
+// Dialog Link
+function opendialog_1(){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/收客/type/员工/title/"+title,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_shouke').dialog('open');
+}
+function opendialog_1_1(){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/收客/type/部门/systemID/"+systemID,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_shouke').dialog('open');
+}
+function opendialog_2(){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/操作/type/员工/title/"+title,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_caozuo').dialog('open');
+}
+function opendialog_2_2(){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/操作/type/部门/systemID/"+systemID,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_caozuo').dialog('open');
+}
+function click_after(data,status)
+{
+	if(status == 1){
+		jQuery("#dialog_shouke").html(data);
+	}
+	if(status == 2){
+		jQuery("#dialog_caozuo").html(data);
+	}
+}
+
+function doprint(type){
+	var url = '<{$_SERVER[REQUEST_URI]}>/doprint/1';
+    window.open(url,null,"height=800,width=1200,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+function exports()
+{
+	window.location.href = '<{$_SERVER[REQUEST_URI]}>/export/1';
+}
+</script> 
+
+
+
+

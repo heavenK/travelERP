@@ -20,7 +20,7 @@ class DJtuanModel extends Model {
     // 自动填充设置 
     protected $_auto = array( 
         array('baojia', '0', 1),
-        array('status_baozhang', '未报账', 1), 
+        array('status_baozhang', '未审核', 1), 
     ); 
 
 	

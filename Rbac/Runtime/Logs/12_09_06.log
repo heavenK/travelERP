@@ -1,0 +1,768 @@
+[ 2012-09-06T16:03:25+08:00 ] /rbac.php | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:25+08:00 ] /rbac.php | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000870s ]
+[ 2012-09-06T16:03:25+08:00 ] /rbac.php | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001008s ]
+[ 2012-09-06T16:03:25+08:00 ] /rbac.php | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.006363s ]
+[ 2012-09-06T16:03:25+08:00 ] /rbac.php | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000681s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run LocationTemplate Behavior [ RunTime:0.002175s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_template ] --END-- [ RunTime:0.002310s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run ParseTemplate Behavior [ RunTime:0.120121s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_parse ] --END-- [ RunTime:0.120257s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run ContentReplace Behavior [ RunTime:0.001025s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run TokenBuild Behavior [ RunTime:0.001051s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000842s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run ShowRuntime Behavior [ RunTime:0.001175s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_filter ] --END-- [ RunTime:0.004371s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Run ShowPageTrace Behavior [ RunTime:0.001165s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php | INFO: Tag[ view_end ] --END-- [ RunTime:0.001262s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run CheckRoute Behavior [ RunTime:0.000858s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ route_check ] --END-- [ RunTime:0.000954s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000539s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000606s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003174s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000397s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | SQL: SHOW COLUMNS FROM `think_group` [ RunTime:0.031210s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | SQL: SELECT `id`,`title` FROM `think_group` WHERE status=1  [ RunTime:0.000283s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run LocationTemplate Behavior [ RunTime:0.111749s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_template ] --END-- [ RunTime:0.111841s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run ParseTemplate Behavior [ RunTime:0.009204s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_parse ] --END-- [ RunTime:0.009297s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run ContentReplace Behavior [ RunTime:0.000356s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run TokenBuild Behavior [ RunTime:0.000541s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000231s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run ShowRuntime Behavior [ RunTime:0.000459s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_filter ] --END-- [ RunTime:0.001772s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Run ShowPageTrace Behavior [ RunTime:0.000473s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/top | INFO: Tag[ view_end ] --END-- [ RunTime:0.000536s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run CheckRoute Behavior [ RunTime:0.000858s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ route_check ] --END-- [ RunTime:0.000942s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000613s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000661s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004611s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000493s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run LocationTemplate Behavior [ RunTime:0.001120s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_template ] --END-- [ RunTime:0.001189s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run ParseTemplate Behavior [ RunTime:0.064579s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_parse ] --END-- [ RunTime:0.064674s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run ContentReplace Behavior [ RunTime:0.000686s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run TokenBuild Behavior [ RunTime:0.000689s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000548s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run ShowRuntime Behavior [ RunTime:0.000776s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002882s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Run ShowPageTrace Behavior [ RunTime:0.000772s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/footer | INFO: Tag[ view_end ] --END-- [ RunTime:0.000837s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run CheckRoute Behavior [ RunTime:0.000836s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ route_check ] --END-- [ RunTime:0.000910s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000863s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000926s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.004334s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000494s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run LocationTemplate Behavior [ RunTime:0.001490s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_template ] --END-- [ RunTime:0.001566s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run ParseTemplate Behavior [ RunTime:0.009793s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_parse ] --END-- [ RunTime:0.009866s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run ContentReplace Behavior [ RunTime:0.000459s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run TokenBuild Behavior [ RunTime:0.000674s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000540s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run ShowRuntime Behavior [ RunTime:0.000722s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002518s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Run ShowPageTrace Behavior [ RunTime:0.000684s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/drag | INFO: Tag[ view_end ] --END-- [ RunTime:0.000726s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run CheckRoute Behavior [ RunTime:0.000841s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ route_check ] --END-- [ RunTime:0.000927s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000806s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000853s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003616s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000345s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run LocationTemplate Behavior [ RunTime:0.019125s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_template ] --END-- [ RunTime:0.019186s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run ParseTemplate Behavior [ RunTime:0.033597s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_parse ] --END-- [ RunTime:0.033666s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run ContentReplace Behavior [ RunTime:0.000701s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run TokenBuild Behavior [ RunTime:0.000839s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000567s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run ShowRuntime Behavior [ RunTime:0.000723s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002966s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Run ShowPageTrace Behavior [ RunTime:0.000727s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/main | INFO: Tag[ view_end ] --END-- [ RunTime:0.000774s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run CheckRoute Behavior [ RunTime:0.000573s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ route_check ] --END-- [ RunTime:0.000640s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000380s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000423s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003179s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000379s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.003210s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | SQL: SELECT `id` FROM `think_node` LIMIT 1   [ RunTime:0.000279s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | SQL: SELECT `id`,`name`,`group_id`,`title` FROM `think_node` WHERE ( `level` = 2 ) AND ( `status` = 1 ) AND ( `pid` = '1' ) ORDER BY sort asc  [ RunTime:0.000296s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | NOTIC: [8] Undefined index:  _ACCESS_LIST PublicAction.class.php 第 55 行.
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run LocationTemplate Behavior [ RunTime:0.000930s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_template ] --END-- [ RunTime:0.000981s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run ParseTemplate Behavior [ RunTime:0.007370s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_parse ] --END-- [ RunTime:0.007440s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run ContentReplace Behavior [ RunTime:0.000491s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run TokenBuild Behavior [ RunTime:0.000487s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000386s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run ShowRuntime Behavior [ RunTime:0.000538s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002034s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Run ShowPageTrace Behavior [ RunTime:0.000808s ]
+[ 2012-09-06T16:03:26+08:00 ] /rbac.php/Public/menu | INFO: Tag[ view_end ] --END-- [ RunTime:0.000869s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.000679s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.000750s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000771s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000819s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003033s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000342s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_group` [ RunTime:0.002531s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SELECT `id`,`title` FROM `think_group` WHERE status=1  [ RunTime:0.000139s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002654s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  pid NodeAction.class.php 第 11 行.
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002579s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `id` = 0 ) LIMIT 1   [ RunTime:0.000149s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002613s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_node` WHERE ( `pid` = 0 ) LIMIT 1   [ RunTime:0.000167s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `pid` = 0 ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000201s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.001308s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001359s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  sort TagLibHtml.class.php 第 429 行.
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.015626s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.015683s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000595s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000710s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000658s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000647s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002753s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000756s ]
+[ 2012-09-06T16:03:28+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000805s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.000836s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.000917s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000967s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001024s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003804s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000470s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.003059s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | NOTIC: [8] Undefined index:  name RoleAction.class.php 第 5 行.
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.002824s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_role` WHERE ( `name` LIKE '%%' ) LIMIT 1   [ RunTime:0.000355s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | SQL: SELECT * FROM `think_role` WHERE ( `name` LIKE '%%' ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000520s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.001345s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001395s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | NOTIC: [8] Undefined index:  sort TagLibHtml.class.php 第 429 行.
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.013852s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.013905s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000603s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000712s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000605s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000624s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002665s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000717s ]
+[ 2012-09-06T16:03:30+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000761s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.000794s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.000873s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000904s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000958s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003497s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000451s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.003303s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Undefined index:  account UserAction.class.php 第 6 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.003246s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_user` WHERE ( `id` >= 2 ) AND ( `account` LIKE '%%' ) LIMIT 1   [ RunTime:0.012854s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | SQL: SELECT * FROM `think_user` WHERE ( `id` >= 2 ) AND ( `account` LIKE '%%' ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000793s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.001434s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001493s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.012919s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.012972s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000643s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000740s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000589s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000644s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002740s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000760s ]
+[ 2012-09-06T16:03:34+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000805s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run CheckRoute Behavior [ RunTime:0.000681s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000751s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000776s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000822s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003084s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000348s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002807s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SELECT * FROM `think_user`  [ RunTime:0.000587s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.003310s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: SELECT `id`,`name` FROM `think_role`  [ RunTime:0.000327s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | SQL: select b.id,b.name from think_role_user as a ,think_role as b where a.role_id=b.id and  a.user_id=40914  [ RunTime:0.000795s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run LocationTemplate Behavior [ RunTime:0.001072s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_template ] --END-- [ RunTime:0.001121s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  values TagLibHtml.class.php 第 152 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  output TagLibHtml.class.php 第 153 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  multiple TagLibHtml.class.php 第 154 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  id TagLibHtml.class.php 第 155 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  size TagLibHtml.class.php 第 156 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  dblclick TagLibHtml.class.php 第 160 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  values TagLibHtml.class.php 第 152 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  output TagLibHtml.class.php 第 153 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  first TagLibHtml.class.php 第 157 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  dblclick TagLibHtml.class.php 第 160 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [8] Undefined index:  change TagLibHtml.class.php 第 161 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run ParseTemplate Behavior [ RunTime:0.013110s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.013157s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run ContentReplace Behavior [ RunTime:0.000609s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run TokenBuild Behavior [ RunTime:0.000702s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000543s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run ShowRuntime Behavior [ RunTime:0.000610s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002589s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000682s ]
+[ 2012-09-06T16:03:37+08:00 ] /rbac.php/User/role/id/40914 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000740s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run CheckRoute Behavior [ RunTime:0.000681s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ route_check ] --END-- [ RunTime:0.000746s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000780s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000824s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003193s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000434s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002834s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002742s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SELECT COUNT(id) AS tp_count FROM `think_user` WHERE ( `account` LIKE '%aaa%' ) AND ( `id` >= 2 ) LIMIT 1   [ RunTime:0.000347s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | SQL: SELECT * FROM `think_user` WHERE ( `account` LIKE '%aaa%' ) AND ( `id` >= 2 ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000443s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run LocationTemplate Behavior [ RunTime:0.000815s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_template ] --END-- [ RunTime:0.000862s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run ParseTemplate Behavior [ RunTime:0.010730s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_parse ] --END-- [ RunTime:0.010774s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run ContentReplace Behavior [ RunTime:0.000559s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run TokenBuild Behavior [ RunTime:0.000728s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000556s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run ShowRuntime Behavior [ RunTime:0.000607s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002566s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Run ShowPageTrace Behavior [ RunTime:0.000693s ]
+[ 2012-09-06T16:03:42+08:00 ] /rbac.php/User | INFO: Tag[ view_end ] --END-- [ RunTime:0.000735s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run CheckRoute Behavior [ RunTime:0.000697s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ route_check ] --END-- [ RunTime:0.000766s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000797s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000844s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003062s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000335s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002968s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SELECT * FROM `think_user`  [ RunTime:0.000655s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.002885s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: SELECT `id`,`name` FROM `think_role`  [ RunTime:0.000320s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | SQL: select b.id,b.name from think_role_user as a ,think_role as b where a.role_id=b.id and  a.user_id=40449  [ RunTime:0.000440s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run LocationTemplate Behavior [ RunTime:0.001055s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_template ] --END-- [ RunTime:0.001104s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  values TagLibHtml.class.php 第 152 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  output TagLibHtml.class.php 第 153 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  multiple TagLibHtml.class.php 第 154 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  id TagLibHtml.class.php 第 155 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  size TagLibHtml.class.php 第 156 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  dblclick TagLibHtml.class.php 第 160 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  values TagLibHtml.class.php 第 152 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  output TagLibHtml.class.php 第 153 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  first TagLibHtml.class.php 第 157 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  dblclick TagLibHtml.class.php 第 160 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [8] Undefined index:  change TagLibHtml.class.php 第 161 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | NOTIC: [2] in_array() [<a href='function.in-array'>function.in-array</a>]: Wrong datatype for second argument 71f208475851556c781ede03abdfa458.php 第 53 行.
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run ParseTemplate Behavior [ RunTime:0.012815s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.012869s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run ContentReplace Behavior [ RunTime:0.000659s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run TokenBuild Behavior [ RunTime:0.000811s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000583s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run ShowRuntime Behavior [ RunTime:0.000631s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002814s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Run ShowPageTrace Behavior [ RunTime:0.000724s ]
+[ 2012-09-06T16:03:43+08:00 ] /rbac.php/User/role/id/40449 | INFO: Tag[ view_end ] --END-- [ RunTime:0.000769s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.001518s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.001664s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.001752s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001856s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.002989s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000349s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_group` [ RunTime:0.002580s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SELECT `id`,`title` FROM `think_group` WHERE status=1  [ RunTime:0.000139s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002559s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  pid NodeAction.class.php 第 11 行.
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002527s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `id` = 0 ) LIMIT 1   [ RunTime:0.000139s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002697s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_node` WHERE ( `pid` = 0 ) LIMIT 1   [ RunTime:0.000166s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `pid` = 0 ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000202s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.001012s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001059s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  sort TagLibHtml.class.php 第 429 行.
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.015058s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.015116s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000593s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000679s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000571s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000618s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002584s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000687s ]
+[ 2012-09-06T16:03:54+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000731s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.000674s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.000740s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000808s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.000853s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003232s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000359s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.002966s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | NOTIC: [8] Undefined index:  name RoleAction.class.php 第 5 行.
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.002759s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_role` WHERE ( `name` LIKE '%%' ) LIMIT 1   [ RunTime:0.000312s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | SQL: SELECT * FROM `think_role` WHERE ( `name` LIKE '%%' ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000407s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.000977s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001024s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | NOTIC: [8] Undefined index:  sort TagLibHtml.class.php 第 429 行.
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.013680s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.013737s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000627s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000725s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000577s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000626s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002681s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000717s ]
+[ 2012-09-06T16:03:55+08:00 ] /rbac.php/Role/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000762s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.001012s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.001108s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.001160s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001230s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003234s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000343s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002985s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Undefined index:  account UserAction.class.php 第 6 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.002730s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_user` WHERE ( `id` >= 2 ) AND ( `account` LIKE '%%' ) LIMIT 1   [ RunTime:0.000455s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | SQL: SELECT * FROM `think_user` WHERE ( `id` >= 2 ) AND ( `account` LIKE '%%' ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000661s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.000815s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.000863s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 73 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant account - assumed 'account' 048d3598434b0d125c70da3734eddd5e.php 第 74 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | NOTIC: [8] Use of undefined constant id - assumed 'id' 048d3598434b0d125c70da3734eddd5e.php 第 75 行.
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.011516s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.011561s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000606s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000666s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000561s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000593s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002558s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000679s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/User/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000719s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Run CheckRoute Behavior [ RunTime:0.001012s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ route_check ] --END-- [ RunTime:0.001107s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --START--
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Run ReadHtmlCache Behavior [ RunTime:0.001151s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001220s ]
+[ 2012-09-06T16:03:56+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `myerpview_system_user` [ RunTime:0.003066s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `myerpview_system_user` WHERE `systemID`='40449' AND `title`='aaa' LIMIT 1   [ RunTime:0.000354s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_group` [ RunTime:0.002631s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SELECT `id`,`title` FROM `think_group` WHERE status=1  [ RunTime:0.000135s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002563s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  pid NodeAction.class.php 第 11 行.
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002760s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `id` = 0 ) LIMIT 1   [ RunTime:0.000151s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.002635s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SELECT COUNT(id) AS tp_count FROM `think_node` WHERE ( `pid` = 0 ) LIMIT 1   [ RunTime:0.000166s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | SQL: SELECT * FROM `think_node` WHERE ( `pid` = 0 ) ORDER BY `id` desc LIMIT 0,20   [ RunTime:0.000173s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --START--
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run LocationTemplate Behavior [ RunTime:0.001006s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_template ] --END-- [ RunTime:0.001056s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --START--
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | NOTIC: [8] Undefined index:  sort TagLibHtml.class.php 第 429 行.
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run ParseTemplate Behavior [ RunTime:0.014742s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_parse ] --END-- [ RunTime:0.014796s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --START--
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run ContentReplace Behavior [ RunTime:0.000603s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run TokenBuild Behavior [ RunTime:0.000705s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000569s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowRuntime Behavior [ RunTime:0.000619s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002622s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --START--
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Run ShowPageTrace Behavior [ RunTime:0.000709s ]
+[ 2012-09-06T16:03:57+08:00 ] /rbac.php/Node/index/ | INFO: Tag[ view_end ] --END-- [ RunTime:0.000754s ]

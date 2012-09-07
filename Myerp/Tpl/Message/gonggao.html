@@ -1,0 +1,235 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<div id="main">
+
+  <include file="Message:left_kongguan" />
+  <div id="content" style="margin-left:170px;">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:search_xianlu" />
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                            <input class="button" type="button" value=" 发布 " onclick="opendialog_1()">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:50%; min-width:300px;"><div> 新闻公告 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:100px;"><div> 时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:140px;"><div> 操作 </div></th>
+                </tr>
+                
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><a href="javascript:opendialog_2('<{$v[messageID]}>')"><{$v['title']}></a></td>
+                  <td scope="row" align="center" valign="top"><php>echo date('m/d H:i',$v['time'])</php></td>
+                  <td scope="row" align="center" valign="top">
+                        <input class="button" type="button" value=" 删除 " onclick="infodelete('<{$v[messageID]}>')">
+                        <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
+                  </td>
+                </tr>
+                <php> }</php>
+                
+                
+              </tbody>
+            </table>
+            
+  </div>
+  
+  
+  
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+function dosearch()
+{
+		title = document.getElementById('title').value;
+		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+}
+</script>
+
+<div id="dialog_gonggao_2" title="公告" style="background:#FFF">
+</div>
+
+<div id="dialog_gonggao" title="公告" style="background:#FFF">
+    <form name="form" method="post" id="form">
+    	<input type="hidden" name="type" value="公告" />
+    	<input type="hidden" name="messageID" id="messageID"/>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 标题: </td>
+            <td valign="top" scope="row" style="min-width:400px;">
+            <input name="title" type="text" id="info_title" style="width:400px;" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+            </td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 接收部门: </td>
+            <td valign="top">
+            	<php>foreach($categorylist as $v){</php>
+                  <table cellspacing="1" cellpadding="0" border="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <td valign="top" scope="row" style="min-width:50px; border-left:1px solid #94c1e8;">
+                        	<input type="checkbox" onclick="toselect(this,'jieshou_<{$v[systemID]}>')"><{$v['title']}>
+                        </td>
+                        <td valign="top" scope="row" style="min-width:400px; border-left:1px solid #94c1e8;">
+                        	<php>foreach($v['systemDClist'] as $vol){</php>
+                            <input type="checkbox" class="jieshou_<{$v['systemID']}> <{$vol['department']['systemID']}>" name="bumenlist[]" value="<{$vol['department']['systemID']}>"><{$vol['department']['title']}>
+                        	<php>}</php>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            	<php>}</php>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <style>
+	.cke_toolgroup { border: 1px solid #94C1E8;}
+	.cke_icon{ border: 1px solid #94C1E8;}
+	</style>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+        <tbody>
+          <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 内容: </td>
+            <td valign="top" colspan="3"><textarea name="message" id="message"></textarea>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+     </form>
+</div>
+<script type="text/javascript">
+var editor = CKEDITOR.replace( 'message' );
+CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+
+function toselect(obj,classname){ 
+	if(jQuery(obj).attr('checked') == 'checked')
+		jQuery("."+classname).attr('checked','checked');
+	else
+		jQuery("."+classname).removeAttr('checked');	
+}
+
+jQuery(document).ready(function(){
+	// Dialog
+	jQuery('#dialog_gonggao').dialog({
+		autoOpen: false,
+		width: 1000,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form','resultdiv_2')){
+					document.getElementById('message').value = CKEDITOR.instances.message.getData();
+					ThinkAjax.sendForm('form','<{:SITE_INDEX}>Message/dopostMessageInof/',doComplete,'resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog
+	jQuery('#dialog_gonggao_2').dialog({
+		autoOpen: false,
+		width: 1000,
+		buttons: {
+			"确认": function() {
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+});
+// Dialog Link
+function opendialog_1(){
+	jQuery('#dialog_gonggao').dialog('open');
+}
+// Dialog Link
+function opendialog_2(messageID){
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Message/index/datatype/公告/returntype/ajax/messageID/"+messageID,
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',ajaxmessage_after);
+			}
+		});
+}
+function ajaxmessage_after(data,status){
+	if(status == 1){
+		jQuery("#dialog_gonggao_2").html(data);
+		jQuery('#dialog_gonggao_2').dialog('open');
+	}
+}
+function doComplete(data,status){
+	if(status == 1){
+		location.reload();
+	}
+}
+function infodelete(messageID){
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Message/infodelete/messageID/"+messageID,
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'resultdiv_2',doComplete);
+			}
+		});
+}
+function infoedit(messageID){
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Message/index/datatype/公告/returntype/array/messageID/"+messageID,
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
+			}
+		});
+}
+function arraymessage_after(data,status){
+	if(status == 1){
+		jQuery("#info_title").val(data['title']);
+		CKEDITOR.instances.message.setData(data['message']);
+		jQuery("#messageID").val(data['messageID']);
+		if(data['bumenlist'])
+			for(var i = 0, l = data['bumenlist'].length; i< l; i++){
+				jQuery("."+data['bumenlist'][i]).attr('checked','checked');
+			}
+		jQuery('#dialog_gonggao').dialog('open');
+	}
+}
+
+</script> 
+
+
+
+

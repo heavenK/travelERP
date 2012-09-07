@@ -40,7 +40,7 @@ class ChanpinAction extends CommonAction{
 		}
 		else{
 			//判断计调角色
-			$durlist = A("Method")->_checkRolesByUser('计调,经理','组团');
+			$durlist = A("Method")->_checkRolesByUser('计调','组团');
 			if(false === $durlist){
 				$this->display('Index:error');
 				exit;
@@ -77,9 +77,9 @@ class ChanpinAction extends CommonAction{
 		}
 		else{
 			//判断计调角色,返回用户DUR
-			$durlist = A("Method")->_checkRolesByUser('计调,经理','组团');
+			$durlist = A("Method")->_checkRolesByUser('计调','组团');
 			if (false === $durlist)
-				$this->ajaxReturn('', '没有计调或经理权限！', 0);
+				$this->ajaxReturn('', '没有计调权限！', 0);
 		}
 		//检查
 		if(!$_REQUEST['chufashengfen'] || !$_REQUEST['chufachengshi'])
@@ -97,7 +97,7 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('计调,经理','组团');
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
 				A("Method")->_createDataOM($_REQUEST['chanpinID'],'线路','管理',$dataOMlist);
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
@@ -329,7 +329,7 @@ class ChanpinAction extends CommonAction{
 	public function left_fabu() {
 		
 		$ViewDepartment = D("ViewDepartment");
-		$where['type'] = array('like','联合体');
+		$where['type'] = array('like','%联合体%');
 		$bumenlist = $ViewDepartment->where($where)->findall();
 		$this->assign("bumenlist",$bumenlist);
 		$this->display('Chanpin:left_fabu');
@@ -341,6 +341,8 @@ class ChanpinAction extends CommonAction{
 		if($chanpinID){
 			//判断子团
 			$Chanpin = D("Chanpin");
+			$tem_cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+			$this->assign("tem_cp",$tem_cp);
 			$zituan = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'zituan'")->find();
 			if($zituan)
 				$this->assign("showzituan",true);
@@ -352,6 +354,17 @@ class ChanpinAction extends CommonAction{
 	
 	public function header_kongguan() {
 		$chanpinID = $_REQUEST["chanpinID"];
+		$Chanpin = D("Chanpin");
+		if($_REQUEST['type'] == '团队报账单'){
+			$tem_cp = $Chanpin->relation("tdbzdlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+			$tem_cp = $tem_cp['tdbzdlist'];
+		}
+		elseif($_REQUEST['baozhangID']){
+			$tem_cp = $Chanpin->where("`chanpinID` = '$_REQUEST[baozhangID]'")->find();
+		}
+		else	
+		$tem_cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		$this->assign("tem_cp",$tem_cp);
 		$this->display('header_kongguan');
 	}
 	
@@ -362,6 +375,11 @@ class ChanpinAction extends CommonAction{
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 		if($cp['marktype'] == 'dingdan' && $cp['status'] != '确认')
 			$this->ajaxReturn($_REQUEST, '错误，订单不是确认状态！', 0);
+		if($cp['marktype'] == 'dingdan'){
+			$dingdan = $Chanpin->relationGet("dingdan");
+			if($dingdan['status_baozhang'] != '批准')
+			$this->ajaxReturn($_REQUEST, '错误，报账单审核通过后进行订单审核！', 0);
+		}
 		A("Method")->_doshenhe();
 	}
 	
@@ -388,7 +406,7 @@ class ChanpinAction extends CommonAction{
 		else
 		$this->assign("markpos",'全部');
 		A("Method")->showDirectory("子团产品");
-		$datalist = A('Method')->getDataOMlist('控管','zituan',$_REQUEST);
+		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->display('kongguan');
@@ -777,8 +795,9 @@ class ChanpinAction extends CommonAction{
 		if(!$_REQUEST['chanpinID']){
 			A("Method")->_baozhang();
 		}
-		else
+		else{
 			A("Method")->_baozhang('子团');
+		}
 		$this->display('zituanbaozhang');
 	}
 	
@@ -840,7 +859,7 @@ class ChanpinAction extends CommonAction{
 	public function customer()
 	{
 		A("Method")->showDirectory("游客管理");
-		$chanpin_list = A('Method')->chanpin_list_noOM('ViewCustomer',$_REQUEST);
+		$chanpin_list = A('Method')->data_list_noOM('ViewCustomer',$_REQUEST);
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('customer');

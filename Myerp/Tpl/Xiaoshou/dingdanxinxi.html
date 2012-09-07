@@ -34,6 +34,8 @@ function save(){
 	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
+	if(status == 1)
+	location.reload();
 }
 		 
 var user = [
@@ -81,7 +83,7 @@ function checktable()
 			ThinkAjax.sendForm('form2','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 		}
 		else
-			alert("所属人填写错误");
+			alert("收客人填写错误");
 		
 	}
 	return false;
@@ -247,14 +249,14 @@ function getshenhemessage_after(data,status)
         </tr>
         <tr>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 团号：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituan']['tuanhao']}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['tuanhao']}></td>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 出团日期：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituan']['chutuanriqi']}></td>
-          <td align="left" style="height: 32px; min-width:80px; width:10%"> 剩余名额：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$shengyu}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['chutuanriqi']}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:10%"> 负责人(操作费)：</td>
+          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['fuzeren']}></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">所属人及部门：</td>
+          <td align="left" style="height: 32px;">收客人及部门：</td>
           <td align="left" style="height: 32px">
             <input type="text" name="owner" id="owner" style="width:50px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
               <select name="departmentID">

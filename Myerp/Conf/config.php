@@ -52,7 +52,7 @@ $array = array(
 	'TOKEN_TYPE'=>'md5',  //令牌哈希验证规则 默认为MD5
 	'TOKEN_RESET'=>true,  //令牌验证出错后是否重置令牌 默认为true	
 	
-	'DB_LIKE_FIELDS' => 'title|remark',//模糊搜索设置
+	//'DB_LIKE_FIELDS' => 'message|remark',//模糊搜索设置
 	
 	'SESSION_OPTIONS'=>array(
 		//session配置，不同浏览器共享

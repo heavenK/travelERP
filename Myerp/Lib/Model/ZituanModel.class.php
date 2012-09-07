@@ -14,7 +14,7 @@ class ZituanModel extends RelationModel {
     protected $_auto = array( 
         array('adultxiuzheng', '0', 1), 
         array('childxiuzheng', '0', 1), 
-        array('status_baozhang', '未报账', 1), 
+        array('status_baozhang', '未审核', 1), 
     ); 
 	protected $_link = array(
 		//zituan

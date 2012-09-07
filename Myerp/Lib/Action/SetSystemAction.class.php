@@ -7,13 +7,9 @@ class SetSystemAction extends CommonAction{
 	}
 	
 	public function index(){
-		A("Method")->showDirectory("系统管理");
+		$type = $_REQUEST['type'];
+		A("Method")->showDirectory($type);
 		$this->display('index');
-	}
-	
-	public function setting(){
-		A("Method")->showDirectory("系统设置");
-		$this->display("index");
 	}
 	
 	public function category(){
@@ -37,22 +33,11 @@ class SetSystemAction extends CommonAction{
 	
 	public function addSystemDC(){
 		A("Method")->showDirectory("项目管理");
-		$ViewCategory = D("ViewCategory");
-		$System = D("System");
 		$systemID = $_REQUEST['systemID'];
-		$datas = A('Method')->_getDepartmentList();
-		$this->assign("departmentAll",$datas);
-		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
-		$datas2['category'] = $System->relationGet("category");
-		$Department = D("Department");
-		$i = 0;
-		foreach($datas2['systemDClist'] as $v){
-			$datas2['systemDClist'][$i]['department'] = $Department->where("`systemID` = '$v[dataID]'")->find();
-			$i++;
-		}
-		$this->assign("systemDClist",$datas2['systemDClist']);
-		$this->assign("category",$datas2);
-		$this->assign("datatitle",' : "'.$datas2['category']['title'].'"');
+		$datalist = A("Method")->_getsystemDC($systemID);
+		$this->assign("systemDClist",$datalist['systemDClist']);
+		$this->assign("category",$datalist);
+		$this->assign("datatitle",' : "'.$datalist['category']['title'].'"');
 		$this->display('templatelist');
 		
 	}
@@ -96,11 +81,11 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['datatype'] == '线路'){
 			A("Method")->showDirectory("线路数据");
-			$datas = A('Method')->chanpin_list_noOM('ViewXianlu',$_GET);
+			$datas = A('Method')->data_list_noOM('ViewXianlu',$_GET);
 		}
 		if($_REQUEST['datatype'] == '报账单'){
 			A("Method")->showDirectory("报账单数据");
-			$datas = A('Method')->chanpin_list_noOM("ViewBaozhang",$_GET);
+			$datas = A('Method')->data_list_noOM("ViewBaozhang",$_GET);
 		}
 		//显示
 		if($_REQUEST['datatype']){
@@ -160,11 +145,12 @@ class SetSystemAction extends CommonAction{
 	public function systemUser(){
 		A("Method")->showDirectory("用户");
 		$this->assign("showtitle",$showtitle);
-		$users = A('Method')->search_list("ViewUser",$_REQUEST);
+		$users = A('Method')->data_list_noOM("ViewUser",$_REQUEST);
 		$this->assign("users",$users);
 		A("Method")->unitlist();
 		$this->display('templatelist');
 	}
+	
 	
 	public function userDUR(){
 		A("Method")->showDirectory("部门角色");

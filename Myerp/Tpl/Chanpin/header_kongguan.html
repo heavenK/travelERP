@@ -125,6 +125,9 @@ function shenhe_back(dataID,datatype){
       <php>}}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
       <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<{$baozhangID}>,'报账单');">
 	  <php>}</php>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
+      
   <php>}</php>
   <php>if('应收及应付' == $markpos){</php>
   <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">

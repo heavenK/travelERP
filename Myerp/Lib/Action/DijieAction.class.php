@@ -52,7 +52,7 @@ class DijieAction extends CommonAction{
 		}
 		else{
 			//判断计调角色
-			$durlist = A("Method")->_checkRolesByUser('地接,经理','地接');
+			$durlist = A("Method")->_checkRolesByUser('地接','地接');
 			if(false === $durlist){
 				$this->display('Index:error');
 				exit;
@@ -99,9 +99,9 @@ class DijieAction extends CommonAction{
 		}
 		else{
 			//判断计调角色
-			$durlist = A("Method")->_checkRolesByUser('地接,经理','地接');
+			$durlist = A("Method")->_checkRolesByUser('地接','地接');
 			if (false === $durlist)
-				$this->ajaxReturn('', '没有地接或经理权限！', 0);
+				$this->ajaxReturn('', '没有地接权限！', 0);
 		}
 		if(!$data['chanpinID'] && false === $data["DJtuan"]['attachment'])
 			$data["DJtuan"]['attachment'] = '';
@@ -109,7 +109,7 @@ class DijieAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('地接,经理','地接');
+				$dataOMlist = A("Method")->_setDataOMlist('地接','地接');
 				A("Method")->_createDataOM($_REQUEST['chanpinID'],'地接','管理',$dataOMlist);
 			}
 			A("Method")->ajaxUploadResult($_REQUEST,'保存成功',1);
@@ -265,6 +265,9 @@ class DijieAction extends CommonAction{
 		A("Method")->_danxiangfuwu('地接');
 		$this->display('danxiangfuwu');
 	}
+	
+	
+	
 	
 	
 	

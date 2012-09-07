@@ -14,7 +14,6 @@ class DataShenheModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-//        array('status', '准备', 1), 
 //        array('time', 'time', 1, 'function'), 
     ); 
 

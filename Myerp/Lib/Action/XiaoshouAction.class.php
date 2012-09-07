@@ -158,7 +158,7 @@ class XiaoshouAction extends CommonAction{
 		//owner
 		$ViewUser = D("ViewUser");
 		if(!$ViewUser->where("`title` = '$_REQUEST[owner]'")->find()) 
-			$this->ajaxReturn($_REQUEST,'错误,所属人错误！', 0);
+			$this->ajaxReturn($_REQUEST,'错误,收客人错误！', 0);
 		//联系人
 		if(!$_REQUEST['lianxiren'] || !$_REQUEST['telnum'])
 			$this->ajaxReturn($_REQUEST,'错误,联系人和电话必须！', 0);
@@ -348,8 +348,8 @@ class XiaoshouAction extends CommonAction{
 			}
 		}
 		$this->assign("tuanyuan",$tuanyuan);
+		
 		//提成数据
-		$ViewDataDictionary = D("ViewDataDictionary");
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//用户列表

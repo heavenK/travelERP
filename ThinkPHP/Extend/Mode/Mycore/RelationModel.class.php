@@ -220,12 +220,17 @@ class RelationModel extends Model {
 									$data_result   =  array_values($result);
 									$pk   =  $data_result[0];
 								}
-							//end	
+								if($true_class_name){
+									$mappingFk   =   !empty($val['parent_key'])? $val['parent_key'] : 'parent_id';
+									$mappingPk   =   !empty($val['foreign_key'])?$val['foreign_key']:strtolower($model->getModelName()).'_id';     //  关联外键
+									$pk   =  $result[$mappingPk];
+								}
                                 $mappingCondition .= " AND {$mappingFk}='{$pk}'";
                                 $mappingOrder =  !empty($val['mapping_order'])?$val['mapping_order']:'';
                                 $mappingLimit =  !empty($val['mapping_limit'])?$val['mapping_limit']:'';
                                 // 延时获取关联记录
-                                $relationData   =  $model->where($mappingCondition)->field($mappingFields)->order($mappingOrder)->limit($mappingLimit)->select();
+                                $relationData   =  $model2->where($mappingCondition)->field($mappingFields)->order($mappingOrder)->limit($mappingLimit)->select();
+							//end	
                                 break;
                             case MANY_TO_MANY:
                                 $pk   =  $result[$this->getPk()];

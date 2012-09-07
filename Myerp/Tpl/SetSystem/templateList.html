@@ -9,9 +9,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
     <div id="resultdiv_2" class="resultdiv"></div>
     
     <php>if('线路数据' == $nowDir['title']){</php>
-        <include file="Index:searchxianlu" />
+        <include file="Index:search_xianlu" />
     <php>}elseif('用户' == $nowDir['title']){</php>
-        <include file="Index:searchuser" />
+        <include file="Index:search_user" />
     <php>}else{</php>
         <table cellspacing="0" cellpadding="0" width="100%" class="h3Row" style="margin-top:0px;">
           <tbody>
@@ -370,7 +370,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap"><div> 锁 </div></th>
               <th scope="col" nowrap="nowrap" style=" width:20%" ><div> 操作 </div></th>
             </tr>
-            <php>$i=0;foreach($users[data] as $v){$i++;</php>
+            <php>$i=0;foreach($users[chanpin] as $v){$i++;</php>
             <tr height="30" class="evenListRowS1">
               <td scope="row" align="left" valign="top"><input type="radio" name="select" id="select" value="<{$v['systemID']}>" /></td>
               <td scope="row" align="left" valign="top"><{$i}></td>

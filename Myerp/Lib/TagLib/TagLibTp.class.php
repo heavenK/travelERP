@@ -25,8 +25,8 @@ class TagLibTp extends TagLib {
         $tag    = $this->parseXmlAttr($attr,'includeCA_GP');
         $file   =   $tag['file'];
         unset($tag['file']);
-		list($ac,$fun) = explode(':',$file);
-        $parseStr = '<?php A("'.$ac.'")->'.$fun.'(); ?>';
+		list($ac,$fun,$arg) = explode(':',$file);
+        $parseStr = '<?php A("'.$ac.'")->'.$fun.'('.$arg.'); ?>';
         return $parseStr;
     }
 	

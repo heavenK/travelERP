@@ -52,6 +52,7 @@ abstract class Action {
 		foreach($_GET as $key => $value)
 			$this->assign($key,$value);
 		$this->assign('_GET',$_GET);
+		$this->assign('_SERVER',$_SERVER);
 		//登录	
 		$user = cookie('user');
         list($user_name,$systemID) = explode("\t", authcode($user,'DECODE'));

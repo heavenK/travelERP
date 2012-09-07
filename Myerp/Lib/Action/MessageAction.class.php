@@ -1,6 +1,160 @@
 <?php
 
-class MessageAction extends Action{
+class MessageAction extends CommonAction{
+
+    public function _myinit() {
+		$this->assign("navposition",'信息');
+	}
+
+    public function index() {
+		$datatype = $_REQUEST['datatype'];
+		A("Method")->showDirectory($datatype);
+		$chanpin_list = A('Method')->getDataOMlist($datatype,'info',$_REQUEST,'管理');
+		if($_REQUEST['returntype'] == 'ajax' ){
+				$str = '
+					<table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+						<tr height="20">
+						  <td valign="top" scope="row" style="min-width:50px;"> 标题:</td>
+						  <td valign="top" scope="row" style="min-width:800px;"><h1><strong>'.$chanpin_list['chanpin'][0]['title'].'</strong></h1>
+						  </td>
+						</tr>
+						</tbody>
+					</table>
+					<table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+						<tbody>
+						  <tr>
+							<td valign="top" scope="row" style="min-width:50px;"> 内容: </td>
+							<td valign="top" colspan="3" style="min-width:800px;">'.$chanpin_list['chanpin'][0]['message'].'
+						  </td>
+						  </tr>
+						</tbody>
+					  </table>
+				';
+				$this->ajaxReturn($str, '', 1);
+		}
+		else
+		if($_REQUEST['returntype'] == 'array' ){
+			$data = $chanpin_list['chanpin'][0];
+			//获得omlist
+			$dataOMlist = A("Method")->_getDataOM($data['messageID'],'公告','管理','DataOMMessage');
+			$i = 0;
+			foreach($dataOMlist as $v){
+				list($bumenID,$rolesID,$userID) = split(',',$v['DUR']);
+				if($bumenID){
+					$bumenlist[$i] = $bumenID;
+					$i++;
+				}
+			}
+			$data['bumenlist'] = $bumenlist;
+			$this->ajaxReturn($data, '读取成功！', 1);
+		}
+		else
+		{
+			$this->assign("page",$chanpin_list['page']);
+			$this->assign("chanpin_list",$chanpin_list['chanpin']);
+			//部门分类
+			$ViewCategory = D("ViewCategory");
+			$categorylist = $ViewCategory->findall();
+			$i = 0;
+			foreach($categorylist as $v){
+				$datalist = A("Method")->_getsystemDC($v['systemID']);
+				$categorylist[$i]['systemDClist'] = $datalist['systemDClist'];
+				$i++;
+			}
+			$this->assign("categorylist",$categorylist);
+			
+			if($_REQUEST['datatype'] == '公告')
+			$this->display('gonggao');
+			if($_REQUEST['datatype'] == '排团表')
+			$this->display('paituanbiao');
+			if($_REQUEST['datatype'] == '系统提示')
+			$this->display('systeminfo');
+		}
+    }
+	
+	
+    public function infodelete() {
+		$durlist = A("Method")->_checkRolesByUser('网管','组团');
+		if (false === $durlist)
+			$this->ajaxReturn('', '没有网管权限！', 0);
+		$data['messageID'] = $_REQUEST['messageID'];
+		$data['status_system'] = -1;
+		$Message = D("Message");
+		if (false !== $Message->save($data))
+			$this->ajaxReturn('', '删除成功！', 1);
+		else
+			$this->ajaxReturn('', $Message->getError(), 0);
+	}
+	
+	
+    public function dopostMessageInof() {
+		C('TOKEN_ON',false);
+		$data = $_REQUEST;
+		$data['info'] = $_REQUEST;
+		$durlist = A("Method")->_checkRolesByUser('网管','组团');
+		if (false === $durlist)
+			$this->ajaxReturn('', '没有网管权限！', 0);
+		$data['info']['usedDUR'] = $durlist[0]['bumenID'].','.$durlist[0]['rolesID'].','.$durlist[0]['userID'];
+		$Message = D("Message");
+		//文档上传
+		$datatype = $_REQUEST['type'];
+		if($datatype == '排团表'){
+			if ($_FILES['attachment']['name'] != '') { 
+				//如果有文件上传 上传附件
+				$savepath = './Data/Attachments/'; 
+				$data["info"]['url_file'] = A("Method")->_upload($savepath); 
+			}
+			if($data['messageID'] && $data["info"]['url_file']){
+				$dd = $Message->relation('info')->where("`messageID` = '$data[messageID]'")->find();
+				if($dd){
+					unlink('./Data/Attachments/'.$dd['info']['attachment']);
+					unlink('./Data/Attachments/m_'.$dd['info']['attachment']);
+					unlink('./Data/Attachments/s_'.$dd['info']['attachment']);
+				}
+			}
+			if(!$data['messageID'] && false === $data["DJtuan"]['attachment'])
+				$data["info"]['attachment'] = '';
+		}
+		if (false !== $Message->relation("info")->myRcreate($data)){
+			$_REQUEST['messageID'] = $Message->getRelationID();
+			//清空OM
+			$DataOMMessage = D("DataOMMessage");
+			$DataOMMessage->where("`dataID` = '$_REQUEST[messageID]' and `datatype` = '$datatype'")->delete();
+			//生成OM
+			$bumenlist = $_REQUEST['bumenlist'];
+			$i = 0;
+			foreach($bumenlist as $v){
+				$dataOMlist[$i]['DUR'] = $v.',,';
+				$i++;
+			}
+			A("Method")->_createDataOM($_REQUEST['messageID'],$datatype,'管理',$dataOMlist,'DataOMMessage');
+			
+			if($datatype == '排团表')
+				A("Method")->ajaxUploadResult($_REQUEST,'保存成功',1);
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}
+		if($datatype == '排团表')
+		  A("Method")->ajaxUploadResult($_REQUEST,$Chanpin->getError(),0);
+		$this->ajaxReturn($_REQUEST, $Message->getError(), 0);
+	}
+
+
+	public function left_kongguan() {
+		$this->display('Message:left_kongguan');
+	}
+	
+
+
+    public function infohistory() {
+		A("Method")->showDirectory('系统提示');
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$_REQUEST,'管理');
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		$this->display('infohistory');
+	}
+	
+	
+
 
 	public function getNews(){
 		$DataNotice = D("DataNotice");
@@ -8,9 +162,9 @@ class MessageAction extends Action{
 		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,10')->findall();
 		if($notice != null){
 			foreach($notice as $v){
-				$str .= '<a href="javascript:void(0)" style="padding:0 2px 4px 8px; width:100%" onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">
+				$str .= '<span style="width:100%;float:left;"><a href="javascript:void(0)" style="padding:0 2px 4px 8px; " onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">
 						<img border="0" width="16" height="16" align="absmiddle" src="'.__PUBLIC__.'/myerp/images/icon_SugarFeed.gif">&nbsp;<span>'.$v['message'].'</span>
-						</a>';
+						</a></span>';
 			}
 			$this->ajaxReturn($str, '', 1);
 		}
@@ -107,15 +261,9 @@ class MessageAction extends Action{
 
 
 	public function getshenhemessage($pagenum = 10){
-		$where['dataID'] = $_REQUEST['chanpinID'];
-		$InfoHistory = D("InfoHistory");
-        import("@.ORG.Page");
-        C('PAGE_NUMBERS',10);
-        $dataall = $InfoHistory->Distinct(true)->field('message')->where($where)->select();
-		$count = count($dataall);
-		$p= new Page($count,$pagenum);
-		$page = $p->show_ajax("getshenhemessage");
-        $data = $InfoHistory->Distinct(true)->field('message')->where($where)->limit($p->firstRow.','.$p->listRows)->order("messageID desc")->select();
+		$where['chanpinID'] = $_REQUEST['chanpinID'];
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','message');
+		$data = $chanpin_list['chanpin'];
 		$str = '
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
                 <tr>
@@ -145,9 +293,6 @@ class MessageAction extends Action{
 		';
 		$this->ajaxReturn($str, '', 1);
 	}
-
-
-
 
 
 

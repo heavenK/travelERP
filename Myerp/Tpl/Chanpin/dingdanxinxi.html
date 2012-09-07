@@ -84,7 +84,7 @@ function checktable()
 			ThinkAjax.sendForm('form2','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 		}
 		else
-			alert("所属人填写错误");
+			alert("收客人填写错误");
 		
 	}
 	return false;
@@ -205,7 +205,7 @@ function TravelerDetail(id)
           <td align="left" style="height: 32px; min-width:80px; width:20%"><{$shengyu}></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">所属人：</td>
+          <td align="left" style="height: 32px;">收客人：</td>
           <td align="left" style="height: 32px">
             <input type="text" name="owner" id="owner" style="width:80px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
             <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">

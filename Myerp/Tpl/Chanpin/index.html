@@ -1,6 +1,4 @@
 <tp:includeCA file="Index:showheader" />
-<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
@@ -9,7 +7,8 @@
   <div id="content" style="margin-left:170px;">
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
-    <include file="Index:searchxianlu" />
+    
+    <include file="Index:search_xianlu" />
     <table cellpadding="0" cellspacing="0" width="100%" class="list view">
       <tbody>
         <tr class="pagination">
@@ -42,7 +41,6 @@
           <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
         </tr>
           <php>
-      
       $i = -1; foreach($chanpin_list as $v){ $i++;
         </php>
       
@@ -99,12 +97,12 @@ function div_close(id){
 	jQuery('#'+id+'').hide();
 }
 
-function dosearch()
+function dosearch(str)
 {
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+	window.location = '<{:SITE_INDEX}>Chanpin/index'+str;
 }
 </script>
+
 <div style="position: absolute; display:none" id="shenhediv">
   <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -126,8 +124,6 @@ function dosearch()
   </table>
 </div>
 
-
-
 <div id="selectitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>
@@ -143,6 +139,7 @@ function dosearch()
     </tbody>
   </table>
 </div>
+
 <div id="dateitem" style=" display:none; position:absolute;">
   <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>

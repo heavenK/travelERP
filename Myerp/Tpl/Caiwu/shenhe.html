@@ -7,12 +7,13 @@
 
 <div id="main">
 
-  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+  <tp:includeCA file="Caiwu:left_fabu" />
+  <div id="content" style="margin-left:170px;">
   
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:searchxianlu" />
+            <include file="Index:search_xianlu" />
             
             <php>if($type == '收支项' || $type == '报账单'){</php>
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
@@ -148,7 +149,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人数/儿童/领队 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:140px;"><div> 所属人/部门 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:140px;"><div> 收客人/部门 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 状态 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>

@@ -165,6 +165,11 @@ class Model {
             $db   =  $this->dbName?$this->dbName:C('DB_NAME');
             F('_fields/'.$db.'.'.$this->name,$this->fields);
         }
+		
+		//add by gaopeng
+		return $this->fields;
+		//end
+		
     }
 
     /**

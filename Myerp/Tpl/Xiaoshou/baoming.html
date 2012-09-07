@@ -68,7 +68,7 @@ function checktable()
 			save();
 		}
 		else
-			ajaxalert("所属人填写错误");
+			ajaxalert("收客人填写错误");
 	}
 }
 
@@ -157,7 +157,7 @@ function ajaxalert(title){
           <tr>
             <td align="left" style="height: 27px;"> 剩余名额：</td>
             <td style="height: 27px; width: 288px;"><php>echo $shengyurenshu</php></td>
-            <td align="left" style="height: 27px; width: 156px;">所属人及所属部门：</td>
+            <td align="left" style="height: 27px; width: 156px;">收客人及所属部门：</td>
             <td align="left" style="height: 32px">
             	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
               <select name="departmentID">

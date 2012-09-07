@@ -1,7 +1,6 @@
 <?php
 
 class UserModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_user';	
 	protected $pk = 'systemID';
 		
