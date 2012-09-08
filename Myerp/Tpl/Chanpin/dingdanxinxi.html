@@ -1,6 +1,4 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 
@@ -37,6 +35,8 @@ function save(){
 	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
+	if(status == 1)
+		location.reload();
 }
 		 
 var user = [
@@ -304,16 +304,17 @@ function TravelerDetail(id)
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 应付： </td>
           <td align="left" style="height: 32px"> 备注： </td>
+          <td align="left" style="height: 32px"> 付款状态/付款确认 </td>
           <td align="left" style="height: 32px"> 详细资料： </td>
         </tr>
        <php>$i = 0; foreach($tuanyuan as $vo){$i++;</php>
        <input type="hidden" name="tuanyuanID<{$i}>" value="<{$vo['id']}>" />
        <input type="hidden" name="datatext<{$i}>" value="<{$vo['datatext']}>" />
         <tr>
-          <td align="left" style="height: 32px"><input type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input style="width:50px;" type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}></td>
           <td align="left" style="height: 32px">
-          <select name="sex<{$i}>">
+          <select name="sex<{$i}>" style="width:40px;">
        <php>if($vo['sex']){</php>
           <option value="<{$vo['sex']}>"><{$vo['sex']}></option>
           <option disabled="disabled">----------------</option>
@@ -324,7 +325,7 @@ function TravelerDetail(id)
           </td>
           <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" value="<{$vo['telnum']}>"></td>
           <td align="left" style="height: 32px">
-          <select name="zhengjiantype<{$i}>">
+          <select style="width:60px;" name="zhengjiantype<{$i}>">
        <php>if($vo['zhengjiantype']){</php>
           <option value="<{$vo['zhengjiantype']}>"><{$vo['zhengjiantype']}></option>
           <option disabled="disabled">----------------</option>
@@ -335,8 +336,26 @@ function TravelerDetail(id)
           </select>
           </td>
           <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>"></td>
-          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>"></td>
+          <td align="left" style="height: 32px"><input style="width:50px;" name="price<{$i}>" type="text" value="<{$vo['price']}>"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
+          <td align="left" style="height: 32px">
+          <strong><{$vo['ispay']}></strong>/
+          <select name="pay_method<{$i}>">
+          	<php>if($vo['pay_method']){</php>
+              <option style="width:50px;" value="<{$vo['pay_method']}>"><{$vo['pay_method']}></option>
+              <option disabled="disabled">--------</option>
+          	<php>}</php>
+              <option value="现金">现金</option>
+              <option value="网拨">网拨</option>
+              <option value="银行卡">银行卡</option>
+              <option value="汇款">汇款</option>
+              <option value="转账">转账</option>
+              <option value="支票">支票</option>
+              <option value="签单">签单</option>
+            </select>
+           <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" value="<{$vo['ispay']}>" />
+            <input style="width:60px;" class="button" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
+          </td>
           <td align="left" style="height: 32px"><a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a></td>
         </tr>
         <php>}</php>
@@ -358,14 +377,27 @@ function TravelerDetail(id)
 
 <script language="javascript"> 
 
-function showinfo(chanpinID){
-	window.location = '<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/'+chanpinID;
-}
-
 function dosearch()
 {
 		title = document.getElementById('title').value;
 		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
 }
 
+function dofukuan(id){
+	jQuery("#ispay"+id).val('已付款');
+	save();
+}
+
+function shenhe_back(dataID,datatype){
+	ThinkAjax.myloading('resultdiv');
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Caiwu/shenheback",
+		data:	"dataID="+dataID+"&datatype="+datatype,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
 </script>

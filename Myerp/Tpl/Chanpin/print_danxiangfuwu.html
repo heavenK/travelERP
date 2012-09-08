@@ -116,8 +116,8 @@
   </table>
   
   <php>
-  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status'] != '批准') continue;$i++;}
-  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status'] != '批准') continue;$j++;}
+  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++;}
+  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$j++;}
   $i_num = 8 - $i;
   $j_num = 8-$j;
   </php>
@@ -139,7 +139,7 @@
               <td width="220" align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status'] != '批准') continue;$i++; $value_i += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++; $value_i += $v['value'];
           </php>
             <tr height="28px">
               <td width="30"  align="center"> <{$i}> </td>
@@ -181,7 +181,7 @@
               <td width="220"  align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印' ) continue;else if($doprint != '计调打印' && $v['status'] != '批准') continue;$i++; $value_j += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印' ) continue;else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++; $value_j += $v['value'];
           </php>
             <tr height="28px">
               <td width="30"  align="center"> <{$i}> </td>

@@ -1380,6 +1380,12 @@ class MethodAction extends Action{
 			$cus['zhengjiantype'] = $_REQUEST['zhengjiantype'.$id];
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
+			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
+//			$durlist = A("Method")->_checkRolesByUser('财务','行政');
+//			if(false !== $durlist){
+//				$cus['ispay'] = $_REQUEST['ispay'.$id];
+//			}
+			$cus['ispay'] = $_REQUEST['ispay'.$id];
 			if($cus['zhengjiantype'] == '身份证')
 				$zhengjianhaoma = 'sfz_haoma';
 			if($cus['zhengjiantype'] == '护照')
@@ -2030,6 +2036,7 @@ class MethodAction extends Action{
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID']);
 				}
+				$Chanpin->save($editdat);
 			}
 			if($_REQUEST['datatype'] == '订单'){
 				if($status == '批准'){

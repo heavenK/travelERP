@@ -104,7 +104,7 @@
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="30" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['parentID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><{$v['value']}></td>
@@ -130,7 +130,7 @@
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="30" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><{$v['remark']}></td>
@@ -159,7 +159,7 @@
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="30" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['chanpinID']}></td>
                   <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><{$v['chengrenshu']}>/<{$v['ertongshu']}>/<{$v['lingdui_num']}></td>

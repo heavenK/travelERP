@@ -1,37 +1,52 @@
 <?php
 
 class FormeAction extends Action{
-	//产品相关
+	
+	//线路
     public function chanpinxianlu() {
 		echo "开始";
 		echo "<br>";
-		
+		C('TOKEN_ON',false);
 		$gl_xianlu=D("glxianlu");
-		$xianluAll = $gl_xianlu->order('time DESC')->limit(20)->findall();
-//		$xianluAll = $gl_xianlu->where("`xianluID` = '278'")->findall();
-		$myerp_chanpin=D("myerp_chanpin");
-		$myerp_chanpin_xianlu=D("myerp_chanpin_xianlu");
-		//线路
+		$xianluAll = $gl_xianlu->order('time DESC')->limit(1)->findall();
+		$Chanpin=D("Chanpin");
+		$ViewDepartment=D("ViewDepartment");
+		$gl_baozhang=D("gl_baozhang");
 		foreach($xianluAll as $v)
 		{
-			//chanpin
 			$dat = $v;
+			$dat['xianlu'] = $v;
 			$dat['status'] = $v['zhuangtai'];
-			$chanpinID = $myerp_chanpin->add($dat);
-			//chanpin_xianlu
-			$dat = $v;
-			$dat['chanpinID'] = $chanpinID;
-			$dat['keyword'] = $v['guanjianzi'];
-			$dat['title'] = $v['mingcheng'];
-			$myerp_chanpin_xianlu->add($dat);
-			//message
-			$this->chanpinxiaoxi($v,$chanpinID);
-			//xingcheng
-			$this->xingcheng($v,$chanpinID);
-			//chanpin  zituan
-			$this->zituan($v,$chanpinID);
-			//chengben shoujia
-			$this->chengbenshoujia($v,$chanpinID);
+			$dat['xianlu']['title'] = $v['mingcheng'];
+			//部门
+			$bumen = $ViewDepartment->where("`title` = '$v[departmentName]'")->find();
+			$dat['departmentID'] = $bumen['systemID'];
+			$dat['bumen_copy'] = $bumen['title'];
+			//审核时间
+			if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
+				$dat['shenhe_time'] = $v['time'];
+				$dat['shenhe_remark'] = '已审核';
+			}
+			else
+				$dat['status'] = '准备';
+			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
+				$chanpinID = $Chanpin->getRelationID();
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
+				A("Method")->_createDataOM($chanpinID,'线路','管理',$dataOMlist);
+			}
+			
+//			dump( $v);
+//			dump( $Chanpin);
+			
+			
+//			//message
+//			$this->chanpinxiaoxi($v,$chanpinID);
+//			//xingcheng
+//			$this->xingcheng($v,$chanpinID);
+//			//chanpin  zituan
+//			$this->zituan($v,$chanpinID);
+//			//chengben shoujia
+//			$this->chengbenshoujia($v,$chanpinID);
 			//exit;
 		}
 		
@@ -243,8 +258,8 @@ class FormeAction extends Action{
 	
     private function chanpinxiaoxi($v,$chanpinID) {
 		$glmessage=M("glmessage");
-		$myerp_message=M("myerp_message");
 		$message = $glmessage->where("`tableID` = '$v[xianluID]' and `tablename` = '线路'")->findall();
+		$Message=D("Message");
 		foreach($message as $b)
 		{
 			//message
