@@ -118,7 +118,7 @@ jQuery(document).ready(function(){
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 封面图片 </div></th>
               </tr>
               <php>$i=0;foreach($datalist as $v){ $i++;</php>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><input <php>if($v['title'] == $title){</php> checked="checked"<php>}</php> id="<{$v[systemID]}>" type="radio" id="<{$v[systemID]}>" name="checkboxs" value="<{$v[title]}>"></td>
                   <td scope="row" align="left" valign="top"><{$v['title']}></td>
                   <td scope="row" align="left" valign="top"><{$v['description']}></td>

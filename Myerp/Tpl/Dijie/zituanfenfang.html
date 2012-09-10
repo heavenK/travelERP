@@ -15,7 +15,7 @@
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 已分配房间人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 未分配房间人数 </div></th>
         </tr>
-        <tr height="30" class="evenListRowS1">
+        <tr height="40" class="evenListRowS1">
           <td scope="row" align="left" valign="top"><{$tuanyuan_all}></td>
           <td scope="row" align="left" valign="top"><{$tuanyuan_in}></td>
           <td scope="row" align="left" valign="top"><{$tuanyuan_out}></td>
@@ -30,7 +30,7 @@
           <th scope="col" nowrap="nowrap" style="width:70%;min-width:300px;"><div> 备注说明 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:250px;width:30%;"><div> 操作 </div></th>
         </tr>
-        <tr style="background:#EBEBED" height="30" class="evenListRowS1">
+        <tr style="background:#EBEBED" height="40" class="evenListRowS1">
           <td scope="row" align="left" valign="top"><{$v['title']}></td>
           <td scope="row" align="left" valign="top"><{$v['remark']}></td>
           <td scope="row" align="left" valign="top"><input type="button" value="分配人员" name="button" class="button primary" onClick="select_tuanyuan('<{$chanpinID}>','<{$v[chanpinID]}>')">
@@ -57,7 +57,7 @@
       foreach($v['renyuanlist'] as $vol){
         </php>
       
-      <tr style="cursor:pointer" height="30" class="evenListRowS1">
+      <tr style="cursor:pointer" height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><{$vol['renyuan']['name']}></td>
         <td scope="row" align="left" valign="top"><{$vol['renyuan']['sex']}></td>
         <td scope="row" align="left" valign="top"><{$vol['renyuan']['manorchild']}></td>

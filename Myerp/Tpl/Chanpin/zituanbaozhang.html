@@ -79,7 +79,7 @@ function exports()
           </php>
         <input type="hidden" name="title" value="<php>echo trim($baozhang['title'])</php>"/>
         <tr>
-          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 参团人数（领队导游不包含在内）: </td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 参团人数: </td>
           <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 接团单位: </td>
           <td valign="top" scope="row" style="min-width:300px;"><input name="jietuandanwei" type="text" value="<php>echo trim($baozhang['datatext']['jietuandanwei'])</php>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
@@ -88,7 +88,7 @@ function exports()
         </tr>
         <php>}</php>
             <php>
-        if($baozhang['type'] == '签证' || $baozhang['type'] == '办证' || $baozhang['type'] == '餐饮' || $baozhang['type'] == '门票' || $baozhang['type'] == '导游'){
+        if($baozhang['type'] == '签证' || $baozhang['type'] == '办证'){
           </php>
         
         <tr>
@@ -140,6 +140,63 @@ function exports()
           <td valign="top" scope="row" style="min-width:200px;"><input name="jiesuantime" type="text" onfocus="WdatePicker()" value="<php>echo trim($baozhang['datatext']['jiesuantime'])</php>" check="^\S+$" warning="结算时间不能为空,且不能含有空格"></td>
         </tr>
         <php>}</php>
+        <php>if($baozhang['type'] == '餐饮'){</php>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 标题: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="title" type="text" style="width:200px;" value="<php>echo trim($baozhang['title'])</php>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 人数: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 时间: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="ordertime" type="text" onfocus="WdatePicker()" value="<php>echo trim($baozhang['datatext']['ordertime'])</php>"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 联系电话: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="telnum" type="text" value="<php>echo trim($baozhang['datatext']['telnum'])</php>"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 结算时间: </td>
+          <td valign="top" scope="row" style="min-width:200px;" colspan="3"><input name="jiesuantime" type="text" onfocus="WdatePicker()" value="<php>echo trim($baozhang['datatext']['jiesuantime'])</php>"></td>
+        </tr>
+        <php>}</php>
+        <php>if($baozhang['type'] == '门票'){</php>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 标题: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="title" type="text" style="width:200px;" value="<php>echo trim($baozhang['title'])</php>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 人数: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 结算时间: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="jiesuantime" type="text" onfocus="WdatePicker()" value="<php>echo trim($baozhang['datatext']['jiesuantime'])</php>" check="^\S+$" warning="结算时间不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 联系电话: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="telnum" type="text" value="<php>echo trim($baozhang['datatext']['telnum'])</php>" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
+        </tr>
+        <php>}</php>
+        <php>if($baozhang['type'] == '导游'){</php>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 标题: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="title" type="text" style="width:200px;" value="<php>echo trim($baozhang['title'])</php>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 人数: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 酒店名称: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="hotel" type="text" style="width:200px;" value="<php>echo trim($baozhang['datatext']['hotel'])</php>" check="^\S+$" warning="酒店名称不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 联系电话: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="hoteltelnum" type="text" value="<php>echo trim($baozhang['datatext']['hoteltelnum'])</php>" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 订房时间: </td>
+          <td valign="top" scope="row" style="min-width:300px;"><input name="ordertime" type="text" onfocus="WdatePicker()" style="width:200px;" value="<php>echo trim($baozhang['datatext']['ordertime'])</php>" check="^\S+$" warning="订房时间不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 结算时间: </td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="jiesuantime" type="text" onfocus="WdatePicker()" value="<php>echo trim($baozhang['datatext']['jiesuantime'])</php>" check="^\S+$" warning="结算时间不能为空,且不能含有空格"></td>
+        </tr>
+        <php>}</php>
+        
+        
+        
+        
+        
         <php>if($baozhang['type'] == '补账'){</php>
         <tr>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 标题: </td>
@@ -182,7 +239,7 @@ function exports()
         $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '结算项目') continue;$i++;
           </php>
         
-        <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
+        <tr height="40" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"></td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>
@@ -254,7 +311,7 @@ function exports()
         $i = 0;foreach($baozhang['baozhangitemlist'] as $v){ if($v['type'] != '支出项目') continue;$i++;
           </php>
         
-        <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
+        <tr height="40" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"></td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>
@@ -325,7 +382,7 @@ function exports()
         $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++; 
           </php>
         
-        <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
+        <tr height="40" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"></td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>

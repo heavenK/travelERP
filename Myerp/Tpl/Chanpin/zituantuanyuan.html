@@ -16,7 +16,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 订单个数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团员人数 </div></th>
                 </tr>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$dingdan_num}></td>
                   <td scope="row" align="left" valign="top"><{$tuanyuan_num}></td>
                 </tr>
@@ -38,7 +38,7 @@
                   <th scope="col" nowrap="nowrap"><div> 订单售价 </div></th>
                 </tr>
                 
-                <tr style="cursor:pointer; background:#EBEBED" height="30" class="evenListRowS1" onclick="showinfo(<{$v['chanpinID']}>)">
+                <tr style="cursor:pointer; background:#EBEBED" height="40" class="evenListRowS1" onclick="showinfo(<{$v['chanpinID']}>)">
                   <td scope="row" align="left" valign="top"><{$v['chanpinID']}></td>
                   <td scope="row" align="left" valign="top"><{$v['bumen_copy']}>-<{$v['user_name']}></td>
                   <td scope="row" align="left" valign="top"><{$v['status']}></td>
@@ -65,7 +65,7 @@
                   <th scope="col" nowrap="nowrap"><div> 详细资料 </div></th>
                 </tr>
                 <php> foreach($v['tuanyuanlist'] as $vol){</php>
-                <tr style="cursor:pointer" height="30" class="evenListRowS1">
+                <tr style="cursor:pointer" height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$vol['name']}></td>
                   <td scope="row" align="left" valign="top"><{$vol['sex']}></td>
                   <td scope="row" align="left" valign="top"><{$vol['manorchild']}></td>

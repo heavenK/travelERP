@@ -15,6 +15,7 @@
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"销售（加盟）\" class=\"type_t"+i+"\"/>销售（加盟）";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"办事处\" class=\"type_t"+i+"\"/>办事处";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"联合体\" class=\"type_t"+i+"\"/>联合体";
+    htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"行政\" class=\"type_t"+i+"\"/>行政";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"lianxiren_t"+i+"\" style=\"width:80px\" ></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"officetel_t"+i+"\" style=\"width:80px\" ></td>";

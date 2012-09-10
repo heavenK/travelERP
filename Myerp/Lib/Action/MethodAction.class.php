@@ -833,14 +833,10 @@ class MethodAction extends Action{
 			}
 		}
 		$to_dataID = $System->getRelationID();
-		if($processID == 1 && $data['status_shenhe'] == '批准'){
+		if($processID == 1 && $data['status'] == '批准'){
 			$md['systemID'] = $to_dataID;
 			$md['parentID'] = $to_dataID;
 			$System->save($md);
-		}
-		//生成数据备份
-		if($data['status_shenhe'] == '批准'){
-			$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
 		}
 		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
 		//生成待检出	
@@ -1381,10 +1377,10 @@ class MethodAction extends Action{
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
-//			$durlist = A("Method")->_checkRolesByUser('财务','行政');
-//			if(false !== $durlist){
-//				$cus['ispay'] = $_REQUEST['ispay'.$id];
-//			}
+			$durlist = A("Method")->_checkRolesByUser('财务','行政');
+			if(false !== $durlist){
+				$cus['ispay'] = $_REQUEST['ispay'.$id];
+			}
 			$cus['ispay'] = $_REQUEST['ispay'.$id];
 			if($cus['zhengjiantype'] == '身份证')
 				$zhengjianhaoma = 'sfz_haoma';
@@ -2025,8 +2021,12 @@ class MethodAction extends Action{
 			$editdat['shenhe_remark'] = $checkds['remark'];
 			$editdat['status_shenhe'] = $status;
 			$editdat['islock'] = '已锁定';
-			if($status == '批准')
+			if($status == '批准'){
+				//生成备份
+				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
 				$editdat['shenhe_time'] = time();
+				
+			}
 			if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';

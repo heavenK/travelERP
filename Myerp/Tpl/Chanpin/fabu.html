@@ -53,7 +53,9 @@
               </select>
               <input type="hidden" name="chufashengfen" id="chufashengfen"/>
               <input type="hidden" name="chufachengshi" id="chufachengshi"/></td>
+              
             <td valign="top" scope="row" style="min-width:100px;"> 目的地: </td>
+            <php>if($guojing == '国内' || $xianlu['guojing'] == '国内'){</php>  
             <td valign="top" style="min-width:350px;"><select class="button">
                 <option value="国内">国内</option>
               </select>
@@ -69,6 +71,15 @@
               <input type="hidden" name="daqu" id="pos_name1"/>
               <input type="hidden" name="shengfen" id="pos_name2"/>
               <input type="hidden" name="chengshi" id="pos_name3"/></td>
+            <php>}else{</php> 
+            <td valign="top" style="min-width:350px;">
+            <select class="button">
+                <option value="境外">境外</option>
+              </select>
+              <input style="width:120px; " name="mudidi" type="text" id="mudidi" value="<php>echo trim($xianlu['mudidi'])</php>"  check="^\S+$" warning="目的地不能为空,且不能含有空格">
+            </td>
+             
+            <php>}</php>  
           </tr>
           <tr>
             <td valign="top" scope="row"> 计划人数: </td>
@@ -117,7 +128,7 @@
                 <php>if($xianlu['zhuti']){</php>
                 <option value="<{$xianlu['zhuti']}>"><{$xianlu['zhuti']}></option>
                 <php>}else{</php>
-                <option value="">请选择...</option>
+                <option value=" ">请选择...123</option>
                 <php>}</php>
                 <php>foreach($xianlu['theme_all'] as $theme){</php>
                 <option value="<{$theme['title']}>"><{$theme['title']}></option>
@@ -182,10 +193,102 @@
           </tr>
         </tbody>
       </table>
-      <div class="buttons">
-        <input type="submit" value="保存" name="button" class="button primary">
-        <input type="button" value="取消" name="button" class="button">
-      </div>
+      
+      <php>if($guojing == '境外' || $xianlu['guojing'] == '境外' ){</php>  
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8" style="min-width:100px;"> <h4>选填信息</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>费用包含：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="feiyongyes" id="feiyongyes" ><{$xianlu['xianlu_ext']['feiyongyes']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>费用不包含：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="feiyongno" id="feiyongno" ><{$xianlu['xianlu_ext']['feiyongno']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>签证信息：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="qianzhengxinxi" id="qianzhengxinxi" ><{$xianlu['xianlu_ext']['qianzhengxinxi']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>可选自费：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="kexuanzifei" id="kexuanzifei" ><{$xianlu['xianlu_ext']['kexuanzifei']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>购物信息：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="gouwuxinxi" id="gouwuxinxi" ><{$xianlu['xianlu_ext']['gouwuxinxi']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>预定条款：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="yudingtiaokuan" id="yudingtiaokuan" ><{$xianlu['xianlu_ext']['yudingtiaokuan']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>出行警示：</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="3" name="chuxingjingshi" id="chuxingjingshi" ><{$xianlu['xianlu_ext']['chuxingjingshi']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+        </tbody>
+      </table>
+      <php>}</php>  
+      
     </form>
   </div>
 </div>

@@ -26,7 +26,7 @@
                   <th scope="col" nowrap="nowrap"><div> 总团费 </div></th>
                 </tr>
                 
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$zituan['renshu']}></td>
                   <td scope="row" align="left" valign="top"><php>echo $zituan['renshu'] - $tuanrenshu['querenrenshu'] - $tuanrenshu['zhanweirenshu']</php></td>
                   <td scope="row" align="left" valign="top"><{$tuanrenshu[querenrenshu]}></td>
@@ -66,7 +66,7 @@
                 </tr>
                 
                 <php> $i = -1; foreach($dingdanlist as $v){ $i++;</php>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/<{$v['chanpinID']}>"><{$v['chanpinID']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['bumen_copy']}>-<{$v['user_name']}></td>

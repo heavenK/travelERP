@@ -26,7 +26,7 @@
                   <th scope="col" nowrap="nowrap"><div> 毛利 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 毛利率 </div></th>
                 </tr>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$start_time}></td>
                   <td scope="row" align="left" valign="top"><{$end_time}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['renshu'])</php></td>
@@ -73,7 +73,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
                 </tr>
                 <php> $i = -1; foreach($unitdata as $v){ $i++;</php>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><{$v['title']}></td>
             <php>if($systemID){</php>
@@ -123,7 +123,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 毛利率 </div></th>
                 </tr>
                 <php> $i = -1; foreach($unitdata[0]['baozhang'] as $v){ $i++;</php>
-                <tr height="30" class="evenListRowS1">
+                <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>

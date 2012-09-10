@@ -140,6 +140,36 @@ function doComplete(data,status){
           <td valign="top" scope="row"> 须知: </td>
           <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['cantuanxuzhi'])</php></td>
         </tr>
+  <php>if($zituan['xianlulist']['xianlu']['guojing'] == '境外'){</php>
+        <tr>
+          <td valign="top" scope="row"> 费用包含: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['feiyongyes'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 费用不包含: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['feiyongno'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 签证信息: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['qianzhengxinxi'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 可选自费: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['kexuanzifei'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 购物信息: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['gouwuxinxi'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 预定条款: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['yudingtiaokuan'])</php></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row"> 出行警示: </td>
+          <td valign="top" scope="row" colspan="3"><php>echo trim($zituan['xianlulist']['xianlu']['xianlu_ext']['chuxingjingshi'])</php></td>
+        </tr>
+	<php>}</php>
       </tbody>
     </table>
     <php>$t =-1;foreach($zituan['xianlulist']['xingcheng'] as $xc) {$t++; </php>
@@ -221,7 +251,7 @@ function doComplete(data,status){
       $i = 0;foreach($zituan['xianlulist']['chengben'] as $v){$i++;$zongchengben += $v['price'];
         </php>
       
-      <tr height="30" class="evenListRowS1">
+      <tr height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><{$i}> </td>
         <td scope="row" align="left" valign="top"><{$v['title']}></td>
         <td scope="row" align="left" valign="top"><{$v['remark']}></td>
@@ -288,7 +318,7 @@ function doComplete(data,status){
       $i = 0;foreach($zituan['xianlulist']['shoujia'] as $v){$i++;
         </php>
       
-      <tr height="30" class="evenListRowS1">
+      <tr height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><{$v['title']}></td>
         <td scope="row" align="left" valign="top"><{$v['opentype']}> </td>

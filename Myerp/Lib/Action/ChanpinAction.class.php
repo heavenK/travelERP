@@ -37,6 +37,8 @@ class ChanpinAction extends CommonAction{
 				$xianlu['quanpei'] = $fuwu1;
 				$xianlu['dipei'] = $fuwu2;
 			}
+			if($xianlu['guojing'] == '境外')
+				$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu_ext']);
 		}
 		else{
 			//判断计调角色
@@ -92,6 +94,17 @@ class ChanpinAction extends CommonAction{
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
 		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
 		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
+		if($_REQUEST['guojing'] == "境外"){
+			$xianlu_ext['feiyongyes'] = $_REQUEST['feiyongyes'];
+			$xianlu_ext['feiyongno'] = $_REQUEST['feiyongno'];
+			$xianlu_ext['qianzhengxinxi'] = $_REQUEST['qianzhengxinxi'];
+			$xianlu_ext['kexuanzifei'] = $_REQUEST['kexuanzifei'];
+			$xianlu_ext['gouwuxinxi'] = $_REQUEST['gouwuxinxi'];
+			$xianlu_ext['yudingtiaokuan'] = $_REQUEST['yudingtiaokuan'];
+			$xianlu_ext['chuxingjingshi'] = $_REQUEST['chuxingjingshi'];
+			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
+		}
+		
 		//end
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
@@ -138,6 +151,8 @@ class ChanpinAction extends CommonAction{
 	
 	public function deletezituan()
 	{
+		$this->ajaxReturn('', '功能未开启', 0);
+		
 		$chanpinID = $_REQUEST['chanpinID'];
 		$parentID = $_REQUEST['parentID'];
 		//检查dataOM
@@ -157,7 +172,7 @@ class ChanpinAction extends CommonAction{
 			}
 		}
 		$Chanpin->rollback();
-		$this->ajaxReturn('', $Chengben->getError(), 0);
+		$this->ajaxReturn('', $Chanpin->getError(), 0);
 	}
 	
 	
@@ -418,6 +433,7 @@ class ChanpinAction extends CommonAction{
 		$DataCopy = D("DataCopy");
 		$data = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 		$zituan['xianlulist'] = unserialize($data['copy']);
+		$zituan['xianlulist']['xianlu']['xianlu_ext'] = unserialize($zituan['xianlulist']['xianlu']['xianlu_ext']);
 		$zituan['xianlulist']['shoujia'] = A("Method")->_fenlei_filter($zituan['xianlulist']['shoujia']);
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');

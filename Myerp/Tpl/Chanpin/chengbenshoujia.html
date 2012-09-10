@@ -56,7 +56,7 @@ jQuery().ready(function() {
         </php>
       
       <input type="hidden" class="jisuanchengben" value="<{$v['chanpinID']}>" >
-      <tr height="30" class="evenListRowS1" id="chengbenrow<{$v['chanpinID']}>">
+      <tr height="40" class="evenListRowS1" id="chengbenrow<{$v['chanpinID']}>">
         <td scope="row" align="left" valign="top"><{$i}> </td>
         <td scope="row" align="left" valign="top"><select name="title" id="title<{$v['chanpinID']}>" >
             <php>if($v['title']){</php>
@@ -160,7 +160,7 @@ jQuery().ready(function() {
       $i = 0;foreach($shoujia as $v){$i++;
         </php>
       
-      <tr height="30" class="evenListRowS1" id="shoujiarow<{$v['chanpinID']}>">
+      <tr height="40" class="evenListRowS1" id="shoujiarow<{$v['chanpinID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="title" id="<{$v['chanpinID']}>" value="<{$v['title']}>" >
           <input type="hidden" id="openID<{$v['chanpinID']}>" value="<{$v['openID']}>"></td>

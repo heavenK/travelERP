@@ -65,7 +65,7 @@ function ajaxalert(title){
           <php>
       $i = 0;foreach($chengben as $v){$i++; list($type,$title,$renshu,$time_start,$time_end,$remark_t,$price) = explode('@_@',$v)
         </php>
-      <tr height="30" class="evenListRowS1" id="chengbenrow<{$i}>">
+      <tr height="40" class="evenListRowS1" id="chengbenrow<{$i}>">
         <td scope="row" align="left" valign="top"><{$i}> </td>
         <td scope="row" align="left" valign="top"><input type="hidden" name="type[]" value="<{$type}>" check="^\S+$" warning="类型不能为空,且不能含有空格"><{$type}></td>
         <td scope="row" align="left" valign="top"><input type="text" name="title[]" value="<{$title}>" check="^\S+$" warning="标题不能为空,且不能含有空格"></td>

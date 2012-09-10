@@ -157,6 +157,39 @@ end function
       <td align="center" bgcolor="#FFFFFF">&nbsp;参团须知：</td>
       <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu']['cantuanxuzhi']}></td>
     </tr>
+    
+  <php>if($xianlu['xianlu']['guojing'] == '境外'){</php>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;费用包含：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['feiyongyes']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;费用不包含：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['feiyongno']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;签证信息：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['qianzhengxinxi']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;可选自费：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['kexuanzifei']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;购物信息：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['gouwuxinxi']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;预定条款：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['yudingtiaokuan']}></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#FFFFFF">&nbsp;出行警示：</td>
+      <td bgcolor="#FFFFFF" class="gl_td_padding"><{$xianlu['xianlu_ext']['chuxingjingshi']}></td>
+    </tr>
+  <php>}</php>
+    
+    
   </table>
   <table width="700" border="0" align="center" cellpadding="0" cellspacing="0" class="gl_jsb_bottom">
     <thead style="display:table-header-group;">

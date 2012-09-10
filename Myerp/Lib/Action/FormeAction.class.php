@@ -8,6 +8,7 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$gl_xianlu=D("glxianlu");
+		$glxianlu_ext=D("glxianlu_ext");
 		$xianluAll = $gl_xianlu->order('time DESC')->limit(1)->findall();
 		$Chanpin=D("Chanpin");
 		$ViewDepartment=D("ViewDepartment");
@@ -29,22 +30,24 @@ class FormeAction extends Action{
 			}
 			else
 				$dat['status'] = '准备';
+			//境外团
+			$ext = $glxianlu_ext->where("`xianluID` = '$v[xianluID]'")->find();
+			$dat['xianlu']['xianlu_ext'] = serialize($ext);		
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$chanpinID = $Chanpin->getRelationID();
+				$dat['chanpinID'] = $chanpinID;
 				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
 				A("Method")->_createDataOM($chanpinID,'线路','管理',$dataOMlist);
 			}
-			
 //			dump( $v);
-//			dump( $Chanpin);
+
+//			//zituan
+			$this->zituanbuild($dat,$chanpinID);
 			
-			
-//			//message
+			//message
 //			$this->chanpinxiaoxi($v,$chanpinID);
 //			//xingcheng
 //			$this->xingcheng($v,$chanpinID);
-//			//chanpin  zituan
-//			$this->zituan($v,$chanpinID);
 //			//chengben shoujia
 //			$this->chengbenshoujia($v,$chanpinID);
 			//exit;
@@ -289,23 +292,62 @@ class FormeAction extends Action{
 		
     }
 	
-    private function zituan($v,$chanpinID) {
-		$myerp_chanpin_zituan=M("myerp_chanpin_zituan");
-		$myerp_chanpin=M("myerp_chanpin");
+    private function zituanbuild($xianlu,$chanpinID) {
 		$glzituan=M("glzituan");
-		$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
-		
-		foreach($zituanAll as $v)
-		{
-			//chanpin
+		$zituanAll = $glzituan->where("`xianluID` = '$xianlu[xianluID]'")->findall();
+		$Chanpin = D("Chanpin");
+		$gljiedaijihua=M("gljiedaijihua");
+		$jihua = $gljiedaijihua->whre("`xianluID` = '$xianlu[xianluID]' and `jiedaitype` = '接待计划'")->find();
+		$tongzhi = $gljiedaijihua->whre("`xianluID` = '$xianlu[xianluID]' and `jiedaitype` = '出团通知'")->find();
+		$gl_baozhang=M("gl_baozhang");
+		$gl_baozhangitem=M("gl_baozhangitem");
+		$glqianzheng=M("glqianzheng");
+		$glqianzhengitem=M("glqianzhengitem");
+		foreach($zituanAll as $v){
 			$dat = $v;
+			$dat['zituan'] = $v;
 			$dat['parentID'] = $chanpinID;
-			$dat['status'] = $v['zhuangtai'];
-			$zituanchanpinID = $myerp_chanpin->add($dat);
-			//zituan
-			$dat = $v;
-			$dat['chanpinID'] = $zituanchanpinID;
-			$myerp_chanpin_zituan->add($dat);
+			//计算出团日期，重置子团状态
+			if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '准备' ||$v['zhuangtai'] == '截止'){
+				if(strtotime($v['chutuanriqi']) < time())
+					$dat['status'] = '截止';
+				else
+					$dat['status'] = $v['zhuangtai'];
+			}
+			elseif($v['zhuangtai'] == '回收站'){
+				$dat['status'] = '准备';
+				$dat['status_system'] = -1;
+			}
+			else
+				$dat['status'] = '准备';
+			$dat['zituan']['title_copy'] = $xianlu['mingcheng'];
+			$dat['zituan']['jiedaijihua'] = serialize($jihua);
+			$dat['zituan']['chutuantongzhi'] = serialize($tongzhi);
+			$dat['zituan']['xianludata_copy'] = serialize($xianlu);
+			$dat['zituan']['guojing_copy'] = $xianlu['guojing'];
+			$dat['zituan']['kind_copy'] = $xianlu['kind'];
+			//报账
+			$baozhang = $gl_baozhang->where("`zituanID` = '$v[zituanID]'")->find();
+			if($baozhang){
+				$dat['islock'] = '已锁定';
+				if($baozhang['status'] == '财务总监通过' || $baozhang['status'] == '财务通过' || $baozhang['status'] == '总经理通过'){
+					$dat['zituan']['status_baozhang'] = '批准';
+					$dat['zituan']['baozhang_remark'] = $baozhang['status'];
+					$dat['zituan']['baozhangtime'] =  $baozhang['caiwu_time'];
+				}
+				//生成审核任务？
+			}
+			if(false !== $Chanpin->relation("zituan")->myRcreate($dat)){
+				$zituanID = $Chanpin->getRelationID();
+				$dataOMlist = A('Method')->_getDataOM($chanpinID,'线路');
+				A("Method")->_createDataOM($zituanID,'子团','管理',$dataOMlist);
+				//生成报账单----------------------
+				$this->_baozhagndan_build($baozhang,$dat);
+				//生成随团单项服务报账单----------------------
+				$this->_danxiangfuwu_build($v['zituanID']);
+				//生成订单----------------------
+				$this->_dingdan_build($v['zituanID']);
+			}
 		}
 		
     }
@@ -483,6 +525,214 @@ class FormeAction extends Action{
 		echo "开始222";
 		echo "<br>";
 	}
+	
+	
+	
+	
+	//生成报账单----------------------
+	public function _baozhagndan_build($baozhang,$dat)
+	{
+		$Chanpin = D("Chanpin");
+		$gl_baozhang=M("gl_baozhang");
+		$gl_baozhangitem=M("gl_baozhangitem");
+				$bzd = $baozhang;
+				$bzd["baozhang"] = $baozhang;
+				$bzd["baozhang"]['title'] = $dat['zituan']['title_copy'].'/'.$dat['chutuanriqi'].'团队报账单';
+				if($baozhang){
+					$bzd["baozhang"]['renshu'] = preg_replace("/[" . chr(0xa0). "-" .chr(0xfe) . "]+/", "", $baozhang["baozhang"]['renshu']);//过滤汉字
+					$bzd["baozhang"]['renshu'] = preg_replace('/[\.a-zA-Z]/s','',$bzd["baozhang"]['renshu']); //过滤字母
+					$renshulist = explode('+',$bzd["baozhang"]['renshu']);
+					$renshu = 0;
+					foreach($renshulist as $rs){
+						$renshu += (int)$rs;
+					}
+					$bzd["baozhang"]['renshu'] = $renshu;
+					$bzd["baozhang"]['type'] = '团队报账单';
+					//计算报账项
+					$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]' and 'check_status' = '审核通过'")->findall();
+					foreach($baozhangitemall as $item){
+						if($item['type'] == '结算项目')
+						$bzd["baozhang"]['yingshou_copy'] += $item['price'];
+						if($item['type'] == '支出项目')
+						$bzd["baozhang"]['yingfu_copy'] += $item['price'];
+					}
+					//审核状态
+					if($baozhang['status'] == '财务总监通过' || $baozhang['status'] == '财务通过' || $baozhang['status'] == '总经理通过'){
+						$dat['status_shenhe'] = '批准';
+						$dat['shenhe_remark'] = $baozhang['status'];
+						$dat['shenhe_time'] =  $baozhang['caiwu_time'];
+					}
+					$dat['user_name'] =  $xianlu['user_name'];
+				}
+				if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
+					$baozhangID = $Chanpin->getRelationID();
+					A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
+					//生成报账项-----------------------
+					foreach($baozhangitemall as $item){
+						$bzditem = $item;
+						$bzditem['baozhangitem'] = $item;
+						$bzditem['parentID'] = $baozhangID;
+						$bzditem['user_name'] = $baozhang['user_name'];
+						$bzditem['baozhangitem']['value'] = $item['price'];
+						$bzditem['baozhangitem']['method'] = $item['pricetype'];
+						//审核状态
+						if($item['check_status'] == '审核通过'){
+							$bzditem['status_shenhe'] = '批准';
+							$bzditem['shenhe_remark'] = $item['check_status'];
+							$bzditem['shenhe_time'] =  $item['check_time'];
+						}
+						if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
+							$baozhangitemID = $Chanpin->getRelationID();
+							A("Method")->_createDataOM($baozhangitemID,'报账项','管理',$dataOMlist);
+						} 
+					}
+				}
+	
+	
+	
+	}
+	
+	
+	
+	//生成随团单项服务----------------------
+	public function _danxiangfuwu_build($zituanID)
+	{
+		$Chanpin = D("Chanpin");
+		$glqianzheng=M("glqianzheng");
+		$glqianzhengitem=M("glqianzhengitem");
+				$dxfwall = $glqianzheng->where("`zituanID` = '$zituanID'")->findall();
+				foreach($dxfwall as $dxfw){
+					$bzd = $dxfw;
+					$bzd['baozhang'] = $dxfw;
+					$bzd['baozhang']['title'] = $dxfw['title'].'/'.$dxfw['title_ext'];
+					if($dxfw['type'] == '机票' ||$dxfw['type'] == '订车'){
+						$dxfw['type'] = '交通';
+						$bzd['baozhang']['type'] = '交通';
+						$bzd['baozhang']['datatext']['hangbanhao'] = $dxfw['title_ext'];
+						$bzd['baozhang']['datatext']['shifadi'] = $dxfw['start_addr'];
+						$bzd['baozhang']['datatext']['mudidi'] = $dxfw['end_addr'];
+						$bzd['baozhang']['datatext']['leavetime'] = $dxfw['leavetime'];
+						$bzd['baozhang']['datatext']['arrvietime'] = $dxfw['arrivetime'];
+					}
+					if($dxfw['type'] == '订导游'){
+						$dxfw['type'] = '导游';
+						$bzd['baozhang']['type'] = '导游';
+					}
+					if($dxfw['type'] == '订房'){
+						$bzd['baozhang']['datatext']['hotel'] = $dxfw['title_ext'];
+						$bzd['baozhang']['datatext']['hoteltelnum'] = $dxfw['quanchengpeitong'];
+						$bzd['baozhang']['datatext']['ordertime'] = $dxfw['arrivetime'];
+						$bzd['baozhang']['datatext']['jiesuantime'] = $dxfw['leavetime'];
+					}
+					if($dxfw['type'] == '餐饮' || $dxfw['type'] == '门票' || $dxfw['type'] == '订导游'){
+						$bzd['baozhang']['datatext']['telnum'] = $dxfw['quanchengpeitong'];
+						$bzd['baozhang']['datatext']['ordertime'] = $dxfw['arrivetime'];
+						$bzd['baozhang']['datatext']['jiesuantime'] = $dxfw['leavetime'];
+					}
+					//备注
+					if($dxfw['tianshu'])
+					$remark .= '天数:'.$dxfw['tianshu'];
+					if($dxfw['quanchengpeitong'])
+					$remark .= '接收单位:'.$dxfw['quanchengpeitong'];
+					if($dxfw['buhuanhui'])
+					$remark .= '不换汇人员:'.$dxfw['buhuanhui'];
+					if($dxfw['yinsihuzhao'])
+					$remark .= '因私护照:'.$dxfw['yinsihuzhao'];
+					if($dxfw['bufancheng'])
+					$remark .= '不返程:'.$dxfw['bufancheng'];
+					if($dxfw['waidihukou'])
+					$remark .= '外地户口:'.$dxfw['waidihukou'];
+					if($dxfw['other'])
+					$remark .= '其他:'.$dxfw['other'];
+					$bzd['baozhang']['datatext']['remark'] = $remark;
+					$bzd['baozhang']['datatext'] = serialize($bzd['baozhang']['datatext']);
+					//审核状态
+					if($dxfw['status'] == '财务总监通过' || $dxfw['status'] == '财务通过' || $dxfw['status'] == '总经理通过'){
+						$bzd['status_shenhe'] = '批准';
+						$bzd['shenhe_remark'] = $dxfw['status'];
+						$bzd['shenhe_time'] =  $dxfw['check_time'];
+					}
+					//计算报账项
+					$baozhangitemall = $glqianzhengitem->where("`qianzhengID` = '$dxfw[qianzhengID]' and 'status' == '财务通过'")->findall();
+					foreach($baozhangitemall as $item){
+						if($item['type'] == '应收费用')
+						$bzd["baozhang"]['yingshou_copy'] += $item['value'];
+						if($item['type'] == '费用明细')
+						$bzd["baozhang"]['yingfu_copy'] += $item['value'];
+					}
+					$bzd['user_name'] =  $dxfw['username'];
+					if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
+						$baozhangID = $Chanpin->getRelationID();
+						A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
+						//生成随团服务报账项-----------------------
+						foreach($baozhangitemall as $item){
+							$bzditem = $item;
+							$bzditem['baozhangitem'] = $item;
+							$bzditem['parentID'] = $baozhangID;
+							$bzditem['baozhangitem']['value'] = $item['price'];
+							$bzditem['baozhangitem']['method'] = '现金';
+							if($item['type'] == '应收费用')
+								$bzditem['baozhangitem']['type'] = '结算项目';
+							if($item['type'] == '费用明细')
+								$bzditem['baozhangitem']['type'] = '支出项目';
+							if($item['type'] == '部门利润')
+								$bzditem['baozhangitem']['type'] = '利润';
+							//审核状态
+							if($item['status'] == '审核通过'){
+								$bzditem['islock'] = '批准';
+								$bzditem['status_shenhe'] = '已锁定';
+								$bzditem['shenhe_remark'] = $item['status'];
+								$bzditem['shenhe_time'] =  $item['time'];
+							}
+							if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
+								$baozhangitemID = $Chanpin->getRelationID();
+								A("Method")->_createDataOM($baozhangitemID,'报账项','管理',$dataOMlist);
+							} 
+						}
+					}
+				}
+	}
+	
+	
+	
+	
+	
+	
+	//生成订单----------------------
+	public function _dingdan_build($zituanID)
+	{
+		$Chanpin = D("Chanpin");
+		$gldingdan = M("gldingdan");
+		$dingdanall = $gldingdan->where("`zituanID` = '$zituanID'")->findall();
+		foreach($dingdanall as $v){
+			$data = $v;
+			$data['dingdan'] = $v;
+			$data['dingdan']['title'] = $v['mingcheng'].'/'.$v['chutuanriqi'];
+			$data['dingdan']['title'] = $v['mingcheng'];
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

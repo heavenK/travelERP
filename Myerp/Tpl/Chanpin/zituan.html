@@ -33,7 +33,7 @@
         $i = 0; foreach($zituanAll as $v){ $i++;
           </php>
         
-        <tr height="30" class="evenListRowS1" id="zituandiv<{$v['chanpinID']}>">
+        <tr height="40" class="evenListRowS1" id="zituandiv<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
           <td scope="row" align="left" valign="top"><{$v['tuanhao']}></td>
@@ -41,7 +41,7 @@
           <td scope="row" align="left" valign="top"><{$v['status']}></td>
           <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deletezituan(<{$v['chanpinID']}>,<{$v['parentID']}>)" />
-            <input class="button" type="button" value="修改" /></td>
+            <input class="button" type="button" value="修改" onClick="showzituan(<{$v['chanpinID']}>)" /></td>
           <td scope="row" align="center" valign="top"><img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
         </tr>
         <php> }</php>
@@ -70,6 +70,11 @@ function todo_del(data,status,info,type,id)
 {
 
 
+}
+function showzituan(id)
+{
+
+	window.location = SITE_INDEX+"Chanpin/zituanxinxi/chanpinID/"+id;
 }
 function showbox(obj,divname,pos)
 {

@@ -47,7 +47,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
         </tr>
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><input type="text" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></td>
         <td scope="row" align="left" valign="top"><{$v['type']}></td>
@@ -94,7 +94,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($systemDClist as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1" id="departmentrow<{$v['systemID']}>">
+            <tr height="40" class="evenListRowS1" id="departmentrow<{$v['systemID']}>">
               <td scope="row" align="left" valign="top">
               <{$i}>
               </td>
@@ -134,7 +134,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
             </tr>
             
             <php> $i = 0; foreach($datalist as $v){ $i++;</php>
-            <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+            <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
                 <td scope="row" align="left" valign="top"><{$i}></td>
                 <td scope="row" align="left" valign="top"><input type="text" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></td>
                 <td scope="row" align="left" valign="top"><{:SITE_INDEX}><input type="text" id="url<{$v['systemID']}>" style="width:200px" value="<{$v['url']}>"></td>
@@ -221,7 +221,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
             </tr>
             
             <php>$i=0;foreach($dat['OMlist'] as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1" id="itemrow<{$v['systemID']}>">
+            <tr height="40" class="evenListRowS1" id="itemrow<{$v['systemID']}>">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top">
               <input type="text" id="<{$v['systemID']}>" style="width:200px;" value="<{$v['parent']['title']}>">
@@ -269,7 +269,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($listdatas['chanpin'] as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1">
+            <tr height="40" class="evenListRowS1">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top"><{$v['title']}></td>
               <td scope="row" align="left" valign="top">
@@ -309,7 +309,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($listdatas['chanpin'] as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1">
+            <tr height="40" class="evenListRowS1">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top"><{$v['title']}></td>
               <td scope="row" align="left" valign="top"><{$v['status']}></td>
@@ -330,7 +330,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($listdatas as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1">
+            <tr height="40" class="evenListRowS1">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top"><{$v['title']}></td>
               <td scope="row" align="left" valign="top"><{$v['status']}></td>
@@ -371,7 +371,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap" style=" width:20%" ><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($users[chanpin] as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1">
+            <tr height="40" class="evenListRowS1">
               <td scope="row" align="left" valign="top"><input type="radio" name="select" id="select" value="<{$v['systemID']}>" /></td>
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top"><{$v['title']}></td>
@@ -436,7 +436,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap" style="width:20%"><div> 操作 </div></th>
             </tr>
             <php>$i=0;foreach($DURlist as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1" id="durlist<{$v[systemID]}>">
+            <tr height="40" class="evenListRowS1" id="durlist<{$v[systemID]}>">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top">
               <input type="text" id="bumen<{$v[systemID]}>" style="width:200px;" value="<{$v[department][title]}>"/>
@@ -510,7 +510,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
             </tr>
             
             <php>$i=0;foreach($datalist as $v){$i++;</php>
-            <tr height="30" class="evenListRowS1" id="itemrow<{$v['systemID']}>">
+            <tr height="40" class="evenListRowS1" id="itemrow<{$v['systemID']}>">
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top">
               <input type="text" id="<{$v['systemID']}>" style="width:200px;" value="<{$v['title']}>">
@@ -590,7 +590,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       <iframe name="iframeUpload" src="" frameborder="0" SCROLLING="no" style="display:none"></iframe> 
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <form method="post" action="<{:SITE_INDEX}>SetSystem/dopostDataDictionary/" enctype="multipart/form-data" target="iframeUpload"> 
         <INPUT TYPE="hidden" name="uploadResponse" value="uploadComplete">
         <INPUT TYPE="hidden" name="type" value="视频">
@@ -656,7 +656,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       <iframe name="iframeUpload" src="" frameborder="0" SCROLLING="no" style="display:none"></iframe> 
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <form method="post" action="<{:SITE_INDEX}>SetSystem/dopostDataDictionary/" enctype="multipart/form-data" target="iframeUpload"> 
         <INPUT TYPE="hidden" name="uploadResponse" value="uploadComplete">
         <INPUT TYPE="hidden" name="type" value="图片">
@@ -698,7 +698,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
@@ -734,7 +734,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
@@ -775,7 +775,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         </tr>
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top">
@@ -804,6 +804,10 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">联合体</label>
         <php>}else{</php>
         <input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>"/>联合体
+        <php>}if(in_array('行政',$typearray)){</php>
+        <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">行政</label>
+        <php>}else{</php>
+        <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>"/>行政
         <php>}</php>
         </td>
         <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<{$v['systemID']}>" style="width:80px" value="<{$v['lianxiren']}>"></td>
@@ -843,7 +847,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
@@ -877,7 +881,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         </tr>
         
       <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="30" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" id="remark<{$v['systemID']}>" style="width:400px" value="<{$v['remark']}>"></td>
