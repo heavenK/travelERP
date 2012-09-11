@@ -843,6 +843,57 @@ class FormeAction extends Action{
 	}
 	
 	
+    public function doMessage_paituanbiao() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		//公告
+		$glbasedata=M("glbasedata");
+		$paituanbiaoall = $glbasedata->where("`type` = '排团表'")->findall();
+		$Message=D("Message");
+		foreach($paituanbiaoall as $v){
+			if($v['title'] =='')
+			continue;
+			$data = $v;
+			$data['info'] = $v;
+			$data['user_name'] = 'aaa';
+			$data['time'] = $v['pubdate'];
+			$data['status'] = '';
+			$bumen = $this->_getoldbumenbyusername($data['username']);
+			$data['departmentID'] = $bumen['id'];
+			$data['bumen_copy'] = $bumen['title'];
+			$data['info']['title'] = $v['title'];
+			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
+			$data['info']['type'] = '排团表';
+			$data['info']['message'] = '';
+			$data['info']['sortvalue'] = $v['value'];
+			$data['info']['url_file'] = $v['pic_url'];
+			if(false !== $Message->relation("info")->myRcreate($data)){
+				$messageID = $Message->getRelationID();
+				$bumenlist = D("ViewDepartment")->findall();
+				$i = 0;
+				foreach($bumenlist as $v){
+					if(in_array("联合体",$v['type']) || in_array("办事处",$v['type']))
+					;
+					else{
+						$dataOMlist[$i]['DUR'] = $v['systemID'].',,';
+						$i++;
+					}
+				}
+				A("Method")->_createDataOM($messageID,'排团表','管理',$dataOMlist,'DataOMMessage');
+			}
+			else{
+			dump($Message);exit;	
+				
+			}
+		}
+		echo "结束";
+		return true;
+		
+	
+	}
+	
+	
 	
 	
 	
