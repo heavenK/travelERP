@@ -25,7 +25,7 @@ class MessageModel extends RelationModel {
 		if($status)	
 			return $status;
 		else
-			return '准备';
+			return '';
 	}
 	protected function set_time($time) {
 		if($time)	

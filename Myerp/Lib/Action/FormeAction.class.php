@@ -7,11 +7,11 @@ class FormeAction extends Action{
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
-		$gl_xianlu=D("glxianlu");
-		$glxianlu_ext=D("glxianlu_ext");
+		$gl_xianlu=M("glxianlu");
+		$glxianlu_ext=M("glxianlu_ext");
 		$xianluAll = $gl_xianlu->order('time DESC')->limit(1)->findall();
 		$Chanpin=D("Chanpin");
-		$gl_baozhang=D("gl_baozhang");
+		$gl_baozhang=M("gl_baozhang");
 		foreach($xianluAll as $v)
 		{
 			$dat = $v;
@@ -64,6 +64,27 @@ class FormeAction extends Action{
 		$ViewDepartment=D("ViewDepartment");
 		$bumen = $ViewDepartment->where("`title` = '$title'")->find();
 		return $bumen['systemID'];
+	}
+	
+	//获得部门ID：根据同名部门获得旧ID
+	function _getoldbumenID($title){
+		$glbasedata=M("glbasedata");
+		$bumen = $glbasedata->where("`title` = '$title'")->find();
+		return $bumen['id'];
+	}
+	
+	//获得用户名获得旧部门ID
+	function _getoldbumenbyusername($user_name){
+		$roleuser = M('Glkehu')->where("`user_id`='$user_id'")->find();
+		$mydepartment = M('glbasedata')->where("`id`='$roleuser[department]'")->find();
+		return $mydepartment;
+	}
+	
+	//获得新用户ID根据用户名
+	function _getuserIDbytitle($user_name){
+		$ViewUser = D("ViewUser");
+		$user = $ViewUser->where("`user_name` = '$user_name'")->find();
+		return $user['systemID'];
 	}
 	
 	
@@ -771,6 +792,61 @@ class FormeAction extends Action{
 		}
 		
 	}
+	
+	
+	
+    public function doMessage() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		//公告
+		$glnews=M("glnews");
+		$gonggaoall = $glnews->where("`type` = '新闻公告'")->findall();
+		$Message=D("Message");
+		foreach($gonggaoall as $v){
+			if($v['title'] =='')
+			continue;
+			$data = $v;
+			$data['info'] = $v;
+			$data['user_name'] = $v['username'];
+			$data['status'] = '';
+			$bumen = $this->_getoldbumenbyusername($v['username']);
+			$data['departmentID'] = $bumen['id'];
+			$data['bumen_copy'] = $bumen['title'];
+			$data['info']['title'] = $v['title'];
+			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
+			$data['info']['type'] = '公告';
+			$data['info']['message'] = $v['content'];
+			if(false !== $Message->relation("info")->myRcreate($data)){
+				$messageID = $Message->getRelationID();
+				$bumenlist = D("ViewDepartment")->findall();
+				$i = 0;
+				foreach($bumenlist as $v){
+					if(in_array("联合体",$v['type']) || in_array("办事处",$v['type']))
+					;
+					else{
+						$dataOMlist[$i]['DUR'] = $v['systemID'].',,';
+						$i++;
+					}
+				}
+				A("Method")->_createDataOM($messageID,'公告','管理',$dataOMlist,'DataOMMessage');
+			}
+			else{
+			dump($Message);exit;	
+				
+			}
+		}
+		echo "结束";
+		return true;
+		
+	
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
