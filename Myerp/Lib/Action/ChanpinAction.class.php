@@ -86,8 +86,13 @@ class ChanpinAction extends CommonAction{
 		//检查
 		if(!$_REQUEST['chufashengfen'] || !$_REQUEST['chufachengshi'])
 			$this->ajaxReturn($_REQUEST,'错误,出发地不能为空！', 0);
+		if($_REQUEST['guojing'] == "国内")
 		if(!$_REQUEST['daqu'] || !$_REQUEST['shengfen'] || !$_REQUEST['chengshi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
+		if($_REQUEST['guojing'] == "境外")
+		if(!$_REQUEST['mudidi'])
+			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
+			
 		//数据处理
 		if($_REQUEST['guojing'] == "国内")
 		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];

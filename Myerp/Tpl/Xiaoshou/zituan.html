@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <link rel="shortcut icon" type="image/x-icon" href="<{:__PUBLIC__}>/myerp/images/sugar_icon.ico" media="screen" />
 <head>
-<meta http-equiv="Content-Type" content="txianlu_ext/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><{$xianlu['xianlu']['title']}></title>
-<link type="txianlu_ext/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
-<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js" type="txianlu_ext/javascript"></script>
-<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.KinSlideshow-1.2.1.min.js" type="txianlu_ext/javascript"></script>
-<script src="<{:__PUBLIC__}>/gulianstyle/js/tanchukuang.js" type="txianlu_ext/javascript"></script>
-<script type="txianlu_ext/javascript">
+<link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.KinSlideshow-1.2.1.min.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/tanchukuang.js" type="text/javascript"></script>
+<script type="text/javascript">
 $(function(){
 	$("#KinSlideshow").KinSlideshow();
 })
@@ -48,11 +48,7 @@ $(function(){
   <dl class="ks_cont">
     <!--内容-->
     <dt> 
-    <php>if($xianlu['companytype'] == '同业'){</php>
-    <img src="<{:__PUBLIC__}>/gulianstyle/images/tongyemark_1.jpg" width="328" height="95" style=" margin:0 0 4px 0; display:inline;" /> 
-    <php>}else{</php>
     <img src="<{:__PUBLIC__}>/gulianstyle/images/gulianmark_1.jpg" width="328" height="95" style=" margin:0 0 4px 0; display:inline;" /> 
-    <php>}</php>
     <i>
   <u id="KinSlideshow" style="visibility:hidden;">
   <php>if($xianlu['xianlu']['tupian']){</php>
@@ -60,11 +56,7 @@ $(function(){
     <a href="javascript:void(0)"><img src="<{:SITE_DATA}>Attachments/m_<{$v[pic_url]}>" width="316" height="201" /></a>
     <php>} </php>
   <php>}else{</php>
-    <php>if($xianlu['companytype'] == '同业'){</php>
-    <img src="<{:__PUBLIC__}>/gulianstyle/images/tongyemark.jpg" width="316" height="201" />
-    <php>}else{</php>
     <img src="<{:__PUBLIC__}>/gulianstyle/images/gulianmark.jpg" width="316" height="201" /> 
-    <php>}</php>
   <php>}</php>
   </u>
     </i> </dt>
