@@ -106,14 +106,14 @@ function checktitle(id,parenttype,inputid,mark){
 		it ="&systemID="+id;
 		mark = '';
 	}
-	var department = jQuery("#department"+mark+id).val();
+	var bumen = jQuery("#bumen"+mark+id).val();
 	var bumenID = jQuery("#bumenID"+mark+id).val();
 	var roles = jQuery("#roles"+mark+id).val();
 	var rolesID = jQuery("#rolesID"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostUserDUR",
-		data:	"bumenID="+bumenID+"&rolesID="+rolesID+"&department="+department+"&roles="+roles+"&userID="+userID+it,
+		data:	"bumenID="+bumenID+"&rolesID="+rolesID+"&bumen="+bumen+"&roles="+roles+"&userID="+userID+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
@@ -128,7 +128,7 @@ function checktitle(id,parenttype,inputid,mark){
 		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"durlist"+data['systemID']+"\">";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"department"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['department']+"\">";
+		htmlcontent += "<input type=\"text\" id=\"bumen"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['bumen']+"\">";
 		htmlcontent += "<input type=\"hidden\" id=\"bumenID"+data['systemID']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
@@ -144,7 +144,7 @@ function checktitle(id,parenttype,inputid,mark){
 		
 		jQuery("#durlist_t"+id).replaceWith(htmlcontent);
 		
-		myautocomplete("#department"+data['systemID'],'部门');
+		myautocomplete("#bumen"+data['systemID'],'部门');
 		myautocomplete("#roles"+data['systemID'],'角色');
 	}
  }

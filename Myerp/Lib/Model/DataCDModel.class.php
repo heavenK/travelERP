@@ -12,6 +12,7 @@ class DataCDModel extends Model {
     // 自动填充设置 
     protected $_auto = array( 
         array('time', 'time', 1, 'function'), 
+        array('ispay', '未付款', 1),
     ); 
 
 	protected $_link = array(

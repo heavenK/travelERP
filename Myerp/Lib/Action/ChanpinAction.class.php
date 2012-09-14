@@ -60,6 +60,7 @@ class ChanpinAction extends CommonAction{
 		$this->display('fabu');
 	}
 	
+	
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['xianlu'] = $_REQUEST;
@@ -917,6 +918,45 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
+	
+	
+	//添加订单
+    public function zituanbaoming() {
+		$chanpinID = $_REQUEST['chanpin'];
+		//检查dataOM
+		$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
+		if(false === $xiaoshou){
+			$this->display('Index:error');
+			exit;
+		}
+		$Chanpin = D("Chanpin");
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		$this->assign("zituan",$zituan);
+		$DataCopy = D("DataCopy");
+		$xianlu = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
+		$xianlu = unserialize($xianlu['copy']);
+		$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu']['xianlu_ext']);
+		$this->assign("xianlu",$xianlu);
+		//计算子团人数
+		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID']);
+		$baomingrenshu = $tuanrenshu['baomingrenshu'];
+		$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+		$this->assign("shengyurenshu",$shengyurenshu);
+		//提成数据
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
+		$this->assign("ticheng",$ticheng);
+		//获得个人部门及分类列表
+		$bumenfeilei = A("Method")->_getbumenfenleilist();
+		$this->assign("bumenfeilei",$bumenfeilei);
+		//清空占位过期订单
+		A('Method')->_cleardingdan();
+		$ViewUser = D("ViewUser");
+		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$this->assign("userlist",$userlist);
+		$this->display('baoming');
+	}
 	
 	
 	

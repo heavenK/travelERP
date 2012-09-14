@@ -427,25 +427,6 @@ function clearinput(objID){
 	jQuery('#dateiframe').attr("src",url);
 }
 
-function getPosLeft(obj)
-{
-    var l = obj.offsetLeft;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetLeft;
-    }
-    return l;
-}
-function getPosTop(obj)
-{
-    var l = obj.offsetTop;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetTop;
-    }
-    return l;
-}
-
 function add_theme(){
 	jQuery("#zhutititle").val('');
 	jQuery("#zhuti").hide();

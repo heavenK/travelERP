@@ -67,35 +67,9 @@ function showmessage(obj,chanpinID)
 			}
 		});
 }
-function getPosLeft(obj)
-{
-    var l = obj.offsetLeft;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetLeft;
-    }
-    return l;
-}
-function getPosTop(obj)
-{
-    var l = obj.offsetTop;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetTop;
-    }
-    return l;
-}
 
 function getLocalTime(nS) {  
 	return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,17);
     return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
 }
 
-function ajaxalert(title){
-	document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
-	jQuery("#resultdiv_2").show("fast"); 
-	this.intval = window.setTimeout(function (){
-		document.getElementById('resultdiv_2').style.display='none';
-		document.getElementById('resultdiv_2').innerHTML='';
-		},3000);
-}

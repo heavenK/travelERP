@@ -14,8 +14,17 @@ class ZituanModel extends RelationModel {
     protected $_auto = array( 
         array('adultxiuzheng', '0', 1), 
         array('childxiuzheng', '0', 1), 
-        array('status_baozhang', '未审核', 1), 
+        //array('status_baozhang', '未审核', 1), 
+        array('status_baozhang', 'set_status_baozhang', 1,'callback','status_baozhang',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
+	protected function set_status_baozhang($status_baozhang) {
+		if($status_baozhang)	
+			return $status_baozhang;
+		else
+			return '未审核';
+	}
+	
+	
 	protected $_link = array(
 		//zituan
 		'shoujialist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_shoujia','foreign_key'=>'parentID'),

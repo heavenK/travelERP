@@ -62,37 +62,6 @@
 </div>
 <tp:includeCA file="Index:footer" />
 <script language="javascript"> 
-function shenheshow_doit(chanpinID,obj){
-   if(jQuery("#shenhediv").is(":visible")==true){ 
-	  jQuery('#shenhediv').hide();
-	  return ;
-   }
-    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
-	objleft = getPosLeft(obj) - 370;
-	objtop = getPosTop(obj) + 20;
-	jQuery('#shenhediv').css({top:objtop , left:objleft });
-	jQuery('#shenhediv').show();
-}
-function getshenhemessage(posturl){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:ET_URL}>"+posturl,
-		data:	"",
-		success:	function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
-		}
-	});
-}
-
-function getshenhemessage_after(data,status)
-{
-	if(status == 1){
-		jQuery("#shenhe_box").html(data);
-	}
-}
-function div_close(id){
-	jQuery('#'+id+'').hide();
-}
 
 function dosearch(str)
 {

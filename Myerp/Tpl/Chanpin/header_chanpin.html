@@ -1,29 +1,21 @@
 <script type="text/javascript">
-    var SITE_INDEX = '<{:SITE_INDEX}>';
-    var chanpinID = '<{$chanpinID}>';
-	var title =  '<{$datatitle}>';
-	function doshenhe(dotype){
-		ThinkAjax.myloading('resultdiv');
-		var dataID = chanpinID;
-		var datatype = '线路';
-		jQuery.ajax({
-			type:	"POST",
-			url:	SITE_INDEX+"Chanpin/doshenhe",
-			data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
-			success:function(msg){
-				ThinkAjax.myAjaxResponse(msg,'resultdiv');
-			}
-		});
-	}
-	function ajaxalert(title){
-		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
-		jQuery("#resultdiv_2").show("fast"); 
-		this.intval = window.setTimeout(function (){
-			document.getElementById('resultdiv_2').style.display='none';
-			document.getElementById('resultdiv_2').innerHTML='';
-			},3000);
-	}
-    </script>
+var SITE_INDEX = '<{:SITE_INDEX}>';
+var chanpinID = '<{$chanpinID}>';
+var title =  '<{$datatitle}>';
+function doshenhe(dotype){
+	ThinkAjax.myloading('resultdiv');
+	var dataID = chanpinID;
+	var datatype = '线路';
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/doshenhe",
+		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+</script>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
   <h3 style=""><{$navigation}><{$datatitle}></h3>
@@ -105,68 +97,6 @@
   <php>}</php>
 </div>
 
-<script>
-function shenhe_back(dataID,datatype){
-	ThinkAjax.myloading('resultdiv');
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/shenheback",
-		data:	"dataID="+dataID+"&datatype="+datatype,
-		success:function(msg){
-			scroll(0,0);
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		}
-	});
-}
-function shenheshow_doit(chanpinID){
-   if(jQuery("#shenhediv").is(":visible")==true){ 
-	  jQuery('#shenhediv').hide();
-	  return ;
-   }
-    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
-	obj =document.getElementById('showshenhe');
-	objleft = getPosLeft(obj) - 370;
-	objtop = getPosTop(obj) + 20;
-	jQuery('#shenhediv').css({top:objtop , left:objleft });
-	jQuery('#shenhediv').show();
-}
-function getPosLeft(obj)
-{
-    var l = obj.offsetLeft;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetLeft;
-    }
-    return l;
-}
-function getPosTop(obj)
-{
-    var l = obj.offsetTop;
-    while(obj = obj.offsetParent)
-    {
-        l += obj.offsetTop;
-    }
-    return l;
-}
-function getshenhemessage(posturl){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:ET_URL}>"+posturl,
-		data:	"",
-		success:	function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',getshenhemessage_after);
-		}
-	});
-}
-
-function getshenhemessage_after(data,status)
-{
-	if(status == 1){
-		jQuery("#shenhe_box").html(data);
-	}
-}
-
-</script>
 <div style="position: absolute; display:none" id="shenhediv">
   <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
     <tbody>

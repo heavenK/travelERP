@@ -1,7 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
-<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
-
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Xiaoshou/dingdanxinxi.js'></script>
 <style>
 .tb1 {
 	border-left:1px dashed #CCCCCC;
@@ -29,122 +27,44 @@
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 <script>
-
-function save(){
-	scroll(0,0);
-	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
-}
-function doComplete(data,status){
-	if(status == 1)
-		location.reload();
-}
-		 
+var chanpinID = '<{$chanpinID}>';
+var title =  '编号<{$chanpinID}>订单';
 var user = [
 	 <php>foreach($userlist as $v){</php>
 		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
 	 <php>}</php>
  ];
 
-jQuery().ready(function() {
-	  myautocomplete("#owner",'用户');
-});
-		
- function myautocomplete(target,parenttype)
-{
-		if(parenttype == '用户')
-		datas = user;
-		jQuery(target).unautocomplete().autocomplete(datas, {
-		   max: 50,    //列表里的条目数
-		   minChars: 0,    //自动完成激活之前填入的最小字符
-		   width: 150,     //提示的宽度，溢出隐藏
-		   scroll:false,
-		   matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-		   autoFill: true,    //自动填充
-		   formatItem: function(data, i, num) {//多选显示
-			   return data.title;
-		   },
-		   formatMatch: function(data, i, num) {//匹配格式
-			   return data.title;
-		   },
-		   formatResult: function(data) {//选定显示
-			   return data.title;
-		   }
-		})
-}
-
-function checktable()
-{
-	if(CheckForm('form2','resultdiv_2'))
-	{
-		if(checktitle())
-		{
-			var state=document.getElementById("status");
-			if(state.value=="占位")
-				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
-			ThinkAjax.sendForm('form2','<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
-		}
-		else
-			alert("收客人填写错误");
-		
-	}
-	return false;
-}
-
-
-function checktitle(){
-	datas = user;
-	var title = jQuery("#owner").val();
-	var ishas = 0;
-	for (var i=0;i<datas.length;i++) { 
-		if(title == datas[i]['title']){
-			ishas = 1;
-			break;
-		}
-	} 
-	if(!ishas){
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-    var SITE_INDEX = '<{:SITE_INDEX}>';
-    var chanpinID = '<{$chanpinID}>';
-	var title =  '编号<{$chanpinID}>订单';
-	function doshenhe(dotype){
-		ThinkAjax.myloading('resultdiv');
-		var dataID = chanpinID;
-		var datatype = '订单';
-		jQuery.ajax({
-			type:	"POST",
-			url:	SITE_INDEX+"Chanpin/doshenhe",
-			data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
-			success:function(msg){
-				ThinkAjax.myAjaxResponse(msg,'resultdiv');
-			}
-		});
-	}
 	
- function quxiao(id)
- {
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Xiaoshou/quxiaodingdan",
-		data:	"dingdanID="+id,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv_2');
-		}
-	});
-	
- }
+function quxiao(id,zituanID)
+{
+  jQuery.ajax({
+	  type:	"POST",
+	  url:	SITE_INDEX+"Xiaoshou/quxiaodingdan/zituanID/"+zituanID,
+	  data:	"dingdanID="+id,
+	  success:function(msg){
+		  ThinkAjax.myAjaxResponse(msg,'resultdiv_2',quxiao_after);
+	  }
+  });
+  
+}
  
-function TravelerDetail(id)
-{
-    var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
-    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+function quxiao_after(data,status){
+	if(status == 1){
+		window.location = SITE_INDEX+'Chanpin/zituandingdan/chanpinID/'+data['zituanID'];
+	}
 }
 
+function dofukuan(id){
+	jQuery("#ispay"+id).val('已付款');
+	scroll(0,0);
+	ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/daokuanqueren/1',doComplete,'resultdiv');
+}
 
+function querendingdan(){
+	jQuery("#status").val('确认');
+	ThinkAjax.sendForm('form2',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
+}
 </script>
 
 
@@ -165,7 +85,7 @@ function TravelerDetail(id)
     </div>
       
       <div class="buttons">
-            <input type="button" value="审核记录" name="button" class="button primary" style="float:right">
+            <input type="button" value="审核记录" name="button" class="button primary" style="float:right" onclick="shenheshow_doit(<{$chanpinID}>,this);">
             
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'订单');
@@ -179,9 +99,8 @@ function TravelerDetail(id)
       <php>}}if(A("Method")->checkshenheback($chanpinID,'订单')){</php>
       <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<{$chanpinID}>,'订单');">
 	  <php>}</php>
-      
-          <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>');">
-          <input type="button" value=" 订单解锁 " name="button" class="button primary" onClick="save();">
+          <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>',<{$dingdan['zituanlist']['chanpinID']}>);">
+          <input type="button" value=" 确认订单 " name="button" class="button primary" onClick="querendingdan();">
       </div>
       
   <form name="form2" method="post" action="<{:SITE_INDEX}>Xiaoshou/dopostdingdanxinxi" id="form2" >
@@ -198,16 +117,25 @@ function TravelerDetail(id)
         </tr>
         <tr>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 团号：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituan']['tuanhao']}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:30%"><{$dingdan['zituanlist']['tuanhao']}></td>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 出团日期：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituan']['chutuanriqi']}></td>
-          <td align="left" style="height: 32px; min-width:80px; width:10%"> 剩余名额：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$shengyu}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['chutuanriqi']}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:10%"> 负责人(操作费)：</td>
+          <td align="left" style="height: 32px; min-width:80px; width:10%"><{$dingdan['fuzeren']}></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">收客人：</td>
+          <td align="left" style="height: 32px;">收客人及部门（提成）：</td>
           <td align="left" style="height: 32px">
-            <input type="text" name="owner" id="owner" style="width:80px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
+            <input type="text" name="owner" id="owner" style="width:50px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
+              <select name="departmentID">
+              <php>if($dingdan['bumen_copy']){</php>
+                <option value="<{$dingdan['departmentID']}>"><{$dingdan['bumen_copy']}></option>
+                <option disabled="disabled">-----------</option>
+              <php>}</php>
+              <php>foreach($bumenfeilei as $v){</php>
+                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+              <php>}</php>
+              </select>
             <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 提成类型：</td>
@@ -239,16 +167,8 @@ function TravelerDetail(id)
           </td>
           <td align="left" style="height: 32px"> 订单状态：</td>
           <td align="left" style="height: 32px">
-            <select name="status" id="status">
-            	<php>if($dingdan['status']){</php>
-                <option value="<{$dingdan['status']}>"><{$dingdan['status']}></option>
-                <option disabled="disabled">---------------</option>
-            	<php>}</php>
-                <option value="占位">占位</option>
-                <option value="确认">确认</option>
-                <option value="候补">候补</option>
-			</select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+			<input type="hidden" name="status" id="status" value="<{$dingdan['status']}>" />
+			<{$dingdan['status']}>
           </td>
         </tr>
         <tr>
@@ -353,10 +273,16 @@ function TravelerDetail(id)
               <option value="支票">支票</option>
               <option value="签单">签单</option>
             </select>
-           <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" value="<{$vo['ispay']}>" />
+           <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" <php>if(!$vo['ispay']){</php> value="未付款" <php>}</php> value="<{$vo['ispay']}>"/>
             <input style="width:60px;" class="button" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
           </td>
-          <td align="left" style="height: 32px"><a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a></td>
+          <td align="left" style="height: 32px">
+          <php>if($vo['id']){</php>
+          <a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a>
+          <php>}else{</php>
+          <a href="javascript:TravelerDetail('')">查看</a>
+          <php>}</php>
+          </td>
         </tr>
         <php>}</php>
         <tr>
@@ -374,30 +300,23 @@ function TravelerDetail(id)
   
 </div>
 <tp:includeCA file="Index:footer" />
-
-<script language="javascript"> 
-
-function dosearch()
-{
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
-}
-
-function dofukuan(id){
-	jQuery("#ispay"+id).val('已付款');
-	save();
-}
-
-function shenhe_back(dataID,datatype){
-	ThinkAjax.myloading('resultdiv');
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Caiwu/shenheback",
-		data:	"dataID="+dataID+"&datatype="+datatype,
-		success:function(msg){
-			scroll(0,0);
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		}
-	});
-}
-</script>
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<{:__PUBLIC__}>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

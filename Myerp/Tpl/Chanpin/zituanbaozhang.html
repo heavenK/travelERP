@@ -50,14 +50,6 @@ function exports()
 			}
 		});
 	}
-	function ajaxalert(title){
-		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
-		jQuery("#resultdiv_2").show("fast"); 
-		this.intval = window.setTimeout(function (){
-			document.getElementById('resultdiv_2').style.display='none';
-			document.getElementById('resultdiv_2').innerHTML='';
-			},3000);
-	}
 	
 </script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
@@ -75,18 +67,56 @@ function exports()
             </th>
           </tr>
             <php>
-        if($baozhang['type'] == '团队报账单'){
+        if($baozhang['type'] == '团队报账单' && $zituan['guojing_copy'] == '国内'){
           </php>
         <input type="hidden" name="title" value="<php>echo trim($baozhang['title'])</php>"/>
         <tr>
-          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 参团人数: </td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 报账人数（数字）: </td>
           <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 接团单位: </td>
-          <td valign="top" scope="row" style="min-width:300px;"><input name="jietuandanwei" type="text" value="<php>echo trim($baozhang['datatext']['jietuandanwei'])</php>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
-          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 全陪: </td>
-          <td valign="top" scope="row" style="min-width:100px;"><input name="quanpei" type="text" value="<php>echo trim($baozhang['datatext']['quanpei'])</php>" check="^\S+$" warning="全陪不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="jietuandanwei" type="text" value="<php>echo trim($baozhang['datatext']['jietuandanwei'])</php>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 签约人: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="qianyueren" type="text" value="<php>echo trim($baozhang['datatext']['qianyueren'])</php>"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 领队数（数字）: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="lingdui_num" type="text" value="<php>echo trim($baozhang['datatext']['lingdui_num'])</php>"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 领队名: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="quanpei" type="text" value="<php>echo trim($baozhang['datatext']['quanpei'])</php>" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"></td>
+          <td valign="top" scope="row" style="min-width:100px;"></td>
         </tr>
         <php>}</php>
+            <php>
+        if($baozhang['type'] == '团队报账单' && $zituan['guojing_copy'] == '境外'){
+          </php>
+        <input type="hidden" name="title" value="<php>echo trim($baozhang['title'])</php>"/>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 报账人数（数字）: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 接团单位: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="jietuandanwei" type="text" value="<php>echo trim($baozhang['datatext']['jietuandanwei'])</php>" check="^\S+$" warning="接团单位不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 签约人: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="qianyueren" type="text" value="<php>echo trim($baozhang['datatext']['qianyueren'])</php>"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 领队数（数字）: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="lingdui_num" type="text" value="<php>echo trim($baozhang['datatext']['lingdui_num'])</php>"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 离连方式: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="lilianfangshi" type="text" value="<php>echo trim($baozhang['datatext']['lilianfangshi'])</php>"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 离连时间: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input style="width:200px;" name="lilianshijian" type="text" value="<php>echo trim($baozhang['datatext']['lilianshijian'])</php>" onfocus="WdatePicker({dateFmt:'yyyy年MM月dd日 HH时mm分'})"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 领队名: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="lingdui_name" type="text" value="<php>echo trim($baozhang['datatext']['lingdui_name'])</php>" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 抵连方式: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="dilianfangshi" type="text" value="<php>echo trim($baozhang['datatext']['dilianfangshi'])</php>" ></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 抵连时间: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input style="width:200px;" name="dilianshijian" type="text" value="<php>echo trim($baozhang['datatext']['dilianshijian'])</php>" onfocus="WdatePicker({dateFmt:'yyyy年MM月dd日 HH时mm分'})"></td>
+        </tr>
+        <php>}</php>
+        
             <php>
         if($baozhang['type'] == '签证' || $baozhang['type'] == '办证'){
           </php>
@@ -205,7 +235,7 @@ function exports()
         <php>}</php>
         <tr>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 备注说明: </td>
-          <td valign="top" scope="row" colspan="3" style="min-width:200px;"><textarea name="remark" rows="4" style="width:600px;" ><php>echo $baozhang['datatext']['remark']</php>
+          <td valign="top" scope="row" colspan="9" style="min-width:200px;"><textarea name="remark" rows="4" style="width:600px;" ><php>echo $baozhang['datatext']['remark']</php>
 </textarea></td>
         </tr>
           </tbody>

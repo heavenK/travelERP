@@ -1,27 +1,7 @@
 <script type="text/javascript">
     var SITE_INDEX = '<{:SITE_INDEX}>';
     var chanpinID = '<{$chanpinID}>';
-	function ajaxalert(title){
-		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+'</div>';
-		jQuery("#resultdiv_2").show("fast"); 
-		this.intval = window.setTimeout(function (){
-			document.getElementById('resultdiv_2').style.display='none';
-			document.getElementById('resultdiv_2').innerHTML='';
-			},3000);
-	}
 	
-function shenhe_back(dataID,datatype){
-	ThinkAjax.myloading('resultdiv');
-	jQuery.ajax({
-		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/shenheback",
-		data:	"dataID="+dataID+"&datatype="+datatype,
-		success:function(msg){
-			scroll(0,0);
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		}
-	});
-}
     </script>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
@@ -85,7 +65,7 @@ function shenhe_back(dataID,datatype){
   <input type="button" value="保存" name="button" class="button primary" onClick="save();">
   <php>}</php>
   <php>if('子团订单' == $markpos){</php>
-  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming();">
+  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming(<{$chanpinID}>);">
   <php>}</php>
   <php>if('团员名单' == $markpos){</php>
   <input type="button" value="导出Word（旅游局格式）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式1');">

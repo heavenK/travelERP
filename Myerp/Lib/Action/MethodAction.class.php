@@ -743,9 +743,8 @@ class MethodAction extends Action{
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
 		if($dotype == '申请'){
-			$omdata = $this->_checkOMTaskShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],'管理');//检查产品的管理权限！
-			if(false === $omdata){
-				cookie('errormessage','您没有管理权限！',30);
+			if(false === $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID'])){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
 			$processID = 1;
@@ -789,8 +788,8 @@ class MethodAction extends Action{
 		}
 		$data['taskShenhe']['processID'] = $processID;
 		$data['taskShenhe']['remark'] = $process[0]['remark'];
-		$data['taskShenhe']['roles_copy'] = cookie('_usedroles');
-		$data['taskShenhe']['bumen_copy'] = cookie('_usedbumen');
+		$data['taskShenhe']['roles_copy'] = cookie('_task_roles');
+		$data['taskShenhe']['bumen_copy'] = cookie('_task_bumen');
 		if($_REQUEST['datatype'] == '订单'){
 			$ViewDingdan = D("ViewDingdan");
 			$tmdt = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
@@ -983,13 +982,14 @@ class MethodAction extends Action{
 	 }
 	 
 	 
-	//检查OM
-     public function _checkDataOM($dataID,$datatype,$type,$userID) {
+	//检查DataOM
+     public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='') {
 		if($userID)
 			$myuserID = $userID;
-		else
+		elseif($DURlist == ''){
 			$myuserID = $this->user['systemID'];
-		$DURlist = $this->_getDURlist($myuserID);
+			$DURlist = $this->_getDURlist($myuserID);
+		}
 		$DataOM = D("DataOM");
 		$datalist = array();
 		if($type == '管理')
@@ -1049,27 +1049,58 @@ class MethodAction extends Action{
 	 }
 	 
 	 
-	//检查审核流程
-     public function _checkShenhe($datatype,$processID,$userID='') {
+	//检查DataOM部门一项是否相同
+     public function _checkDataOMbumen($dataID,$datatype,$type,$bumenID,$rolesID) {
+		$DataOM = D("DataOM");
+		$datalist = array();
+		if($type == '管理')
+		$where['type'] = '管理';
+		else
+		$where['type'] = array('in','开放,管理');
+		$where['DUR'] = array('like',$bumenID.',%');
+		$OMlist = $DataOM->where($where)->find();
+		if($OMlist){
+			$ViewRoles = D("ViewRoles");
+			$roles = $ViewRoles->where("`systemID` = '$rolesID'")->find();
+			$ViewDepartment = D("ViewDepartment");
+			$bumen = $ViewDepartment->where("`systemID` = '$bumenID'")->find();
+			cookie('_task_bumen',$bumen['title'],30);
+			cookie('_task_roles',$roles['title'],30);
+			return true;
+		}
+		return false;
+	 }
+	 
+	 
+	 
+	//检查审核流程,检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+     public function _checkShenhe($datatype,$processID,$userID='',$dataID='') {
 		$DataShenhe = D("DataShenhe");
 		if($userID){
+			if(!$dataID)
+			return false;
 			$myuserID = $userID;
 			$DURlist = $this->_getDURlist($myuserID);
-			
 			$ViewRoles = D("ViewRoles");
 			$ViewUser = D("ViewUser");
 			foreach($DURlist as $v){
-				$UR = $v['rolesID'].',';
-				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
-				if($shenhe != null){
-					$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
-					$shenhe['roletitle'] = $roletitle['title'];
-					return $shenhe;
-				}
+				//开放给个人，不检查部门
 				$UR = ','.$v['userID'];
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
 				if($shenhe != null){
 					$roletitle = $ViewUser->where("`systemID` = '$v[userID]' AND (`status_system` = '1')")->find();
+					$shenhe['roletitle'] = $roletitle['title'];
+					return $shenhe;
+				}
+				//开放给角色，检查部门
+				$UR = $v['rolesID'].',';
+				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
+				if($shenhe != null){
+					//检测部门是否有产品管理权
+					$omdata = $this->_checkDataOMbumen($dataID,$datatype,'管理',$v['bumenID'],$v['rolesID']);
+					if(false === $omdata)
+						continue;
+					$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
 					$shenhe['roletitle'] = $roletitle['title'];
 					return $shenhe;
 				}
@@ -1083,9 +1114,20 @@ class MethodAction extends Action{
 		return false;
 		
 	 }
+	
+	//获得任务管理角色和部门cookie
+     public function _task_cookie_by_dur($dur) {
+		  list($om_bumen,$om_roles,$om_user) = split(',',$dur);
+		  $ViewRoles = D("ViewRoles");
+		  $roles = $ViewRoles->where("`systemID` = '$om_roles'")->find();
+		  $ViewDepartment = D("ViewDepartment");
+		  $bumen = $ViewDepartment->where("`systemID` = '$om_bumen'")->find();
+		  cookie('_task_roles',$roles['title'],30);
+		  cookie('_task_bumen',$bumen['title'],30);
+	 }
 	 
 	 
-	//检查流程状态待检出
+	//检查流程状态待检出，检出用户是否有任务权限！
      public function _getTaskDJC($dataID,$datatype,$checkright=0) {
 		 if($checkright){
 			$OMViewTaskShenhe = D("OMViewTaskShenhe");
@@ -1095,8 +1137,10 @@ class MethodAction extends Action{
 			$where['status_system'] = 1;
 			$where = $this->_openAndManage_filter($where);
 			$need = $OMViewTaskShenhe->where($where)->find();
-			if($need)
-			  return $need;
+			if($need){
+				$this->_task_cookie_by_dur($need['DUR']);
+				return $need;
+			}
 		 }
 		 else
 		 {
@@ -1377,11 +1421,10 @@ class MethodAction extends Action{
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
-			$durlist = A("Method")->_checkRolesByUser('财务','行政');
+			$durlist = A("Method")->_checkRolesByUser('出纳,会计','行政');
 			if(false !== $durlist){
 				$cus['ispay'] = $_REQUEST['ispay'.$id];
 			}
-			$cus['ispay'] = $_REQUEST['ispay'.$id];
 			if($cus['zhengjiantype'] == '身份证')
 				$zhengjianhaoma = 'sfz_haoma';
 			if($cus['zhengjiantype'] == '护照')
@@ -1621,13 +1664,22 @@ class MethodAction extends Action{
 					  $needlist[$t]['rolesID'] = $v['rolesID'];
 					  $t++;
 			  }
+			  $durlist = array_unique($needlist);
 		  }
-		  $durlist = array_unique($needlist);
 		  $i = 0;
 		  //附加开放给部门角色
 		  foreach($durlist as $v){
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			  $i++;
+		  }
+		  //附加开放到行政属性部门
+		  foreach($durlist as $v){
+			  $ViewDepartment = D("ViewDepartment");
+			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%行政%'")->findall();
+			  foreach($filterlist as $v){
+				  $dataOMlist[$i]['DUR'] = $v['systemID'].',,';
+				  $i++;
+			  }
 		  }
 		  return $dataOMlist;
 	 }
@@ -1882,7 +1934,7 @@ class MethodAction extends Action{
 		if($type == '子团'){
 			$this->showDirectory("子团产品");
 			$ViewZituan = D("ViewZituan");
-			$zituan = $ViewZituan->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$baozhang[parentID]'")->find();
 			$this->assign("zituan",$zituan);
 			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		}
@@ -2016,6 +2068,7 @@ class MethodAction extends Action{
 			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
 			//检查审核流程权限
 			$checkds = $this->_checkShenhe($_REQUEST['datatype'],$processID,$this->user['systemID']);
+			$checkds = $this->_checkShenhe($_REQUEST['datatype'],$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 			$Chanpin = D("Chanpin");
 			$editdat['chanpinID'] = $_REQUEST['dataID'];
 			$editdat['shenhe_remark'] = $checkds['remark'];
@@ -2071,6 +2124,9 @@ class MethodAction extends Action{
 				$pdat['islock'] = '已锁定';
 				$pdat['status'] = '截止';
 				if($baozhang['type'] == '团队报账单'){
+					//子团保存线路拷贝
+					if($cpd['marktype'] == 'zituan')
+					$this->_tongbuzituanxianlucopy($baozhang['parentID']);
 					//报账单审核标记与时间同步到父产品（子团）
 					$pdat[$cpd['marktype']]['baozhang_remark'] = $editdat['shenhe_remark'];
 					//订单
@@ -2091,9 +2147,6 @@ class MethodAction extends Action{
 					}
 				}
 				$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
-				//子团保存线路拷贝
-				if($cpd['marktype'] == 'zituan')
-				$this->_tongbuzituanxianlucopy($baozhang['parentID']);
 				
 			}
 			if($_REQUEST['datatype'] == '地接'){
@@ -2201,7 +2254,7 @@ class MethodAction extends Action{
 	}
 
 
-
+	//审核回退，批准回退查看流程表，申请回退查看产品的管理权限
 	public function _shenheback() {
 		C('TOKEN_ON',false);
 		$dataID = $_REQUEST['dataID'];
@@ -2224,7 +2277,7 @@ class MethodAction extends Action{
 		if($cpin['status_shenhe'] == '批准'){
 			$ViewShenhe = D("ViewShenhe");
 			$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
-			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID']);
+			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 			if(false === $checkds)
 				$this->ajaxReturn('', '错误！您没有操作权限！', 0);
 		}

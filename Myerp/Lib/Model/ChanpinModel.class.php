@@ -11,15 +11,13 @@ class ChanpinModel extends RelationModel {
     protected $_auto = array( 
         array('status', 'set_status', 1,'callback','status,parentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('time', 'set_time', 1,'callback','time',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-//        array('time', 'time', 1, 'function'), 
-//        array('user_name', 'NF_getusername', 1, 'function'), 
         array('user_name', 'set_user_name', 1,'callback','user_name',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('departmentID', 'set_department', 1,'callback','departmentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('bumen_copy', 'NF_getbumen', 3, 'function'), 
+        array('departmentID', 'set_department', 3,'callback','departmentID,chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('bumen_copy', 'set_bumen_copy', 3,'callback','departmentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('marktype', 'set_marktype', 1,'callback'),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('islock', '未锁定', 1),
-        array('status_system', 1, 1),//1正常,-1删除
-        array('status_shenhe', '未审核', 1),
+        array('islock', 'set_islock', 1,'callback','islock',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('status_system', 'set_status_system', 1,'callback','status_system',1),//1正常,-1删除
+        array('status_shenhe', 'set_status_shenhe', 1,'callback','status_shenhe',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
 	
 	protected function set_status($status,$parentID) {
@@ -27,6 +25,20 @@ class ChanpinModel extends RelationModel {
 			return $status;
 		else
 			return '准备';
+	}
+	
+	protected function set_islock($islock) {
+		if($islock)	
+			return $islock;
+		else
+			return '未锁定';
+	}
+	
+	protected function set_status_system($status_system) {//1正常,-1删除
+		if($status_system)	
+			return $status_system;
+		else
+			return 1;
 	}
 	
 	protected function set_time($time) {
@@ -41,15 +53,15 @@ class ChanpinModel extends RelationModel {
 		return $options;
 	}
 	
-	protected function set_department($departmentID) {
-		if($departmentID){
-			$ViewDepartment = D("ViewDepartment");
-			$bumen = $ViewDepartment->where("`systemID` = '$departmentID' and `status_system` = '1'")->find();
-			cookie('_usedbumenID',$bumen['systemID'],30);
+	protected function set_department($departmentID,$chanpinID) {
+		if($departmentID)
 			return $departmentID;
-		}
 		else
-		return NF_getmydepartmentid();
+			return NF_getmydepartmentid($chanpinID);
+	}
+	
+	protected function set_bumen_copy($departmentID) {
+		return NF_getbumen_title($departmentID);
 	}
 	
 	protected function set_user_name($user_name) {
@@ -57,6 +69,13 @@ class ChanpinModel extends RelationModel {
 			return $user_name;
 		else
 			return NF_getusername();
+	}
+	
+	protected function set_status_shenhe($status_shenhe) {
+		if($status_shenhe)	
+			return $status_shenhe;
+		else
+			return '未审核';
 	}
 	
 	protected $_link = array(

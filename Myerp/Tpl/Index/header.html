@@ -19,141 +19,20 @@
 <load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
 <load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+
 <link type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
+
 <script>
-var timer;
-ThinkAjax.updateTip = '<IMG SRC="<{:__PUBLIC__}>/myerp/images/loading2.gif" WIDTH="16" HEIGHT="16" BORDER="0" ALT="loading..." align="absmiddle"> 数据处理中...';
 
-function AutoScroll(obj){
-	jQuery(obj).find("span:first").animate({marginTop:"-22px"},500,function(){jQuery(this).css({marginTop:"0px"}).find("a:first").appendTo(this);});
-}
+var SITE_INDEX = '<{:SITE_INDEX}>';
+var ET_URL = '<{:ET_URL}>';
+var SITE_PUBLIC = '<{:__PUBLIC__}>';
 
-jQuery(document).ready(function(){
-	timer = setInterval('AutoScroll("#alertNewsView")',5000);
-	getNews();
-	getNewsAll("index.php?s=/Message/getNewsAll");
-	window.setInterval(getNews,50000);
-	jQuery("#alertitem").mouseover(function(){
-		clearTimeout(timer);
-	});
-	jQuery("#alertitem").mouseout(function () {
-		timer = setInterval('AutoScroll("#alertNewsView")',5000);
-	});
-	
-	//清空占位过期订单
-	window.setInterval(cleardingdan,50000);
-	
-	// Dialog
-	jQuery('#dialog').dialog({
-		autoOpen: false,
-		width: 1000,
-		buttons: {
-			"关闭": function() {
-				jQuery(this).dialog("close");
-			},
-			"清空": function() {
-				del_alert('','全部');
-				//jQuery(this).dialog("close");
-			}
-		}
-	});
-	// Dialog Link
-	jQuery('#dialog_link').click(function(){
-		getNewsAll("index.php?s=/Message/getNewsAll");
-		jQuery('#dialog').dialog('open');
-		return false;
-	});
-	//hover states on the static widgets
-	jQuery('#dialog_link, ul#icons li').hover(
-		function() { jQuery(this).addClass('ui-state-hover'); },
-		function() { jQuery(this).removeClass('ui-state-hover'); }
-	);
-	
-});
-
-function getNews(){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Message/getNews",
-		data:	"",
-		success:	function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',getnews_after);
-		}
-	});
-}
-  
-function getNewsAll(posturl){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:ET_URL}>"+posturl,
-		data:	"",
-		success:	function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',getnewsall_after);
-		}
-	});
-}
-
-function cleardingdan(){
-	getNewsAll("index.php?s=/Xiaoshou/cleardingdan");
-}
-  
-function getnews_after(data,status)
-{
-	if(status == 1){
-		jQuery("#alertNewsView").show();
-		jQuery("#alertitem").html(data);
-	}
-	else
-		jQuery("#alertNewsView").hide();
-}
-
-function getnewsall_after(data,status)
-{
-	if(status == 1){
-		jQuery("#dialog").html(data);
-	}
-}
-
-function del_alert(id,dowhat)
-{
-	it = '';
-	if(dowhat == '全部')
-		it = "/dowhat/all";
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Message/delNews"+it,
-		data:	"id="+id,
-		success:	function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',getnews_after);
-		}
-	});
-	getNews();
-	getNewsAll("index.php?s=/Message/getNewsAll");
-}
-			
-function logout(){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Index/logout",
-		data:	"",
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',todo_logout);
-		}
-	});
-}
-function todo_logout(data,status){
-	if(status == 1){
-			window.location.href='<{:SITE_INDEX}>Index';
-	}
-}
-
-function headsearch()
-{
-	title = jQuery("#query_string").val();
-	window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
-}
 </script>
+
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Index/header.js'></script>
+
 </head>
 
 <body>
