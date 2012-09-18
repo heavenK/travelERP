@@ -1979,7 +1979,7 @@ class MethodAction extends Action{
 				$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
 				$this->assign("baozhang",$baozhang);
 				$ViewTaskShenhe = D("ViewTaskShenhe");
-				$task = $ViewTaskShenhe->where("`systemID` = '$data[taskID]' or `parentID` = '$data[taskID]' and `status` != '待检出'")->order("time asc")->findall();
+				$task = $ViewTaskShenhe->where("`systemID` = '$data[taskID]' or `parentID` = '$data[taskID]' and `status` != '待检出' and `status_system` = '1'")->order("time asc")->findall();
 			}
 			else{
 				$ViewTaskShenhe = D("ViewTaskShenhe");
