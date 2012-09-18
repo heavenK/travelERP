@@ -1913,6 +1913,9 @@ class MethodAction extends Action{
 			$chanpinID = $_REQUEST['chanpinID'];
 			$ViewBaozhang = D("ViewBaozhang");
 			$baozhang = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$chanpinID' and `type` = '团队报账单'")->find();
+			dump($baozhang);
+			dump($ViewBaozhang);
+			
 			$taskom = $this->_checkOMTaskShenhe($baozhang['chanpinID'],'报账单');
 			$this->assign("taskom",$taskom);
 			$this->assign("baozhangID",$baozhang['chanpinID']);
