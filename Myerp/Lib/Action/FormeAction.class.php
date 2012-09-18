@@ -39,6 +39,7 @@ class FormeAction extends Action{
 				A("Method")->_createDataOM($xianluID,'线路','管理',$dataOMlist);
 				if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
 					//开放售价
+					if($v['zhuangtai'] == '报名')
 					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
 					//zituan
 					$this->_zituan_build($v,$dat,$dataOMlist);
@@ -1514,6 +1515,8 @@ class FormeAction extends Action{
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
 		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
 		$_REQUEST['type'] = '标准';
+		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
+		return;
 		$_REQUEST['adultprice'] = $jiage['chengrenzongjia'];
 		$_REQUEST['title'] = $category['title'];
 		$_REQUEST['openID'] = $category['systemID'];
