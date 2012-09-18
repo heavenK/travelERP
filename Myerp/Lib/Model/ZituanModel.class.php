@@ -12,11 +12,23 @@ class ZituanModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-        array('adultxiuzheng', '0', 1), 
-        array('childxiuzheng', '0', 1), 
-        //array('status_baozhang', '未审核', 1), 
+        array('adultxiuzheng', 'set_adultxiuzheng', 1,'callback','adultxiuzheng',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('childxiuzheng', 'set_childxiuzheng', 1,'callback','childxiuzheng',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_baozhang', 'set_status_baozhang', 1,'callback','status_baozhang',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
+	
+	protected function set_adultxiuzheng($adultxiuzheng) {
+		if($adultxiuzheng)	
+			return $adultxiuzheng;
+		else
+			return 0;
+	}
+	protected function set_childxiuzheng($childxiuzheng) {
+		if($childxiuzheng)	
+			return $childxiuzheng;
+		else
+			return 0;
+	}
 	protected function set_status_baozhang($status_baozhang) {
 		if($status_baozhang)	
 			return $status_baozhang;
