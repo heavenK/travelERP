@@ -1984,6 +1984,7 @@ class MethodAction extends Action{
 			else{
 				$ViewTaskShenhe = D("ViewTaskShenhe");
 				$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+				dump($task);
 			}
 			$this->assign("task",$task);
 			if($_REQUEST['doprint']){
