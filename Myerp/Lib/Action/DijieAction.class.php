@@ -62,7 +62,9 @@ class DijieAction extends CommonAction{
 		$ViewUser = D("ViewUser");
 		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
 		$this->assign("userlist",$userlist);
-		
+		//获得个人部门及分类列表
+		$bumenfeilei = A("Method")->_getbumenfenleilist('地接');
+		$this->assign("bumenfeilei",$bumenfeilei);
 		$this->display('fabu');
 	}
 	
@@ -79,6 +81,8 @@ class DijieAction extends CommonAction{
 				exit;
 			}
 		}
+		if(!$_REQUEST['departmentID'])
+			A("Method")->ajaxUploadResult($_REQUEST,'您没有权限发布地接类产品！',0);
 		$Chanpin = D("Chanpin");
 		$data = $_REQUEST;
 		$data["DJtuan"] = $_REQUEST;

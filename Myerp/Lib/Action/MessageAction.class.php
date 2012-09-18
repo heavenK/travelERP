@@ -54,7 +54,7 @@ class MessageAction extends CommonAction{
 			$this->assign("chanpin_list",$chanpin_list['chanpin']);
 			//部门分类
 			$ViewCategory = D("ViewCategory");
-			$categorylist = $ViewCategory->findall();
+			$categorylist = $ViewCategory->where("`islock` = '未锁定'")->findall();
 			$i = 0;
 			foreach($categorylist as $v){
 				$datalist = A("Method")->_getsystemDC($v['systemID']);

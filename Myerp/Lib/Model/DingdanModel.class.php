@@ -10,6 +10,7 @@ class DingdanModel extends Model {
         array('type', 'require', 'type不能为空！', 1,'',1), 
         array('tichengID', 'require', 'tichengID不能为空！', 1,'',1), 
         array('telnum', 'require', 'telnum不能为空！', 1,'',1), 
+        array('zituanID', 'require', 'zituanID不能为空！', 1,'',1), 
     );
 	
     // 自动填充设置 

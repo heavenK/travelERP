@@ -159,6 +159,7 @@
 
  function addshoujia(id,opentype,mark)
  {
+	ThinkAjax.myloading('resultdiv');
 	var it = '';
 	if(!mark){
 		it ="&chanpinID="+id;

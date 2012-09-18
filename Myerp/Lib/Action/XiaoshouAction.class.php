@@ -286,6 +286,7 @@ class XiaoshouAction extends CommonAction{
 		for($i = 0;$i<$_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];$i++){
 			$jiage += $_REQUEST['price'.$i];
 		}
+		$data['dingdan']['zituanID'] = $_REQUEST['zituanID'];
 		$data['dingdan']['jiage'] = $jiage;
 		$data['dingdan']['bumen_copy'] = cookie('_usedbumen');
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){

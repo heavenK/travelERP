@@ -190,6 +190,7 @@ class SetSystemAction extends CommonAction{
 	
 	public function deleteSystemItem()
 	{
+		$this->ajaxReturn('', '该功能暂不开放！！！', 0);
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
 		
@@ -209,12 +210,33 @@ class SetSystemAction extends CommonAction{
 				if(null == $d || false === $d)
 				break;
 				$System->relation($_REQUEST['tableName'])->where("`parentID` = '$systemID'")->delete();
-				$systemID = $d['parentID'];
 			}
 			$this->ajaxReturn('', '删除成功！', 1);
 		}
 		else
 			$this->ajaxReturn('', $System->getError(), 0);
+	}
+	
+	
+	public function lcokSystemItem()
+	{
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$systemID = $_REQUEST['systemID'];
+		$data['systemID'] = $_REQUEST['systemID'];
+		$data['islock'] = $_REQUEST['islock'];
+		if (false !== $System->save($data)){
+			while($d = $System->where("`parentID` = '$systemID' and `islock` != '$_REQUEST[islock]'")->find()){
+				if(null == $d || false === $d)
+				break;
+				$d['islock'] = $_REQUEST['islock'];
+				$System->save($d);
+			}
+			$this->ajaxReturn('', $_REQUEST['islock'].'！', 1);
+		}
+		else{
+			$this->ajaxReturn('', $System->getError(), 0);
+		}
 	}
 	
 	

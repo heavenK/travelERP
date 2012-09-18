@@ -95,7 +95,18 @@ function checktitle(){
           </tr>
           <tr>
             <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
-            <td valign="top" scope="row" style="min-width:200px;"><input name="title" type="text" id="title" value="<{$djtuan['title']}>" style="width:90%;" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="title" type="text" id="title" value="<{$djtuan['title']}>" style="width:200px;" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+              所属部门: 
+              <select name="departmentID">
+              <php>if($xianlu['bumen_copy']){</php>
+                <option value="<{$xianlu['departmentID']}>"><{$xianlu['bumen_copy']}></option>
+                <option disabled="disabled">-----------</option>
+              <php>}</php>
+              <php>foreach($bumenfeilei as $v){</php>
+                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+              <php>}</php>
+              </select>
+            </td>
             <td valign="top" scope="row" style="min-width:100px;"> 负责人: </td>
             <td valign="top"><input name="onperson" type="text" id="onperson" value="<{$djtuan['onperson']}>" check="^\S+$" warning="负责人不能为空,且不能含有空格" ></td>
             <td valign="top" scope="row" style="min-width:100px;"> 人数: </td>
@@ -192,6 +203,18 @@ function checktitle(){
                   <tbody>
                     <tr>
                       <td><textarea style="width:99%; resize:none" rows="3" name="jingdianmenpiao" id="jingdianmenpiao"><{$djtuan[datatext]['jingdianmenpiao']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+          <tr>
+            <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>接站方式</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:99%; resize:none" rows="3" name="jiezhanfangshi" id="jiezhanfangshi"><{$djtuan[datatext]['jiezhanfangshi']}></textarea></td>
                     </tr>
                   </tbody>
                 </table>

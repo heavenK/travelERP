@@ -19,11 +19,16 @@ class DJtuanModel extends Model {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-        array('baojia', '0', 1),
+        array('baojia', 'set_baojia', 1,'callback','baojia',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_baozhang', '未审核', 1), 
     ); 
 
-	
+	protected function set_baojia($baojia) {
+		if($baojia)	
+			return $baojia;
+		else
+			return 0;
+	}
 
 
 

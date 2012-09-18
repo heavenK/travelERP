@@ -64,6 +64,8 @@ class ChanpinAction extends CommonAction{
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['xianlu'] = $_REQUEST;
+		if(!$_REQUEST['departmentID'])
+			A("Method")->ajaxUploadResult($_REQUEST,'您没有权限发布线路类产品！',0);
 		//修改已有
 		if($_REQUEST['chanpinID']){
 			//检查dataOM

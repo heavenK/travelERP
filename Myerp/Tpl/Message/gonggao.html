@@ -97,13 +97,15 @@ function dosearch()
                   <table cellspacing="1" cellpadding="0" border="0" width="100%">
                     <tbody>
                       <tr>
-                        <td valign="top" scope="row" style="min-width:50px; border-left:1px solid #94c1e8;">
+                        <td valign="top" scope="row" style="min-width:50px; border-left:1px solid #94c1e8; width:100px;">
                         	<input type="checkbox" onclick="toselect(this,'jieshou_<{$v[systemID]}>')"><{$v['title']}>
                         </td>
                         <td valign="top" scope="row" style="min-width:400px; border-left:1px solid #94c1e8;">
                         	<php>foreach($v['systemDClist'] as $vol){</php>
+                            <label style="width:160px; float:left">
                             <input type="checkbox" class="jieshou_<{$v['systemID']}> <{$vol['department']['systemID']}>" name="bumenlist[]" value="<{$vol['department']['systemID']}>"><{$vol['department']['title']}>
-                        	<php>}</php>
+                        	</label>
+                            <php>}</php>
                         </td>
                       </tr>
                     </tbody>

@@ -35,12 +35,12 @@
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 姓名 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 出生日期 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 通讯地址 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 身份证号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 护照号 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 通行证号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 出生日期 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 通讯地址 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
                 </tr>
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
@@ -48,12 +48,12 @@
                     <td scope="row" align="left" valign="top"><{$i+1}></td>
                     <td scope="row" align="left" valign="top"><{$v['name']}></a></td>
                     <td scope="row" align="left" valign="top"><{$v['sex']}></a></td>
-                    <td scope="row" align="left" valign="top"><{$v['chushengriqi']}></a></td>
                     <td scope="row" align="left" valign="top"><{$v['telnum']}></a></td>
-                    <td scope="row" align="left" valign="top"><{$v['tongxundizhi']}></a></td>
                     <td scope="row" align="left" valign="top"><{$v['hz_haoma']}></a></td>
                     <td scope="row" align="left" valign="top"><{$v['txz_haoma']}></a></td>
                     <td scope="row" align="left" valign="top"><{$v['sfz_haoma']}></td>
+                    <td scope="row" align="left" valign="top"><{$v['chushengriqi']}></a></td>
+                    <td scope="row" align="left" valign="top"><{$v['tongxundizhi']}></a></td>
                     <td scope="row" align="left" valign="top">
                       <a href="javascript:TravelerDetail(<{$v['systemID']}>)">查看</a>
                     </td>

@@ -561,8 +561,11 @@ class MethodAction extends Action{
 			$departmentlist = $this->_getDClist($data['openID']);
 			foreach($departmentlist as $s){
 				$OM['bumenID'] = $s['dataID'];
-				$OM['DUR'] = _OMToDataOM_filter($OM);
-				$DataOM->mycreate($OM);
+				$OM['DUR'] = $this->_OMToDataOM_filter($OM);
+				if(false === $DataOM->mycreate($OM)){
+					dump($DataOM);
+					exit;	
+				}
 			}
 			return;
 		}
@@ -572,7 +575,6 @@ class MethodAction extends Action{
 		$OM['DUR'] = $this->_OMToDataOM_filter($OM);
 		$DataOM->mycreate($OM);
 	 }
-	 
 	 
 	 
 	
@@ -594,7 +596,7 @@ class MethodAction extends Action{
 			foreach($departmentlist as $s){
 				unset($OM['userID']);
 				$OM['bumenID'] = $s['dataID'];
-				$OM['DUR'] = _OMToDataOM_filter($OM);
+				$OM['DUR'] = $this->_OMToDataOM_filter($OM);
 				$DataOM->mycreate($OM);
 			}
 			return;
@@ -1673,13 +1675,11 @@ class MethodAction extends Action{
 			  $i++;
 		  }
 		  //附加开放到行政属性部门
-		  foreach($durlist as $v){
-			  $ViewDepartment = D("ViewDepartment");
-			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%行政%'")->findall();
-			  foreach($filterlist as $v){
-				  $dataOMlist[$i]['DUR'] = $v['systemID'].',,';
-				  $i++;
-			  }
+		  $ViewDepartment = D("ViewDepartment");
+		  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%行政%'")->findall();
+		  foreach($filterlist as $v){
+			  $dataOMlist[$i]['DUR'] = $v['systemID'].',,';
+			  $i++;
 		  }
 		  return $dataOMlist;
 	 }
@@ -1692,16 +1692,17 @@ class MethodAction extends Action{
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
-		$bumentypelist = explode(',',$bumentype);
+		$bumentypelist = $bumentype;
+		//$bumentypelist = explode(',',$bumentype);
 		$m = 0;
-		foreach($durlist as $v){
+		foreach($durlist as $v){//同时拥有部门和角色属性
 			$ok_d = 0;
 			$ok_r = 0;
 			//比对部门类型
 			$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
 			$typelist = explode(',',$bumen['type']);
 			foreach($typelist as $vaa){
-				if(in_array($vaa,$bumentypelist)){
+				if($vaa == $bumentypelist){
 					$ok_d = 1;
 					break;	
 				}
@@ -1718,6 +1719,8 @@ class MethodAction extends Action{
 			}
 		}
 		if($dur) return $dur;
+		elseif($bumentype != '行政')
+		return $this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');		 //附加行政部门，网管，总经理，副总，出纳，会计等角色
 		return false;
 	 }
 	 
@@ -2539,9 +2542,6 @@ class MethodAction extends Action{
 		}
 		return $datas2;
 	}
-	
-	
-	
 	
 	
 	

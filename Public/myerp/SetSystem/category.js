@@ -80,6 +80,22 @@
 	
  }
 
+ function lockSystemItem(id,divname,type,islock)
+ {
+	if(type == 'temp')
+		jQuery("#"+divname+id).remove();
+	else	
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"SetSystem/lcokSystemItem/tableName/departmentDC/islock/"+islock,
+		data:	"systemID="+id,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+	
+ }
+
  function del_after(data,status,info,type,id)
  {
 	if(status == 1){

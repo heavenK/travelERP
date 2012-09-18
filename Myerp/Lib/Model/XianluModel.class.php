@@ -15,10 +15,22 @@ class XianluModel extends Model {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-        array('ischild', '0', 1), 
+        array('ischild', 'set_ischild', 1,'callback','ischild',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('baomingjiezhi', 'set_baomingjiezhi', 1,'callback','baomingjiezhi',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
 
-	
+	protected function set_ischild($ischild) {
+		if($ischild)	
+			return $ischild;
+		else
+			return 0;
+	}
+	protected function set_baomingjiezhi($baomingjiezhi) {
+		if($baomingjiezhi)	
+			return $baomingjiezhi;
+		else
+			return 1;
+	}
 
 
 
