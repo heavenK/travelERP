@@ -9,7 +9,7 @@ class FormeAction extends Action{
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
 		$glxianlu_ext=M("glxianlu_ext");
-		$xianluAll = $gl_xianlu->order('time DESC')->limit(20)->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->limit(40)->findall();
 		$Chanpin=D("Chanpin");
 		foreach($xianluAll as $v)
 		{
