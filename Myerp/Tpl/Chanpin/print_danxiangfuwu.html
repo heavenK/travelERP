@@ -123,7 +123,7 @@
       $high_1[$i] = $title;
       else
       $high_1[$i] = $remark;
-      if($high_1 < 28) $high_1 = 28;
+      if($high_1[$i] < 28) $high_1 = 28;
   }
   $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$j++;
       $title = strlen($v['title']) / 22 * 28;
