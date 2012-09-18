@@ -1938,6 +1938,9 @@ class MethodAction extends Action{
 			$this->showDirectory("子团产品");
 			$ViewZituan = D("ViewZituan");
 			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			
+			dump($zituan);
+			
 			$this->assign("zituan",$zituan);
 			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		}
