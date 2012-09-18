@@ -1,7 +1,7 @@
 <?php
 
 class TaskShenheModel extends Model {
-	protected $trueTableName = 'myerp_system_taskShenhe';	
+	protected $trueTableName = 'myerp_system_taskshenhe';	
 	protected $pk = 'systemID';
 		
    // 自动验证设置 
