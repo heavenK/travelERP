@@ -2295,6 +2295,8 @@ class MethodAction extends Action{
 			$System = D("System");
 			$shenhe['status_system'] = -1;
 			$System->where("`systemID` = '$djc[systemID]' or `systemID` = '$djc[parentID]'")->save($shenhe);
+			dump($System);
+			
 		}
 		//相关产品状态同步
 		if($datatype == '报账单'){
