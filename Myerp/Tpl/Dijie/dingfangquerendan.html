@@ -1,0 +1,157 @@
+<tp:includeCA file="Index:showheader" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
+<script>
+var SITE_INDEX = '<{:SITE_INDEX}>';
+
+function save(){
+	scroll(0,0);
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Dijie/dopostdingfang',doComplete,'resultdiv');
+}
+
+function doComplete(){
+}
+
+function exports()
+{
+	window.location.href = SITE_INDEX+'Dijie/dingfangquerendan/export/1/chanpinID/<{$chanpinID}>';
+}
+
+function doprint(type){
+	var url = SITE_INDEX+'Dijie/dingfangquerendan/doprint/'+type+'/chanpinID/<{$chanpinID}>';
+    window.open(url,null,"height=800,width=1200,status=yes,toolbar=no,menubar=no,location=no");
+}
+</script>
+<div id="main">
+  <tp:includeCA file="Dijie:left_chanpin" />
+  <div id="content" style="margin-left:170px;">
+    <tp:includeCA file="Dijie:header_chanpin" />
+    <form name="form" id="form" method="post">
+      <input name="chanpinID" id="chanpinID" type="hidden" value="<{$chanpinID}>" >
+      <input type="hidden" name="ajax" value="1">
+      <!--ajax提示-->
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>基本信息（选填）</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 标题: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="title" type="text" value="<{$datatext_dingfang['title']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 酒店: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="hotel" type="text" value="<{$datatext_dingfang['hotel']}>" ></td>
+            <td valign="top" scope="row" colspan="2"></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 收件单位: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="shoujiandanwei" type="text" value="<{$datatext_dingfang['shoujiandanwei']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 收件人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="shoujianren" type="text" value="<{$datatext_dingfang['shoujianren']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="shoujiantelnum" type="text" value="<{$datatext_dingfang['shoujiantelnum']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="shoujianfax" type="text" value="<{$datatext_dingfang['shoujianfax']}>" ></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 发件单位: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fajiandanwei" type="text" value="<{$datatext_dingfang['fajiandanwei']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 发件人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fajianren" type="text" value="<{$datatext_dingfang['fajianren']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fajiantelnum" type="text" value="<{$datatext_dingfang['fajiantelnum']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 传真: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fajianfax" type="text" value="<{$datatext_dingfang['fajianfax']}>" ></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 订房时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="dingfangshijian" type="text" value="<{$datatext_dingfang['dingfangshijian']}>" onfocus="WdatePicker()"></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 入住时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;""><input name="ruzhushijian" type="text" value="<{$datatext_dingfang['ruzhushijian']}>" onfocus="WdatePicker()"></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 结算时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="jiesuanshijian" type="text" value="<{$datatext_dingfang['jiesuanshijian']}>" onfocus="WdatePicker()"></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 退房时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="tuifangshijian" type="text" value="<{$datatext_dingfang['tuifangshijian']}>" onfocus="WdatePicker()"></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 订房标准: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="dingfangbiaozhun" type="text" value="<{$datatext_dingfang['dingfangbiaozhun']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 人数: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="renshu" type="text" value="<{$datatext_dingfang['renshu']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 房间价格: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="fangjianjiage" type="text" value="<{$datatext_dingfang['fangjianjiage']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 陪同房: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="peitongfang" type="text" value="<{$datatext_dingfang['peitongfang']}>" ></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 早餐标准: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="zaocanbiaozhun" type="text" value="<{$datatext_dingfang['zaocanbiaozhun']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 早餐人数: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="zaocanrenshu" type="text" value="<{$datatext_dingfang['zaocanrenshu']}>" ></td>
+            <td valign="top" scope="row" colspan="2"></td>
+          </tr>
+          <tr>
+				<td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>应付金额</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><textarea style="width:99%; resize:none" rows="4" name="yingfu"><{$datatext_dingfang['yingfu']}></textarea></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  </tr>
+                </tbody>
+              </table></td>
+          </tr>
+          <tr>
+				<td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>备注</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><textarea style="width:99%; resize:none" rows="4" name="remark"><{$datatext_dingfang['remark']}></textarea></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  </tr>
+                </tbody>
+              </table></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 旅行社经办人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="handler" type="text" value="<{$datatext_dingfang['handler']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="handlertime" type="text" value="<{$datatext_dingfang['handlertime']}>" onfocus="WdatePicker()"></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 酒店经办人: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="hotelhandler" type="text" value="<{$datatext_dingfang['hotelhandler']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 时间: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="hotelhandlertime" type="text" value="<{$datatext_dingfang['hotelhandlertime']}>" onfocus="WdatePicker()"></td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+      
+      <div class="buttons">
+        <input type="button" value="保存" name="button" class="button primary" onclick="save();">
+      </div>
+    </form>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />

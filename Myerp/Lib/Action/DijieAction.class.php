@@ -126,6 +126,44 @@ class DijieAction extends CommonAction{
 	
 	
 	
+	
+	public function dingfangquerendan() {
+		A("Method")->showDirectory("订房确认单");
+		$chanpinID = $_REQUEST["chanpinID"];
+		//检查dataOM
+		$xianlu = A('Method')->_checkDataOM($chanpinID,'地接');
+		if(false === $xianlu){
+			$this->display('Index:error');
+			exit;
+		}
+		$ViewDJtuan = D('ViewDJtuan');
+		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
+		$djtuan['datatext_dingfang'] = unserialize($djtuan['datatext_dingfang']);
+		if($djtuan['datatext_dingfang']['title'] == '')
+			$djtuan['datatext_dingfang']['title'] = '大连古莲国旅';
+		if($djtuan['datatext_dingfang']['fajianrendanwei'] == '')
+			$djtuan['datatext_dingfang']['fajianrendanwei'] = '大连古莲国旅';
+		$this->assign("datatext_dingfang",$djtuan['datatext_dingfang']);
+		$this->assign("djtuan",$djtuan);
+		$this->assign("remark",$djtuan['datatext_xingcheng']['remark']);
+		$this->assign("datatitle",' : "'.$djtuan['title'].'"');
+		if($_REQUEST['doprint'] == '打印'){
+			$this->display('print_dingfang');
+		}
+		elseif($_REQUEST['export'] == 1){
+			//导出Word
+			header("Content-type:application/msword");
+			header("Content-Disposition:attachment;filename=" . '日程安排——'.$djtuan['title']. ".doc");
+			header("Pragma:no-cache");        
+			header("Expires:0"); 
+			$this->display('print_dingfang');
+		}
+		else
+			$this->display('dingfangquerendan');
+	}
+	
+	
+	
 	public function xingcheng() {
 		A("Method")->showDirectory("日程安排");
 		$chanpinID = $_REQUEST["chanpinID"];
@@ -138,11 +176,41 @@ class DijieAction extends CommonAction{
 		$ViewDJtuan = D('ViewDJtuan');
 		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
 		$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
+		$this->assign("datatext_xingcheng",$djtuan['datatext_xingcheng']);
+		$this->assign("jiaotong_array",$djtuan['datatext_xingcheng']['jiaotong_array']);
 		$this->assign("djtuan",$djtuan);
 		$this->assign("xingcheng_array",$djtuan['datatext_xingcheng']['xingcheng_array']);
 		$this->assign("remark",$djtuan['datatext_xingcheng']['remark']);
 		$this->assign("datatitle",' : "'.$djtuan['title'].'"');
-		$this->display('xingcheng');
+		if($_REQUEST['doprint'] == '打印'){
+			$this->display('print_xingcheng');
+		}
+		elseif($_REQUEST['export'] == 1){
+			//导出Word
+			header("Content-type:application/msword");
+			header("Content-Disposition:attachment;filename=" . '日程安排——'.$djtuan['title']. ".doc");
+			header("Pragma:no-cache");        
+			header("Expires:0"); 
+			$this->display('print_xingcheng');
+		}
+		else
+			$this->display('xingcheng');
+	}
+	
+	
+	
+	public function dopostdingfang() {
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$data["chanpinID"] = $_REQUEST["chanpinID"];
+		$datatext =  $_REQUEST;
+		$data["DJtuan"]['datatext_dingfang'] = serialize($datatext);
+		if (false !== $Chanpin->relation('DJtuan')->myRcreate($data)){
+			$this->ajaxReturn($_REQUEST,'保存成功！', 1);
+		}
+		else
+			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+	
 	}
 	
 	
@@ -154,12 +222,22 @@ class DijieAction extends CommonAction{
 		$data['DJtuan']["daoyou"] = $_REQUEST["daoyou"];
 		$data["DJtuan"]["daoyoutelnum"] = $_REQUEST["daoyoutelnum"];
 		$data["DJtuan"]["tuanbiao"] = $_REQUEST["tuanbiao"];
+		$datatext['hotel'] =  $_REQUEST["hotel"];
+		$datatext['roomnumber'] =  $_REQUEST["roomnumber"];
+		$datatext['quanpei'] =  $_REQUEST["quanpei"];
+		$datatext['quanpeitelnum'] =  $_REQUEST["quanpeitelnum"];
 		$i = 0;
 		foreach($_REQUEST['zaocan'] as $v){
 			$xingcheng_array[$i] = $_REQUEST['zaocan'][$i].'@_@'.$_REQUEST['wucan'][$i].'@_@'.$_REQUEST['wancan'][$i].'@_@'.$_REQUEST['content'][$i];
 			$i++;	
 		}
 		$datatext['xingcheng_array'] = $xingcheng_array;
+		$i = 0;
+		foreach($_REQUEST['jiaotongtype'] as $v){
+			$jiaotong_array[$i] = $_REQUEST['jiaotongtype'][$i].'@_@'.$_REQUEST['fangshi'][$i].'@_@'.$_REQUEST['bianhao'][$i].'@_@'.$_REQUEST['dachengshijian'][$i].'@_@'.$_REQUEST['didashijian'][$i];
+			$i++;	
+		}
+		$datatext['jiaotong_array'] = $jiaotong_array;
 		$datatext['remark'] = $_REQUEST["remark"];
 		$data["DJtuan"]['datatext_xingcheng'] = serialize($datatext);
 		if (false !== $Chanpin->relation('DJtuan')->myRcreate($data)){

@@ -37,7 +37,7 @@ class ChanpinAction extends CommonAction{
 				$xianlu['quanpei'] = $fuwu1;
 				$xianlu['dipei'] = $fuwu2;
 			}
-			if($xianlu['guojing'] == '境外')
+			if($xianlu['guojing'] == '境外' || $xianlu['kind'] == '包团')
 				$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu_ext']);
 		}
 		else{
@@ -74,7 +74,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 			$xianlu = $Chanpin->relation("xianlu")->find($_REQUEST['chanpinID']);
 			$_REQUEST['xianlu']['kind'] = $xianlu['xianlu']['kind'];
-			$_REQUEST['xianlu']['guojing'] = $_REQUEST['guojing'];
+			$_REQUEST['xianlu']['guojing'] = $xianlu['xianlu']['guojing'];
 			//部门
 			$ViewDepartment = D("ViewDepartment");
 			$bumen = $ViewDepartment->where("`systemID` = '$_REQUEST[departmentID]'")->find();
@@ -85,24 +85,26 @@ class ChanpinAction extends CommonAction{
 			$durlist = A("Method")->_checkRolesByUser('计调','组团');
 			if (false === $durlist)
 				$this->ajaxReturn('', '没有计调权限！', 0);
+			$_REQUEST['xianlu']['kind'] = $_REQUEST['kind'];
+			$_REQUEST['xianlu']['guojing'] = $_REQUEST['guojing'];
 		}
 		//检查
 		if(!$_REQUEST['chufashengfen'] || !$_REQUEST['chufachengshi'])
 			$this->ajaxReturn($_REQUEST,'错误,出发地不能为空！', 0);
-		if($_REQUEST['guojing'] == "国内")
+		if($_REQUEST['xianlu']['guojing'] == "国内")
 		if(!$_REQUEST['daqu'] || !$_REQUEST['shengfen'] || !$_REQUEST['chengshi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
-		if($_REQUEST['guojing'] == "境外")
+		if($_REQUEST['xianlu']['guojing'] == "境外")
 		if(!$_REQUEST['mudidi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
 			
 		//数据处理
-		if($_REQUEST['guojing'] == "国内")
+		if($_REQUEST['xianlu']['guojing'] == "国内")
 		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
 		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
 		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
-		if($_REQUEST['guojing'] == "境外"){
+		if($_REQUEST['xianlu']['guojing'] == "境外" && $_REQUEST['xianlu']['kind'] != "包团"){
 			$xianlu_ext['feiyongyes'] = $_REQUEST['feiyongyes'];
 			$xianlu_ext['feiyongno'] = $_REQUEST['feiyongno'];
 			$xianlu_ext['qianzhengxinxi'] = $_REQUEST['qianzhengxinxi'];
@@ -112,7 +114,16 @@ class ChanpinAction extends CommonAction{
 			$xianlu_ext['chuxingjingshi'] = $_REQUEST['chuxingjingshi'];
 			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
 		}
-		
+		if($_REQUEST['xianlu']['kind'] == "包团"){
+			$xianlu_ext['baotuandanwei'] = $_REQUEST['baotuandanwei'];
+			$xianlu_ext['quanpei'] = $_REQUEST['quanpei'];
+			$xianlu_ext['adultprice'] = $_REQUEST['adultprice'];
+			$xianlu_ext['childprice'] = $_REQUEST['childprice'];
+			$xianlu_ext['zongjia'] = $_REQUEST['zongjia'];
+			$xianlu_ext['remark'] = $_REQUEST['remark'];
+			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
+		}
+		//dump($_REQUEST);
 		//end
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();

@@ -40,64 +40,18 @@ td {
 	text-align:center
 }
 </style>
-<SCRIPT language=javascript>
-function printpr()   //预览函数
-{
-document.all("qingkongyema").click();//打印之前去掉页眉，页脚
-document.all("dayinDiv").style.display="none"; //打印之前先隐藏不想打印输出的元素（此例中隐藏“打印”和“打印预览”两个按钮）
-var OLECMDID = 7;
-var PROMPT = 1; 
-var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
-WebBrowser1.ExecWB(OLECMDID, PROMPT);
-WebBrowser1.outerHTML = "";
-document.all("dayinDiv").style.display="";//打印之后将该元素显示出来（显示出“打印”和“打印预览”两个按钮，方便别人下次打印）
-} 
-function printTure()   //打印函数
-{
-    document.all('qingkongyema').click();//同上
-    document.all("dayinDiv").style.display="none";//同上
-    window.print();
-    document.all("dayinDiv").style.display="";
-}
-function doPage()
-{
-    layLoading.style.display = "none";//同上
-}
-</SCRIPT>
-<script language="VBScript">
-dim hkey_root,hkey_path,hkey_key
-hkey_root="HKEY_CURRENT_USER"
-hkey_path="\Software\Microsoft\Internet Explorer\PageSetup"
-'//设置网页打印的页眉页脚为空
-function pagesetup_null()
-on error resume next
-Set RegWsh = CreateObject("WScript.Shell")
-hkey_key="\header" 
-RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
-hkey_key="\footer"
-RegWsh.RegWrite hkey_root+hkey_path+hkey_key,""
-end function
-'//设置网页打印的页眉页脚为默认值
-function pagesetup_default()
-on error resume next
-Set RegWsh = CreateObject("WScript.Shell")
-hkey_key="\header" 
-RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&w&b页码，&p/&P"
-hkey_key="\footer"
-RegWsh.RegWrite hkey_root+hkey_path+hkey_key,"&u&b&d"
-end function
-</script>
+<style media="print" type="text/css"> 
+.noprint{visibility:hidden} 
+</style>
 </head>
 
 <body>
-<div class="gl_jsb_box">
+<div class="gl_jsb_box noprint">
   <table width="700" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9D8" id="dayinDiv" name="dayinDiv">
     <tr>
-      <td height="20"><input type="button" class="tab" value="打印" onclick="printTure();">
-        <input  type="button" class="tab" value="打印预览" onclick="printpr();">
-        <input type="hidden" name="qingkongyema" id="qingkongyema" class="tab" value="清空页码" onclick="pagesetup_null()">
-        <input type="hidden" class="tab" value="恢复页码" onclick="pagesetup_default()"></td>
+      <td height="20">
+    <input class="button" type="button" value=" 开始打印 " onclick="print();">
+      </td>
     </tr>
   </table>
 </div>

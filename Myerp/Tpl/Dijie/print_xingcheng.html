@@ -1,0 +1,134 @@
+<include file="Index:simple_header" />
+<style media="print" type="text/css"> 
+.noprint{visibility:hidden} 
+</style>
+<div id="main">
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+  
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view noprint">
+              <tbody>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                            <input class="button" type="button" value=" 开始打印 " onclick="print();">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+  
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>基本信息</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 导游: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$djtuan['daoyou']}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 导游电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$djtuan['daoyoutelnum']}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 团队标志: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$djtuan['tuanbiao']}></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 入住酒店: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$datatext_xingcheng['hotel']}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 客房（间）: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$datatext_xingcheng['roomnumber']}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 全陪: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$datatext_xingcheng['quanpei']}></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 全陪电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><{$datatext_xingcheng['quanpeitelnum']}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 备注说明: </td>
+            <td valign="top" scope="row" colspan="3"><{$remark}></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" colspan="6">
+                <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="jiaotong">
+                  <tbody>
+                    <tr height="20">
+                      <th scope="col" nowrap="nowrap"> 序号</th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 交通方式 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 搭乘时间 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 抵达时间 </div></th>
+                    </tr>
+                  <php>for($i=1;$i<=count($jiaotong_array);$i++){ list($jiaotongtype,$fangshi,$dachengshijian,$didashijian) = explode('@_@',$jiaotong_array[$i-1]);</php>
+                  <tr height="40" class="evenListRowS1" id="jiaotongitem<{$i}>">
+                    <td scope="row" align="left" valign="top"><{$i}></td>
+                    <td scope="row" align="left" valign="top"><{$jiaotongtype}></td>
+                    <td scope="row" align="left" valign="top"><{$fangshi}></td>
+                    <td scope="row" align="left" valign="top"><{$dachengshijian}></td>
+                    <td scope="row" align="left" valign="top"><{$didashijian}></td>
+                  </tr>
+                   <php>}</php> 
+				 </tbody>
+              </table>
+              </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+        
+      <php>for($i=1;$i<=$djtuan[tianshu];$i++){ list($zaocan,$wucan,$wancan,$content) = explode('@_@',$xingcheng_array[$i-1]);</php>
+          <tr>
+            <th align="left" colspan="8"> <h4>日程安排：第<{$i}>天</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 早餐: </td>
+            <td valign="top" scope="row"><{$zaocan}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 午餐: </td>
+            <td valign="top" scope="row"><{$wucan}></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 晚餐: </td>
+            <td valign="top" scope="row"><{$wancan}></td>
+          </tr>
+          <tr>
+            <td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>内容</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><{$content}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  </tr>
+                </tbody>
+              </table></td>
+          </tr>
+      <php>}</php>
+          
+        </tbody>
+      </table>
+            
+            
+  </div>
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+
+
+

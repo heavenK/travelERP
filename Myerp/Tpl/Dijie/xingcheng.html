@@ -1,10 +1,53 @@
 <tp:includeCA file="Index:showheader" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+
 <script>
+var SITE_INDEX = '<{:SITE_INDEX}>';
+
 function save(){
 	scroll(0,0);
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Dijie/dopostxingcheng',doComplete,'resultdiv');
 }
+
 function doComplete(){
+}
+
+var i = '<php> echo count($jiaotong_array);</php>';
+function insertjiaotong(type)
+{
+	i++;	 
+	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"jiaotongitem"+i+"\">";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"hidden\" name=\"jiaotongtype[]"+i+"\" value=\""+type+"\" >"+type+"</td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select style=\"width:100px;\" name=\"fangshi[]"+i+"\">";
+	htmlcontent += "<option value=\"汽车\">汽车</option>";
+	htmlcontent += "<option value=\"火车\">火车</option>";
+	htmlcontent += "<option value=\"飞机\">飞机</option>";
+	htmlcontent += "<option value=\"轮船\">轮船</option>";
+	htmlcontent += "</select></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"bianhao[]"+i+"\" ></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"dachengshijian[]"+i+"\" onfocus=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})\"></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"didashijian[]"+i+"\" onfocus=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})\"></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deletejiaotong("+i+");\" />";
+	htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"save()\" /></td>";
+	htmlcontent += "</tr>";
+	jQuery("#jiaotong").append(htmlcontent);
+}
+
+function deletejiaotong(id)
+{
+	jQuery("#jiaotongitem"+id).remove();
+	save();
+}
+
+function exports()
+{
+	window.location.href = SITE_INDEX+'Dijie/xingcheng/export/1/chanpinID/<{$chanpinID}>';
+}
+function doprint(type){
+	var url = SITE_INDEX+'Dijie/xingcheng/doprint/'+type+'/chanpinID/<{$chanpinID}>';
+    window.open(url,null,"height=800,width=1200,status=yes,toolbar=no,menubar=no,location=no");
 }
 </script>
 <div id="main">
@@ -26,13 +69,81 @@ function doComplete(){
             <td valign="top" scope="row" style="min-width:200px;"><input name="daoyou" type="text" value="<{$djtuan['daoyou']}>" ></td>
             <td valign="top" scope="row" style="min-width:100px;"> 导游电话: </td>
             <td valign="top" scope="row" style="min-width:200px;"><input name="daoyoutelnum" type="text" value="<{$djtuan['daoyoutelnum']}>" ></td>
-          </tr>
-          <tr>
             <td valign="top" scope="row" style="min-width:100px;"> 团队标志: </td>
             <td valign="top" scope="row" style="min-width:200px;"><input name="tuanbiao" type="text" value="<{$djtuan['tuanbiao']}>" ></td>
-            <td valign="top" scope="row" style="min-width:100px;"> 备注说明: </td>
-            <td valign="top" scope="row" style="min-width:200px;"><input style=" width:400px;" name="remark" type="text" value="<{$remark}>" ></td>
           </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 入住酒店: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="hotel" type="text" value="<{$datatext_xingcheng['hotel']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 客房（间）: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="roomnumber" type="text" value="<{$datatext_xingcheng['roomnumber']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 全陪: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="quanpei" type="text" value="<{$datatext_xingcheng['quanpei']}>" ></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" style="min-width:100px;"> 全陪电话: </td>
+            <td valign="top" scope="row" style="min-width:200px;"><input name="quanpeitelnum" type="text" value="<{$datatext_xingcheng['quanpeitelnum']}>" ></td>
+            <td valign="top" scope="row" style="min-width:100px;"> 备注说明: </td>
+            <td valign="top" scope="row" colspan="3"><input style=" width:400px;" name="remark" type="text" value="<{$remark}>" ></td>
+          </tr>
+          
+          <tr>
+            <td valign="top" scope="row" colspan="6">
+                <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="jiaotong">
+                  <tbody>
+                    <tr class="pagination">
+                      <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                          <tbody>
+                            <tr>
+                              <td nowrap="nowrap" class="paginationActionButtons"><strong>交通</strong>&nbsp;
+                                <input class="button" type="button" value="添加去程交通" onclick="insertjiaotong('去程');" />
+                                <input class="button" type="button" value="+回程交通" onclick="insertjiaotong('回程');" />
+                              <td nowrap="nowrap" align="right" class="paginationChangeButtons"></td>
+                            </tr>
+                          </tbody>
+                        </table></td>
+                    </tr>
+                    <tr height="20">
+                      <th scope="col" nowrap="nowrap"> 序号</th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 交通方式 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 航班车次编号 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 搭乘时间 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 抵达时间 </div></th>
+                      <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+                    </tr>
+                  <php>for($i=1;$i<=count($jiaotong_array);$i++){ list($jiaotongtype,$fangshi,$bianhao,$dachengshijian,$didashijian) = explode('@_@',$jiaotong_array[$i-1]);</php>
+                  <tr height="40" class="evenListRowS1" id="jiaotongitem<{$i}>">
+                    <td scope="row" align="left" valign="top"><{$i}></td>
+                    <td scope="row" align="left" valign="top"><input type="hidden" name="jiaotongtype[]" value="<{$jiaotongtype}>" ><{$jiaotongtype}></td>
+                    <td scope="row" align="left" valign="top">
+                    <select name="fangshi[]" style="width:100px;">
+                    <php>if($fangshi){</php>
+                    <option value="<{$fangshi}>"><{$fangshi}></option>
+                    <option disabled="disabled">--------------</option>
+                    <php>}</php>
+                    <option value="汽车">汽车</option>
+                    <option value="火车">火车</option>
+                    <option value="飞机">飞机</option>
+                    <option value="轮船">轮船</option>
+                    </select>
+                    </td>
+                    <td scope="row" align="left" valign="top"><input type="text" name="bianhao[]" value="<{$bianhao}>" o></td>
+                    <td scope="row" align="left" valign="top"><input type="text" name="dachengshijian[]" value="<{$dachengshijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
+                    <td scope="row" align="left" valign="top"><input type="text" name="didashijian[]" value="<{$didashijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
+                    <td scope="row" align="left" valign="top">
+                    <input class="button" type="button" value="删除" onClick="deletejiaotong(<{$i}>)" />
+					<input class="button" type="button" value="修改" onClick="save()" />
+                    </td>
+                  </tr>
+                   <php>}</php> 
+				 </tbody>
+              </table>
+			</td>
+          </tr>
+          
         </tbody>
       </table>
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">

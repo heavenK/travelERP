@@ -8,9 +8,9 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		$glxianlu_ext=M("glxianlu_ext");
-		$xianluAll = $gl_xianlu->order('time DESC')->limit(40)->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->limit(50)->findall();
 		$Chanpin=D("Chanpin");
+		$glxianlujiage = M("glxianlujiage");
 		foreach($xianluAll as $v)
 		{
 			$dat = $v;
@@ -29,33 +29,43 @@ class FormeAction extends Action{
 			}
 			else
 				$dat['status'] = '准备';
-			//境外团
-			$ext = $glxianlu_ext->where("`xianluID` = '$v[xianluID]'")->find();
-			$dat['xianlu']['xianlu_ext'] = serialize($ext);		
+			//售价及儿童说明
+			$jiage = $glxianlujiage->where("`xianluID` = '$v[xianluID]'")->find();
+			$dat['xianlu']['shoujia'] = $jiage['chengrenzongjia'];
+			$dat['xianlu']['remark'] = $jiage['ertongshuoming'];
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
 				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
 				A("Method")->_createDataOM($xianluID,'线路','管理',$dataOMlist);
 				if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
+					//生成备份
+					A("Method")->makefiledatacopy($xianluID,'线路',-1);
 					//开放售价
 					if($v['zhuangtai'] == '报名')
 					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
 					//zituan
 					$this->_zituan_build($v,$dat,$dataOMlist);
 				}
+				//附表
+				if($v['guojing'] == '境外')
+				$this->_xianluext_build($v,$dat);
+				if($v['xianlutype'] == '包团' && $v['guojing'] != '境外')
+				$this->_xianluext_build($v,$dat,'包团');
+				//行程
+				$this->_xianlu_xingcheng($v,$dat);
+				//成本
+				$this->_xianlu_chengben($v,$dat);
+				
 			}
 			else
 			{
 				dump($Chanpin);
 			}
 			
+			
 			//message
 //			$this->chanpinxiaoxi($v,$chanpinID);
-//			//xingcheng
-//			$this->xingcheng($v,$chanpinID);
-//			//chengben shoujia
-//			$this->chengbenshoujia($v,$chanpinID);
 			//exit;
 		}
 		
@@ -75,6 +85,7 @@ class FormeAction extends Action{
 		$dj_itinerary=M("dj_itinerary");
 		$dj_rcitem=M("dj_rcitem");
 		$dj_appraisal=M("dj_appraisal");
+		$dj_orderhotel=M("dj_orderhotel");
 		foreach($datalist as $v){
 			$dat = $v;
 			$dat['DJtuan'] = $v;
@@ -115,8 +126,7 @@ class FormeAction extends Action{
 			//行程内容
 			$xingcheng = $dj_itinerary->where("`djtuanID` = '$v[djtuanID]'")->find();
 			$dat['DJtuan']['daoyou'] = $xingcheng['daoyou'] = $xingcheng['guide'];
-			$dat['DJtuan']['daoyoutelnum'] = $xingcheng['daoyoutelnum'] = $xingcheng['guidetelnum'];
-			$dat['DJtuan']['tuanbiao'] = $xingcheng['tuanmark'] = $xingcheng['tuanmark'];
+			$dat['DJtuan']['tuanbiao'] = $xingcheng['tuanbiao'] = $xingcheng['tuanmark'];
 			$richengall = $dj_rcitem->where("`itineraryID` = '$xingcheng[itineraryID]'")->findall();
 			$i = 0;
 			foreach($richengall as $vol){
@@ -127,7 +137,51 @@ class FormeAction extends Action{
 				$i++;	
 			}
 			$datatext['xingcheng_array'] = $xingcheng_array;
+			$datatext['hotel'] = $xingcheng['hotel'] = $xingcheng['hotel'];
+			$datatext['quanpei'] = $xingcheng['quanpei'] = $xingcheng['guidetype'];
+			$datatext['quanpeitelnum'] = $xingcheng['quanpeitelnum'] = $xingcheng['guidetelnum'];
+			$datatext['roomnumber'] = $xingcheng['roomnumber'] = $xingcheng['roomnumber'];
+			//行程内容
+			$itinerary['arrivetool'] = explode(',',$xingcheng['arrivetool']);
+			$itinerary['arrivebianhao'] = explode(',',$xingcheng['arrivebianhao']);
+			$itinerary['arrivedatestart'] = explode(',',$xingcheng['arrivedatestart']);
+			$itinerary['arrivedateend'] = explode(',',$xingcheng['arrivedateend']);
+			$itinerary['leavetool'] = explode(',',$xingcheng['leavetool']);
+			$itinerary['leavebianhao'] = explode(',',$xingcheng['leavebianhao']);
+			$itinerary['leavedate'] = explode(',',$xingcheng['leavedate']);
+			for($i = 0;$i<count($itinerary['arrivetool']);$i++){
+				$jiaotong_array[$i] = '去程@_@'.$itinerary['arrivetool'][$i].'@_@'.$itinerary['arrivebianhao'][$i].'@_@'.$itinerary['arrivedatestart'][$i].'@_@'.$itinerary['arrivedateend'][$i];
+				$i++;	
+			}
+			for($i;$i<count($itinerary['leavetool']);$i++){
+				$jiaotong_array[$i] = '回程@_@'.$itinerary['leavetool'][$i].$itinerary['leavebianhao'][$i].'@_@'.$itinerary['leavedate'][$i].'@_@';
+				$i++;	
+			}
+			$datatext['jiaotong_array'] = $jiaotong_array;
 			$dat["DJtuan"]['datatext_xingcheng'] = serialize($datatext);
+			//订房确认单
+			$hotel = $dj_orderhotel->where("`djtuanID` = '$v[djtuanID]'")->find();
+			$dingfang = $hotel;
+			$dingfang['hotel'] = $hotel['hotelname'];
+			$dingfang['shoujiandanwei'] = $hotel['sendcompany'];
+			$dingfang['fajiandanwei'] = $hotel['recivecompany'];
+			$dingfang['shoujianren'] = $hotel['sendperson'];
+			$dingfang['fajianren'] = $hotel['reciveperson'];
+			$dingfang['shoujiantelnum'] = $hotel['sendtelnum'];
+			$dingfang['fajiantelnum'] = $hotel['recivetelnum'];
+			$dingfang['shoujianfax'] = $hotel['senfax'];
+			$dingfang['fajianfax'] = $hotel['recivefax'];
+			$dingfang['dingfangshijian'] = $hotel['orderdate'];
+			$dingfang['ruzhushijian'] = $hotel['livedate'];
+			$dingfang['jiesuanshijian'] = $hotel['jiesuandate'];
+			$dingfang['tuifangshijian'] = $hotel['checkoutdate'];
+			$dingfang['dingfangbiaozhun'] = $hotel['roomstd'];
+			$dingfang['fangjianjiage'] = $hotel['roomprice'];
+			$dingfang['peitongfang'] = $hotel['peitongroom'];
+			$dingfang['zaocanbiaozhun'] = $hotel['breakfaststd'];
+			$dingfang['zaocanrenshu'] = $hotel['breakrenshu'];
+			$dingfang['yingfu'] = $hotel['meetamount'];
+			$dat["DJtuan"]['datatext_dingfang'] = serialize($dingfang);
 			//成本内容
 			$chengbenall = $dj_appraisal->where("`djtuanID` = '$v[djtuanID]'")->findall();
 			$i = 0;
@@ -484,7 +538,6 @@ class FormeAction extends Action{
 				$zituanID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $zituanID;
 				A("Method")->_createDataOM($zituanID,'子团','管理',$dataOMlist);
-				
 				//生成报账单----------------------
 				$this->_baozhangdan_build($dat,$dataOMlist);
 				//生成随团单项服务报账单----------------------
@@ -494,7 +547,9 @@ class FormeAction extends Action{
 			}
 			else
 			{
+			dump(123321123);	
 			dump($Chanpin);	
+			exit;
 			}
 		}
 		
@@ -755,7 +810,6 @@ class FormeAction extends Action{
 			if($baozhang){
 				$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
 			}
-			
 			//生成报账项-----------------------
 			foreach($baozhangitemall as $v){
 				$bzditem = '';
@@ -974,6 +1028,8 @@ class FormeAction extends Action{
 			$data['dingdan']['type'] = '标准';
 			$data['dingdan']['shoujiaID'] = -1;
 			$data['dingdan']['zituanID'] = $zituan['chanpinID'];
+			if($data['dingdan']['telnum'] == '')
+				$data['dingdan']['telnum'] = -1;
 			//计算领队数
 			$data['dingdan']['lingdui_num'] = 0;
 			$tuanyuanall = $gltuanyuan->where("`dingdanID` = '$v[dingdanID]'")->findall();
@@ -1006,6 +1062,7 @@ class FormeAction extends Action{
 			}
 			else
 			{
+				dump(4323424);
 				dump($Chanpin);
 				exit;	
 			}
@@ -1285,7 +1342,10 @@ class FormeAction extends Action{
 				
 			}
 		}
-			
+		
+		//生成备份
+		if($task['status'] == '批准')
+		A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
 			
 			
 		if($taskID){
@@ -1324,8 +1384,7 @@ class FormeAction extends Action{
 			else
 			dump($System);
 		}
-		
-		
+					
 		
 	}
 	
@@ -1505,7 +1564,6 @@ class FormeAction extends Action{
 	
 	
     public function _xianlu_shoujia($xianlu,$newxianlu,$dataOMlist){
-		
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$ViewCategory = D("ViewCategory");
@@ -1517,6 +1575,7 @@ class FormeAction extends Action{
 		$_REQUEST['type'] = '标准';
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
+		$_REQUEST['time'] = $xianlu['time'];
 		$_REQUEST['adultprice'] = $jiage['chengrenzongjia'];
 		$_REQUEST['title'] = $category['title'];
 		$_REQUEST['openID'] = $category['systemID'];
@@ -1544,6 +1603,76 @@ class FormeAction extends Action{
 	
 	
 	
+    public function _xianluext_build($xianlu,$newxianlu,$type=''){
+		$Chanpin = D("Chanpin");
+		if($type == '包团'){
+			$glbaotuan_ext = M("glbaotuan_ext");
+			$ext = $glbaotuan_ext->where("`xianluID` = '$xianlu[xianluID]'")->find();
+			$xianluext['baotuandanwei'] = $ext['baotuan_uni'];
+			$xianluext['remark'] = $ext['price_big'];
+			$xianluext['quanpei'] = $ext['quanpeiren'];
+			$xianluext['adultprice'] = $ext['chengren_price'];
+			$xianluext['childprice'] = $ext['ertong_price'];
+			$xianluext['zongjia'] = $ext['sum_price'];
+			$data['xianlu']['xianlu_ext'] = serialize($xianluext);
+			$data['xianlu']['chufadi'] = '辽宁,大连';
+		}
+		else{
+			//境外团
+			$glxianlu_ext=M("glxianlu_ext");
+			$ext = $glxianlu_ext->where("`xianluID` = '$xianlu[xianluID]'")->find();
+			$dat['xianlu']['xianlu_ext'] = serialize($ext);		
+		}
+		$data['chanpinID'] = $newxianlu['chanpinID'];
+		if(false === $Chanpin->relation("xianlu")->myRcreate($data))
+		dump($Chanpin);
+	}
+	
+	
+	
+	
+    public function _xianlu_xingcheng($xianlu,$newxianlu){
+		$Chanpin = D("Chanpin");
+		$glxingcheng = M("glxingcheng");
+		$xingchengall = $glxingcheng->where("`xianluID` = '$xianlu[xianluID]'")->findall();
+		$data['parentID'] = $newxianlu['chanpinID'];
+		foreach($xingchengall as $v){
+			$time = explode($v['time']);
+			$data['xingcheng']['chanyin'] = serialize($time);
+			$tools = explode($v['tools']);
+			$data['xingcheng']['tools'] = serialize($tools);
+			$data['xingcheng']['place'] = $v['place'];
+			$data['xingcheng']['content'] = $v['content'];
+			if(false == $Chanpin->relation("xingcheng")->myRcreate($data))
+			{
+				dump($Chanpin);
+				exit;	
+				
+			}
+		}
+	}
+	
+	
+	
+    public function _xianlu_chengben($xianlu,$newxianlu){
+		$Chanpin = D("Chanpin");
+		$glxianlujiage = M("glxianlujiage");
+		$glchengbenxiang = M("glchengbenxiang");
+		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
+		$chengbenall = $glchengbenxiang->where("`jiageID` = '$jiage[jiageID]'")->findall();
+		$data['parentID'] = $newxianlu['chanpinID'];
+		foreach($chengbenall as $v){
+			$data['chengben']['title'] = $v['leixing'];
+			$data['chengben']['remark'] = $v['miaoshu'];
+			$data['chengben']['price'] = $v['jiage'];
+			$data['chengben']['jifeitype'] = $v['jifeileixing'];
+			if(false == $Chanpin->relation("chengben")->myRcreate($data))
+			{
+				dump($Chanpin);
+				exit;	
+			}
+		}
+	}
 	
 	
 	

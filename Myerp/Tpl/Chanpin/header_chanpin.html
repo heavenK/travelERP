@@ -89,8 +89,8 @@ function doshenhe(dotype){
       <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
       
   
-  <php>if('基本信息' == $nowDir['title']){</php>
-  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+  <php>if('基本信息' == $nowDir['title']){if($kind == '包团' || $xianlu['kind'] == '包团') $kind = '包团';</php>
+  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save('<{$kind}>');">
   <php>}</php>
   <php>if('行程' == $nowDir['title']){</php>
   <input type="button" value="保存" name="button" class="button primary" onClick="save();">

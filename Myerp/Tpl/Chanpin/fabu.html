@@ -116,6 +116,50 @@
           </tr>
         </tbody>
       </table>
+      
+      <php>if($kind == '包团' || $xianlu['kind'] == '包团'){</php>
+      
+      
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>选填信息</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row"> 包团单位: </td>
+            <td valign="top"><input type="text" name="baotuandanwei" value="<{$xianlu['xianlu_ext']['baotuandanwei']}>" /></td>
+            <td valign="top" scope="row"> 全陪: </td>
+            <td valign="top"><input type="text" name="quanpei" value="<{$xianlu['xianlu_ext']['quanpei']}>" /></td>
+            <td valign="top" colspan="2"></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row"> 成人价: </td>
+            <td valign="top"><input type="text" name="adultprice" value="<{$xianlu['xianlu_ext']['adultprice']}>" /></td>
+            <td valign="top" scope="row"> 儿童价: </td>
+            <td valign="top"><input type="text" name="childprice" value="<{$xianlu['xianlu_ext']['childprice']}>" /></td>
+            <td valign="top" scope="row"> 总价: </td>
+            <td valign="top"><input type="text" name="zongjia" value="<{$xianlu['xianlu_ext']['zongjia']}>" /></td>
+          </tr>
+          <tr>
+            <td valign="top" colspan="6"><fieldset style="border:#CBDAE6 1px solid">
+                <legend>说明备注</legend>
+                <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                  <tbody>
+                    <tr>
+                      <td><textarea style="width:100%; resize:none" rows="16" name="remark" ><{$xianlu['xianlu_ext']['remark']}></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      
+      
+      <php>}else{</php>
+      
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
         <tbody>
           <tr>
@@ -128,7 +172,7 @@
                 <php>if($xianlu['zhuti']){</php>
                 <option value="<{$xianlu['zhuti']}>"><{$xianlu['zhuti']}></option>
                 <php>}else{</php>
-                <option value=" ">请选择...123</option>
+                <option value=" ">请选择...</option>
                 <php>}</php>
                 <php>foreach($xianlu['theme_all'] as $theme){</php>
                 <option value="<{$theme['title']}>"><{$theme['title']}></option>
@@ -289,6 +333,7 @@
       </table>
       <php>}</php>  
       
+      <php>}</php>
     </form>
   </div>
 </div>
@@ -496,9 +541,11 @@ function showdiv_2(id){
 	
 }
 
-function save(){
-	document.getElementById('xingchengtese').value = CKEDITOR.instances.xingchengtese.getData();
-	document.getElementById('cantuanxuzhi').value = CKEDITOR.instances.cantuanxuzhi.getData();
+function save(kind){
+	if(kind != '包团'){
+		document.getElementById('xingchengtese').value = CKEDITOR.instances.xingchengtese.getData();
+		document.getElementById('cantuanxuzhi').value = CKEDITOR.instances.cantuanxuzhi.getData();
+	}
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostfabu/',doComplete,'resultdiv');
 }
 

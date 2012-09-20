@@ -46,6 +46,11 @@
       href="<{:SITE_INDEX}>Dijie/chengbenshoujia/chanpinID/<{$chanpinID}>">成本及报价</a> </li>
     <php>if($show_chengtuan === true || $baozhangID){</php>
     <li> <a 
+      <php>if($nowDir['title'] == '订房确认单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Dijie/dingfangquerendan/chanpinID/<{$chanpinID}>">订房确认单</a> </li>
+    <li> <a 
       <php>if($markpos == '单项服务及补账' || $markpos == '单项服务'){</php>
       class="current"
       <php>}</php>
@@ -109,6 +114,13 @@
   <php>}</php>
   <php>if('日程安排' == $nowDir['title']){</php>
   <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
+  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+  <php>}</php>
+  <php>if('订房确认单' == $nowDir['title']){</php>
+  <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
+  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
   <php>}</php>
   <php>if('成本及报价' == $nowDir['title']){</php>
   <input type="button" value="保存" name="button" class="button primary" onClick="save();">
