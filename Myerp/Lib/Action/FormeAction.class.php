@@ -8,7 +8,7 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		$xianluAll = $gl_xianlu->order('time DESC')->limit(50)->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->where("xianluID = 1078")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		foreach($xianluAll as $v)

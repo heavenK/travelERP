@@ -741,49 +741,49 @@ class MethodAction extends Action{
 	//审核任务
 	//生成待检出	
 	//检查审核流程
-     public function _shenheDO($_REQUEST,$dotype='') {
+     public function _shenheDO($_REQUEST,$need) {
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+		//订单
+		if($cp['marktype'] == 'dingdan' && $cp['status'] != '确认'){
+			cookie('errormessage','错误，订单不是确认状态！',30);
+			return false;
+		}
+		if($cp['marktype'] == 'dingdan'){
+			$dingdan = $Chanpin->relationGet("dingdan");
+			if($dingdan['status_baozhang'] != '批准'){
+				cookie('errormessage','错误，报账单审核通过后进行订单审核！',30);
+				return false;
+			}
+		}
+		//报账项
+		if($cp['marktype'] == 'baozhangitem'){
+			$ViewBaozhang = D("ViewBaozhang");
+			$bzd = $ViewBaozhang->where("`chanpinID` = '$cp[parentID]'")->find();
+			if($bzd['status_shenhe'] == '批准' ){
+				cookie('errormessage','错误！该项目所属的报账单已经审核通过！',30);
+				return false;
+			}
+		}
+		$dotype = $_REQUEST['dotype'];
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
+		$data['status'] = $_REQUEST['status_shenhe'];
 		if($dotype == '申请'){
 			if(false === $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID'])){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
 			$processID = 1;
-			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1)){
-				$data['status'] = '申请';
-				cookie('successmessage','提交审核成功！',30);
-			}
-			else{
-				$data['status'] = '批准';
-				cookie('successmessage','操作成功！'.$data['status'],30);
-			}
-			//判断角色
-			$durlist = $this->_checkRolesByUser('计调','组团');
-			if (false === $durlist)
-				$this->ajaxReturn('', '没有计调权限！', 0);
+			cookie('successmessage','操作成功！',30);
 		}
 		else{
-			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
-			if(false === $need){
-				cookie('errormessage','您没有操作权限！',30);
-				return false;
-			}
 			$processID = $need['processID'];
 			$data['systemID'] = $need['systemID'];
-			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))//检查流程是否存在
-			$data['status'] = '检出';
-			else
-			$data['status'] = '批准';
-			//报账单特殊设置
-			if($_REQUEST['datatype'] == '报账单'){
-				if($processID == 3)
-				$data['status'] = '批准';
-			}
-			cookie('successmessage','操作成功！'.$data['status'],30);
+			cookie('successmessage','操作成功！',30);
 		}
 		//检查流程状态
-		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID);
+		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID,$need);
 		if(false === $process){
 			cookie('errormessage','错误！该产品流程不存在或已被执行，请勿重复执行！',30);
 			return false;
@@ -828,6 +828,8 @@ class MethodAction extends Action{
 			$Chanpin = D("Chanpin");
 			$dat_t['chanpinID'] = $_REQUEST['dataID'];
 			$dat_t['islock'] = '已锁定';
+			$dat_t['shenhe_remark'] = $data['taskShenhe']['remark'];
+			$dat_t['status_shenhe'] = $data['status'];
 			if (false === $Chanpin->save($dat_t)){
 				cookie('errormessage','错误，操作失败！'.$Chanpin->getError(),30);
 				return false;
@@ -1170,7 +1172,7 @@ class MethodAction extends Action{
 	 
 	 
 	//检查流程状态
-     public function _checkDataShenhe($dataID,$datatype,$status,$processID) {
+     public function _checkDataShenhe($dataID,$datatype,$status,$processID,$need) {
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		//检查审核流程权限
 		$process = $this->_checkShenhe($datatype,$processID);
@@ -1179,6 +1181,9 @@ class MethodAction extends Action{
 		$Chanpin = D("Chanpin");
 		$tc = $Chanpin->where("`chanpiniD` = '$dataID'")->find();
 		if($tc['status_shenhe'] == '批准'){
+			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
+			if($need)
+			return $process;
 			return false;
 		}
 		elseif($processID == 1 && $tc['status_shenhe'] == '未审核'){
@@ -1393,16 +1398,16 @@ class MethodAction extends Action{
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();
 		$DataCD = D("DataCD");
 		$ViewCustomer = D("ViewCustomer");
-		$cus['dingdanID'] = $dingdanID;
 		$DataCD->startTrans();
 		//清空订单内客户,并重新生成
-		//$DataCD->where("`dingdanID` = '$dingdanID'")->delete();
 		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
+			$cus = '';	
+			$cus['dingdanID'] = $dingdanID;
 			$id = $i+1;
 			if($_REQUEST['tuanyuanID'.$id]){//游客已存在，数据丢失报错
 				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
-				$dt = $DataCD->where("`id` = '$cus[id]'")->find();
-				if(!$dt){
+				$cus = $DataCD->where("`id` = '$cus[id]'")->find();
+				if(!$cus){
 					cookie('errormessage','错误，请联系管理员！！！',30);
 					$DataCD->rollback();
 					return false;
@@ -1423,10 +1428,27 @@ class MethodAction extends Action{
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
-			$durlist = A("Method")->_checkRolesByUser('出纳,会计','行政');
+			$durlist = A("Method")->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
 			if(false !== $durlist){
 				$cus['ispay'] = $_REQUEST['ispay'.$id];
 			}
+			//证件号码池
+			if(in_array($cus['zhengjianhaoma'],$haomalist)){
+				cookie('errormessage','错误，不允许两个证件号码相同的游客！',30);
+				$DataCD->rollback();
+				return false;
+			}
+			else{
+				$same = $DataCD->where("`dingdanID` = '$dingdanID' and `zhengjianhaoma` = `$cus[zhengjianhaoma]`")->find();
+				if($same){
+					cookie('errormessage','错误，一个团中，不允许两个证件号码相同的游客！',30);
+					$DataCD->rollback();
+					return false;
+				}
+				
+			}
+			$haomalist[$i] = $cus['zhengjianhaoma'];
+			//查找老客户
 			if($cus['zhengjiantype'] == '身份证')
 				$zhengjianhaoma = 'sfz_haoma';
 			if($cus['zhengjiantype'] == '护照')
@@ -1435,7 +1457,12 @@ class MethodAction extends Action{
 				$zhengjianhaoma = 'txz_haoma';
 			if($custmoer = $ViewCustomer->where("`$zhengjianhaoma` = '$cus[zhengjianhaoma]' AND (`status_system` = '1')")->find()){
 				$cus = array_merge($custmoer,$cus);
+				if(!$cus['datatext'])
 				$cus['datatext'] = serialize($custmoer);
+				$cus['laokehu'] = 1;
+			}
+			else{
+				$cus['laokehu'] = 0;
 			}
 			$cus['price'] = $_REQUEST['price'.$id];
 			//价格判断
@@ -1686,8 +1713,8 @@ class MethodAction extends Action{
 	 
 	 
 	 
-	//检查获得用户拥有角色，及部门类型
-     public function _checkRolesByUser($roles,$bumentype,$userID = '') {
+	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
+     public function _checkRolesByUser($roles,$bumentype,$userID = '',$notmust = '') {
 		$durlist = $this->_getDURlist($userID);
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
@@ -1719,7 +1746,7 @@ class MethodAction extends Action{
 			}
 		}
 		if($dur) return $dur;
-		elseif($bumentype != '行政')
+		elseif($bumentype != '行政' && $notmust == '' )
 		return $this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');		 //附加行政部门，网管，总经理，副总，出纳，会计等角色
 		return false;
 	 }
@@ -1913,6 +1940,7 @@ class MethodAction extends Action{
 			$chanpinID = $_REQUEST['chanpinID'];
 			$ViewBaozhang = D("ViewBaozhang");
 			$baozhang = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$chanpinID' and `type` = '团队报账单'")->find();
+			$baozhangID = $baozhang['chanpinID'];
 			$taskom = $this->_checkOMTaskShenhe($baozhang['chanpinID'],'报账单');
 			$this->assign("taskom",$taskom);
 			$this->assign("baozhangID",$baozhang['chanpinID']);
@@ -1969,6 +1997,11 @@ class MethodAction extends Action{
 			$this->showDirectory("签证及票务");
 		}
 		$this->assign("baozhang_data",$baozhang);
+		//签字
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+		$this->assign("task",$task);
+		//打印
 		if($_REQUEST['doprint'] == '计调打印' || $_REQUEST['doprint'] == '打印' || $_REQUEST['export'] == 1){
 			if($baozhang['status_shenhe'] == '批准'){
 				$DataCopy = D("DataCopy");
@@ -1978,14 +2011,7 @@ class MethodAction extends Action{
 				$baozhang['datatext'] = unserialize($baozhang['datatext']);
 				$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
 				$this->assign("baozhang",$baozhang);
-				$ViewTaskShenhe = D("ViewTaskShenhe");
-				$task = $ViewTaskShenhe->where("`systemID` = '$data[taskID]' or `parentID` = '$data[taskID]' and `status` != '待检出' and `status_system` = '1'")->order("time asc")->findall();
 			}
-			else{
-				$ViewTaskShenhe = D("ViewTaskShenhe");
-				$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
-			}
-			$this->assign("task",$task);
 			if($_REQUEST['doprint']){
 				$this->display('Chanpin:print_danxiangfuwu');
 				exit;
@@ -2036,13 +2062,6 @@ class MethodAction extends Action{
 	
 	public function _doshenhe() {
 		C('TOKEN_ON',false);
-		//报账项
-		if($_REQUEST['datatype'] == '报账项'){
-			$ViewBaozhangitem = D("ViewBaozhangitem");
-			$bzi = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]' and `status_shenhe` = '批准'")->find();
-			if($bzi)
-			$this->ajaxReturn('', '错误！该项目已经审核通过！', 0);
-		}
 		if($_REQUEST['dotype'] == '申请'){
 			$processID = 1;
 			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
@@ -2051,37 +2070,39 @@ class MethodAction extends Action{
 			$status = '批准';
 		}
 		else{
-			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);
+			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
+			if(false === $need){
+				$this->ajaxReturn($_REQUEST, '您没有操作权限！', 0);
+			}
 			$processID = $need['processID'];
 			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
 			$status = '检出';
 			else
 			$status = '批准';
 		}
+		//报账单特殊设置
+		if($_REQUEST['datatype'] == '报账单'){
+			if($processID == 3)
+			$status = '批准';
+		}
+		$_REQUEST['status_shenhe'] = $status;
 		//检查OM权限
 		//检查流程权限及状态
 		//生成审核任务
 		//生成待检出	
-		$userIDlist = $this->_shenheDO($_REQUEST,$_REQUEST['dotype']);
+		$userIDlist = $this->_shenheDO($_REQUEST,$need);
 		if (false !== $userIDlist){
 			//记录
 			$url = '';
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
 			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
-			//检查审核流程权限
-			$checkds = $this->_checkShenhe($_REQUEST['datatype'],$processID,$this->user['systemID']);
-			$checkds = $this->_checkShenhe($_REQUEST['datatype'],$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 			$Chanpin = D("Chanpin");
 			$editdat['chanpinID'] = $_REQUEST['dataID'];
-			$editdat['shenhe_remark'] = $checkds['remark'];
-			$editdat['status_shenhe'] = $status;
-			$editdat['islock'] = '已锁定';
 			if($status == '批准'){
 				//生成备份
 				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
 				$editdat['shenhe_time'] = time();
-				
 			}
 			if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
@@ -2137,7 +2158,7 @@ class MethodAction extends Action{
 					$dingdanall = $ViewDingdan->where("`parentID` = '$cpd[chanpinID]'")->findall();
 					foreach($dingdanall as $v){
 						$v['dingdan']['status_baozhang'] = $status;
-						$v['dingdan']['baozhang_remark'] = $editdat['shenhe_remark'];
+						$v['dingdan']['baozhang_remark'] = $baozhang['shenhe_remark'];
 						if($status == '批准'){
 							$v['dingdan']['baozhang_time'] = $editdat['shenhe_time'];
 						}
@@ -2289,12 +2310,14 @@ class MethodAction extends Action{
 		$chanp['status_shenhe'] = '未审核';
 		$chanp['islock'] = '未锁定';
 		$Chanpin->save($chanp);
-		//清空待检出父任务
-		$djc = $this->_getTaskDJC($dataID,$datatype);
-		if($djc){
-			$System = D("System");
-			$shenhe['status_system'] = -1;
-			$System->where("`systemID` = '$djc[parentID]' or `parentID` = '$djc[parentID]'")->save($shenhe);
+		//清空任务
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$System = D("System");
+		$shenhe['status_system'] = -1;
+		$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->findall();
+		foreach($taskall as $v){
+			$shenhe['systemID'] = $v['systemID'];
+			$System->save($shenhe);
 		}
 		//相关产品状态同步
 		if($datatype == '报账单'){

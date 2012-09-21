@@ -310,10 +310,14 @@ class XiaoshouAction extends CommonAction{
 		A("Method")->showDirectory("订单控管");
 		$chanpin_list = A('Method')->getDataOMlist('订单','dingdan',$_REQUEST);
 		$ViewDataDictionary = D("ViewDataDictionary");
+		$DataCD = D("DataCD");
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			//提成
 			$chanpin_list['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+		//新老客户数
+			$chanpin_list['chanpin'][$i]['xinkehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '0'")->count();
+			$chanpin_list['chanpin'][$i]['laokehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '1'")->count();
 			$i++;
 		}
 		$this->assign("page",$chanpin_list['page']);
@@ -364,7 +368,6 @@ class XiaoshouAction extends CommonAction{
 			}
 		}
 		$this->assign("tuanyuan",$tuanyuan);
-		
 		//提成数据
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
@@ -375,6 +378,10 @@ class XiaoshouAction extends CommonAction{
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist();
 		$this->assign("bumenfeilei",$bumenfeilei);
+		//签字
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$task = $ViewTaskShenhe->where("`dataID` = '$dingdan[chanpinID]' and `datatype` = '订单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+		$this->assign("task",$task);
 		if($_REQUEST['showtype'] == 1){
 			A("Method")->showDirectory("子团产品");
 			$this->assign("markpos",'订单信息');
@@ -404,7 +411,7 @@ class XiaoshouAction extends CommonAction{
 		if($_REQUEST['tuanyuanmark'] == 1){
 			if($_REQUEST['daokuanqueren'] == 1){
 				$dat['islock'] = '已锁定';
-				$durlist = A("Method")->_checkRolesByUser('出纳,会计','行政');
+				$durlist = A("Method")->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
 				if(false === $durlist){
 					$this->ajaxReturn($_REQUEST, '错误，无财财务或出纳权限！', 0);
 				}
@@ -415,6 +422,15 @@ class XiaoshouAction extends CommonAction{
 			else
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
+		if($_REQUEST['status'] == '确认'){
+			$DataCD = D("DataCD");
+			$num = $DataCD->where("`dingdanID` = '$dingdanID'")->count();
+			$dingdanrenshu = $dat['dingdan']['chengrenshu'] + $dat['dingdan']['ertongshu'] + $dat['dingdan']['lingdui_num'];
+			if($num != $dingdanrenshu)
+			$this->ajaxReturn($_REQUEST, '错误！请完善游客数据后确认订单！', 0);
+		}
+		
+		
 		$dat['departmentID'] = $_REQUEST['departmentID'];
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
@@ -423,8 +439,9 @@ class XiaoshouAction extends CommonAction{
 		$dat['status'] = $_REQUEST['status'];
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat))
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
-		else
+		else{
 			$this->ajaxReturn($_REQUEST, '错误，请联系管理员', 0);
+		}
 	}
 	
 	
@@ -432,13 +449,18 @@ class XiaoshouAction extends CommonAction{
     public function quxiaodingdan() {
 		C('TOKEN_ON',false);
 		//检查dataOM
-		$dingdan = A('Method')->_checkDataOM($_REQUEST['dingdanID'],'订单','管理');
-		if(false === $dingdan){
+		$om = A('Method')->_checkDataOM($_REQUEST['dingdanID'],'订单','管理');
+		if(false === $om){
 			$this->ajaxReturn($_REQUEST, '错误，没有管理权限！', 0);
 		}
-		$durlist = A("Method")->_checkRolesByUser('经理','组团');
-		if(false === $durlist){
-		  $this->ajaxReturn($_REQUEST, '错误，没有经理权限！', 0);
+		//判断订单状态
+		$ViewDingdan = D("ViewDingdan");
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
+		if($dingdan['status'] == '确认'){
+			$durlist = A("Method")->_checkRolesByUser('经理','组团','',1);
+			if(false === $durlist){
+			  $this->ajaxReturn($_REQUEST, '错误，没有经理权限！', 0);
+			}
 		}
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");

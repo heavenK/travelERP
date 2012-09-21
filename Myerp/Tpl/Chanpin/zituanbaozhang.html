@@ -63,7 +63,15 @@ function exports()
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
         <tbody>
           <tr>
-            <th align="left" colspan="8"> <h4 style="color:#090"><{$baozhang['type']}>结算报告(注意：报账项只有在审核通过后才可以被打印或导出) <span style="float:right; color:#4e8ccf; margin-right:100px;">审核阶段：<{$baozhang['shenhe_remark']}></span></h4>
+            <th align="left" colspan="8"> <h4 style="color:#090"><{$baozhang['type']}>结算报告
+            <span style="float:right; color:#000; margin-right:20px;">申请人：<strong style="color:#4e8ccf;"><{$task[0][user_name]}></strong></span>
+            <span style="float:right; color:#000; margin-right:20px;">经理：<strong style="color:#4e8ccf;"><{$task[1][user_name]}></strong></span>
+            <span style="float:right; color:#000; margin-right:20px;">财务：<strong style="color:#4e8ccf;"><{$task[2][user_name]}></strong></span>
+            <span style="float:right; color:#000; margin-right:20px;">财务总监：<strong style="color:#4e8ccf;"><{$task[3][user_name]}></strong></span>
+            <span style="float:right; color:#000; margin-right:20px;">总经理：<strong style="color:#4e8ccf;"><{$task[4][user_name]}></strong></span>
+            <span style="float:right; color:#000; margin-right:100px;">审核阶段：<strong style="color:#4e8ccf;"><{$baozhang['shenhe_remark']}></strong></span>
+            <span style="float:right; color:#000; margin-right:20px;">审核状态：<strong style="color:#4e8ccf;"><{$baozhang['status_shenhe']}></strong></span>
+            </h4>
             </th>
           </tr>
             <php>
@@ -235,7 +243,7 @@ function exports()
         <php>}</php>
         <tr>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 备注说明: </td>
-          <td valign="top" scope="row" colspan="9" style="min-width:200px;"><textarea name="remark" rows="4" style="width:600px;" ><php>echo $baozhang['datatext']['remark']</php>
+          <td valign="top" scope="row" colspan="9" style="min-width:200px;"><textarea name="remark" rows="4" style="width:95%;" ><php>echo $baozhang['datatext']['remark']</php>
 </textarea></td>
         </tr>
           </tbody>
@@ -246,7 +254,7 @@ function exports()
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingshou_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应收费用</strong>&nbsp;
@@ -318,14 +326,15 @@ function exports()
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingfu_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#090; color:#FFF"><strong>应付费用</strong>&nbsp;
                       <input class="button" type="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
                   </tr>
                 </tbody>
-              </table></td>
+              </table>
+            </td>
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
@@ -389,7 +398,7 @@ function exports()
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="lirun_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#C90; color:#FFF"><strong>利润部门</strong>&nbsp;

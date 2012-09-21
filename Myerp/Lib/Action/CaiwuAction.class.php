@@ -137,6 +137,12 @@ class CaiwuAction extends CommonAction{
 					$unitdata[$i]['shouke_chengren'] += $vol['chengrenshu'];
 					$unitdata[$i]['shouke_ertong'] += $vol['ertongshu'];
 					$unitdata[$i]['shouke_price'] += $vol['shouke_price'];
+					if($vol['title'] == '直客'){
+						$unitdata[$i]['zhike_num'] += $vol['chengrenshu']+$vol['ertongshu'];
+					}
+					if($vol['title'] == '散客'){
+						$unitdata[$i]['sanke_num'] += $vol['chengrenshu']+$vol['ertongshu'];
+					}
 					$n++;
 				}
 				if($ok_shouke || $ok_caozuo){

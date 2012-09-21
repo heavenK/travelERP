@@ -119,14 +119,14 @@ function doComplete(data,status){
           <td align="right" height="40" rowspan="4"> 护照： </td>
           <td align="left" height="40"> 护照号码：
           <php>if($datacd['zhengjiantype']== '护照'){</php>
-          <td align="left"><input name="hz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
+         <input name="hz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
           <php>}else{</php>
             <input name="hz_haoma" type="text" style="width:65%;" value="<{$data[hz_haoma]}>"></td>
           <php>}</php>
           <td align="right" rowspan="4"> 通行证：</td>
           <td align="left" height="40"> 通行证号：
           <php>if($datacd['zhengjiantype']== '他通行证'){</php>
-          <td align="left"><input name="txz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
+          <input name="txz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
           <php>}else{</php>
             <input name="txz_haoma" type="text" style="width:65%;" value="<{$data[txz_haoma]}>"></td>
           <php>}</php>

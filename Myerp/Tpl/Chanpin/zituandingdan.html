@@ -50,36 +50,24 @@
                 
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:150px;"><div> 来源 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 联系人 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 联系电话 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 成人数 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 儿童数 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 领队数 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 售价 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 提成类型 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 收客人 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 订单类型 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 编号/状态/审核状态 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:150px;"><div> 来源/姓名/收客人 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 成人数/儿童/领队 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团费 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 提成类型/订单类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 新客户/老客户 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 时间 </div></th>
                 </tr>
                 
                 <php> $i = -1; foreach($dingdanlist as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/<{$v['chanpinID']}>"><{$v['chanpinID']}></a></td>
-                  <td scope="row" align="left" valign="top"><{$v['bumen_copy']}>-<{$v['user_name']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['lianxiren']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['telnum']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['chengrenshu']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['ertongshu']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['lingdui_num']}></td>
+                  <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/<{$v['chanpinID']}>"><{$v['chanpinID']}>/<{$v['status']}>/<{$v['status_shenhe']}></a></td>
+                  <td scope="row" align="left" valign="top"><{$v['bumen_copy']}>/<{$v['user_name']}>/<{$v['owner']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chengrenshu']}>/<{$v['ertongshu']}>/<{$v['lingdui_num']}></td>
                   <td scope="row" align="left" valign="top"><{$v['jiage']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['owner']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
-                  <td scope="row" align="left" valign="top" style="min-width:40px;"><{$v['status']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['xinkehu_num']}>/<{$v['laokehu_num']}></td>
                   <td scope="row" align="left" valign="top" style="min-width:80px;"><php>echo date('m/d H:i',$v['time'])</php></td>
                 </tr>
                 <php> }</php>

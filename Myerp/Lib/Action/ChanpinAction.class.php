@@ -394,15 +394,10 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function doshenhe() {
-		$Chanpin = D("Chanpin");
-		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-		if($cp['marktype'] == 'dingdan' && $cp['status'] != '确认')
-			$this->ajaxReturn($_REQUEST, '错误，订单不是确认状态！', 0);
-		if($cp['marktype'] == 'dingdan'){
-			$dingdan = $Chanpin->relationGet("dingdan");
-			if($dingdan['status_baozhang'] != '批准')
-			$this->ajaxReturn($_REQUEST, '错误，报账单审核通过后进行订单审核！', 0);
-		}
+		//判断角色
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+		if (false === $durlist)
+			$this->ajaxReturn('', '没有计调权限！', 0);
 		A("Method")->_doshenhe();
 	}
 	
@@ -530,6 +525,17 @@ class ChanpinAction extends CommonAction{
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanlist = $ViewDingdan->order("time desc")->where("`parentID` = '$_REQUEST[chanpinID]' AND `status_system` = '1'")->findall();
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$DataCD = D("DataCD");
+		$i = 0;
+		foreach($dingdanlist as $v){
+		//提成数据
+			$dingdanlist[$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+		//新老客户数
+			$dingdanlist[$i]['xinkehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '0'")->count();
+			$dingdanlist[$i]['laokehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '1'")->count();
+			$i++;
+		}
 		//剩余人数
 		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID']);
 		$this->assign("tuanrenshu",$tuanrenshu);

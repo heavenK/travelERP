@@ -15,6 +15,7 @@ class DingdanModel extends Model {
 	
     // 自动填充设置 
     protected $_auto = array( 
+        array('laokehu', 0, 1),
         array('baozhang_remark', 'set_bzdremark', 1,'callback','chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('baozhang_time', 'set_bzdtime', 1,'callback','chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_baozhang', 'set_bzdstatus', 1,'callback','chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])

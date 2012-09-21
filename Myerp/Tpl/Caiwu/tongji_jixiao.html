@@ -78,6 +78,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 时间范围 </div></th>
 			<php> }</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客：成人/儿童/全部 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 直客/散客 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作：成人/儿童/全部  </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元）</div></th>
@@ -91,6 +92,7 @@
                   <td scope="row" align="left" valign="top"><{$start_time}>至<{$end_time}></td>
 			<php> }</php>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_chengren'])</php>/<php> echo number_format($v['shouke_ertong'])</php>/<php> echo number_format($v['shouke_shu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['zhike_num'])</php>/<php> echo number_format($v['sanke_num'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
