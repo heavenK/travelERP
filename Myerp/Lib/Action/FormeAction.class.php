@@ -196,8 +196,10 @@ class FormeAction extends Action{
 				$dat['chanpinID'] = $chanpinID;
 				$dataOMlist = A("Method")->_setDataOMlist('地接','地接');
 				A("Method")->_createDataOM($chanpinID,'地接','管理',$dataOMlist);
-				
-				
+				//生成报账单----------------------
+				$this->_baozhangdan_dijie_build($dat,$dataOMlist);
+				//生成随团单项服务报账单----------------------
+				$this->_danxiangfuwu_dijie_build($dat,$dataOMlist);
 			}
 			else
 			{
@@ -733,6 +735,13 @@ class FormeAction extends Action{
 	
 	
 	//生成报账单----------------------
+	public function _baozhangdan_dijie_build($zituan,$dataOMlist)
+	{
+	
+	}
+	
+	
+	//生成报账单----------------------
 	public function _baozhangdan_build($zituan,$dataOMlist)
 	{
 		$Chanpin = D("Chanpin");
@@ -859,6 +868,14 @@ class FormeAction extends Action{
 	
 	}
 	
+	
+	
+	//生成随团单项服务----------------------
+	public function _danxiangfuwu_dijie_build($zituan,$dataOMlist)
+	{
+	
+	
+	}
 	
 	
 	//生成随团单项服务----------------------

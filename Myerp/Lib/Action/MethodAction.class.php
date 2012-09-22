@@ -1970,7 +1970,10 @@ class MethodAction extends Action{
 			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		}
 		elseif($type == '地接'){
-			$this->showDirectory("订房及其他服务");
+			if($_REQUEST['type'] == '团队报账单')
+				$this->showDirectory("地接团队报账单");
+			else
+				$this->showDirectory("订房及其他服务");
 			$ViewDJtuan = D('ViewDJtuan');
 			$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
 			$this->assign("djtuan",$djtuan);
@@ -1990,7 +1993,6 @@ class MethodAction extends Action{
 					$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
 					$this->assign("djtuan",$djtuan);
 					$this->assign("datatitle",' : "'.$djtuan['title'].'"');
-					$this->showDirectory("订房及其他服务");
 				}
 			}
 			else
@@ -2027,6 +2029,18 @@ class MethodAction extends Action{
 				exit;
 			}
 		}
+		else{
+			  $Chanpin = D("Chanpin");
+			  if($baozhang['parentID']){
+				  $data = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
+				  if($data['marktype'] == 'zituan')
+					  $this->display('Chanpin:zituanbaozhang');
+				  if($data['marktype'] == 'DJtuan')
+					  $this->display('Dijie:djtuanbaozhang');
+			  }
+			  exit;
+		}
+		
 	}
 	
 	

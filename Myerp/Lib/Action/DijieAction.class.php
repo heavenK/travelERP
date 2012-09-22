@@ -309,10 +309,8 @@ class DijieAction extends CommonAction{
 	}
 	
 	public function djtuanbaozhang() {
-		if(!$_REQUEST['chanpinID']){
+		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
-			A("Method")->showDirectory("预订单项服务");
-		}
 		else
 			A("Method")->_baozhang('地接');
 		$this->display('djtuanbaozhang');

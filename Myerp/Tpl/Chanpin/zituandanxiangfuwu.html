@@ -10,20 +10,20 @@
     
     <div id="mysearchdiv" style="margin-bottom:10px;">
       <ul id="searchTabs" class="tablist " style="border-top:#4E8CCF">
-        <li style="color:#FFF; background:#4E8CCF">随团签证结算报告</li>
+        <li>随团签证结算报告</li>
       </ul>
     </div>
     <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
       <tbody>
         <tr height="20">
-          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#090; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
 		  <th scope="col" nowrap="nowrap" style="min-width:50px;width:50px;"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '签证') continue;</php>
-          <tr height="40" class="evenListRowS1">
+          <tr height="30" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
@@ -39,13 +39,13 @@
     
     <div id="mysearchdiv" style="margin-bottom:10px;">
       <ul id="searchTabs" class="tablist " style="border-top:#4E8CCF">
-        <li style="color:#FFF; background:#4E8CCF">随团交通</li>
+        <li>随团交通</li>
       </ul>
     </div>
     <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
       <tbody>
         <tr height="20">
-          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#090; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
 		  <th scope="col" nowrap="nowrap" style="min-width:50px;width:50px;"><div> 人数 </div></th>
 		  <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 列车航班号 </div></th>
@@ -53,7 +53,7 @@
           <th scope="col" nowrap="nowrap" style="min-width:100px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '交通') continue;</php>
-          <tr height="40" class="evenListRowS1">
+          <tr height="30" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
@@ -71,13 +71,13 @@
       
     <div id="mysearchdiv" style="margin-bottom:10px;">
       <ul id="searchTabs" class="tablist " style="border-top:#4E8CCF">
-        <li style="color:#FFF; background:#4E8CCF">随团订房</li>
+        <li>随团订房</li>
       </ul>
     </div>
     <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
       <tbody>
         <tr height="20">
-          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#090; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
 		  <th scope="col" nowrap="nowrap" style="min-width:50px;width:50px;"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:150px;width:150px;"><div> 酒店名称 </div></th>
@@ -86,7 +86,7 @@
           <th scope="col" nowrap="nowrap" style="min-width:100px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '订房') continue;</php>
-          <tr height="40" class="evenListRowS1">
+          <tr height="30" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
@@ -105,19 +105,19 @@
     
     <div id="mysearchdiv" style="margin-bottom:10px;">
       <ul id="searchTabs" class="tablist " style="border-top:#4E8CCF">
-        <li style="color:#FFF; background:#4E8CCF">补账</li>
+        <li>补账</li>
       </ul>
     </div>
     <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
       <tbody>
         <tr height="20">
-          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#090; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '补账') continue;</php>
-          <tr height="40" class="evenListRowS1">
+          <tr height="30" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>

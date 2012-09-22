@@ -388,7 +388,7 @@ class ChanpinAction extends CommonAction{
 		else	
 		$tem_cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
 		$this->assign("tem_cp",$tem_cp);
-		$this->display('header_kongguan');
+		$this->display('Chanpin:header_kongguan');
 	}
 	
 	
@@ -561,18 +561,15 @@ class ChanpinAction extends CommonAction{
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$ViewDingdan = D("ViewDingdan");
-		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->order("time desc")->where("`parentID` = '$_REQUEST[chanpinID]' AND `status_system` = '1'")->findall();
+		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->order("time desc")->where("`parentID` = '$_REQUEST[chanpinID]' AND `status_system` = '1' and `status` = '确认'")->findall();
 		$this->assign("dingdanlist",$dingdanlist);
 		//统计
-		$Chanpin = D("Chanpin");
 		$baomingrenshu = 0;
-		$dingdanlist = $Chanpin->relation("dingdanlist")->where("`chanpinID` = '$chanpinID'")->find();
-		foreach($dingdanlist['dingdanlist'] as $dd){
+		foreach($dingdanlist as $dd){
 			$baomingrenshu += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
 		}
-		$this->assign("dingdan_num",count($dingdanlist['dingdanlist']));
+		$this->assign("dingdan_num",count($dingdanlist));
 		$this->assign("tuanyuan_num",$baomingrenshu);
-		
 		$this->display('zituantuanyuan');
 	}
 	
@@ -822,12 +819,10 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	public function zituanbaozhang() {
-		if(!$_REQUEST['chanpinID']){
+		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
-		}
-		else{
+		else
 			A("Method")->_baozhang('子团');
-		}
 		$this->display('zituanbaozhang');
 	}
 	
