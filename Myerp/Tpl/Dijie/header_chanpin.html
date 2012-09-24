@@ -137,9 +137,14 @@
   <php>}</php>
   <php>if('单项服务' == $markpos || '团队报账单' == $markpos){</php>
   <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
+      <php>if($baozhang['type'] == '订房'){</php>
+      <input type="button" value=" 导出Word（订房确认单） " name="button" class="button primary" onclick="exports('订房确认单');">
+      <input type="button" value=" 打印（订房确认单） " name="button" class="button primary" onclick="doprint('订房确认单');">
+      <php>}</php>
   <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
   <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
   <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+  
       <php>
       if('单项服务' == $markpos)
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');

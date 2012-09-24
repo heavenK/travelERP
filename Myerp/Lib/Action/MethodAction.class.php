@@ -1428,7 +1428,7 @@ class MethodAction extends Action{
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
-			$durlist = A("Method")->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
+			$durlist = $this->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
 			if(false !== $durlist){
 				$cus['ispay'] = $_REQUEST['ispay'.$id];
 			}
@@ -1904,9 +1904,11 @@ class MethodAction extends Action{
 		$bumenfeilei = $this->_getbumenfenleilist($type);
 		$this->assign("bumenfeilei",$bumenfeilei);
 		if($type == '组团'){
+			$this->assign("actionmethod",'Chanpin');
 			$this->showDirectory("签证及票务");
 		}
 		if($type == '地接'){
+			$this->assign("actionmethod",'Dijie');
 			$this->showDirectory("预订单项服务");
 		}
 		if($_REQUEST['type'] == '办证')$this->assign("markpos",'办证');
@@ -1930,6 +1932,7 @@ class MethodAction extends Action{
 		}
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		$this->display('Chanpin:danxiangfuwu');
 	}
 	
 	
@@ -1954,65 +1957,56 @@ class MethodAction extends Action{
 			if($baozhang['type'] == '团队报账单')
 				$this->assign("markpos",'团队报账单');
 		}
+		$baozhang['datatext'] = unserialize($baozhang['datatext']);
+		$this->assign("baozhang",$baozhang);
+		$this->assign("baozhang_data",$baozhang);
+		if(!$baozhang){
+			$this->assign("message",'报账单数据异常，未找到相关数据！');
+			$this->display('Index:error');
+			exit;
+		}
 		//检查dataOM
 		$tuan = $this->_checkDataOM($baozhang['chanpinID'],'报账单','管理');
 		if(false === $tuan){
 			$this->display('Index:error');
 			exit;
 		}
-		$baozhang['datatext'] = unserialize($baozhang['datatext']);
-		$this->assign("baozhang",$baozhang);
-		if($type == '子团'){
-			$this->showDirectory("子团产品");
-			$ViewZituan = D("ViewZituan");
-			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$baozhang[parentID]'")->find();
-			$this->assign("zituan",$zituan);
-			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
-		}
-		elseif($type == '地接'){
-			if($_REQUEST['type'] == '团队报账单')
-				$this->showDirectory("地接团队报账单");
-			else
-				$this->showDirectory("订房及其他服务");
-			$ViewDJtuan = D('ViewDJtuan');
-			$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
-			$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
-			$this->assign("djtuan",$djtuan);
-			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
-		}
-		else{
-			if($baozhang['parentID']){
-				$ViewZituan = D("ViewZituan");
-				$zituan = $ViewZituan->where("`chanpinID` = '$baozhang[parentID]'")->find();
-				if($zituan){
-					$this->assign("zituan",$zituan);
-					$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
-					$this->showDirectory("子团产品");
-				}
-				else{
-					$ViewDJtuan = D('ViewDJtuan');
-					$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
-					$this->assign("djtuan",$djtuan);
-					$this->assign("datatitle",' : "'.$djtuan['title'].'"');
-				}
-			}
-			else
-			$this->showDirectory("签证及票务");
-		}
-		$this->assign("baozhang_data",$baozhang);
-		//签字
-		$ViewTaskShenhe = D("ViewTaskShenhe");
-		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
-		$this->assign("task",$task);
 		//所属产品
 		$Chanpin = D("Chanpin");
 		if($baozhang['parentID']){
 			$pdata = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
 			$this->assign("chanpin",$pdata);
 		}
+		if($pdata['marktype'] == 'zituan'){
+			$ViewZituan = D("ViewZituan");
+			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$this->assign("zituan",$zituan);
+			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
+			if($baozhang['type'] == '团队报账单')
+			$this->showDirectory("子团产品");
+			else
+			$this->showDirectory("子团产品");
+			$this->assign("actionmethod",'Chanpin');
+		}
+		if($pdata['marktype'] == 'DJtuan'){
+			$ViewDJtuan = D('ViewDJtuan');
+			$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
+			$this->assign("djtuan",$djtuan);
+			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
+			if($baozhang['type'] == '团队报账单')
+			$this->showDirectory("地接团队报账单");
+			else
+			$this->showDirectory("订房及其他服务");
+			$this->assign("actionmethod",'Dijie');
+		}
+		//签字
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+		$this->assign("task",$task);
 		//打印
-		if($_REQUEST['doprint'] == '计调打印' || $_REQUEST['doprint'] == '打印' || $_REQUEST['export'] == 1){
-			if($baozhang['status_shenhe'] == '批准'){
+		if($_REQUEST['doprint'] || $_REQUEST['export']){
+			  if($baozhang['status_shenhe'] == '批准'){
 				$DataCopy = D("DataCopy");
 				$data = $DataCopy->where("`dataID` = '$baozhangID' and `datatype` = '报账单'")->order("id desc")->find();
 				$newdata = unserialize($data['copy']);
@@ -2028,17 +2022,16 @@ class MethodAction extends Action{
 				header("Pragma:no-cache");        
 				header("Expires:0");  
 			}
+			if($_REQUEST['doprint'] == '订房确认单' || $_REQUEST['export'] == '订房确认单'){
+				$this->assign("datatext_dingfang",$baozhang['datatext']);
+				$this->display('Dijie:print_dingfang');
+			}
+			else
 			$this->display('Chanpin:print_danxiangfuwu');
 			exit;
 		}
 		else{
-			  if($pdata){
-				  if($pdata['marktype'] == 'zituan')
-					  $this->display('Chanpin:zituanbaozhang');
-				  if($pdata['marktype'] == 'DJtuan')
-					  $this->display('Dijie:djtuanbaozhang');
-				  exit;
-			  }
+			$this->display('Chanpin:zituanbaozhang');
 		}
 		
 	}
@@ -2368,6 +2361,8 @@ class MethodAction extends Action{
 
 
 	public function _xiangmu($type) {
+		$this->assign("markpos",'应收及应付');
+		$chanpinID = $_REQUEST['chanpinID'];
 		if($type == '子团'){
 			$this->showDirectory("子团产品");
 			//检查dataOM
@@ -2376,22 +2371,24 @@ class MethodAction extends Action{
 				$this->display('Index:error');
 				exit;
 			}
+			$ViewZituan = D("ViewZituan");
+			$zituan = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
+			$this->assign("zituan",$zituan);
+			$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		}
 		if($type == '地接'){
-			$this->showDirectory("子团产品");
+			$this->showDirectory("地接报账项");
 			//检查dataOM
 			$tuan = $this->_checkDataOM($_REQUEST['chanpinID'],'地接','管理');
 			if(false === $tuan){
 				$this->display('Index:error');
 				exit;
 			}
+			$ViewDJtuan = D('ViewDJtuan');
+			$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
+			$this->assign("djtuan",$djtuan);
+			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
 		}
-		$this->assign("markpos",'应收及应付');
-		$chanpinID = $_REQUEST['chanpinID'];
-		$ViewZituan = D("ViewZituan");
-		$zituan = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
-		$this->assign("zituan",$zituan);
-		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$ViewBaozhang = D("ViewBaozhang");
 		$baozhang = $ViewBaozhang->relation("baozhangitemlist")->where("`type` = '团队报账单' and `parentID` = '$chanpinID'")->find();
 		$baozhang['datatext'] = unserialize($baozhang['datatext']);

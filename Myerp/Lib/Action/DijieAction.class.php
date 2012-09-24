@@ -16,7 +16,7 @@ class DijieAction extends CommonAction{
 			if($zituan)
 				$this->assign("show_chengtuan",true);
 		}
-		$this->display('header_chanpin');
+		$this->display('Dijie:header_chanpin');
 	}
 	
 	
@@ -309,11 +309,12 @@ class DijieAction extends CommonAction{
 	}
 	
 	public function djtuanbaozhang() {
+		A("Method")->showDirectory("预订单项服务");
+		$this->assign("actionmethod",'Dijie');
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else
 			A("Method")->_baozhang('地接');
-		$this->display('djtuanbaozhang');
 	}
 	
 	public function deleteBaozhang() {
@@ -343,7 +344,6 @@ class DijieAction extends CommonAction{
 	
 	public function danxiangfuwu() {
 		A("Method")->_danxiangfuwu('地接');
-		$this->display('danxiangfuwu');
 	}
 	
 	

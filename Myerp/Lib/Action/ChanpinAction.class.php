@@ -819,11 +819,12 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	public function zituanbaozhang() {
+		A("Method")->showDirectory("签证及票务");
+		$this->assign("actionmethod",'Chanpin');
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else
 			A("Method")->_baozhang('子团');
-		$this->display('zituanbaozhang');
 	}
 	
 	public function deleteBaozhang() {
@@ -854,7 +855,6 @@ class ChanpinAction extends CommonAction{
 	
 	public function danxiangfuwu() {
 		A("Method")->_danxiangfuwu('组团');
-		$this->display('danxiangfuwu');
 	}
 	
 	public function doposttiaojia() {
