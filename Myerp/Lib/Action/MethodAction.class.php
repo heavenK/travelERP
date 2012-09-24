@@ -1,6 +1,6 @@
 <?php
 
-class MethodAction extends Action{
+class MethodAction extends CommonAction{
 	
     public function _initialize() {
 		if($_REQUEST['_URL_'][0] == 'Method'){
@@ -1374,6 +1374,7 @@ class MethodAction extends Action{
 			session(C('ADMIN_AUTH_KEY'),true);
 		}
 		// 缓存访问权限
+		session(C('ADMIN_AUTH_KEY'),true);//测试期间全部开放
 		RBAC::saveAccessList();
 	 }
 	 

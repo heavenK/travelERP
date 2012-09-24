@@ -1,6 +1,6 @@
 <?php
 
-class XiaoshouAction extends CommonAction{
+class XiaoshouAction extends Action{
 	
     public function _myinit() {
 		$this->assign("navposition",'销售');
