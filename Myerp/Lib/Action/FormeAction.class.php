@@ -20,10 +20,6 @@ class FormeAction extends Action{
 		echo "开始";
 		echo "<br>";
 		
-		$sql = "set interactive_timeout=24*3600";
-		mysql_real_query($sql);
-		
-		
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
 		$xianluAll = $gl_xianlu->order('time DESC')->findall();
