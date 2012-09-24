@@ -15,6 +15,7 @@ class CommonAction extends Action {
 					A("Method")->_opentoRBAC($this->user);
 				}
 				if(!RBAC::AccessDecision()){
+					$this->assign("message",'您的访问受限！！');
 					$this->display ('Index:error');
 					exit;
 				}

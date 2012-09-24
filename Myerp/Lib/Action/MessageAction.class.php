@@ -1,6 +1,6 @@
 <?php
 
-class MessageAction extends CommonAction{
+class MessageAction extends Action{
 
     public function _myinit() {
 		$this->assign("navposition",'信息');
