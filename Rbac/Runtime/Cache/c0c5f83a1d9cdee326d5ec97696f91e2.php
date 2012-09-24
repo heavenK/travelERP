@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>管理平台</title>
+<title>『ThinkPHP管理平台』By ThinkPHP <?php echo (THINK_VERSION); ?></title>
 <frameset frameborder=0 framespacing=0 border=0 rows="50, *,32">
   <frame src="__APP__/Public/top" name="top" frameborder=0 noresize scrolling='no' marginwidth=0 marginheight=0>
   <frameset frameborder=0  framespacing=0 border=0 cols="200,7, *" id="frame-body">

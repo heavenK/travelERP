@@ -141,40 +141,6 @@ function showHideSearch(){
 	}
 }
 
-function top(id){
-	var keyValue;
-	if (id)
-	{
-		keyValue = id;
-	}else {
-		keyValue = getSelectCheckboxValues();
-	}
-	if (!keyValue)
-	{
-		alert('请选择置顶项！');
-		return false;
-	}
-
-	location.href = URL+"/top/id/"+keyValue;
-
-}
-function unTop(id){
-	var keyValue;
-	if (id)
-	{
-		keyValue = id;
-	}else {
-		keyValue = getSelectCheckboxValues();
-	}
-	if (!keyValue)
-	{
-		alert('请选择置顶项！');
-		return false;
-	}
-        // alert(keyValue);
-	location.href = URL+"/unTop/id/"+keyValue;
-
-}
 function sort(id){
 	var keyValue;
 	keyValue = getSelectCheckboxValues();
