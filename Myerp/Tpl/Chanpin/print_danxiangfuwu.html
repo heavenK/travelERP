@@ -44,7 +44,7 @@
   <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item">
     <tbody>
     
-    <php>if($baozhang['type'] == '团队报账单'){</php>
+    <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'zituan'){</php>
       <tr height="28px" >
         <td width="25%">&nbsp;团号：<{$zituan['tuanhao']}></td>
         <td width="20%">&nbsp;接团单位：<{$baozhang['datatext']['jietuandanwei']}></td>
@@ -58,6 +58,23 @@
         <td width="20%">&nbsp;回团日期：<php>echo jisuanriqi($zituan['chutuanriqi'],$xianlu['xianlu']['tianshu']);</php></td>
         <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
         <td width="10%">&nbsp;全陪：<{$baozhang['datatext']['quanpei']}></td>
+      </tr>
+    <php>}</php>
+      
+    <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'DJtuan'){</php>
+      <tr height="28px" >
+        <td width="25%">&nbsp;团号：<{$djtuan['tuanhao']}></td>
+        <td width="20%">&nbsp;发团社：<{$djtuan['fromcompany']}></td>
+        <td width="20%">&nbsp;联系人：<{$djtuan['lianxiren']}></td>
+        <td width="15%">&nbsp;电话：<{$djtuan['lianxirentelnum']}></td>
+        <td width="10%">&nbsp;人数：<{$djtuan['renshu']}></td>
+      </tr>
+      <tr height="28px" >
+        <td>&nbsp;线路：<{$djtuan['title']}></td>
+        <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
+        <td>&nbsp;回团日期：<php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
+        <td>&nbsp;全陪：<{$djtuan['datatext_xingcheng']['quanpei']}></td>
+        <td>&nbsp;导游：<{$djtuan['daoyou']}></td>
       </tr>
     <php>}</php>
       

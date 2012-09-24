@@ -1976,6 +1976,7 @@ class MethodAction extends Action{
 				$this->showDirectory("订房及其他服务");
 			$ViewDJtuan = D('ViewDJtuan');
 			$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
 			$this->assign("djtuan",$djtuan);
 			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
 		}
@@ -2003,6 +2004,12 @@ class MethodAction extends Action{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
 		$this->assign("task",$task);
+		//所属产品
+		$Chanpin = D("Chanpin");
+		if($baozhang['parentID']){
+			$pdata = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$this->assign("chanpin",$pdata);
+		}
 		//打印
 		if($_REQUEST['doprint'] == '计调打印' || $_REQUEST['doprint'] == '打印' || $_REQUEST['export'] == 1){
 			if($baozhang['status_shenhe'] == '批准'){
@@ -2014,31 +2021,24 @@ class MethodAction extends Action{
 				$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
 				$this->assign("baozhang",$baozhang);
 			}
-			if($_REQUEST['doprint']){
-				$this->display('Chanpin:print_danxiangfuwu');
-				exit;
-			}
-			else
-				if($_REQUEST['export']){
+			if($_REQUEST['export']){
 				//导出Word必备头
 				header("Content-type:application/msword");
 				header("Content-Disposition:attachment;filename=" . $baozhang['type'].'结算报告'.'--'.$baozhang['title'] . ".doc");
 				header("Pragma:no-cache");        
 				header("Expires:0");  
-				$this->display('Chanpin:print_danxiangfuwu');
-				exit;
 			}
+			$this->display('Chanpin:print_danxiangfuwu');
+			exit;
 		}
 		else{
-			  $Chanpin = D("Chanpin");
-			  if($baozhang['parentID']){
-				  $data = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
-				  if($data['marktype'] == 'zituan')
+			  if($pdata){
+				  if($pdata['marktype'] == 'zituan')
 					  $this->display('Chanpin:zituanbaozhang');
-				  if($data['marktype'] == 'DJtuan')
+				  if($pdata['marktype'] == 'DJtuan')
 					  $this->display('Dijie:djtuanbaozhang');
+				  exit;
 			  }
-			  exit;
 		}
 		
 	}
