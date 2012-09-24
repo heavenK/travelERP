@@ -2,13 +2,26 @@
 
 class FormeAction extends Action{
 	
+	
+    public function index() {
+		$this->display('Index:forme');
+	}
+	
+	//基础数据
+    public function fillSystemAll() {
+ 		$this->filldepartment();
+		$this->fillrole();
+		$this->filluser();
+	}
+	
+	
 	//线路
     public function chanpinxianlu() {
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		$xianluAll = $gl_xianlu->order('time DESC')->where("xianluID = 1078")->findall();
+		$xianluAll = $gl_xianlu->order('time DESC')->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		foreach($xianluAll as $v)
@@ -80,7 +93,7 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$dj_tuan=M("dj_tuan");
-		$datalist = $dj_tuan->order('time DESC')->where("`djtuanID` = '185'")->findall();
+		$datalist = $dj_tuan->order('time DESC')->findall();
 		$Chanpin=D("Chanpin");
 		$dj_itinerary=M("dj_itinerary");
 		$dj_rcitem=M("dj_rcitem");
@@ -254,13 +267,6 @@ class FormeAction extends Action{
 	
 	
 	
-    public function fillSystemAll() {
-	
- 		$this->filldepartment();
-		$this->fillrole();
-		$this->filluser();
-	
-	}
 	//用户相关
     public function filluser() {
 		echo "开始";
