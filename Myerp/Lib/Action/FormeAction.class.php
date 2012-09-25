@@ -795,7 +795,7 @@ class FormeAction extends Action{
 			}
 			$bzd["baozhang"]['renshu'] = $renshu;
 			if(!$bzd["baozhang"]['renshu'])
-				$bzd["baozhang"]['renshu'] = 0;
+				$bzd["baozhang"]['renshu'] = $zituan['renshu'];
 			//领队人数
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
