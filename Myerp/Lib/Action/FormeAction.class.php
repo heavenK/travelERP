@@ -63,20 +63,20 @@ class FormeAction extends Action{
 					//生成备份
 					A("Method")->makefiledatacopy($xianluID,'线路',-1);
 					//开放售价
-//					if($v['zhuangtai'] == '报名')
-//					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
-//					//zituan
-//					$this->_zituan_build($v,$dat,$dataOMlist);
+					if($v['zhuangtai'] == '报名')
+					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
+					//zituan
+					$this->_zituan_build($v,$dat,$dataOMlist);
 				}
 				//附表
-//				if($v['guojing'] == '境外')
-//				$this->_xianluext_build($v,$dat);
-//				if($v['xianlutype'] == '包团' && $v['guojing'] != '境外')
-//				$this->_xianluext_build($v,$dat,'包团');
+				if($v['guojing'] == '境外')
+				$this->_xianluext_build($v,$dat);
+				if($v['xianlutype'] == '包团' && $v['guojing'] != '境外')
+				$this->_xianluext_build($v,$dat,'包团');
 				//行程
-				//$this->_xianlu_xingcheng($v,$dat);
+				$this->_xianlu_xingcheng($v,$dat);
 				//成本
-				//$this->_xianlu_chengben($v,$dat);
+				$this->_xianlu_chengben($v,$dat);
 				
 			}
 			else{
@@ -2124,7 +2124,7 @@ class FormeAction extends Action{
 		$ds = $myerp_tempdatacopy->where("`type` = '目录'")->findall();
 		foreach($ds as $v){
 			$data = unserialize($v['datacopy']);
-			$data = unserialize($v['datacopy']);
+			//$data['da'] =;
 			$d['type'] = '目录';
 			$myerp_tempdatacopy->add($d);
 		}
