@@ -9,7 +9,8 @@ class FormeAction extends Action{
 	
 	//基础数据
     public function fillSystemAll() {
- 		$this->filldepartment();
+ 		$this->_filldepartment();
+ 		$this->_filldatadictionary();
 		$this->fillrole();
 		$this->filluser();
 	}
@@ -62,20 +63,20 @@ class FormeAction extends Action{
 					//生成备份
 					A("Method")->makefiledatacopy($xianluID,'线路',-1);
 					//开放售价
-					if($v['zhuangtai'] == '报名')
-					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
-					//zituan
-					$this->_zituan_build($v,$dat,$dataOMlist);
+//					if($v['zhuangtai'] == '报名')
+//					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
+//					//zituan
+//					$this->_zituan_build($v,$dat,$dataOMlist);
 				}
 				//附表
-				if($v['guojing'] == '境外')
-				$this->_xianluext_build($v,$dat);
-				if($v['xianlutype'] == '包团' && $v['guojing'] != '境外')
-				$this->_xianluext_build($v,$dat,'包团');
+//				if($v['guojing'] == '境外')
+//				$this->_xianluext_build($v,$dat);
+//				if($v['xianlutype'] == '包团' && $v['guojing'] != '境外')
+//				$this->_xianluext_build($v,$dat,'包团');
 				//行程
-				$this->_xianlu_xingcheng($v,$dat);
+				//$this->_xianlu_xingcheng($v,$dat);
 				//成本
-				$this->_xianlu_chengben($v,$dat);
+				//$this->_xianlu_chengben($v,$dat);
 				
 			}
 			else{
@@ -297,7 +298,7 @@ class FormeAction extends Action{
 	}
 	
 	//部门相关
-    public function filldepartment() {
+    public function _filldepartment() {
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
@@ -310,6 +311,7 @@ class FormeAction extends Action{
 			if($v['admintype'] == '系统'){
 				$v['title'] = $v['companyname'];
 				$v['department'] = $v;
+				$v['department']['type'] = '行政';
 				$System->relation("department")->myRcreate($v);
 				$parentID = $System->getRelationID();
 				$bball = $glbasedata->where("`type` = '部门'")->findall();
@@ -317,6 +319,18 @@ class FormeAction extends Action{
 				{
 					$c['parentID'] = $parentID;
 					$c['department'] = $c;
+					if($v['title'] == '直营-普兰店营业部' || $v['title'] == '直营-金州营业部' || $v['title'] == '直营-瓦房店营业部'||$v['title'] == '直营-人民路旗舰店'||$v['title'] == '直营-联合路营业部'||$v['title'] == '直营-电子商务营业部'){
+					$c['department']['type'] = '销售（直营）';
+					}
+					if($v['title'] == '加盟-二七营业部' || $v['title'] == '加盟-开发区营业部' || $v['title'] == '加盟-劳动公园营业部'){
+					$c['department']['type'] = '销售（加盟）';
+					}
+					if($v['title'] == '出境部-韩国' || $v['title'] == '国内部-组团' || $v['title'] == '出境部-欧美岛'||$v['title'] == '出境部-台湾'||$v['title'] == '出境部-港澳东南亚'||$v['title'] == '日本部-出境'){
+					$c['department']['type'] = '组团';
+					}
+					if($v['title'] == '国内部-地接' || $v['title'] == '日本部-入境' || $v['title'] == '出境部-欧美岛'||$v['title'] == '出境部-台湾'){
+					$c['department']['type'] = '地接';
+					}
 					$System->relation("department")->myRcreate($c);
 				}
 			}
@@ -328,6 +342,8 @@ class FormeAction extends Action{
 				$v['title'] = $v['companyname'];
 				$v['parentID'] = $parentID;
 				$v['department'] = $v;
+				$v['department']['type'] = '组团,联合体';
+				if($v['title'])
 				$System->relation("department")->myRcreate($v);
 			}
 			
@@ -2009,6 +2025,178 @@ class FormeAction extends Action{
 	}
 	
 	
+	//填充默认目录
+    public function _filldatadictionary(){
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		
+		$v['department'] = $v;
+		$v['department']['type'] = '行政';
+		$System->relation("department")->myRcreate($v);
+		$parentID = $System->getRelationID();
+		$bball = $glbasedata->where("`type` = '部门'")->findall();
+	}
+	
+	
+	//默认数据到
+    public function _database_to_tempdata(){
+		//目录
+		$ViewDirectory = D("ViewDirectory");
+		$ds = $ViewDirectory->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '目录';
+			$myerp_tempdatacopy->add($d);
+		}
+		//用户
+		$ViewUser = D("ViewUser");
+		$ds = $ViewUser->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '用户';
+			$myerp_tempdatacopy->add($d);
+		}
+		//角色
+		$ViewRoles = D("ViewRoles");
+		$ds = $ViewRoles->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '角色';
+			$myerp_tempdatacopy->add($d);
+		}
+		//DUR
+		$ViewSystemDUR = D("ViewSystemDUR");
+		$ds = $ViewSystemDUR->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = 'DUR';
+			$myerp_tempdatacopy->add($d);
+		}
+		//部门
+		$ViewDepartment = D("ViewDepartment");
+		$ds = $ViewDepartment->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '部门';
+			$myerp_tempdatacopy->add($d);
+		}
+		//分类关系
+		$ViewSystemDC = D("ViewSystemDC");
+		$ds = $ViewSystemDC->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '分类关系';
+			$myerp_tempdatacopy->add($d);
+		}
+		//数据字典
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$ds = $ViewDataDictionary->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '数据字典';
+			$myerp_tempdatacopy->add($d);
+		}
+		//分类
+		$ViewCategory = D("ViewCategory");
+		$ds = $ViewCategory->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '分类';
+			$myerp_tempdatacopy->add($d);
+		}
+	}
+	
+	
+	//数据到表
+    public function _tempdata_to_database(){
+		//目录
+		$System = D("System");
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '目录'")->findall();
+		foreach($ds as $v){
+			$data = unserialize($v['datacopy']);
+			$data = unserialize($v['datacopy']);
+			$d['type'] = '目录';
+			$myerp_tempdatacopy->add($d);
+		}
+		//用户
+		$ViewUser = D("ViewUser");
+		$ds = $ViewUser->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '用户';
+			$myerp_tempdatacopy->add($d);
+		}
+		//角色
+		$ViewRoles = D("ViewRoles");
+		$ds = $ViewRoles->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '角色';
+			$myerp_tempdatacopy->add($d);
+		}
+		//DUR
+		$ViewSystemDUR = D("ViewSystemDUR");
+		$ds = $ViewSystemDUR->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = 'DUR';
+			$myerp_tempdatacopy->add($d);
+		}
+		//部门
+		$ViewDepartment = D("ViewDepartment");
+		$ds = $ViewDepartment->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '部门';
+			$myerp_tempdatacopy->add($d);
+		}
+		//分类关系
+		$ViewSystemDC = D("ViewSystemDC");
+		$ds = $ViewSystemDC->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '分类关系';
+			$myerp_tempdatacopy->add($d);
+		}
+		//数据字典
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$ds = $ViewDataDictionary->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '数据字典';
+			$myerp_tempdatacopy->add($d);
+		}
+		//分类
+		$ViewCategory = D("ViewCategory");
+		$ds = $ViewCategory->findall();
+		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		foreach($ds as $v){
+			$d['datacopy'] = serialize($v);
+			$d['type'] = '分类';
+			$myerp_tempdatacopy->add($d);
+		}
+	}
+	
 	
 }
 ?>
+
+
+
+
