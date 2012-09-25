@@ -12,7 +12,7 @@ class MethodAction extends CommonAction{
 	public function test(){
 		
 		$DataOM = D("DataOM");
-		$where['dataID'] = '35295';
+		$where['dataID'] = '32638';
 		$where['datatype'] = '售价';
 		$DataOM->where($where)->delete();
 		dump($DataOM);
