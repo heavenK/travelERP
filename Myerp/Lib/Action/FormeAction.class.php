@@ -99,14 +99,14 @@ class FormeAction extends Action{
 			$jiage = $glxianlujiage->where("`xianluID` = '$v[xianluID]'")->find();
 			$dat['xianlu']['shoujia'] = $jiage['chengrenzongjia'];
 			$dat['xianlu']['remark'] = $jiage['ertongshuoming'];
-			//天数
+			//异常数据处理
 			if(!$dat['xianlu']['tianshu'])
 				$dat['xianlu']['tianshu'] = 0;
-			//人数
 			if(!$dat['xianlu']['renshu'])
 				$dat['xianlu']['renshu'] = 0;
 			if(!$dat['xianlu']['chutuanriqi'])
 				$dat['xianlu']['chutuanriqi'] = 0;
+				
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
