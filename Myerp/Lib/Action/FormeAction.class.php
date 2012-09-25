@@ -105,6 +105,8 @@ class FormeAction extends Action{
 			//人数
 			if(!$dat['xianlu']['renshu'])
 				$dat['xianlu']['renshu'] = 0;
+			if(!$dat['xianlu']['chutuanriqi'])
+				$dat['xianlu']['chutuanriqi'] = 0;
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
@@ -2024,20 +2026,6 @@ class FormeAction extends Action{
 		
 		echo "结束";
 	}
-	
-	
-	
-	
-	
-	function test(){
-		$DataOM = D("DataOM");
-		$where['dataID'] = '35295';
-		$where['datatype'] = '售价';
-		$DataOM->where($where)->delete();
-	}
-	
-	
-	
 	
 	
 	
