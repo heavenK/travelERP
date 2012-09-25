@@ -2209,7 +2209,7 @@ class FormeAction extends Action{
 		$where['dataID'] = '35295';
 		$where['datatype'] = '售价';
 		$DataOM->where($where)->delete();
-		
+		dump($DataOM);
 	}
 	
 	
