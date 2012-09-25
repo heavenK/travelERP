@@ -79,7 +79,7 @@ class FormeAction extends Action{
 				
 			}
 			else{
-				dump($dat);
+				dump(12312333333);
 				dump($Chanpin);
 				exit;
 			}
@@ -224,6 +224,7 @@ class FormeAction extends Action{
 			}
 			else
 			{
+				dump(2342536346);
 				dump($Chanpin);
 				exit;
 			}
@@ -1121,12 +1122,14 @@ class FormeAction extends Action{
 						$this->_taskshenhe_build($v,$bzditem,'单项服务报账项',$dataOMlist);
 					} 
 					else{
+				dump(78963543);
 					dump($Chanpin);
 					exit;
 					}
 				}
 			}
 			else{
+				dump(63521111);
 			dump($Chanpin);
 			}
 		}
@@ -1223,6 +1226,7 @@ class FormeAction extends Action{
 					$task['parentID'] = $taskID;
 				}
 				else{
+				dump(8967635);
 				dump($System);
 				}
 			}
@@ -1353,8 +1357,10 @@ class FormeAction extends Action{
 						//过滤统一部门DUR
 						$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 						if(!$tmp_d){
-							if(false === $DataOM->mycreate($to_dataom))
+							if(false === $DataOM->mycreate($to_dataom)){
+				dump(896563453);
 							dump($DataOM);
+							}
 						}
 					}
 				}
@@ -1400,6 +1406,7 @@ class FormeAction extends Action{
 					$task['parentID'] = $taskID;
 				}
 				else{
+				dump(97342342);
 				dump($System);
 				}
 			}
@@ -1531,6 +1538,7 @@ class FormeAction extends Action{
 					$task['parentID'] = $taskID;
 				}
 				else{
+				dump(12313114151515);
 				dump($System);
 				}
 			}
@@ -1613,6 +1621,7 @@ class FormeAction extends Action{
 					$task['parentID'] = $taskID;
 				}
 				else{
+				dump(6456242322);
 				dump($System);
 				}
 			}
@@ -1678,14 +1687,18 @@ class FormeAction extends Action{
 						//过滤统一部门DUR
 						$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 						if(!$tmp_d){
-							if(false === $DataOM->mycreate($to_dataom))
+							if(false === $DataOM->mycreate($to_dataom)){
+				dump(67546234525);
 							dump($DataOM);
+							}
 						}
 					}
 				}
 			}
-			else
+			else{
+				dump(3425626262);
 			dump($System);
+			}
 		}
 					
 		
@@ -1714,6 +1727,7 @@ class FormeAction extends Action{
 				}
 				else
 				{
+				dump(453634673673);
 					dump($DataCD);
 					exit;
 					}
@@ -1764,6 +1778,7 @@ class FormeAction extends Action{
 				A("Method")->_createDataOM($messageID,'公告','管理',$dataOMlist,'DataOMMessage');
 			}
 			else{
+				dump(42425325626);
 			dump($Message);exit;	
 				
 			}
@@ -1815,6 +1830,7 @@ class FormeAction extends Action{
 				A("Method")->_createDataOM($messageID,'排团表','管理',$dataOMlist,'DataOMMessage');
 			}
 			else{
+				dump(25626672727);
 			dump($Message);exit;	
 				
 			}
@@ -1851,6 +1867,7 @@ class FormeAction extends Action{
 					if($v['zhengjiantype'] == '通行证')
 					$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
 					if(false === $System->relation("customer")->myRcreate($data)){
+				dump(7825222);
 						dump($System);
 						exit;
 					}
@@ -1898,6 +1915,7 @@ class FormeAction extends Action{
 			A('Method')->_shoujiaToDataOM($_REQUEST);
 		}
 		else{
+				dump(2626266666);
 			dump($Chanpin);	
 			exit;
 		}
@@ -1927,8 +1945,10 @@ class FormeAction extends Action{
 			$dat['xianlu']['xianlu_ext'] = serialize($ext);		
 		}
 		$data['chanpinID'] = $newxianlu['chanpinID'];
-		if(false === $Chanpin->relation("xianlu")->myRcreate($data))
+		if(false === $Chanpin->relation("xianlu")->myRcreate($data)){
+		dump(02423432);
 		dump($Chanpin);
+		}
 	}
 	
 	
@@ -1948,6 +1968,7 @@ class FormeAction extends Action{
 			$data['xingcheng']['content'] = $v['content'];
 			if(false == $Chanpin->relation("xingcheng")->myRcreate($data))
 			{
+				dump(4444444);
 				dump($Chanpin);
 				exit;	
 				
@@ -1971,6 +1992,7 @@ class FormeAction extends Action{
 			$data['chengben']['jifeitype'] = $v['jifeileixing'];
 			if(false == $Chanpin->relation("chengben")->myRcreate($data))
 			{
+				dump(23536437547858);
 				dump($Chanpin);
 				exit;	
 			}
