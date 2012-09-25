@@ -553,7 +553,7 @@ class MethodAction extends CommonAction{
 	//同步DataOM:售价开放管理到对象
      public function _shoujiaToDataOM($data) {
 		$DataOM = D("DataOM");
-		$DataOM->where("`dataID` = '$data[chanpinID]' and `datatype` = '售价'")->delete();
+		//$DataOM->where("`dataID` = '$data[chanpinID]' and `datatype` = '售价'")->delete();
 		$OM['dataID'] = $data['chanpinID'];
 		$OM['datatype'] = '售价';
 		$OM['type'] = '开放';
