@@ -1906,6 +1906,9 @@ class FormeAction extends Action{
 		$_REQUEST['renshu'] = $xianlu['renshu'];
 		$data = $_REQUEST;
 		$data['shoujia'] = $_REQUEST;
+		$data['user_name'] = $newxianlu['user_name'];
+		$data['departmentID'] = $newxianlu['departmentID'];
+		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
