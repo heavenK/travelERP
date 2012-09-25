@@ -79,6 +79,7 @@ class FormeAction extends Action{
 				
 			}
 			else{
+				dump($dat);
 				dump($Chanpin);
 				exit;
 			}
