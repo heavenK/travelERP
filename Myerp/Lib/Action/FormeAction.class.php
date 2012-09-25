@@ -1988,6 +1988,9 @@ class FormeAction extends Action{
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
 		$chengbenall = $glchengbenxiang->where("`jiageID` = '$jiage[jiageID]'")->findall();
 		$data['parentID'] = $newxianlu['chanpinID'];
+		$data['user_name'] = $newxianlu['user_name'];
+		$data['departmentID'] = $newxianlu['departmentID'];
+		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		foreach($chengbenall as $v){
 			$data['chengben']['title'] = $v['leixing'];
 			$data['chengben']['remark'] = $v['miaoshu'];
