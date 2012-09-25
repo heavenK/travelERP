@@ -18,9 +18,6 @@
           <li>
               <a id="searchtab_1" <PHP>if($sorttabid == 1 || !$sorttabid){</PHP>class="current" <PHP>}</PHP> href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
           </li>
-          <li>
-              <a id="searchtab_2" <PHP>if($sorttabid == 2){</PHP>class="current" <PHP>}</PHP>  href="javascript:selectTabCSS('Calls|advanced_search');" onclick="showsearch(2)">高级查找</a>
-          </li>
         </ul>
         
         <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
@@ -28,11 +25,10 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
-                          <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
-                          <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="chutuanriqi" value="<{$chutuanriqi}>" >
+                          <td scope="row" nowrap="nowrap"> 标题： </td>
+                          <td nowrap="nowrap"><input type="text" class="title" value="<{$title}>"></td>
+                          <td scope="row" nowrap="nowrap"> 申请人： </td>
+                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"></td>
                       </tbody>
                     </table>
                 </div>
@@ -40,46 +36,6 @@
               <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
         </div>
         
-        <div class="search_form" id="searchdiv_2" style="<PHP>if($sorttabid != 2){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
-              <div class="edit view search ">
-                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                      <tbody>
-                        <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
-                          <td nowrap="nowrap"><input type="text" class="title_2" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
-                          <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
-                          <span>--</span>
-                          <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
-                          <td scope="row" nowrap="nowrap"> 创建人 </td>
-                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 状态 </td>
-                          <td nowrap="nowrap">
-                        <select class="status"> 
-                            <php> if($status){</php>
-                            <option value="<{$status}>"><{$status}></option>
-                            <option disabled="disabled">-----------------</option>
-                            <php> }</php>
-                            <option value="">全部</option> 
-                            <option value="准备">准备</option> 
-                            <option value="报名">报名</option> 
-                            <option value="截止">截止</option> 
-                        </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td scope="row" nowrap="nowrap"> 始发地 </td>
-                          <td nowrap="nowrap"><input type="text" class="chufadi" value="<{$chufadi}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 目的地 </td>
-                          <td nowrap="nowrap"><input type="text" class="mudidi" value="<{$mudidi}>"/></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </div>
-              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(2);">&nbsp;
-              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
-        </div>
         <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
         <div style="margin-top:10px;">
             <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
@@ -149,37 +105,16 @@ function showsearch(s)
 }
 
 function clearsearch(){
-		jQuery('.title_1').val('');
-		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
-		jQuery('.start_time').val('');
-		jQuery('.end_time').val('');
+		jQuery('.title').val('');
 		jQuery('.user_name').val('');
-		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
-		
 }
 
 function _dosearch(sorttabid){
 	var str ='';
-	if(jQuery('.title_'+sorttabid).val())
-	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/chufariqi/'+jQuery('.chufariqi').val();
-	if(jQuery('.start_time').val())
-	str += '/start_time/'+jQuery('.start_time').val();
-	if(jQuery('.end_time').val())
-	str += '/end_time/'+jQuery('.end_time').val();
+	if(jQuery('.title').val())
+	str += '/title/'+jQuery('.title').val();
 	if(jQuery('.user_name').val())
 	str += '/user_name/'+jQuery('.user_name').val();
-	if(jQuery('.status').val())
-	str += '/status/'+jQuery('.status').val();
-	if(jQuery('.chufadi').val())
-	str += '/chufadi/'+jQuery('.chufadi').val();
-	if(jQuery('.mudidi').val())
-	str += '/mudidi/'+jQuery('.mudidi').val();
-	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }
 </script>

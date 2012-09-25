@@ -1,7 +1,13 @@
 <?php
 
 class MessageAction extends Action{
-
+	
+    public function _initialize() {
+        if (!$this->user)
+            redirect(SITE_INDEX.'Index/index');
+		$this->_myinit();	
+    }
+	
     public function _myinit() {
 		$this->assign("navposition",'信息');
 	}

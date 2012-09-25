@@ -52,27 +52,6 @@
                           <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
                           <span>--</span>
                           <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
-                          <td scope="row" nowrap="nowrap"> 创建人 </td>
-                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 状态 </td>
-                          <td nowrap="nowrap">
-                        <select class="status"> 
-                            <php> if($status){</php>
-                            <option value="<{$status}>"><{$status}></option>
-                            <option disabled="disabled">-----------------</option>
-                            <php> }</php>
-                            <option value="">全部</option> 
-                            <option value="准备">准备</option> 
-                            <option value="报名">报名</option> 
-                            <option value="截止">截止</option> 
-                        </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td scope="row" nowrap="nowrap"> 始发地 </td>
-                          <td nowrap="nowrap"><input type="text" class="chufadi" value="<{$chufadi}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 目的地 </td>
-                          <td nowrap="nowrap"><input type="text" class="mudidi" value="<{$mudidi}>"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -154,11 +133,6 @@ function clearsearch(){
 		jQuery('.chufariqi').val('');
 		jQuery('.start_time').val('');
 		jQuery('.end_time').val('');
-		jQuery('.user_name').val('');
-		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
-		
 }
 
 function _dosearch(sorttabid){
@@ -171,15 +145,6 @@ function _dosearch(sorttabid){
 	str += '/start_time/'+jQuery('.start_time').val();
 	if(jQuery('.end_time').val())
 	str += '/end_time/'+jQuery('.end_time').val();
-	if(jQuery('.user_name').val())
-	str += '/user_name/'+jQuery('.user_name').val();
-	if(jQuery('.status').val())
-	str += '/status/'+jQuery('.status').val();
-	if(jQuery('.chufadi').val())
-	str += '/chufadi/'+jQuery('.chufadi').val();
-	if(jQuery('.mudidi').val())
-	str += '/mudidi/'+jQuery('.mudidi').val();
-	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }
 </script>

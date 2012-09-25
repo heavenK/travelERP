@@ -1,8 +1,5 @@
 <tp:includeCA file="Index:showheader" />
 
-<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -12,7 +9,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_xianlu" />
+            <include file="Index:search_taskshenhe" />
             
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
               <ul id="searchTabs" class="tablist tablist_2">
@@ -215,29 +212,14 @@
   </table>
 </div>
 <script language="javascript"> 
-	function doshenhe_baozhangitem(dotype,datatype,dataID,title){
-		ThinkAjax.myloading('resultdiv');
-		jQuery.ajax({
-			type:	"POST",
-			url:	"<{:SITE_INDEX}>Chanpin/doshenhe",
-			data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
-			success:function(msg){
-				scroll(0,0);
-				ThinkAjax.myAjaxResponse(msg,'resultdiv');
-			}
-		});
-	}
-	function showinfo(baozhangID,parentID){
-		window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
-	}
-	function show_dingdan(chanpinID){
-		window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
-	}
-function dosearch()
-{
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+function showinfo(baozhangID,parentID){
+	window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
 }
-
+function show_dingdan(chanpinID){
+	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
+}
+function dosearch(str){
+		window.location = '<{:SITE_INDEX}>Chanpin/shenhe/type/<{$type}>'+str;
+}
 </script>
 

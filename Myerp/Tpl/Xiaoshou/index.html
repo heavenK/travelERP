@@ -19,7 +19,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_xianlu" />
+            <include file="Index:search_xianlu_xiaoshou" />
             
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
               <ul id="searchTabs" class="tablist tablist_2">
@@ -157,10 +157,8 @@ function closedatelist(mark){
 		jQuery("#buttomopen"+mark).show();
 		jQuery("#buttomclose"+mark).hide();
 }
-function dosearch()
-{
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+function dosearch(str){
+		window.location = '<{:SITE_INDEX}>Xiaoshou/Index'+str;
 }
 
 </script>

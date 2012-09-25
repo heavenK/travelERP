@@ -28,11 +28,12 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td scope="row" nowrap="nowrap"> 团名 </td>
                           <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
-                          <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="chutuanriqi" value="<{$chutuanriqi}>" >
+                          <td scope="row" nowrap="nowrap"> 操作人 </td>
+                          <td nowrap="nowrap"><input type="text" class="fuzeren_1" value="<{$fuzeren}>"></td>
+                          <td scope="row" nowrap="nowrap"> 收客人 </td>
+                          <td nowrap="nowrap"><input type="text" class="owner_1" value="<{$owner}>"></td>
                       </tbody>
                     </table>
                 </div>
@@ -45,34 +46,30 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td scope="row" nowrap="nowrap"> 团名 </td>
                           <td nowrap="nowrap"><input type="text" class="title_2" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
-                          <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
-                          <span>--</span>
-                          <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
-                          <td scope="row" nowrap="nowrap"> 创建人 </td>
-                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 状态 </td>
+                          <td scope="row" nowrap="nowrap"> 操作人 </td>
+                          <td nowrap="nowrap"><input type="text" class="fuzeren_2" value="<{$fuzeren}>"></td>
+                          <td scope="row" nowrap="nowrap"> 收客人 </td>
+                          <td nowrap="nowrap"><input type="text" class="owner_2" value="<{$owner}>"></td>
+                        </tr>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 联系人 </td>
+                          <td nowrap="nowrap"><input type="text" class="lianxiren" value="<{$lianxiren}>"></td>
+                          <td scope="row" nowrap="nowrap"> 类型 </td>
                           <td nowrap="nowrap">
                         <select class="status"> 
-                            <php> if($status){</php>
-                            <option value="<{$status}>"><{$status}></option>
+                            <php> if($type){</php>
+                            <option value="<{$type}>"><{$type}></option>
                             <option disabled="disabled">-----------------</option>
                             <php> }</php>
                             <option value="">全部</option> 
-                            <option value="准备">准备</option> 
-                            <option value="报名">报名</option> 
-                            <option value="截止">截止</option> 
+                            <option value="标准">标准</option> 
+                            <option value="机票酒店">机票酒店</option> 
                         </select>
                           </td>
-                        </tr>
-                        <tr>
-                          <td scope="row" nowrap="nowrap"> 始发地 </td>
-                          <td nowrap="nowrap"><input type="text" class="chufadi" value="<{$chufadi}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 目的地 </td>
-                          <td nowrap="nowrap"><input type="text" class="mudidi" value="<{$mudidi}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 备注 </td>
+                          <td nowrap="nowrap"><input type="text" class="remark" value="<{$remark}>"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -151,13 +148,12 @@ function showsearch(s)
 function clearsearch(){
 		jQuery('.title_1').val('');
 		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
 		jQuery('.start_time').val('');
-		jQuery('.end_time').val('');
-		jQuery('.user_name').val('');
-		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
+		jQuery('.fuzeren').val('');
+		jQuery('.owner').val('');
+		jQuery('.lianxiren').val('');
+		jQuery('.type').val('');
+		jQuery('.remark').val('');
 		
 }
 
@@ -165,20 +161,16 @@ function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/chufariqi/'+jQuery('.chufariqi').val();
-	if(jQuery('.start_time').val())
-	str += '/start_time/'+jQuery('.start_time').val();
-	if(jQuery('.end_time').val())
-	str += '/end_time/'+jQuery('.end_time').val();
-	if(jQuery('.user_name').val())
-	str += '/user_name/'+jQuery('.user_name').val();
-	if(jQuery('.status').val())
-	str += '/status/'+jQuery('.status').val();
-	if(jQuery('.chufadi').val())
-	str += '/chufadi/'+jQuery('.chufadi').val();
-	if(jQuery('.mudidi').val())
-	str += '/mudidi/'+jQuery('.mudidi').val();
+	if(jQuery('.fuzeren_'+sorttabid).val())
+	str += '/fuzeren/'+jQuery('.fuzeren_'+sorttabid).val();
+	if(jQuery('.owner_'+sorttabid).val())
+	str += '/owner/'+jQuery('.owner_'+sorttabid).val();
+	if(jQuery('.lianxiren').val())
+	str += '/lianxiren/'+jQuery('.lianxiren').val();
+	if(jQuery('.type').val())
+	str += '/type/'+jQuery('.type').val();
+	if(jQuery('.remark').val())
+	str += '/remark/'+jQuery('.remark').val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

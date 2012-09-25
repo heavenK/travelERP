@@ -9,17 +9,6 @@ class MethodAction extends CommonAction{
 		}
 	}
 	
-	public function test(){
-		
-		$DataOM = D("DataOM");
-		$where['dataID'] = '32534';
-		$where['datatype'] = '售价';
-		$DataOM->where($where)->delete();
-		dump($DataOM);
-	}
-	
-	
-	
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
@@ -34,6 +23,8 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = '报账单';
 			if($relation == 'dingdan')
 			$where['datatype'] = '订单';
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 		}
 		if($datatype == '线路'){
 			$class_name = 'OMViewXianlu';
@@ -50,19 +41,58 @@ class MethodAction extends CommonAction{
 				$where['chutuanriqi'][$i] = 'or';
 			}
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
+			$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
 		}
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
 			$where['datatype'] = $datatype;
 			$where['xianlu_status'] = '报名';
+			//处理搜索
+			if($where['title']){
+				$where['xianlu_title'] = array('like','%'.$where['title'].'%');
+			}
+			if($where['chutuanriqi']){
+				$where['xianlu_chutuanriqi'] = array('like','%'.$where['chutuanriqi'].'%');
+			}
+			if($where['start_time'] && $where['end_time']){
+				$datelist = NF_getdatelistbetweentwodate($where['start_time'],$where['end_time'],"array");
+				$i = 0;
+				foreach($datelist as $v){
+					$where['xianlu_chutuanriqi'][$i][0] = 'like';
+					$where['xianlu_chutuanriqi'][$i][1] = '%'.$v.'%';
+					$i++;
+				}
+				$where['xianlu_chutuanriqi'][$i] = 'or';
+			}
 		}
 		if($datatype == '订单'){
-			$class_name = 'OMViewChanpin';
+			$class_name = 'OMViewDingdan';
 			$where['datatype'] = $datatype;
+			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
+			$where['owner'] = array('like','%'.$where['owner'].'%');
+			$where['fuzeren'] = array('like','%'.$where['fuzeren'].'%');
+			$where['remark'] = array('like','%'.$where['remark'].'%');
 		}
 		if($datatype == '子团'){
 			$class_name = 'OMViewZituan';
 			$where['datatype'] = $datatype;
+			//处理搜索
+			if($where['start_time'] && $where['end_time']){
+				$where['chutuanriqi'] = $map['id'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+			}
+			elseif($where['start_time']){
+				$where['chutuanriqi'] = $where['start_time'];
+			}
+			elseif($where['end_time']){
+				$where['chutuanriqi'] = $where['end_time'];
+			}
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
 		}
 		if($datatype == '地接'){
 			$class_name = 'OMViewDJtuan';
@@ -89,7 +119,7 @@ class MethodAction extends CommonAction{
 		if($type == '开放'){
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		}
-		if($datatype == '售价' || $datatype == '公告' || $datatype == '排团表')
+		if($datatype == '售价' || $datatype == '公告' || $datatype == '排团表' || $datatype == '订单')
 		$where['omtype'] = $type;
 		else
 		$where['type'] = $type;
@@ -118,7 +148,26 @@ class MethodAction extends CommonAction{
 
     //显示产品列表
     public function data_list_noOM($class_name,$where,$pagenum = 20) {
+		//处理搜索
+		if($class_name == 'ViewCustomer'){
+			if($where['title']){
+				$where['name'] = array('like','%'.$where['title'].'%');
+			}
+			if($where['telnum']){
+				$where['telnum'] = array('like','%'.$where['telnum'].'%');
+			}
+			if($where['sfz_haoma']){
+				$where['sfz_haoma'] = array('like','%'.$where['sfz_haoma'].'%');
+			}
+			if($where['hz_haoma']){
+				$where['hz_haoma'] = array('like','%'.$where['hz_haoma'].'%');
+			}
+			if($where['txz_haoma']){
+				$where['txz_haoma'] = array('like','%'.$where['txz_haoma'].'%');
+			}
+		}
 		$where = $this->_facade($class_name,$where);//过滤搜索项
+		dump($where);
 		$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
@@ -832,6 +881,7 @@ class MethodAction extends CommonAction{
 			$tmdt = $ViewDJtuan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 			$data['taskShenhe']['datakind'] = $tmdt['kind'];
 		}
+		$data['taskShenhe']['title_copy'] = $tmdt['title'];
 		//审核任务
 		$System = D("System");
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
@@ -866,6 +916,9 @@ class MethodAction extends CommonAction{
 				$data['parentID'] = $to_dataID;
 			else
 				$data['parentID'] = $need['parentID'];
+			//申请人	
+			$data['user_name'] = $need['user_name'];
+			$data['departmentID'] = $need['departmentID'];
 			$data['taskShenhe']['remark'] = $process[0]['remark'];
 			$data['taskShenhe']['processID'] = $processID+1;
 			unset($data['systemID']);

@@ -881,8 +881,7 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
-	public function customer()
-	{
+	public function customer(){
 		A("Method")->showDirectory("游客管理");
 		$chanpin_list = A('Method')->data_list_noOM('ViewCustomer',$_REQUEST);
 		$this->assign("page",$chanpin_list['page']);

@@ -62,17 +62,16 @@
                             <option disabled="disabled">-----------------</option>
                             <php> }</php>
                             <option value="">全部</option> 
-                            <option value="准备">准备</option> 
                             <option value="报名">报名</option> 
                             <option value="截止">截止</option> 
                         </select>
                           </td>
                         </tr>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 始发地 </td>
-                          <td nowrap="nowrap"><input type="text" class="chufadi" value="<{$chufadi}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 目的地 </td>
-                          <td nowrap="nowrap"><input type="text" class="mudidi" value="<{$mudidi}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 团号 </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanhao" value="<{$tuanhao}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 产品分类（日本，韩国等） </td>
+                          <td nowrap="nowrap"><input type="text" class="kind_copy" value="<{$kind_copy}>"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -156,8 +155,8 @@ function clearsearch(){
 		jQuery('.end_time').val('');
 		jQuery('.user_name').val('');
 		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
+		jQuery('.tuanhao').val('');
+		jQuery('.kind_copy').val('');
 		
 }
 
@@ -175,10 +174,10 @@ function _dosearch(sorttabid){
 	str += '/user_name/'+jQuery('.user_name').val();
 	if(jQuery('.status').val())
 	str += '/status/'+jQuery('.status').val();
-	if(jQuery('.chufadi').val())
-	str += '/chufadi/'+jQuery('.chufadi').val();
-	if(jQuery('.mudidi').val())
-	str += '/mudidi/'+jQuery('.mudidi').val();
+	if(jQuery('.tuanhao').val())
+	str += '/tuanhao/'+jQuery('.tuanhao').val();
+	if(jQuery('.kind_copy').val())
+	str += '/kind_copy/'+jQuery('.kind_copy').val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

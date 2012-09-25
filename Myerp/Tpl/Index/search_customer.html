@@ -28,11 +28,10 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td scope="row" nowrap="nowrap"> 姓名 </td>
                           <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
-                          <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="chutuanriqi" value="<{$chutuanriqi}>" >
+                          <td scope="row" nowrap="nowrap"> 电话 </td>
+                          <td nowrap="nowrap"><input type="text" class="telnum_1" value="<{$telnum}>"></td>
                       </tbody>
                     </table>
                 </div>
@@ -45,34 +44,30 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td scope="row" nowrap="nowrap"> 姓名 </td>
                           <td nowrap="nowrap"><input type="text" class="title_2" value="<{$title}>"></td>
-                          <td scope="row" nowrap="nowrap"> 团期 </td>
+                          <td scope="row" nowrap="nowrap"> 电话 </td>
+                          <td nowrap="nowrap"><input type="text" class="telnum_2" value="<{$telnum}>"></td>
+                          <td scope="row" nowrap="nowrap"> 性别 </td>
                           <td nowrap="nowrap">
-                          <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
-                          <span>--</span>
-                          <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
-                          <td scope="row" nowrap="nowrap"> 创建人 </td>
-                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 状态 </td>
-                          <td nowrap="nowrap">
-                        <select class="status"> 
+                        <select class="sex"> 
                             <php> if($status){</php>
-                            <option value="<{$status}>"><{$status}></option>
+                            <option value="<{$sex}>"><{$sex}></option>
                             <option disabled="disabled">-----------------</option>
                             <php> }</php>
                             <option value="">全部</option> 
-                            <option value="准备">准备</option> 
-                            <option value="报名">报名</option> 
-                            <option value="截止">截止</option> 
+                            <option value="男">男</option> 
+                            <option value="女">女</option> 
                         </select>
                           </td>
                         </tr>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 始发地 </td>
-                          <td nowrap="nowrap"><input type="text" class="chufadi" value="<{$chufadi}>"/></td>
-                          <td scope="row" nowrap="nowrap"> 目的地 </td>
-                          <td nowrap="nowrap"><input type="text" class="mudidi" value="<{$mudidi}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 身份证 </td>
+                          <td nowrap="nowrap"><input type="text" class="sfz_haoma" value="<{$sfz_haoma}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 护照 </td>
+                          <td nowrap="nowrap"><input type="text" class="hz_haoma" value="<{$hz_haoma}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 通行证 </td>
+                          <td nowrap="nowrap"><input type="text" class="txz_haoma" value="<{$txz_haoma}>"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -151,34 +146,28 @@ function showsearch(s)
 function clearsearch(){
 		jQuery('.title_1').val('');
 		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
-		jQuery('.start_time').val('');
-		jQuery('.end_time').val('');
-		jQuery('.user_name').val('');
-		jQuery('.status').val('');
-		jQuery('.chufadi').val('');
-		jQuery('.mudidi').val('');
-		
+		jQuery('.telnum_1').val('');
+		jQuery('.telnum_2').val('');
+		jQuery('.sex').val('');
+		jQuery('.sfz_haoma').val('');
+		jQuery('.txz_haoma').val('');
+		jQuery('.hz_haoma').val('');
 }
 
 function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/chufariqi/'+jQuery('.chufariqi').val();
-	if(jQuery('.start_time').val())
-	str += '/start_time/'+jQuery('.start_time').val();
-	if(jQuery('.end_time').val())
-	str += '/end_time/'+jQuery('.end_time').val();
-	if(jQuery('.user_name').val())
-	str += '/user_name/'+jQuery('.user_name').val();
-	if(jQuery('.status').val())
-	str += '/status/'+jQuery('.status').val();
-	if(jQuery('.chufadi').val())
-	str += '/chufadi/'+jQuery('.chufadi').val();
-	if(jQuery('.mudidi').val())
-	str += '/mudidi/'+jQuery('.mudidi').val();
+	if(jQuery('.telnum_'+sorttabid).val())
+	str += '/telnum_/'+jQuery('.telnum_'+sorttabid).val();
+	if(jQuery('.sex').val())
+	str += '/sex/'+jQuery('.sex').val();
+	if(jQuery('.sfz_haoma').val())
+	str += '/sfz_haoma/'+jQuery('.sfz_haoma').val();
+	if(jQuery('.txz_haoma').val())
+	str += '/txz_haoma/'+jQuery('.txz_haoma').val();
+	if(jQuery('.hz_haoma').val())
+	str += '/hz_haoma/'+jQuery('.hz_haoma').val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

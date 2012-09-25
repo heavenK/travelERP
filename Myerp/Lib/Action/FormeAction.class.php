@@ -7,13 +7,64 @@ class FormeAction extends Action{
 		$this->display('Index:forme');
 	}
 	
+	//游客生成
+    public function doCustomer() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$gltuanyuan = M("gltuanyuan");
+		$tuanyuanall = $gltuanyuan->findall();
+		$System = D("System");
+		$gldingdan = M("gldingdan");
+		foreach($tuanyuanall as $v){
+			if($v['name']){
+				if($v['zhengjianhaoma']){
+					$data = $v;
+					$data['customer'] = $v;
+					$data['customer']['remark'] = $v['xuqiu'].'，'.$v['beizhu'];
+					$data['customer']['hz_haoma'] = $v['huzhaohaoma'];
+					$data['customer']['hz_qianfariqi'] = $v['hzqianfadi'];
+					$data['customer']['hz_youxiaoriqi'] = $v['hzyouxiaoriqi'];
+					if($v['zhengjiantype'] == '身份证')
+					$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
+					if($v['zhengjiantype'] == '护照')
+					$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+					if($v['zhengjiantype'] == '通行证')
+					$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
+					if(false === $System->relation("customer")->myRcreate($data)){
+						dump(7825222);
+						dump($System);
+						exit;
+					}
+				}
+			}
+			else
+			continue;
+		}
+		
+		echo "结束";
+		return true;
+	}
+	
+	
 	//基础数据
     public function fillSystemAll() {
  		$this->_filldepartment();
  		$this->_filldatadictionary();
-		$this->fillrole();
-		$this->filluser();
+		$this->_fillrole();
+		$this->_filluser();
 	}
+	
+	
+	//生成单项服务报账单----------------------
+	public function danxiangfuwu_build(){
+		//生成随团单项服务报账单----------------------
+		$this->_danxiangfuwu_build($dat,$dataOMlist,'子团');
+	}
+	
+	
+	
+	
 	
 	
 	//线路
@@ -278,7 +329,7 @@ class FormeAction extends Action{
 	
 	
 	//用户相关
-    public function filluser() {
+    public function _filluser() {
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
@@ -292,7 +343,7 @@ class FormeAction extends Action{
 			$b['user'] = $b;
 			$System->relation("user")->myRcreate($b);
 			$systemID = $System->getRelationID();
-			$this->fillDUR($v,$systemID);
+			$this->_fillDUR($v,$systemID);
 		}
 		echo "结束";
 	}
@@ -354,7 +405,7 @@ class FormeAction extends Action{
 	
 	
 	//角色相关
-    public function fillrole() {
+    public function _fillrole() {
 		
 		echo "开始";
 		echo "<br>";
@@ -372,7 +423,7 @@ class FormeAction extends Action{
 	}
 	
 	//角色相关
-    public function fillDUR($user,$newuser_ID) {
+    public function _fillDUR($user,$newuser_ID) {
 		//unserialize
 		echo "开始";
 		echo "<br>";
@@ -446,45 +497,6 @@ class FormeAction extends Action{
 		
 	}
 	
-	//角色相关
-    public function filldc($department,$systemID) {
-		
-		C('TOKEN_ON',false);
-		$SystemDC=D("SystemDC");
-		
-		if($department['type'] == '办事处' )
-		{
-			$data['systemID'] = $systemID;
-			$data['category'] = '办事处';
-			$SystemDC->add($v);
-		}
-		elseif($department['title'] == '联合体' )
-		{
-			$data['systemID'] = $systemID;
-			$data['category'] = '联合体';
-			$SystemDC->add($v);
-		}
-		elseif(false !== strpos($department['title'],'直营'))
-		{
-			$data['systemID'] = $systemID;
-			$data['category'] = '直营门市';
-			$SystemDC->add($v);
-		}
-		elseif(false !== strpos($department['title'],'加盟'))
-		{
-			$data['systemID'] = $systemID;
-			$data['category'] = '加盟门市';
-			$SystemDC->add($v);
-		}
-		else
-		{
-			$data['systemID'] = $systemID;
-			$data['category'] = '加盟门市';
-			$SystemDC->add($v);
-		}
-		
-		
-	}
 	
     private function chanpinxiaoxi($v,$chanpinID) {
 		$glmessage=M("glmessage");
@@ -501,23 +513,6 @@ class FormeAction extends Action{
 		}
     }
 	
-	
-    private function xingcheng($v,$chanpinID) {
-		
-		$glxingcheng=M("glxingcheng");
-		$xingchengAll = $glxingcheng->where("`xianluID` = '$v[xianluID]'")->findall();
-		$Chanpin=D("Chanpin");
-		//线路
-		foreach($xingchengAll as $v)
-		{
-			$dat = $v;
-			$dat['parentID'] = $chanpinID;
-			$dat['xingcheng'] = $v;
-			$dat['xingcheng']['chanyin'] = $v['time'];
-			$Chanpin->relation("xingcheng")->myRcreate($dat);
-		}
-		
-    }
 	
     private function _zituan_build($xianlu,$newxianlu,$dataOMlist) {
 		C('TOKEN_ON',false);
@@ -587,131 +582,6 @@ class FormeAction extends Action{
 		}
 		
     }
-	
-	
-    public function fullinfo() {
-		echo "开始";
-		echo "<br>";
-		//主题
-		$theme = D('Line_theme');
-		$theme_all = $theme->findAll();
-		$Info=D("Info");
-		foreach($theme_all as $v)
-		{
-			$d = $v;
-			$d['time'] = $v['pubdate'];
-			$d['islock'] = '未锁定';
-			$d['user_name'] = '系统';
-			$d['user_id'] = '-1';
-			$d['departmentName'] = '系统';
-			$d['departmentID'] = '-1';
-			$d['status'] = '系统';
-			$Info->add($d);
-		}
-		echo "结束";
-	}
-	
-	
-    private function chengbenshoujia($xianlu,$chanpinID) {
-		
-		$Glxianlujiage = D("Glxianlujiage");
-		$Glchengbenxiang = D("Glchengbenxiang");
-		$Glshoujia = D("Glshoujia");
-		$Glchengben = D("Glchengben");
-		
-		$oldjiage = $Glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
-		$dd = $this->myjiagedata($oldjiage);
-//		//zituan
-		$Zituan = D("Zituan");
-		$Xianlu = D("Xianlu");
-		$xl = $Xianlu->where("`chanpinID` = '$chanpinID'")->find();
-		$xl['remark'] = $dd['xianlu']['remark'];
-		$Xianlu->save($xl);
-		
-		//chengben
-		$Chengben = D("Chengben");
-		foreach($dd['chengben'] as $v)
-		{
-			$data = $v;
-			$data['chanpinID'] = $chanpinID;
-			$Chengben->add($data);
-		}
-		//shoujia
-		$myerp_chanpin=M("myerp_chanpin");
-		$myerp_chanpin_shoujia=M("myerp_chanpin_shoujia");
-		foreach($dd['shoujia'] as $v)
-		{
-			//chanpin
-			$data = $v;
-			$data['parentID'] = $chanpinID;
-			$data['user_name'] = $xianlu['user_name'];
-			$data['user_id'] = $xianlu['user_id'];
-			$data['departmentName'] = $xianlu['departmentName'];
-			$data['departmentID'] = $xianlu['departmentID'];
-			$data['time'] = $xianlu['time'];
-			$chanpinID_shoujia = $myerp_chanpin->add($data);
-			//chanpin shoujia
-			$data2 = $v;
-			$data2['chanpinID'] = $chanpinID_shoujia;
-			$data2['type'] = '标准';
-			$data2['renshu'] = $xianlu['renshu'];
-			$myerp_chanpin_shoujia->add($data2);
-			//jijiu
-			if($dd['jijiu'])
-			{
-				$data3 = $dd['jijiu'];
-				$data3['chanpinID'] = $chanpinID_shoujia;
-				$data3['type'] = '机票酒店';
-				$chanpinID_shoujia = $myerp_chanpin_shoujia->add($data3);
-			}
-		}
-		
-		
-
-    }
-	
-	private function myjiagedata($oldjiage)
-	{
-			$Glxianlujiage = D("Glxianlujiage");
-			$Glchengbenxiang = D("Glchengbenxiang");
-			$Glshoujia = D("Glshoujia");
-			$Glchengben = D("Glchengben");
-			
-			$xianlu['remark'] = $oldjiage['ertongshuoming'];
-			//chengben
-			$oldchengben = $Glchengbenxiang->where("`jiageID` = '$oldjiage[jiageID]'")->findall();
-			  $i = 0;
-			  foreach($oldchengben as $v)
-			  {
-				$chengben[$i]['title'] = $v['miaoshu'];
-				$chengben[$i]['price'] = $v['jiage'] * $v['cishu'] * $v['shuliang'];
-				$chengben[$i]['jifeitype'] = $v['jifeileixing'];
-				$chengben[$i]['time'] = $v['time'];
-				$i++;
-			  }
-			  //shoujia
-			  $oldshoujia = $Glshoujia->where("`jiageID` = '$oldjiage[jiageID]'")->findall();
-			  $i = 0;
-			  foreach($oldshoujia as $v)
-			  {
-				  $shoujia[$i]['adultprice'] = $v['chengrenshoujia'];
-				  $shoujia[$i]['childprice'] = $v['ertongshoujia'];
-				  $shoujia[$i]['cut'] = $v['cut'];
-				  $i++;
-			  }
-			  //jipiaojiudian
-			  $jijiu['adultprice'] = $oldjiage['adultcostair'] + $oldjiage['adultcosthotle'];
-			  $jijiu['childprice'] = $oldjiage['childcostair'] + $oldjiage['childcosthotle'];
-			  $jijiu['cut'] = $oldjiage['aircut'] + $oldjiage['hotlecut'];
-			  $jijiu['renshu'] = $oldjiage['airhotlenumber'];
-			  
-			  $re['jijiu'] = $jijiu;
-			  $re['chengben'] = $chengben;
-			  $re['shoujia'] = $shoujia;
-			  $re['xianlu'] = $xianlu;
-			  
-			  return $re;
-	}
 	
 	
 	//地区联动
@@ -1240,6 +1110,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 				else{
 				dump(8967635);
@@ -1310,6 +1182,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 			}
 			if($baozhang['check_status'] == '经理确认'){
@@ -1348,6 +1222,8 @@ class FormeAction extends Action{
 			
 		if($taskID){
 			//生成待检出
+			$task['user_name'] = $task['shenqingname'];
+			$task['departmentID'] = $task['shenqingbumen'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;
@@ -1374,7 +1250,7 @@ class FormeAction extends Action{
 						$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 						if(!$tmp_d){
 							if(false === $DataOM->mycreate($to_dataom)){
-				dump(896563453);
+							dump(896563453);
 							dump($DataOM);
 							}
 						}
@@ -1420,6 +1296,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 				else{
 				dump(97342342);
@@ -1504,6 +1382,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 			}
 			if($baozhang['edituser'] && $baozhang['manager']){
@@ -1552,6 +1432,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 				else{
 				dump(12313114151515);
@@ -1635,6 +1517,8 @@ class FormeAction extends Action{
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
+					$task['shenqingname'] = $task['user_name'];
+					$task['shenqingbumen'] = $bumen['title'];
 				}
 				else{
 				dump(6456242322);
@@ -1678,6 +1562,8 @@ class FormeAction extends Action{
 			
 		if($taskID){
 			//生成待检出
+			$task['user_name'] = $task['shenqingname'];
+			$task['departmentID'] = $task['shenqingbumen'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;
@@ -1704,7 +1590,7 @@ class FormeAction extends Action{
 						$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 						if(!$tmp_d){
 							if(false === $DataOM->mycreate($to_dataom)){
-				dump(67546234525);
+							dump(67546234525);
 							dump($DataOM);
 							}
 						}
@@ -1859,45 +1745,6 @@ class FormeAction extends Action{
 	
 	
 	
-    public function doCustomer() {
-		echo "开始";
-		echo "<br>";
-		C('TOKEN_ON',false);
-		$gltuanyuan = M("gltuanyuan");
-		$tuanyuanall = $gltuanyuan->findall();
-		$System = D("System");
-		$gldingdan = M("gldingdan");
-		foreach($tuanyuanall as $v){
-			if($v['name']){
-				if($v['zhengjianhaoma']){
-					$data = $v;
-					$data['customer'] = $v;
-					$data['customer']['remark'] = $v['xuqiu'].'，'.$v['beizhu'];
-					$data['customer']['hz_haoma'] = $v['huzhaohaoma'];
-					$data['customer']['hz_qianfariqi'] = $v['hzqianfadi'];
-					$data['customer']['hz_youxiaoriqi'] = $v['hzyouxiaoriqi'];
-					if($v['zhengjiantype'] == '身份证')
-					$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
-					if($v['zhengjiantype'] == '护照')
-					$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
-					if($v['zhengjiantype'] == '通行证')
-					$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
-					if(false === $System->relation("customer")->myRcreate($data)){
-				dump(7825222);
-						dump($System);
-						exit;
-					}
-				}
-			}
-			else
-			continue;
-		}
-		
-		echo "结束";
-		return true;
-	}
-	
-	
 	
     public function _xianlu_shoujia($xianlu,$newxianlu,$dataOMlist){
 		C('TOKEN_ON',false);
@@ -2025,22 +1872,12 @@ class FormeAction extends Action{
 	}
 	
 	
-	//填充默认目录
-    public function _filldatadictionary(){
+	//默认数据到
+    public function _database_to_tempdata(){
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
 		
-		$v['department'] = $v;
-		$v['department']['type'] = '行政';
-		$System->relation("department")->myRcreate($v);
-		$parentID = $System->getRelationID();
-		$bball = $glbasedata->where("`type` = '部门'")->findall();
-	}
-	
-	
-	//默认数据到
-    public function _database_to_tempdata(){
 		//目录
 		$ViewDirectory = D("ViewDirectory");
 		$ds = $ViewDirectory->findall();
@@ -2113,106 +1950,92 @@ class FormeAction extends Action{
 			$d['type'] = '分类';
 			$myerp_tempdatacopy->add($d);
 		}
+		echo "结束";
+		
+		
 	}
 	
 	
 	//数据到表
     public function _tempdata_to_database(){
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		
+		
 		//目录
 		$System = D("System");
 		$myerp_tempdatacopy = M("myerp_tempdatacopy");
 		$ds = $myerp_tempdatacopy->where("`type` = '目录'")->findall();
 		foreach($ds as $v){
 			$data = unserialize($v['datacopy']);
-			//$data['da'] =;
-			$d['type'] = '目录';
-			$myerp_tempdatacopy->add($d);
+			$data['directory'] = $data;
+			$System->relation("directory")->myRcreate($data);
 		}
 		//用户
-		$ViewUser = D("ViewUser");
-		$ds = $ViewUser->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '用户'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '用户';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['user'] = $data;
+			$System->relation("user")->myRcreate($data);
 		}
 		//角色
-		$ViewRoles = D("ViewRoles");
-		$ds = $ViewRoles->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '角色'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '角色';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['roles'] = $data;
+			$System->relation("roles")->myRcreate($data);
 		}
 		//DUR
-		$ViewSystemDUR = D("ViewSystemDUR");
-		$ds = $ViewSystemDUR->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = 'DUR'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = 'DUR';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['systemDUR'] = $data;
+			$System->relation("systemDUR")->myRcreate($data);
 		}
 		//部门
-		$ViewDepartment = D("ViewDepartment");
-		$ds = $ViewDepartment->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '部门'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '部门';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['department'] = $data;
+			$System->relation("department")->myRcreate($data);
 		}
 		//分类关系
-		$ViewSystemDC = D("ViewSystemDC");
-		$ds = $ViewSystemDC->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '分类关系'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '分类关系';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['systemDC'] = $data;
+			$System->relation("systemDC")->myRcreate($data);
 		}
 		//数据字典
-		$ViewDataDictionary = D("ViewDataDictionary");
-		$ds = $ViewDataDictionary->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '数据字典'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '数据字典';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['datadictionary'] = $data;
+			$System->relation("datadictionary")->myRcreate($data);
 		}
 		//分类
-		$ViewCategory = D("ViewCategory");
-		$ds = $ViewCategory->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
+		$ds = $myerp_tempdatacopy->where("`type` = '分类'")->findall();
 		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '分类';
-			$myerp_tempdatacopy->add($d);
+			$data = unserialize($v['datacopy']);
+			$data['category'] = $data;
+			$System->relation("category")->myRcreate($data);
 		}
+		
+		echo "结束";
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	
 	
 	function test(){
-		
-		A("Method")->test();
-		
-//		$DataOM = D("DataOM");
-//		$where['dataID'] = '35295';
-//		$where['datatype'] = '售价';
-//		$DataOM->where($where)->delete();
-//		dump($DataOM);
+		$DataOM = D("DataOM");
+		$where['dataID'] = '35295';
+		$where['datatype'] = '售价';
+		$DataOM->where($where)->delete();
 	}
+	
 	
 	
 	
