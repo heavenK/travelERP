@@ -97,10 +97,27 @@ class MethodAction extends CommonAction{
 		if($datatype == '地接'){
 			$class_name = 'OMViewDJtuan';
 			$where['datatype'] = $datatype;
+			//处理搜索
+			if($where['start_time'] && $where['end_time']){
+				$where['jietuantime'] = $map['id'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+			}
+			elseif($where['start_time']){
+				$where['jietuantime'] = $where['start_time'];
+			}
+			elseif($where['end_time']){
+				$where['jietuantime'] = $where['end_time'];
+			}
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
 		}
 		if($datatype == '报账单'){
 			$class_name = 'OMViewBaozhang';
 			$where['datatype'] = $datatype;
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
 		}
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';

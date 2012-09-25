@@ -77,8 +77,11 @@ class FormeAction extends Action{
 		$xianluAll = $gl_xianlu->order('time DESC')->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
+		dump("共".count($xianluAll).'个线路'.'<br>');
+		$jishu_xianlu = 0;
 		foreach($xianluAll as $v)
 		{
+			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
 			$dat = $v;
 			$dat['xianlu'] = $v;
 			$dat['time'] = time();//临时+++++++++++++++++++++++++
@@ -108,6 +111,7 @@ class FormeAction extends Action{
 				$dat['xianlu']['chutuanriqi'] = 0;
 				
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
+				
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
 				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');

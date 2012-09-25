@@ -1,0 +1,185 @@
+    <div class="moduleTitle" style="margin-bottom:10px;">
+      <h2 style="margin-top:10px;"><{$navigation}><{$datatitle}></h2>
+      <div style="float:left; margin-left:50px; margin-top:6px;">
+          <span id="show_link_insideview"  <php>if(!cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(1)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_collapsed.png"></a> 
+          </span> 
+          <span id="hide_link_insideview"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(2)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_expanded.png"></a> 
+          </span> 
+      </div>
+      <span style="margin-top:10px;">
+      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
+      </span>
+    </div>
+    
+    <div id="mysearchdiv"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php> >
+        <ul id="searchTabs" class="tablist">
+          <li>
+              <a id="searchtab_1" <PHP>if($sorttabid == 1 || !$sorttabid){</PHP>class="current" <PHP>}</PHP> href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
+          </li>
+          <li>
+              <a id="searchtab_2" <PHP>if($sorttabid == 2){</PHP>class="current" <PHP>}</PHP>  href="javascript:selectTabCSS('Calls|advanced_search');" onclick="showsearch(2)">高级查找</a>
+          </li>
+        </ul>
+        
+        <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
+              <div class="edit view search ">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
+                          <td scope="row" nowrap="nowrap"> 团期 </td>
+                          <td nowrap="nowrap">
+                          <input type="text" onfocus="WdatePicker()" class="jietuantime" value="<{$jietuantime}>" >
+                      </tbody>
+                    </table>
+                </div>
+              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
+              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+        </div>
+        
+        <div class="search_form" id="searchdiv_2" style="<PHP>if($sorttabid != 2){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
+              <div class="edit view search ">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 标题 </td>
+                          <td nowrap="nowrap"><input type="text" class="title_2" value="<{$title}>"></td>
+                          <td scope="row" nowrap="nowrap"> 团期 </td>
+                          <td nowrap="nowrap">
+                          <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
+                          <span>--</span>
+                          <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
+                          <td scope="row" nowrap="nowrap"> 创建人 </td>
+                          <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 状态 </td>
+                          <td nowrap="nowrap">
+                        <select class="status"> 
+                            <php> if($status){</php>
+                            <option value="<{$status}>"><{$status}></option>
+                            <option disabled="disabled">-----------------</option>
+                            <php> }</php>
+                            <option value="">全部</option> 
+                            <option value="在线">在线</option> 
+                            <option value="截止">截止</option> 
+                        </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 团号 </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanhao" value="<{$tuanhao}>"/></td>
+                          <td scope="row" nowrap="nowrap"> 发团单位 </td>
+                          <td nowrap="nowrap"><input type="text" class="fromcompany" value="<{$fromcompany}>"/></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(2);">&nbsp;
+              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+        </div>
+        <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
+        <div style="margin-top:10px;">
+            <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
+              <tbody>
+                <tr>
+                  <td nowrap=""><h3><span>查询：<label style="color:red"><php>foreach($_REQUEST as $v) echo $v."&nbsp;"</php></label></span></h3></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <php>}</php>
+    </div>
+
+
+<script>
+function setsearch(status)
+{
+	jQuery.ajax({
+		  type:	"POST",
+		  url:	"<{:SITE_INDEX}>Index/setsearch",
+		  async: false,
+		  data:	"status=" + status ,
+		  success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			}
+	  });
+}
+
+function showmysearchdiv(s)
+{
+		var divRili = document.getElementById('mysearchdiv');
+		var divRili_1 = document.getElementById('show_link_insideview');
+		var divRili_2 = document.getElementById('hide_link_insideview');
+	if(s == 1){
+		divRili.style.display = ''
+		divRili_1.style.display = 'none'
+		divRili_2.style.display = ''
+		setsearch(1);
+	}
+	if(s == 2){
+		divRili.style.display = 'none'
+		divRili_1.style.display = ''
+		divRili_2.style.display = 'none'
+		setsearch(2);
+	}
+}
+
+function showsearch(s)
+{
+	clearsearch();
+	if(s == 1){
+		var divRili = document.getElementById('searchdiv_1'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('searchdiv_2'); 
+		divRili.style.display = 'none';	
+		jQuery('#searchtab_1').addClass('current');
+		jQuery('#searchtab_2').removeClass('current');
+	}
+	if(s == 2){
+		var divRili = document.getElementById('searchdiv_2'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('searchdiv_1'); 
+		divRili.style.display = 'none';	
+		jQuery('#searchtab_2').addClass('current');
+		jQuery('#searchtab_1').removeClass('current');
+	}
+}
+
+function clearsearch(){
+		jQuery('.title_1').val('');
+		jQuery('.title_2').val('');
+		jQuery('.jietuantime').val('');
+		jQuery('.start_time').val('');
+		jQuery('.end_time').val('');
+		jQuery('.user_name').val('');
+		jQuery('.status').val('');
+		jQuery('.fromcompany').val('');
+		jQuery('.tuanhao').val('');
+		
+}
+
+function _dosearch(sorttabid){
+	var str ='';
+	if(jQuery('.title_'+sorttabid).val())
+	str += '/title/'+jQuery('.title_'+sorttabid).val();
+	if(jQuery('.chufariqi').val())
+	str += '/jietuantime/'+jQuery('.jietuantime').val();
+	if(jQuery('.jietuantime').val())
+	str += '/start_time/'+jQuery('.start_time').val();
+	if(jQuery('.end_time').val())
+	str += '/end_time/'+jQuery('.end_time').val();
+	if(jQuery('.user_name').val())
+	str += '/user_name/'+jQuery('.user_name').val();
+	if(jQuery('.status').val())
+	str += '/status/'+jQuery('.status').val();
+	if(jQuery('.fromcompany').val())
+	str += '/fromcompany/'+jQuery('.fromcompany').val();
+	if(jQuery('.tuanhao').val())
+	str += '/tuanhao/'+jQuery('.tuanhao').val();
+	str += '/sorttabid/'+sorttabid;
+	dosearch(str);
+}
+</script>
+

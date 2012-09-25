@@ -13,7 +13,7 @@
 <php>}</php>
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
-    <include file="Index:search_xianlu" />
+    <include file="Index:search_danxiangfuwu" />
     
     <div id="mysearchdiv" style="margin:10px 0 0 0;">
       <ul id="searchTabs" class="tablist tablist_2">
@@ -191,9 +191,8 @@
 </div>
 <tp:includeCA file="Index:footer" />
 <script>
-function dosearch(){
-	title = document.getElementById('title').value;
-	window.location = '<{:SITE_INDEX}><{$actionmethod}>/index/title/'+title;
+function dosearch(str){
+	window.location = '<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu'+str;
 }
 
 function showinfo(baozhangID){
