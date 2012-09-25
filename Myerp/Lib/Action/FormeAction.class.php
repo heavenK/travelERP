@@ -2205,11 +2205,13 @@ class FormeAction extends Action{
 	
 	function test(){
 		
-		$DataOM = D("DataOM");
-		$where['dataID'] = '35295';
-		$where['datatype'] = '售价';
-		$DataOM->where($where)->delete();
-		dump($DataOM);
+		A("Method")->test();
+		
+//		$DataOM = D("DataOM");
+//		$where['dataID'] = '35295';
+//		$where['datatype'] = '售价';
+//		$DataOM->where($where)->delete();
+//		dump($DataOM);
 	}
 	
 	

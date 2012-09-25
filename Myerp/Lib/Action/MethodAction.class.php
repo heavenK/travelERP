@@ -2,14 +2,14 @@
 
 class MethodAction extends CommonAction{
 	
-//    public function _initialize() {
-//		if($_REQUEST['_URL_'][0] == 'Method'){
-//			$this->display('Index:error');
-//			exit;
-//		}
-//	}
+    public function _initialize() {
+		if($_REQUEST['_URL_'][0] == 'Method'){
+			$this->display('Index:error');
+			exit;
+		}
+	}
 	
-	function test(){
+	public function test(){
 		
 		$DataOM = D("DataOM");
 		$where['dataID'] = '35295';
