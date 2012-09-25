@@ -71,7 +71,7 @@ class FormeAction extends Action{
     public function chanpinxianlu() {
 		echo "开始";
 		echo "<br>";
-		
+		set_time_limit(0);
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
 		$xianluAll = $gl_xianlu->order('time DESC')->findall();
