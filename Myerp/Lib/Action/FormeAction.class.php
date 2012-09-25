@@ -1113,7 +1113,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 				else{
 				dump(8967635);
@@ -1185,7 +1186,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 			}
 			if($baozhang['check_status'] == '经理确认'){
@@ -1225,7 +1227,8 @@ class FormeAction extends Action{
 		if($taskID){
 			//生成待检出
 			$task['user_name'] = $task['shenqingname'];
-			$task['departmentID'] = $task['shenqingbumen'];
+			$task['departmentID'] = $task['shenqingbumenID'];
+			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;
@@ -1299,7 +1302,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 				else{
 				dump(97342342);
@@ -1385,7 +1389,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 			}
 			if($baozhang['edituser'] && $baozhang['manager']){
@@ -1435,7 +1440,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 				else{
 				dump(12313114151515);
@@ -1520,7 +1526,8 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
 					$task['shenqingname'] = $task['user_name'];
-					$task['shenqingbumen'] = $bumen['title'];
+					$task['shenqingbumenID'] = $newbumenID;
+					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 				else{
 				dump(6456242322);
@@ -1565,7 +1572,8 @@ class FormeAction extends Action{
 		if($taskID){
 			//生成待检出
 			$task['user_name'] = $task['shenqingname'];
-			$task['departmentID'] = $task['shenqingbumen'];
+			$task['departmentID'] = $task['shenqingbumenID'];
+			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;

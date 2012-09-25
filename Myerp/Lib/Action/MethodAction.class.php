@@ -167,7 +167,6 @@ class MethodAction extends CommonAction{
 			}
 		}
 		$where = $this->_facade($class_name,$where);//过滤搜索项
-		dump($where);
 		$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
