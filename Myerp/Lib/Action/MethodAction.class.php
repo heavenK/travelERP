@@ -2,12 +2,24 @@
 
 class MethodAction extends CommonAction{
 	
-    public function _initialize() {
-		if($_REQUEST['_URL_'][0] == 'Method'){
-			$this->display('Index:error');
-			exit;
-		}
+//    public function _initialize() {
+//		if($_REQUEST['_URL_'][0] == 'Method'){
+//			$this->display('Index:error');
+//			exit;
+//		}
+//	}
+	
+	function test(){
+		
+		$DataOM = D("DataOM");
+		$where['dataID'] = '35295';
+		$where['datatype'] = '售价';
+		$DataOM->where($where)->delete();
+		dump($DataOM);
 	}
+	
+	
+	
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
