@@ -1959,6 +1959,9 @@ class FormeAction extends Action{
 		$glxingcheng = M("glxingcheng");
 		$xingchengall = $glxingcheng->where("`xianluID` = '$xianlu[xianluID]'")->findall();
 		$data['parentID'] = $newxianlu['chanpinID'];
+		$data['user_name'] = $newxianlu['user_name'];
+		$data['departmentID'] = $newxianlu['departmentID'];
+		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		foreach($xingchengall as $v){
 			$time = explode($v['time']);
 			$data['xingcheng']['chanyin'] = serialize($time);
