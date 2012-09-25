@@ -786,7 +786,6 @@ class FormeAction extends Action{
 			$bzd["baozhang"]['datatext']['lilianfangshi'] = $baozhang['liliangongju'];
 			$bzd["baozhang"]['datatext']['lilianshijian'] = $baozhang['lilianshijian'];
 			$bzd["baozhang"]['datatext']['lingdui_name'] = $baozhang['quanpei'];
-			
 			//报账人数
 			$temprenshu = preg_replace("/[" . chr(0xa0). "-" .chr(0xfe) . "]+/", "", $baozhang['renshu']);//过滤汉字
 			$baozhangrenshu = preg_replace('/[\.a-zA-Z]/s','',$temprenshu); //过滤字母
@@ -795,6 +794,8 @@ class FormeAction extends Action{
 				$renshu += (int)$rs;
 			}
 			$bzd["baozhang"]['renshu'] = $renshu;
+			if(!$bzd["baozhang"]['renshu'])
+				$bzd["baozhang"]['renshu'] = 0;
 			//领队人数
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
