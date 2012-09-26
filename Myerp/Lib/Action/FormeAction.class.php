@@ -81,14 +81,15 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("".($_REQUEST['page']-1*300).",300"))->findall();
+		$num = $_REQUEST['page']-1*300;
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("".$num.",300"))->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
-		dump("共".count($xianluAll).'个线路'.'<br>');
+		dump("共".count($gl_xianlu->findall()).'个线路'.'<br>');
 		$jishu_xianlu = 0;
 		foreach($xianluAll as $v)
 		{
-			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
+			dump("正在执行".$num+$jishu_xianlu++.'个线路'.'<br>');
 			$dat = $v;
 			$dat['xianlu'] = $v;
 			$dat['status'] = $v['zhuangtai'];
