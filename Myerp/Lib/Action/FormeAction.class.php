@@ -1957,7 +1957,7 @@ class FormeAction extends Action{
 			$dd['user_name'] = '系统';
 			$dd['islock'] = '未锁定';
 			$dd['systemID'] = $v['systemID'];
-			$System->save($v);
+			$System->save($dd);
 		}
 		
 	}
