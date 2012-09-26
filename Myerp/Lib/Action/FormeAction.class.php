@@ -873,6 +873,8 @@ class FormeAction extends Action{
 					$bzditem['shenhe_remark'] = $v['check_status'];
 					$bzditem['shenhe_time'] =  $v['check_time'];
 				}
+				if($bzditem['baozhangitem']['title'] == '')
+					$bzditem['baozhangitem']['title'] = 0;
 				if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 					$baozhangitemID = $Chanpin->getRelationID();
 					$bzditem['chanpinID'] = $baozhangitemID;
