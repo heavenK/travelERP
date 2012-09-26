@@ -1901,7 +1901,7 @@ class FormeAction extends Action{
 		$System = D("System");	
 		$all = $System->findall();
 		foreach($all as $v){
-			if($v['status_system'] == -1){
+			if($v['status_system'] == -1 || $v['marktype'] == ''){
 				$System->where("`systemID` = '$v[systemID]'")->delete();
 			}
 			if($v['marktype'] == 'category'){
@@ -1968,6 +1968,22 @@ class FormeAction extends Action{
 		$all = $ViewDirectory->findall();
 		foreach($all as $v){
 			$dd['marktype'] = 'directory';
+			$dd['systemID'] = $v['systemID'];
+			if(false === $System->save($dd))
+			dump($System);
+			
+		}
+		
+	}
+	
+	
+	//目录重置
+    public function reset_dur(){
+		$System = D("System");	
+		$ViewDirectory = D("ViewSystemDUR");	
+		$all = $ViewDirectory->findall();
+		foreach($all as $v){
+			$dd['marktype'] = 'systemDUR';
 			$dd['systemID'] = $v['systemID'];
 			if(false === $System->save($dd))
 			dump($System);
