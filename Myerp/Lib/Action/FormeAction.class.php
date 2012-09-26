@@ -1,7 +1,12 @@
 <?php
 
 class FormeAction extends Action{
-	
+    public function _initialize() {
+		if($this->user['title'] != 'aaa'){
+			$this->display('Index:error');
+			exit;
+		}
+	}
 	
     public function index() {
 		$this->display('Index:forme');
@@ -74,7 +79,7 @@ class FormeAction extends Action{
 		set_time_limit(0);
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		$xianluAll = $gl_xianlu->order('time DESC')->findall();
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,500"))->findall();//0-500,500-1000
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		dump("共".count($xianluAll).'个线路'.'<br>');
@@ -90,7 +95,6 @@ class FormeAction extends Action{
 			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
 			$dat = $v;
 			$dat['xianlu'] = $v;
-			$dat['time'] = time();//临时+++++++++++++++++++++++++
 			$dat['status'] = $v['zhuangtai'];
 			$dat['xianlu']['title'] = $v['mingcheng'];
 			//部门
@@ -174,7 +178,6 @@ class FormeAction extends Action{
 		foreach($datalist as $v){
 			$dat = $v;
 			$dat['DJtuan'] = $v;
-			$dat['time'] = time();//临时+++++++++++++++++++++++++
 			//计算截止状态
 			if(strtotime($v['startdate']) < time())
 			$dat['status'] = '截止';
@@ -538,7 +541,6 @@ class FormeAction extends Action{
 		foreach($zituanAll as $v){
 			$dat = $v;
 			$dat['zituan'] = $v;
-			$dat['time'] = time();//临时+++++++++++++++++++++++++
 			//部门
 			$dat['departmentID'] = $newxianlu['departmentID'];
 			$dat['bumen_copy'] = $newxianlu['bumen_copy'];
