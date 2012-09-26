@@ -69,6 +69,8 @@ class FormeAction extends Action{
 	
 	//线路
     public function chanpinxianlu() {
+		header("Content-Type: text/plain");
+
 		echo "开始";
 		echo "<br>";
 		set_time_limit(0);
@@ -84,6 +86,7 @@ class FormeAction extends Action{
 			if($jishu_xianlu%100 == 0){
 				flush();
 				ob_flush();
+				sleep(5);
 			dump('------------------------------'.$jishu_xianlu);
 			}
 			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
