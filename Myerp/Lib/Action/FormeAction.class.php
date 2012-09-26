@@ -79,7 +79,18 @@ class FormeAction extends Action{
 		set_time_limit(0);
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,500"))->findall();//0-500,500-1000
+		if(!$_REQUEST['page'])
+		exit;
+		if($_REQUEST['page'] == 1)
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,500"))->findall();
+		if($_REQUEST['page'] == 2)
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("500,500"))->findall();
+		if($_REQUEST['page'] == 3)
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("1000,500"))->findall();
+		if($_REQUEST['page'] == 4)
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("1500,500"))->findall();
+		if($_REQUEST['page'] == 5)
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("2000,500"))->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		dump("共".count($xianluAll).'个线路'.'<br>');
