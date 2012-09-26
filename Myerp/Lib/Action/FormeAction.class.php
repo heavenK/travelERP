@@ -84,6 +84,7 @@ class FormeAction extends Action{
 			if($jishu_xianlu%100 == 0){
 				flush();
 				ob_flush();
+			dump('------------------------------'.$jishu_xianlu);
 			}
 			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
 			$dat = $v;

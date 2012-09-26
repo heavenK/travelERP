@@ -270,7 +270,7 @@ class CaiwuAction extends CommonAction{
 		A("Method")->showDirectory("统计");
 		//搜索
 		if($_REQUEST['title'])
-			$where['bumen_copy'] = array('like','%'.$_REQUEST['title'].'%');
+			$where_unit['title'] = array('like','%'.$_REQUEST['title'].'%');
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
 			$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
