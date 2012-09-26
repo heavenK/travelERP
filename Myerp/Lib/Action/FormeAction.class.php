@@ -81,8 +81,9 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
-		$num = ($_REQUEST['page']-1)*300;
-		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,300")->findall();
+		$num = ($_REQUEST['page']-1)*100;
+//		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,100")->findall();
+		$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 424")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		dump("共".count($gl_xianlu->findall()).'个线路'.'<br>');
@@ -103,7 +104,6 @@ class FormeAction extends Action{
 				dump($dat);
 				exit;
 			}
-			
 			//审核时间
 			if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
 				$dat['islock'] = '已锁定';
@@ -128,7 +128,6 @@ class FormeAction extends Action{
 				$dat['xianlu']['chutuanriqi'] = 0;
 				
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
-				
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
 				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
