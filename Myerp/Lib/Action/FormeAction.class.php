@@ -1633,6 +1633,8 @@ class FormeAction extends Action{
 			$tuanyuanall = $gltuanyuan->where("`dingdanID` = '$dingdan[dingdanID]'")->findall();
 			foreach($tuanyuanall as $v){
 				$data = $v;
+				if($data['name'] == '')
+				$data['name'] = 0;
 				$data['dingdanID'] = $newdingdan['dingdanID'];
 				$v['dingdanID'] = $newdingdan['dingdanID'];
 				$data['price'] = $v['jiaoqian'];
