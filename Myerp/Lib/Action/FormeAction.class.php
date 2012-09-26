@@ -1082,6 +1082,7 @@ class FormeAction extends Action{
 				$data['chanpinID'] = $dingdanID;
 				A("Method")->_createDataOM($dingdanID,'订单','管理',$dataOMlist);
 				//生成订单临时游客
+				if($data['status'] == '确认')
 				$this->_dingdan_customer_build($v,$data,$dataOMlist);
 			}
 			else
@@ -1643,7 +1644,7 @@ class FormeAction extends Action{
 				}
 				else
 				{
-				dump(453634673673);
+					dump(453634673673);
 					dump($DataCD);
 					exit;
 					}
