@@ -1031,6 +1031,8 @@ class FormeAction extends Action{
 						$bzditem['shenhe_remark'] = '审核通过';
 						$bzditem['shenhe_time'] =  $v['time'];
 					}
+					if($bzditem['baozhangitem']['title'] == '')
+						$bzditem['baozhangitem']['title'] = 0;
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 						$baozhangitemID = $Chanpin->getRelationID();
 						$bzditem['chanpinID'] = $baozhangitemID;
@@ -1039,9 +1041,9 @@ class FormeAction extends Action{
 						$this->_taskshenhe_build($v,$bzditem,'单项服务报账项',$dataOMlist);
 					} 
 					else{
-				dump(78963543);
-					dump($Chanpin);
-					exit;
+						dump(78963543);
+						dump($Chanpin);
+						exit;
 					}
 				}
 			}
