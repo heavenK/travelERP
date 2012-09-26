@@ -321,6 +321,8 @@ class FormeAction extends Action{
 	function _getnewbumenID($title){
 		$ViewDepartment=D("ViewDepartment");
 		$bumen = $ViewDepartment->where("`title` = '$title'")->find();
+		if(!$bumen)
+		$bumen = $ViewDepartment->where("`title` like '%$title%'")->find();
 		return $bumen['systemID'];
 	}
 	
