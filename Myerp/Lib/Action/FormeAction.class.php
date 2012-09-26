@@ -1102,6 +1102,10 @@ class FormeAction extends Action{
 			if($v['check_status'] == '审核不通过'){
 				$data['status'] = '候补';
 			}
+			if($data['dingdan']['lianxiren'] == '')
+			$data['dingdan']['lianxiren'] = 0;
+			if($data['dingdan']['lianxirentelnum'] == '')
+			$data['dingdan']['lianxirentelnum'] = 0;
 			if(false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 				$dingdanID = $Chanpin->getRelationID();
 				$data['chanpinID'] = $dingdanID;
