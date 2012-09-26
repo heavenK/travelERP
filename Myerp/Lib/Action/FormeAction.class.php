@@ -81,7 +81,7 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
-		$num = $_REQUEST['page']-1*300;
+		$num = ($_REQUEST['page']-1)*300;
 		$xianluAll = $gl_xianlu->order('time asc')->limit(("'".$num.",300'"))->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
