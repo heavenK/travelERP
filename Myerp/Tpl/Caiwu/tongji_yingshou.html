@@ -1,7 +1,5 @@
 <tp:includeCA file="Index:showheader" />
 
-<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
@@ -12,7 +10,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_xianlu" />
+            <include file="Index:search_yingshoutongji" />
             
             <php>if(!$systemID){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
@@ -165,11 +163,10 @@
 function show_dingdan(chanpinID){
 	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
-function dosearch()
-{
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+function dosearch(str){
+		window.location = '<{:SITE_INDEX}>Caiwu/yingshou_tongji'+str;
 }
+</script>
 </script>
 
 <div id="dialog_fatuan" title="详细信息" style="background:#FFF">

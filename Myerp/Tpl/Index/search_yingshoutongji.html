@@ -1,0 +1,75 @@
+    <div class="moduleTitle" style="margin-bottom:10px;">
+      <h2 style="margin-top:10px;"><{$navigation}><{$datatitle}></h2>
+      <div style="float:left; margin-left:50px; margin-top:6px;">
+          <span id="show_link_insideview"  <php>if(!cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(1)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_collapsed.png"></a> 
+          </span> 
+          <span id="hide_link_insideview"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(2)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_expanded.png"></a> 
+          </span> 
+      </div>
+      <span style="margin-top:10px;">
+      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
+      </span>
+    </div>
+    
+    <div id="mysearchdiv"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php> >
+        <ul id="searchTabs" class="tablist">
+          <li>
+              <a id="searchtab_1" <PHP>if($sorttabid == 1 || !$sorttabid){</PHP>class="current" <PHP>}</PHP> href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
+          </li>
+        </ul>
+        
+        <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
+              <div class="edit view search ">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 部门 </td>
+                          <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
+                          <td scope="row" nowrap="nowrap"> 时间 </td>
+                          <td nowrap="nowrap">
+                          <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
+                          <span>--</span>
+                          <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
+                      </tbody>
+                    </table>
+                </div>
+              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
+              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+        </div>
+        
+
+<script>
+function setsearch(status)
+{
+	jQuery.ajax({
+		  type:	"POST",
+		  url:	"<{:SITE_INDEX}>Index/setsearch",
+		  async: false,
+		  data:	"status=" + status ,
+		  success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			}
+	  });
+}
+
+function clearsearch(){
+		jQuery('.title_1').val('');
+		jQuery('.start_time').val('');
+		jQuery('.end_time').val('');
+}
+
+function _dosearch(sorttabid){
+	var str ='';
+	if(jQuery('.title_'+sorttabid).val())
+	str += '/title/'+jQuery('.title_'+sorttabid).val();
+	if(jQuery('.start_time').val())
+	str += '/start_time/'+jQuery('.start_time').val();
+	if(jQuery('.end_time').val())
+	str += '/end_time/'+jQuery('.end_time').val();
+	str += '/sorttabid/'+sorttabid;
+	dosearch(str);
+}
+</script>
+

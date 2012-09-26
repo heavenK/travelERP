@@ -49,13 +49,18 @@ class CaiwuAction extends CommonAction{
 		A("Method")->showDirectory("统计");
 		//订单搜索
 		$where['status_system'] = 1;
-		$month = NF_getmonth();
-		$fm_forward_month = $month['forward'];
-		$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
-		$_REQUEST['start_time'] = $fm_forward_month.'-01';
-		$_REQUEST['end_time'] = date("Y-m").'-01';
-		$this->assign("start_time",$fm_forward_month.'-01');
-		$this->assign("end_time",date("Y-m").'-01');
+		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
+			$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+		}
+		else{
+			$month = NF_getmonth();
+			$fm_forward_month = $month['forward'];
+			$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			$_REQUEST['start_time'] = $fm_forward_month.'-01';
+			$_REQUEST['end_time'] = date("Y-m").'-01';
+			$this->assign("start_time",$fm_forward_month.'-01');
+			$this->assign("end_time",date("Y-m").'-01');
+		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
 		$ViewDingdan = D("ViewDingdan");
@@ -263,15 +268,22 @@ class CaiwuAction extends CommonAction{
 	
 	public function yingshou_tongji() {
 		A("Method")->showDirectory("统计");
-		//订单搜索
+		//搜索
+		if($_REQUEST['title'])
+			$where['title_copy'] = array('title_copy','%'.$_REQUEST['title'].'%');
 		$where['status_system'] = 1;
-		$month = NF_getmonth();
-		$fm_forward_month = $month['forward'];
-		$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
-		$_REQUEST['start_time'] = $fm_forward_month.'-01';
-		$_REQUEST['end_time'] = date("Y-m").'-01';
-		$this->assign("start_time",$fm_forward_month.'-01');
-		$this->assign("end_time",date("Y-m").'-01');
+		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
+			$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+		}
+		else{
+			$month = NF_getmonth();
+			$fm_forward_month = $month['forward'];
+			$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			$_REQUEST['start_time'] = $fm_forward_month.'-01';
+			$_REQUEST['end_time'] = date("Y-m").'-01';
+			$this->assign("start_time",$fm_forward_month.'-01');
+			$this->assign("end_time",date("Y-m").'-01');
+		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
 		$ViewBaozhang = D("ViewBaozhang");
