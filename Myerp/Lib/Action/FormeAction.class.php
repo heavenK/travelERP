@@ -97,14 +97,24 @@ class FormeAction extends Action{
 			//部门
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
 			$dat['bumen_copy'] = $v['departmentName'];
+			if(!$dat['departmentID']){
+				dump(74544444444444);
+				dump($v);
+				dump($dat);
+				exit;
+			}
+			
 			//审核时间
 			if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
 				$dat['islock'] = '已锁定';
 				$dat['shenhe_time'] = $v['time'];
 				$dat['shenhe_remark'] = '已审核';
+				$dat['status_shenhe'] = '已审核';
 			}
-			else
+			else{
+				$dat['islock'] = '未锁定';
 				$dat['status'] = '准备';
+			}
 			//售价及儿童说明
 			$jiage = $glxianlujiage->where("`xianluID` = '$v[xianluID]'")->find();
 			$dat['xianlu']['shoujia'] = $jiage['chengrenzongjia'];
