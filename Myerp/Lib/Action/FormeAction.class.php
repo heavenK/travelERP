@@ -1951,10 +1951,12 @@ class FormeAction extends Action{
 		$System = D("System");	
 		$all = $System->findall();
 		foreach($all as $v){
-			$v['status'] = '';
-			$v['bumencopy'] = '系统';
-			$v['departmentID'] = '-1';
-			$v['user_name'] = '系统';
+			$dd['status'] = '';
+			$dd['bumencopy'] = '系统';
+			$dd['departmentID'] = '-1';
+			$dd['user_name'] = '系统';
+			$dd['islock'] = '未锁定';
+			$dd['systemID'] = $v['systemID'];
 			$System->save($v);
 		}
 		
