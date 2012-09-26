@@ -81,6 +81,8 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
+		if($_REQUEST['page'] == 'test')
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,10"))->findall();
 		if($_REQUEST['page'] == 1)
 		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,500"))->findall();
 		if($_REQUEST['page'] == 2)
