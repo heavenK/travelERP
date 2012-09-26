@@ -69,8 +69,6 @@ class FormeAction extends Action{
 	
 	//线路
     public function chanpinxianlu() {
-		header("Content-Type: text/plain");
-
 		echo "开始";
 		echo "<br>";
 		set_time_limit(0);

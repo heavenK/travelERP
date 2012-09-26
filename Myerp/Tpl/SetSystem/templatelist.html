@@ -346,6 +346,35 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       <php>if('用户' == $nowDir['title']){</php>
             <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/systemUser.js"></script>
+			<script type="text/javascript">
+			jQuery(document).ready(function(){
+				// Dialog
+				jQuery('#dialog_user').dialog({
+					autoOpen: false,
+					width: 300,
+					buttons: {
+						"确认": function() {
+							if(CheckForm('form_user','resultdiv_2'))
+							ThinkAjax.sendForm('form_user','<{:SITE_INDEX}>',save_after,'resultdiv');
+						},
+						"取消": function() {
+							jQuery(this).dialog("close");
+						}
+					}
+				});
+				// Dialog Link
+				jQuery('#user_create').click(function(){
+					jQuery('#dialog_user').dialog('open');
+					return false;
+				});
+				function save_after(data,status){
+					if(status == 1){
+						window.location = '<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu/type/'+data['type'];
+					}
+				}
+			});
+			</script>
+            
             <tr class="pagination" style="height:28px;">
               <td colspan="6">
               <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
@@ -353,6 +382,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
                     <tr>
                       <td nowrap="nowrap" class="paginationActionButtons">
                         <strong><{$nowDir['title']}>列表</strong>&nbsp;
+                          <input class="button" type="button" value="添加新用户" id="user_create"/>
                           <input class="button" type="button" value="开/关锁" onclick="setlock()"/>
                           <input class="button" type="button" value="重置密码(123456)" onclick="resetpwd()"/>
                       </td>
@@ -936,7 +966,24 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
     </tbody>
   </table>
 </div>   
+
 <div id="dialogpic" title="提示消息" style="background:#FFF">
 <img id="picimg" />
 </div>
-         
+<div id="dialog_user" title="添加新用户" style="background:#FFF">
+<form id="form_user" id="form_user" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 姓名: </td>
+          <td valign="top" scope="row"><input name="title" type="text" check="^\S+$" warning="姓名不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 密码: </td>
+          <td valign="top" scope="row" colspan="3"><input name="password" type="text" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
