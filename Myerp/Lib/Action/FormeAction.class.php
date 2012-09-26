@@ -81,30 +81,13 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
-		if($_REQUEST['page'] == 'test')
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,10"))->findall();
-		if($_REQUEST['page'] == 1)
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("0,500"))->findall();
-		if($_REQUEST['page'] == 2)
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("500,500"))->findall();
-		if($_REQUEST['page'] == 3)
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("1000,500"))->findall();
-		if($_REQUEST['page'] == 4)
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("1500,500"))->findall();
-		if($_REQUEST['page'] == 5)
-		$xianluAll = $gl_xianlu->order('time asc')->limit(("2000,500"))->findall();
+		$xianluAll = $gl_xianlu->order('time asc')->limit(("".($_REQUEST['page']-1*300).",300"))->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		dump("共".count($xianluAll).'个线路'.'<br>');
 		$jishu_xianlu = 0;
 		foreach($xianluAll as $v)
 		{
-			if($jishu_xianlu%100 == 0){
-				flush();
-				ob_flush();
-				sleep(5);
-			dump('------------------------------'.$jishu_xianlu);
-			}
 			dump("正在执行".$jishu_xianlu++.'个线路'.'<br>');
 			$dat = $v;
 			$dat['xianlu'] = $v;
