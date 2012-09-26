@@ -161,6 +161,8 @@ class FormeAction extends Action{
 			}
 			else{
 				dump(12312333333);
+				dump($v);
+				dump($dat);
 				dump($Chanpin);
 				exit;
 			}
