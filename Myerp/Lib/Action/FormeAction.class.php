@@ -794,8 +794,6 @@ class FormeAction extends Action{
 				$renshu += (int)$rs;
 			}
 			$bzd["baozhang"]['renshu'] = $renshu;
-			if(!$bzd["baozhang"]['renshu'])
-				$bzd["baozhang"]['renshu'] = $zituan['renshu'];
 			//领队人数
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
@@ -818,7 +816,8 @@ class FormeAction extends Action{
 		else{
 			$bzd["baozhang"]['renshu'] = $zituan['renshu'];
 		}
-		
+		if(!$bzd["baozhang"]['renshu'])
+			$bzd["baozhang"]['renshu'] = 0;
 		
 		if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 			$baozhangID = $Chanpin->getRelationID();
