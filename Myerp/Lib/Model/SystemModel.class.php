@@ -12,8 +12,8 @@ class SystemModel extends RelationModel {
         array('status', 'set_status', 1,'callback','status,parentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('time', 'set_time', 1,'callback','time',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('user_name', 'set_user_name', 1,'callback','user_name',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('departmentID', 'set_department', 1,'callback','departmentID,chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('bumen_copy', 'set_bumen_copy', 3,'callback','departmentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('departmentID', 'set_department', 1,'callback','departmentID,systemID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('bumen_copy', 'set_bumen_copy', 3,'callback','departmentID,systemID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('marktype', 'set_marktype', 1,'callback'),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('islock', 'set_islock', 1,'callback','islock',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_system', 'set_status_system', 1,'callback','status_system',1),//1正常,-1删除
@@ -41,7 +41,11 @@ class SystemModel extends RelationModel {
 		else
 			return NF_getusername();
 	}
-	protected function set_bumen_copy($departmentID) {
+	protected function set_bumen_copy($departmentID,$systemID) {
+		if($systemID){
+			$dt = $this->where("`systemID` = '$systemID'")->find();
+			return $dt['bumen_copy'];
+		}
 		return NF_getbumen_title($departmentID);
 	}
 	protected function set_islock($islock) {

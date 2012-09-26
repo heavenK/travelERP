@@ -83,7 +83,7 @@ class FormeAction extends Action{
 		exit;
 		$num = ($_REQUEST['page']-1)*100;
 		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,100")->findall();
-		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 424")->findall();
+		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 63")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		dump("共".count($gl_xianlu->findall()).'个线路'.'<br>');
