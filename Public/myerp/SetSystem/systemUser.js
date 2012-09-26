@@ -14,7 +14,7 @@ function setlock(){
 			jQuery.ajax({
 				type:	"POST",
 				url:	SITE_INDEX+"SetSystem/dopostSystemHas/tableName/user/systemID/"+elm[ii].value,
-				data:	'islock=已锁定&status_system=-1',
+				data:	'islock=已锁定',
 				success:	function(msg){
 						ThinkAjax.myAjaxResponse(msg,'resultdiv',setafter);
 				}

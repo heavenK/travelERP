@@ -265,14 +265,26 @@ class SetSystemAction extends CommonAction{
 		$data[$_REQUEST['tableName']] = $_REQUEST;
 		if($_REQUEST['tableName'] == 'user'){
 			$ViewUser = D("ViewUser");
-			$user = $ViewUser->where("`systemID` = '$_REQUEST[systemID]'")->find();
-			$data[$_REQUEST['tableName']]['user_name'] = $user['user_name'];
-			if($user['islock'] == '已锁定'){
-				$data['islock'] = '未锁定';
-				$data['status_system'] = 1;
+			if($_REQUEST['systemID']){
+				if($_REQUEST['islock']){
+					if($_REQUEST['islock'] == '未锁定'){
+						$data['islock'] = '未锁定';
+						$data['status_system'] = 1;
+					}
+					if($_REQUEST['islock'] == '已锁定'){
+						$data['islock'] = '已锁定';
+						$data['status_system'] = -1;
+					}
+				}
+			}
+			else{
+				$user = $ViewUser->where("`systemID` = '$_REQUEST[title]'")->find();
+				if($user)
+					$this->ajaxReturn($_REQUEST, '错误！用户名已在系统中存在！！', 0);
+				$data[$_REQUEST['tableName']]['user_name'] = $_REQUEST['title'];
 			}
 			if($_REQUEST['password'])
-				$data[$_REQUEST['tableName']]['password'] = md5($_REQUEST['password']);
+				$data[$_REQUEST['tableName']]['password'] = md5(md5($_REQUEST['password']));
 		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
@@ -537,15 +549,6 @@ class SetSystemAction extends CommonAction{
 		$this->display('templatelist');
 	}
 	
-
-	public function adduser(){
-		A("Method")->showDirectory("角色设置");
-		$datas = A('Method')->_getRolesList();
-		$this->assign("datalist",$datas);
-		$this->display('templatelist');
-	}
-	
-
 
 
 }

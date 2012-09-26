@@ -1895,160 +1895,86 @@ class FormeAction extends Action{
 	}
 	
 	
-	//默认数据到
-    public function _database_to_tempdata(){
-		echo "开始";
-		echo "<br>";
-		C('TOKEN_ON',false);
+	
+	//清除多余数据
+    public function clearuselessdata($xianlu,$newxianlu){
+		$System = D("System");	
+		$all = $System->findall();
+		foreach($all as $v){
+			if($v['status_system'] == -1){
+				$System->where("`systemID` = '$v[systemID]'")->delete();
+			}
+			if($v['marktype'] == 'category'){
+				$d = M("myerpview_system_category")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'customer'){
+				$d = M("myerpview_system_customer")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'datadictionary'){
+				$d = M("myerpview_system_datadictionary")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'systemDC'){
+				$d = M("myerpview_system_dc")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'department'){
+				$d = M("myerpview_system_department")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'directory'){
+				$d = M("myerpview_system_directory")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'systemDUR'){
+				$d = M("myerpview_system_dur")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'systemOM'){
+				$d = M("myerpview_system_om")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'roles'){
+				$d = M("myerpview_system_roles")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'shenhe'){
+				$d = M("myerpview_system_shenhe")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'taskShenhe'){
+				$d = M("myerpview_system_taskshenhe")->where("`systemID` = '$v[systemID]'")->find();
+			}
+			if($v['marktype'] == 'user'){
+				$d = M("myerpview_system_user")->where("`systemID` = '$v[systemID]'")->find();
+			}
+				if(!$d)
+				$System->where("`systemID` = '$v[systemID]'")->delete();
+		}
 		
-		//目录
-		$ViewDirectory = D("ViewDirectory");
-		$ds = $ViewDirectory->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '目录';
-			$myerp_tempdatacopy->add($d);
+	}
+	
+	//重置系统表
+    public function resetsystemstatus(){
+		$System = D("System");	
+		$all = $System->findall();
+		foreach($all as $v){
+			$v['status'] = '';
+			$v['bumencopy'] = '系统';
+			$v['departmentID'] = '-1';
+			$v['user_name'] = '系统';
+			$System->save($v);
 		}
-		//用户
-		$ViewUser = D("ViewUser");
-		$ds = $ViewUser->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '用户';
-			$myerp_tempdatacopy->add($d);
-		}
-		//角色
-		$ViewRoles = D("ViewRoles");
-		$ds = $ViewRoles->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '角色';
-			$myerp_tempdatacopy->add($d);
-		}
-		//DUR
-		$ViewSystemDUR = D("ViewSystemDUR");
-		$ds = $ViewSystemDUR->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = 'DUR';
-			$myerp_tempdatacopy->add($d);
-		}
-		//部门
-		$ViewDepartment = D("ViewDepartment");
-		$ds = $ViewDepartment->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '部门';
-			$myerp_tempdatacopy->add($d);
-		}
-		//分类关系
-		$ViewSystemDC = D("ViewSystemDC");
-		$ds = $ViewSystemDC->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '分类关系';
-			$myerp_tempdatacopy->add($d);
-		}
-		//数据字典
-		$ViewDataDictionary = D("ViewDataDictionary");
-		$ds = $ViewDataDictionary->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '数据字典';
-			$myerp_tempdatacopy->add($d);
-		}
-		//分类
-		$ViewCategory = D("ViewCategory");
-		$ds = $ViewCategory->findall();
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		foreach($ds as $v){
-			$d['datacopy'] = serialize($v);
-			$d['type'] = '分类';
-			$myerp_tempdatacopy->add($d);
-		}
-		echo "结束";
-		
 		
 	}
 	
 	
-	//数据到表
-    public function _tempdata_to_database(){
-		echo "开始";
-		echo "<br>";
-		C('TOKEN_ON',false);
-		
-		
-		//目录
-		$System = D("System");
-		$myerp_tempdatacopy = M("myerp_tempdatacopy");
-		$ds = $myerp_tempdatacopy->where("`type` = '目录'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['directory'] = $data;
-			$System->relation("directory")->myRcreate($data);
-		}
-		//用户
-		$ds = $myerp_tempdatacopy->where("`type` = '用户'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['user'] = $data;
-			$System->relation("user")->myRcreate($data);
-		}
-		//角色
-		$ds = $myerp_tempdatacopy->where("`type` = '角色'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['roles'] = $data;
-			$System->relation("roles")->myRcreate($data);
-		}
-		//DUR
-		$ds = $myerp_tempdatacopy->where("`type` = 'DUR'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['systemDUR'] = $data;
-			$System->relation("systemDUR")->myRcreate($data);
-		}
-		//部门
-		$ds = $myerp_tempdatacopy->where("`type` = '部门'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['department'] = $data;
-			$System->relation("department")->myRcreate($data);
-		}
-		//分类关系
-		$ds = $myerp_tempdatacopy->where("`type` = '分类关系'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['systemDC'] = $data;
-			$System->relation("systemDC")->myRcreate($data);
-		}
-		//数据字典
-		$ds = $myerp_tempdatacopy->where("`type` = '数据字典'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['datadictionary'] = $data;
-			$System->relation("datadictionary")->myRcreate($data);
-		}
-		//分类
-		$ds = $myerp_tempdatacopy->where("`type` = '分类'")->findall();
-		foreach($ds as $v){
-			$data = unserialize($v['datacopy']);
-			$data['category'] = $data;
-			$System->relation("category")->myRcreate($data);
+	//目录重置
+    public function reset_directory(){
+		$System = D("System");	
+		$ViewDirectory = D("ViewDirectory");	
+		$all = $ViewDirectory->findall();
+		foreach($all as $v){
+			$dd['marktype'] = 'directory';
+			$dd['systemID'] = $v['systemID'];
+			if(false === $System->save($dd))
+			dump($System);
+			
 		}
 		
-		echo "结束";
 	}
-	
-	
 	
 	
 	

@@ -22,19 +22,19 @@ class MessageModel extends RelationModel {
     ); 
 	
 	protected function set_status_system($status_system) {//1正常,-1删除
-		if($status_system)	
+		if($status_system != '')	
 			return $status_system;
 		else
 			return 1;
 	}
 	protected function set_status($status,$parentID) {
-		if($status)	
+		if($status != '')	
 			return $status;
 		else
 			return '';
 	}
 	protected function set_time($time) {
-		if($time)	
+		if($time != '')	
 			return $time;
 		else
 			return time();
@@ -44,14 +44,14 @@ class MessageModel extends RelationModel {
 		return $options;
 	}
 	protected function set_user_name($user_name) {
-		if($user_name)	
+		if($user_name != '')	
 			return $user_name;
 		else
 			return NF_getusername();
 	}
 	
 	protected function set_department($departmentID,$chanpinID) {
-		if($departmentID)
+		if($departmentID != '')
 			return $departmentID;
 		else
 			return NF_getmydepartmentid($chanpinID);

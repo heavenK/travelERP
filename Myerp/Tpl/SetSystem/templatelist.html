@@ -355,7 +355,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 					buttons: {
 						"确认": function() {
 							if(CheckForm('form_user','resultdiv_2'))
-							ThinkAjax.sendForm('form_user','<{:SITE_INDEX}>',save_after,'resultdiv');
+							ThinkAjax.sendForm('form_user','<{:SITE_INDEX}>SetSystem/dopostSystemHas/tableName/user',save_after,'resultdiv');
 						},
 						"取消": function() {
 							jQuery(this).dialog("close");
@@ -369,7 +369,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 				});
 				function save_after(data,status){
 					if(status == 1){
-						window.location = '<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu/type/'+data['type'];
+						location.reload();
 					}
 				}
 			});
@@ -970,6 +970,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 <div id="dialogpic" title="提示消息" style="background:#FFF">
 <img id="picimg" />
 </div>
+      <php>if('用户' == $nowDir['title']){</php>
 <div id="dialog_user" title="添加新用户" style="background:#FFF">
 <form id="form_user" id="form_user" method="post" >
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
@@ -986,4 +987,4 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
     </table>
 </form>
 </div>
-
+      <php>}</php>
