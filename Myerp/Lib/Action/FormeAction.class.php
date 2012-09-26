@@ -1952,12 +1952,15 @@ class FormeAction extends Action{
 		$all = $System->findall();
 		foreach($all as $v){
 			$dd['status'] = '';
-			$dd['bumencopy'] = '系统';
+			$dd['bumen_copy'] = '系统';
 			$dd['departmentID'] = '-1';
 			$dd['user_name'] = '系统';
 			$dd['islock'] = '未锁定';
 			$dd['systemID'] = $v['systemID'];
-			$System->save($dd);
+			if(false === $System->save($dd)){
+			dump($System);
+			exit;
+			}
 		}
 		
 	}
