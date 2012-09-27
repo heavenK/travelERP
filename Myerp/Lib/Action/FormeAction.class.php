@@ -2070,6 +2070,33 @@ class FormeAction extends Action{
 	}
 	
 	
+	//补填部门
+    public function fillbumentobumen() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$glbasedata=M("glbasedata");
+		$bball = $glbasedata->where("`type` = '部门'")->findall();
+		$ViewDepartment = D("ViewDepartment");
+		foreach($bball as $v)
+		{
+			$u = $ViewDepartment->where("`title` = '$v[title]'")->find();
+			if($u || !$v['title'])
+			continue;
+			foreach($bball as $c)
+			{
+				$c['parentID'] = $parentID;
+				$c['department'] = $c;
+				$System->relation("department")->myRcreate($c);
+			}
+			
+		}
+		echo "结束";
+		return true;
+	}
+	
+	
 	
 	
 }
