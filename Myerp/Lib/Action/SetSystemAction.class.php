@@ -286,6 +286,12 @@ class SetSystemAction extends CommonAction{
 			if($_REQUEST['password'])
 				$data[$_REQUEST['tableName']]['password'] = md5(md5($_REQUEST['password']));
 		}
+		if($_REQUEST['tableName'] == 'roles'){
+			$ViewRoles = D("ViewRoles");
+			$roles = $ViewRoles->where("`systemID` = '$_REQUEST[title]'")->find();
+			if($roles)
+				$this->ajaxReturn($_REQUEST, '错误！角色名已在系统中存在！！', 0);
+		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
