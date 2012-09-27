@@ -99,8 +99,11 @@ class FormeAction extends Action{
 			if($v['departmentName'] == '技术支持'){
 				$v['departmentName'] = '电子商务';
 			}
+			if($v['user_name'] == 'zhangwen'){
+				$v['user_name'] = '张文';
+			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
-			//$dat['bumen_copy'] = $v['departmentName'];
+			$dat['bumen_copy'] = $v['departmentName'];
 			if(!$dat['departmentID']){
 				dump(74544444444444);
 				dump($v);
