@@ -203,7 +203,7 @@ class SetSystemAction extends CommonAction{
 		{
 			if($dd){
 				unlink('./Data/Attachments/m_'.$dd['datadictionary']['pic_url']);
-				unlink('./Data/Attachments/s_'.$dd['datadictionary']['pic_url']);
+				unlink('./Data/Attachments/'.$dd['datadictionary']['pic_url']);
 			}
 			while($d = $System->where("`parentID` = '$systemID'")->find())
 			{
@@ -419,7 +419,7 @@ class SetSystemAction extends CommonAction{
 			if($dd)
 			{
 				unlink('./Data/Attachments/m_'.$dd['datadictionary']['pic_url']);
-				unlink('./Data/Attachments/s_'.$dd['datadictionary']['pic_url']);
+				unlink('./Data/Attachments/'.$dd['datadictionary']['pic_url']);
 			}
 		}
 		elseif(!$data['systemID'] && false === $data["datadictionary"]['pic_url'])
