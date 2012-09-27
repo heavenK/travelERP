@@ -854,6 +854,15 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function danxiangfuwu() {
+		//判断计调角色
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+		if(false === $durlist){
+			$durlist = A("Method")->_checkRolesByUser('票务','业务');
+			if(false === $durlist){
+				$this->display('Index:error');
+				exit;
+			}
+		}
 		A("Method")->_danxiangfuwu('组团');
 	}
 	

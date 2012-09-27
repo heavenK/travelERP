@@ -299,15 +299,15 @@ class SetSystemAction extends CommonAction{
 		if($_REQUEST['tableName'] == 'department'){
 			$ViewDepartment = D("ViewDepartment");
 			$roles = $ViewDepartment->where("`title` = '$_REQUEST[title]'")->find();
-			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
-				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
+				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！！！！！！', 0);
 			if($_REQUEST['systemID'] == '' && $roles)
 				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
 		}
 		if($_REQUEST['tableName'] == 'category'){
 			$ViewCategory = D("ViewCategory");
 			$roles = $ViewCategory->where("`title` = '$_REQUEST[title]'")->find();
-			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
+			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
 			if($_REQUEST['systemID'] == '' && $roles)
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
@@ -315,7 +315,7 @@ class SetSystemAction extends CommonAction{
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
-			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
+			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
 			if($_REQUEST['systemID'] == '' && $roles)
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
