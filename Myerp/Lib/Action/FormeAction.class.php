@@ -2040,6 +2040,33 @@ class FormeAction extends Action{
 	}
 	
 	
+	//补填用户
+    public function fillusertouser() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$gladminuser=M("gladminuser");
+		$userall = $gladminuser->findall();
+		$System = D("System");
+		$ViewUser = D("ViewUser");
+		$users=M("Users");
+		foreach($userall as $v)
+		{
+			$u = $ViewUser->where("`title` = '$v[user_name]'")->find();
+			if($u || $v['user_name'] == 'zhangwen')
+			continue;
+			$b = $users->where("`user_id` = '$v[user_id]'")->find();
+			$b['user'] = $b;
+			$System->relation("user")->myRcreate($b);
+			$systemID = $System->getRelationID();
+			$this->_fillDUR($v,$systemID);
+		}
+		echo "结束";
+	
+	
+	}
+	
+	
 	
 	
 }
