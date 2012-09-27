@@ -1054,9 +1054,6 @@ class MethodAction extends CommonAction{
 		}
 		else{
 			$omdata = $this->_checkDataOM($dataID,$datatype,'管理');
-			
-			dump($omdata);
-			
 			if(false !== $omdata){
 				if($this->_checkShenhe($datatype,2))
 				cookie('show_word','申请审核',30);
