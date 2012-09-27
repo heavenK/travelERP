@@ -53,7 +53,7 @@ $(function(){
   <u id="KinSlideshow" style="visibility:hidden;">
   <php>if($xianlu['xianlu']['tupian']){</php>
     <php>foreach($tupian as $v){</php>
-    <a href="javascript:void(0)"><img src="<{:SITE_DATA}>Attachments/m_<{$v[pic_url]}>" width="316" height="201" /></a>
+    <a href="javascript:void(0)"><img src="<{:SITE_DATA}>Attachments/<{$v[pic_url]}>" width="316" height="201" /></a>
     <php>} </php>
   <php>}else{</php>
     <img src="<{:__PUBLIC__}>/gulianstyle/images/gulianmark.jpg" width="316" height="201" /> 

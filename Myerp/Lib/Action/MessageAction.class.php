@@ -104,18 +104,16 @@ class MessageAction extends Action{
 		$Message = D("Message");
 		//文档上传
 		$datatype = $_REQUEST['type'];
+		//如果有文件上传 上传附件
+		$savepath = './Data/Files/'; 
 		if($datatype == '排团表'){
 			if ($_FILES['attachment']['name'] != '') { 
-				//如果有文件上传 上传附件
-				$savepath = './Data/Attachments/'; 
 				$data["info"]['url_file'] = A("Method")->_upload($savepath); 
 			}
 			if($data['messageID'] && $data["info"]['url_file']){
 				$dd = $Message->relation('info')->where("`messageID` = '$data[messageID]'")->find();
 				if($dd){
-					unlink('./Data/Attachments/'.$dd['info']['attachment']);
-					unlink('./Data/Attachments/m_'.$dd['info']['attachment']);
-					unlink('./Data/Attachments/s_'.$dd['info']['attachment']);
+					unlink($savepath.$dd['info']['attachment']);
 				}
 			}
 			if(!$data['messageID'] && false === $data["DJtuan"]['attachment'])

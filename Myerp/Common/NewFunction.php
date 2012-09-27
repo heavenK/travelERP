@@ -9,7 +9,7 @@ function NF_getmydepartmentid($chanpinID = ''){
 	if(!$bumenID)
 	{
 		$DURlist = A("Method")->_getDURlist(A("Method")->user['systemID']);
-		$bumenID = $DURlist[0]['departmentID'];
+		$bumenID = $DURlist[0]['bumenID'];
 		//获得部门名
 		$ViewDepartment = D("ViewDepartment");
 		$bumen = $ViewDepartment->where("`systemID` = '$bumenID'")->find();

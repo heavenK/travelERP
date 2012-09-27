@@ -87,18 +87,15 @@ class DijieAction extends CommonAction{
 		$data = $_REQUEST;
 		$data["DJtuan"] = $_REQUEST;
 		$data["DJtuan"]['datatext'] = serialize($_REQUEST);
+		//如果有文件上传 上传附件
+		$savepath = './Data/Files/'; 
         if ($_FILES['attachment']['name'] != '') { 
-            //如果有文件上传 上传附件
-			$savepath = './Data/Attachments/'; 
             $data["DJtuan"]['attachment'] = A("Method")->_upload($savepath); 
         }
 		if($data['chanpinID'] && $data["DJtuan"]['attachment']){
 			$dd = $Chanpin->relation('DJtuan')->where("`chanpinID` = '$data[chanpinID]'")->find();
-			if($dd)
-			{
-				unlink('./Data/Attachments/'.$dd['DJtuan']['attachment']);
-				unlink('./Data/Attachments/m_'.$dd['DJtuan']['attachment']);
-				unlink('./Data/Attachments/s_'.$dd['DJtuan']['attachment']);
+			if($dd){
+				unlink($savepath.$dd['DJtuan']['attachment']);
 			}
 		}
 		else{
