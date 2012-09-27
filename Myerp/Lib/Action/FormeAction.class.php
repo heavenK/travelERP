@@ -1990,6 +1990,9 @@ class FormeAction extends Action{
 	
 	//重置系统表
     public function resetsystemstatus(){
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
 		$System = D("System");	
 		$all = $System->findall();
 		foreach($all as $v){
@@ -2004,7 +2007,7 @@ class FormeAction extends Action{
 			exit;
 			}
 		}
-		
+		echo "结束";
 	}
 	
 	
@@ -2098,7 +2101,7 @@ class FormeAction extends Action{
 	
 	
 	
-	//补填部门
+	//清空临时数据
     public function cleartabledata() {
 		echo "开始";
 		echo "<br>";
