@@ -81,8 +81,8 @@ class FormeAction extends Action{
 		$gl_xianlu=M("glxianlu");
 		if(!$_REQUEST['page'])
 		exit;
-		$num = ($_REQUEST['page']-1)*100;
-		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,100")->findall();
+		$num = ($_REQUEST['page']-1)*50;
+		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 63")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
@@ -96,8 +96,11 @@ class FormeAction extends Action{
 			$dat['status'] = $v['zhuangtai'];
 			$dat['xianlu']['title'] = $v['mingcheng'];
 			//部门
+			if($v['departmentName'] == '技术支持'){
+				$v['departmentName'] = '电子商务';
+			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
-			$dat['bumen_copy'] = $v['departmentName'];
+			//$dat['bumen_copy'] = $v['departmentName'];
 			if(!$dat['departmentID']){
 				dump(74544444444444);
 				dump($v);
