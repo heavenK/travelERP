@@ -1940,6 +1940,9 @@ class FormeAction extends Action{
 	
 	//清除多余数据
     public function clearuselessdata($xianlu,$newxianlu){
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
 		$System = D("System");	
 		$all = $System->findall();
 		foreach($all as $v){
@@ -1985,7 +1988,7 @@ class FormeAction extends Action{
 				if(!$d)
 				$System->where("`systemID` = '$v[systemID]'")->delete();
 		}
-		
+		echo "结束";
 	}
 	
 	//重置系统表
