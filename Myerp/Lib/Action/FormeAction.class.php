@@ -2057,7 +2057,7 @@ class FormeAction extends Action{
 			continue;
 			$b = $users->where("`user_id` = '$v[user_id]'")->find();
 			$b['user'] = $b;
-			if(false !== $System->relation("user")->myRcreate($b)){
+			if(false === $System->relation("user")->myRcreate($b)){
 			dump($System);	
 				exit;
 			}
