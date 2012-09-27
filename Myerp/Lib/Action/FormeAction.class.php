@@ -1946,9 +1946,9 @@ class FormeAction extends Action{
 		$System = D("System");	
 		$all = $System->findall();
 		foreach($all as $v){
-			if($v['status_system'] == -1 || $v['marktype'] == ''){
-				$System->where("`systemID` = '$v[systemID]'")->delete();
-			}
+//			if($v['status_system'] == -1 || $v['marktype'] == ''){
+//				$System->where("`systemID` = '$v[systemID]'")->delete();
+//			}
 			if($v['marktype'] == 'category'){
 				$d = M("myerpview_system_category")->where("`systemID` = '$v[systemID]'")->find();
 			}
