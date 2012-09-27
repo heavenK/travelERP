@@ -2053,11 +2053,14 @@ class FormeAction extends Action{
 		foreach($userall as $v)
 		{
 			$u = $ViewUser->where("`title` = '$v[user_name]'")->find();
-			if($u || $v['user_name'] == 'zhangwen')
+			if($u || $v['user_name'] == 'zhangwen' || !$v['user_name'])
 			continue;
 			$b = $users->where("`user_id` = '$v[user_id]'")->find();
 			$b['user'] = $b;
-			$System->relation("user")->myRcreate($b);
+			if(false !== $System->relation("user")->myRcreate($b)){
+			dump($System);	
+				exit;
+			}
 			$systemID = $System->getRelationID();
 			$this->_fillDUR($v,$systemID);
 		}
