@@ -103,7 +103,6 @@ class FormeAction extends Action{
 				$v['user_name'] = '张文';
 			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
-			$dat['bumen_copy'] = $v['departmentName'];
 			if(!$dat['departmentID']){
 				dump(74544444444444);
 				dump($v);
