@@ -2098,6 +2098,34 @@ class FormeAction extends Action{
 	
 	
 	
+	//补填部门
+    public function cleartabledata() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$myerp_system_taskshenhe=M("myerp_system_taskshenhe");
+		$myerp_system_om=M("myerp_system_om");
+		$myerp_system_customer=M("myerp_system_customer");
+		
+		$task = $myerp_system_taskshenhe->findall();
+		$om = $myerp_system_om->findall();
+		$customer = $myerp_system_customer->findall();
+		foreach($task as $v){
+			$myerp_system_taskshenhe->where("`systemID` = '$v[systemID]'")->delete();
+		}
+		foreach($om as $v){
+			$myerp_system_om->where("`systemID` = '$v[systemID]'")->delete();
+		}
+		foreach($customer as $v){
+			$myerp_system_customer->where("`systemID` = '$v[systemID]'")->delete();
+		}
+		
+		echo "结束";
+		return true;
+	}
+	
+	
+	
 	
 }
 ?>
