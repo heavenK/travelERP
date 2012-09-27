@@ -2090,13 +2090,9 @@ class FormeAction extends Action{
 			$u = $ViewDepartment->where("`title` = '$v[title]'")->find();
 			if($u || !$v['title'])
 			continue;
-			foreach($bball as $c)
-			{
-				$c['parentID'] = $parentID;
-				$c['department'] = $c;
-				$System->relation("department")->myRcreate($c);
-			}
-			
+			$c['parentID'] = $parentID;
+			$c['department'] = $v;
+			$System->relation("department")->myRcreate($c);
 		}
 		echo "结束";
 		return true;
