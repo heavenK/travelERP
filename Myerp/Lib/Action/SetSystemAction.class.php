@@ -190,26 +190,24 @@ class SetSystemAction extends CommonAction{
 	
 	public function deleteSystemItem()
 	{
-		$this->ajaxReturn('', '该功能暂不开放！！！', 0);
+		//$this->ajaxReturn('', '该功能暂不开放！！！', 0);
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
-		
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$System = D("System");
 			$dd = $System->relation('datadictionary')->where("`systemID` = '$systemID'")->find();
 		}
-		
-		if (false !== $System->relation($_REQUEST['tableName'])->delete("$systemID"))
-		{
-			if($dd){
-				unlink('./Data/Attachments/m_'.$dd['datadictionary']['pic_url']);
-				unlink('./Data/Attachments/'.$dd['datadictionary']['pic_url']);
-			}
-			while($d = $System->where("`parentID` = '$systemID'")->find())
-			{
+		$data['systemID'] = $systemID;
+		$data['status_system'] = -1;
+		$data['islock'] = '已锁定';
+		if(false !== $System->myRcreate($data)){
+			while($d = $System->where("`parentID` = '$systemID'")->find()){
 				if(null == $d || false === $d)
 				break;
-				$System->relation($_REQUEST['tableName'])->where("`parentID` = '$systemID'")->delete();
+				$dt['systemID'] = $d['systemID'];
+				$dt['status_system'] = -1;
+				$dt['islock'] = '已锁定';
+				$System->myRcreate($dt);
 			}
 			$this->ajaxReturn('', '删除成功！', 1);
 		}
@@ -291,6 +289,24 @@ class SetSystemAction extends CommonAction{
 			$roles = $ViewRoles->where("`systemID` = '$_REQUEST[title]'")->find();
 			if($roles)
 				$this->ajaxReturn($_REQUEST, '错误！角色名已在系统中存在！！', 0);
+		}
+		if($_REQUEST['tableName'] == 'department'){
+			$ViewDepartment = D("ViewDepartment");
+			$roles = $ViewDepartment->where("`systemID` = '$_REQUEST[title]'")->find();
+			if($roles)
+				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+		}
+		if($_REQUEST['tableName'] == 'category'){
+			$ViewCategory = D("ViewCategory");
+			$roles = $ViewCategory->where("`systemID` = '$_REQUEST[title]'")->find();
+			if($roles)
+				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
+		}
+		if($_REQUEST['tableName'] == 'datadictionary'){
+			$ViewDataDictionary = D("ViewDataDictionary");
+			$roles = $ViewDataDictionary->where("`systemID` = '$_REQUEST[title]'")->find();
+			if($roles)
+				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
 		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
