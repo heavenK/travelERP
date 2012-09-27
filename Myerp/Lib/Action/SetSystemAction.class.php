@@ -194,21 +194,17 @@ class SetSystemAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
-		if($_REQUEST['tableName'] == 'datadictionary'){
-			$System = D("System");
-			$dd = $System->relation('datadictionary')->where("`systemID` = '$systemID'")->find();
-		}
 		$data['systemID'] = $systemID;
 		$data['status_system'] = -1;
 		$data['islock'] = '已锁定';
-		if(false !== $System->myRcreate($data)){
+		if(false !== $System->save($data)){
 			while($d = $System->where("`parentID` = '$systemID'")->find()){
 				if(null == $d || false === $d)
 				break;
 				$dt['systemID'] = $d['systemID'];
 				$dt['status_system'] = -1;
 				$dt['islock'] = '已锁定';
-				$System->myRcreate($dt);
+				$System->save($dt);
 			}
 			$this->ajaxReturn('', '删除成功！', 1);
 		}
