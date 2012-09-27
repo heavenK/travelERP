@@ -86,6 +86,9 @@ class FormeAction extends Action{
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 63")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
+		$glzituan=M("glzituan");
+		$gl_baozhang=M("gl_baozhang");
+		
 		dump("共".count($gl_xianlu->findall()).'个线路'.'<br>');
 		$jishu_xianlu = 0;
 		foreach($xianluAll as $v)
@@ -101,6 +104,7 @@ class FormeAction extends Action{
 			}
 			if($v['user_name'] == 'zhangwen'){
 				$v['user_name'] = '张文';
+				$dat['user_name'] = '张文';
 			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
 			if(!$dat['departmentID']){
@@ -115,6 +119,19 @@ class FormeAction extends Action{
 				$dat['shenhe_time'] = $v['time'];
 				$dat['shenhe_remark'] = '已审核';
 				$dat['status_shenhe'] = '已审核';
+				$v['zhuangtai'] = '截止';
+				$dat['status'] = '截止';
+				//子团报名状态
+				$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
+				foreach($zituanAll as $zit){
+					//报账单审核状态
+					$baozhang = $gl_baozhang->where("`zituanID` = '$zit[zituanID]'")->find();
+					if($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过' && $baozhang['status'] != '总经理通过'){
+						$v['zhuangtai'] = '报名';
+						$dat['status'] = '报名';
+						break;
+					}
+				}
 			}
 			else{
 				$dat['islock'] = '未锁定';
@@ -1802,10 +1819,10 @@ class FormeAction extends Action{
 		//搜索价格
 		$glxianlujiage = M("glxianlujiage");
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
-		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
-		$_REQUEST['type'] = '标准';
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
+		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
+		$_REQUEST['type'] = '标准';
 		$_REQUEST['time'] = $xianlu['time'];
 		$_REQUEST['adultprice'] = $jiage['chengrenzongjia'];
 		$_REQUEST['title'] = $category['title'];
