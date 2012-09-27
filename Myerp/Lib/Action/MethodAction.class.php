@@ -508,16 +508,16 @@ class MethodAction extends CommonAction{
 		$ViewUser = D("ViewUser");
 		$ViewRoles = D("ViewRoles");
 		//分类
-		$datas1 = $ViewCategory->findall();
+		$datas1 = $ViewCategory->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
 		$this->assign("categoryAll",$datas1);
 		//部门
-		$datas2 = $ViewDepartment->findall();
+		$datas2 = $ViewDepartment->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
 		$this->assign("departmentAll",$datas2);
 		//用户
-		$datas3 = $ViewUser->findall();
+		$datas3 = $ViewUser->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
 		$this->assign("userAll",$datas3);
 		//角色
-		$datas4 = $ViewRoles->findall();
+		$datas4 = $ViewRoles->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
 		$this->assign("rolesAll",$datas4);
 	 }
 	

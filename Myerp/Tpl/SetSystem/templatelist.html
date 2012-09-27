@@ -802,7 +802,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
           <th scope="col" nowrap="nowrap" ><div> 地址 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 传真 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 电子邮箱 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 锁状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
         </tr>
         
@@ -847,9 +847,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><input type="text" id="postal<{$v['systemID']}>" style="width:80px" value="<{$v['postal']}>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="addr<{$v['systemID']}>" value="<{$v['addr']}>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="fax<{$v['systemID']}>" style="width:80px" value="<{$v['fax']}>"></td>
-        <td scope="row" align="left" valign="top"><input type="text" id="email<{$v['systemID']}>" style="width:100px" value="<{$v['email']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" style="width:100px" value="<{$v['islock']}>"></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="锁定" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>

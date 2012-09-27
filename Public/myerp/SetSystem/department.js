@@ -48,7 +48,6 @@
 	var postal = jQuery("#postal"+mark+id).val();
 	var addr = jQuery("#addr"+mark+id).val();
 	var fax = jQuery("#fax"+mark+id).val();
-	var email = jQuery("#email"+mark+id).val();
 	var type = new Array();
 	var i = 0;
 	jQuery(".type"+mark+id).each(function(index, element) {
@@ -60,7 +59,7 @@
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostSystemHas/tableName/department",
-		data:	"title="+title+"&lianxiren="+lianxiren+"&officetel="+officetel+"&postal="+postal+"&addr="+addr+"&fax="+fax+"&email="+email+"&type="+type+it,
+		data:	"title="+title+"&lianxiren="+lianxiren+"&officetel="+officetel+"&postal="+postal+"&addr="+addr+"&fax="+fax+"&type="+type+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
 		}
