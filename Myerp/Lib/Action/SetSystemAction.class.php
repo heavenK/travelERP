@@ -432,6 +432,7 @@ class SetSystemAction extends CommonAction{
 			A("Method")->ajaxUploadResult($_REQUEST,'保存成功',1);
 		}
 		else{
+		dump($System);
 			A("Method")->ajaxUploadResult($_REQUEST,$System->getError(),0);
 		}
 		
