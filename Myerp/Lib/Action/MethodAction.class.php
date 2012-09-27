@@ -1383,7 +1383,7 @@ class MethodAction extends CommonAction{
         //设置上传文件规则 
 //		$upload->saveRule = 'time';
 //		$upload->autoSub = 'true';
-//        $upload->subType = 'date';
+//		$upload->subType = 'date';
 //		$upload->dateFormat = 'Y/m';
         //删除原图 
         //$upload->thumbRemoveOrigin = true; 
