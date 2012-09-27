@@ -213,7 +213,7 @@ class SetSystemAction extends CommonAction{
 				$dt['islock'] = $data['islock'];
 				$System->save($dt);
 			}
-			$this->ajaxReturn('', '删除成功！', 1);
+			$this->ajaxReturn('', '操作成功！', 1);
 		}
 		else
 			$this->ajaxReturn('', $System->getError(), 0);
@@ -290,7 +290,7 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'roles'){
 			$ViewRoles = D("ViewRoles");
-			$roles = $ViewRoles->where("`systemID` = '$_REQUEST[title]'")->find();
+			$roles = $ViewRoles->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
 				$this->ajaxReturn($_REQUEST, '错误！角色名已在系统中存在！！', 0);
 			if($roles)
@@ -298,7 +298,7 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'department'){
 			$ViewDepartment = D("ViewDepartment");
-			$roles = $ViewDepartment->where("`systemID` = '$_REQUEST[title]'")->find();
+			$roles = $ViewDepartment->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
 				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
 			if($roles)
@@ -306,7 +306,7 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'category'){
 			$ViewCategory = D("ViewCategory");
-			$roles = $ViewCategory->where("`systemID` = '$_REQUEST[title]'")->find();
+			$roles = $ViewCategory->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
 			if($roles)
@@ -314,7 +314,7 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$ViewDataDictionary = D("ViewDataDictionary");
-			$roles = $ViewDataDictionary->where("`systemID` = '$_REQUEST[title]'")->find();
+			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $_REQUEST['systemID'] != $roles['systemID'])
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
 			if($roles)
