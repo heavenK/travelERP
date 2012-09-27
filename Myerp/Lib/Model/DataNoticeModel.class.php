@@ -1,7 +1,6 @@
 <?php
 
 class DataNoticeModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_datanotice';	
 	
    // 自动验证设置 

@@ -1,7 +1,6 @@
 <?php
 
 class SystemDirectoryModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_directory';	
 		
    // 自动验证设置 

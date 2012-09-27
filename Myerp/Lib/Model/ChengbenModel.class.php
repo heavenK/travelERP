@@ -1,7 +1,6 @@
 <?php
 
 class ChengbenModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_chanpin_chengben';	
 	protected $pk = 'chanpinID';
 		

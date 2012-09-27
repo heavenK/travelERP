@@ -1,8 +1,7 @@
 <?php
 
 class SystemDataDictionaryModel extends Model {
-	//protected $tableName = 'categories'; 	
-	protected $trueTableName = 'myerp_system_dataDictionary';	
+	protected $trueTableName = 'myerp_system_datadictionary';	
 		
    // 自动验证设置 
     protected $_validate = array( 

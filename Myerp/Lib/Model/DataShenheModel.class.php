@@ -1,7 +1,6 @@
 <?php
 
 class DataShenheModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_datashenhe';	
 	
    // 自动验证设置 

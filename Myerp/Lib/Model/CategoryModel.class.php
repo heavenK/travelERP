@@ -1,7 +1,6 @@
 <?php
 
 class CategoryModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_category';	
 	protected $pk = 'systemID';
 		

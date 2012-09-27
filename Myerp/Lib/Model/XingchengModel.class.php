@@ -1,7 +1,6 @@
 <?php
 
 class XingchengModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_chanpin_xingcheng';	
 	
    // 自动验证设置 

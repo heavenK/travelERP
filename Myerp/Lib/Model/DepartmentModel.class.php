@@ -1,7 +1,6 @@
 <?php
 
 class DepartmentModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_department';	
 	protected $pk = 'systemID';
 		

@@ -1,7 +1,6 @@
 <?php
 
 class ShoujiaModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_chanpin_shoujia';	
 	protected $pk = 'chanpinID';
 		

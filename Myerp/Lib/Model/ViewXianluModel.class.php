@@ -1,7 +1,6 @@
 <?php
 
 class ViewXianluModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerpview_chanpin_xianlu';	
 	protected $pk = 'chanpinID';	
 	

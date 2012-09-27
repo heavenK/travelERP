@@ -1,7 +1,6 @@
 <?php
 
 class ViewSystemOMModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerpview_system_om';	
 	protected $pk = 'systemID';	
 	

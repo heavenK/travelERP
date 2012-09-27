@@ -1,7 +1,6 @@
 <?php
 
 class ShenheModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_shenhe';	
 	protected $pk = 'systemID';
 		

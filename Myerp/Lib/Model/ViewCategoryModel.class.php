@@ -1,7 +1,6 @@
 <?php
 
 class ViewCategoryModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerpview_system_category';	
 	protected $pk = 'systemID';	
 	

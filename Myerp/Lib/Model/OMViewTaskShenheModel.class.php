@@ -1,7 +1,6 @@
 <?php
 
 class OMViewTaskShenheModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerpview_om_taskshenhe';	
 	protected $pk = 'id';	
 	

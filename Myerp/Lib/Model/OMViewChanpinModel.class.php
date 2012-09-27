@@ -1,7 +1,6 @@
 <?php
 
 class OMViewChanpinModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerpview_om_chanpin';	
 	protected $pk = 'id';	
 	//protected $pk = 'chanpinID';	

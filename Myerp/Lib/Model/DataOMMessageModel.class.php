@@ -1,7 +1,6 @@
 <?php
 
 class DataOMMessageModel extends RelationModel {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_dataom_message';	
 	
    // 自动验证设置 

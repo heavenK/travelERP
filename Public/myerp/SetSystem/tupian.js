@@ -4,7 +4,7 @@
  {
 	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\""+divname+"_t"+i+"\">";
-    htmlcontent += '<form method="post" action="'+SITE_INDEX+'SetSystem/dopostDataDictionary/" enctype="multipart/form-data"> ';
+    htmlcontent += '<form method="post" action="'+SITE_INDEX+'SetSystem/dopostDataDictionary/" enctype="multipart/form-data" target="iframeUpload"> ';
     htmlcontent += '<INPUT TYPE="hidden" name="uploadResponse" value="uploadComplete">'
     htmlcontent += '<INPUT TYPE="hidden" name="type" value="图片">';
     htmlcontent += '<INPUT TYPE="hidden" name="tempID" value="'+i+'">';

@@ -1,7 +1,6 @@
 <?php
 
 class SystemOMModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_om';	
 		
    // 自动验证设置 

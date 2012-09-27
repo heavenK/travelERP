@@ -1,7 +1,6 @@
 <?php
 
 class RolesModel extends Model {
-	//protected $tableName = 'categories'; 	
 	protected $trueTableName = 'myerp_system_roles';	
 	protected $pk = 'systemID';
 		
