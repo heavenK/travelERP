@@ -824,7 +824,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">组团</label>
         <php>}else{</php>
         <input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>"/>组团
-        <php>if(in_array('业务',$typearray)){</php>
+        <php>}if(in_array('业务',$typearray)){</php>
         <input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">业务</label>
         <php>}else{</php>
         <input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>"/>业务
