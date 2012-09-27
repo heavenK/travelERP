@@ -33,6 +33,7 @@
 
  function save(id,divname,mark)
  {
+	 scroll(0,0);
 	var it = '';
 	if(!mark){
 		it ="&systemID="+id;
@@ -92,6 +93,7 @@
 
  function deleteSystemItem(id,divname,type)
  {
+	 scroll(0,0);
 	if(type == 'temp')
 		jQuery("#"+divname+id).remove();
 	else	

@@ -191,6 +191,7 @@ class SetSystemAction extends CommonAction{
 	public function deleteSystemItem()
 	{
 		//$this->ajaxReturn('', '该功能暂不开放！！！', 0);
+		C('TOKEN_ON',false);
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
 		if($_REQUEST['tableName'] == 'datadictionary'){
