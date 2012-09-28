@@ -63,6 +63,7 @@ class CaiwuAction extends CommonAction{
 		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
+		$where['status_shenhe'] = '批准';
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
 		foreach($dingdanall as $v){

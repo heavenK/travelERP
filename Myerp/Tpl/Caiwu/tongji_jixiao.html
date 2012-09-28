@@ -315,7 +315,8 @@ jQuery(document).ready(function(){
 function opendialog_1(){
 	jQuery.ajax({
 		type:	"POST",
-		url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/收客/type/员工/title/"+title,
+		//url:	"<{:SITE_INDEX}>Caiwu/jixiao_tongji/returntype/ajax/returnkind/收客/type/员工/title/"+title,
+		url:	"<{$_SERVER[REQUEST_URI]}>/returntype/ajax/returnkind/收客/title/"+title,
 		data:	"",
 		success:	function(msg){
 				ThinkAjax.myAjaxResponse(msg,'',click_after);
