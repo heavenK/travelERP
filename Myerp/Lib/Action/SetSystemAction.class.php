@@ -313,6 +313,7 @@ class SetSystemAction extends CommonAction{
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
+			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
@@ -392,7 +393,19 @@ class SetSystemAction extends CommonAction{
 		A("Method")->showDirectory("数据字典");
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$where['type'] = $_REQUEST['type'];
+		if($_REQUEST['returntype'] == 'array' ){
+			$where['systemID'] = $_REQUEST['systemID'];
+			$data = $ViewDataDictionary->where($where)->find();
+			if($data['type'] == 'FAQ')
+				$data['datatext'] = unserialize($data['datatext']);
+			$this->ajaxReturn($data, '读取成功！', 1);
+			exit;
+		}
 		$data = $ViewDataDictionary->where($where)->findall();
+		$i = 0;
+		foreach($data as $v){
+			$data[$i]['datatext'] = unserialize($v['datatext']);$i++;
+		}
 		$this->assign("datalist",$data);
 		if($where['type'] == '视频'){
 			A("Method")->showDirectory("视频");
@@ -424,6 +437,10 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == '提成'){
 			A("Method")->showDirectory("提成");
+			$this->display('templatelist');
+		}
+		elseif($where['type'] == 'FAQ'){
+			A("Method")->showDirectory("FAQ");
 			$this->display('templatelist');
 		}
 		else

@@ -87,7 +87,7 @@
  function del_after(data,status,info,type,id)
  {
 	if(status == 1){
-		jQuery("#"+id).remove();
+		//jQuery("#"+id).remove();
 	}
  }
  

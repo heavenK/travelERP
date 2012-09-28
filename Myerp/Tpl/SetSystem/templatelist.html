@@ -907,6 +907,95 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       <php>}}</php>
       
       
+      <php>if('FAQ' == $nowDir['title']){</php>
+		<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/FAQ.js"></script>
+			<script type="text/javascript">
+			jQuery(document).ready(function(){
+				// Dialog
+				jQuery('#dialog_FAQ').dialog({
+					autoOpen: false,
+					width: 1000,
+					buttons: {
+						"确认": function() {
+							if(CheckForm('form_FAQ','resultdiv_2')){
+							document.getElementById('message').value = CKEDITOR.instances.message.getData();
+							ThinkAjax.sendForm('form_FAQ','<{:SITE_INDEX}>SetSystem/dopostSystemHas/tableName/datadictionary',save_after,'resultdiv');
+							}
+						},
+						"取消": function() {
+							jQuery(this).dialog("close");
+						}
+					}
+				});
+				// Dialog Link
+				jQuery('#FAQ_create').click(function(){
+					jQuery('#dialog_FAQ').dialog('open');
+					return false;
+				});
+				function save_after(data,status){
+					if(status == 1){
+						location.reload();
+					}
+				}
+			});
+			function infoedit(systemID){
+					jQuery.ajax({
+						type:	"POST",
+						url:	"<{:SITE_INDEX}>SetSystem/dataDictionary/type/FAQ/returntype/array/systemID/"+systemID,
+						data:	"",
+						success:function(msg){
+							ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
+						}
+					});
+			}
+			function arraymessage_after(data,status){
+				if(status == 1){
+					jQuery("#title").val(data['title']);
+					jQuery("#description").val(data['description']);
+					jQuery("#category").val(data['datatext']['category']);
+					CKEDITOR.instances.message.setData(data['datatext']['message']);
+					jQuery("#systemID").val(data['systemID']);
+					jQuery('#dialog_FAQ').dialog('open');
+				}
+			}
+			</script>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
+                    <input class="button" type="button" value=" 新增 " id="FAQ_create" ></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"> 序号</th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 相关动作 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 所属分类 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 锁状态 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+        
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top"><{$i}></td>
+        <td scope="row" align="left" valign="top"><{$v['title']}></td>
+        <td scope="row" align="left" valign="top"><{$v['description']}></td>
+        <td scope="row" align="left" valign="top"><{$v['datatext']['category']}></td>
+        <td scope="row" align="left" valign="top"><{$v['islock']}></td>
+        <td scope="row" align="left" valign="top">
+        <input class="button" type="button" value="锁定/解锁" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="修改" onClick="infoedit('<{$v[systemID]}>');"/>
+        </td>
+      </tr>
+      <php>}}</php>
+      
+      
       
       <php>if('角色设置' == $nowDir['title']){</php>
 		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/roels.js"></script>
@@ -1009,4 +1098,53 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
     </table>
 </form>
 </div>
+      <php>}</php>
+      
+      
+      
+      
+      <php>if('FAQ' == $nowDir['title']){</php>
+<div id="dialog_FAQ" title="FAQ" style="background:#FFF">
+<form id="form_FAQ" id="form_FAQ" method="post" >
+    	<input type="hidden" name="type" value="FAQ" />
+    	<input type="hidden" name="systemID" id="systemID"/>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 标题: </td>
+            <td valign="top" scope="row">
+            <input name="title" type="text" id="title" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+            </td>
+            <td valign="top" scope="row" style="min-width:50px;"> 相关动作: </td>
+            <td valign="top" scope="row">
+            <input name="description" type="text" id="description" >
+            </td>
+            <td valign="top" scope="row" style="min-width:50px;"> 所属分类: </td>
+            <td valign="top" scope="row">
+            <input name="category" type="text" id="category" >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <style>
+	.cke_toolgroup { border: 1px solid #94C1E8;}
+	.cke_icon{ border: 1px solid #94C1E8;}
+	</style>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+        <tbody>
+          <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 内容: </td>
+            <td valign="top" colspan="3"><textarea name="message" id="message"></textarea>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+</form>
+</div>
+
+<script type="text/javascript">
+var editor = CKEDITOR.replace( 'message' );
+CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+
+</script> 
       <php>}</php>

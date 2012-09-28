@@ -101,5 +101,19 @@ class IndexAction extends Action{
 		}
 	}
 	
+	
+	public function FAQ() {
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
+		$i = 0;
+		foreach($FAQall as $v){
+			$FAQall[$i]['datatext'] = unserialize($v['datatext']);$i++;
+		}
+		$this->assign("datalist",$FAQall);
+		$this->display('Index:FAQ');
+	}
+	
+	
+	
 }
 ?>
