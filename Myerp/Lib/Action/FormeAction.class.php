@@ -119,26 +119,19 @@ class FormeAction extends Action{
 				$dat['status_shenhe'] = '已审核';
 				$v['zhuangtai'] = '截止';
 				$dat['status'] = '截止';
-				//子团报名状态
-				$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
-				foreach($zituanAll as $zit){
-					if($zit['chutuanriqi'] > time()){
-						$v['zhuangtai'] = '报名';
-						$dat['status'] = '报名';
-						break;
-					}
-					//报账单审核状态
-//					$baozhang = $gl_baozhang->where("`zituanID` = '$zit[zituanID]'")->find();
-//					if($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过' && $baozhang['status'] != '总经理通过'){
-//						$v['zhuangtai'] = '报名';
-//						$dat['status'] = '报名';
-//						break;
-//					}
-				}
 			}
 			else{
 				$dat['islock'] = '未锁定';
 				$dat['status'] = '准备';
+			}
+			//子团报名状态
+			$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
+			foreach($zituanAll as $zit){
+				if($zit['chutuanriqi'] > time()){
+					$v['zhuangtai'] = '报名';
+					$dat['status'] = '报名';
+					break;
+				}
 			}
 			//售价及儿童说明
 			$jiage = $glxianlujiage->where("`xianluID` = '$v[xianluID]'")->find();
