@@ -361,13 +361,7 @@ class SetSystemAction extends CommonAction{
 			if($System->getLastmodel() == 'add'){
 				$_REQUEST['systemID'] = $System->getRelationID();
 			}
-			else
-			{
-				$DataShenhe = D("DataShenhe");
-				$DataShenhe->where("`shenheID` = '$_REQUEST[systemID]'")->delete();
-			}
 			A('Method')->_ShenheToDataShenhe($_REQUEST);
-			
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{

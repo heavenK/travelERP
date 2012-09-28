@@ -763,6 +763,7 @@ class MethodAction extends CommonAction{
 			$DS['UR'] = ','.$data['parentID'];
 		}
 		$DataShenhe->mycreate($DS);
+		dump($DataShenhe);
 	 }
 	
 
