@@ -95,7 +95,7 @@
           <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
           <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
           <th scope="col" nowrap="nowrap"><div> 锁状态 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 报账状态 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 报账情况 </div></th>
           <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
           <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
         </tr>
@@ -114,7 +114,7 @@
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['bumen_copy']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['status']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['islock']}></td>
-        <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['status_baozhang']}></td>
+        <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['baozhang_remark']}></td>
         <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
         <td scope="row" align="center" valign="top"><img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
       </tr>
