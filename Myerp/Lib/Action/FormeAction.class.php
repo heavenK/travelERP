@@ -1888,9 +1888,9 @@ class FormeAction extends Action{
 		$data['departmentID'] = $newxianlu['departmentID'];
 		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		foreach($xingchengall as $v){
-			$time = explode($v['time']);
+			$time = explode(',',$v['time']);
 			$data['xingcheng']['chanyin'] = serialize($time);
-			$tools = explode($v['tools']);
+			$tools = explode(',',$v['tools']);
 			$data['xingcheng']['tools'] = serialize($tools);
 			$data['xingcheng']['place'] = $v['place'];
 			$data['xingcheng']['content'] = $v['content'];
