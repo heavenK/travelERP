@@ -146,7 +146,7 @@ class FormeAction extends Action{
 				$dat['xianlu']['renshu'] = 0;
 			if(!$dat['xianlu']['chutuanriqi'])
 				$dat['xianlu']['chutuanriqi'] = 0;
-				
+			$dat['xianlu']['ispub'] = '未发布';
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
