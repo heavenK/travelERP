@@ -75,8 +75,10 @@ class FormeAction extends Action{
 		set_time_limit(0);
 		C('TOKEN_ON',false);
 		$gl_xianlu=M("glxianlu");
-		if(!$_REQUEST['page'])
+		if(!$_REQUEST['page']){
+				dump('无page参数');
 		exit;
+		}
 		$num = ($_REQUEST['page']-1)*50;
 		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 63")->findall();
@@ -569,6 +571,10 @@ class FormeAction extends Action{
 		foreach($zituanAll as $v){
 			$dat = $v;
 			$dat['zituan'] = $v;
+			if($v['user_name'] == 'zhangwen'){
+				$v['user_name'] = '张文';
+				$dat['user_name'] = '张文';
+			}
 			//部门
 			$dat['departmentID'] = $newxianlu['departmentID'];
 			$dat['bumen_copy'] = $newxianlu['bumen_copy'];
