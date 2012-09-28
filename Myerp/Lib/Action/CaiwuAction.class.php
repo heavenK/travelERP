@@ -92,6 +92,7 @@ class CaiwuAction extends CommonAction{
 			$ViewDepartment = D("ViewDepartment");
 			$unitdata = $ViewDepartment->where($where_unit)->findall();
 		}
+		$DataCD = D("DataCD");
 		//分类处理
 		$i = 0;
 		foreach($unitdata as $v){
@@ -131,6 +132,14 @@ class CaiwuAction extends CommonAction{
 				}
 				//收客数
 				if($ok_shouke){
+					//新老客户
+					$cdall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+					foreach($cdall as $cd){
+						if($cd['laokehu'] == 1)
+							$unitdata[$i]['laokehu'] += 1;
+						else	
+							$unitdata[$i]['xinkehu'] += 1;
+					}
 					if($vol['jixiaotype'])
 					$vol['jixiaotype'] .= '/收客';
 					else
@@ -155,6 +164,7 @@ class CaiwuAction extends CommonAction{
 					$unitdata[$i]['dingdan'][$k] = $vol;
 					$k++;
 				}
+				
 				$t++;
 			}
 			//搜索单人	

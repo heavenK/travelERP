@@ -313,6 +313,13 @@ class XiaoshouAction extends Action{
 	
 	
     public function dingdanlist() {
+		if($_REQUEST['status_shenhe']){
+			$this->assign("markpos",$_REQUEST['status_shenhe']);
+		}
+		if($_REQUEST['status']){
+			$this->assign("markpos",$_REQUEST['status']);
+		}
+		
 		A("Method")->showDirectory("订单控管");
 		$chanpin_list = A('Method')->getDataOMlist('订单','dingdan',$_REQUEST);
 		$ViewDataDictionary = D("ViewDataDictionary");

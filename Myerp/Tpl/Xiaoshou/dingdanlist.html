@@ -1,8 +1,6 @@
 
 <tp:includeCA file="Index:showheader" />
 
-<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <div id="main">
@@ -13,6 +11,43 @@
             <div id="resultdiv_2" class="resultdiv"></div>
             
             <include file="Index:search_dingdan" />
+            
+            
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <php>if($markpos == ''){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist">全部</a> </li>
+        <li> <a 
+          <php>if($markpos == '批准'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/status_shenhe/批准">批准</a> </li>
+        <li> <a 
+          <php>if($markpos == '未审核'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/status_shenhe/未审核">未审核</a> </li>
+        <li> <a 
+          <php>if($markpos == '确认'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/status/确认">确认</a> </li>
+        <li> <a 
+          <php>if($markpos == '占位'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/status/占位">占位</a> </li>
+        <li> <a 
+          <php>if($markpos == '候补'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/status/候补">候补</a> </li>
+      </ul>
+    </div>
+    
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -44,6 +79,7 @@
                   <th scope="col" nowrap="nowrap"><div> 团费 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 提成类型/订单类型 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 审核状态 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 时间 </div></th>
                 </tr>
                 
@@ -59,7 +95,8 @@
                   <td scope="row" align="left" valign="top"><{$v['jiage']}></td>
                   <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['type']}></td>
                   <td scope="row" align="left" valign="top" style="color:#4e8ccf"><{$v['status']}></td>
-                  <td scope="row" align="left" valign="top"><php>echo date('m/d H:i',$v['time'])</php></td>
+                  <td scope="row" align="left" valign="top" style="color:#4e8ccf"><{$v['status_shenhe']}></td>
+                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
                 </tr>
                 <php> }</php>
                 

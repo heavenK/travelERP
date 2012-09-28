@@ -70,10 +70,13 @@ class MethodAction extends CommonAction{
 		if($datatype == '订单'){
 			$class_name = 'OMViewDingdan';
 			$where['datatype'] = $datatype;
+			//处理搜索
+			if($where['start_time'] && $where['end_time']){
+				$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
+			}
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
 			$where['owner'] = array('like','%'.$where['owner'].'%');
-			$where['fuzeren'] = array('like','%'.$where['fuzeren'].'%');
 			$where['remark'] = array('like','%'.$where['remark'].'%');
 		}
 		if($datatype == '子团'){
@@ -81,7 +84,7 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			//处理搜索
 			if($where['start_time'] && $where['end_time']){
-				$where['chutuanriqi'] = $map['id'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+				$where['chutuanriqi'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
 			}
 			elseif($where['start_time']){
 				$where['chutuanriqi'] = $where['start_time'];
@@ -99,7 +102,7 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			//处理搜索
 			if($where['start_time'] && $where['end_time']){
-				$where['jietuantime'] = $map['id'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+				$where['jietuantime'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
 			}
 			elseif($where['start_time']){
 				$where['jietuantime'] = $where['start_time'];
