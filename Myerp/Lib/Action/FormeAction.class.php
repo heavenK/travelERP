@@ -122,13 +122,18 @@ class FormeAction extends Action{
 				//子团报名状态
 				$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
 				foreach($zituanAll as $zit){
-					//报账单审核状态
-					$baozhang = $gl_baozhang->where("`zituanID` = '$zit[zituanID]'")->find();
-					if($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过' && $baozhang['status'] != '总经理通过'){
+					if($zit['chutuanriqi'] > time()){
 						$v['zhuangtai'] = '报名';
 						$dat['status'] = '报名';
 						break;
 					}
+					//报账单审核状态
+//					$baozhang = $gl_baozhang->where("`zituanID` = '$zit[zituanID]'")->find();
+//					if($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过' && $baozhang['status'] != '总经理通过'){
+//						$v['zhuangtai'] = '报名';
+//						$dat['status'] = '报名';
+//						break;
+//					}
 				}
 			}
 			else{
