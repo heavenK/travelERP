@@ -15,6 +15,7 @@ class ZituanModel extends RelationModel {
         array('adultxiuzheng', 'set_adultxiuzheng', 1,'callback','adultxiuzheng',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('childxiuzheng', 'set_childxiuzheng', 1,'callback','childxiuzheng',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_baozhang', 'set_status_baozhang', 1,'callback','status_baozhang',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('baozhang_remark', '未报账', 1),
     ); 
 	
 	protected function set_adultxiuzheng($adultxiuzheng) {
