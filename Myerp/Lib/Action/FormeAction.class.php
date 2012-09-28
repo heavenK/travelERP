@@ -100,10 +100,6 @@ class FormeAction extends Action{
 			if($v['departmentName'] == '技术支持'){
 				$v['departmentName'] = '电子商务';
 			}
-			if($v['user_name'] == 'zhangwen'){
-				$v['user_name'] = '张文';
-				$dat['user_name'] = '张文';
-			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
 			if(!$dat['departmentID']){
 				dump(74544444444444);
@@ -571,10 +567,6 @@ class FormeAction extends Action{
 		foreach($zituanAll as $v){
 			$dat = $v;
 			$dat['zituan'] = $v;
-			if($v['user_name'] == 'zhangwen'){
-				$v['user_name'] = '张文';
-				$dat['user_name'] = '张文';
-			}
 			//部门
 			$dat['departmentID'] = $newxianlu['departmentID'];
 			$dat['bumen_copy'] = $newxianlu['bumen_copy'];
@@ -2124,6 +2116,19 @@ class FormeAction extends Action{
 			$myerp_system_customer->where("`systemID` = '$v[systemID]'")->delete();
 		}
 		
+		echo "结束";
+		return true;
+	}
+	
+	
+	//重置用户名zhangwen
+    public function zhangwenreset() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$data['user_name'] = '张文';
+		$Chanpin->where("`user_name` = 'zhangwen'")->save($data);
 		echo "结束";
 		return true;
 	}
