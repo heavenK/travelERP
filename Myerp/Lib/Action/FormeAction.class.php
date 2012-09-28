@@ -68,10 +68,6 @@ class FormeAction extends Action{
 	}
 	
 	
-	
-	
-	
-	
 	//线路
     public function chanpinxianlu() {
 		echo "开始";
@@ -1985,8 +1981,8 @@ class FormeAction extends Action{
 			if($v['marktype'] == 'user'){
 				$d = M("myerpview_system_user")->where("`systemID` = '$v[systemID]'")->find();
 			}
-				if(!$d)
-				$System->where("`systemID` = '$v[systemID]'")->delete();
+			if(!$d)
+			$System->where("`systemID` = '$v[systemID]'")->delete();
 		}
 		echo "结束";
 	}
