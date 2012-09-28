@@ -750,7 +750,7 @@ class MethodAction extends CommonAction{
 	//同步开放管理到对象
      public function _ShenheToDataShenhe($data) {
 		$DataShenhe = D("DataShenhe");
-		$DataShenhe->where("`shenheID` = '$data[shenheID]'")->delete();
+		$DataShenhe->where("`shenheID` = '$data[systemID]'")->delete();
 		$DS = null;
 		$DS['shenheID'] = $data['systemID'];
 		$DS['datatype'] = $data['datatype'];
@@ -763,7 +763,6 @@ class MethodAction extends CommonAction{
 			$DS['UR'] = ','.$data['parentID'];
 		}
 		$DataShenhe->mycreate($DS);
-		dump($DataShenhe);
 	 }
 	
 

@@ -362,6 +362,7 @@ class SetSystemAction extends CommonAction{
 				$_REQUEST['systemID'] = $System->getRelationID();
 			}
 			A('Method')->_ShenheToDataShenhe($_REQUEST);
+			
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
