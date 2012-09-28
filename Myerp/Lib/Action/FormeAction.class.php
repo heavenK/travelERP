@@ -2102,6 +2102,7 @@ class FormeAction extends Action{
 		$myerp_system_taskshenhe=M("myerp_system_taskshenhe");
 		$myerp_system_om=M("myerp_system_om");
 		$myerp_system_customer=M("myerp_system_customer");
+		$myerp_system_customer=M("myerp_system_customer");
 		
 		$task = $myerp_system_taskshenhe->findall();
 		$om = $myerp_system_om->findall();
