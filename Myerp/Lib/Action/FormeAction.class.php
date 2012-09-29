@@ -1110,7 +1110,7 @@ class FormeAction extends Action{
 			$data['bumen_copy'] = $bumen['title'];
 			//订单状态
 			$data['status'] = '确认';
-			if($v['check_status'] == '回收站' || $v['check_status'] == '审核不通过' || strtotime($v['chutuanriqi']) < time()){
+			if($v['check_status'] == '回收站' || $v['check_status'] == '审核不通过' || (strtotime($v['chutuanriqi']) < time() && $v['check_status'] == '等待审核')){
 				$data['status'] = '候补';
 				$data['status_system'] = -1;
 			}
