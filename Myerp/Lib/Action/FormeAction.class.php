@@ -146,17 +146,6 @@ class FormeAction extends Action{
 			if (false !== $Chanpin->relation("xianlu")->myRcreate($dat)){
 				$xianluID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $xianluID;
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
-				A("Method")->_createDataOM($xianluID,'线路','管理',$dataOMlist);
-				if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
-					//生成备份
-					A("Method")->makefiledatacopy($xianluID,'线路',-1);
-					//开放售价
-					if($v['zhuangtai'] == '报名')
-					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
-					//zituan
-					$this->_zituan_build($v,$dat,$dataOMlist);
-				}
 				//附表
 				if($v['guojing'] == '境外')
 				$this->_xianluext_build($v,$dat);
@@ -166,6 +155,17 @@ class FormeAction extends Action{
 				$this->_xianlu_xingcheng($v,$dat);
 				//成本
 				$this->_xianlu_chengben($v,$dat);
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
+				A("Method")->_createDataOM($xianluID,'线路','管理',$dataOMlist);
+				if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
+					//生成备份,要放在生成行程，成本，附表之后。
+					A("Method")->makefiledatacopy($xianluID,'线路',-1);
+					//开放售价
+					if($v['zhuangtai'] == '报名')
+					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
+					//zituan
+					$this->_zituan_build($v,$dat,$dataOMlist);
+				}
 				
 			}
 			else{
@@ -1009,8 +1009,6 @@ class FormeAction extends Action{
 				$baozhangID = $Chanpin->getRelationID();
 				$bzd["chanpinID"] = $baozhangID;
 				A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
-				//生成审核任务？
-				$this->_taskshenhe_build($dxfw,$bzd,'单项服务',$dataOMlist);
 				//生成随团服务报账项-----------------------
 				foreach($baozhangitemall as $v){
 					$bzditem = '';
@@ -1059,6 +1057,8 @@ class FormeAction extends Action{
 						exit;
 					}
 				}
+				//生成审核任务？
+				$this->_taskshenhe_build($dxfw,$bzd,'单项服务',$dataOMlist);
 			}
 			else{
 				dump(63521111);
@@ -1110,12 +1110,9 @@ class FormeAction extends Action{
 			$data['bumen_copy'] = $bumen['title'];
 			//订单状态
 			$data['status'] = '确认';
-			if($v['check_status'] == '回收站'){
+			if($v['check_status'] == '回收站' || $v['check_status'] == '审核不通过' || strtotime($v['chutuanriqi']) < time()){
 				$data['status'] = '候补';
 				$data['status_system'] = -1;
-			}
-			if($v['check_status'] == '审核不通过'){
-				$data['status'] = '候补';
 			}
 			if($data['dingdan']['lianxiren'] == '')
 			$data['dingdan']['lianxiren'] = 0;
@@ -1669,7 +1666,7 @@ class FormeAction extends Action{
 	{
 		$DataCD = D("DataCD");
 		$gltuanyuan = M("gltuanyuan");
-		if($dingdan['diyinput'] == '手入名单'){
+		if($dingdan['diyinput'] != '文件名单'){
 			$tuanyuanall = $gltuanyuan->where("`dingdanID` = '$dingdan[dingdanID]'")->findall();
 			foreach($tuanyuanall as $v){
 				$data = $v;

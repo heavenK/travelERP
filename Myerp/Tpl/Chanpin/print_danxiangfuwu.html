@@ -150,8 +150,11 @@
       else
       $high_2[$i] = $remark;
   }
-  $i_num = 8 - $i;
-  $j_num = 8-$j;
+  $max = $j;
+  if($i > $j)
+  $max = $i;
+  $i_num = $max - $i;
+  $j_num = $max - $j;
   </php>
   
   
