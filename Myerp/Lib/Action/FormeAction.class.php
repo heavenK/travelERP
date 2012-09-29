@@ -1112,12 +1112,10 @@ class FormeAction extends Action{
 			$data['status'] = '确认';
 			if($v['check_status'] == '回收站' || $v['check_status'] == '审核不通过'){
 				$data['status'] = '候补';
-				$data['status_system'] = -1;
 			}
 			if(strtotime($v['chutuanriqi']) < time()){
 				if($v['check_status'] == '等待审核' || $v['check_status'] == '准备'){
 				$data['status'] = '候补';
-				$data['status_system'] = -1;
 				}
 			}
 			if($data['dingdan']['lianxiren'] == '')

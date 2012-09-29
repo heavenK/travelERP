@@ -78,6 +78,11 @@ class MethodAction extends CommonAction{
 			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
 			$where['owner'] = array('like','%'.$where['owner'].'%');
 			$where['remark'] = array('like','%'.$where['remark'].'%');
+			if($where['status'] == '候补'){
+			$where['status_system'] = -1;
+			$status_system = -1;
+			}
+		
 		}
 		if($datatype == '子团'){
 			$class_name = 'OMViewZituan';
@@ -145,6 +150,7 @@ class MethodAction extends CommonAction{
 		$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
+		if($status_system != -1)
 		$where .= "AND (`status_system` = '1')";
 		$DataOM = D($class_name);
 		if(!$distinctfield)
