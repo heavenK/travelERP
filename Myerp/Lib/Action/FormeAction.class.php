@@ -697,7 +697,6 @@ class FormeAction extends Action{
 			$remark .= '，导游：'.$baozhang['daoyou'];
 			if($baozhang['leader'])
 			$remark .= '，领队：'.$baozhang['leader'];
-			$remark .= '，原团队ID：'.$v['djtuanID'].'，原报账单ID:'.$baozhang['baozhangID'];
 			$bzd["baozhang"]['datatext']['remark'] = $remark;
 			//报账人数
 			$bzd["baozhang"]['renshu'] = $zituan['renshu'];
@@ -736,7 +735,6 @@ class FormeAction extends Action{
 					$bzditem['baozhangitem']['method'] = $v['pricetype'];
 					$bzditem['baozhangitem']['title'] = $v['title'];
 					$bzditem['baozhangitem']['type'] = $v['type'];
-					$bzditem['baozhangitem']['datatext']['remark'] = '原报账ID:'.$baozhang['baozhangID'].'原报账项ID：'.$v['baozhangitemID'];
 					$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 					//审核状态
 					if($v['check_status'] == '审核通过' && $v['type'] != '利润'){
@@ -806,7 +804,6 @@ class FormeAction extends Action{
 			$remark .= '，不返程人：'.$baozhang['no_back_user'];
 			if($baozhang['out_user'])
 			$remark .= '，外地户口人：'.$baozhang['out_user'];
-			$remark .= '，原团队ID：'.$zituan['zituanID'].'，原报账单ID:'.$baozhang['baozhangID'];
 			$bzd["baozhang"]['datatext']['remark'] = $remark;
 			//其他数据
 			$bzd["baozhang"]['datatext']['jietuandanwei'] = $baozhang['jingwaijiedai'];
@@ -867,7 +864,6 @@ class FormeAction extends Action{
 				$bzditem['baozhangitem']['method'] = $v['pricetype'];
 				$bzditem['baozhangitem']['title'] = $v['title'];
 				$bzditem['baozhangitem']['type'] = $v['type'];
-				$bzditem['baozhangitem']['datatext']['remark'] = '原报账ID:'.$baozhang['baozhangID'].'原报账项ID：'.$v['baozhangitemID'];
 				$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 				//审核状态
 				if($v['check_status'] == '审核通过' && $v['type'] != '利润'){
@@ -982,7 +978,6 @@ class FormeAction extends Action{
 			$remark .= '，外地户口:'.$dxfw['waidihukou'];
 			if($dxfw['other'])
 			$remark .= '，其他:'.$dxfw['other'];
-			$remark .= '，原报账附表ID:'.$dxfw['qianzhengID'].'，原团队ID：'.$zituanID;
 			$bzd['baozhang']['datatext']['remark'] = $remark;
 			$bzd['baozhang']['datatext'] = serialize($bzd['baozhang']['datatext']);
 			if($dxfw['renshu'])
@@ -1020,7 +1015,6 @@ class FormeAction extends Action{
 					$bzditem['baozhangitem']['value'] = $v['value'];
 					$bzditem['baozhangitem']['method'] = '现金';
 					$bzditem['baozhangitem']['title'] = $v['title'];
-					$bzditem['baozhangitem']['datatext'] = '，原报账附表ID:'.$dxfw['qianzhengID'].'，原报账项附表ID：'.$v['qzitemID'];
 					$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 					$bzditem['datakind'] = $dxfw['kind'];
 					if($v['type'] == '应收费用'){
@@ -1087,7 +1081,6 @@ class FormeAction extends Action{
 			$data['parentID'] = $zituan['chanpinID'];
 			$data['dingdan']['title'] = $v['mingcheng'].'/'.$v['chutuanriqi'];
 			$data['dingdan']['remark'] = $v['xuqiu'];
-			$data['dingdan']['remark'] .= "，原订单ID：".$v['dingdanID'];
 			$data['dingdan']['fuzebumenID'] = $zituan['departmentID'];
 			$data['dingdan']['type'] = '标准';
 			$data['dingdan']['shoujiaID'] = -1;
@@ -1682,7 +1675,6 @@ class FormeAction extends Action{
 				$v['price'] = $v['jiaopian'];
 				$data['datatext'] = serialize($v);
 				$data['zituanID'] = $newdingdan['prarentID'];
-				$data['remark'] = '原团员ID：'.$v['tuanyuanID'];
 				if(false !== $DataCD->mycreate($data)){
 				}
 				else

@@ -133,23 +133,24 @@
   </table>
   
   <php>
+  $markhigh = 28;
   $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++;
-      $title = strlen($v['title']) / 22 * 28;
-      $remark = strlen($v['remark']) / 42 * 28;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 16 * $markhigh;
+      $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
       $high_1[$i] = $title;
       else
       $high_1[$i] = $remark;
-      if($high_1[$i] < 28) $high_1[$i] = 28;
+      if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
   }
   $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$j++;
-      $title = strlen($v['title']) / 22 * 28;
-      $remark = strlen($v['remark']) / 42 * 28;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 16 * $markhigh;
+      $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
       $high_2[$j] = $title;
       else
       $high_2[$j] = $remark;
-      if($high_2[$j] < 28) $high_2[$j] = 28;
+      if($high_2[$j] < $markhigh) $high_2[$j] = $markhigh;
   }
   $max = $j;
   if($i > $j)
@@ -158,6 +159,8 @@
   $max = 8;
   $i_num = $max - $i;
   $j_num = $max - $j;
+  
+  
   </php>
   
   
@@ -188,8 +191,8 @@
               <td width="220" align="center"> <{$v['remark']}> </td>
             </tr>
         <php>}</php>
-        <php>for($t=0;$t<$i_num;$t++){</php>
-            <tr height="28px">
+        <php>for($t=1;$t<=$i_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
+            <tr height="<{$high}>px">
               <td width="40"  align="center"></td>
               <td width="120" align="center"></td>
               <td width="70" align="center"></td>
@@ -231,8 +234,8 @@
               <td width="220" align="center"> <{$v['remark']}> </td>
             </tr>
         <php>}</php>
-        <php>for($t=0;$t<$j_num;$t++){</php>
-            <tr height="28px">
+        <php>for($t=1;$t<=$j_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
+            <tr height="<{$high}>px">
               <td width="40"  align="center"></td>
               <td width="120" align="center"></td>
               <td width="70" align="center"></td>
