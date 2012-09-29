@@ -857,10 +857,6 @@ class FormeAction extends Action{
 			$baozhangID = $Chanpin->getRelationID();
 			$bzd['chanpinID'] = $baozhangID;
 			A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
-			//生成审核任务？
-			if($baozhang){
-				$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
-			}
 			//生成报账项-----------------------
 			foreach($baozhangitemall as $v){
 				$bzditem = '';
@@ -897,8 +893,14 @@ class FormeAction extends Action{
 					dump($Chanpin);
 				exit;
 				}
-				
 			}
+			
+			//生成审核任务？报账单生成拷贝，要在报账项之后
+			if($baozhang){
+				$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
+			}
+			
+			
 		}
 		else{
 			dump("2222222222");
@@ -1277,11 +1279,9 @@ class FormeAction extends Action{
 			$task['departmentID'] = $task['shenqingbumenID'];
 			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
-			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
 			unset($task['taskShenhe']['bumen_copy']);
-			$task['taskShenhe']['remark'] = '待检出';
 			//检查流程
 			$process = A("Method")->_checkShenhe($datatype,$task['taskShenhe']['processID']);
 			if(false === $process)
@@ -1385,9 +1385,9 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwurenzongjian']){
+			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwuzongjian']){
 				$task['status'] = '批准';
-				$task['user_name'] = $baozhang['caiwurenzongjian'];
+				$task['user_name'] = $baozhang['caiwuzongjian'];
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1399,7 +1399,7 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwurenzongjian'] && $baozhang['manager']){
+			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwuzongjian'] && $baozhang['manager']){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['manager'];
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
@@ -1622,11 +1622,9 @@ class FormeAction extends Action{
 			$task['departmentID'] = $task['shenqingbumenID'];
 			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
-			$task['taskShenhe']['remark'] = $process[0]['remark'];
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
 			unset($task['taskShenhe']['bumen_copy']);
-			$task['taskShenhe']['remark'] = '待检出';
 			//检查流程
 			$process = A("Method")->_checkShenhe($datatype,$task['taskShenhe']['processID']);
 			if(false === $process)
