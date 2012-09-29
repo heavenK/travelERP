@@ -711,22 +711,20 @@ class FormeAction extends Action{
 				$bzd['shenhe_time'] =  $baozhang['caiwu_time'];
 			}
 			//计算报账项
-			$baozhangitemall = $dj_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]' and `check_status` = '审核通过'")->findall();
+			$baozhangitemall = $dj_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
 			foreach($baozhangitemall as $v){
-				if($v['type'] == '结算项目')
-				$bzd["baozhang"]['yingshou_copy'] += $v['price'];
-				if($v['type'] == '支出项目')
-				$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+				if($v['check_status'] == '审核通过'){
+					if($v['type'] == '结算项目')
+					$bzd["baozhang"]['yingshou_copy'] += $v['price'];
+					if($v['type'] == '支出项目')
+					$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+				}
 			}
 			$bzd["baozhang"]['datatext'] = serialize($bzd["baozhang"]['datatext']);
 			if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 				$baozhangID = $Chanpin->getRelationID();
 				$bzd['chanpinID'] = $baozhangID;
 				A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
-				//生成审核任务？
-				if($baozhang){
-					$this->_taskshenhe_dijie_build($baozhang,$bzd,'团队报账单',$dataOMlist);
-				}
 				//生成报账项-----------------------
 				foreach($baozhangitemall as $v){
 					$bzditem = '';
@@ -768,10 +766,10 @@ class FormeAction extends Action{
 				dump($Chanpin);
 				exit;
 			}
-				
-			
-			
-			
+			//生成审核任务？
+			if($baozhang){
+				$this->_taskshenhe_dijie_build($baozhang,$bzd,'团队报账单',$dataOMlist);
+			}
 		}
 		
 		
@@ -836,12 +834,14 @@ class FormeAction extends Action{
 				$bzd['shenhe_time'] =  $baozhang['caiwu_time'];
 			}
 			//计算报账项
-			$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]' and `check_status` = '审核通过'")->findall();
+			$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
 			foreach($baozhangitemall as $v){
-				if($v['type'] == '结算项目')
-				$bzd["baozhang"]['yingshou_copy'] += $v['price'];
-				if($v['type'] == '支出项目')
-				$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+				if($v['check_status'] == '审核通过'){
+					if($v['type'] == '结算项目')
+					$bzd["baozhang"]['yingshou_copy'] += $v['price'];
+					if($v['type'] == '支出项目')
+					$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+				}
 			}
 			$bzd["baozhang"]['datatext'] = serialize($bzd["baozhang"]['datatext']);
 		}
@@ -997,12 +997,14 @@ class FormeAction extends Action{
 				$bzd['islock'] =  '已锁定';
 			}
 			//计算报账项
-			$baozhangitemall = $glqianzhengitem->where("`qianzhengID` = '$dxfw[qianzhengID]' and `status` = '财务通过'")->findall();
+			$baozhangitemall = $glqianzhengitem->where("`qianzhengID` = '$dxfw[qianzhengID]'")->findall();
 			foreach($baozhangitemall as $item){
-				if($item['type'] == '应收费用')
-				$bzd["baozhang"]['yingshou_copy'] += $item['value'];
-				if($item['type'] == '费用明细')
-				$bzd["baozhang"]['yingfu_copy'] += $item['value'];
+				if($item['status'] == '财务通过'){
+					if($item['type'] == '应收费用')
+					$bzd["baozhang"]['yingshou_copy'] += $item['value'];
+					if($item['type'] == '费用明细')
+					$bzd["baozhang"]['yingfu_copy'] += $item['value'];
+				}
 			}
 			if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 				$baozhangID = $Chanpin->getRelationID();
