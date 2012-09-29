@@ -81,7 +81,7 @@ class FormeAction extends Action{
 		}
 		$num = ($_REQUEST['page']-1)*50;
 		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
-		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = 63")->findall();
+		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = '336'")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
 		$glzituan=M("glzituan");
@@ -96,10 +96,6 @@ class FormeAction extends Action{
 			$dat['xianlu'] = $v;
 			$dat['status'] = $v['zhuangtai'];
 			$dat['xianlu']['title'] = $v['mingcheng'];
-			//部门
-			if($v['departmentName'] == '技术支持'){
-				$v['departmentName'] = '电子商务';
-			}
 			$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
 			if(!$dat['departmentID']){
 				dump(74544444444444);
@@ -683,11 +679,9 @@ class FormeAction extends Action{
 		if($baozhang){
 			$bzd["baozhang"]['title'] = $zituan['DJtuan']['title'].'团队报账单';
 			$bzd['parentID'] = $zituan['chanpinID'];
-			$bzd['time'] = time();//临时+++++++++++++++++++++++++
 			$bzd['user_name'] =  $zituan['user_name'];
 			$bzd['departmentID'] =  $zituan['departmentID'];
-			$bzd['bumen_copy'] = $zituan['bumen_copy'];
-			$bzd["baozhang"]['type'] = '团队报账单';
+				$bzd["baozhang"]['type'] = '团队报账单';
 			$bzd["time"] = $baozhang['time'];
 			$bzd["islock"] = '已锁定';
 			//备注
@@ -786,10 +780,8 @@ class FormeAction extends Action{
 		$baozhang = $gl_baozhang->where("`zituanID` = '$zituan[zituanID]'")->find();
 		$bzd["baozhang"]['title'] = $zituan['zituan']['title_copy'].'/'.$zituan['chutuanriqi'].'团队报账单';
 		$bzd['parentID'] = $zituan['chanpinID'];
-		$bzd['time'] = time();//临时+++++++++++++++++++++++++
 		$bzd['user_name'] =  $zituan['user_name'];
 		$bzd['departmentID'] =  $zituan['departmentID'];
-		$bzd['bumen_copy'] = $zituan['bumen_copy'];
 		$bzd["baozhang"]['type'] = '团队报账单';
 		if($baozhang){
 			$bzd["time"] = $baozhang['time'];
@@ -859,7 +851,6 @@ class FormeAction extends Action{
 				$bzditem['time'] = $v['time'];
 				$bzditem['user_name'] = $bzd['user_name'];
 				$bzditem['departmentID'] = $bzd['departmentID'];
-				$bzditem['bumen_copy'] = $bzd['bumen_copy'];
 				$bzditem['baozhangitem']['value'] = $v['price'];
 				$bzditem['baozhangitem']['method'] = $v['pricetype'];
 				$bzditem['baozhangitem']['title'] = $v['title'];
@@ -873,7 +864,10 @@ class FormeAction extends Action{
 					$bzditem['shenhe_time'] =  $v['check_time'];
 				}
 				if($bzditem['baozhangitem']['title'] == '')
-					$bzditem['baozhangitem']['title'] = 0;
+				continue;
+//					$bzditem['baozhangitem']['title'] = 0;
+//				if($bzditem['baozhangitem']['method'] == '')
+//					$bzditem['baozhangitem']['method'] = 0;
 				if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 					$baozhangitemID = $Chanpin->getRelationID();
 					$bzditem['chanpinID'] = $baozhangitemID;
@@ -888,11 +882,8 @@ class FormeAction extends Action{
 				exit;
 				}
 			}
-			
 			//生成审核任务？报账单生成拷贝，要在报账项之后
-			if($baozhang){
-				$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
-			}
+			$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
 			
 			
 		}
@@ -2114,13 +2105,16 @@ class FormeAction extends Action{
 	
 	
 	//重置用户名zhangwen
-    public function zhangwenreset() {
+    public function bumenzhangwenreset() {
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$data['user_name'] = '张文';
 		$Chanpin->where("`user_name` = 'zhangwen'")->save($data);
+		$data = '';
+		$data['bumen_copy'] = '直营-电子商务营业部';
+		$Chanpin->where("`bumen_copy` = '技术支持'")->save($data);
 		echo "结束";
 		return true;
 	}
