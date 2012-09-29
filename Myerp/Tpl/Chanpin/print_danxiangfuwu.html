@@ -146,13 +146,16 @@
       $title = strlen($v['title']) / 22 * 28;
       $remark = strlen($v['remark']) / 42 * 28;
       if($title > $remark)
-      $high_2[$i] = $title;
+      $high_2[$j] = $title;
       else
-      $high_2[$i] = $remark;
+      $high_2[$j] = $remark;
+      if($high_2[$j] < 28) $high_2[$j] = 28;
   }
   $max = $j;
   if($i > $j)
   $max = $i;
+  if($max < 8)
+  $max = 8;
   $i_num = $max - $i;
   $j_num = $max - $j;
   </php>

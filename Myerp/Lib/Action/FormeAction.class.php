@@ -569,7 +569,6 @@ class FormeAction extends Action{
 			$dat['zituan'] = $v;
 			//部门
 			$dat['departmentID'] = $newxianlu['departmentID'];
-			$dat['bumen_copy'] = $newxianlu['bumen_copy'];
 			$dat['parentID'] = $newxianlu['chanpinID'];
 			//计算出团日期，重置子团状态
 			if($v['zhuangtai'] == '报名' ||$v['zhuangtai'] == '截止'){
@@ -735,7 +734,6 @@ class FormeAction extends Action{
 					$bzditem['time'] = $v['time'];
 					$bzditem['user_name'] = $bzd['user_name'];
 					$bzditem['departmentID'] = $bzd['departmentID'];
-					$bzditem['bumen_copy'] = $bzd['bumen_copy'];
 					$bzditem['baozhangitem']['value'] = $v['price'];
 					$bzditem['baozhangitem']['method'] = $v['pricetype'];
 					$bzditem['baozhangitem']['title'] = $v['title'];
@@ -931,12 +929,14 @@ class FormeAction extends Action{
 		}
 		foreach($dxfwall as $dxfw){
 			$bzd = '';
+			$bzd['user_name'] =  $dxfw['username'];
+			$bzd['time'] = $dxfw['time'];
 			$bzd['baozhang']['title'] = $dxfw['title'];
 			if($dxfw['title_ext'])
 			$bzd['baozhang']['title'] .= '/'.$dxfw['title_ext'];
 			$bzd['parentID'] = $zituan['chanpinID'];
-			$bzd['departmentID'] =  $zituan['departmentID'];
-			$bzd['bumen_copy'] = $zituan['bumen_copy'];
+			$bumen = $this->_getnewbumenbyusername($bzd['user_name']);
+			$bzd['departmentID'] =  $bumen['systemID'];
 			if($dxfw['kind'] == '机票' ||$dxfw['kind'] == '订车'){
 				$dxfw['kind'] = '交通';
 				$bzd['baozhang']['datatext']['hangbanhao'] = $dxfw['title_ext'];
@@ -1004,7 +1004,6 @@ class FormeAction extends Action{
 				if($item['type'] == '费用明细')
 				$bzd["baozhang"]['yingfu_copy'] += $item['value'];
 			}
-			$bzd['user_name'] =  $dxfw['username'];
 			if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 				$baozhangID = $Chanpin->getRelationID();
 				$bzd["chanpinID"] = $baozhangID;
@@ -1016,7 +1015,6 @@ class FormeAction extends Action{
 					$bzditem['time'] = $v['time'];
 					$bzditem['user_name'] = $bzd['user_name'];
 					$bzditem['departmentID'] = $bzd['departmentID'];
-					$bzditem['bumen_copy'] = $bzd['bumen_copy'];
 					$bzditem['baozhangitem']['value'] = $v['value'];
 					$bzditem['baozhangitem']['method'] = '现金';
 					$bzditem['baozhangitem']['title'] = $v['title'];
@@ -1062,7 +1060,7 @@ class FormeAction extends Action{
 			}
 			else{
 				dump(63521111);
-			dump($Chanpin);
+				dump($Chanpin);
 			}
 		}
 	}
