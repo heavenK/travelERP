@@ -393,7 +393,7 @@ class XiaoshouAction extends Action{
 		$this->assign("bumenfeilei",$bumenfeilei);
 		//签字
 		$ViewTaskShenhe = D("ViewTaskShenhe");
-		$task = $ViewTaskShenhe->where("`dataID` = '$dingdan[chanpinID]' and `datatype` = '订单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+		$task = $ViewTaskShenhe->where("`dataID` = '$dingdan[chanpinID]' and `datatype` = '订单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
 		$this->assign("task",$task);
 		if($_REQUEST['showtype'] == 1){
 			A("Method")->showDirectory("子团产品");

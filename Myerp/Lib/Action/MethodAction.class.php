@@ -858,6 +858,7 @@ class MethodAction extends CommonAction{
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
 		$data['status'] = $_REQUEST['status_shenhe'];
+		$data['user_name'] = $this->user['title'];
 		if($dotype == '申请'){
 			if(false === $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID'])){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
@@ -2101,7 +2102,7 @@ class MethodAction extends CommonAction{
 		}
 		//签字
 		$ViewTaskShenhe = D("ViewTaskShenhe");
-		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("time asc ")->findall();
+		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
 		$this->assign("task",$task);
 		//打印
 		if($_REQUEST['doprint'] || $_REQUEST['export']){
