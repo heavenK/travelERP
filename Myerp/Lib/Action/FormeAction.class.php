@@ -882,7 +882,7 @@ class FormeAction extends Action{
 				}
 			}
 			//生成审核任务？报账单生成拷贝，要在报账项之后
-			$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist);
+			$this->_taskshenhe_build($baozhang,$bzd,'团队报账单',$dataOMlist,$zituan);
 			
 			
 		}
@@ -1046,7 +1046,7 @@ class FormeAction extends Action{
 					}
 				}
 				//生成审核任务？
-				$this->_taskshenhe_build($dxfw,$bzd,'单项服务',$dataOMlist);
+				$this->_taskshenhe_build($dxfw,$bzd,'单项服务',$dataOMlist,$zituan);
 			}
 			else{
 				dump(63521111);
@@ -1316,10 +1316,14 @@ class FormeAction extends Action{
 		$System = D("System");
 		if($type == '团队报账单'){
 			$datatype = '报账单';
-			if($baozhang['caozuoren']){
+			if($baozhang['caozuoren'] || $baozhang['status'] == '计调申请'){
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $baozhang['caozuoren'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata['user_name'];
+					$baozhang['caozuoren'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1342,9 +1346,16 @@ class FormeAction extends Action{
 				dump($System);
 				}
 			}
-			if($baozhang['caozuoren'] && $baozhang['bumenren']){
+			if(($baozhang['caozuoren'] && $baozhang['bumenren']) || $baozhang['status'] == '经理通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['bumenren'];
+				if(!$task['user_name']){
+					if($relationdata['guojing'] == '境外')
+					$task['user_name'] = '单莲莲';
+					if($relationdata['guojing'] == '国内')
+					$task['user_name'] = '王晓辉';
+					$baozhang['bumenren'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1356,9 +1367,13 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren']){
+			if(($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwuren'];
+				if(!$task['user_name']){
+					$task['user_name'] = '崔军';
+					$baozhang['caiwuren'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1370,9 +1385,13 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwuzongjian']){
+			if(($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwuzongjian']) || $baozhang['status'] == '财务总监通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwuzongjian'];
+				if(!$task['user_name']){
+					$task['user_name'] = '龚敏娜';
+					$baozhang['caiwuzongjian'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1407,8 +1426,10 @@ class FormeAction extends Action{
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $relationdata['user_name'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata_2['caozuoren'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata_2['caozuoren'];
+					$baozhang['edituser'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1430,8 +1451,10 @@ class FormeAction extends Action{
 			if(($baozhang['edituser'] && $baozhang['manager']) || $baozhang['check_status'] == '审核通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata_2['bumenren'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata_2['bumenren'];
+					$baozhang['manager'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['taskShenhe']['processID'] = 2;
@@ -1444,8 +1467,10 @@ class FormeAction extends Action{
 			if(($baozhang['edituser'] && $baozhang['manager'] && $baozhang['check_user']) || $baozhang['check_status'] == '审核通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['check_user'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata_2['caiwuren'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata_2['caiwuren'];
+					$baozhang['check_user'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['taskShenhe']['processID'] = 3;
@@ -1464,6 +1489,10 @@ class FormeAction extends Action{
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $baozhang['username'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata['user_name'];
+					$baozhang['username'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1486,9 +1515,16 @@ class FormeAction extends Action{
 				dump($System);
 				}
 			}
-			if($baozhang['username'] && $baozhang['manager']){
+			if(($baozhang['username'] && $baozhang['manager']) || $baozhang['status'] == '经理通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
+				if(!$task['user_name']){
+					if($relationdata['guojing'] == '境外')
+					$task['user_name'] = '单莲莲';
+					if($relationdata['guojing'] == '国内')
+					$task['user_name'] = '王晓辉';
+					$baozhang['manager'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1500,9 +1536,13 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['username'] && $baozhang['manager'] && $baozhang['check_user']){
+			if(($baozhang['username'] && $baozhang['manager'] && $baozhang['check_user']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['check_user'];
+				if(!$task['user_name']){
+					$task['user_name'] = '崔军';
+					$baozhang['check_user'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1514,9 +1554,13 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($baozhang['username'] && $baozhang['manager'] && $baozhang['check_user'] && $baozhang['caiwu_manager']){
+			if(($baozhang['username'] && $baozhang['manager'] && $baozhang['check_user'] && $baozhang['caiwu_manager']) || $baozhang['status'] == '财务总监通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwu_manager'];
+				if(!$task['user_name']){
+					$task['user_name'] = '龚敏娜';
+					$baozhang['caiwu_manager'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1550,8 +1594,10 @@ class FormeAction extends Action{
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $newbaozhang['user_name'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata['username'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata['username'];
+					$newbaozhang['user_name'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1577,8 +1623,10 @@ class FormeAction extends Action{
 			if(($newbaozhang['user_name'] && $baozhang['manager']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata['manager'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata['manager'];
+					$baozhang['manager'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
@@ -1593,8 +1641,10 @@ class FormeAction extends Action{
 			if(($newbaozhang['user_name'] && $baozhang['manager'] && $baozhang['caiwu']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwu'];
-				if(!$task['user_name'])
-				$task['user_name'] = $relationdata['check_user'];
+				if(!$task['user_name']){
+					$task['user_name'] = $relationdata['check_user'];
+					$baozhang['caiwu'] = $task['user_name'];
+				}
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
