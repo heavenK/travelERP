@@ -873,7 +873,7 @@ class FormeAction extends Action{
 					A("Method")->_createDataOM($baozhangitemID,'报账项','管理',$dataOMlist);
 					//生成审核任务？
 					if($v['type'] != '利润')
-					$this->_taskshenhe_build($v,$bzditem,'报账项',$dataOMlist,$zituan,$bzd['user_name']);
+					$this->_taskshenhe_build($v,$bzditem,'报账项',$dataOMlist,$zituan,$baozhang);
 				} 
 				else{
 					dump("11111111111111");
@@ -1037,7 +1037,7 @@ class FormeAction extends Action{
 						A("Method")->_createDataOM($baozhangitemID,'报账项','管理',$dataOMlist);
 						//生成审核任务？
 						if($v['type'] != '利润')
-						$this->_taskshenhe_build($v,$bzditem,'单项服务报账项',$dataOMlist);
+						$this->_taskshenhe_build($v,$bzditem,'单项服务报账项',$dataOMlist,$dxfw);
 					} 
 					else{
 						dump(78963543);
@@ -1311,7 +1311,7 @@ class FormeAction extends Action{
 	
 	
 	//生成审核任务----------------------
-	public function _taskshenhe_build($baozhang,$newbaozhang,$type,$dataOMlist,$relationdata ='')
+	public function _taskshenhe_build($baozhang,$newbaozhang,$type,$dataOMlist,$relationdata ='',$relationdata_2 ='')
 	{
 		$System = D("System");
 		if($type == '团队报账单'){
@@ -1425,10 +1425,13 @@ class FormeAction extends Action{
 					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 			}
-			if($baozhang['edituser'] && $baozhang['manager']){
+			if(($baozhang['edituser'] && $baozhang['manager']) || $relationdata_2['check_status'] == '审核通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				if($baozhang['manager'])
+					$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				else
+					$bumen = $this->_getoldbumenbyusername($relationdata_2['bumenren']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['taskShenhe']['processID'] = 2;
 				$task['taskShenhe']['remark'] = '经理检出';
@@ -1437,10 +1440,13 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 				}
 			}
-			if($baozhang['edituser'] && $baozhang['manager'] && $baozhang['check_user']){
+			if(($baozhang['edituser'] && $baozhang['manager'] && $baozhang['check_user']) || $relationdata_2['check_status'] == '审核通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['check_user'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				if($baozhang['manager'])
+					$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				else
+					$bumen = $this->_getoldbumenbyusername($relationdata_2['caiwuren']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['taskShenhe']['processID'] = 3;
 				$task['taskShenhe']['remark'] = '财务批准';
@@ -1566,10 +1572,13 @@ class FormeAction extends Action{
 				dump($System);
 				}
 			}
-			if($newbaozhang['user_name'] && $baozhang['manager']){
+			if(($newbaozhang['user_name'] && $baozhang['manager']) || $relationdata['status'] == '财务通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				if($baozhang['manager'])
+					$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				else
+					$bumen = $this->_getoldbumenbyusername($relationdata['manager']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 2;
@@ -1580,9 +1589,12 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if($newbaozhang['user_name'] && $baozhang['manager'] && $baozhang['caiwu']){
+			if(($newbaozhang['user_name'] && $baozhang['manager'] && $baozhang['caiwu']) || $relationdata['status'] == '财务通过'){
 				$task['status'] = '批准';
+				if($baozhang['caiwu'])
 				$task['user_name'] = $baozhang['caiwu'];
+				else
+				$task['user_name'] = $relationdata['check_user'];
 				$bumen = $this->_getoldbumenbyusername($task['user_name']);
 				$newbumenID = $this->_getnewbumenID($bumen['title']);
 				$task['departmentID'] = $newbumenID;
