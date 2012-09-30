@@ -817,6 +817,9 @@ class FormeAction extends Action{
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
 			//审核状态
+			if($baozhang['status'] == '计调申请'){
+				$bzd['shenhe_remark'] = '计调申请';
+			}
 			if($baozhang['bumenren']){
 				$bzd['shenhe_remark'] = '经理通过';
 			}
@@ -863,6 +866,9 @@ class FormeAction extends Action{
 				$bzditem['baozhangitem']['type'] = $v['type'];
 				$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 				//审核状态
+				if($v['check_status'] == '计调申请'){
+					$bzditem['shenhe_remark'] = '计调申请';
+				}
 				if($v['check_status'] == '审核通过' && $v['type'] != '利润'){
 					$bzditem['islock'] = '已锁定';
 					$bzditem['status_shenhe'] = '批准';
@@ -988,6 +994,9 @@ class FormeAction extends Action{
 			else
 			$bzd["baozhang"]['renshu'] = 0;
 			//审核状态
+			if($dxfw['status'] == '计调申请'){
+				$bzd['shenhe_remark'] = '计调申请';
+			}
 			if($dxfw['status'] == '财务总监通过' || $dxfw['status'] == '财务通过' || $dxfw['status'] == '总经理通过'){
 				$bzd['status_shenhe'] = '批准';
 				$bzd['shenhe_remark'] = $dxfw['status'];
@@ -1038,6 +1047,9 @@ class FormeAction extends Action{
 						$bzditem['baozhangitem']['type'] = '利润';
 					}
 					//审核状态
+					if($v['status'] == '计调申请'){
+						$bzditem['shenhe_remark'] = '计调申请';
+					}
 					if($v['status'] == '财务通过' && $v['type'] != '利润'){
 						$bzditem['islock'] = '已锁定';
 						$bzditem['status_shenhe'] = '批准';
