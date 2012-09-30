@@ -786,6 +786,7 @@ class FormeAction extends Action{
 			$bzd["time"] = $baozhang['time'];
 			$bzd["islock"] = '已锁定';
 			//备注
+			$remark = '';
 			$remark = '原报账人数：'.$baozhang['renshu'];
 			if($baozhang['passport_user'])
 			$remark .= '，因私护照人：'.$baozhang['passport_user'];
@@ -947,6 +948,7 @@ class FormeAction extends Action{
 			$bzd['baozhang']['type'] = $dxfw['kind'];
 			$bzd['baozhang']['datatext']['tianshu'] = $dxfw['tianshu'];
 			//备注
+			$remark = '';
 			if($dxfw['tianshu'])
 			$remark .= '天数:'.$dxfw['tianshu'];
 			if($dxfw['jingwaijiedaishe'])
@@ -966,7 +968,7 @@ class FormeAction extends Action{
 			if($dxfw['waidihukou'])
 			$remark .= '，外地户口:'.$dxfw['waidihukou'];
 			if($dxfw['other'])
-			$remark .= '，其他:'.$dxfw['other'];
+			$remark .= '，'.$dxfw['other'];
 			$bzd['baozhang']['datatext']['remark'] = $remark;
 			$bzd['baozhang']['datatext'] = serialize($bzd['baozhang']['datatext']);
 			if($dxfw['renshu'])
@@ -1075,10 +1077,10 @@ class FormeAction extends Action{
 			$data['dingdan']['remark'] = $v['xuqiu'];
 			$data['dingdan']['fuzebumenID'] = $zituan['departmentID'];
 			$data['dingdan']['type'] = '标准';
-			$data['dingdan']['shoujiaID'] = -1;
+			$data['dingdan']['shoujiaID'] = 0;
 			$data['dingdan']['zituanID'] = $zituan['chanpinID'];
 			if($data['dingdan']['telnum'] == '')
-				$data['dingdan']['telnum'] = -1;
+				$data['dingdan']['telnum'] = 0;
 			//计算领队数
 			$data['dingdan']['lingdui_num'] = 0;
 			$tuanyuanall = $gltuanyuan->where("`dingdanID` = '$v[dingdanID]'")->findall();
