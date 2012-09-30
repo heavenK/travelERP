@@ -817,6 +817,7 @@ class FormeAction extends Action{
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
 			//审核状态
+			$bzd['shenhe_remark'] = '计调申请';
 			if($baozhang['bumenren']){
 				$bzd['shenhe_remark'] = '经理通过';
 			}
