@@ -861,12 +861,11 @@ class FormeAction extends Action{
 					$bzditem['status_shenhe'] = '批准';
 					$bzditem['shenhe_remark'] = $v['check_status'];
 					$bzditem['shenhe_time'] =  $v['check_time'];
+					if($bzditem['baozhangitem']['title'] == '')
+						$bzditem['baozhangitem']['title'] = 0;
 				}
 				if($bzditem['baozhangitem']['title'] == '')
 				continue;
-//					$bzditem['baozhangitem']['title'] = 0;
-//				if($bzditem['baozhangitem']['method'] == '')
-//					$bzditem['baozhangitem']['method'] = 0;
 				if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 					$baozhangitemID = $Chanpin->getRelationID();
 					$bzditem['chanpinID'] = $baozhangitemID;
@@ -1025,14 +1024,17 @@ class FormeAction extends Action{
 						$bzditem['status_shenhe'] = '批准';
 						$bzditem['shenhe_remark'] = '审核通过';
 						$bzditem['shenhe_time'] =  $v['time'];
+						if($bzditem['baozhangitem']['title'] == '')
+							$bzditem['baozhangitem']['title'] = 0;
 					}
 					if($bzditem['baozhangitem']['title'] == '')
-						$bzditem['baozhangitem']['title'] = 0;
+					continue;
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 						$baozhangitemID = $Chanpin->getRelationID();
 						$bzditem['chanpinID'] = $baozhangitemID;
 						A("Method")->_createDataOM($baozhangitemID,'报账项','管理',$dataOMlist);
 						//生成审核任务？
+						if($v['type'] != '利润')
 						$this->_taskshenhe_build($v,$bzditem,'单项服务报账项',$dataOMlist);
 					} 
 					else{
