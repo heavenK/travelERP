@@ -817,10 +817,16 @@ class FormeAction extends Action{
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
 			//审核状态
+			if($baozhang['bumenren']){
+				$bzd['shenhe_remark'] = '经理通过';
+			}
 			if($baozhang['caiwuren']){
 				$bzd['status_shenhe'] = '批准';
-				$bzd['shenhe_remark'] = $baozhang['status'];
+				$bzd['shenhe_remark'] = '财务通过';
 				$bzd['shenhe_time'] =  $baozhang['caiwu_time'];
+			}
+			if($baozhang['caiwuzongjian']){
+				$bzd['shenhe_remark'] = '财务总监通过';
 			}
 			//计算报账项
 			$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
@@ -836,10 +842,11 @@ class FormeAction extends Action{
 		}
 		else{
 			$bzd["baozhang"]['renshu'] = $zituan['renshu'];
+			$bzd['shenhe_remark'] = '计调申请';
 		}
 		if(!$bzd["baozhang"]['renshu'])
 			$bzd["baozhang"]['renshu'] = 0;
-		
+		$bzd['islock'] =  '已锁定';
 		if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 			$baozhangID = $Chanpin->getRelationID();
 			$bzd['chanpinID'] = $baozhangID;
@@ -865,8 +872,15 @@ class FormeAction extends Action{
 					if($bzditem['baozhangitem']['title'] == '')
 						$bzditem['baozhangitem']['title'] = 0;
 				}
+				else{
+					$bzditem['shenhe_remark'] = '计调申请';
+					if($v['manager'])
+					$bzditem['shenhe_remark'] = '经理通过';
+				}
+				
 				if($bzditem['baozhangitem']['title'] == '')
 				continue;
+				$bzditem['islock'] =  '已锁定';
 				if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 					$baozhangitemID = $Chanpin->getRelationID();
 					$bzditem['chanpinID'] = $baozhangitemID;
@@ -982,6 +996,11 @@ class FormeAction extends Action{
 				$bzd['shenhe_time'] =  $dxfw['check_time'];
 				$bzd['islock'] =  '已锁定';
 			}
+			else{
+				$bzd['shenhe_remark'] = '计调申请';
+				if($dxfw['manager'])
+				$bzd['shenhe_remark'] = '经理通过';
+			}
 			//计算报账项
 			$baozhangitemall = $glqianzhengitem->where("`qianzhengID` = '$dxfw[qianzhengID]'")->findall();
 			foreach($baozhangitemall as $item){
@@ -992,6 +1011,7 @@ class FormeAction extends Action{
 					$bzd["baozhang"]['yingfu_copy'] += $item['value'];
 				}
 			}
+			$bzd['islock'] =  '已锁定';
 			if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 				$baozhangID = $Chanpin->getRelationID();
 				$bzd["chanpinID"] = $baozhangID;
@@ -1029,8 +1049,14 @@ class FormeAction extends Action{
 						if($bzditem['baozhangitem']['title'] == '')
 							$bzditem['baozhangitem']['title'] = 0;
 					}
+					else{
+						$bzditem['shenhe_remark'] = '计调申请';
+						if($v['manager'])
+						$bzditem['shenhe_remark'] = '经理通过';
+					}
 					if($bzditem['baozhangitem']['title'] == '')
 					continue;
+					$bzditem['islock'] =  '已锁定';
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 						$baozhangitemID = $Chanpin->getRelationID();
 						$bzditem['chanpinID'] = $baozhangitemID;
