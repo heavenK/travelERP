@@ -21,7 +21,7 @@
           <php>if($markpos == ''){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu">全部</a> </li>
+          href="<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu">单项服务</a> </li>
         <li> <a 
           <php>if($markpos == '签证'){</php>
           class="current"
@@ -85,6 +85,31 @@
               </tbody>
             </table></td>
         </tr>
+        
+        <php>if($type == ''){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 审核阶段 </div></th>
+          <th scope="col" nowrap="nowrap" style="width:30%;"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $vol){ $i++;
+        </php>
+          <tr height="40" class="evenListRowS1">
+            <td scope="row" align="left" valign="top"><{$i+1}></td>
+            <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['type']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
+            <td scope="row" align="left" valign="top">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" value="删除" name="button" class="button primary" onClick="deletebaozhang(<{$vol['chanpinID']}>);" >
+            </td>
+          </tr>
+      <php> }}</php>
         
         <php>if($type == '签证'|| $type == '办证'|| $type == '餐饮'|| $type == '门票'|| $type == '导游'){</php>
         <tr height="20">

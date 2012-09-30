@@ -126,6 +126,9 @@ class MethodAction extends CommonAction{
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
+			if($where['type'] == '单项服务'){
+				$where['type'] = array('neq','团队报账单');
+			}
 		}
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';
@@ -141,13 +144,14 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 		}
-		if($type == '开放'){
+		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
-		}
-		if($datatype == '售价' || $datatype == '公告' || $datatype == '排团表' || $datatype == '订单')
-		$where['omtype'] = $type;
 		else
-		$where['type'] = $type;
+			$type = '管理';
+		if($datatype == '报账单' ||$datatype == '售价' || $datatype == '公告' || $datatype == '排团表' || $datatype == '订单')
+			$where['omtype'] = $type;
+		else
+			$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
 		if($status_system != -1)
@@ -2020,6 +2024,9 @@ class MethodAction extends CommonAction{
 		elseif($_REQUEST['type'] == '导游')$this->assign("markpos",'导游');
 		elseif($_REQUEST['type'] == '补账')$this->assign("markpos",'补账');
 		elseif($_REQUEST['type'] == '签证')$this->assign("markpos",'签证');
+		else{
+			$_REQUEST['type'] = '单项服务';
+		}
 		$chanpin_list = $this->getDataOMlist('报账单','baozhang',$_REQUEST);
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
