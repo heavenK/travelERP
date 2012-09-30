@@ -1403,7 +1403,7 @@ class FormeAction extends Action{
 			
 		if($type == '报账项'){
 			$datatype = '报账项';
-			if($baozhang['edituser'] || $relationdata_2['check_status'] == '审核通过'){
+			if($baozhang['edituser'] || $baozhang['check_status'] == '审核通过'){
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $relationdata['user_name'];
@@ -1427,7 +1427,7 @@ class FormeAction extends Action{
 					$task['shenqingbumentitle'] = $bumen['title'];
 				}
 			}
-			if(($baozhang['edituser'] && $baozhang['manager']) || $relationdata_2['check_status'] == '审核通过'){
+			if(($baozhang['edituser'] && $baozhang['manager']) || $baozhang['check_status'] == '审核通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
 				if(!$task['user_name'])
@@ -1441,7 +1441,7 @@ class FormeAction extends Action{
 					$taskID = $System->getRelationID();
 				}
 			}
-			if(($baozhang['edituser'] && $baozhang['manager'] && $baozhang['check_user']) || $relationdata_2['check_status'] == '审核通过'){
+			if(($baozhang['edituser'] && $baozhang['manager'] && $baozhang['check_user']) || $baozhang['check_status'] == '审核通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['check_user'];
 				if(!$task['user_name'])
@@ -1546,7 +1546,7 @@ class FormeAction extends Action{
 			
 		if($type == '单项服务报账项'){
 			$datatype = '报账项';
-			if($newbaozhang['user_name'] || $relationdata['status'] == '财务通过'){
+			if($newbaozhang['user_name'] || $baozhang['status'] == '财务通过'){
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $newbaozhang['user_name'];
@@ -1574,7 +1574,7 @@ class FormeAction extends Action{
 				dump($System);
 				}
 			}
-			if(($newbaozhang['user_name'] && $baozhang['manager']) || $relationdata['status'] == '财务通过'){
+			if(($newbaozhang['user_name'] && $baozhang['manager']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['manager'];
 				if(!$task['user_name'])
@@ -1590,7 +1590,7 @@ class FormeAction extends Action{
 				}
 				
 			}
-			if(($newbaozhang['user_name'] && $baozhang['manager'] && $baozhang['caiwu']) || $relationdata['status'] == '财务通过'){
+			if(($newbaozhang['user_name'] && $baozhang['manager'] && $baozhang['caiwu']) || $baozhang['status'] == '财务通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwu'];
 				if(!$task['user_name'])
