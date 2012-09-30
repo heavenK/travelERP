@@ -2019,12 +2019,8 @@ class MethodAction extends CommonAction{
 		elseif($_REQUEST['type'] == '门票')$this->assign("markpos",'门票');
 		elseif($_REQUEST['type'] == '导游')$this->assign("markpos",'导游');
 		elseif($_REQUEST['type'] == '补账')$this->assign("markpos",'补账');
-		else{
-			$_REQUEST['type'] = '签证';
-			$this->assign("type",'签证');
-			$this->assign("markpos",'签证');
-		}
-		$chanpin_list = $this->getDataOMlist('报账单','baozhang',$_REQUEST,$_REQUEST['type']);
+		elseif($_REQUEST['type'] == '签证')$this->assign("markpos",'签证');
+		$chanpin_list = $this->getDataOMlist('报账单','baozhang',$_REQUEST);
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$chanpin_list['chanpin'][$i]['datatext'] = unserialize($v['datatext']);
