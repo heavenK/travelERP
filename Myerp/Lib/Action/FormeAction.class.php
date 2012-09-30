@@ -1141,8 +1141,8 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = '团队报账单';
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1214,8 +1214,8 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = '报账项';
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1266,7 +1266,6 @@ class FormeAction extends Action{
 			$task['status'] = '待检出';
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
-			unset($task['taskShenhe']['bumen_copy']);
 			//检查流程
 			$process = A("Method")->_checkShenhe($datatype,$task['taskShenhe']['processID']);
 			if(false === $process)
@@ -1330,7 +1329,7 @@ class FormeAction extends Action{
 				$task['taskShenhe']['roles_copy'] = '计调';
 				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = '团队报账单';
-				$task['taskShenhe']['title_copy'] = $newbaozhang['title'];
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1416,8 +1415,8 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = '报账项';
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1467,8 +1466,8 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = $newbaozhang['baozhang']['type'];
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1553,8 +1552,8 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = $newbaozhang['datakind'];
+				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
@@ -1610,7 +1609,6 @@ class FormeAction extends Action{
 			$task['status'] = '待检出';
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
-			unset($task['taskShenhe']['bumen_copy']);
 			//检查流程
 			$process = A("Method")->_checkShenhe($datatype,$task['taskShenhe']['processID']);
 			if(false === $process)
