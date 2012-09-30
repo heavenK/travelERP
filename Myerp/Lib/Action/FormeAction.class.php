@@ -204,7 +204,6 @@ class FormeAction extends Action{
 			$dat['user_name'] = $v['adduser'];
 			$bumen = $this->_getnewbumenbyusername($dat['user_name']);
 			$dat['departmentID'] = $bumen['systemID'];
-			$dat['bumen_copy'] = $bumen['title'];
 			//审核
 			if($dat['status'] == '截止' || $dat['status'] == '在线'){
 				$dat['islock'] = '已锁定';
@@ -1091,7 +1090,6 @@ class FormeAction extends Action{
 			//部门
 			$bumen = $this->_getnewbumenbyusername($data['user_name']);
 			$data['departmentID'] = $bumen['systemID'];
-			$data['bumen_copy'] = $bumen['title'];
 			//订单状态
 			$data['status'] = '确认';
 			if($v['check_status'] == '回收站' || $v['check_status'] == '审核不通过'){
@@ -1262,7 +1260,6 @@ class FormeAction extends Action{
 			//生成待检出
 			$task['user_name'] = $task['shenqingname'];
 			$task['departmentID'] = $task['shenqingbumenID'];
-			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
@@ -1327,7 +1324,6 @@ class FormeAction extends Action{
 				$task['taskShenhe']['datatype'] = $datatype;
 				$task['taskShenhe']['remark'] = '计调申请';
 				$task['taskShenhe']['roles_copy'] = '计调';
-				$task['taskShenhe']['bumen_copy'] = $bumen['title'];
 				$task['taskShenhe']['datakind'] = '团队报账单';
 				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
@@ -1605,7 +1601,6 @@ class FormeAction extends Action{
 			//生成待检出
 			$task['user_name'] = $task['shenqingname'];
 			$task['departmentID'] = $task['shenqingbumenID'];
-			$task['bumen_copy'] = $task['shenqingbumentitle'];
 			$task['status'] = '待检出';
 			$task['taskShenhe']['processID'] += 1;
 			unset($task['taskShenhe']['roles_copy']);
@@ -1700,7 +1695,6 @@ class FormeAction extends Action{
 			$data['status'] = '';
 			$bumen = $this->_getoldbumenbyusername($v['username']);
 			$data['departmentID'] = $bumen['id'];
-			$data['bumen_copy'] = $bumen['title'];
 			$data['info']['title'] = $v['title'];
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '公告';
@@ -1750,7 +1744,6 @@ class FormeAction extends Action{
 			$data['status'] = '';
 			$bumen = $this->_getoldbumenbyusername($data['username']);
 			$data['departmentID'] = $bumen['id'];
-			$data['bumen_copy'] = $bumen['title'];
 			$data['info']['title'] = $v['title'];
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '排团表';
@@ -1811,7 +1804,6 @@ class FormeAction extends Action{
 		$data['shoujia'] = $_REQUEST;
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
-		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
@@ -1867,7 +1859,6 @@ class FormeAction extends Action{
 		$data['parentID'] = $newxianlu['chanpinID'];
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
-		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		foreach($xingchengall as $v){
 			$time = explode(',',$v['time']);
 			$data['xingcheng']['chanyin'] = serialize($time);
@@ -1896,7 +1887,6 @@ class FormeAction extends Action{
 		$data['parentID'] = $newxianlu['chanpinID'];
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
-		$data['bumen_copy'] = $newxianlu['bumen_copy'];
 		foreach($chengbenall as $v){
 			$data['chengben']['title'] = $v['leixing'];
 			$data['chengben']['remark'] = $v['miaoshu'];
