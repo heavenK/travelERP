@@ -17,7 +17,7 @@ class DataCDModel extends Model {
 
 	protected $_link = array(
 		//customer
-		'customer'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'System','true_class_name'=>'myerpview_system_customer','foreign_key'=>'customerID','parent_key'=>'systemID'),
+		'customer'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Customer','true_class_name'=>'myerpview_system_customer','foreign_key'=>'customerID','parent_key'=>'systemID'),
 	);
 
 

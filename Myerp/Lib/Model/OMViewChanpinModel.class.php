@@ -12,7 +12,7 @@ class OMViewChanpinModel extends RelationModel {
 		//shoujia
 		'shoujia'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Shoujia','true_class_name'=>'myerpview_chanpin_shoujia','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//dingdan
-		'dingdan'=>array('mapping_type'=>BELONGS_TO,'true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
+		'dingdan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Dingdan','true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//zituan
 		'zituan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Zituan','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//DJtuan

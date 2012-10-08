@@ -18,7 +18,7 @@ class DataOMMessageModel extends RelationModel {
 
 	protected $_link = array(
 		//infohistory
-		'infohistory'=>array('mapping_type'=>BELONGS_TO,'true_class_name'=>'merpview_message_infohistory','foreign_key'=>'dataID','parent_key'=>'messageID'),
+		'infohistory'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Infohistory','true_class_name'=>'merpview_message_infohistory','foreign_key'=>'dataID','parent_key'=>'messageID'),
 	);
 
 
