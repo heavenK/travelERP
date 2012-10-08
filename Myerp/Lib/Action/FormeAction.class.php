@@ -1691,8 +1691,11 @@ class FormeAction extends Action{
 		$xd['islock'] = '已锁定';
 		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
-		if($type == '团队报账单')
+		if($type == '团队报账单'){
 		$Chanpin->relation("baozhangzituanlist")->myRcreate($xd);
+		dump($xd);
+		dump($Chanpin);
+		}
 		else
 		$Chanpin->save($xd);
 		
