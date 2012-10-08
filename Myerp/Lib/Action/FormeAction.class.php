@@ -1347,6 +1347,13 @@ class FormeAction extends Action{
 	//生成审核任务----------------------
 	public function _taskshenhe_build($baozhang,$newbaozhang,$type,$dataOMlist,$relationdata ='',$relationdata_2 ='')
 	{
+		
+				
+		if(($baozhang['status'] == '计调申请' || $baozhang['status'] == '经理通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+			return;
+		}
+				
+		
 		$System = D("System");
 		if($type == '团队报账单'){
 			$datatype = '报账单';
