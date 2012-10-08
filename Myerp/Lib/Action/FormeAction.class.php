@@ -1162,12 +1162,12 @@ class FormeAction extends Action{
 	
 	//生成审核任务----------------------
 	public function _taskshenhe_dijie_build($baozhang,$newbaozhang,$type,$dataOMlist,$relationdata =''){
+		$Chanpin = D("Chanpin");
+		$xd['chanpinID'] = $newbaozhang['chanpinID'];
 		$System = D("System");
 		if($type == '团队报账单'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1247,8 +1247,6 @@ class FormeAction extends Action{
 		if($type == '报账项'){
 			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1303,7 +1301,9 @@ class FormeAction extends Action{
 		}
 			
 			
-			
+		//更新
+		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
+		$Chanpin->save($xd);
 			
 		//生成备份
 		if($task['status'] == '批准')
@@ -1363,12 +1363,12 @@ class FormeAction extends Action{
 	//生成审核任务----------------------
 	public function _taskshenhe_build($baozhang,$newbaozhang,$type,$dataOMlist,$relationdata ='',$relationdata_2 ='')
 	{
+		$Chanpin = D("Chanpin");
+		$xd['chanpinID'] = $newbaozhang['chanpinID'];
 		$System = D("System");
 		if($type == '团队报账单'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1483,8 +1483,6 @@ class FormeAction extends Action{
 		if($type == '报账项'){
 			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1556,8 +1554,6 @@ class FormeAction extends Action{
 		if($type == '单项服务'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1671,8 +1667,6 @@ class FormeAction extends Action{
 		if($type == '单项服务报账项'){
 			if(($baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
-				$Chanpin = D("Chanpin");
-				$xd['chanpinID'] = $newbaozhang['chanpinID'];
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
 				return;
@@ -1747,6 +1741,9 @@ class FormeAction extends Action{
 				
 			}
 		}
+		//更新父产品
+		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
+		$Chanpin->save($xd);
 		
 		//生成备份
 		if($task['status'] == '批准')
