@@ -361,6 +361,7 @@ class FormeAction extends Action{
 		$ViewDepartment=D("ViewDepartment");
 		$user = $ViewUser->where("`user_name` = '$user_name'")->find();
 		$durlist = $ViewSystemDUR->where("`userID` = '$user[systemID]'")->findall();
+		dump($user_name);
 		dump(count($durlist));
 		if(count($durlist) == 1){
 			$bumenID = $durlist[0]['bumenID'];
