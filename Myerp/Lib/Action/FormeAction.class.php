@@ -99,10 +99,6 @@ class FormeAction extends Action{
 			//$dat['departmentID'] = $this->_getnewbumenID($v['departmentName']);
 			$bumen = $this->_getnewbumenbyusername($v['user_name']);
 			$dat['departmentID'] = $bumen['systemID'];
-			if($v['user_name'] == '夏之旅'){
-				dump($bumen);
-				exit;
-			}
 			if(!$dat['departmentID']){
 				dump(74544444444444);
 				dump($v);
