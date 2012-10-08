@@ -21,8 +21,7 @@ class ChanpinModel extends RelationModel {
     ); 
 	
 	protected function set_status($status,$parentID) {
-		dump($status);
-		if($status != '')	
+		if($status != '' && $status != null)	
 			return $status;
 		else
 			return '准备';
