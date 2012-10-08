@@ -480,7 +480,6 @@ class RelationModel extends Model {
 				}
 				else{
 					$data[$this->getPk()] = $key;
-					dump($data);
 					if (false !== $relationClass->mycreate($data)){
 						$this->commit();
 						return true;
