@@ -360,9 +360,18 @@ class FormeAction extends Action{
 	
 	//获得新部门，根据用户名
 	function _getnewbumenbyusername($user_name){
+		$ViewSystemDUR=D("ViewSystemDUR");
+		$ViewUser = D("ViewUser");
+		$ViewDepartment=D("ViewDepartment");
+		$user = $ViewUser->where("`user_name` = '$user_name'")->find();
+		$durlist = $ViewSystemDUR->where("`userID` = '$user[systemID]'")->findall();
+		if(count($durlist) == 1){
+			$bumenID = $durlist[0]['bumenID'];
+			$bumen = $ViewDepartment->where("`systemID` = '$bumenID'")->find();
+			return $bumen;
+		}
 		$roleuser = M('Glkehu')->where("`user_name`='$user_name'")->find();
 		$mydepartment = M('glbasedata')->where("`id`='$roleuser[department]'")->find();
-		$ViewDepartment=D("ViewDepartment");
 		$bumen = $ViewDepartment->where("`title` = '$mydepartment[title]'")->find();
 		return $bumen;
 	}
