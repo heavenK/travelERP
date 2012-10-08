@@ -1379,8 +1379,6 @@ class FormeAction extends Action{
 				$task['taskShenhe']['roles_copy'] = '计调';
 				$task['taskShenhe']['datakind'] = '团队报账单';
 				$task['taskShenhe']['title_copy'] = $newbaozhang["baozhang"]['title'];
-				dump($task);
-				exit;
 				if(false !== $System->relation("taskShenhe")->myRcreate($task)){
 					$taskID = $System->getRelationID();
 					$task['parentID'] = $taskID;
