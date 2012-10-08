@@ -1743,6 +1743,7 @@ class FormeAction extends Action{
 		}
 		//更新父产品
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
+		dump($xd);
 		$Chanpin->save($xd);
 		
 		//生成备份
