@@ -1162,7 +1162,7 @@ class FormeAction extends Action{
 			
 			
 		if($type == '报账项'){
-			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+			if(($baozhang['check_status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
@@ -1411,7 +1411,7 @@ class FormeAction extends Action{
 			
 			
 		if($type == '报账项'){
-			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+			if(($baozhang['check_status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
 				//更新报账
 				$xd['shenhe_remark'] = '未审核';
 				$Chanpin->save($xd);
@@ -1691,11 +1691,8 @@ class FormeAction extends Action{
 		$xd['islock'] = '已锁定';
 		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
-		if($type == '团队报账单'){
+		if($type == '团队报账单')
 		$Chanpin->relation("baozhangzituanlist")->myRcreate($xd);
-		dump($xd);
-		dump($Chanpin);
-		}
 		else
 		$Chanpin->save($xd);
 		
