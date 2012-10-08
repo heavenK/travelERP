@@ -1165,6 +1165,11 @@ class FormeAction extends Action{
 		$System = D("System");
 		if($type == '团队报账单'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账单';
@@ -1241,6 +1246,11 @@ class FormeAction extends Action{
 			
 		if($type == '报账项'){
 			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账项';
@@ -1356,6 +1366,11 @@ class FormeAction extends Action{
 		$System = D("System");
 		if($type == '团队报账单'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账单';
@@ -1467,6 +1482,11 @@ class FormeAction extends Action{
 			
 		if($type == '报账项'){
 			if(($baozhang['status'] != '审核通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账项';
@@ -1535,6 +1555,11 @@ class FormeAction extends Action{
 			
 		if($type == '单项服务'){
 			if(($baozhang['status'] != '财务总监通过' && $baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账单';
@@ -1645,6 +1670,11 @@ class FormeAction extends Action{
 			
 		if($type == '单项服务报账项'){
 			if(($baozhang['status'] != '财务通过') && ($baozhang['time'] + 3600 * 24 * 30)  < time()){
+				//更新报账
+				$Chanpin = D("Chanpin");
+				$xd['chanpinID'] = $newbaozhang['chanpinID'];
+				$xd['shenhe_remark'] = '未审核';
+				$Chanpin->save($xd);
 				return;
 			}
 			$datatype = '报账项';
