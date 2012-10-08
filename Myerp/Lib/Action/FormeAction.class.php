@@ -1678,7 +1678,6 @@ class FormeAction extends Action{
 				$xd['zituan']['baozhang_remark'] = $task['taskShenhe']['remark'];
 				$xd['zituan']['baozhang_time'] = $baozhang['caiwu_time'];
 				$xd['zituan']['status_baozhang'] = $task['status'];
-				$xd['zituan']['chanpinID'] = $xd['chanpinID'];
 				$xd['shenhe_time'] = $baozhang['caiwu_time'];
 			}
 			if($type == '报账项' || $type == '单项服务报账项')
@@ -1693,6 +1692,7 @@ class FormeAction extends Action{
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
 		if($type == '团队报账单'){
 		$Chanpin->relation("zituan")->myRcreate($xd);
+		dump($xd);
 		dump($Chanpin);
 		exit;
 		}
