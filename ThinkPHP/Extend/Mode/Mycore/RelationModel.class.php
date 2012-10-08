@@ -459,8 +459,8 @@ class RelationModel extends Model {
 				//relation
 				if($this->_link[$options['link']]['true_class_name'])
 					$key = $data[$this->_link[$options['link']]]['foreign_key'];
-				dump($this->_link[$options['link']]['true_class_name']);	
-				dump($data[$this->_link[$options['link']]]);	
+				dump($this->_link[$options['link']]);	
+				dump($data);	
 					
 					
 				$this->_lastRelationID = $key;
