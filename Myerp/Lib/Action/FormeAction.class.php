@@ -1222,8 +1222,9 @@ class FormeAction extends Action{
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
 			if($type == '团队报账单'){
-				$xd['baozhang_remark'] = $task['taskShenhe']['remark'];
-				$xd['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['DJtuan']['baozhang_remark'] = $task['taskShenhe']['remark'];
+				$xd['DJtuan']['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['DJtuan']['status_baozhang'] = $task['status'];
 				$xd['shenhe_time'] = $baozhang['caiwu_time'];
 			}
 			if($type == '报账项')
@@ -1234,6 +1235,9 @@ class FormeAction extends Action{
 		$xd['islock'] = '已锁定';
 		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
+		if($type == '团队报账单')
+		$Chanpin->relation('DJtuan')->myRcreate($xd);
+		else
 		$Chanpin->save($xd);
 			
 		if($taskID){
@@ -1671,8 +1675,9 @@ class FormeAction extends Action{
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
 			if($type == '团队报账单'){
-				$xd['baozhang_remark'] = $task['taskShenhe']['remark'];
-				$xd['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['zituan']['baozhang_remark'] = $task['taskShenhe']['remark'];
+				$xd['zituan']['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['zituan']['status_baozhang'] = $task['status'];
 				$xd['shenhe_time'] = $baozhang['caiwu_time'];
 			}
 			if($type == '报账项' || $type == '单项服务报账项')
@@ -1685,6 +1690,9 @@ class FormeAction extends Action{
 		$xd['islock'] = '已锁定';
 		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
+		if($type == '团队报账单')
+		$Chanpin->relation('zituan')->myRcreate($xd);
+		else
 		$Chanpin->save($xd);
 		
 		if($taskID){
