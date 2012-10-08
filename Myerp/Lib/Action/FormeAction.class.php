@@ -828,7 +828,7 @@ class FormeAction extends Action{
 				$bzditem['baozhangitem']['method'] = $v['pricetype'];
 				$bzditem['baozhangitem']['title'] = $v['title'];
 				$bzditem['baozhangitem']['type'] = $v['type'];
-				$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
+				$bzditem['baozhangitem']['remark'] = $v['remark'];
 				if($bzditem['baozhangitem']['title'] == '')
 				continue;
 				$bzditem['islock'] =  '已锁定';
@@ -1419,7 +1419,7 @@ class FormeAction extends Action{
 			}
 			$datatype = '报账项';
 			if($baozhang['edituser'] || $baozhang['check_status'] == '审核通过'){
-				if(!$baozhang['manager'] && !$baozhang['check_user'] && $baozhang['check_status'] != '等待审核')
+				if(!$baozhang['manager'] && !$baozhang['check_user'] && $baozhang['check_status'] != '审核通过')
 					return;
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
@@ -1489,8 +1489,8 @@ class FormeAction extends Action{
 				return;
 			}
 			$datatype = '报账单';
-			if($baozhang['username'] || $baozhang['status'] == '等待审核'){
-				if(!$baozhang['manager'] && !$baozhang['check_user'] && $baozhang['status'] != '等待审核')
+			if($baozhang['username'] || $baozhang['status'] == '财务通过' || $baozhang['status'] == '财务总监通过'){
+				if(!$baozhang['manager'] && !$baozhang['check_user'] && $baozhang['status'] != '财务通过' && $baozhang['status'] != '财务总监通过')
 					return;
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
@@ -1603,7 +1603,7 @@ class FormeAction extends Action{
 			}
 			$datatype = '报账项';
 			if($newbaozhang['user_name'] || $baozhang['status'] == '财务通过'){
-				if(!$baozhang['manager'] && !$baozhang['caiwu'] && $baozhang['status'] != '计调申请')
+				if(!$baozhang['manager'] && !$baozhang['caiwu'] && $baozhang['status'] != '财务通过')
 					return;
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
