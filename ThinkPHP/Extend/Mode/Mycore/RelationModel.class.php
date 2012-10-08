@@ -459,9 +459,11 @@ class RelationModel extends Model {
 				//relation
 				if($this->_link[$options['link']]['true_class_name']){
 					$key = $data[$this->_link[$options['link']]['foreign_key']];
-					$this->rollback();
-					$this->error = 'foreign_key不能为空！'; 
-					return false;
+					if(!$key){
+						$this->rollback();
+						$this->error = 'foreign_key不能为空！'; 
+						return false;
+					}
 				}
 				$this->_lastRelationID = $key;
 				$data = $data[$options['link']];
