@@ -1679,6 +1679,7 @@ class FormeAction extends Action{
 				$xd['baozhangzituanlist']['baozhang_time'] = $baozhang['caiwu_time'];
 				$xd['baozhangzituanlist']['status_baozhang'] = $task['status'];
 				$xd['shenhe_time'] = $baozhang['caiwu_time'];
+				$xd['parentID'] = $newbaozhang['parentID'];
 			}
 			if($type == '报账项' || $type == '单项服务报账项')
 			$xd['shenhe_time'] = $baozhang['time'];
@@ -1690,12 +1691,8 @@ class FormeAction extends Action{
 		$xd['islock'] = '已锁定';
 		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
-		if($type == '团队报账单'){
+		if($type == '团队报账单')
 		$Chanpin->relation("baozhangzituanlist")->myRcreate($xd);
-		dump($xd);
-		dump($Chanpin);
-		exit;
-		}
 		else
 		$Chanpin->save($xd);
 		
