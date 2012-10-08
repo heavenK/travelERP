@@ -108,7 +108,7 @@ class FormeAction extends Action{
 				$dat['islock'] = '已锁定';
 				$dat['shenhe_time'] = $v['time'];
 				$dat['shenhe_remark'] = '已审核';
-				$dat['status_shenhe'] = '已审核';
+				$dat['status_shenhe'] = '批准';
 				$v['zhuangtai'] = '截止';
 				$dat['status'] = '截止';
 			}
