@@ -696,12 +696,6 @@ class FormeAction extends Action{
 			//领队人数
 			$lingdui_num = 0;
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
-			//审核状态
-			if($baozhang['financeperson']){
-				$bzd['status_shenhe'] = '批准';
-				$bzd['shenhe_remark'] = $baozhang['status'];
-				$bzd['shenhe_time'] =  $baozhang['caiwu_time'];
-			}
 			//计算报账项
 			$baozhangitemall = $dj_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
 			foreach($baozhangitemall as $v){
@@ -729,13 +723,6 @@ class FormeAction extends Action{
 					$bzditem['baozhangitem']['title'] = $v['title'];
 					$bzditem['baozhangitem']['type'] = $v['type'];
 					$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
-					//审核状态
-					if($v['check_status'] == '审核通过' && $v['type'] != '利润'){
-						$bzditem['islock'] = '已锁定';
-						$bzditem['status_shenhe'] = '批准';
-						$bzditem['shenhe_remark'] = $v['check_status'];
-						$bzditem['shenhe_time'] =  $v['check_time'];
-					}
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 						$baozhangitemID = $Chanpin->getRelationID();
 						$bzditem['chanpinID'] = $baozhangitemID;
@@ -816,21 +803,6 @@ class FormeAction extends Action{
 			//领队人数
 			$lingdui_num = substr_count($baozhangrenshu,"+1");
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
-			//审核状态
-			if($baozhang['status'] == '计调申请'){
-				$bzd['shenhe_remark'] = '计调申请';
-			}
-			if($baozhang['bumenren']){
-				$bzd['shenhe_remark'] = '经理通过';
-			}
-			if($baozhang['caiwuren']){
-				$bzd['status_shenhe'] = '批准';
-				$bzd['shenhe_remark'] = '财务通过';
-				$bzd['shenhe_time'] =  $baozhang['caiwu_time'];
-			}
-			if($baozhang['caiwuzongjian']){
-				$bzd['shenhe_remark'] = '财务总监通过';
-			}
 			//计算报账项
 			$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
 			foreach($baozhangitemall as $v){
@@ -865,23 +837,6 @@ class FormeAction extends Action{
 				$bzditem['baozhangitem']['title'] = $v['title'];
 				$bzditem['baozhangitem']['type'] = $v['type'];
 				$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
-				//审核状态
-				if($v['check_status'] == '计调申请'){
-					$bzditem['shenhe_remark'] = '计调申请';
-				}
-				if($v['check_status'] == '审核通过' && $v['type'] != '利润'){
-					$bzditem['islock'] = '已锁定';
-					$bzditem['status_shenhe'] = '批准';
-					$bzditem['shenhe_remark'] = $v['check_status'];
-					$bzditem['shenhe_time'] =  $v['check_time'];
-					if($bzditem['baozhangitem']['title'] == '')
-						$bzditem['baozhangitem']['title'] = 0;
-				}
-				else{
-					if($v['manager'])
-					$bzditem['shenhe_remark'] = '经理通过';
-				}
-				
 				if($bzditem['baozhangitem']['title'] == '')
 				continue;
 				$bzditem['islock'] =  '已锁定';
@@ -993,20 +948,6 @@ class FormeAction extends Action{
 			$bzd["baozhang"]['renshu'] = $dxfw['renshu'];
 			else
 			$bzd["baozhang"]['renshu'] = 0;
-			//审核状态
-			if($dxfw['status'] == '计调申请'){
-				$bzd['shenhe_remark'] = '计调申请';
-			}
-			if($dxfw['status'] == '财务总监通过' || $dxfw['status'] == '财务通过' || $dxfw['status'] == '总经理通过'){
-				$bzd['status_shenhe'] = '批准';
-				$bzd['shenhe_remark'] = $dxfw['status'];
-				$bzd['shenhe_time'] =  $dxfw['check_time'];
-				$bzd['islock'] =  '已锁定';
-			}
-			else{
-				if($dxfw['manager'])
-				$bzd['shenhe_remark'] = '经理通过';
-			}
 			//计算报账项
 			$baozhangitemall = $glqianzhengitem->where("`qianzhengID` = '$dxfw[qianzhengID]'")->findall();
 			foreach($baozhangitemall as $item){
@@ -1045,22 +986,6 @@ class FormeAction extends Action{
 					if($v['type'] == '部门利润'){
 						$v['type'] = '利润';
 						$bzditem['baozhangitem']['type'] = '利润';
-					}
-					//审核状态
-					if($v['status'] == '计调申请'){
-						$bzditem['shenhe_remark'] = '计调申请';
-					}
-					if($v['status'] == '财务通过' && $v['type'] != '利润'){
-						$bzditem['islock'] = '已锁定';
-						$bzditem['status_shenhe'] = '批准';
-						$bzditem['shenhe_remark'] = '审核通过';
-						$bzditem['shenhe_time'] =  $v['time'];
-						if($bzditem['baozhangitem']['title'] == '')
-							$bzditem['baozhangitem']['title'] = 0;
-					}
-					else{
-						if($v['manager'])
-						$bzditem['shenhe_remark'] = '经理通过';
 					}
 					if($bzditem['baozhangitem']['title'] == '')
 					continue;
@@ -1301,14 +1226,20 @@ class FormeAction extends Action{
 		}
 			
 			
-		//更新
+		//生成备份
+		if($task['status'] == '批准'){
+			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
+			if($type == '团队报账单')
+			$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			if($type == '报账项')
+			$xd['shenhe_time'] = $baozhang['time'];
+		}
+			
+		//更新父产品
+		$xd['islock'] = '已锁定';
+		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
 		$Chanpin->save($xd);
-			
-		//生成备份
-		if($task['status'] == '批准')
-		A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
-			
 			
 		if($taskID){
 			//生成待检出
@@ -1741,16 +1672,23 @@ class FormeAction extends Action{
 				
 			}
 		}
+		//生成备份
+		if($task['status'] == '批准'){
+			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
+			if($type == '团队报账单')
+			$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			if($type == '报账项' || $type == '单项服务报账项')
+			$xd['shenhe_time'] = $baozhang['time'];
+			if($type == '单项服务')
+			$xd['shenhe_time'] = $baozhang['check_time'];
+		}
+			
 		//更新父产品
+		$xd['islock'] = '已锁定';
+		$xd['status_shenhe'] = $task['status'];
 		$xd['shenhe_remark'] = $task['taskShenhe']['remark'];
-		dump($xd);
 		$Chanpin->save($xd);
 		
-		//生成备份
-		if($task['status'] == '批准')
-		A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
-			
-			
 		if($taskID){
 			//生成待检出
 			$task['user_name'] = $task['shenqingname'];
