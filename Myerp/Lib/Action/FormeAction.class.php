@@ -588,14 +588,6 @@ class FormeAction extends Action{
 			$dat['zituan']['kind_copy'] = $newxianlu['kind'];
 			//报账单审核状态
 			$baozhang = $gl_baozhang->where("`zituanID` = '$v[zituanID]'")->find();
-			if($baozhang){
-				$dat['islock'] = '已锁定';
-				if($baozhang['status'] == '财务总监通过' || $baozhang['status'] == '财务通过' || $baozhang['status'] == '总经理通过'){
-					$dat['zituan']['status_baozhang'] = '批准';
-					$dat['zituan']['baozhang_remark'] = $baozhang['status'];
-					$dat['zituan']['baozhang_time'] =  $baozhang['caiwu_time'];
-				}
-			}
 			if(false !== $Chanpin->relation("zituan")->myRcreate($dat)){
 				$zituanID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $zituanID;
@@ -1229,8 +1221,11 @@ class FormeAction extends Action{
 		//生成备份
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
-			if($type == '团队报账单')
-			$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			if($type == '团队报账单'){
+				$xd['baozhang_remark'] = $task['taskShenhe']['remark'];
+				$xd['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			}
 			if($type == '报账项')
 			$xd['shenhe_time'] = $baozhang['time'];
 		}
@@ -1675,8 +1670,11 @@ class FormeAction extends Action{
 		//生成备份
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
-			if($type == '团队报账单')
-			$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			if($type == '团队报账单'){
+				$xd['baozhang_remark'] = $task['taskShenhe']['remark'];
+				$xd['baozhang_time'] = $baozhang['caiwu_time'];
+				$xd['shenhe_time'] = $baozhang['caiwu_time'];
+			}
 			if($type == '报账项' || $type == '单项服务报账项')
 			$xd['shenhe_time'] = $baozhang['time'];
 			if($type == '单项服务')
