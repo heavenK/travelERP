@@ -1097,7 +1097,7 @@ class FormeAction extends Action{
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $baozhang['operateperson'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1122,7 +1122,7 @@ class FormeAction extends Action{
 			if($baozhang['operateperson'] && $baozhang['departmentperson']){
 				$task['status'] = '检出';
 				$task['user_name'] = $baozhang['departmentperson'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 2;
@@ -1136,7 +1136,7 @@ class FormeAction extends Action{
 			if($baozhang['operateperson'] && $baozhang['departmentperson'] && $baozhang['financeperson']){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['financeperson'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 3;
@@ -1150,7 +1150,7 @@ class FormeAction extends Action{
 			if($baozhang['operateperson'] && $baozhang['departmentperson'] && $baozhang['financeperson'] && $baozhang['caiwuzongjian']){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['caiwuzongjian'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 4;
@@ -1176,7 +1176,7 @@ class FormeAction extends Action{
 				$task['time'] = $baozhang['time'];
 				$task['status'] = '申请';
 				$task['user_name'] = $relationdata['user_name'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1197,7 +1197,7 @@ class FormeAction extends Action{
 			if($baozhang['check_status'] == '经理确认'){
 				$task['status'] = '检出';
 				$task['user_name'] = '于丹丹';
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['taskShenhe']['processID'] = 2;
 				$task['taskShenhe']['remark'] = '经理检出';
@@ -1209,7 +1209,7 @@ class FormeAction extends Action{
 			if($baozhang['check_status'] == '审核通过'){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['check_user'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['taskShenhe']['processID'] = 3;
 				$task['taskShenhe']['remark'] = '财务批准';
@@ -1317,7 +1317,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata['user_name'];
 					$baozhang['caozuoren'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1349,7 +1349,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '王晓辉';
 					$baozhang['bumenren'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 2;
@@ -1367,7 +1367,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '崔军';
 					$baozhang['caiwuren'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 3;
@@ -1385,7 +1385,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '龚敏娜';
 					$baozhang['caiwuzongjian'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 4;
@@ -1399,7 +1399,7 @@ class FormeAction extends Action{
 			if($baozhang['caozuoren'] && $baozhang['bumenren'] && $baozhang['caiwuren'] && $baozhang['caiwuzongjian'] && $baozhang['manager']){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['manager'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 5;
@@ -1431,7 +1431,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata_2['caozuoren'];
 					$baozhang['edituser'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1456,7 +1456,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata_2['bumenren'];
 					$baozhang['manager'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['taskShenhe']['processID'] = 2;
 				$task['taskShenhe']['remark'] = '经理检出';
@@ -1472,7 +1472,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata_2['caiwuren'];
 					$baozhang['check_user'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['taskShenhe']['processID'] = 3;
 				$task['taskShenhe']['remark'] = '财务批准';
@@ -1502,7 +1502,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata['user_name'];
 					$baozhang['username'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1534,7 +1534,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '王晓辉';
 					$baozhang['manager'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 2;
@@ -1552,7 +1552,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '崔军';
 					$baozhang['check_user'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 3;
@@ -1570,7 +1570,7 @@ class FormeAction extends Action{
 					$task['user_name'] = '龚敏娜';
 					$baozhang['caiwu_manager'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 4;
@@ -1584,7 +1584,7 @@ class FormeAction extends Action{
 			if($baozhang['username'] && $baozhang['manager'] && $baozhang['check_user'] && $baozhang['caiwu_manager'] && $baozhang['bigmanager']){
 				$task['status'] = '批准';
 				$task['user_name'] = $baozhang['bigmanager'];
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 5;
@@ -1615,7 +1615,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata['username'];
 					$newbaozhang['user_name'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 1;
@@ -1644,7 +1644,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata['manager'];
 					$baozhang['manager'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 2;
@@ -1662,7 +1662,7 @@ class FormeAction extends Action{
 					$task['user_name'] = $relationdata['check_user'];
 					$baozhang['caiwu'] = $task['user_name'];
 				}
-				$bumen = $this->_getoldbumenbyusername($task['user_name']);
+				$bumen = $this->_getnewbumenbyusername($task['user_name']);
 				$newbumenID = $bumen['systemID'];
 				$task['departmentID'] = $newbumenID;
 				$task['taskShenhe']['processID'] = 3;
