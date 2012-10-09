@@ -926,8 +926,10 @@ class FormeAction extends Action{
 			$bzd['baozhang']['datatext']['tianshu'] = $dxfw['tianshu'];
 			//备注
 			$remark = '';
+			if($dxfw['other'])
+			$remark .= $dxfw['other'];
 			if($dxfw['tianshu'])
-			$remark .= '天数:'.$dxfw['tianshu'];
+			$remark .= '，天数:'.$dxfw['tianshu'];
 			if($dxfw['jingwaijiedaishe'])
 			$remark .= '，接待单位:'.$dxfw['jingwaijiedaishe'];
 			if($dxfw['arrivetool'])
@@ -944,8 +946,6 @@ class FormeAction extends Action{
 			$remark .= '，不返程:'.$dxfw['bufancheng'];
 			if($dxfw['waidihukou'])
 			$remark .= '，外地户口:'.$dxfw['waidihukou'];
-			if($dxfw['other'])
-			$remark .= '，'.$dxfw['other'];
 			$bzd['baozhang']['datatext']['remark'] = $remark;
 			$bzd['baozhang']['datatext'] = serialize($bzd['baozhang']['datatext']);
 			if($dxfw['renshu'])

@@ -48,7 +48,7 @@
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="">
               <tbody>
-            <php>foreach($datalist as $v){if($v['datatext']['category'] == '销售'){</php>
+            <php>foreach($datalist as $v){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><a name="<{$v['systemID']}>"></a><div> 1.<{$v['title']}> </div></th>
                 </tr>
@@ -56,7 +56,7 @@
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$v['datatext']['message']}></td>
                 </tr>
-            <php>}}</php>
+            <php>}</php>
               </tbody>
             </table>
             

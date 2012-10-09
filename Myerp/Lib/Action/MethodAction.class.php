@@ -1797,8 +1797,6 @@ class MethodAction extends CommonAction{
 		  $durlist = $durlist_1;
 		  else
 		  $durlist = $durlist_2;
-		 	 dump($durlist);
-		 	 dump('=================================');
 		  //附加开放给部门角色
 		  $i = 0;
 		  foreach($durlist as $v){
