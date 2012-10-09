@@ -1791,7 +1791,7 @@ class MethodAction extends CommonAction{
 				   $durlist_1[$t]['rolesID'] = $v['rolesID'];
 				   $t++;
 			  }
-			  $durlist_1 = about_unique($needlist);
+			  $durlist_1 = about_unique($durlist_1);
 		  }
 		  if($durlist_1)
 		  $durlist = $durlist_1;
