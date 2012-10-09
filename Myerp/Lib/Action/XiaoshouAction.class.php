@@ -470,7 +470,7 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
 		if($dingdan['status'] == '确认'){
-			$durlist = A("Method")->_checkRolesByUser('经理','组团','',1);
+			$durlist = A("Method")->_checkRolesByUser('经理','组团',1);
 			if(false === $durlist){
 			  $this->ajaxReturn($_REQUEST, '错误，没有经理权限！', 0);
 			}

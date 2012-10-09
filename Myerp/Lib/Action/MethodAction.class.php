@@ -570,6 +570,19 @@ class MethodAction extends CommonAction{
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
+		$this->_getDURlist_do($myuserID,$bumen,$bumentype);	
+	 }
+	 
+	//获得用户部门角色列表
+     public function _getDURlist_name($user_name,$bumen='',$bumentype='') {
+		if(!$user_name)
+			$user_name = $this->user['title'];
+		$ViewUser = D("ViewUser");
+		$user = $ViewUser->where("`title` = '$user_name' AND (`status_system` = '1')")->find();
+		$this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
+	 }
+	 
+     public function _getDURlist_do($user_name,$bumen='') {
 		$ViewSystemDUR = D("ViewSystemDUR");
 		if($bumen)//获得部门关联
 		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
@@ -598,20 +611,6 @@ class MethodAction extends CommonAction{
 			return $data_2;
 		}
 		return $data;
-	 }
-	 
-	//获得用户部门角色列表
-     public function _getDURlist_name($user_name,$bumen='') {
-		if(!$user_name)
-			$user_name = $this->user['title'];
-		$ViewUser = D("ViewUser");
-		$user = $ViewUser->where("`title` = '$user_name' AND (`status_system` = '1')")->find();
-		if($user){
-			$ViewSystemDUR = D("ViewSystemDUR");
-			$datas4 = $ViewSystemDUR->where("`userID` = '$user[systemID]' AND (`status_system` = '1')")->findall();
-			return $datas4;
-		}
-		return false;
 	 }
 	 
 	//获得用户列表
@@ -1763,10 +1762,9 @@ class MethodAction extends CommonAction{
 	
 	
 	//获得DUR,应用OM
-     public function _setDataOMlist($role,$type) {
-		  $durlist = $this->_checkRolesByUser($role,$type);//获得角色DUR
-		  //判断当前用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
-		  $istrue = $this->_checkbumenshuxing('联合体,办事处');
+     public function _setDataOMlist($role,$type,$username='') {
+		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
+		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
 		  if($istrue){
 			  $ViewDepartment = D("ViewDepartment");
 			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
@@ -1794,8 +1792,9 @@ class MethodAction extends CommonAction{
 			  }
 			  $durlist = array_unique($needlist);
 		  }
-		  $i = 0;
 		  //附加开放给部门角色
+		  $durlist = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
+		  $i = 0;
 		  foreach($durlist as $v){
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			  $i++;
@@ -1813,8 +1812,11 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
-     public function _checkRolesByUser($roles,$bumentype,$userID = '',$notmust = '') {
-		$durlist = $this->_getDURlist($userID);
+     public function _checkRolesByUser($roles,$bumentype,$notmust = '',$userID = '',$user_name = '') {
+		if($user_name)
+			$durlist = $this->_getDURlist_name($user_name);
+		else
+			$durlist = $this->_getDURlist($userID);
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
@@ -1852,7 +1854,10 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//检查联合体，办事处属性
-     public function _checkbumenshuxing($bumentype,$userID = '') {
+     public function _checkbumenshuxing($bumentype,$userID = '',$user_name = '') {
+		 if($user_name)
+		$durlist = $this->_getDURlist_name($user_name);
+		else
 		$durlist = $this->_getDURlist($userID);
 		$ViewDepartment = D("ViewDepartment");
 		$bumentypelist = explode(',',$bumentype);
