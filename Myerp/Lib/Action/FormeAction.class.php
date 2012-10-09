@@ -79,8 +79,8 @@ class FormeAction extends Action{
 				dump('无page参数');
 		exit;
 		}
-		$num = ($_REQUEST['page']-1)*50;
-		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
+		$num = ($_REQUEST['page']-1)*10;
+		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,10")->findall();
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = '336'")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
