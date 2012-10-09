@@ -471,12 +471,12 @@ class FormeAction extends Action{
 	
 	//角色相关
     public function _fillDUR($user,$newuser_ID) {
-		//unserialize
+		//simple_unserialize
 		echo "开始";
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$System = D("System");
-		$list = unserialize($user['department_list']);
+		$list = simple_unserialize($user['department_list']);
 		$glbasedata = M("glbasedata");
 		$Department = D("Department");
 		$glkehu = M("glkehu");

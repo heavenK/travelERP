@@ -38,7 +38,7 @@ class ChanpinAction extends CommonAction{
 				$xianlu['dipei'] = $fuwu2;
 			}
 			if($xianlu['guojing'] == '境外' || $xianlu['kind'] == '包团')
-				$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu_ext']);
+				$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu_ext']);
 		}
 		else{
 			//判断计调角色
@@ -446,8 +446,8 @@ class ChanpinAction extends CommonAction{
 		$zituan = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
 		$DataCopy = D("DataCopy");
 		$data = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
-		$zituan['xianlulist'] = unserialize($data['copy']);
-		$zituan['xianlulist']['xianlu']['xianlu_ext'] = unserialize($zituan['xianlulist']['xianlu']['xianlu_ext']);
+		$zituan['xianlulist'] = simple_unserialize($data['copy']);
+		$zituan['xianlulist']['xianlu']['xianlu_ext'] = simple_unserialize($zituan['xianlulist']['xianlu']['xianlu_ext']);
 		$zituan['xianlulist']['shoujia'] = A("Method")->_fenlei_filter($zituan['xianlulist']['shoujia']);
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
@@ -474,12 +474,12 @@ class ChanpinAction extends CommonAction{
 			$this->assign("tuanyuan",$tuanyuan);
 		}
 		if($_REQUEST['typemark'] == '接待计划'){
-			$zituan['jiedaijihua'] = unserialize($zituan['jiedaijihua']);
+			$zituan['jiedaijihua'] = simple_unserialize($zituan['jiedaijihua']);
 			$this->assign("zituan",$zituan);
 			$this->display('print_jiedaijihua');
 		}
 		else if($_REQUEST['typemark'] == '出团通知'){
-			$zituan['chutuantongzhi'] = unserialize($zituan['chutuantongzhi']);
+			$zituan['chutuantongzhi'] = simple_unserialize($zituan['chutuantongzhi']);
 			$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID']);
 			$this->assign("tuanrenshu",$tuanrenshu);
 			$this->assign("zituan",$zituan);
@@ -753,8 +753,8 @@ class ChanpinAction extends CommonAction{
 		$chanpinID = $_REQUEST['chanpinID'];
 		$ViewZituan = D("ViewZituan");
 		$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$chanpinID'")->find();
-		$zituan['chutuantongzhi'] = unserialize($zituan['chutuantongzhi']);
-		$zituan['jiedaijihua'] = unserialize($zituan['jiedaijihua']);
+		$zituan['chutuantongzhi'] = simple_unserialize($zituan['chutuantongzhi']);
+		$zituan['jiedaijihua'] = simple_unserialize($zituan['jiedaijihua']);
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		if($_REQUEST['marktype'] == '出团通知')
@@ -957,8 +957,8 @@ class ChanpinAction extends CommonAction{
 		$this->assign("zituan",$zituan);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
-		$xianlu = unserialize($xianlu['copy']);
-		$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu']['xianlu_ext']);
+		$xianlu = simple_unserialize($xianlu['copy']);
+		$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu']['xianlu_ext']);
 		$this->assign("xianlu",$xianlu);
 		//计算子团人数
 		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID']);

@@ -2001,7 +2001,7 @@ class MethodAction extends CommonAction{
 		$baozhanglist = $ViewBaozhang->order("time desc")->where("`parentID` = '$chanpinID' AND `status_system` = '1'")->findall();
 		$i = 0;
 		foreach($baozhanglist as $v){
-			$baozhanglist[$i]['datatext'] = unserialize($v['datatext']);
+			$baozhanglist[$i]['datatext'] = simple_unserialize($v['datatext']);
 			$i++;
 		}
 		$this->assign("baozhanglist",$baozhanglist);
@@ -2036,7 +2036,7 @@ class MethodAction extends CommonAction{
 		$chanpin_list = $this->getDataOMlist('报账单','baozhang',$_REQUEST);
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
-			$chanpin_list['chanpin'][$i]['datatext'] = unserialize($v['datatext']);
+			$chanpin_list['chanpin'][$i]['datatext'] = simple_unserialize($v['datatext']);
 			$i++;
 		}
 		$this->assign("page",$chanpin_list['page']);
@@ -2066,7 +2066,7 @@ class MethodAction extends CommonAction{
 			if($baozhang['type'] == '团队报账单')
 				$this->assign("markpos",'团队报账单');
 		}
-		$baozhang['datatext'] = unserialize($baozhang['datatext']);
+		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
 		$this->assign("baozhang_data",$baozhang);
 		if(!$baozhang){
@@ -2100,7 +2100,7 @@ class MethodAction extends CommonAction{
 		if($pdata['marktype'] == 'DJtuan'){
 			$ViewDJtuan = D('ViewDJtuan');
 			$djtuan = $ViewDJtuan->where("`chanpinID` = '$baozhang[parentID]'")->find();
-			$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
+			$djtuan['datatext_xingcheng'] = simple_unserialize($djtuan['datatext_xingcheng']);
 			$this->assign("djtuan",$djtuan);
 			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
 			if($baozhang['type'] == '团队报账单')
@@ -2118,9 +2118,9 @@ class MethodAction extends CommonAction{
 			  if($baozhang['status_shenhe'] == '批准'){
 				$DataCopy = D("DataCopy");
 				$data = $DataCopy->where("`dataID` = '$baozhangID' and `datatype` = '报账单'")->order("id desc")->find();
-				$newdata = unserialize($data['copy']);
+				$newdata = simple_unserialize($data['copy']);
 				$baozhang = $newdata['baozhang'];
-				$baozhang['datatext'] = unserialize($baozhang['datatext']);
+				$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 				$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
 				$this->assign("baozhang",$baozhang);
 			}
@@ -2500,7 +2500,7 @@ class MethodAction extends CommonAction{
 		}
 		$ViewBaozhang = D("ViewBaozhang");
 		$baozhang = $ViewBaozhang->relation("baozhangitemlist")->where("`type` = '团队报账单' and `parentID` = '$chanpinID'")->find();
-		$baozhang['datatext'] = unserialize($baozhang['datatext']);
+		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
 		$this->assign("baozhanglist",$baozhang['baozhangitemlist']);
 	}
@@ -2639,7 +2639,7 @@ class MethodAction extends CommonAction{
 		$ViewCustomer = D("ViewCustomer");
 		$System = D("System");
 		foreach($dingdan['tuanyuanlist'] as $v){
-			$res['customer'] = unserialize($v['datatext']);
+			$res['customer'] = simple_unserialize($v['datatext']);
 			$where = array();
 			$newwhere = '';
 			if($res['customer']['sfz_haoma']){
@@ -2664,7 +2664,7 @@ class MethodAction extends CommonAction{
 			if($cust){
 				$res['systemID'] = $cust['systemID'];
 			}
-			$res['customer'] = unserialize($v['datatext']);
+			$res['customer'] = simple_unserialize($v['datatext']);
 			$System->relation('customer')->myRcreate($res);
 		}
 	}

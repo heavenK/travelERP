@@ -46,7 +46,7 @@ class DijieAction extends CommonAction{
 			}
 			$ViewDJtuan = D('ViewDJtuan');
 			$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
-			$djtuan['datatext'] = unserialize($djtuan['datatext']);
+			$djtuan['datatext'] = simple_unserialize($djtuan['datatext']);
 			$this->assign("djtuan",$djtuan);
 			$this->assign("datatitle",' : "'.$djtuan['title'].'"');
 		}
@@ -135,7 +135,7 @@ class DijieAction extends CommonAction{
 		}
 		$ViewDJtuan = D('ViewDJtuan');
 		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
-		$djtuan['datatext_dingfang'] = unserialize($djtuan['datatext_dingfang']);
+		$djtuan['datatext_dingfang'] = simple_unserialize($djtuan['datatext_dingfang']);
 		if($djtuan['datatext_dingfang']['title'] == '')
 			$djtuan['datatext_dingfang']['title'] = '大连古莲国旅';
 		if($djtuan['datatext_dingfang']['fajianrendanwei'] == '')
@@ -172,7 +172,7 @@ class DijieAction extends CommonAction{
 		}
 		$ViewDJtuan = D('ViewDJtuan');
 		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
-		$djtuan['datatext_xingcheng'] = unserialize($djtuan['datatext_xingcheng']);
+		$djtuan['datatext_xingcheng'] = simple_unserialize($djtuan['datatext_xingcheng']);
 		$this->assign("datatext_xingcheng",$djtuan['datatext_xingcheng']);
 		$this->assign("jiaotong_array",$djtuan['datatext_xingcheng']['jiaotong_array']);
 		$this->assign("djtuan",$djtuan);
@@ -258,7 +258,7 @@ class DijieAction extends CommonAction{
 		}
 		$ViewDJtuan = D('ViewDJtuan');
 		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
-		$djtuan['datatext_chengben'] = unserialize($djtuan['datatext_chengben']);
+		$djtuan['datatext_chengben'] = simple_unserialize($djtuan['datatext_chengben']);
 		$this->assign("djtuan",$djtuan);
 		$this->assign("chengben",$djtuan['datatext_chengben']['chengben']);
 		$this->assign("remark",$djtuan['datatext_chengben']['remark']);

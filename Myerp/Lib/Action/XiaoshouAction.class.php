@@ -23,7 +23,7 @@ class XiaoshouAction extends Action{
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
-			$xianlu = unserialize($xianlu['copy']);
+			$xianlu = simple_unserialize($xianlu['copy']);
 			//获得部门名
 			$bumenID = $xianlu['xianlu']['departmentID'];
 			$bumen = $System->relation("department")->where("`systemID` = '$bumenID'")->find();
@@ -74,8 +74,8 @@ class XiaoshouAction extends Action{
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
-		$xianlu = unserialize($xianlu['copy']);
-		$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu']['xianlu_ext']);
+		$xianlu = simple_unserialize($xianlu['copy']);
+		$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu']['xianlu_ext']);
 		//解析视频
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$nameshipin = $xianlu['xianlu']['shipin'];
@@ -498,7 +498,7 @@ class XiaoshouAction extends Action{
 		$dat = $DataCD->where("`id` = '$_REQUEST[id]'")->find();
 		$this->assign("datacd",$dat);
 		if($dat['datatext'])
-			$dat = unserialize($dat['datatext']);
+			$dat = simple_unserialize($dat['datatext']);
 		else{//查询顾客表
 			$ViewCustomer = D("ViewCustomer");
 			if($dat['zhengjiantype'] == '身份证')
