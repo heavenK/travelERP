@@ -107,19 +107,13 @@ class IndexAction extends Action{
 		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
 		$i = 0;
 		foreach($FAQall as $v){
-			$FAQall[$i]['datatext'] = unserialize($v['datatext']);
-			
-			$FAQall[$i]['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $FAQall[$i]['datatext'] );
+			//$FAQall[$i]['datatext'] = unserialize($v['datatext']);
+			$FAQall[$i]['datatext'] = mb_unserialize($v['datatext']);
 			$i++;
 		}
 		$this->assign("datalist",$FAQall);
 		$this->display('Index:FAQ');
 	}
 	
-function mb_unserialize($serial_str) {
-    $serial_str= preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
-    $serial_str= str_replace("\r", "", $serial_str);      
-    return unserialize($serial_str);
-}	
 }
 ?>

@@ -125,8 +125,11 @@ function NF_getdatelistbetweentwodate($d0,$d1,$returntype = 'array'){
 }
 
 
-
-
+function mb_unserialize($serial_str) {
+    $serial_str= preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
+    $serial_str= str_replace("\r", "", $serial_str);      
+    return unserialize($serial_str);
+}	
 
 
 
