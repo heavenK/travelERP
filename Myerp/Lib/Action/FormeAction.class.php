@@ -153,7 +153,7 @@ class FormeAction extends Action{
 				$this->_xianlu_xingcheng($v,$dat);
 				//成本
 				$this->_xianlu_chengben($v,$dat);
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$v['user_name']);
 				A("Method")->_createDataOM($xianluID,'线路','管理',$dataOMlist);
 				if($v['zhuangtai'] == '报名' || $v['zhuangtai'] == '截止'){
 					//生成备份,要放在生成行程，成本，附表之后。
@@ -303,7 +303,7 @@ class FormeAction extends Action{
 			if (false !== $Chanpin->relation("DJtuan")->myRcreate($dat)){
 				$chanpinID = $Chanpin->getRelationID();
 				$dat['chanpinID'] = $chanpinID;
-				$dataOMlist = A("Method")->_setDataOMlist('地接','地接');
+				$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$dat['user_name']);
 				A("Method")->_createDataOM($chanpinID,'地接','管理',$dataOMlist);
 				//生成报账单----------------------
 				$this->_baozhangdan_dijie_build($v,$dat,$dataOMlist);
