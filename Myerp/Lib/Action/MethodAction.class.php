@@ -1781,19 +1781,22 @@ class MethodAction extends CommonAction{
 			  $t = 0;
 			  foreach($bumenlist as $v){//开放到角色，计调
 				  if(!in_array($v['systemID'],$filterlist_2)){
-//					  $needlist[$t]['bumenID'] = $v['systemID'];
-//					  $needlist[$t]['rolesID'] = $r_jidiao['systemID'];
-					  $needlist[$t] = $v['systemID'];
+					  $needlist[$t]['bumenID'] = $v['systemID'];
+					  $needlist[$t]['rolesID'] = $r_jidiao['systemID'];
+//					  $needlist[$t] = $v['systemID'];
 					  $t++;
 				  }
 			  }
 			  $t = 0;
-			  $durlist_1 = array_unique($needlist);
-			  foreach($durlist_1 as $v){
-				  $durlist_1[$t]['bumenID'] = $v['systemID'];
-				  $durlist_1[$t]['rolesID'] = $r_jidiao['systemID'];
-				  $t++;
-			  }
+			  //$durlist_1 = array_unique($needlist);
+			  
+			  $durlist_1 = about_unique($needlist);
+			  
+//			  foreach($durlist_1 as $v){
+//				  $durlist_1[$t]['bumenID'] = $v['systemID'];
+//				  $durlist_1[$t]['rolesID'] = $r_jidiao['systemID'];
+//				  $t++;
+//			  }
 		 	 dump($durlist_1);
 		 	 dump('++++++++++++++++++++++++++++++++');
 		  }

@@ -44,8 +44,42 @@ function NF_getbumen_title($departmentID){
 	}
 }
 
+function about_unique($arr=array()){  
+   /*TP数据库层读取出得二维数组内容唯一化
+     基本情况：将该种二维数组看成一维数组，则
+     该一维数组的value值有相同的则干掉只留一个，并将该一维
+     数组用重排后的索引数组返回，而返回的一维数组中的每个元素都是
+     原始key值形成的关联数组
+   */
+   $keys =array();
+   $temp = array();
+   foreach($arr[0] as $k=>$arrays) {
+    /*数组记录下关联数组的key值*/
+    $keys[] = $k;
+   }
+   //return $keys;
+   /*降维*/
+   foreach($arr as $k=>$v) {
+    $v = join(",",$v);  //降维
+    $temp[] = $v;
+   }
+   $temp = array_unique($temp); //去掉重复的内容
+   foreach ($temp as $k => $v){
+    /*再将拆开的数组按索引数组重新组装*/
+    $temp[$k] = explode(",",$v);  
+   } 
+   //return $temp;
+   /*再将拆开的数组按关联数组key值重新组装*/
+   foreach($temp as $k=>$v) {
+    foreach($v as $kkk=>$ck) {
+     $data[$k][$keys[$kkk]] = $temp[$k][$kkk];
+    }
+   }
+   return $data;
+  }
 
-//俩数组相连，并去掉重复元素
+
+//俩数组相连，并去掉重复元素,根据环境支持二维数组
 function NF_combin_unique($a,$b){
 	$a = array_values($a);
 	$b = array_values($b);
@@ -54,7 +88,10 @@ function NF_combin_unique($a,$b){
 		$a[$i] = $b[$j];
 		$i++;
 	}
+	if(count($a, COUNT_RECURSIVE) == count($a))
 	return array_unique($a);
+	else
+	return about_unique($a);
 }
 
 
