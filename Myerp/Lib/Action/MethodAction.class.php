@@ -2198,7 +2198,7 @@ class MethodAction extends CommonAction{
 		}
 		//报账单特殊设置
 		if($_REQUEST['datatype'] == '报账单'){
-			if($processID == 3)
+			if($processID >= 3)
 			$status = '批准';
 		}
 		$_REQUEST['status_shenhe'] = $status;
