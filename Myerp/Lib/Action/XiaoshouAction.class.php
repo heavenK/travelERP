@@ -23,6 +23,7 @@ class XiaoshouAction extends Action{
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
+			$xianlu['copy'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $xianlu['copy'] );
 			$xianlu = unserialize($xianlu['copy']);
 			//获得部门名
 			$bumenID = $xianlu['xianlu']['departmentID'];
@@ -74,6 +75,7 @@ class XiaoshouAction extends Action{
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
+		$xianlu['copy'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $xianlu['copy'] );
 		$xianlu = unserialize($xianlu['copy']);
 		$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu']['xianlu_ext']);
 		//解析视频

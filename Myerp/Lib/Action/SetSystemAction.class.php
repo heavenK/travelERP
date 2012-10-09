@@ -396,15 +396,19 @@ class SetSystemAction extends CommonAction{
 		if($_REQUEST['returntype'] == 'array' ){
 			$where['systemID'] = $_REQUEST['systemID'];
 			$data = $ViewDataDictionary->where($where)->find();
-			if($data['type'] == 'FAQ')
+			if($data['type'] == 'FAQ'){
+				$data['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $data['datatext'] );
 				$data['datatext'] = unserialize($data['datatext']);
+			}
 			$this->ajaxReturn($data, '读取成功！', 1);
 			exit;
 		}
 		$data = $ViewDataDictionary->where($where)->findall();
 		$i = 0;
 		foreach($data as $v){
-			$data[$i]['datatext'] = unserialize($v['datatext']);$i++;
+			$v['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $v['datatext'] );
+			$data[$i]['datatext'] = unserialize($v['datatext']);
+			$i++;
 		}
 		$this->assign("datalist",$data);
 		if($where['type'] == '视频'){

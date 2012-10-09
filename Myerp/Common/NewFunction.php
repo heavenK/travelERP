@@ -124,7 +124,7 @@ function NF_getdatelistbetweentwodate($d0,$d1,$returntype = 'array'){
 	return implode(',',$_time);
 }
 
-
+//反序列化失效解决办法之一//此方法会移除格式
 function mb_unserialize($serial_str) {
     $serial_str= preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
     $serial_str= str_replace("\r", "", $serial_str);      
