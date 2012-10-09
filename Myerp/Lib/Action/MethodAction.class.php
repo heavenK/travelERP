@@ -1763,9 +1763,9 @@ class MethodAction extends CommonAction{
 	
 	//获得DUR,应用OM
      public function _setDataOMlist($role,$type,$username='') {
+		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
 		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
-		  dump($username);
 		  if($istrue){
 			  $ViewDepartment = D("ViewDepartment");
 			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
@@ -1783,27 +1783,18 @@ class MethodAction extends CommonAction{
 				  if(!in_array($v['systemID'],$filterlist_2)){
 					  $needlist[$t]['bumenID'] = $v['systemID'];
 					  $needlist[$t]['rolesID'] = $r_jidiao['systemID'];
-//					  $needlist[$t] = $v['systemID'];
 					  $t++;
 				  }
 			  }
-			  $t = 0;
-			  //$durlist_1 = array_unique($needlist);
-			  
+			  foreach($durlist_2 as $v){
+				   $durlist_1[$t]['bumenID'] = $v['bumenID'];
+				   $durlist_1[$t]['rolesID'] = $v['rolesID'];
+				   $t++;
+			  }
 			  $durlist_1 = about_unique($needlist);
-			  
-//			  foreach($durlist_1 as $v){
-//				  $durlist_1[$t]['bumenID'] = $v['systemID'];
-//				  $durlist_1[$t]['rolesID'] = $r_jidiao['systemID'];
-//				  $t++;
-//			  }
-		 	 dump($durlist_1);
-		 	 dump('++++++++++++++++++++++++++++++++');
 		  }
-		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
-		 	 dump($durlist_2);
 		  if($durlist_1)
-		  $durlist = NF_combin_unique($durlist_1,$durlist_2);
+		  $durlist = $durlist_1;
 		  else
 		  $durlist = $durlist_2;
 		 	 dump($durlist);
