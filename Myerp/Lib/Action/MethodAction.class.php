@@ -1787,11 +1787,11 @@ class MethodAction extends CommonAction{
 				  }
 			  }
 			  foreach($durlist_2 as $v){
-				   $durlist_1[$t]['bumenID'] = $v['bumenID'];
-				   $durlist_1[$t]['rolesID'] = $v['rolesID'];
+				   $needlist[$t]['bumenID'] = $v['bumenID'];
+				   $needlist[$t]['rolesID'] = $v['rolesID'];
 				   $t++;
 			  }
-			  $durlist_1 = about_unique($durlist_1);
+			  $durlist_1 = about_unique($needlist);
 		  }
 		  if($durlist_1)
 		  $durlist = $durlist_1;
