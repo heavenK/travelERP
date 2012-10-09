@@ -1765,6 +1765,7 @@ class MethodAction extends CommonAction{
      public function _setDataOMlist($role,$type,$username='') {
 		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
+		  dump($istrue);
 		  if($istrue){
 			  $ViewDepartment = D("ViewDepartment");
 			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
@@ -1791,6 +1792,8 @@ class MethodAction extends CommonAction{
 					  $t++;
 			  }
 			  $durlist_1 = array_unique($needlist);
+		 	 dump($durlist_1);
+		 	 dump('++++++++++++++++++++++++++++++++');
 		  }
 		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
 		  if($durlist_1)
