@@ -1769,7 +1769,6 @@ class MethodAction extends CommonAction{
 		  if($istrue){
 			  $ViewDepartment = D("ViewDepartment");
 			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
-		  dump($filterlist);
 			  $t = 0;
 			  foreach($filterlist as $v){
 				  $filterlist_2[$t] = $v['systemID'];
@@ -1777,7 +1776,6 @@ class MethodAction extends CommonAction{
 			  }
 		      $where['type'] = array('like','%组团%');
 			  $bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
-		  dump($bumenlist);
 			  $ViewRoles = D("ViewRoles");
 			  $r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 			  $t = 0;
@@ -1788,11 +1786,7 @@ class MethodAction extends CommonAction{
 					  $t++;
 				  }
 			  }
-			  foreach($durlist as $v){
-					  $needlist[$t]['bumenID'] = $v['bumenID'];
-					  $needlist[$t]['rolesID'] = $v['rolesID'];
-					  $t++;
-			  }
+		  dump($needlist);
 			  $durlist_1 = array_unique($needlist);
 		 	 dump($durlist_1);
 		 	 dump('++++++++++++++++++++++++++++++++');
