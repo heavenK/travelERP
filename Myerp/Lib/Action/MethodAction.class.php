@@ -1801,6 +1801,7 @@ class MethodAction extends CommonAction{
 		 	 dump('++++++++++++++++++++++++++++++++');
 		  }
 		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
+		 	 dump($durlist_2);
 		  if($durlist_1)
 		  $durlist = NF_combin_unique($durlist_1,$durlist_2);
 		  else
