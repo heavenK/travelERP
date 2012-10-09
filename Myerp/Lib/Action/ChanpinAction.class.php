@@ -957,7 +957,6 @@ class ChanpinAction extends CommonAction{
 		$this->assign("zituan",$zituan);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
-		$xianlu['copy'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $xianlu['copy'] );
 		$xianlu = unserialize($xianlu['copy']);
 		$xianlu['xianlu_ext'] = unserialize($xianlu['xianlu']['xianlu_ext']);
 		$this->assign("xianlu",$xianlu);

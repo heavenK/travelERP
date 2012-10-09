@@ -397,7 +397,6 @@ class SetSystemAction extends CommonAction{
 			$where['systemID'] = $_REQUEST['systemID'];
 			$data = $ViewDataDictionary->where($where)->find();
 			if($data['type'] == 'FAQ'){
-				$data['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $data['datatext'] );
 				$data['datatext'] = unserialize($data['datatext']);
 			}
 			$this->ajaxReturn($data, '读取成功！', 1);
@@ -406,7 +405,6 @@ class SetSystemAction extends CommonAction{
 		$data = $ViewDataDictionary->where($where)->findall();
 		$i = 0;
 		foreach($data as $v){
-			$v['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $v['datatext'] );
 			$data[$i]['datatext'] = unserialize($v['datatext']);
 			$i++;
 		}

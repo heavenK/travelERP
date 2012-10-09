@@ -107,7 +107,6 @@ class IndexAction extends Action{
 		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
 		$i = 0;
 		foreach($FAQall as $v){
-			$v['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', '"s:".strlen("$2").":\"$2\";"', $v['datatext'] );
 			$FAQall[$i]['datatext'] = unserialize($v['datatext']);
 //			$FAQall[$i]['datatext'] = mb_unserialize($v['datatext']);
 			$i++;
