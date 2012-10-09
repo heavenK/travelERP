@@ -77,6 +77,7 @@ class MethodAction extends CommonAction{
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
 			$where['owner'] = array('like','%'.$where['owner'].'%');
+			if($where['remark'])
 			$where['remark'] = array('like','%'.$where['remark'].'%');
 		}
 		if($datatype == '子团'){
@@ -113,6 +114,7 @@ class MethodAction extends CommonAction{
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+			if($where['fromcompany'])
 			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
 		}
 		if($datatype == '报账单'){
