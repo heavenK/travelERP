@@ -1765,10 +1765,11 @@ class MethodAction extends CommonAction{
      public function _setDataOMlist($role,$type,$username='') {
 		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
-		  dump($istrue);
+		  dump($username);
 		  if($istrue){
 			  $ViewDepartment = D("ViewDepartment");
 			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
+		  dump($filterlist);
 			  $t = 0;
 			  foreach($filterlist as $v){
 				  $filterlist_2[$t] = $v['systemID'];
@@ -1776,6 +1777,7 @@ class MethodAction extends CommonAction{
 			  }
 		      $where['type'] = array('like','%组团%');
 			  $bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
+		  dump($bumenlist);
 			  $ViewRoles = D("ViewRoles");
 			  $r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 			  $t = 0;
@@ -1800,6 +1802,8 @@ class MethodAction extends CommonAction{
 		  $durlist = NF_combin_unique($durlist_1,$durlist_2);
 		  else
 		  $durlist = $durlist_2;
+		 	 dump($durlist);
+		 	 dump('=================================');
 		  //附加开放给部门角色
 		  $i = 0;
 		  foreach($durlist as $v){
