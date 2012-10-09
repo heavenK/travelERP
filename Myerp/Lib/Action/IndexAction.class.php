@@ -107,7 +107,10 @@ class IndexAction extends Action{
 		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
 		$i = 0;
 		foreach($FAQall as $v){
-			$FAQall[$i]['datatext'] = unserialize($v['datatext']);$i++;
+			$FAQall[$i]['datatext'] = unserialize($v['datatext']);
+			
+			$FAQall[$i]['datatext'] = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $FAQall[$i]['datatext'] );
+			$i++;
 		}
 		$this->assign("datalist",$FAQall);
 		$this->display('Index:FAQ');
