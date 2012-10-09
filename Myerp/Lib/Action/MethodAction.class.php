@@ -570,7 +570,7 @@ class MethodAction extends CommonAction{
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
-		$this->_getDURlist_do($myuserID,$bumen,$bumentype);	
+		return $this->_getDURlist_do($myuserID,$bumen,$bumentype);	
 	 }
 	 
 	//获得用户部门角色列表
@@ -579,7 +579,7 @@ class MethodAction extends CommonAction{
 			$user_name = $this->user['title'];
 		$ViewUser = D("ViewUser");
 		$user = $ViewUser->where("`title` = '$user_name' AND (`status_system` = '1')")->find();
-		$this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
+		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
 	 }
 	 
      public function _getDURlist_do($user_name,$bumen='') {
