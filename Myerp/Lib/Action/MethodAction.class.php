@@ -582,7 +582,7 @@ class MethodAction extends CommonAction{
 		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
 	 }
 	 
-     public function _getDURlist_do($user_name,$bumen='') {
+     public function _getDURlist_do($myuserID,$bumen,$bumentype) {
 		$ViewSystemDUR = D("ViewSystemDUR");
 		if($bumen)//获得部门关联
 		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
@@ -1790,10 +1790,14 @@ class MethodAction extends CommonAction{
 					  $needlist[$t]['rolesID'] = $v['rolesID'];
 					  $t++;
 			  }
-			  $durlist = array_unique($needlist);
+			  $durlist_1 = array_unique($needlist);
 		  }
+		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
+		  if($durlist_1)
+		  $durlist = NF_combin_unique($durlist_1,$durlist_2);
+		  else
+		  $durlist = $durlist_2;
 		  //附加开放给部门角色
-		  $durlist = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
 		  $i = 0;
 		  foreach($durlist as $v){
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
