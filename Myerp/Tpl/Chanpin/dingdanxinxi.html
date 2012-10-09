@@ -136,7 +136,10 @@ function querendingdan(){
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 出团日期：</td>
           <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['chutuanriqi']}></td>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 负责人(操作费)：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:10%"><{$dingdan['fuzeren']}></td>
+          <td align="left" style="height: 32px; min-width:80px; width:20%">
+            <input type="text" name="fuzeren" id="fuzeren" style="width:80px;" value="<{$dingdan['fuzeren']}>" check="^\S+$" warning="负责人不能为空,且不能含有空格">
+            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+          </td>
         </tr>
         <tr>
           <td align="left" style="height: 32px;">收客人及部门（提成）：</td>

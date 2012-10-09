@@ -19,9 +19,6 @@ function checktable()
 				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
 			ThinkAjax.sendForm('form2',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 		}
-		else
-			alert("收客人填写错误");
-		
 	}
 	return false;
 }
@@ -38,10 +35,23 @@ function checktitle(){
 		}
 	} 
 	if(!ishas){
-		return false;
+		alert("收客人填写错误");
 	}
 	else{
-		return true;
+		var title = jQuery("#fuzeren").val();
+		var ishas = 0;
+		for (var i=0;i<datas.length;i++) { 
+			if(title == datas[i]['title']){
+				ishas = 1;
+				break;
+			}
+		} 
+		if(!ishas){
+			alert("负责人填写错误");
+		}
+		else{
+			return true;
+		}
 	}
 }
 	function doshenhe(dotype){
@@ -61,6 +71,7 @@ function checktitle(){
 
 jQuery().ready(function() {
 	  myautocomplete("#owner",'用户');
+	  myautocomplete("#fuzeren",'用户');
 });
 		
  function myautocomplete(target,parenttype)

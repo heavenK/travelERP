@@ -449,6 +449,7 @@ class XiaoshouAction extends Action{
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
 		$dat['dingdan']['tichengID'] = $_REQUEST['tichengID'];
 		$dat['dingdan']['owner'] = $_REQUEST['owner'];
+		$dat['dingdan']['fuzeren'] = $_REQUEST['fuzeren'];
 		$dat['status'] = $_REQUEST['status'];
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat))
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
