@@ -64,7 +64,7 @@ class FormeAction extends Action{
 	//生成单项服务报账单----------------------
 	public function danxiangfuwu_build(){
 		//生成随团单项服务报账单----------------------
-		$this->_danxiangfuwu_build($dat,$dataOMlist,'子团');
+		//$this->_danxiangfuwu_build($dat,$dataOMlist,'子团');
 	}
 	
 	
@@ -604,17 +604,17 @@ class FormeAction extends Action{
 				$dat['chanpinID'] = $zituanID;
 				A("Method")->_createDataOM($zituanID,'子团','管理',$dataOMlist);
 				//生成报账单----------------------
-				$this->_baozhangdan_build($dat,$dataOMlist);
+				$this->_baozhangdan_build($dat);
 				//生成随团单项服务报账单----------------------
-				$this->_danxiangfuwu_build($dat,$dataOMlist,'子团');
-				//生成订单----------------------
+				$this->_danxiangfuwu_build($dat,'','子团');
+				//生成订单----------------------与子团om相同
 				$this->_dingdan_build($dat,$dataOMlist);
 			}
 			else
 			{
-			dump(123321123);	
-			dump($Chanpin);	
-			exit;
+				dump(123321123);	
+				dump($Chanpin);	
+				exit;
 			}
 		}
 		
@@ -761,7 +761,7 @@ class FormeAction extends Action{
 	
 	
 	//生成报账单----------------------
-	public function _baozhangdan_build($zituan,$dataOMlist)
+	public function _baozhangdan_build($zituan)
 	{
 		$Chanpin = D("Chanpin");
 		$gl_baozhang=M("gl_baozhang");
@@ -827,6 +827,8 @@ class FormeAction extends Action{
 		if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 			$baozhangID = $Chanpin->getRelationID();
 			$bzd['chanpinID'] = $baozhangID;
+			//重置omlist
+			$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$bzd['user_name']);
 			A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
 			//生成报账项-----------------------
 			foreach($baozhangitemall as $v){
@@ -966,6 +968,11 @@ class FormeAction extends Action{
 			if(false !== $Chanpin->relation("baozhang")->myRcreate($bzd)){
 				$baozhangID = $Chanpin->getRelationID();
 				$bzd["chanpinID"] = $baozhangID;
+				//重置omlist
+				if($idtype == '子团')
+					$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$bzd['user_name']);
+				if($idtype == '地接')
+					$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$bzd['user_name']);
 				A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
 				//生成随团服务报账项-----------------------
 				foreach($baozhangitemall as $v){
