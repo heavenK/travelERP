@@ -397,7 +397,7 @@ class SetSystemAction extends CommonAction{
 			$where['systemID'] = $_REQUEST['systemID'];
 			$data = $ViewDataDictionary->where($where)->find();
 			if($data['type'] == 'FAQ'){
-				$data['datatext'] = simple_unserialize($data['datatext']);
+				$data['datatext'] = mb_unserialize($data['datatext']);
 			}
 			$this->ajaxReturn($data, '读取成功！', 1);
 			exit;
