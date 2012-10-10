@@ -18,7 +18,7 @@
  * @code
  * <?php
  * $CKEditor = new CKEditor();
- * $CKEditor->editor("editor1", "<p>Initial value.</p>");
+ * echo $CKEditor->textarea("field1", "<p>Initial value.</p>");
  * ?>
  * @endcode
  */

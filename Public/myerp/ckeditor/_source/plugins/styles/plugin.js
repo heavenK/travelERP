@@ -218,8 +218,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 			return true;
 		},
 
-		// Check if the element matches the current style definition.
-		checkElementMatch : function( element, fullMatch )
+		// Checks if an element, or any of its attributes, is removable by the
+		// current style definition.
+		checkElementRemovable : function( element, fullMatch )
 		{
 			var def = this._.definition;
 
@@ -265,23 +266,10 @@ CKEDITOR.STYLE_OBJECT = 3;
 					return true;
 			}
 
-			return false;
-		},
-
-		// Checks if an element, or any of its attributes, is removable by the
-		// current style definition.
-		checkElementRemovable : function( element, fullMatch )
-		{
-			// Check element matches the style itself.
-			if ( this.checkElementMatch( element, fullMatch ) )
-				return true;
-
-			// Check if the element matches the style overrides.
+			// Check if the element can be somehow overriden.
 			var override = getOverrides( this )[ element.getName() ] ;
 			if ( override )
 			{
-				var attribs, attName;
-
 				// If no attributes have been defined, remove the element.
 				if ( !( attribs = override.attributes ) )
 					return true;

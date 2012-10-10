@@ -31,8 +31,7 @@ CKEDITOR.lang['da'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorTitle : 'Rich Text Editor, %1, tryk ALT 0 for hjælp.',
 
 	// ARIA descriptions.
 	toolbars	: 'Editors værktøjslinjer',
@@ -95,7 +94,7 @@ CKEDITOR.lang['da'] =
 		ok				: 'OK',
 		cancel			: 'Annullér',
 		close			: 'Luk',
-		preview			: 'Forhåndsvisning',
+		preview			: 'Smugkig',
 		generalTab		: 'Generelt',
 		advancedTab		: 'Avanceret',
 		validateNumberFailed : 'Værdien er ikke et tal.',
@@ -104,13 +103,13 @@ CKEDITOR.lang['da'] =
 		options			: 'Vis muligheder',
 		target			: 'Mål',
 		targetNew		: 'Nyt vindue (_blank)',
-		targetTop		: 'Øverste vindue (_top)',
+		targetTop		: 'Øverste Vindue (_top)',
 		targetSelf		: 'Samme vindue (_self)',
 		targetParent	: 'Samme vindue (_parent)',
 		langDirLTR		: 'Venstre til højre (LTR)',
 		langDirRTL		: 'Højre til venstre (RTL)',
 		styles			: 'Style',
-		cssClasses		: 'Stylesheetklasser',
+		cssClasses		: 'Stylesheet klasser',
 		width			: 'Bredde',
 		height			: 'Højde',
 		align			: 'Justering',
@@ -162,7 +161,7 @@ CKEDITOR.lang['da'] =
 		targetFrame		: '<ramme>',
 		targetPopup		: '<popup vindue>',
 		targetFrameName	: 'Destinationsvinduets navn',
-		targetPopupName	: 'Popupvinduets navn',
+		targetPopupName	: 'Popup vinduets navn',
 		popupFeatures	: 'Egenskaber for popup',
 		popupResizable	: 'Justérbar',
 		popupStatusBar	: 'Statuslinje',
@@ -181,7 +180,7 @@ CKEDITOR.lang['da'] =
 		acccessKey		: 'Genvejstast',
 		name			: 'Navn',
 		langCode			: 'Tekstretning',
-		tabIndex			: 'Tabulatorindeks',
+		tabIndex			: 'Tabulator indeks',
 		advisoryTitle		: 'Titel',
 		advisoryContentType	: 'Indholdstype',
 		cssClasses		: 'Typografiark',
@@ -190,13 +189,13 @@ CKEDITOR.lang['da'] =
 		rel			: 'Relation',
 		selectAnchor		: 'Vælg et anker',
 		anchorName		: 'Efter ankernavn',
-		anchorId			: 'Efter element-Id',
-		emailAddress		: 'E-mailadresse',
+		anchorId			: 'Efter element Id',
+		emailAddress		: 'E-mail adresse',
 		emailSubject		: 'Emne',
 		emailBody		: 'Besked',
 		noAnchors		: '(Ingen bogmærker i dokumentet)',
-		noUrl			: 'Indtast hyperlink-URL!',
-		noEmail			: 'Indtast e-mailadresse!'
+		noUrl			: 'Indtast hyperlink URL!',
+		noEmail			: 'Indtast e-mail adresse!'
 	},
 
 	// Anchor dialog
@@ -205,8 +204,8 @@ CKEDITOR.lang['da'] =
 		toolbar		: 'Indsæt/redigér bogmærke',
 		menu		: 'Egenskaber for bogmærke',
 		title		: 'Egenskaber for bogmærke',
-		name		: 'Bogmærkenavn',
-		errorName	: 'Indtast bogmærkenavn',
+		name		: 'Bogmærke navn',
+		errorName	: 'Indtast bogmærke navn',
 		remove		: 'Fjern bogmærke'
 	},
 
@@ -225,11 +224,11 @@ CKEDITOR.lang['da'] =
 		notset				: '<ikke defineret>',
 		armenian			: 'Armensk nummering',
 		georgian			: 'Georgiansk nummering (an, ban, gan, etc.)',
-		lowerRoman			: 'Små romerske (i, ii, iii, iv, v, etc.)',
-		upperRoman			: 'Store romerske (I, II, III, IV, V, etc.)',
-		lowerAlpha			: 'Små alfabet (a, b, c, d, e, etc.)',
-		upperAlpha			: 'Store alfabet (A, B, C, D, E, etc.)',
-		lowerGreek			: 'Små græsk (alpha, beta, gamma, etc.)',
+		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)',
+		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)',
+		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)',
+		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)',
+		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)',
 		decimal				: 'Decimal (1, 2, 3, osv.)',
 		decimalLeadingZero	: 'Decimaler med 0 først (01, 02, 03, etc.)'
 	},
@@ -268,7 +267,7 @@ CKEDITOR.lang['da'] =
 		cellPad		: 'Cellemargen',
 		caption		: 'Titel',
 		summary		: 'Resumé',
-		headers		: 'Hoved',
+		headers		: 'Header',
 		headersNone		: 'Ingen',
 		headersColumn	: 'Første kolonne',
 		headersRow		: 'Første række',
@@ -303,7 +302,7 @@ CKEDITOR.lang['da'] =
 			bgColor			: 'Baggrundsfarve',
 			borderColor		: 'Rammefarve',
 			data			: 'Data',
-			header			: 'Hoved',
+			header			: 'Header',
 			yes				: 'Ja',
 			no				: 'Nej',
 			invalidWidth	: 'Cellebredde skal være et tal.',
@@ -428,7 +427,7 @@ CKEDITOR.lang['da'] =
 		linkTab		: 'Hyperlink',
 		button2Img	: 'Vil du lave billedknappen om til et almindeligt billede?',
 		img2Button	: 'Vil du lave billedet om til en billedknap?',
-		urlMissing	: 'Kilde på billed-URL mangler',
+		urlMissing	: 'Kilde på billedurl mangler',
 		validateBorder	: 'Kant skal være et helt nummer.',
 		validateHSpace	: 'HSpace skal være et helt nummer.',
 		validateVSpace	: 'VSpace skal være et helt nummer.'
@@ -442,13 +441,13 @@ CKEDITOR.lang['da'] =
 		title			: 'Egenskaber for Flash',
 		chkPlay			: 'Automatisk afspilning',
 		chkLoop			: 'Gentagelse',
-		chkMenu			: 'Vis Flash-menu',
+		chkMenu			: 'Vis Flash menu',
 		chkFull			: 'Tillad fuldskærm',
  		scale			: 'Skalér',
 		scaleAll		: 'Vis alt',
 		scaleNoBorder	: 'Ingen ramme',
 		scaleFit		: 'Tilpas størrelse',
-		access			: 'Scriptadgang',
+		access			: 'Script adgang',
 		accessAlways	: 'Altid',
 		accessSameDomain: 'Samme domæne',
 		accessNever		: 'Aldrig',
@@ -503,7 +502,7 @@ CKEDITOR.lang['da'] =
 	{
 		toolbar	: 'Smiley',
 		title	: 'Vælg smiley',
-		options : 'Smileymuligheder'
+		options : 'Smiley muligheder'
 	},
 
 	elementsPath :
@@ -722,12 +721,12 @@ CKEDITOR.lang['da'] =
 		title		: 'Om CKEditor',
 		dlgTitle	: 'Om CKEditor',
 		help	: 'Se $1 for at få hjælp.',
-		userGuide : 'CKEditor-brugermanual',
+		userGuide : 'CKEditor brugermanual',
 		moreInfo	: 'For informationer omkring licens, se venligst vores hjemmeside (på engelsk):',
 		copy		: 'Copyright &copy; $1. Alle rettigheder forbeholdes.'
 	},
 
-	maximize : 'Maksimér',
+	maximize : 'Maximér',
 	minimize : 'Minimér',
 
 	fakeobjects :
@@ -783,8 +782,8 @@ CKEDITOR.lang['da'] =
 		chooseColor : 'Vælg',
 		other : '<anden>',
 		docTitle :	'Sidetitel',
-		charset : 	'Tegnsætskode',
-		charsetOther : 'Anden tegnsætskode',
+		charset : 	'Tegnsæt kode',
+		charsetOther : 'Anden tegnsæt kode',
 		charsetASCII : 'ASCII',
 		charsetCE : 'Centraleuropæisk',
 		charsetCT : 'Traditionel kinesisk (Big5)',
@@ -808,9 +807,9 @@ CKEDITOR.lang['da'] =
 		marginRight : 'Højre',
 		marginBottom : 'Nederst',
 		metaKeywords : 'Dokument index nøgleord (kommasepareret)',
-		metaDescription : 'Dokumentbeskrivelse',
+		metaDescription : 'Dokument beskrivelse',
 		metaAuthor : 'Forfatter',
 		metaCopyright : 'Copyright',
-		previewHtml : '<p>Dette er et <strong>eksempel på noget tekst</strong>. Du benytter <a href="javascript:void(0)">CKEditor</a>.</p>'
+		previewHtml : '<p>Dette er et <strong>eksmepel på noget tekst</strong>. Du benytter <a href="javascript:void(0)">CKEditor</a>.</p>'
 	}
 };

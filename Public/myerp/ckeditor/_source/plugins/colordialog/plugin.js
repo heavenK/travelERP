@@ -5,7 +5,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.plugins.colordialog =
 {
-	requires : [ 'dialog' ],
 	init : function( editor )
 	{
 		editor.addCommand( 'colordialog', new CKEDITOR.dialogCommand( 'colordialog' ) );

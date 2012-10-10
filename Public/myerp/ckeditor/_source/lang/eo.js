@@ -31,8 +31,7 @@ CKEDITOR.lang['eo'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'riĉteksta redaktilo, %1',
-	editorHelp : 'Premu ALT 0 por helpilo',
+	editorTitle : 'Redaktilo por Riĉiga Teksto, %1, premu ALT 0 por helpo.',
 
 	// ARIA descriptions.
 	toolbars	: 'Ilobretoj de la redaktilo',

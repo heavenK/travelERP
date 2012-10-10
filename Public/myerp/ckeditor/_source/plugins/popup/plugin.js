@@ -49,9 +49,9 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 
 		try
 		{
-			// Chrome is problematic with moveTo/resizeTo, but it's not really needed here (#8855).
+			// Chrome 18 is problematic, but it's not really needed here (#8855).
 			var ua = navigator.userAgent.toLowerCase();
-			if ( ua.indexOf( ' chrome/' ) == -1 )
+			if ( ua.indexOf( ' chrome/18' ) == -1 )
 			{
 				popupWindow.moveTo( left, top );
 				popupWindow.resizeTo( width, height );

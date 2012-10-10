@@ -127,7 +127,7 @@ CKEDITOR.htmlParser.fragment = function()
 		function sendPendingBRs()
 		{
 			while ( pendingBRs.length )
-				addElement( pendingBRs.shift(), currentNode );
+				currentNode.add( pendingBRs.shift() );
 		}
 
 		/*

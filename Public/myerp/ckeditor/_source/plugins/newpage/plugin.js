@@ -26,7 +26,7 @@ CKEDITOR.plugins.add( 'newpage',
 						{
 							editor.fire( 'afterCommandExec',
 							{
-								name: 'newpage',
+								name: command.name,
 								command: command
 							} );
 							editor.selectionChange();

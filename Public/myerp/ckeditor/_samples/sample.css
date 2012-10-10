@@ -155,3 +155,9 @@ label {
 	display: block;
 	margin-bottom:6px;
 }
+
+.cke_dialog label
+{
+	display: inline;
+	margin-bottom: auto;
+}
