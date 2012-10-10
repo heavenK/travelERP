@@ -314,15 +314,7 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);
-			
-			//dump(unserialize($data[$_REQUEST['tableName']]['datatext']));
-			$data_temp['dataID'] = -1;
-			$data_temp['taskID'] = -2;
-			$data_temp['copy'] =$data[$_REQUEST['tableName']]['datatext'];
-			$DataCopy = D("DataCopy");
-			$DataCopy->add($data_temp);
-			exit;
-			
+			$data[$_REQUEST['tableName']]['copy'] = serialize($_REQUEST);
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))

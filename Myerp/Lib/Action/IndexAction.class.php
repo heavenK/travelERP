@@ -104,8 +104,8 @@ class IndexAction extends Action{
 	
 	public function FAQ() {
 		
-			$DataCopy = D("DataCopy");
-		$a = $DataCopy->where("`dataID` = '-1'")->find();
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$a = $ViewDataDictionary->order("systemID desc")->find();
 		dump(unserialize($a['copy']));
 		exit;
 		
