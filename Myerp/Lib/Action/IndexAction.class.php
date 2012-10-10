@@ -103,6 +103,12 @@ class IndexAction extends Action{
 	
 	
 	public function FAQ() {
+		
+			$DataCopy = D("DataCopy");
+		$a = $DataCopy->where("`dataID` = '-1'")->find();
+		dump(unserialize($a['copy']));
+		exit;
+		
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
 		$i = 0;
