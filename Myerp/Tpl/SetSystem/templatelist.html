@@ -954,8 +954,8 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 				if(status == 1){
 					jQuery("#title").val(data['title']);
 					jQuery("#description").val(data['description']);
-					jQuery("#category").val(data['datatext']['datadictionary']['category']);
-					CKEDITOR.instances.message.setData(data['datatext']['datadictionary']['message']);
+					jQuery("#category").val(data['datatext']['category']);
+					CKEDITOR.instances.message.setData(data['datatext']['message']);
 					jQuery("#systemID").val(data['systemID']);
 					jQuery('#dialog_FAQ').dialog('open');
 				}

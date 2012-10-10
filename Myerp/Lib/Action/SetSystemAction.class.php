@@ -313,7 +313,9 @@ class SetSystemAction extends CommonAction{
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
-			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);
+			$tem['category'] = $_REQUEST['category'];
+			$tem['message'] = $_REQUEST['message'];
+			$data[$_REQUEST['tableName']]['datatext'] = serialize($tem);
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
