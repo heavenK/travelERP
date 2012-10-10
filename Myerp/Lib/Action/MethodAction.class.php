@@ -2230,9 +2230,7 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['datatype'] == '报账单')
 			$url = 'Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
 			if($_REQUEST['datatype'] == '地接')
-			$url = 'Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
-			
-			
+			$url = 'Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
 			
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';

@@ -72,6 +72,7 @@ class DijieAction extends CommonAction{
 	
 	public function dopostfabu()
 	{
+		dump($_REQUEST);
 		$chanpinID = $_REQUEST["chanpinID"];
 		if($chanpinID){
 			//检查dataOM
