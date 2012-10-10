@@ -395,11 +395,9 @@ class SetSystemAction extends CommonAction{
 		$where['type'] = $_REQUEST['type'];
 		if($_REQUEST['returntype'] == 'array' ){
 			$where['systemID'] = $_REQUEST['systemID'];
-			$SystemDataDictionary = D("SystemDataDictionary");
-			$data = $SystemDataDictionary->where($where)->find();
-			//$data = $ViewDataDictionary->where($where)->find();
+			$data = $ViewDataDictionary->where($where)->find();
 			if($data['type'] == 'FAQ'){
-				$data['datatext'] = simple_unserialize($data['datatext']);
+				$data['datatext'] = mb_unserialize($data['datatext']);
 			}
 			$this->ajaxReturn($data, '读取成功！', 1);
 			exit;

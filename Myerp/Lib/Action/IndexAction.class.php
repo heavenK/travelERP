@@ -103,12 +103,6 @@ class IndexAction extends Action{
 	
 	
 	public function FAQ() {
-		
-		$ViewDataDictionary = D("ViewDataDictionary");
-		$a = $ViewDataDictionary->order("systemID desc")->find();
-		dump(unserialize($a['copy']));
-		exit;
-		
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
 		$i = 0;
@@ -120,7 +114,6 @@ class IndexAction extends Action{
 		$this->assign("datalist",$FAQall);
 		$this->display('Index:FAQ');
 	}
-	
 	
 }
 ?>
