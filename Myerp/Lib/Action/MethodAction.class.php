@@ -2220,21 +2220,7 @@ class MethodAction extends CommonAction{
 		//生成待检出	
 		$userIDlist = $this->_shenheDO($_REQUEST,$need);
 		if (false !== $userIDlist){
-			//记录
-			if($_REQUEST['datatype'] == '线路')
-			$url = 'Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
-			if($_REQUEST['datatype'] == '订单')
-			$url = 'Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
-			if($_REQUEST['datatype'] == '报账项')
-			$url = 'Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
-			if($_REQUEST['datatype'] == '报账单')
-			$url = 'Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
-			if($_REQUEST['datatype'] == '地接')
-			$url = 'Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
 			
-			$Chanpin = D("Chanpin");
-			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
-			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
 			$Chanpin = D("Chanpin");
 			$editdat['chanpinID'] = $_REQUEST['dataID'];
 			if($status == '批准'){
@@ -2252,6 +2238,7 @@ class MethodAction extends CommonAction{
 					$this->_tongbushoujia($_REQUEST['dataID']);
 				}
 				$Chanpin->save($editdat);
+				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '订单'){
 				if($status == '批准'){
@@ -2259,9 +2246,12 @@ class MethodAction extends CommonAction{
 					$this->_customerbuild($_REQUEST['dataID']);
 				}
 				$Chanpin->relation("dingdan")->myRcreate($editdat);
+				$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '报账项'){
 				$Chanpin->relation("baozhangitem")->myRcreate($editdat);
+				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 			}
 			if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
@@ -2309,7 +2299,7 @@ class MethodAction extends CommonAction{
 					}
 				}
 				$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
-				
+				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '地接'){
 				if($status == '批准'){
@@ -2332,7 +2322,14 @@ class MethodAction extends CommonAction{
 						$this->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
 					}
 				}
+				$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
+			
+			//记录
+			$Chanpin = D("Chanpin");
+			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
+			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
+			
 			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
 		else
