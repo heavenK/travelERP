@@ -128,7 +128,10 @@ function NF_getdatelistbetweentwodate($d0,$d1,$returntype = 'array'){
 function mb_unserialize($serial_str) {
     $serial_str= preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );//格式移除原因
     $serial_str= str_replace("\r", "", $serial_str);      
-    return unserialize($serial_str);
+    $serial_str = unserialize($serial_str);
+	foreach($serial_str as $key => $val)
+	$serial_str[$key] = stripslashes($val);
+	return $serial_str;
 }	
 
 function simple_unserialize($serial_str) {
