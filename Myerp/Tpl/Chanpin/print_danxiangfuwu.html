@@ -135,7 +135,7 @@
   <php>
   $markhigh = 28;
   $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 16 * $markhigh;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
       $high_1[$i] = $title;
@@ -144,7 +144,7 @@
       if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
   }
   $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$j++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 16 * $markhigh;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
       $high_2[$j] = $title;
@@ -213,7 +213,7 @@
         <td align="left" valign="top">
           <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
             <tr height="28px">
-              <td align="center" colspan="5"><b style="font-size:18px;">应  收  款  项</b></td>
+              <td align="center" colspan="5"><b style="font-size:18px;">应  付  款  项</b></td>
             </tr>
             <tr height="28px">
               <td width="40"  align="center">序号 </td>
