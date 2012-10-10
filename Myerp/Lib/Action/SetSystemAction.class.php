@@ -406,8 +406,6 @@ class SetSystemAction extends CommonAction{
 		$i = 0;
 		foreach($data as $v){
 			$data[$i]['datatext'] = simple_unserialize($v['datatext']);
-			$data[$i]['datatext']['category'] = stripslashes($data[$i]['datatext']['category']);
-			$data[$i]['datatext']['message'] = stripslashes($data[$i]['datatext']['message']);
 			$i++;
 		}
 		$this->assign("datalist",$data);
