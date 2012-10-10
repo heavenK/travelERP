@@ -110,7 +110,7 @@ class IndexAction extends Action{
 //			$FAQall[$i]['datatext'] = simple_unserialize($v['datatext']);
 			$FAQall[$i]['datatext'] = mb_unserialize($v['datatext']);
 			foreach($FAQall[$i]['datatext'] as $key => $val)
-				$FAQall[$i]['datatext'][$key] = stripslashes($vol);
+				$FAQall[$i]['datatext'][$key] = stripslashes($val);
 			$i++;
 		}
 		$this->assign("datalist",$FAQall);
