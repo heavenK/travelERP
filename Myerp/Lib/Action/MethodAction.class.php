@@ -2221,7 +2221,19 @@ class MethodAction extends CommonAction{
 		$userIDlist = $this->_shenheDO($_REQUEST,$need);
 		if (false !== $userIDlist){
 			//记录
-			$url = '';
+			if($_REQUEST['datatype'] == '线路')
+			$url = 'Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
+			if($_REQUEST['datatype'] == '订单')
+			$url = 'Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
+			if($_REQUEST['datatype'] == '报账项')
+			$url = 'Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
+			if($_REQUEST['datatype'] == '报账单')
+			$url = 'Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
+			if($_REQUEST['datatype'] == '地接')
+			$url = 'Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
+			
+			
+			
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
 			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);

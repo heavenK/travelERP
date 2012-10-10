@@ -15,6 +15,7 @@ function uploadComplete(data){
   ThinkAjax.myAjaxResponse(data,'resultdiv',om_save);
 }
 function om_save(data,stats){
+	if(status == 1)
 	window.location = '<{:SITE_INDEX}>Dijie/fabu/chanpinID/'+data['chanpinID'];
 }
 
