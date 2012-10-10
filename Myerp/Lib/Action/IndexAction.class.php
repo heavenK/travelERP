@@ -108,7 +108,7 @@ class IndexAction extends Action{
 		$i = 0;
 		foreach($FAQall as $v){
 //			$FAQall[$i]['datatext'] = simple_unserialize($v['datatext']);
-			$FAQall[$i]['datatext'] = mb_simple_unserialize($v['datatext']);
+			$FAQall[$i]['datatext'] = mb_unserialize($v['datatext']);
 			$i++;
 		}
 		$this->assign("datalist",$FAQall);
