@@ -314,6 +314,10 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);
+			
+			dump(unserialize($data[$_REQUEST['tableName']]['datatext']));
+			
+			
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
