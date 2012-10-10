@@ -1906,6 +1906,12 @@ class MethodAction extends CommonAction{
 			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
 				return false;
 		}
+		if($datatype == '线路'){
+			$p_datatype	= '报账单';
+			$p_cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+				return true;
+		}
 		//检查批准
 		$pz = $this->_getTaskPZ($dataID,$datatype);
 	 	if($pz)
