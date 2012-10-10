@@ -314,7 +314,6 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);
-			$data[$_REQUEST['tableName']]['copy'] = serialize($_REQUEST);
 			$ViewDataDictionary = D("ViewDataDictionary");
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
@@ -396,7 +395,9 @@ class SetSystemAction extends CommonAction{
 		$where['type'] = $_REQUEST['type'];
 		if($_REQUEST['returntype'] == 'array' ){
 			$where['systemID'] = $_REQUEST['systemID'];
-			$data = $ViewDataDictionary->where($where)->find();
+			$SystemDataDictionary = D("SystemDataDictionary");
+			$data = $SystemDataDictionary->where($where)->find();
+			//$data = $ViewDataDictionary->where($where)->find();
 			if($data['type'] == 'FAQ'){
 				$data['datatext'] = simple_unserialize($data['datatext']);
 			}
