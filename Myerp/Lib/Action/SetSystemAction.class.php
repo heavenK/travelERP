@@ -405,7 +405,7 @@ class SetSystemAction extends CommonAction{
 		$data = $ViewDataDictionary->where($where)->findall();
 		$i = 0;
 		foreach($data as $v){
-			$data[$i]['datatext'] = simple_unserialize($v['datatext']);
+			$data[$i]['datatext'] = mb_unserialize($v['datatext']);
 			$i++;
 		}
 		$this->assign("datalist",$data);
