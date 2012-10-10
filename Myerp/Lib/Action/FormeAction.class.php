@@ -798,14 +798,16 @@ class FormeAction extends Action{
 			//报账人数
 			$temprenshu = preg_replace("/[" . chr(0xa0). "-" .chr(0xfe) . "]+/", "", $baozhang['renshu']);//过滤汉字
 			$baozhangrenshu = preg_replace('/[\.a-zA-Z]/s','',$temprenshu); //过滤字母
+			//领队人数
+			$lingdui_num = substr_count($baozhangrenshu,"+1");
+			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
+			$baozhangrenshu = str_replace("+1","",$baozhangrenshu); //去除
+			
 			$renshulist = explode('+',$baozhangrenshu);
 			foreach($renshulist as $rs){
 				$renshu += (int)$rs;
 			}
 			$bzd["baozhang"]['renshu'] = $renshu;
-			//领队人数
-			$lingdui_num = substr_count($baozhangrenshu,"+1");
-			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
 			//计算报账项
 			$baozhangitemall = $gl_baozhangitem->where("`baozhangID` = '$baozhang[baozhangID]'")->findall();
 			foreach($baozhangitemall as $v){

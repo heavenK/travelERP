@@ -1065,12 +1065,18 @@ class MethodAction extends CommonAction{
 		else{
 			$omdata = $this->_checkDataOM($dataID,$datatype,'管理');
 			if(false !== $omdata){
-				if($this->_checkShenhe($datatype,2))
-				cookie('show_word','申请审核',30);
-				else
-				cookie('show_word','批准',30);
-				cookie('show_action','申请',30);
-				return $omdata;
+				
+				$Chanpin = D("Chanpin");
+				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+				if($data['status_shenhe'] != '批准'){
+					if($this->_checkShenhe($datatype,2))
+					cookie('show_word','申请审核',30);
+					else
+					cookie('show_word','批准',30);
+					cookie('show_action','申请',30);
+					return $omdata;
+				}
+				return false;
 			}
 			else{
 				cookie('errormessage','错误！您没有产品的管理权限！',30);
@@ -1897,7 +1903,7 @@ class MethodAction extends CommonAction{
 		if($datatype == '报账项'){
 			$p_datatype	= '报账单';
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准')
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
 				return false;
 		}
 		//检查批准
@@ -2416,7 +2422,11 @@ class MethodAction extends CommonAction{
 		}
 		if($cpin['status_shenhe'] == '批准'){
 			$ViewShenhe = D("ViewShenhe");
-			$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
+			$djc = $this->_getTaskDJC($dataID,$datatype);
+			if($djc)
+				$piz['processID'] = $djc['processID']-1;
+			else
+				$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
 			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 			if(false === $checkds)
 				$this->ajaxReturn('', '错误！您没有操作权限！', 0);
