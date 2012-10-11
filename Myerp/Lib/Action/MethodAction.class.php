@@ -1511,12 +1511,17 @@ class MethodAction extends CommonAction{
 			$cus['dingdanID'] = $dingdanID;
 			$id = $i+1;
 			if($_REQUEST['tuanyuanID'.$id]){//游客已存在，数据丢失报错
+				$mark_cunzai = 1;
 				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
 				$cus = $DataCD->where("`id` = '$cus[id]'")->find();
 				if(!$cus){
 					cookie('errormessage','错误，请联系管理员！！！',30);
 					$DataCD->rollback();
 					return false;
+				}
+				if($cus['datatext']){
+					$cus = simple_unserialize($cus['datatext']);
+					$cus['id'] = $_REQUEST['tuanyuanID'.$id];
 				}
 			}
 			else{//游客不存在，数据异常报错
@@ -1533,7 +1538,26 @@ class MethodAction extends CommonAction{
 			$cus['zhengjiantype'] = $_REQUEST['zhengjiantype'.$id];
 			$cus['zhengjianhaoma'] = $_REQUEST['zhengjianhaoma'.$id];
 			$cus['telnum'] = $_REQUEST['telnum'.$id];
+			$cus['pinyin'] = $_REQUEST['pinyin'.$id];
+			$cus['chushengriqi'] = $_REQUEST['chushengriqi'.$id];
+			$cus['hujidi'] = $_REQUEST['hujidi'.$id];
+			$cus['zhengjianyouxiaoqi'] = $_REQUEST['zhengjianyouxiaoqi'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
+			//序列化
+			if($cus['zhengjiantype'] == '身份证'){
+				$cus['sfz_haoma'] = $cus['zhengjiantype'];
+				$cus['sfz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
+			}
+			if($cus['zhengjiantype'] == '护照'){
+				$cus['hz_haoma'] = $cus['zhengjiantype'];
+				$cus['hz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
+			}
+			if($cus['zhengjiantype'] == '通行证'){
+				$cus['txz_haoma'] = $cus['zhengjiantype'];
+				$cus['txz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
+			}
+			if(!$cus['datatext'])//第一次执行
+			$cus['datatext'] = serialize($cus);
 			$durlist = $this->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
 			if(false !== $durlist){
 				$cus['ispay'] = $_REQUEST['ispay'.$id];
@@ -1553,8 +1577,8 @@ class MethodAction extends CommonAction{
 				}
 				
 			}
-			$haomalist[$i] = $cus['zhengjianhaoma'];
 			//查找老客户
+			$haomalist[$i] = $cus['zhengjianhaoma'];
 			if($cus['zhengjiantype'] == '身份证')
 				$zhengjianhaoma = 'sfz_haoma';
 			if($cus['zhengjiantype'] == '护照')
@@ -1586,11 +1610,22 @@ class MethodAction extends CommonAction{
 			}
 			$jiage += $cus['price'];
 			$cus['remark'] = $_REQUEST['remark'.$id];
-			if (false === $DataCD->mycreate($cus)){
-				cookie('errormessage','错误，请联系管理员！',30);
-				$DataCD->rollback();
-				return false;
+			
+			if($mark_cunzai == 1){
+				if (false === $DataCD->save($cus)){
+					cookie('errormessage','错误，请联系管理员！?!!',30);
+					$DataCD->rollback();
+					return false;
+				}
 			}
+			else{
+				if (false === $DataCD->mycreate($cus)){
+					cookie('errormessage','错误，请联系管理员！!!',30);
+					$DataCD->rollback();
+					return false;
+				}
+			}
+			
 		}
 		$DataCD->commit();
 		//反补订单信息

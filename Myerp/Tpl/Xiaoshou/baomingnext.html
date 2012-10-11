@@ -4,6 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><{$zituan['xianlulist']['title']}></title>
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 <style>
@@ -103,11 +104,13 @@ function save(){
     <php>foreach($_REQUEST as $key => $val){</php>
     <input type="hidden" name="<{$key}>" value="<{$val}>" />
     <php>}</php>
+    
     <table width="100%" class="tb1 renyuanxinxi" cellpadding="0" cellspacing="0" >
       <tbody>
         <tr>
           <td colspan="8" height="32" align="left" ><h4><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 人员信息 </h4></td>
         </tr>
+    <php>if($_REQUEST['guojing_copy'] == '国内'){</php>
         <tr>
           <td align="left" style="height: 32px"> 姓名： </td>
           <td align="left" style="height: 32px"> 类型： </td>
@@ -143,6 +146,51 @@ function save(){
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
         </tr>
         <php>}</php>
+    <php>}</php>
+        
+    <php>if($_REQUEST['guojing_copy'] == '境外'){</php>
+        <tr>
+          <td align="left" style="height: 32px"> 姓名： </td>
+          <td align="left" style="height: 32px"> 拼音： </td>
+          <td align="left" style="height: 32px"> 类型： </td>
+          <td align="left" style="height: 32px"> 性别： </td>
+          <td align="left" style="height: 32px"> 证件类型： </td>
+          <td align="left" style="height: 32px"> 证件号码： </td>
+          <td align="left" style="height: 32px"> 生日： </td>
+          <td align="left" style="height: 32px"> 户籍地： </td>
+          <td align="left" style="height: 32px"> 证件有效期： </td>
+          <td align="left" style="height: 32px"> 应付： </td>
+          <td align="left" style="height: 32px"> 备注： </td>
+        </tr>
+       <php>$i = 0; foreach($tuanyuan as $vo){$i++;</php>
+        <tr>
+          <td align="left" style="height: 32px"><input name="name<{$i}>" type="text" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="pinyin<{$i}>" type="text" check="^\S+$" warning="拼音不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px">
+          <input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}>
+          </td>
+          <td align="left" style="height: 32px">
+          <select name="sex<{$i}>">
+          <option value="男">男</option>
+          <option value="女">女</option>
+          </select>
+          </td>
+          <td align="left" style="height: 32px">
+          <select name="zhengjiantype<{$i}>">
+          <option value="身份证">身份证</option>
+          <option value="护照">护照</option>
+          <option value="通行证">通行证</option>
+          </select>
+          </td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"  check="^\S+$" warning="出生日期不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" check="^\S+$" warning="户籍地不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" check="^\S+$" warning="证件有效期不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" ></td>
+          <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
+        </tr>
+        <php>}</php>
+    <php>}</php>
         
         <tr>
           <td align="left" style="height: 32px"> 验证码：</td>

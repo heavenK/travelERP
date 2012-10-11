@@ -136,16 +136,7 @@ class XiaoshouAction extends Action{
 	}
 	
 	
-	
-    public function baoming() {
-		C('TOKEN_ON',false);
-		if (md5($_REQUEST['verifyTest']) != session('verify'))
-			$this->ajaxReturn($_REQUEST,'验证码错误,请刷新验证码并重新填写！', 0);
-		else{
-			//ajax测试
-			if($_REQUEST['ajaxtest'] != 1)
-				session('verify',null);
-		}
+    public function _ckeck_baoming() {
 		//检查数据
 		//owner
 		$ViewUser = D("ViewUser");
@@ -206,6 +197,18 @@ class XiaoshouAction extends Action{
 			if($shengyurenshu - ($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num']) < 0)
 			$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 		}
+	}
+	
+    public function baoming() {
+		C('TOKEN_ON',false);
+		if (md5($_REQUEST['verifyTest']) != session('verify'))
+			$this->ajaxReturn($_REQUEST,'验证码错误,请刷新验证码并重新填写！', 0);
+		else{
+			//ajax测试
+			if($_REQUEST['ajaxtest'] != 1)
+				session('verify',null);
+		}
+		$this->_ckeck_baoming();
 		//ajax测试
 		if($_REQUEST['ajaxtest'] == 1)
 			$this->ajaxReturn($_REQUEST,'成功！', 1);
@@ -270,6 +273,7 @@ class XiaoshouAction extends Action{
 		  } 
 		else
 		session('verify',null);
+		$this->_ckeck_baoming();
 		//检查dataOM
 		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价');
 		if(false === $xiaoshou){
@@ -301,6 +305,7 @@ class XiaoshouAction extends Action{
 			$dataOMlist = A("Method")->_getDataOM($zituan['parentID'],'线路','管理');
 			A("Method")->_createDataOM($dingdanID,'订单','管理',$dataOMlist);
 			//生成团员
+			if($data['status'] == '确认')
 			A("Method")->createCustomer_new($_REQUEST,$dingdanID);
 			justalert('确认成功！');
 			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdanID);
@@ -379,6 +384,11 @@ class XiaoshouAction extends Action{
 				$tuanyuan[$i]['manorchild'] = '领队';
 				$tuanyuan[$i]['price'] = 0;
 			}
+		}
+		$i = 0;
+		foreach($tuanyuan as $v){
+			$tuanyuan[$i]['datatext'] = simple_unserialize($v['datatext']);
+			$i++;
 		}
 		$this->assign("tuanyuan",$tuanyuan);
 		//提成数据
@@ -497,8 +507,11 @@ class XiaoshouAction extends Action{
 		$DataCD = D("DataCD");
 		$dat = $DataCD->where("`id` = '$_REQUEST[id]'")->find();
 		$this->assign("datacd",$dat);
-		if($dat['datatext'])
+		if($dat['datatext']){
 			$dat = simple_unserialize($dat['datatext']);
+			if($dat['datatext'])		
+			$dat = simple_unserialize($dat['datatext']);
+		}
 		else{//查询顾客表
 			$ViewCustomer = D("ViewCustomer");
 			if($dat['zhengjiantype'] == '身份证')
@@ -529,12 +542,18 @@ class XiaoshouAction extends Action{
 		$DataCD = D("DataCD");
 		$data = $_REQUEST;
 		$dt = $DataCD->where("`id` = '$_REQUEST[id]'")->find();
-		if($dt['zhengjiantype'] == '身份证')
+		if($dt['zhengjiantype'] == '身份证'){
 			$data['zhengjianhaoma'] = $data['sfz_haoma'];
-		if($dt['zhengjiantype'] == '护照')
+			$data['zhengjianyouxiaoqi'] = $data['sfz_youxiaoqi'];
+		}
+		if($dt['zhengjiantype'] == '护照'){
 			$data['zhengjianhaoma'] = $data['hz_haoma'];
-		if($dt['zhengjiantype'] == '通行证')
+			$data['zhengjianyouxiaoqi'] = $data['hz_youxiaoqi'];
+		}
+		if($dt['zhengjiantype'] == '通行证'){
 			$data['zhengjianhaoma'] = $data['txz_haoma'];
+			$data['zhengjianyouxiaoqi'] = $data['txz_youxiaoqi'];
+		}
 		$data['datatext'] = serialize($_REQUEST);
 		unset($data['remark']);
 		if( false !== $DataCD->save($data))

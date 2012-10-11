@@ -105,7 +105,7 @@ function TravelerDetail(id)
 	ajaxalert("请填写团员基本信息，并保存后刷新后重试！！");
 	return ;
 	}
-	save();
+	save();//保存
     var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
     window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
 }

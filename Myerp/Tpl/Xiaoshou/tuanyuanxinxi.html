@@ -71,11 +71,7 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td align="right" height="40"> 身份证号码： </td>
-          <php>if($datacd['zhengjiantype'] == '身份证'){</php>
-          <td align="left"><input name="sfz_haoma" type="text" value="<{$datacd[zhengjianhaoma]}>"></td>
-          <php>}else{</php>
           <td align="left"><input name="sfz_haoma" type="text" value="<{$data[sfz_haoma]}>"></td>
-          <php>}</php>
           <td align="right" height="40"> 身份证签发地：</td>
           <td align="left"><input name="sfz_qianfadi" type="text" value="<{$data[sfz_qianfadi]}>"></td>
         </tr>
@@ -118,18 +114,10 @@ function doComplete(data,status){
         <tr>
           <td align="right" height="40" rowspan="4"> 护照： </td>
           <td align="left" height="40"> 护照号码：
-          <php>if($datacd['zhengjiantype']== '护照'){</php>
-         <input name="hz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
-          <php>}else{</php>
             <input name="hz_haoma" type="text" style="width:65%;" value="<{$data[hz_haoma]}>"></td>
-          <php>}</php>
           <td align="right" rowspan="4"> 通行证：</td>
           <td align="left" height="40"> 通行证号：
-          <php>if($datacd['zhengjiantype']== '他通行证'){</php>
-          <input name="txz_haoma" type="text" style="width:65%;" value="<{$datacd[zhengjianhaoma]}>"></td>
-          <php>}else{</php>
             <input name="txz_haoma" type="text" style="width:65%;" value="<{$data[txz_haoma]}>"></td>
-          <php>}</php>
         </tr>
         <tr>
           <td align="left" height="40"> 签 发 地：

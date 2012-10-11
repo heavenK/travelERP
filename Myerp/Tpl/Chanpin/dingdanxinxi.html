@@ -1,4 +1,5 @@
 <tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Xiaoshou/dingdanxinxi.js'></script>
 <style>
 .tb1 {
@@ -233,6 +234,7 @@ function querendingdan(){
           <h4 style="float:left"><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 人员信息 </h4> 
           </td>
         </tr>
+	<php>if($dingdan['zituanlist']['guojing_copy'] == '国内'){</php> 
         <tr>
           <td align="left" style="height: 32px"> 姓名： </td>
           <td align="left" style="height: 32px"> 类型： </td>
@@ -250,10 +252,10 @@ function querendingdan(){
        <input type="hidden" name="tuanyuanID<{$i}>" value="<{$vo['id']}>" />
        <input type="hidden" name="datatext<{$i}>" value="<{$vo['datatext']}>" />
         <tr>
-          <td align="left" style="height: 32px"><input style="width:50px;" type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}></td>
           <td align="left" style="height: 32px">
-          <select name="sex<{$i}>" style="width:40px;">
+          <select name="sex<{$i}>">
        <php>if($vo['sex']){</php>
           <option value="<{$vo['sex']}>"><{$vo['sex']}></option>
           <option disabled="disabled">----------------</option>
@@ -264,7 +266,7 @@ function querendingdan(){
           </td>
           <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" value="<{$vo['telnum']}>"></td>
           <td align="left" style="height: 32px">
-          <select style="width:60px;" name="zhengjiantype<{$i}>">
+          <select name="zhengjiantype<{$i}>">
        <php>if($vo['zhengjiantype']){</php>
           <option value="<{$vo['zhengjiantype']}>"><{$vo['zhengjiantype']}></option>
           <option disabled="disabled">----------------</option>
@@ -275,7 +277,7 @@ function querendingdan(){
           </select>
           </td>
           <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input style="width:50px;" name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
           <td align="left" style="height: 32px">
           <strong><{$vo['ispay']}></strong>/
@@ -305,6 +307,89 @@ function querendingdan(){
           </td>
         </tr>
         <php>}</php>
+	<php>}</php>
+        
+        
+	<php>if($dingdan['zituanlist']['guojing_copy'] == '境外'){</php> 
+        <tr>
+          <td align="left" style="height: 32px"> 姓名： </td>
+          <td align="left" style="height: 32px"> 拼音： </td>
+          <td align="left" style="height: 32px"> 类型： </td>
+          <td align="left" style="height: 32px"> 性别： </td>
+          <td align="left" style="height: 32px"> 证件类型： </td>
+          <td align="left" style="height: 32px"> 证件号码： </td>
+          <td align="left" style="height: 32px"> 生日： </td>
+          <td align="left" style="height: 32px"> 户籍地： </td>
+          <td align="left" style="height: 32px"> 证件有效期： </td>
+          <td align="left" style="height: 32px"> 应付： </td>
+          <td align="left" style="height: 32px"> 备注： </td>
+          <td align="left" style="height: 32px"> 付款状态/付款确认 </td>
+          <td align="left" style="height: 32px"> 客户类型 </td>
+          <td align="left" style="height: 32px"> 详细资料： </td>
+        </tr>
+       <php>$i = 0; foreach($tuanyuan as $vo){$i++;</php>
+       <input type="hidden" name="tuanyuanID<{$i}>" value="<{$vo['id']}>" />
+       <input type="hidden" name="datatext<{$i}>" value="<{$vo['datatext']}>" />
+        <tr>
+          <td align="left" style="height: 32px"><input type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input type="text" name="pinyin<{$i}>" value="<{$vo[datatext]['pinyin']}>" check="^\S" warning="所有拼音不能为空"></td>
+          <td align="left" style="height: 32px"><input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}></td>
+          <td align="left" style="height: 32px">
+          <select name="sex<{$i}>">
+       <php>if($vo['sex']){</php>
+          <option value="<{$vo['sex']}>"><{$vo['sex']}></option>
+          <option disabled="disabled">----------------</option>
+       <php>}</php>
+          <option value="男">男</option>
+          <option value="女">女</option>
+          </select>
+          </td>
+          <td align="left" style="height: 32px">
+          <select name="zhengjiantype<{$i}>">
+       <php>if($vo['zhengjiantype']){</php>
+          <option value="<{$vo['zhengjiantype']}>"><{$vo['zhengjiantype']}></option>
+          <option disabled="disabled">----------------</option>
+       <php>}</php>
+          <option value="身份证">身份证</option>
+          <option value="护照">护照</option>
+          <option value="通行证">通行证</option>
+          </select>
+          </td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['chushengriqi']}>" check="^\S+$" warning="生日不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" value="<{$vo['datatext']['hujidi']}>" check="^\S+$" warning="户籍地不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['zhengjianyouxiaoqi']}>" check="^\S+$" warning="证件有效期不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
+          <td align="left" style="height: 32px">
+          <strong><{$vo['ispay']}></strong>/
+          <select name="pay_method<{$i}>">
+          	<php>if($vo['pay_method']){</php>
+              <option style="width:50px;" value="<{$vo['pay_method']}>"><{$vo['pay_method']}></option>
+              <option disabled="disabled">--------</option>
+          	<php>}</php>
+              <option value="现金">现金</option>
+              <option value="网拨">网拨</option>
+              <option value="银行卡">银行卡</option>
+              <option value="汇款">汇款</option>
+              <option value="转账">转账</option>
+              <option value="支票">支票</option>
+              <option value="签单">签单</option>
+            </select>
+           <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" <php>if(!$vo['ispay']){</php> value="未付款" <php>}</php> value="<{$vo['ispay']}>"/>
+            <input style="width:60px;" class="button" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
+          </td>
+          <td align="left" style="height: 32px"><php>if($vo[laokehu] == 0) echo '新客户' ;else echo '老客户';</php></td>
+          <td align="left" style="height: 32px">
+          <php>if($vo['id']){</php>
+          <a href="javascript:TravelerDetail(<{$vo['id']}>)">查看</a>
+          <php>}else{</php>
+          <a href="javascript:TravelerDetail('')">查看</a>
+          <php>}</php>
+          </td>
+        </tr>
+        <php>}</php>
+	<php>}</php>
         <tr>
           <td colspan="10" height="32" align="center" >
           <input style="width:60px;" class="button" type="button" value=" 保存 " onClick="if(CheckForm('form1','resultdiv_2'))save();">
