@@ -84,15 +84,15 @@ class Dispatcher {
         // URL常量
         define('__SELF__',$_SERVER['REQUEST_URI']);
         // 当前项目地址
-        define('__APP__',PHP_FILE);
+        define('__APP__',PHP_FILE.'111115551');
         // 当前模块和分组地址
         $module = defined('P_MODULE_NAME')?P_MODULE_NAME:MODULE_NAME;
         if(defined('GROUP_NAME')) {
             $group   = C('URL_CASE_INSENSITIVE') ?strtolower(GROUP_NAME):GROUP_NAME;
             define('__GROUP__', GROUP_NAME == C('DEFAULT_GROUP') ?__APP__ : __APP__.'/'.$group);
-            define('__URL__', __GROUP__.$depr.$module.'1111111');
+            define('__URL__', __GROUP__.$depr.$module);
         }else{
-            define('__URL__',__APP__.'/'.$module.'222222');
+            define('__URL__',__APP__.'/'.$module);
         }
         // 当前操作地址
         define('__ACTION__',__URL__.$depr.ACTION_NAME);
