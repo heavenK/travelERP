@@ -40,12 +40,11 @@ if(!IS_CLI) {
         if(IS_CGI) {
             //CGI/FASTCGI模式下
             $_temp  = explode('.php',$_SERVER['PHP_SELF']);
-			var_dump($_SERVER);
-			var_dump($_SERVER['PHP_SELF']);
-			var_dump($_temp);
-            define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/').'41124142');
+			if(!$_temp)
+            $_temp  = explode('.php',$_SERVER['SCRIPT_NAME']);
+            define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/'));
         }else {
-            define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/').'2333121');
+            define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/'));
         }
     }
     if(!defined('__ROOT__')) {
