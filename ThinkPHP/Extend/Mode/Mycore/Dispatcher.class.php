@@ -37,7 +37,7 @@ class Dispatcher {
         $urlMode  =  C('URL_MODEL');
         if($urlMode == URL_COMPAT || !empty($_GET[C('VAR_PATHINFO')])){
             // 兼容模式判断
-            define('PHP_FILE',_PHP_FILE_.'?'.C('VAR_PATHINFO').'=');
+            define('PHP_FILE',_PHP_FILE_.'?'.C('VAR_PATHINFO').'='.'3333333');
             $_SERVER['PATH_INFO']   = $_GET[C('VAR_PATHINFO')];
             unset($_GET[C('VAR_PATHINFO')]);
         }elseif($urlMode == URL_REWRITE ) {
@@ -45,10 +45,10 @@ class Dispatcher {
             $url    =   dirname(_PHP_FILE_);
             if($url == '/' || $url == '\\')
                 $url    =   '';
-            define('PHP_FILE',$url);
+            define('PHP_FILE',$url.'222222');
         }else {
             //当前项目地址
-            define('PHP_FILE',_PHP_FILE_);
+            define('PHP_FILE',_PHP_FILE_.'11111111');
         }
 
         // 分析PATHINFO信息
@@ -84,7 +84,7 @@ class Dispatcher {
         // URL常量
         define('__SELF__',$_SERVER['REQUEST_URI']);
         // 当前项目地址
-        define('__APP__',PHP_FILE.'111115551');
+        define('__APP__',PHP_FILE);
         // 当前模块和分组地址
         $module = defined('P_MODULE_NAME')?P_MODULE_NAME:MODULE_NAME;
         if(defined('GROUP_NAME')) {
