@@ -10,6 +10,6 @@
     define('LOGIN_TIME_FAILE', 60 * 10);
 	
 	
-	
+    define('__APP__' ,ET_URL.'rbac.php?s=/');
 	
 ?>

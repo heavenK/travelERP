@@ -1475,7 +1475,7 @@ class MethodAction extends CommonAction{
 		import ( '@.ORG.Util.RBAC' );
 		session(null);
 		session(C('USER_AUTH_KEY'),$user['systemID']);
-		if($user['title']=='aaa' || $user['title']=='bbb' || $user['title'] == 'kkk' || $user['title'] == 'zhangwen') {
+		if($user['title']=='aaa' || $user['title']=='bbb' || $user['title'] == 'kkk') {
 			session(C('ADMIN_AUTH_KEY'),true);
 		}
 		// 缓存访问权限
