@@ -40,6 +40,8 @@ if(!IS_CLI) {
         if(IS_CGI) {
             //CGI/FASTCGI模式下
             $_temp  = explode('.php',$_SERVER['PHP_SELF']);
+			dump($_SERVER['PHP_SELF']);
+			dump($_temp);
             define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/').'41124142');
         }else {
             define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/').'2333121');
