@@ -42,8 +42,6 @@ if(!IS_CLI) {
             $_temp  = explode('.php',$_SERVER['SCRIPT_NAME']);
 			if($_SERVER['PHP_SELF'])
             $_temp  = explode('.php',$_SERVER['PHP_SELF']);
-			var_dump($_temp);
-			var_dump(rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/'));
             define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/'));
         }else {
             define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/'));
