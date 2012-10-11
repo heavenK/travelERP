@@ -1479,7 +1479,7 @@ class MethodAction extends CommonAction{
 			session(C('ADMIN_AUTH_KEY'),true);
 		}
 		// 缓存访问权限
-		session(C('ADMIN_AUTH_KEY'),true);//测试期间全部开放
+		//session(C('ADMIN_AUTH_KEY'),true);//测试期间全部开放
 		RBAC::saveAccessList();
 	 }
 	 
