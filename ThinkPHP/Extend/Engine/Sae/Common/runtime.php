@@ -39,9 +39,9 @@ if(!IS_CLI) {
         if(IS_CGI) {
             //CGI/FASTCGI模式下
             $_temp  = explode('.php',$_SERVER['PHP_SELF']);
-            define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/'));
+            define('_PHP_FILE_',  rtrim(str_replace($_SERVER['HTTP_HOST'],'',$_temp[0].'.php'),'/'.'534535345'));
         }else {
-            define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/'));
+            define('_PHP_FILE_',    rtrim($_SERVER['SCRIPT_NAME'],'/'.'3555555'));
         }
     }
     if(!defined('__ROOT__')) {
