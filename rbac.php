@@ -11,10 +11,6 @@ define('APP_PATH', './Rbac/');
 //define('SITE_URL',ET_URL);
 define('APP_DEBUG', true);
 
-	
-define('__APP__',ET_URL.'rbac.php');
-define('__PUBLIC__',ET_URL."Public");
-define('__URL__',ET_URL."Public");
 
 require('./Myerp/Common/Function.php');
 require(THINK_PATH.'ThinkPHP.php');
