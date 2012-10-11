@@ -15,6 +15,7 @@ define('APP_DEBUG', true);
 //define('__APP__',ET_URL.'rbac.php');
 //define('__PUBLIC__',ET_URL."Public");
 //define('__URL__',ET_URL."Public");
+define('_PHP_FILE_',$_SERVER['SCRIPT_NAME']);
 
 require('./Myerp/Common/Function.php');
 require(THINK_PATH.'ThinkPHP.php');
