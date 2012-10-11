@@ -2250,6 +2250,7 @@ class MethodAction extends CommonAction{
 			}
 			if($_REQUEST['datatype'] == '报账项'){
 				$Chanpin->relation("baozhangitem")->myRcreate($editdat);
+				$ViewBaozhangitem = D("ViewBaozhangitem");
 				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 			}
