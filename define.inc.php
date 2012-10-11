@@ -9,6 +9,7 @@
     define('LOGIN_TIME', 3600 * 6);
     define('LOGIN_TIME_FAILE', 60 * 10);
 	
-    define('__APP__' ,ET_URL.'rbac.php');
+//    define('__APP__' ,ET_URL.'rbac.php');
+//    define('__PUBLIC__' ,ET_URL.'Public');
 	
 ?>
