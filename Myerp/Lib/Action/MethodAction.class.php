@@ -1050,10 +1050,8 @@ class MethodAction extends CommonAction{
      public function _checkOMTaskShenhe($dataID,$datatype) {
 	 	//流程
 		$process = $this->_getTaskDJC($dataID,$datatype);
-				dump($process);
 		if($process){
 			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
-				dump($omdata);
 			if(false !== $omdata){
 				cookie('show_word','批准',30);
 				cookie('show_action','批准',30);
