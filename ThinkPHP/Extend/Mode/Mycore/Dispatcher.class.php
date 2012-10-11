@@ -90,9 +90,9 @@ class Dispatcher {
         if(defined('GROUP_NAME')) {
             $group   = C('URL_CASE_INSENSITIVE') ?strtolower(GROUP_NAME):GROUP_NAME;
             define('__GROUP__', GROUP_NAME == C('DEFAULT_GROUP') ?__APP__ : __APP__.'/'.$group);
-            define('__URL__', __GROUP__.$depr.$module);
+            define('__URL__', __GROUP__.$depr.$module.'1111111');
         }else{
-            define('__URL__',__APP__.'/'.$module);
+            define('__URL__',__APP__.'/'.$module.'222222');
         }
         // 当前操作地址
         define('__ACTION__',__URL__.$depr.ACTION_NAME);
