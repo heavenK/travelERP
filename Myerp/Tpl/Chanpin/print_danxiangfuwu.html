@@ -78,7 +78,7 @@
       </tr>
     <php>}</php>
       
-    <php>if($baozhang['type'] == '签证'){</php>
+    <php>if($baozhang['type'] == '签证' || $baozhang['type'] == '办证'){</php>
       <tr height="28px" >
         <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
         <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
@@ -87,7 +87,7 @@
       </tr>
     <php>}</php>
       
-    <php>if($baozhang['type'] == '机票'){</php>
+    <php>if($baozhang['type'] == '机票' || $baozhang['type'] == '交通'){</php>
       <tr height="28px" >
         <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
         <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
@@ -110,8 +110,8 @@
         <td width="25%">&nbsp;联系电话:<{$baozhang['datatext']['hoteltelnum']}></td>
       </tr>
       <tr height="28px" >
-        <td width="25%">&nbsp;订房时间：<{$baozhang['datatext']['shifadi']}></td>
-        <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['mudidi']}></td>
+        <td width="25%">&nbsp;订房时间：<{$baozhang['datatext']['dingfangshijian']}></td>
+        <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuanshijian']}></td>
         <td width="25%">&nbsp;</td>
         <td width="25%">&nbsp;</td>
       </tr>
@@ -123,6 +123,15 @@
         <td width="25%">&nbsp;</td>
         <td width="25%">&nbsp;</td>
         <td width="25%">&nbsp;</td>
+      </tr>
+    <php>}</php>
+      
+    <php>if($baozhang['type'] == '导游' || $baozhang['type'] == '餐饮 || $baozhang['type'] == '门票''){</php>
+      <tr height="28px" >
+        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+        <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
+        <td width="25%">&nbsp;联系电话：<{$baozhang['datatext']['telnum']}></td>
+        <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuantime']}></td>
       </tr>
     <php>}</php>
       

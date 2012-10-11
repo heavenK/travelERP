@@ -562,6 +562,16 @@ class ChanpinAction extends CommonAction{
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->order("time desc")->where("`parentID` = '$_REQUEST[chanpinID]' AND `status_system` = '1' and `status` = '确认'")->findall();
+		$i = 0;
+		$j = 0;
+		foreach($dingdanlist as $v){
+			foreach($v['tuanyuanlist'] as $vol){
+				$cus = simple_unserialize($vol['datatext']);
+				$dingdanlist[$i]['tuanyuanlist'][$j] = array_merge($dingdanlist[$i]['tuanyuanlist'][$j],$cus);
+				$j++;
+			}
+			$i++;
+		}
 		$this->assign("dingdanlist",$dingdanlist);
 		//统计
 		$baomingrenshu = 0;

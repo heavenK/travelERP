@@ -38,6 +38,8 @@
             </table>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
               <tbody>
+              
+              <php>if($zituan['guojing_copy'] == '国内'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap" style="width:100px;"><div> 姓名 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
@@ -62,6 +64,43 @@
                   <td scope="row" align="left" valign="top"><a href="javascript:TravelerDetail(<{$vol['id']}>)">查看</a></td>
                 </tr>
                 <php> }</php>
+                <php> }</php>
+                
+                
+              <php>if($zituan['guojing_copy'] == '境外'){</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div> 姓名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div> 拼音 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团费 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件有效期 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 生日 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 户籍地 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 需求 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 详细资料 </div></th>
+                </tr>
+                <php> foreach($v['tuanyuanlist'] as $vol){</php>
+                <tr style="cursor:pointer" height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$vol['name']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['pinyin']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['sex']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['manorchild']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['price']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjiantype']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjianhaoma']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjianyouxiaoqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['chushengriqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['hujidi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
+                  <td scope="row" align="left" valign="top"><a href="javascript:TravelerDetail(<{$vol['id']}>)">查看</a></td>
+                </tr>
+                <php> }</php>
+                <php> }</php>
+                
+                
                 
               </tbody>
             </table>
