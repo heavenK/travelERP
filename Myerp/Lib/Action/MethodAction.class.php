@@ -1053,6 +1053,7 @@ class MethodAction extends CommonAction{
 		if($process){
 			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
 			if(false !== $omdata){
+				dump($omdata);
 				cookie('show_word','批准',30);
 				cookie('show_action','批准',30);
 				return $omdata;
