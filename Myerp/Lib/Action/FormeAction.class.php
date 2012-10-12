@@ -737,6 +737,8 @@ class FormeAction extends Action{
 					if($bzditem['baozhangitem']['title'] == '')
 					continue;
 					$bzditem['baozhangitem']['type'] = $v['type'];
+					if($bzditem['baozhangitem']['type'] == '')
+					continue;
 					$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 						$baozhangitemID = $Chanpin->getRelationID();
