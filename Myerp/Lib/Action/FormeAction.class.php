@@ -734,6 +734,8 @@ class FormeAction extends Action{
 					$bzditem['baozhangitem']['value'] = $v['price'];
 					$bzditem['baozhangitem']['method'] = $v['pricetype'];
 					$bzditem['baozhangitem']['title'] = $v['title'];
+					if($bzditem['baozhangitem']['title'] == '')
+					continue;
 					$bzditem['baozhangitem']['type'] = $v['type'];
 					$bzditem['baozhangitem']['datatext'] = serialize($bzditem['baozhangitem']['datatext']);
 					if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
@@ -746,6 +748,7 @@ class FormeAction extends Action{
 					} 
 					else{
 						dump("543535");
+						dump($bzditem);
 						dump($Chanpin);
 					exit;
 					}
