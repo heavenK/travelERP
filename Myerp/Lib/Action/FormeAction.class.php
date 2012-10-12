@@ -1911,7 +1911,7 @@ class FormeAction extends Action{
 		return;
 		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
 		$_REQUEST['type'] = '标准';
-		$_REQUEST['time'] = $xianlu['time'];
+		$_REQUEST['time'] = $newxianlu['time'];
 		$_REQUEST['adultprice'] = $jiage['chengrenzongjia'];
 		$_REQUEST['title'] = $category['title'];
 		$_REQUEST['openID'] = $category['systemID'];
