@@ -21,6 +21,7 @@ class DJtuanModel extends Model {
     protected $_auto = array( 
         array('baojia', 'set_baojia', 1,'callback','baojia',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_baozhang', '未审核', 1), 
+        array('baozhang_remark', '未报账', 1),
     ); 
 
 	protected function set_baojia($baojia) {
