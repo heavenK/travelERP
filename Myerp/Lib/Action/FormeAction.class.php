@@ -225,7 +225,7 @@ class FormeAction extends Action{
 				$dat['status'] = '准备';
 			$dat['DJtuan']['title'] = $v['title'] =$v['tuantitle'];
 			$dat['DJtuan']['tuanhao'] = $v['tuanhao'] = $v['tuannumber'];
-			if($dat['DJtuan']['tuanhao'] == '')
+			if(!$dat['DJtuan']['tuanhao'])
 				$dat['DJtuan']['tuanhao'] = $v['tuanhao'] = 0;
 			$dat['DJtuan']['lianxiren'] = $v['lianxiren'] = $v['contact'];
 			$dat['DJtuan']['lianxirentelnum'] = $v['lianxirentelnum'] = $v['contactphone'];
