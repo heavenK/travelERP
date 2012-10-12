@@ -1918,7 +1918,8 @@ class FormeAction extends Action{
 		$_REQUEST['openID'] = $category['systemID'];
 		$_REQUEST['opentype'] = '分类';
 		$_REQUEST['childprice'] = $jiage['ertongzongjia'];
-		$_REQUEST['chengben'] = 0;
+		$_REQUEST['chengben'] = $jiage['ertongzongjia'];
+		//$_REQUEST['chengben'] = 0;
 		$_REQUEST['cut'] = 0;
 		$_REQUEST['renshu'] = $xianlu['renshu'];
 		$data = $_REQUEST;
