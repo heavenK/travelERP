@@ -121,7 +121,7 @@ class FormeAction extends Action{
 			//子团报名状态
 			$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
 			foreach($zituanAll as $zit){
-				if($zit['chutuanriqi'] > time()){
+				if(strtotime($zit['chutuanriqi']) > time()){
 					$v['zhuangtai'] = '报名';
 					$dat['status'] = '报名';
 					break;
