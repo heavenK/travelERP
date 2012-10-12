@@ -203,65 +203,6 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
 </div>
 <div id="dialog" title="提示消息" style="background:#FFF"> </div>
 
-<script>
-jQuery(document).ready(function(){
-	// Dialog
-	jQuery('#dialog_password').dialog({
-		autoOpen: false,
-		width: 300,
-		buttons: {
-			"确认": function() {
-				if(CheckForm('form_password','resultdiv_2')){
-					if(jQuery('#re_password').val() == jQuery('#new_password').val())
-						ThinkAjax.sendForm('form_password','<{:SITE_INDEX}>Index/dopostchangeuserinfo/type/密码','','resultdiv');
-					else	
-						ajaxalert("新入密码与重复密码不一致！！");
-				}
-			},
-			"取消": function() {
-				jQuery(this).dialog("close");
-			}
-		}
-	});
-	// Dialog Link
-	jQuery('#password_create').click(function(){
-		jQuery('#dialog_password').dialog('open');
-		return false;
-	});
-	// Dialog
-	jQuery('#dialog_user').dialog({
-		autoOpen: false,
-		width: 300,
-		buttons: {
-			"确认": function() {
-				if(CheckForm('form_user','resultdiv_2')){
-						ThinkAjax.sendForm('form_user','<{:SITE_INDEX}>Index/dopostchangeuserinfo/type/信息','','resultdiv');
-				}
-			},
-			"取消": function() {
-				jQuery(this).dialog("close");
-			}
-		}
-	});
-	// Dialog Link
-	jQuery('#user_create').click(function(){
-		jQuery('#dialog_user').dialog('open');
-		return false;
-	});
-});
-
-function showuserinfo(){
-		jQuery.ajax({
-			type:	"POST",
-			url:	"<{:SITE_INDEX}>Index/getmyuserinfo",
-			data:	"",
-			success:function(msg){
-				ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
-			}
-		});
-}
-</script>
-
 <div id="dialog_password" title="修改密码" style="background:#FFF">
 <form id="form_password" id="form_password" method="post" >
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">

@@ -46,6 +46,52 @@ jQuery(document).ready(function(){
 		function() { jQuery(this).removeClass('ui-state-hover'); }
 	);
 	
+	// Dialog
+	jQuery('#dialog_password').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_password','resultdiv_2')){
+					if(jQuery('#re_password').val() == jQuery('#new_password').val())
+						ThinkAjax.sendForm('form_password',SITE_INDEX+'Index/dopostchangeuserinfo/type/密码','','resultdiv');
+					else	
+						ajaxalert("新入密码与重复密码不一致！！");
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#password_create').click(function(){
+		jQuery('#dialog_password').dialog('open');
+		return false;
+	});
+	// Dialog
+	jQuery('#dialog_user').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_user','resultdiv_2')){
+						ThinkAjax.sendForm('form_user',SITE_INDEX+'Index/dopostchangeuserinfo/type/信息','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#user_create').click(function(){
+		jQuery('#dialog_user').dialog('open');
+		return false;
+	});
+	
+	
+	
 });
 
 function getNews(){
@@ -204,7 +250,16 @@ function div_close(id){
 }
 
 
-
+function showuserinfo(){
+		jQuery.ajax({
+			type:	"POST",
+			url:	SITE_INDEX+"Index/getmyuserinfo",
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
+			}
+		});
+}
 
 
 
