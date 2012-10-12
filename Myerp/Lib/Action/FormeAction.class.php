@@ -1909,6 +1909,7 @@ class FormeAction extends Action{
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
+		dump($jiage);
 		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
 		$_REQUEST['type'] = '标准';
 		$_REQUEST['time'] = $xianlu['time'];
