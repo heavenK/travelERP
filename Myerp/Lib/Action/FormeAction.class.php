@@ -225,10 +225,6 @@ class FormeAction extends Action{
 				$dat['status'] = '准备';
 			$dat['DJtuan']['title'] = $v['title'] =$v['tuantitle'];
 			$dat['DJtuan']['tuanhao'] = $v['tuanhao'] = $v['tuannumber'];
-			if(!$dat['DJtuan']['tuanhao'])
-				$dat['DJtuan']['tuanhao'] = $v['tuanhao'] = 0;
-			if(!$dat['DJtuan']['fromcompany'])
-				$dat['DJtuan']['fromcompany'] = $v['fromcompany'] = 0;
 			$dat['DJtuan']['lianxiren'] = $v['lianxiren'] = $v['contact'];
 			$dat['DJtuan']['lianxirentelnum'] = $v['lianxirentelnum'] = $v['contactphone'];
 			$dat['DJtuan']['jietuantime'] = $v['jietuantime'] = $v['startdate'];
@@ -244,6 +240,12 @@ class FormeAction extends Action{
 			$v['gouwujihua'] = $v['shoppingstd'];
 			$v['remark'] = $v['remark'];
 			$v['jiezhanfangshi'] = $v['jiezhanstd'];
+			if(!$dat['DJtuan']['tuanhao'])
+				$dat['DJtuan']['tuanhao'] = $v['tuanhao'] = 0;
+			if(!$dat['DJtuan']['fromcompany'])
+				$dat['DJtuan']['fromcompany'] = $v['fromcompany'] = 0;
+			if(!$dat['DJtuan']['lianxiren'])
+				$dat['DJtuan']['lianxiren'] = $v['lianxiren'] = 0;
 			$dat['DJtuan']['datatext'] = serialize($v);
 			//行程内容
 			$xingcheng = $dj_itinerary->where("`djtuanID` = '$v[djtuanID]'")->find();
