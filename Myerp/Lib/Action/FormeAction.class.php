@@ -722,6 +722,8 @@ class FormeAction extends Action{
 			$bzd["baozhang"]['datatext']['remark'] = $remark;
 			//报账人数
 			$bzd["baozhang"]['renshu'] = $zituan['renshu'];
+			if(!$bzd["baozhang"]['renshu'])
+				$bzd["baozhang"]['renshu'] = 0;
 			//领队人数
 			$lingdui_num = 0;
 			$bzd["baozhang"]['datatext']['lingdui_num'] = $lingdui_num;
