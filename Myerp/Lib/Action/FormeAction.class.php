@@ -246,6 +246,8 @@ class FormeAction extends Action{
 				$dat['DJtuan']['fromcompany'] = $v['fromcompany'] = 0;
 			if(!$dat['DJtuan']['lianxiren'])
 				$dat['DJtuan']['lianxiren'] = $v['lianxiren'] = 0;
+			if(!$dat['DJtuan']['lianxirentelnum'])
+				$dat['DJtuan']['lianxirentelnum'] = $v['lianxirentelnum'] = 0;
 			$dat['DJtuan']['datatext'] = serialize($v);
 			//行程内容
 			$xingcheng = $dj_itinerary->where("`djtuanID` = '$v[djtuanID]'")->find();
