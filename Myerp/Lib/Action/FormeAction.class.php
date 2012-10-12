@@ -119,7 +119,7 @@ class FormeAction extends Action{
 				$dat['status'] = '准备';
 			}
 			//子团报名状态
-			$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]'")->findall();
+			$zituanAll = $glzituan->where("`xianluID` = '$v[xianluID]' and `zhuangtai` != '回收站'")->findall();
 			foreach($zituanAll as $zit){
 				if(strtotime($zit['chutuanriqi']) > time()){
 					$v['zhuangtai'] = '报名';
@@ -160,7 +160,7 @@ class FormeAction extends Action{
 					A("Method")->makefiledatacopy($xianluID,'线路',-1);
 					//开放售价
 					if($v['zhuangtai'] == '报名')
-					$this->_xianlu_shoujia($v,$dat,$dataOMlist);
+					$this->_xianlu_shoujia($v,$dat);
 					//zituan
 					$this->_zituan_build($v,$dat,$dataOMlist);
 				}
@@ -1899,7 +1899,7 @@ class FormeAction extends Action{
 	
 	
 	
-    public function _xianlu_shoujia($xianlu,$newxianlu,$dataOMlist){
+    public function _xianlu_shoujia($xianlu,$newxianlu){
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$ViewCategory = D("ViewCategory");

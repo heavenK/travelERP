@@ -101,19 +101,23 @@
                 </tr>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 产品名称 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 产品名称 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 售价 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 销售类型 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 单位 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 发布人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:50px;"><div> 单位 </div></th>
                 </tr>
                 
                 <php>$i = 0;foreach($chanpin_list as $v){$i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td valign="top" align="left" scope="row"><{$i}></td>
-                  <td valign="top" align="center" style="min-width:300px;" scope="row"><strong style="color:blue"><{$v['xianlu_title']}></strong></td>
+                  <td valign="top" align="center" scope="row"><strong style="color:blue"><{$v['xianlu_title']}></strong></td>
                   <td valign="top" align="left" scope="row"><{$v['adultprice']}>元</td>
+                  <td valign="top" align="left" scope="row"><{$v['type']}>元</td>
                   <td valign="top" align="left" scope="row"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
-                  <td valign="top" align="left" style="min-width:50px;" scope="row"><{$v['bumen_copy']}></td>
+                  <td valign="top" align="left" scope="row"><{$v['user_name']}></td>
+                  <td valign="top" align="left" scope="row"><{$v['bumen_copy']}></td>
                 </tr>  
                 <tr height="40" class="evenListRowS1">
                     <td valign="top" align="left" scope="row" colspan="10">
