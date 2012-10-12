@@ -91,7 +91,7 @@ class FormeAction extends Action{
 		$jishu_xianlu = 0;
 		foreach($xianluAll as $v)
 		{
-			dump("正在执行".$num+(++$jishu_xianlu).'个线路'.'<br>');
+			dump("正在执行".$num+(++$jishu_xianlu).'个线路ID'.$v['xianluID'].'<br>');
 			$dat = $v;
 			$dat['xianlu'] = $v;
 			$dat['status'] = $v['zhuangtai'];
