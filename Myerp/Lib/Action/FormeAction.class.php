@@ -1909,7 +1909,6 @@ class FormeAction extends Action{
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
-		dump($jiage);
 		$_REQUEST['parentID'] = $newxianlu['chanpinID'];
 		$_REQUEST['type'] = '标准';
 		$_REQUEST['time'] = $xianlu['time'];
@@ -1920,22 +1919,19 @@ class FormeAction extends Action{
 		$_REQUEST['childprice'] = $jiage['ertongzongjia'];
 		$_REQUEST['chengben'] = $jiage['ertongzongjia'];
 		//$_REQUEST['chengben'] = 0;
-		$_REQUEST['cut'] = 0;
+		$_REQUEST['cut'] = 200;
 		$_REQUEST['renshu'] = $xianlu['renshu'];
 		$data = $_REQUEST;
 		$data['shoujia'] = $_REQUEST;
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
-			
-			dump($Chanpin);
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
 			if($Chanpin->getLastmodel() == 'add')
 				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成开放OM	
 			A('Method')->_shoujiaToDataOM($_REQUEST);
-			exit;
 		}
 		else{
 				dump(2626266666);
