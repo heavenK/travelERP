@@ -1926,10 +1926,10 @@ class FormeAction extends Action{
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
+			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+			dump("+++++++++++++++++");
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
-			if($Chanpin->getLastmodel() == 'add')
-				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成开放OM	
 			A('Method')->_shoujiaToDataOM($_REQUEST);
 		}
