@@ -1907,7 +1907,6 @@ class FormeAction extends Action{
 		//搜索价格
 		$glxianlujiage = M("glxianlujiage");
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
-		dump($jiage);
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
 		dump($jiage);
@@ -1927,6 +1926,9 @@ class FormeAction extends Action{
 		$data['user_name'] = $newxianlu['user_name'];
 		$data['departmentID'] = $newxianlu['departmentID'];
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
+			
+			dump($Chanpin);
+			exit;
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
 			if($Chanpin->getLastmodel() == 'add')
