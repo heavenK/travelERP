@@ -2815,7 +2815,6 @@ class MethodAction extends CommonAction{
 				$djtuan['title'] = $djtuan['title'].'【复制生成请修改】';
 				$data['DJtuan'] = $djtuan;
 				if(false === $Chanpin->relation("DJtuan")->myRcreate($data)){
-					dump($Chanpin);
 					$Chanpin->rollback();
 					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
 				}

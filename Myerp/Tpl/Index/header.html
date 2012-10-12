@@ -40,8 +40,8 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
   <div id="companyLogo" style="padding:4px 15px 10px;"> <img src="<{:__PUBLIC__}>/myerp/images/company_logo.png" width="212" height="40" alt="Company Logo" border="0"> </div>
   <div id="globalLinks" style="padding:18px 0 0 10px;">
     <ul>
-      <li> <a href="#">用户信息</a> </li>
-      <li> <span>|</span> <a href="#">修改密码</a> </li>
+      <li> <a href="javascript:void(0)" id="user_create">用户信息</a> </li>
+      <li> <span>|</span> <a href="javascript:void(0)" id="password_create">修改密码</a> </li>
       <li> <span>|</span> <a target="_blank" href="<{:SITE_INDEX}>Index/FAQ">FAQ</a> </li>
       <li> <span>|</span> <a href="#">关于</a> </li>
     </ul>
@@ -202,3 +202,114 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
   </div>
 </div>
 <div id="dialog" title="提示消息" style="background:#FFF"> </div>
+
+<script>
+jQuery(document).ready(function(){
+	// Dialog
+	jQuery('#dialog_password').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_password','resultdiv_2')){
+					if(jQuery('#re_password').val() == jQuery('#new_password').val())
+						ThinkAjax.sendForm('form_password','<{:SITE_INDEX}>Index/dopostchangeuserinfo/type/密码','','resultdiv');
+					else	
+						ajaxalert("新入密码与重复密码不一致！！");
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#password_create').click(function(){
+		jQuery('#dialog_password').dialog('open');
+		return false;
+	});
+	// Dialog
+	jQuery('#dialog_user').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_user','resultdiv_2')){
+						ThinkAjax.sendForm('form_user','<{:SITE_INDEX}>Index/dopostchangeuserinfo/type/信息','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#user_create').click(function(){
+		jQuery('#dialog_user').dialog('open');
+		return false;
+	});
+});
+
+function showuserinfo(){
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Index/getmyuserinfo",
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
+			}
+		});
+}
+</script>
+
+<div id="dialog_password" title="修改密码" style="background:#FFF">
+<form id="form_password" id="form_password" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 输入密码: </td>
+          <td valign="top" scope="row"><input name="password" type="password" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 输入新密码: </td>
+          <td valign="top" scope="row"><input name="new_password" type="password" id="new_password" check="^\S+$" warning="新密码不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 重复新密码: </td>
+          <td valign="top" scope="row" colspan="3"><input name="re_password" type="password" id="re_password" check="^\S+$" warning="重复密码不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_user" title="个人信息" style="background:#FFF">
+<form id="form_user" id="form_user" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
+          <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 性别: </td>
+          <td valign="top" scope="row">
+          <select name="user_gender">
+          	<php>if($this->tVar['user']['user_gender'])</php>
+          	<option value="<php>echo $this->tVar['user']['user_gender']</php>"><php>echo $this->tVar['user']['user_gender']</php></option>
+          	<option disabled="disabled">-------------</option>
+            <php></php>
+          	<option value="男">男</option>
+          	<option value="女">女</option>
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
+          <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
