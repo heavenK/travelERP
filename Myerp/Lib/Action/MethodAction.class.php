@@ -12,6 +12,7 @@ class MethodAction extends CommonAction{
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
+			$where['status_system'] =  array('neq',-1);//默认
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where['status'] = '待检出';
@@ -1067,10 +1068,9 @@ class MethodAction extends CommonAction{
 		else{
 			$omdata = $this->_checkDataOM($dataID,$datatype,'管理');
 			if(false !== $omdata){
-				
 				$Chanpin = D("Chanpin");
 				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-				if($data['status_shenhe'] != '批准'){
+				if($data['status_shenhe'] != '批准' || $datatype == '线路'){
 					if($this->_checkShenhe($datatype,2))
 					cookie('show_word','申请审核',30);
 					else
@@ -1285,6 +1285,8 @@ class MethodAction extends CommonAction{
 		if($tc['status_shenhe'] == '批准'){
 			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
 			if($need)
+			return $process;
+			if($datatype == '线路')
 			return $process;
 			return false;
 		}
@@ -1938,16 +1940,19 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		if($datatype == '报账项'){
-			$p_datatype	= '报账单';
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
 			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
 				return false;
 		}
 		if($datatype == '线路'){
-			$p_datatype	= '报账单';
 			$p_cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
+			if($p_cpin['status'] == '截止')
+				return false;
+		}
+		if($datatype == '地接'){
+			$p_cpin = $Chanpin->where("`parentID` = '$dataID' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
 			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
-				return true;
+				return false;
 		}
 		//检查批准
 		$pz = $this->_getTaskPZ($dataID,$datatype);
@@ -2273,6 +2278,10 @@ class MethodAction extends CommonAction{
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID']);
+					//销售开放重置1
+					$data['status_system'] = 1;
+					$dataID = $_REQUEST['dataID'];
+					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 				}
 				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
@@ -2464,13 +2473,17 @@ class MethodAction extends CommonAction{
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		if(!$cpin)
 			$this->ajaxReturn('', '错误！', 0);
-		//检查父状态
-		if($datatype == '报账项'){
-			$p_datatype	= '报账单';
+		if($datatype == '报账项'){//检查父状态
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准')
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
 				$this->ajaxReturn($_REQUEST,'错误，该报账项的报账单已被审核通过，无法审核回退！', 0);
 		}
+		if($datatype == '地接'){//检查报账单状态
+			$p_cpin = $Chanpin->where("`parentID` = '$cpin[chanpinID]' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+				$this->ajaxReturn($_REQUEST,'错误，该地接产品的报账单已被审核通过，无法审核回退！', 0);
+		}
+		
 		if($cpin['status_shenhe'] == '批准'){
 			$ViewShenhe = D("ViewShenhe");
 			$djc = $this->_getTaskDJC($dataID,$datatype);
@@ -2523,6 +2536,10 @@ class MethodAction extends CommonAction{
 		}
 		
 		if($datatype == '线路'){
+			//销售开放重置-1
+			$Chanpin = D("Chanpin");
+			$data['status_system'] = -1;
+			$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 		}
 		
 		$this->ajaxReturn('', '操作成功！', 1);
