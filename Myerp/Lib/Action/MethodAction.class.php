@@ -17,6 +17,8 @@ class MethodAction extends CommonAction{
 			$where['status'] = '待检出';
 			if($relation == 'xianlu')
 			$where['datatype'] = '线路';
+			if($relation == 'DJtuan')
+			$where['datatype'] = '地接';
 			if($relation == 'baozhangitem')
 			$where['datatype'] = '报账项';
 			if($relation == 'baozhang')
@@ -2345,11 +2347,11 @@ class MethodAction extends CommonAction{
 					$ViewBaozhang = D('ViewBaozhang');
 					$bzd = $ViewBaozhang->where("`type` = '团队报账单' and `parentID` = '$_REQUEST[dataID]' AND (`status_system` = '1')")->find();
 					if(!$bzd){
-						$td['parentID'] = $_REQUEST['dataID'];
-						$td['baozhang']['type'] = '团队报账单';
-						$td['baozhang']['title'] = '团队报账单';
 						$ViewDJtuan = D('ViewDJtuan');
 						$djtuan = $ViewDJtuan->where("`chanpinID` = '$_REQUEST[dataID]' AND (`status_system` = '1')")->find();
+						$td['parentID'] = $_REQUEST['dataID'];
+						$td['baozhang']['type'] = '团队报账单';
+						$td['baozhang']['title'] = $djtuan['title'].'/'.$djtuan['jietuantime'].'团队报账单';
 						$td['baozhang']['renshu'] = $djtuan['renshu'];
 						$Chanpin->relation("baozhang")->myRcreate($td);
 						$baozhangID = $Chanpin->getRelationID();
@@ -2658,7 +2660,8 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	public function _shenhe() {
+	public function _shenhe($showtype = '') {
+		
 		if($_REQUEST['type'] == '团队收支项'){
 			$relation = 'baozhangitem';
 			$this->assign("markpos",'团队收支项');
@@ -2671,14 +2674,6 @@ class MethodAction extends CommonAction{
 		}elseif($_REQUEST['type'] == '订单') {
 			$relation = 'dingdan';
 			$this->assign("markpos",'订单');
-		}
-		else{
-			$relation = 'xianlu';
-			$this->assign("markpos",'线路产品');
-		}
-		$this->showDirectory("产品审核");
-		$datalist = $this->getDataOMlist('审核任务',$relation,$_REQUEST);
-		if($_REQUEST['type'] == '订单') {
 			//ticheng
 			$i = 0;
 			$ViewDataDictionary = D("ViewDataDictionary");
@@ -2687,6 +2682,18 @@ class MethodAction extends CommonAction{
 				$i++;
 			}
 		}
+		else{
+			if($showtype == '地接' || $_REQUEST['type'] == '地接产品'){
+				$relation = 'DJtuan';
+				$this->assign("markpos",'地接产品');
+			}
+			if($showtype == '子团' || $_REQUEST['type'] == '线路产品'){
+				$relation = 'xianlu';
+				$this->assign("markpos",'线路产品');
+			}
+		}
+		
+		$datalist = $this->getDataOMlist('审核任务',$relation,$_REQUEST);
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 	}

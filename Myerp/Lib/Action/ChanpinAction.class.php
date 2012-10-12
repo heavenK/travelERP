@@ -404,7 +404,9 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function shenhe() {
-		A("Method")->_shenhe();
+		A("Method")->showDirectory("产品审核");
+		A("Method")->_shenhe('子团');
+		$this->assign("chanpin_mark",'Chanpin');
 		$this->display('shenhe');
 	}
 	

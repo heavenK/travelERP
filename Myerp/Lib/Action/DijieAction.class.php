@@ -344,9 +344,16 @@ class DijieAction extends CommonAction{
 	}
 	
 	
+	public function shenhe() {
+		A("Method")->showDirectory("团队审核");
+		A("Method")->_shenhe('地接');
+		$this->assign("chanpin_mark",'Dijie');
+		$this->display('Chanpin:shenhe');
+	}
 	
-	
-	
+	public function zituanbaozhang() {
+		$this->djtuanbaozhang();
+	}
 	
 	
 }

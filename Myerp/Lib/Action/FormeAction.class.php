@@ -196,8 +196,8 @@ class FormeAction extends Action{
 		exit;
 		}
 		$num = ($_REQUEST['page']-1)*50;
-		$datalist = $dj_tuan->order('time asc')->limit("$num,50")->findall();
-		dump("共".count($dj_tuan->findall()).'个团'.'<br>');
+		$datalist = $dj_tuan->where("`adduser` != 'aaa'")->order('time asc')->limit("$num,50")->findall();
+		dump("共".count($dj_tuan->where("`adduser` != 'aaa'")->findall()).'个团'.'<br>');
 		$jishu_xianlu = 0;
 		//$datalist = $dj_tuan->order('time DESC')->findall();
 		$Chanpin=D("Chanpin");
