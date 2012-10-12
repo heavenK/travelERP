@@ -355,6 +355,8 @@ class DijieAction extends CommonAction{
 		$this->djtuanbaozhang();
 	}
 	
-	
+    public function copytonew() {
+		A('Method')->_copytonew('地接');
+	}
 }
 ?>

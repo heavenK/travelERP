@@ -994,13 +994,9 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+    public function copytonew() {
+		A('Method')->_copytonew('线路');
+	}
 	
 
 }

@@ -2770,6 +2770,74 @@ class MethodAction extends CommonAction{
 	}
 	
 	
+	public function _copytonew($type){
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) > 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行复制！！', 0);
+		$Chanpin = D("Chanpin");
+		$Chanpin->startTrans();
+		foreach($itemlist as $v){
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($v,$type);
+			if(false === $xianlu){
+				$mark = 1;
+				continue;
+			}
+			if($type == '线路'){
+				//线路内容
+				$ViewXianlu = D("ViewXianlu");
+				$xianlu = $ViewXianlu->where("`chanpinID` = $v")->find();
+				unset($xianlu['ispub']);
+				$xianlu['chutuanriqi'] = 0;
+				$xianlu['title'] = $xianlu['title'].'【复制生成请修改】';
+				$data['xianlu'] = $xianlu;
+				if(false === $Chanpin->relation("xianlu")->myRcreate($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+				}
+				$chanpinID = $Chanpin->getRelationID();
+				//行程内容
+				$ViewXingCheng = D("ViewXingCheng");
+				$xingcheng = $ViewXingCheng->where("`chanpinID` = $v")->find();
+				$data['parentID'] = $chanpinID;
+				$data['xingcheng'] = $xingcheng;
+				if(false === $Chanpin->relation("xingcheng")->myRcreate($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+				}
+			}
+				
+			if($type == '地接'){
+				$ViewDJtuan = D("ViewDJtuan");
+				$djtuan = $ViewDJtuan->where("`chanpinID` = $v")->find();
+				$djtuan['title'] = $djtuan['title'].'【复制生成请修改】';
+				$data['DJtuan'] = $djtuan;
+				if(false === $Chanpin->relation("DJtuan")->myRcreate($data)){
+					dump($Chanpin);
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+				}
+				$chanpinID = $Chanpin->getRelationID();
+			}
+		}
+		$Chanpin->commit();
+		//开放
+		if($type == '线路'){
+			$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
+			A("Method")->_createDataOM($chanpinID,'线路','管理',$dataOMlist);
+		}
+		if($type == '地接'){
+			$dataOMlist = A("Method")->_setDataOMlist('地接','地接');
+			A("Method")->_createDataOM($chanpinID,'地接','管理',$dataOMlist);
+		}
+		if($mark == 1)
+			$this->ajaxReturn($_REQUEST,'完成！,一部分线路您没有操作权限！无法进行修改！！', 1);
+		$this->ajaxReturn($_REQUEST,'完成！', 1);
+	
+	}
+	
 	
 }
 ?>

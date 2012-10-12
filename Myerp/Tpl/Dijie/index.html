@@ -17,7 +17,7 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 复制 ">
+                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons"><{$page}> </td>
                 </tr>
               </tbody>
@@ -43,7 +43,7 @@
         </php>
       
       <tr height="40" class="evenListRowS1">
-        <td scope="row" align="left" valign="top"><input value="<{$v['xianluID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkbox"></td>
+        <td scope="row" align="left" valign="top"><input value="<{$v['chanpinID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
         <td scope="row" align="left" valign="top"><{$i+1}></td>
         <td scope="row" align="left" valign="top" style="min-width:200px; width:20%"><a href="<{:SITE_INDEX}>Dijie/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a></td>
         <td scope="row" align="left" valign="top"><{$v['tuanhao']}></td>
@@ -67,6 +67,35 @@
 
 function dosearch(str){
 		window.location = '<{:SITE_INDEX}>Dijie/index'+str;
+}
+
+function copytonew()
+{
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Dijie/copytonew",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+}
+function save_after(data,status){
+	if(status == 1){
+		location.reload();
+	}
 }
 </script>
 <div id="selectitem" style=" display:none; position:absolute;">
