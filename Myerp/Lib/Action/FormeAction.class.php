@@ -1928,13 +1928,13 @@ class FormeAction extends Action{
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			
 			dump($Chanpin);
-			exit;
 			//同步售价表线路状态
 			A("Method")->_tongbushoujia($data['parentID']);
 			if($Chanpin->getLastmodel() == 'add')
 				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成开放OM	
 			A('Method')->_shoujiaToDataOM($_REQUEST);
+			exit;
 		}
 		else{
 				dump(2626266666);
