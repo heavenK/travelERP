@@ -322,6 +322,7 @@ class FormeAction extends Action{
 			else
 			{
 				dump(2342536346);
+				dump($dat);
 				dump($Chanpin);
 				exit;
 			}
