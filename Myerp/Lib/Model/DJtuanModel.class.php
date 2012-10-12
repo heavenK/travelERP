@@ -20,7 +20,7 @@ class DJtuanModel extends Model {
     // 自动填充设置 
     protected $_auto = array( 
         array('baojia', 'set_baojia', 1,'callback','baojia',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('status_baozhang', '未审核', 1), 
+        array('status_baozhang', 'set_status_baozhang', 1,'callback','status_baozhang',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('baozhang_remark', '未报账', 1),
     ); 
 
@@ -31,7 +31,12 @@ class DJtuanModel extends Model {
 			return 0;
 	}
 
-
+	protected function set_status_baozhang($status_baozhang) {
+		if($status_baozhang)	
+			return $status_baozhang;
+		else
+			return '未审核';
+	}
 
 
 }
