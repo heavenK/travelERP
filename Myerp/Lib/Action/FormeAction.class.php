@@ -191,13 +191,22 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$dj_tuan=M("dj_tuan");
-		$datalist = $dj_tuan->order('time DESC')->findall();
+		if(!$_REQUEST['page']){
+				dump('无page参数');
+		exit;
+		}
+		$num = ($_REQUEST['page']-1)*50;
+		$datalist = $dj_tuan->order('time asc')->limit("$num,50")->findall();
+		dump("共".count($dj_tuan->findall()).'个团'.'<br>');
+		$jishu_xianlu = 0;
+		//$datalist = $dj_tuan->order('time DESC')->findall();
 		$Chanpin=D("Chanpin");
 		$dj_itinerary=M("dj_itinerary");
 		$dj_rcitem=M("dj_rcitem");
 		$dj_appraisal=M("dj_appraisal");
 		$dj_orderhotel=M("dj_orderhotel");
 		foreach($datalist as $v){
+			dump("正在执行".$num+(++$jishu_xianlu).'个团ID'.$v['djtuanID'].'<br>');
 			$dat = $v;
 			$dat['DJtuan'] = $v;
 			//计算截止状态
