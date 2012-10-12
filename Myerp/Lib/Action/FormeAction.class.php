@@ -1907,6 +1907,7 @@ class FormeAction extends Action{
 		//搜索价格
 		$glxianlujiage = M("glxianlujiage");
 		$jiage = $glxianlujiage->where("`xianluID` = '$xianlu[xianluID]'")->find();
+		dump($jiage);
 		if($jiage['chengrenzongjia'] == '' || $jiage['ertongzongjia'] == '')
 		return;
 		dump($jiage);
