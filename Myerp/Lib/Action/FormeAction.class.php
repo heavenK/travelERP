@@ -86,12 +86,14 @@ class FormeAction extends Action{
 						$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
 						$data['customer']['sfz_youxiaoqi'] = $v['zhengjianhaoma'];
 					}
-					$hz_haoma = $data['customer']['hz_haoma'];
-					$txz_haoma = $data['customer']['txz_haoma'];
-					$sfz_haoma = $data['customer']['sfz_haoma'];
-					
+					if($data['customer']['hz_haoma'])
+					$where['hz_haoma'] = $data['customer']['hz_haoma'];
+					if($data['customer']['txz_haoma'])
+					$where['txz_haoma'] = $data['customer']['txz_haoma'];
+					if($data['customer']['sfz_haoma'])
+					$where['sfz_haoma'] = $data['customer']['sfz_haoma'];
 					$ViewCustomer = D("ViewCustomer");
-					$cus = $ViewCustomer->where("`sfz_haoma` = '$sfz_haoma' or `hz_haoma` = '$hz_haoma' or `txz_haoma` = '$txz_haoma'")->find();
+					$cus = $ViewCustomer->where($where)->find();
 					if($cus)
 						continue;
 					if(false === $System->relation("customer")->myRcreate($data)){
