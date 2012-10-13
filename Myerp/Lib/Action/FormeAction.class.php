@@ -247,7 +247,9 @@ class FormeAction extends Action{
 //			$this->chanpinxiaoxi($v,$chanpinID);
 			//exit;
 		}
-			redirect(SITE_INDEX."Forme/chanpinxianlu/page/".$_REQUEST['page']+1);
+		$url = SITE_INDEX."Forme/chanpinxianlu/page/".$_REQUEST['page']+1;
+		$this->assign("url",$url);
+		$this->display('Index:formen');
 		echo "结束";
 		
     }
