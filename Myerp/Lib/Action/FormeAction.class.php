@@ -269,6 +269,8 @@ class FormeAction extends Action{
 		}
 		$num = ($_REQUEST['page']-1)*50;
 		$datalist = $dj_tuan->where("`adduser` != 'aaa'")->order('time asc')->limit("$num,50")->findall();
+		if(count($datalist) == 0)
+		exit;
 		dump("共".count($dj_tuan->where("`adduser` != 'aaa'")->findall()).'个团'.'<br>');
 		$jishu_xianlu = 0;
 		//$datalist = $dj_tuan->order('time DESC')->findall();
@@ -415,7 +417,9 @@ class FormeAction extends Action{
 				exit;
 			}
 		}
-		
+		$url = SITE_INDEX."Forme/chanpindijie/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
 		echo "结束";
 		
     }
