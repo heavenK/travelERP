@@ -23,14 +23,17 @@ class FormeAction extends Action{
 		exit;
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*50;
-		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,50")->findall();
+		$num = ($_REQUEST['page']-1)*200;
+		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,200")->findall();
 		if(count($tuanyuanall)==0)
 		exit;
+		dump("共".count($tuanyuanall->findall()).'个'.'<br>');
 		//$tuanyuanall = $gltuanyuan->findall();
 		$System = D("System");
 		$gldingdan = M("gldingdan");
+		$jishu_xianlu = 0;
 		foreach($tuanyuanall as $v){
+			dump("正在执行".$num+(++$jishu_xianlu).'个'.$v['tuanyuanID'].'<br>');
 			if($v['name']){
 				if($v['zhengjianhaoma']){
 					$data = $v;

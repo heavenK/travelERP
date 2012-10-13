@@ -70,13 +70,13 @@ jQuery(document).ready(function(){
 		return false;
 	});
 	// Dialog
-	jQuery('#dialog_user').dialog({
+	jQuery('#dialog_userinfo').dialog({
 		autoOpen: false,
 		width: 300,
 		buttons: {
 			"确认": function() {
-				if(CheckForm('form_user','resultdiv_2')){
-						ThinkAjax.sendForm('form_user',SITE_INDEX+'Index/dopostchangeuserinfo/type/信息','','resultdiv');
+				if(CheckForm('form_userinfo','resultdiv_2')){
+						ThinkAjax.sendForm('form_userinfo',SITE_INDEX+'Index/dopostchangeuserinfo/type/信息','','resultdiv');
 				}
 			},
 			"取消": function() {
@@ -85,8 +85,8 @@ jQuery(document).ready(function(){
 		}
 	});
 	// Dialog Link
-	jQuery('#user_create').click(function(){
-		jQuery('#dialog_user').dialog('open');
+	jQuery('#userinfo_create').click(function(){
+		jQuery('#dialog_userinfo').dialog('open');
 		return false;
 	});
 	
