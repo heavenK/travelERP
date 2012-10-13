@@ -1310,7 +1310,7 @@ class FormeAction extends Action{
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
 			if($type == '团队报账单'){
-				//更新父产品
+				//联动更新
 				$xd['baozhangDJtuanlist']['baozhang_remark'] = $task['taskShenhe']['remark'];
 				$xd['baozhangDJtuanlist']['baozhang_time'] = $baozhang['caiwu_time'];
 				$xd['baozhangDJtuanlist']['status_baozhang'] = $task['status'];
@@ -1762,7 +1762,7 @@ class FormeAction extends Action{
 		if($task['status'] == '批准'){
 			A("Method")->makefiledatacopy($newbaozhang['chanpinID'],$datatype,$task['parentID']);
 			if($type == '团队报账单'){
-				//更新父产品
+				//联动更新
 				$xd['baozhangzituanlist']['baozhang_remark'] = $task['taskShenhe']['remark'];
 				$xd['baozhangzituanlist']['baozhang_time'] = $baozhang['caiwu_time'];
 				$xd['baozhangzituanlist']['status_baozhang'] = $task['status'];

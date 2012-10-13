@@ -857,6 +857,12 @@ class MethodAction extends CommonAction{
 				return false;
 			}
 		}
+		//线路和地接
+		if(($cp['marktype'] == 'DJtuan' || $cp['marktype'] == 'xianlu') && $cp['status'] == '截止'){
+			cookie('errormessage','错误，线路和地接状态已经截止！',30);
+			return false;
+		}
+		
 		$dotype = $_REQUEST['dotype'];
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
@@ -1070,7 +1076,7 @@ class MethodAction extends CommonAction{
 			if(false !== $omdata){
 				$Chanpin = D("Chanpin");
 				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-				if($data['status_shenhe'] != '批准' || $datatype == '线路'){
+				if(($data['status_shenhe'] != '批准' || ($datatype == '线路' || $datatype == '地接')) && $data['status'] != '截止'){
 					if($this->_checkShenhe($datatype,2))
 					cookie('show_word','申请审核',30);
 					else
