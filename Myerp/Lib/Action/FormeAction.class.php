@@ -25,6 +25,8 @@ class FormeAction extends Action{
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*50;
 		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,50")->findall();
+		if(count($tuanyuanall)==0)
+		exit;
 		//$tuanyuanall = $gltuanyuan->findall();
 		$System = D("System");
 		$gldingdan = M("gldingdan");
@@ -113,9 +115,10 @@ class FormeAction extends Action{
 			else
 			continue;
 		}
-			redirect(SITE_INDEX."Forme/doCustomer/page/".$_REQUEST['page']+1);
+		$url = SITE_INDEX."Forme/doCustomer/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
 		echo "结束";
-		return true;
 	}
 	
 	
@@ -267,6 +270,7 @@ class FormeAction extends Action{
 				dump('无page参数');
 		exit;
 		}
+		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*50;
 		$datalist = $dj_tuan->where("`adduser` != 'aaa'")->order('time asc')->limit("$num,50")->findall();
 		if(count($datalist) == 0)
