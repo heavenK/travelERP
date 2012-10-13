@@ -64,7 +64,7 @@ class FormeAction extends Action{
 	//生成单项服务报账单----------------------
 	public function danxiangfuwu_build(){
 		//生成随团单项服务报账单----------------------
-		$this->_danxiangfuwu_build($dat,$dataOMlist,'独立');
+		$this->_danxiangfuwu_build($dat,'','独立');
 	}
 	
 	
@@ -932,10 +932,17 @@ class FormeAction extends Action{
 			$dxfwall = $glqianzheng->where("`zituanID` = '0' or `djtuanID` = '0' or `djtuanID` = ''")->findall();
 		}
 		foreach($dxfwall as $dxfw){
+			if($idtype == '独立'){
+				$dataOMlist1 = A("Method")->_setDataOMlist('计调','组团',$dxfw['username']);	
+				$dataOMlist2 = A("Method")->_setDataOMlist('地接','地接',$dxfw['username']);	
+				$dataOMlist = array_merge($dataOMlist1,$dataOMlist2);
+			}
 			$bzd = '';
 			$bzd['user_name'] =  $dxfw['username'];
 			$bzd['time'] = $dxfw['time'];
 			$bzd['baozhang']['title'] = $dxfw['title'];
+			if($bzd['baozhang']['title'] == '')
+				continue;
 			if($dxfw['title_ext'])
 			$bzd['baozhang']['title'] .= '/'.$dxfw['title_ext'];
 			$bzd['parentID'] = $zituan['chanpinID'];
