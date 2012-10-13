@@ -149,6 +149,8 @@ class FormeAction extends Action{
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*50;
 		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
+		if(count($xianluAll)==0)
+		exit;
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = '336'")->findall();
 		$Chanpin=D("Chanpin");
 		$glxianlujiage = M("glxianlujiage");
@@ -950,6 +952,8 @@ class FormeAction extends Action{
 				$bzditem['baozhangitem']['is_print'] = $v['is_print'];
 				if($bzditem['baozhangitem']['title'] == '')
 				continue;
+				if($bzditem['baozhangitem']['method'] == '')
+					$bzditem['baozhangitem']['method'] = '现金';
 				$bzditem['islock'] =  '已锁定';
 				if(false !== $Chanpin->relation("baozhangitem")->myRcreate($bzditem)){
 					$baozhangitemID = $Chanpin->getRelationID();
