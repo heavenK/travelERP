@@ -1972,8 +1972,8 @@ class FormeAction extends Action{
 			$data['info'] = $v;
 			$data['user_name'] = $v['username'];
 			$data['status'] = '';
-			$bumen = $this->_getoldbumenbyusername($v['username']);
-			$data['departmentID'] = $bumen['id'];
+			$bumen = $this->_getnewbumenbyusername($data['user_name']);
+			$data['departmentID'] = $bumen['systemID'];
 			$data['info']['title'] = $v['title'];
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '公告';
