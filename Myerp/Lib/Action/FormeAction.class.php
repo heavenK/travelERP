@@ -22,6 +22,7 @@ class FormeAction extends Action{
 				dump('无page参数');
 		exit;
 		}
+		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*50;
 		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,50")->findall();
 		//$tuanyuanall = $gltuanyuan->findall();
@@ -113,6 +114,7 @@ class FormeAction extends Action{
 			continue;
 		}
 		
+		redirect(SITE_INDEX.'Formen/chanpinxianlu/page/'.$_REQUEST['page']+1);
 		echo "结束";
 		return true;
 	}
