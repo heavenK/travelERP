@@ -113,8 +113,7 @@ class FormeAction extends Action{
 			else
 			continue;
 		}
-		
-		redirect(SITE_INDEX.'Formen/chanpinxianlu/page/'.$_REQUEST['page']+1);
+			redirect(SITE_INDEX."Forme/doCustomer/page/".$_REQUEST['page']+1);
 		echo "结束";
 		return true;
 	}
@@ -147,6 +146,7 @@ class FormeAction extends Action{
 				dump('无page参数');
 		exit;
 		}
+		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*50;
 		$xianluAll = $gl_xianlu->order('time asc')->limit("$num,50")->findall();
 		//$xianluAll = $gl_xianlu->order('time asc')->where("`xianluID` = '336'")->findall();
@@ -247,7 +247,7 @@ class FormeAction extends Action{
 //			$this->chanpinxiaoxi($v,$chanpinID);
 			//exit;
 		}
-		
+			redirect(SITE_INDEX."Forme/chanpinxianlu/page/".$_REQUEST['page']+1);
 		echo "结束";
 		
     }
