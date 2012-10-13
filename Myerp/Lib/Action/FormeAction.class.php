@@ -249,7 +249,7 @@ class FormeAction extends Action{
 		}
 		$url = SITE_INDEX."Forme/chanpinxianlu/page/".$_REQUEST['page']+1;
 		$this->assign("url",$url);
-		$this->display('Index:formen');
+		$this->display('Index:forme');
 		echo "结束";
 		
     }

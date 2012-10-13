@@ -14,8 +14,10 @@
 <a href="/index.php?s=/Forme/bumenzhangwenreset" target="_blank" >重置zhangwen</a><br>
 
 <script>
+<php>if($url){</php>
 timer=setTimeout('Redirect("<{$url}>")', 3000); //跳转
 function Redirect(url){ 
 window.location = url; 
 } 
+<php>}</php>
 </script>
