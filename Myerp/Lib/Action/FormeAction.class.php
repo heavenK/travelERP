@@ -27,15 +27,73 @@ class FormeAction extends Action{
 					$data = $v;
 					$data['customer'] = $v;
 					$data['customer']['remark'] = $v['xuqiu'].'，'.$v['beizhu'];
-					$data['customer']['hz_haoma'] = $v['huzhaohaoma'];
-					$data['customer']['hz_qianfariqi'] = $v['hzqianfadi'];
-					$data['customer']['hz_youxiaoriqi'] = $v['hzyouxiaoriqi'];
-					if($v['zhengjiantype'] == '身份证')
-					$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
-					if($v['zhengjiantype'] == '护照')
-					$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
-					if($v['zhengjiantype'] == '通行证')
-					$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
+					//护照
+					$c=explode("E",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("G",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("P",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("S",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("D",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					//外国
+					$c=explode("Q",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("N",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("M",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['hz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['hz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					//通行证
+					$c=explode("W",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['txz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					$c=explode("T",$v['zhengjianhaoma']); 
+					if(count($c)> 1){
+						$data['customer']['txz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['txz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
+					}
+					//身份证
+					$c=strlen($v['zhengjianhaoma']); 
+					if($c == 18) {
+						$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
+						$data['customer']['sfz_youxiaoqi'] = $v['zhengjianhaoma'];
+					}
+					$hz_haoma = $data['customer']['hz_haoma'];
+					$txz_haoma = $data['customer']['txz_haoma'];
+					$sfz_haoma = $data['customer']['sfz_haoma'];
+					
+					$ViewCustomer = D("ViewCustomer");
+					$cus = $ViewCustomer->where("`sfz_haoma` = '$sfz_haoma' or `hz_haoma` = '$hz_haoma' or `txz_haoma` = '$txz_haoma'")->find();
+					if($cus)
+						continue;
 					if(false === $System->relation("customer")->myRcreate($data)){
 						dump(7825222);
 						dump($System);
@@ -933,10 +991,7 @@ class FormeAction extends Action{
 		}
 		foreach($dxfwall as $dxfw){
 			if($idtype == '独立'){
-				$dataOMlist1 = A("Method")->_setDataOMlist('计调','组团',$dxfw['username']);	
-				$dataOMlist2 = A("Method")->_setDataOMlist('地接','地接',$dxfw['username']);	
-				$dataOMlist = array_merge($dataOMlist1,$dataOMlist2);
-				dump($dataOMlist);
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$dxfw['username']);	
 			}
 			$bzd = '';
 			$bzd['user_name'] =  $dxfw['username'];
