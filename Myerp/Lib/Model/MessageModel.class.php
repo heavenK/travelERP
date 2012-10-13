@@ -58,10 +58,6 @@ class MessageModel extends RelationModel {
 	}
 	
 	protected function set_bumen_copy($departmentID,$messageID) {
-		
-		dump($departmentID);
-		dump($messageID);
-		exit;
 		if($messageID){
 			$dt = $this->where("`messageID` = '$messageID'")->find();
 			return $dt['bumen_copy'];

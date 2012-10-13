@@ -1968,6 +1968,7 @@ class FormeAction extends Action{
 		foreach($gonggaoall as $v){
 			if($v['title'] =='')
 			continue;
+			unset($v['messageID']);
 			$data = $v;
 			$data['info'] = $v;
 			$data['user_name'] = $v['username'];
@@ -1978,7 +1979,6 @@ class FormeAction extends Action{
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '公告';
 			$data['info']['message'] = $v['content'];
-			dump($data);
 			if(false !== $Message->relation("info")->myRcreate($data)){
 				$messageID = $Message->getRelationID();
 				$bumenlist = D("ViewDepartment")->findall();
