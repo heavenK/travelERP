@@ -61,6 +61,7 @@ class MessageModel extends RelationModel {
 		
 		dump($departmentID);
 		dump($messageID);
+		exit;
 		if($messageID){
 			$dt = $this->where("`messageID` = '$messageID'")->find();
 			return $dt['bumen_copy'];
