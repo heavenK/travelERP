@@ -27,7 +27,7 @@ class FormeAction extends Action{
 		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,200")->findall();
 		if(count($tuanyuanall)==0)
 		exit;
-		dump("共".count($tuanyuanall->findall()).'个'.'<br>');
+		dump("共".count($gltuanyuan->findall()).'个'.'<br>');
 		//$tuanyuanall = $gltuanyuan->findall();
 		$System = D("System");
 		$gldingdan = M("gldingdan");
