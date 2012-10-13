@@ -2019,11 +2019,11 @@ class FormeAction extends Action{
 			continue;
 			$data = $v;
 			$data['info'] = $v;
-			$data['user_name'] = 'aaa';
+			$data['user_name'] = '潘思迪';
 			$data['time'] = $v['pubdate'];
 			$data['status'] = '';
-			$bumen = $this->_getoldbumenbyusername($data['username']);
-			$data['departmentID'] = $bumen['id'];
+			$bumen = $this->_getnewbumenbyusername($data['user_name']);
+			$data['departmentID'] = $bumen['systemID'];
 			$data['info']['title'] = $v['title'];
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '排团表';
