@@ -936,6 +936,7 @@ class FormeAction extends Action{
 				$dataOMlist1 = A("Method")->_setDataOMlist('计调','组团',$dxfw['username']);	
 				$dataOMlist2 = A("Method")->_setDataOMlist('地接','地接',$dxfw['username']);	
 				$dataOMlist = array_merge($dataOMlist1,$dataOMlist2);
+				dump($dataOMlist);
 			}
 			$bzd = '';
 			$bzd['user_name'] =  $dxfw['username'];
