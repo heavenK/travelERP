@@ -18,7 +18,13 @@ class FormeAction extends Action{
 		echo "<br>";
 		C('TOKEN_ON',false);
 		$gltuanyuan = M("gltuanyuan");
-		$tuanyuanall = $gltuanyuan->findall();
+		if(!$_REQUEST['page']){
+				dump('无page参数');
+		exit;
+		}
+		$num = ($_REQUEST['page']-1)*50;
+		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,50")->findall();
+		//$tuanyuanall = $gltuanyuan->findall();
 		$System = D("System");
 		$gldingdan = M("gldingdan");
 		foreach($tuanyuanall as $v){
@@ -84,7 +90,7 @@ class FormeAction extends Action{
 					$c=strlen($v['zhengjianhaoma']); 
 					if($c == 18) {
 						$data['customer']['sfz_haoma'] = $v['zhengjianhaoma'];
-						$data['customer']['sfz_youxiaoqi'] = $v['zhengjianhaoma'];
+						$data['customer']['sfz_youxiaoqi'] = $v['zhengjianyouxiaoqi'];
 					}
 					if($data['customer']['hz_haoma'])
 					$where['hz_haoma'] = $data['customer']['hz_haoma'];
