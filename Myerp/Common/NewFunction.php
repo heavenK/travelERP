@@ -34,9 +34,11 @@ function NF_getbumen(){
 }
 
 function NF_getbumen_title($departmentID){  
+		dump($departmentID);
 	if($departmentID){
 		$ViewDepartment = D("ViewDepartment");
 		$bumen = $ViewDepartment->where("`systemID` = '$departmentID'")->find();
+		dump($bumen);
 		return $bumen['title'];
 	}
 	else{
