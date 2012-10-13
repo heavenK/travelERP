@@ -1978,6 +1978,7 @@ class FormeAction extends Action{
 			$data['info']['usedDUR'] = ",,".$this->_getuserIDbytitle($v['username']);
 			$data['info']['type'] = '公告';
 			$data['info']['message'] = $v['content'];
+			dump($data);
 			if(false !== $Message->relation("info")->myRcreate($data)){
 				$messageID = $Message->getRelationID();
 				$bumenlist = D("ViewDepartment")->findall();
