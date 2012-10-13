@@ -23,8 +23,8 @@ class FormeAction extends Action{
 		exit;
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*200;
-		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,200")->findall();
+		$num = ($_REQUEST['page']-1)*400;
+		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,400")->findall();
 		if(count($tuanyuanall)==0)
 		exit;
 		dump("共".count($gltuanyuan->findall()).'个'.'<br>');

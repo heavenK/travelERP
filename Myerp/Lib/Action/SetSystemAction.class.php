@@ -3,6 +3,12 @@
 class SetSystemAction extends CommonAction{
 	
     public function _myinit() {
+		//判断计调角色
+		$durlist = A("Method")->_checkRolesByUser('网管','行政');
+		if(false === $durlist){
+			$this->display('Index:error');
+			exit;
+		}
 		$this->assign("navposition",'系统管理');
 	}
 	

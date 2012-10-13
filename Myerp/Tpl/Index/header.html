@@ -64,30 +64,38 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Xiaoshou" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
+<php>if($is_jidiao || $is_caiwu){</php>      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '旅游产品'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Chanpin" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Chanpin" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
+<php>}</php>
+<php>if($is_dijie || $is_caiwu){</php>      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '产品地接'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Dijie" id="grouptab_5">&nbsp;产品地接&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Dijie" id="grouptab_5">&nbsp;产品地接&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
+<php>}</php>
+<php>if($is_caiwu){</php>      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '财务管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
+<php>}</php>
+<php>if($is_wangguan){</php>      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '系统管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
+<php>}</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
