@@ -11,7 +11,7 @@ class IndexAction extends Action{
 	
     private function toadmin() {
 		if($this->user){
-			redirect(SITE_INDEX."Chanpin/index");
+			redirect(SITE_INDEX."Message/index/datatype/公告");
 		}
     }
 	
