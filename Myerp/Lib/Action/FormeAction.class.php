@@ -916,6 +916,7 @@ class FormeAction extends Action{
 	//生成随团单项服务----------------------
 	public function _danxiangfuwu_build($zituan,$dataOMlist,$idtype)
 	{
+		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$glqianzheng=M("glqianzheng");
 		$glqianzhengitem=M("glqianzhengitem");
