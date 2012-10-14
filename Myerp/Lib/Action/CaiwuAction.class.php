@@ -411,6 +411,8 @@ class CaiwuAction extends CommonAction{
 		else
 		$this->assign("markpos",'全部');
 		A("Method")->showDirectory("团费确认");
+		$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
+		$_REQUEST['status_baozhang'] = '未审核';
 		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
 		$ViewDingdan = D("ViewDingdan");
 		$DataCD = D("DataCD");
