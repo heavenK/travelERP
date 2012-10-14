@@ -5,4 +5,56 @@
 </html>
 
 
+<div id="dialog" title="提示消息" style="background:#FFF"> </div>
+
+<div id="dialog_password" title="修改密码" style="background:#FFF">
+<form id="form_password" id="form_password" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 输入密码: </td>
+          <td valign="top" scope="row"><input name="password" type="password" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 输入新密码: </td>
+          <td valign="top" scope="row"><input name="new_password" type="password" id="new_password" check="^\S+$" warning="新密码不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 重复新密码: </td>
+          <td valign="top" scope="row" colspan="3"><input name="re_password" type="password" id="re_password" check="^\S+$" warning="重复密码不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_userinfo" title="个人信息" style="background:#FFF">
+<form id="form_userinfo" id="form_userinfo" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
+          <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 性别: </td>
+          <td valign="top" scope="row">
+          <select name="user_gender">
+          	<php>if($this->tVar['user']['user_gender'])</php>
+          	<option value="<php>echo $this->tVar['user']['user_gender']</php>"><php>echo $this->tVar['user']['user_gender']</php></option>
+          	<option disabled="disabled">-------------</option>
+            <php></php>
+          	<option value="男">男</option>
+          	<option value="女">女</option>
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
+          <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
 
