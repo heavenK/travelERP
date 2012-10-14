@@ -2,7 +2,7 @@
 
 class FormeAction extends Action{
     public function _initialize() {
-		
+		exit;
 		if($this->user['title'] != 'aaa'){
 			$this->display('Index:error');
 			exit;
