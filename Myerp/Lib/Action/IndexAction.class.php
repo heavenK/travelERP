@@ -77,32 +77,7 @@ class IndexAction extends Action{
 	
 	
 	public function showheader() {
-		$role = A("Method")->_checkRolesByUser('计调','组团');
-		if(false !== $role)
-			$is_jidiao = 1;
-		$role = A("Method")->_checkRolesByUser('票务','业务');
-		if(false !== $role)
-			$is_jidiao = 1;
-		$role = A("Method")->_checkRolesByUser('地接','地接');
-		if(false !== $role)
-			$is_dijie = 1;
-		$role = A("Method")->_checkRolesByUser('财务','行政');
-		if(false !== $role)
-			$is_caiwu = 1;
-		$role = A("Method")->_checkRolesByUser('财务总监','行政');
-		if(false !== $role)
-			$is_caiwu = 1;
-		$role = A("Method")->_checkRolesByUser('总经理','行政');
-		if(false !== $role)
-			$is_caiwu = 1;
-		$role = A("Method")->_checkRolesByUser('网管','行政');
-		if(false !== $role)
-			$is_wangguan = 1;
-		
-		$this->assign("is_caiwu",$is_caiwu);
-		$this->assign("is_dijie",$is_dijie);
-		$this->assign("is_jidiao",$is_jidiao);
-		$this->assign("is_wangguan",$is_wangguan);
+		A("Method")->_getuser_roleright();
 		$this->display('Index:header');
 	}
 	
