@@ -2396,6 +2396,7 @@ class FormeAction extends Action{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$data['status'] = '报名';
+		$data['islock'] = '已锁定';
 		$Chanpin->where("`marktype` = 'zituan' and `status` = '准备'")->save($data);
 		echo "结束";
 		return true;
