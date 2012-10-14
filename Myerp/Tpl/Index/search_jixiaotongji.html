@@ -38,8 +38,19 @@
               <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
               <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
         </div>
-        
-
+        <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
+        <div style="margin-top:10px;">
+            <table width="100%" cellpadding="0" cellspacing="0" class="formHeader h3Row" style="margin-top:0px;">
+              <tbody>
+                <tr>
+                  <td nowrap=""><h3><span>查询：<label style="color:red"><php>foreach($_REQUEST as $v) echo $v."&nbsp;"</php></label></span></h3></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <php>}</php>
+    </div>
+    
 <script>
 function setsearch(status)
 {
@@ -52,6 +63,46 @@ function setsearch(status)
 				ThinkAjax.myAjaxResponse(msg,'resultdiv');
 			}
 	  });
+}
+
+function showmysearchdiv(s)
+{
+		var divRili = document.getElementById('mysearchdiv');
+		var divRili_1 = document.getElementById('show_link_insideview');
+		var divRili_2 = document.getElementById('hide_link_insideview');
+	if(s == 1){
+		divRili.style.display = ''
+		divRili_1.style.display = 'none'
+		divRili_2.style.display = ''
+		setsearch(1);
+	}
+	if(s == 2){
+		divRili.style.display = 'none'
+		divRili_1.style.display = ''
+		divRili_2.style.display = 'none'
+		setsearch(2);
+	}
+}
+
+function showsearch(s)
+{
+	clearsearch();
+	if(s == 1){
+		var divRili = document.getElementById('searchdiv_1'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('searchdiv_2'); 
+		divRili.style.display = 'none';	
+		jQuery('#searchtab_1').addClass('current');
+		jQuery('#searchtab_2').removeClass('current');
+	}
+	if(s == 2){
+		var divRili = document.getElementById('searchdiv_2'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('searchdiv_1'); 
+		divRili.style.display = 'none';	
+		jQuery('#searchtab_2').addClass('current');
+		jQuery('#searchtab_1').removeClass('current');
+	}
 }
 
 function clearsearch(){
