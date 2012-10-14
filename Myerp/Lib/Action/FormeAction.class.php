@@ -688,6 +688,7 @@ class FormeAction extends Action{
 			$dat['departmentID'] = $newxianlu['departmentID'];
 			$dat['parentID'] = $newxianlu['chanpinID'];
 			//计算出团日期，重置子团状态
+			$dat['status'] = '报名';
 			if($v['zhuangtai'] == '报名' ||$v['zhuangtai'] == '截止'){
 				$dat['islock'] = '已锁定';
 				if(strtotime($v['chutuanriqi']) < time()){
@@ -700,8 +701,6 @@ class FormeAction extends Action{
 				$dat['status'] = '准备';
 				$dat['status_system'] = -1;
 			}
-			else
-				$dat['status'] = '准备';
 			$dat['zituan']['title_copy'] = $newxianlu['xianlu']['title'];
 			$dat['zituan']['jiedaijihua'] = serialize($jihua);
 			$dat['zituan']['chutuantongzhi'] = serialize($tongzhi);
@@ -2389,6 +2388,19 @@ class FormeAction extends Action{
 		echo "结束";
 		return true;
 	}
+	
+	//重置子团准备状态到报名
+    public function zituanstatusreset() {
+		echo "开始";
+		echo "<br>";
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$data['status'] = '报名';
+		$Chanpin->where("`marktype` = 'zituan' and `status` = '准备'")->save($data);
+		echo "结束";
+		return true;
+	}
+	
 	
 	
 	
