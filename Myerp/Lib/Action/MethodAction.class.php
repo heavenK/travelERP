@@ -306,7 +306,7 @@ class MethodAction extends CommonAction{
 			}
 			else{
 				$zituanID = $zituan['chanpinID'];
-				if($zituan['islock'] != '已锁定'){
+				if($zituan['islock'] != '已锁定' && $zituan['status_baozhang'] != '批准'){
 					//修改子团内容
 					$datazituan['chanpinID'] = $zituan['chanpinID'];
 					if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
@@ -338,6 +338,9 @@ class MethodAction extends CommonAction{
 				if($zituan['islock'] != '已锁定'){
 					$zituan['status_system'] = -1;
 					if (false !== $Chanpin->relation("zituan")->myRcreate($zituan)){
+						//清空相关om
+						$DataOM =D("DataOM");
+						$DataOM->where("`dataID` = '$zituan[chanpinID]' and `datatype` = '子团'")->delete();
 						continue;	
 					}
 				}

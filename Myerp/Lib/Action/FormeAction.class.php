@@ -239,6 +239,7 @@ class FormeAction extends Action{
 					if($v['zhuangtai'] == '报名')
 					$this->_xianlu_shoujia($v,$dat);
 					//zituan
+					if($dat['status'] != '准备')
 					$this->_zituan_build($v,$dat,$dataOMlist);
 				}
 				
