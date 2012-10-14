@@ -162,7 +162,7 @@ function closedatelist(mark){
 		jQuery("#buttomclose"+mark).hide();
 }
 function dosearch(str){
-		window.location = '<{:SITE_INDEX}>Xiaoshou/Index'+str;
+		window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 
 </script>

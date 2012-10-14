@@ -120,8 +120,7 @@ function showinfo(chanpinID){
 
 function dosearch()
 {
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+		window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 
 function exports(chanpinID,type)

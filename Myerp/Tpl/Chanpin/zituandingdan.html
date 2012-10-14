@@ -115,10 +115,9 @@
 
 <script language="javascript"> 
 
-function dosearch()
+function dosearch(str)
 {
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+		window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 
 function baoming(chanpinID){

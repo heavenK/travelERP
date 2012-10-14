@@ -232,7 +232,7 @@
 <tp:includeCA file="Index:footer" />
 <script>
 function dosearch(str){
-	window.location = '<{:SITE_INDEX}><{$actionmethod}>/danxiangfuwu'+str;
+	window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 
 function showinfo(baozhangID){

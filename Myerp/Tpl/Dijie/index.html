@@ -68,7 +68,7 @@
 <script language="javascript"> 
 
 function dosearch(str){
-		window.location = '<{:SITE_INDEX}>Dijie/index'+str;
+		window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 
 function copytonew()

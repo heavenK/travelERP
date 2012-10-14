@@ -257,7 +257,7 @@ function show_dingdan(chanpinID){
 	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
 function dosearch(str){
-		window.location = '<{:SITE_INDEX}><{$chanpin_mark}>/shenhe/type/<{$type}>'+str;
+		window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 </script>
 
