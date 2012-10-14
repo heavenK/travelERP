@@ -133,16 +133,19 @@ class MethodAction extends CommonAction{
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';
 			$where['datatype'] = $datatype;
+			$where['title'] = array('like','%'.$where['title'].'%');
 		}
 		if($datatype == '公告'){
 			$class_name = 'OMViewInfo';
 			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
+			$where['title'] = array('like','%'.$where['title'].'%');
 		}
 		if($datatype == '排团表'){
 			$class_name = 'OMViewInfo';
 			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
+			$where['title'] = array('like','%'.$where['title'].'%');
 		}
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');

@@ -11,7 +11,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_xianlu" />
+            <include file="Index:search_message" />
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -58,10 +58,9 @@
 <tp:includeCA file="Index:footer" />
 
 <script language="javascript"> 
-function dosearch()
+function dosearch(str)
 {
-		title = document.getElementById('title').value;
-		window.location = '<{:SITE_INDEX}>Chanpin/index/title/'+title;
+	window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
 }
 </script>
 

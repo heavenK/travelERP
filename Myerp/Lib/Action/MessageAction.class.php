@@ -68,7 +68,11 @@ class MessageAction extends Action{
 				$i++;
 			}
 			$this->assign("categorylist",$categorylist);
-			
+			//查看权限
+			$role = A("Method")->_checkRolesByUser('网管,秘书,财务,财务总监,总经理','行政');
+			if(false !== $role)
+				$is_fabu = 1;
+			$this->assign("is_fabu",$is_fabu);
 			if($_REQUEST['datatype'] == '公告')
 			$this->display('gonggao');
 			if($_REQUEST['datatype'] == '排团表')
@@ -80,9 +84,9 @@ class MessageAction extends Action{
 	
 	
     public function infodelete() {
-		$durlist = A("Method")->_checkRolesByUser('网管','组团');
+		$durlist = A("Method")->_checkRolesByUser('网管,秘书,财务,财务总监,总经理','行政');
 		if (false === $durlist)
-			$this->ajaxReturn('', '没有网管权限！', 0);
+			$this->ajaxReturn('', '没有权限！', 0);
 		$data['messageID'] = $_REQUEST['messageID'];
 		$data['status_system'] = -1;
 		$Message = D("Message");
@@ -97,9 +101,9 @@ class MessageAction extends Action{
 		C('TOKEN_ON',false);
 		$data = $_REQUEST;
 		$data['info'] = $_REQUEST;
-		$durlist = A("Method")->_checkRolesByUser('网管','组团');
+		$durlist = A("Method")->_checkRolesByUser('网管,秘书,财务,财务总监,总经理','行政');
 		if (false === $durlist)
-			$this->ajaxReturn('', '没有网管权限！', 0);
+			$this->ajaxReturn('', '没有权限！', 0);
 		$data['info']['usedDUR'] = $durlist[0]['bumenID'].','.$durlist[0]['rolesID'].','.$durlist[0]['userID'];
 		$Message = D("Message");
 		//文档上传

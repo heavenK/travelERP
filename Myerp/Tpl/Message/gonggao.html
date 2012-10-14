@@ -13,7 +13,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_xianlu" />
+            <include file="Index:search_message" />
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -24,7 +24,9 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
+<php>if($is_fabu){</php>      
                             <input class="button" type="button" value=" 发布 " onclick="opendialog_1()">
+<php>}</php>
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -48,8 +50,10 @@
                   <td scope="row" align="left" valign="top"><a href="javascript:opendialog_2('<{$v[messageID]}>')"><{$v['title']}></a></td>
                   <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
                   <td scope="row" align="center" valign="top">
+<php>if($is_fabu){</php>      
                         <input class="button" type="button" value=" 删除 " onclick="infodelete('<{$v[messageID]}>')">
                         <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
+<php>}</php>
                   </td>
                 </tr>
                 <php> }</php>
@@ -220,7 +224,10 @@ function arraymessage_after(data,status){
 		jQuery('#dialog_gonggao').dialog('open');
 	}
 }
-
+function dosearch(str)
+{
+	window.location = '<{$_SERVER[REQUEST_URI]}>'+str;
+}
 </script> 
 
 
