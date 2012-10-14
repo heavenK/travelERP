@@ -2398,6 +2398,9 @@ class FormeAction extends Action{
 		$data['status'] = '报名';
 		$data['islock'] = '已锁定';
 		$Chanpin->where("`marktype` = 'zituan' and `status` = '准备'")->save($data);
+		$data = '';
+		$data['islock'] = '已锁定';
+		$Chanpin->where("`marktype` = 'zituan'")->save($data);
 		echo "结束";
 		return true;
 	}
