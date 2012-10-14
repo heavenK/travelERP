@@ -100,8 +100,8 @@ class IndexAction extends Action{
 			$is_wangguan = 1;
 		
 		$this->assign("is_caiwu",$is_caiwu);
-		$this->assign("is_dijie",$is_caiwu);
-		$this->assign("is_jidiao",$is_caiwu);
+		$this->assign("is_dijie",$is_dijie);
+		$this->assign("is_jidiao",$is_jidiao);
 		$this->assign("is_wangguan",$is_wangguan);
 		$this->display('Index:header');
 	}
