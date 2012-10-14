@@ -148,7 +148,6 @@ class MessageAction extends Action{
 
 
 	public function left_kongguan() {
-		A("Method")->_getuser_roleright();
 		$this->display('Message:left_kongguan');
 	}
 	
