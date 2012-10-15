@@ -3,6 +3,7 @@
 class BudingAction extends Action{
 	//报账单解锁
     public function baozhangdanjiesuo() {
+		exit;
 		echo "执行报账解锁";
 		$Chanpin = D("Chanpin");
 		$baozhangall = $Chanpin->where("`marktype` = 'baozhang'")->findall();
@@ -18,6 +19,7 @@ class BudingAction extends Action{
 	
 	//订单om开放到用户本人
     public function dingdankaifang() {
+		exit;
 		echo "执行订单om开放到用户本人";
 		$ViewUser = D("ViewUser");
 		$DataOM = D("DataOM");
