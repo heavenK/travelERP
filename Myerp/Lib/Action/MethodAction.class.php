@@ -165,6 +165,9 @@ class MethodAction extends CommonAction{
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
 		$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
+		
+		//dump($tempcount);
+		
 		$count = count($tempcount);
 		$p= new Page($count,$pagenum);
 		if($ajaxdiv)
@@ -2811,14 +2814,18 @@ class MethodAction extends CommonAction{
 				}
 				$chanpinID = $Chanpin->getRelationID();
 				//行程内容
-				$ViewXingCheng = D("ViewXingCheng");
-				$xingcheng = $ViewXingCheng->where("`chanpinID` = $v")->find();
-				$data['parentID'] = $chanpinID;
-				$data['xingcheng'] = $xingcheng;
-				if(false === $Chanpin->relation("xingcheng")->myRcreate($data)){
-					$Chanpin->rollback();
-					$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+				$ViewXingcheng = D("ViewXingcheng");
+				$xingchengall = $ViewXingcheng->where("`parentID` = $v")->findall();
+				foreach($xingchengall as $vol){
+					$data['parentID'] = $chanpinID;
+					$data['xingcheng'] = $vol;
+					if(false === $Chanpin->relation("xingcheng")->myRcreate($data)){
+						$Chanpin->rollback();
+						$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+					}
+					
 				}
+				
 			}
 				
 			if($type == '地接'){
