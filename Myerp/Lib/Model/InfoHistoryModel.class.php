@@ -1,7 +1,7 @@
 <?php
 
 class InfoHistoryModel extends Model {
-	protected $trueTableName = 'myerp_message_infoHistory';	
+	protected $trueTableName = 'myerp_message_infohistory';	
 	protected $pk = 'messageID';
 		
    // 自动验证设置 
