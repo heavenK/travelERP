@@ -1799,7 +1799,7 @@ class MethodAction extends CommonAction{
 		$chutuanriqi = $zituan['chutuanriqi'];
 		$chufadi = $zituan['xianlulist']['chufadi'];
 		$chufashijian = explode('-',$chutuanriqi);
-		$jieshushijian = explode('-',jisuanriqi($zituan['chutuanriqi'],$xianlu['xianlu']['tianshu']));
+		$jieshushijian = explode('-',jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']));
 		$this->assign('chufashijian',$chufashijian);
 		$this->assign('jieshushijian',$jieshushijian);
 		$this->assign('chufadi',$chufadi);
