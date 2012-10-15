@@ -164,10 +164,11 @@ class MethodAction extends CommonAction{
 		$distinctfield = 'dataID';
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
+		
+		dump($where);
+		
+		
 		$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
-		
-		//dump($tempcount);
-		
 		$count = count($tempcount);
 		$p= new Page($count,$pagenum);
 		if($ajaxdiv)
