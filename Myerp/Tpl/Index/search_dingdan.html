@@ -151,6 +151,10 @@ function showsearch(s)
 function clearsearch(){
 		jQuery('.title_1').val('');
 		jQuery('.title_2').val('');
+		jQuery('.fuzeren_1').val('');
+		jQuery('.owner_1').val('');
+		jQuery('.fuzeren_2').val('');
+		jQuery('.owner_2').val('');
 		jQuery('.start_time').val('');
 		jQuery('.start_time').val('');
 		jQuery('.end_time').val('');
@@ -158,13 +162,16 @@ function clearsearch(){
 		jQuery('.lianxiren').val('');
 		jQuery('.type').val('');
 		jQuery('.remark').val('');
-		
 }
 
 function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
+	if(jQuery('.fuzeren_'+sorttabid).val())
+	str += '/fuzeren/'+jQuery('.fuzeren_'+sorttabid).val();
+	if(jQuery('.owner_'+sorttabid).val())
+	str += '/owner/'+jQuery('.owner_'+sorttabid).val();
 	if(jQuery('.start_time').val())
 	str += '/start_time/'+jQuery('.start_time').val();
 	if(jQuery('.end_time').val())
