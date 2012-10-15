@@ -217,7 +217,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		$dat['__hash__'] = $_REQUEST['__hash__'];
+		//$dat['__hash__'] = $_REQUEST['__hash__'];
 		for($t = 0; $t < $_REQUEST['tianshu']; $t++){
 			if($_REQUEST['chanpinID'][$t])
 			$dat['chanpinID'] = $_REQUEST['chanpinID'][$t];

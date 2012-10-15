@@ -100,6 +100,7 @@ class MethodAction extends CommonAction{
 			$where['title_copy'] = array('like','%'.$where['title'].'%');
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
+			$order = 'chutuanriqi desc';
 		}
 		if($datatype == '地接'){
 			$class_name = 'OMViewDJtuan';
@@ -171,7 +172,9 @@ class MethodAction extends CommonAction{
 		$page = $p->show_ajax($ajaxdiv);
 		else
 		$page = $p->show();
-        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order("time desc")->select();
+		if(!$order)
+			$order = 'time desc';
+        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;

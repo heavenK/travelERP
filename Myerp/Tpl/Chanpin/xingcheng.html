@@ -1,11 +1,60 @@
 <tp:includeCA file="Index:showheader" />
-
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 <div id="main">
 
   <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
   
     <tp:includeCA file="Chanpin:header_chanpin" />
    
+    
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>行程信息（一）</h4>
+            </th>
+          </tr>
+        <tr>
+          <td valign="top" colspan="4" scope="row">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td valign="top">
+                        <fieldset style="border:#CBDAE6 1px solid">
+                          <legend>内容</legend>
+                          <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                            <tbody>
+                              <tr>
+            <td valign="top" colspan="3"><textarea name="xingcheng" id="xingcheng"><{$xianlu['xingcheng']}></textarea>
+              <script type="text/javascript">
+          var editor = CKEDITOR.replace( 'xingcheng' );
+          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+          </script></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </fieldset>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4 style="color:red">行程信息（二）“如果行程信息（一）填写，将不在报名时候显示行程信息（二）”</h4>
+            </th>
+          </tr>
+      </tbody>
+    </table>
+    
     
 <form name="form" method="post" id="form" action="<{:SITE_INDEX}>Chanpin/dopostxingcheng/">
   <input type="hidden" name="ajax" value="1"> <!--ajax提示-->
@@ -84,6 +133,7 @@
 
 <script>
 function save(){
+	document.getElementById('xingcheng').value = CKEDITOR.instances.xingcheng.getData();
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostxingcheng/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
