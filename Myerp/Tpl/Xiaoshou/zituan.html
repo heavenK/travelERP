@@ -106,10 +106,14 @@ $(function(){
     <a href="#fybh">费用包含</a><a href="#fybbh">费用不包含</a><a href="#qzxx">签证信息</a><a href="#kxzf">可选自费</a><a href="#gwxx">购物信息</a><a href="#ydtk">预定条款</a><a href="#cxjs">出行警示</a> 
   <php>}</php>
   </div>
+  
   <div class="ks_main"><!--主体内容--> 
   <a name="xyxc"></a>
     <del>旅游行程</del>
     <div class="ks_main_1st">
+    <php>if($xingcheng_1){</php>
+    	<{$xingcheng_1}>
+    <php>}else{</php>
       <php>$i = 0;foreach($xianlu[xingcheng] as $v){$i++;</php>
       <div class="ks_main_2nd">
         <div class="ks_main_3rd">
@@ -119,8 +123,10 @@ $(function(){
         </div>
       </div>
       <php>}</php>
+    <php>}</php>
     </div>
   </div>
+  
   <a name="ctxz"></a>
   <div class="ks_main" ><!--主体内容--> 
     <del>参团须知</del>

@@ -118,7 +118,10 @@ class XiaoshouAction extends Action{
 //		$this->assign("baoming_root",1);
 		if($zituan['status_baozhang'] != '批准')
 			$this->assign("baoming_root",1);
-
+		//行程一
+		$datatext = simple_unserialize($xianlu['xianlu']['datatext']);
+		$xingcheng_1 = $datatext['xingcheng'];
+		$this->assign("xingcheng_1",$xingcheng_1);
 		//显示
 		if($_REQUEST['doprint'] == '打印')
 		$this->display('printzituan');

@@ -202,6 +202,12 @@ class ChanpinAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
 		$xingcheng = $Chanpin->relationGet("xingchenglist");
+		//行程一
+		$ViewXianlu = D("ViewXianlu");
+		$xianlu = $ViewXianlu->where("`chanpinID` = '$chanpinID'")->find();
+		$datatext = simple_unserialize($xianlu['datatext']);
+		$xingcheng_1 = $datatext['xingcheng'];
+		$this->assign("xingcheng_1",$xingcheng_1);
 		$this->assign("chanpin",$chanpin);
 		$this->assign("xingcheng",$xingcheng);
 		$this->assign("datatitle",' : "'.$chanpin['xianlu']['title'].'"');
@@ -217,7 +223,6 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		//$dat['__hash__'] = $_REQUEST['__hash__'];
 		for($t = 0; $t < $_REQUEST['tianshu']; $t++){
 			if($_REQUEST['chanpinID'][$t])
 			$dat['chanpinID'] = $_REQUEST['chanpinID'][$t];
@@ -229,6 +234,16 @@ class ChanpinAction extends CommonAction{
 			if (false === $Chanpin->relation('xingcheng')->myRcreate($dat))
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 		}
+		//更新行程一到线路
+		$ViewXianlu = D("ViewXianlu");
+		$xianlu = $ViewXianlu->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
+		$daat['chanpinID'] = $xianlu['chanpinID'];
+		$daat['xianlu']['datatext'] = simple_unserialize($xianlu['datatext']);
+		$daat['xianlu']['datatext']['xingcheng'] = $_REQUEST['xingcheng'];
+		$daat['xianlu']['datatext'] = serialize($daat['xianlu']['datatext']);
+		if (false === $Chanpin->relation('xianlu')->myRcreate($daat))
+		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+		
 		$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 	}
 	
@@ -454,6 +469,10 @@ class ChanpinAction extends CommonAction{
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$title = $_REQUEST['typemark'].'--'.$zituan['title_copy'].'--'.$zituan['chutanriqi'];
+		//行程一
+		$datatext = simple_unserialize($zituan['xianlulist']['xianlu']['datatext']);
+		$xingcheng_1 = $datatext['xingcheng'];
+		$this->assign("xingcheng_1",$xingcheng_1);
 		if($_REQUEST['export'] == 1){
 			//导出Word必备头
 			header("Content-type:application/msword");
