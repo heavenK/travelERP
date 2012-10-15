@@ -114,8 +114,11 @@ class XiaoshouAction extends Action{
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//报名截止
-		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
-		$this->assign("baoming_root",1);
+//		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
+//		$this->assign("baoming_root",1);
+		if($zituan['status_baozhang'] != '批准')
+			$this->assign("baoming_root",1);
+
 		//显示
 		if($_REQUEST['doprint'] == '打印')
 		$this->display('printzituan');
@@ -187,8 +190,10 @@ class XiaoshouAction extends Action{
 			if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['childprice'])
 				$this->ajaxReturn($_REQUEST,'错误,儿童售价超过可折扣范围！', 0);
 			//报名截止
-			if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 )
-			$this->ajaxReturn($_REQUEST,'错误,该团报名已经截止！', 0);
+			if($zituan['status_baozhang'] == '批准')
+				$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
+//			if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 )
+//			$this->ajaxReturn($_REQUEST,'错误,该团报名已经截止！', 0);
 		}
 		//检查人数
 		if($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num'] <= 0 )
