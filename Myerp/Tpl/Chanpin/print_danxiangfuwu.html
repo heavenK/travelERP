@@ -55,7 +55,7 @@
       <tr height="28px" >
         <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
         <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
-        <td width="20%">&nbsp;回团日期：<php>echo jisuanriqi($zituan['chutuanriqi'],$xianlu['xianlu']['tianshu']);</php></td>
+        <td width="20%">&nbsp;回团日期：<php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
         <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
         <td width="10%">&nbsp;全陪：<{$baozhang['datatext']['quanpei']}></td>
       </tr>

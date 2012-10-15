@@ -157,7 +157,7 @@ function clearsearch(){
 		jQuery('.status').val('');
 		jQuery('.tuanhao').val('');
 		jQuery('.kind_copy').val('');
-		
+		jQuery('.chutuanriqi').val('');
 }
 
 function _dosearch(sorttabid){
@@ -178,6 +178,8 @@ function _dosearch(sorttabid){
 	str += '/tuanhao/'+jQuery('.tuanhao').val();
 	if(jQuery('.kind_copy').val())
 	str += '/kind_copy/'+jQuery('.kind_copy').val();
+	if(jQuery('.chutuanriqi').val())
+	str += '/chutuanriqi/'+jQuery('.chutuanriqi').val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

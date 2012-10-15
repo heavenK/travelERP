@@ -22,6 +22,7 @@
         
         <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
               <div class="edit view search ">
+              <input type="hidden" class="datatype" value="<{$datatype}>" />
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
@@ -108,6 +109,8 @@ function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
+	if(jQuery('.datatype').val())
+	str += '/datatype/'+jQuery('.datatype').val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }
