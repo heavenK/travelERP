@@ -71,7 +71,7 @@ jQuery().ready(function() {
         <php>}</php>
         <td scope="row" align="left" valign="top"><input type="text" name="remark[]" value="<{$remark_t}>" ></td>
         <td scope="row" align="left" valign="top"><input type="text" name="price[]" value="<{$price}>" class='priceitem' check="^\S+$" warning="金额不能为空,且不能含有空格"></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem('chengbenrow<{$i}>')" />
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem('chengbenrow<{$i}>')" />
           <input class="button" type="button" value="修改" onClick="save()" /></td>
       </tr>
       <php>}</php>

@@ -29,7 +29,7 @@ function insertjiaotong(type)
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"dachengshijian[]"+i+"\" onfocus=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" name=\"didashijian[]"+i+"\" onfocus=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deletejiaotong("+i+");\" />";
+	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"if(window.confirm('要刪除嗎?')==true)deletejiaotong("+i+");\" />";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"save()\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#jiaotong").append(htmlcontent);
@@ -134,7 +134,7 @@ function doprint(type){
                     <td scope="row" align="left" valign="top"><input type="text" name="dachengshijian[]" value="<{$dachengshijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
                     <td scope="row" align="left" valign="top"><input type="text" name="didashijian[]" value="<{$didashijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
                     <td scope="row" align="left" valign="top">
-                    <input class="button" type="button" value="删除" onClick="deletejiaotong(<{$i}>)" />
+                    <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletejiaotong(<{$i}>)" />
 					<input class="button" type="button" value="修改" onClick="save()" />
                     </td>
                   </tr>

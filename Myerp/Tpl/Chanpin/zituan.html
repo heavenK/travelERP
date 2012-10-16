@@ -40,7 +40,7 @@
           <td scope="row" align="left" valign="top"><{$v['baomingjiezhi']}></td>
           <td scope="row" align="left" valign="top"><{$v['status']}></td>
           <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deletezituan(<{$v['chanpinID']}>,<{$v['parentID']}>)" />
+          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletezituan(<{$v['chanpinID']}>,<{$v['parentID']}>)" />
             <input class="button" type="button" value="修改" onClick="showzituan(<{$v['chanpinID']}>)" /></td>
           <td scope="row" align="center" valign="top"><img onclick="showmessage(this,'<{$v['chanpinID']}>','线路','操作记录');showbox(this,'messageitem','r')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
         </tr>

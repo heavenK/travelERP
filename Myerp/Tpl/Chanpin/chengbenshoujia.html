@@ -78,7 +78,7 @@ jQuery().ready(function() {
             <option value="成人">成人</option>
             <option value="儿童">儿童</option>
           </select></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deletechengben(<{$v['chanpinID']}>)" />
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletechengben(<{$v['chanpinID']}>)" />
           <input class="button" type="button" value="修改" onClick="addchengben(<{$v['chanpinID']}>)" /></td>
       </tr>
       <php>}</php>
@@ -178,7 +178,7 @@ jQuery().ready(function() {
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="chengben" id="chengben<{$v['chanpinID']}>" value="<{$v['chengben']}>" ></td>
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="cut" id="cut<{$v['chanpinID']}>" value="<{$v['cut']}>" ></td>
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="renshu" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" ></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteshoujia(<{$v['chanpinID']}>)" />
+        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteshoujia(<{$v['chanpinID']}>)" />
           <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'<{$v['opentype']}>'))addshoujia(<{$v['chanpinID']}>,'<{$v['opentype']}>')" /></td>
       </tr>
       <php>}</php>

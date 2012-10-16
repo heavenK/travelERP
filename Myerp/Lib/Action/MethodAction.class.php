@@ -2528,6 +2528,8 @@ class MethodAction extends CommonAction{
 		$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]'")->find();
 		if($baozhang['islock'] == '已锁定' )
 			$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
+		if($item['islock'] == '已锁定' )
+			$this->ajaxReturn($_REQUEST,'错误，已经锁定，无法删除！', 0);
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();

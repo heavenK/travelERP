@@ -11,9 +11,15 @@ function doshenhe(dotype){
 		url:	SITE_INDEX+"Chanpin/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
 		}
 	});
+}
+function shenhe_after(data,status){
+	if(status == 1){
+		alert(data['status_shenhe']+"操作成功！！");
+		location.reload();
+	}
 }
 </script>
 

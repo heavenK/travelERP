@@ -56,7 +56,7 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 
 function shenhe_after(data,status){
 	if(status == 1){
-		alert("操作成功，审核通过！！");
+		alert(data['status_shenhe']+"操作成功！！");
 		location.reload();
 	}
 }
@@ -372,7 +372,7 @@ function shenhe_after(data,status){
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
           <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
   
       <php>
@@ -446,7 +446,7 @@ function shenhe_after(data,status){
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
           <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
@@ -518,7 +518,7 @@ function shenhe_after(data,status){
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
           <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>

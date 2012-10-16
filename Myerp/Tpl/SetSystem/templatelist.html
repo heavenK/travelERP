@@ -57,7 +57,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <php>}</php>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="锁定" onClick="lockSystemItem(<{$v['systemID']}>,'itemlist','','已锁定')" />
         <input class="button" type="button" value="解锁" onClick="lockSystemItem(<{$v['systemID']}>,'itemlist','','未锁定')" />
         <input class="button" type="button" value="修改" onClick="save(<{$v['systemID']}>)"/>
@@ -109,7 +109,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <input type="hidden" id="dataID<{$v['systemID']}>" value="<{$v['dataID']}>">
               </td>
               <td scope="row" align="left" valign="top">
-              <input class="button" type="button" value="删除" onClick="deleteDepartemntDC(<{$v['systemID']}>)" />
+              <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteDepartemntDC(<{$v['systemID']}>)" />
               <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['systemID']}>))addSystemDC(<{$v['systemID']}>);" />
               </td>
             </tr>
@@ -146,7 +146,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
                 <td scope="row" align="left" valign="top"><{:SITE_INDEX}><input type="text" id="url<{$v['systemID']}>" style="width:200px" value="<{$v['url']}>"></td>
                 <td scope="row" align="left" valign="top"><{$v['status']}></td>
                 <td scope="row" align="left" valign="top">
-                <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+                <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
                 <input class="button" type="button" value="修改" onClick="save(<{$v['systemID']}>)"/>
                 <input class="button" type="button" value="子目录" onClick="subdirectory(<{$v['systemID']}>)" />
                 </td>
@@ -244,7 +244,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <{$v['parent']['status']}>
               </td>
               <td scope="row" align="left" valign="top">
-              <input class="button" type="button" value="删除" onClick="deleteSystemOM(<{$v['systemID']}>)" />
+              <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemOM(<{$v['systemID']}>)" />
               <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['systemID']}>,'<{$v[parenttype]}>'))additemOM(<{$v['systemID']}>,'<{$v[parenttype]}>');" />
               </td>
             </tr>
@@ -577,7 +577,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <{$v['status']}>
               </td>
               <td scope="row" align="left" valign="top">
-              <input class="button" type="button" value="删除" onClick="deleteItem(<{$v['systemID']}>)" />
+              <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteItem(<{$v['systemID']}>)" />
               <input class="button" type="button" value="修改" onClick="if(CheckForm('form_t<{$v['systemID']}>','resultdiv_2') && checktitle(<{$v['systemID']}>,'<{$v[parenttype]}>'))additem(<{$v['systemID']}>,'<{$v[parenttype]}>');" />
               </td>
             </tr>
@@ -641,7 +641,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><input type="text" name="video_url" style="width:200px" value="<{$v['video_url']}>"></td>
         <td scope="row" align="left" valign="top"><input type="file" name="image" style="width:200px"><a href="javascript:void(0)" onmouseover="showpic('<{$v[pic_url]}>');" onmouseout="closeshowpic();">查看</a></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="submit" value="修改" />
         </td>
         </form>
@@ -706,7 +706,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><input type="text" name="description" style="width:200px" value="<{$v['description']}>"></td>
         <td scope="row" align="left" valign="top"><input type="file" name="image" style="width:200px"><a href="javascript:void(0)" onmouseover="showpic('<{$v[pic_url]}>');" onmouseout="closeshowpic();">查看</a></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="submit" value="修改" />
         </td>
         </form>
@@ -743,7 +743,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>
@@ -779,7 +779,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>
@@ -865,7 +865,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <php>}</php>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="锁定/解锁" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>
@@ -900,7 +900,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input type="text" name="description" id="description<{$v['systemID']}>" style="width:200px" value="<{$v['description']}>"></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="删除" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>
@@ -994,7 +994,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['datatext']['category']}></td>
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="锁定/解锁" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="infoedit('<{$v[systemID]}>');"/>
         </td>
       </tr>
@@ -1034,7 +1034,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <php>}</php>
         <td scope="row" align="left" valign="top">
-        <input class="button" type="button" value="锁定/解锁" onClick="deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
+        <input class="button" type="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
       </tr>
