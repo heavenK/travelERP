@@ -19,6 +19,7 @@ class BudingAction extends Action{
 	
 	//订单om开放到用户本人
     public function dingdankaifang() {
+		exit;
 		echo "执行订单om开放到用户本人";
 		$ViewUser = D("ViewUser");
 		$DataOM = D("DataOM");
@@ -41,7 +42,6 @@ class BudingAction extends Action{
 	
 	//线路开放销售补订
     public function xianluxiaoshoukaifang() {
-		exit;
 		C('TOKEN_ON',false);
 		echo "执行线路开放销售om";
 		$ViewXianlu = D("ViewXianlu");
