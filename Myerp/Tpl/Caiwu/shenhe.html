@@ -89,7 +89,8 @@
                 <php>if($type == '收支项'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 团名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
@@ -102,7 +103,8 @@
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['parentID']}>" target="_blank"><{$v['title']}></a></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang']['zituanlist']['title_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang']['zituanlist']['chutuanriqi']}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['parentID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>

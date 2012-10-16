@@ -13,19 +13,19 @@ class CaiwuAction extends CommonAction{
 		}
 		$datalist = A("Method")->_shenhe();
 		$ViewBaozhang = D("ViewBaozhang");
-		
+		$i = 0;
 		foreach($datalist['chanpin'] as $v){
 			$baozhang = $ViewBaozhang->relation("zituanlist")->where("`chanpinID` = $v[parentID]")->find();
-			
+			$datalist['chanpin'][$i]['baozhang'] = $baozhang;
+			$i++;
 		}
-		
-		
 		if($_REQUEST['type'] == '收支项')
 		A("Method")->showDirectory("收支项审核");
 		if($_REQUEST['type'] == '报账单')
 		A("Method")->showDirectory("报账单审核");
 		if($_REQUEST['type'] == '订单')
 		A("Method")->showDirectory("订单审核");
+		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->display('shenhe');
 	}
 	
