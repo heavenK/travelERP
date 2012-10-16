@@ -48,11 +48,18 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
 			scroll(0,0);
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
 		}
 	});
 }
-	
+
+
+function shenhe_after(data,status){
+	if(status == 1){
+		alert("操作成功，审核通过！！");
+		loction.reload();
+	}
+}
 </script>
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
