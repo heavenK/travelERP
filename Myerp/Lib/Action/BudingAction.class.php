@@ -40,6 +40,7 @@ class BudingAction extends Action{
 	
 	//线路开放销售补订
     public function xianluxiaoshoukaifang() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "执行线路开放销售om";
 		$ViewXianlu = D("ViewXianlu");
