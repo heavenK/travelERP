@@ -38,6 +38,22 @@ class BudingAction extends Action{
     }
 	
 	
+	//线路开放销售补订
+    public function xianluxiaoshoukaifang() {
+		C('TOKEN_ON',false);
+		echo "执行线路开放销售om";
+		$ViewXianlu = D("ViewXianlu");
+		$ViewShoujia = D("ViewShoujia");
+		$all = $ViewXianlu->where("`status` = '报名'")->findall();
+		foreach($all as $v){
+			$shoujia = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->find();
+			$shoujia['shoujia'] = $shoujia;
+			A('Method')->_shoujiaToDataOM($shoujia);
+		}
+		echo "结束";
+    }
+	
+	
 	
 }
 ?>

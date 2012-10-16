@@ -440,6 +440,8 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	
+	
+	
 	public function shenheback() {
 		A("Method")->_shenheback();
 	}
