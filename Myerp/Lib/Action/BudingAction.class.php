@@ -19,7 +19,6 @@ class BudingAction extends Action{
 	
 	//订单om开放到用户本人
     public function dingdankaifang() {
-		exit;
 		echo "执行订单om开放到用户本人";
 		$ViewUser = D("ViewUser");
 		$DataOM = D("DataOM");
@@ -32,6 +31,8 @@ class BudingAction extends Action{
 			//
 			$user = $ViewUser->where("`title` = '$v[user_name]'")->find();
 			$data['DUR'] = ',,'.$user['systemID'];
+			$ish = $DataOM->where($data)->find();
+			if(!$ish)
 			$DataOM->add($data);
 		}
 		echo "结束";
