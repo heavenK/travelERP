@@ -66,7 +66,7 @@ class BudingAction extends Action{
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
 		$Chanpin = D("Chanpin");
-		$all = $ViewBaozhangitem->limit("0,50")->findall();
+		$all = $ViewBaozhangitem->findall();
 		foreach($all as $v){
 			$data = $v;
 			$data['baozhangitem'] = $v;
