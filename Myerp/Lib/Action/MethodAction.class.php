@@ -2761,6 +2761,7 @@ class MethodAction extends CommonAction{
 		$datalist = $this->getDataOMlist('审核任务',$relation,$_REQUEST);
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
+		return $datalist;
 	}
 	
 	
@@ -2967,7 +2968,6 @@ class MethodAction extends CommonAction{
 		if($dotype == '补订订单'){
 			$datalist = A('Method')->data_list_noOM('ViewZituan',$_REQUEST);
 		}
-		
 		
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);

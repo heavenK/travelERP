@@ -183,10 +183,15 @@ class XiaoshouAction extends Action{
 			$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['zituanID'],$_REQUEST['shoujiaID']);
 			$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 			$baomingrenshu = $tuanrenshu['baomingrenshu'];
-			if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu))
-			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+			if($_REQUEST['shoujiaID']){
+				if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu)){
+					$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+				}
+				else
+				$shengyurenshu = $shoujia['shoujia']['renshu'] - $shoujia_renshu;
+			}
 			else
-			$shengyurenshu = $shoujia['shoujia']['renshu'] - $shoujia_renshu;
+				$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 			//价格范围
 			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);

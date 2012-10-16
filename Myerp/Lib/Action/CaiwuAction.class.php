@@ -11,7 +11,15 @@ class CaiwuAction extends CommonAction{
 		if(!$_REQUEST['datakind']){
 			$this->assign("datakind",'全部');
 		}
-		A("Method")->_shenhe();
+		$datalist = A("Method")->_shenhe();
+		$ViewBaozhang = D("ViewBaozhang");
+		
+		foreach($datalist['chanpin'] as $v){
+			$baozhang = $ViewBaozhang->relation("zituanlist")->where("`chanpinID` = $v[parentID]")->find();
+			
+		}
+		
+		
 		if($_REQUEST['type'] == '收支项')
 		A("Method")->showDirectory("收支项审核");
 		if($_REQUEST['type'] == '报账单')
