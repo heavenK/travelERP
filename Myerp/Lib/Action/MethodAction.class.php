@@ -202,6 +202,25 @@ class MethodAction extends CommonAction{
 				$where['txz_haoma'] = array('like','%'.$where['txz_haoma'].'%');
 			}
 		}
+		
+		if($class_name == 'ViewZituan'){
+			//处理搜索
+			if($where['start_time'] && $where['end_time']){
+				$where['chutuanriqi'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+			}
+			elseif($where['start_time']){
+				$where['chutuanriqi'] = $where['start_time'];
+			}
+			elseif($where['end_time']){
+				$where['chutuanriqi'] = $where['end_time'];
+			}
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
+			$order = 'chutuanriqi desc';
+		}
+		$where['status_system'] = 1;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
@@ -210,7 +229,9 @@ class MethodAction extends CommonAction{
 		$count = $ViewClass->where($where)->count();
 		$p= new Page($count,$pagenum);
 		$page = $p->show();
-        $chanpin = $ViewClass->where($where)->order("time desc")->limit($p->firstRow.','.$p->listRows)->select();
+		if(!$order)
+			$order = 'time desc';
+        $chanpin = $ViewClass->where($where)->order($order)->limit($p->firstRow.','.$p->listRows)->select();
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		return $redata;
@@ -2942,6 +2963,12 @@ class MethodAction extends CommonAction{
 				$i++;
 			}
 		}
+		
+		if($dotype == '补订订单'){
+			$datalist = A('Method')->data_list_noOM('ViewZituan',$_REQUEST);
+		}
+		
+		
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		
