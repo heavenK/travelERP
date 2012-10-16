@@ -398,45 +398,7 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function zituanlist() {
-		if($_REQUEST['kind_copy'] == '近郊游')$this->assign("markpos",'近郊游');
-		elseif($_REQUEST['kind_copy'] == '长线游')$this->assign("markpos",'长线游');
-		elseif($_REQUEST['kind_copy'] == '韩国')$this->assign("markpos",'韩国');
-		elseif($_REQUEST['kind_copy'] == '日本')$this->assign("markpos",'日本');
-		elseif($_REQUEST['kind_copy'] == '台湾')$this->assign("markpos",'台湾');
-		elseif($_REQUEST['kind_copy'] == '港澳')$this->assign("markpos",'港澳');
-		elseif($_REQUEST['kind_copy'] == '东南亚')$this->assign("markpos",'东南亚');
-		elseif($_REQUEST['kind_copy'] == '欧美岛')$this->assign("markpos",'欧美岛');
-		elseif($_REQUEST['kind_copy'] == '自由人')$this->assign("markpos",'自由人');
-		elseif($_REQUEST['kind_copy'] == '包团')$this->assign("markpos",'包团');
-		else
-		$this->assign("markpos",'全部');
-		A("Method")->showDirectory("团费确认");
-		$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
-		$_REQUEST['status_baozhang'] = '未审核';
-		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
-		$ViewDingdan = D("ViewDingdan");
-		$DataCD = D("DataCD");
-		$i = 0;
-		foreach($datalist['chanpin'] as $v){
-			//搜索订单
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-			foreach($dingdanall as $vol){
-				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
-				foreach($customerall as $c){
-					if($c['ispay'] == '已付款'){
-						$datalist['chanpin'][$i]['payed'] += $c['price'];
-					}
-					if($c['ispay'] == '未付款'){
-						$datalist['chanpin'][$i]['unpay'] += $c['price'];
-					}
-					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
-				}
-			}
-			$i++;
-		}
-		$this->assign("page",$datalist['page']);
-		$this->assign("chanpin_list",$datalist['chanpin']);
-		$this->display('zituanlist');
+		A("Method")->_zituanlist();	
 	}
 	
 	

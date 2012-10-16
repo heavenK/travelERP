@@ -1875,6 +1875,18 @@ class MethodAction extends CommonAction{
 		  return $dataOMlist;
 	 }
 	 
+	 //获得OM。自己部门的om
+     public function _getmyOMlist($user_name) {
+		 $durlist = $this->_getDURlist_name($user_name);
+		  $i = 0;
+		  foreach($durlist as $v){
+			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
+			  $i++;
+		  }
+		  return $dataOMlist;
+	 }
+	 
+	 
 	 
 	 
 	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
@@ -2886,6 +2898,87 @@ class MethodAction extends CommonAction{
 		$this->assign("is_wangguan",$is_wangguan);
 		
 	}
+	
+	
+	
+	public function _zituanlist() {
+		if($_REQUEST['kind_copy'] == '近郊游')$this->assign("markpos",'近郊游');
+		elseif($_REQUEST['kind_copy'] == '长线游')$this->assign("markpos",'长线游');
+		elseif($_REQUEST['kind_copy'] == '韩国')$this->assign("markpos",'韩国');
+		elseif($_REQUEST['kind_copy'] == '日本')$this->assign("markpos",'日本');
+		elseif($_REQUEST['kind_copy'] == '台湾')$this->assign("markpos",'台湾');
+		elseif($_REQUEST['kind_copy'] == '港澳')$this->assign("markpos",'港澳');
+		elseif($_REQUEST['kind_copy'] == '东南亚')$this->assign("markpos",'东南亚');
+		elseif($_REQUEST['kind_copy'] == '欧美岛')$this->assign("markpos",'欧美岛');
+		elseif($_REQUEST['kind_copy'] == '自由人')$this->assign("markpos",'自由人');
+		elseif($_REQUEST['kind_copy'] == '包团')$this->assign("markpos",'包团');
+		else
+		$this->assign("markpos",'全部');
+		A("Method")->showDirectory("团费确认");
+		$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
+		$_REQUEST['status_baozhang'] = '未审核';
+		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
+		$ViewDingdan = D("ViewDingdan");
+		$DataCD = D("DataCD");
+		$i = 0;
+		foreach($datalist['chanpin'] as $v){
+			//搜索订单
+			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+			foreach($dingdanall as $vol){
+				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+				foreach($customerall as $c){
+					if($c['ispay'] == '已付款'){
+						$datalist['chanpin'][$i]['payed'] += $c['price'];
+					}
+					if($c['ispay'] == '未付款'){
+						$datalist['chanpin'][$i]['unpay'] += $c['price'];
+					}
+					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
+				}
+			}
+			$i++;
+		}
+		$this->assign("page",$datalist['page']);
+		$this->assign("chanpin_list",$datalist['chanpin']);
+		$this->display('zituanlist');
+		return $datalist['chanpin'];
+	}
+	
+	
+	//添加订单
+    public function _zituanbaoming() {
+		$Chanpin = D("Chanpin");
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		$this->assign("zituan",$zituan);
+		$DataCopy = D("DataCopy");
+		$xianlu = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
+		$xianlu = simple_unserialize($xianlu['copy']);
+		$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu']['xianlu_ext']);
+		$this->assign("xianlu",$xianlu);
+		//计算子团人数
+		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID']);
+		$baomingrenshu = $tuanrenshu['baomingrenshu'];
+		$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+		$this->assign("shengyurenshu",$shengyurenshu);
+		//提成数据
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
+		$this->assign("ticheng",$ticheng);
+		//获得个人部门及分类列表
+		$bumenfeilei = A("Method")->_getbumenfenleilist();
+		$this->assign("bumenfeilei",$bumenfeilei);
+		//清空占位过期订单
+		A('Method')->_cleardingdan();
+		$ViewUser = D("ViewUser");
+		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$this->assign("userlist",$userlist);
+		$this->display('baoming');
+	}
+	
+	
+	
+	
 	
 	
 	
