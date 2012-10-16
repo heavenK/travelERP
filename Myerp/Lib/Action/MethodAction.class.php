@@ -1090,6 +1090,13 @@ class MethodAction extends CommonAction{
 	 	//流程
 		$process = $this->_getTaskDJC($dataID,$datatype);
 		if($process){
+			
+			$need = $this->_getTaskDJC($dataID,$datatype,1);//检查待审核任务存在
+			if(false === $need){
+				cookie('errormessage','错误！您没有产品审核权限！',30);
+				return false;
+			}
+			
 			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
 			if(false !== $omdata){
 				cookie('show_word','批准',30);
@@ -2290,7 +2297,7 @@ class MethodAction extends CommonAction{
 		else{
 			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
 			if(false === $need){
-				$this->ajaxReturn($_REQUEST, '您没有操作权限！', 0);
+				$this->ajaxReturn($_REQUEST, '您没有操作权限!!!！', 0);
 			}
 			$processID = $need['processID'];
 			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
