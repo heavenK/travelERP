@@ -66,13 +66,13 @@ class BudingAction extends Action{
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
 		$Chanpin = D("Chanpin");
-		$all = $ViewBaozhangitem->findall();
+		$all = $ViewBaozhangitem->limit("0,50")->findall();
 		foreach($all as $v){
 			$data = $v;
 			$data['baozhangitem'] = $v;
 			//获得报账单
 			$baozhang = $ViewBaozhang->where("`chanpinID` = $v[parentID]")->find();
-			$data['baozhangitem']['baozhangtitle_copy'] = $zituan['title_copy'];
+			$data['baozhangitem']['baozhangtitle_copy'] = $baozhang['title'];
 			//获得团
 			$cp = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
 			if($cp['marktype'] == 'zituan'){
@@ -88,7 +88,7 @@ class BudingAction extends Action{
 				$data['baozhangitem']['tuanqi_copy'] = $zituan['jietuantime'];
 				$data['baozhangitem']['tuanhao_copy'] = $zituan['tuanhao'];
 			}
-			$Chanpin->myRcreate($data);
+			$Chanpin->relation("baozhangitem")->myRcreate($data);
 		}
 		echo "结束";
     }
@@ -96,6 +96,7 @@ class BudingAction extends Action{
 	
 	//线路联合体开放给自己
     public function lianhetixianlukaifang() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "线路联合体开放给自己om";
 		$ViewXianlu = D("ViewXianlu");
