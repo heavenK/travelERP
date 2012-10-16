@@ -428,23 +428,7 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function kongguan() {
-		if($_REQUEST['kind_copy'] == '近郊游')$this->assign("markpos",'近郊游');
-		elseif($_REQUEST['kind_copy'] == '长线游')$this->assign("markpos",'长线游');
-		elseif($_REQUEST['kind_copy'] == '韩国')$this->assign("markpos",'韩国');
-		elseif($_REQUEST['kind_copy'] == '日本')$this->assign("markpos",'日本');
-		elseif($_REQUEST['kind_copy'] == '台湾')$this->assign("markpos",'台湾');
-		elseif($_REQUEST['kind_copy'] == '港澳')$this->assign("markpos",'港澳');
-		elseif($_REQUEST['kind_copy'] == '东南亚')$this->assign("markpos",'东南亚');
-		elseif($_REQUEST['kind_copy'] == '欧美岛')$this->assign("markpos",'欧美岛');
-		elseif($_REQUEST['kind_copy'] == '自由人')$this->assign("markpos",'自由人');
-		elseif($_REQUEST['kind_copy'] == '包团')$this->assign("markpos",'包团');
-		else
-		$this->assign("markpos",'全部');
-		A("Method")->showDirectory("子团产品");
-		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
-		$this->assign("page",$datalist['page']);
-		$this->assign("chanpin_list",$datalist['chanpin']);
-		$this->display('kongguan');
+		A("Method")->_zituanlist('产品搜索');	
 	}
 	
 	
@@ -975,14 +959,7 @@ class ChanpinAction extends CommonAction{
 	
 	//添加订单
     public function zituanbaoming() {
-		$chanpinID = $_REQUEST['chanpin'];
-		//检查dataOM
-		$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
-		if(false === $xiaoshou){
-			$this->display('Index:error');
-			exit;
-		}
-		A("Method")->_zituanbaoming();	
+		A("Method")->_zituanbaoming('计调');	
 	}
 	
 	

@@ -14,57 +14,57 @@
           <php>if($markpos == '全部'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan">全部</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist">全部</a> </li>
         <li> <a 
           <php>if($markpos == '近郊游'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/kind_copy/近郊游">近郊游</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/国内/kind_copy/近郊游">近郊游</a> </li>
         <li> <a 
           <php>if($markpos == '长线游'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/kind_copy/长线游">长线游</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/国内/kind_copy/长线游">长线游</a> </li>
         <li> <a 
           <php>if($markpos == '韩国'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/韩国">韩国</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/韩国">韩国</a> </li>
         <li> <a 
           <php>if($markpos == '日本'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/日本">日本</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/日本">日本</a> </li>
         <li> <a 
           <php>if($markpos == '台湾'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/台湾">台湾</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/台湾">台湾</a> </li>
         <li> <a 
           <php>if($markpos == '港澳'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/港澳">港澳</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/港澳">港澳</a> </li>
         <li> <a 
           <php>if($markpos == '东南亚'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/东南亚">东南亚</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/东南亚">东南亚</a> </li>
         <li> <a 
           <php>if($markpos == '欧美岛'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/kind_copy/欧美岛">欧美岛</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/guojing_copy/境外/kind_copy/欧美岛">欧美岛</a> </li>
         <li> <a 
           <php>if($markpos == '自由人'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人">自由人</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/kind_copy/自由人">自由人</a> </li>
         <li> <a 
           <php>if($markpos == '包团'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团">包团</a> </li>
+          href="<{:SITE_INDEX}>Xiaoshou/zituanlist/kind_copy/包团">包团</a> </li>
       </ul>
     </div>
     
@@ -85,7 +85,7 @@
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:300px; width:30%"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
-          <th scope="col" nowrap="nowrap" ><div> 计划人数/已报人数/剩余人数 </div></th>
+          <th scope="col" nowrap="nowrap" ><div> 计划人数/已报/剩余 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 发布人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 单位 </div></th>
           <th scope="col" nowrap="nowrap"><div> 报账情况 </div></th>
@@ -94,20 +94,27 @@
         </tr>
           <php>
       
-      $i = -1; foreach($chanpin_list as $v){ $i++;dump($v);
+      $i = -1; foreach($chanpin_list as $v){ $i++;$tuanrenshu = A("Method")->_getzituandingdan($v['chanpinID']);
+      $buding_dingdan = 0;
+      if( (time()-strtotime(jisuanriqi($v['chutuanriqi'],$v['baomingjiezhi'],'减少')) > 0) && $v['status_baozhang'] != '批准')
+      $buding_dingdan = 1;
         </php>
       
       <tr height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><input value="<{$v['chanpinID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
         <td scope="row" align="left" valign="top"><{$i+1}></td>
-        <td scope="row" align="left" valign="top"><a target="_blank" href="javascript:showxianlu(<{$v['parentID']}>)"><{$v['title_copy']}></a></td>
+        <td scope="row" align="left" valign="top"><a target="_blank" href="javascript:showxianlu(<{$v['chanpinID']}>,<{$v['parentID']}>)"><{$v['title_copy']}></a></td>
         <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
-        <td scope="row" align="left" valign="top"><{$v['renshu']}>/<{$v['user_name']}>/<{$v['user_name']}></td>
+        <td scope="row" align="left" valign="top"><{$v['renshu']}>/<label style="color:red"><php> echo number_format($tuanrenshu['baomingrenshu'])</php></label>/<label style="color:green"><php> echo $v['renshu'] - $baomingrenshu</php></label></td>
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['bumen_copy']}></td>
         <td scope="row" align="left" valign="top" style="min-width:50px;"><{$v['baozhang_remark']}></td>
         <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
-        <td scope="row" align="left" valign="top"><input type="button" class="button" value="补订订单" onclick="do_dingdan(<{$v['chanpinID']}>)"></td>
+        <td scope="row" align="left" valign="top">
+        <php>if($buding_dingdan){</php>
+        <input type="button" class="button" value="补订订单" onclick="do_dingdan(<{$v['chanpinID']}>)">
+        <php>}</php>
+        </td>
       </tr>
       <php> }</php>
         </tbody>
@@ -118,62 +125,14 @@
 <tp:includeCA file="Index:footer" />
 <script language="javascript"> 
 function dosearch(str){
-		window.location = SITE_INDEX+'Chanpin/kongguan'+str;
+		window.location = SITE_INDEX+'Xiaoshou/zituanlist'+str;
 }
 </script>
-<div id="selectitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass"> <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a> <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="dateitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="messageitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="themessage"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
 
 
 <script language="javascript"> 
-function showxianlu(xianluID){
-	 window.open(SITE_INDEX+"Xiaoshou/zituan/xianluID/"+xianluID);
+function showxianlu(chanpinID,xianluID){
+	 window.open(SITE_INDEX+"Xiaoshou/zituan/chanpinID/"+chanpinID+"/xianluID/"+xianluID);
 }
 
 function do_dingdan(chanpinID){

@@ -2901,7 +2901,7 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	public function _zituanlist() {
+	public function _zituanlist($dotype) {
 		if($_REQUEST['kind_copy'] == '近郊游')$this->assign("markpos",'近郊游');
 		elseif($_REQUEST['kind_copy'] == '长线游')$this->assign("markpos",'长线游');
 		elseif($_REQUEST['kind_copy'] == '韩国')$this->assign("markpos",'韩国');
@@ -2914,43 +2914,76 @@ class MethodAction extends CommonAction{
 		elseif($_REQUEST['kind_copy'] == '包团')$this->assign("markpos",'包团');
 		else
 		$this->assign("markpos",'全部');
-		A("Method")->showDirectory("团费确认");
-		$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
-		$_REQUEST['status_baozhang'] = '未审核';
+		if($dotype == '团费确认'){
+			A("Method")->showDirectory("团费确认");
+			$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
+			$_REQUEST['status_baozhang'] = '未审核';
+		}
 		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
-		$ViewDingdan = D("ViewDingdan");
-		$DataCD = D("DataCD");
-		$i = 0;
-		foreach($datalist['chanpin'] as $v){
-			//搜索订单
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-			foreach($dingdanall as $vol){
-				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
-				foreach($customerall as $c){
-					if($c['ispay'] == '已付款'){
-						$datalist['chanpin'][$i]['payed'] += $c['price'];
+		if($dotype == '团费确认'){
+			$ViewDingdan = D("ViewDingdan");
+			$DataCD = D("DataCD");
+			$i = 0;
+			foreach($datalist['chanpin'] as $v){
+				//搜索订单
+				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+				foreach($dingdanall as $vol){
+					$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+					foreach($customerall as $c){
+						if($c['ispay'] == '已付款'){
+							$datalist['chanpin'][$i]['payed'] += $c['price'];
+						}
+						if($c['ispay'] == '未付款'){
+							$datalist['chanpin'][$i]['unpay'] += $c['price'];
+						}
+						$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 					}
-					if($c['ispay'] == '未付款'){
-						$datalist['chanpin'][$i]['unpay'] += $c['price'];
-					}
-					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 				}
+				$i++;
 			}
-			$i++;
 		}
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
-		$this->display('zituanlist');
+		
+		if($dotype == '产品搜索'){
+			A("Method")->showDirectory("子团产品");
+			$this->display('Chanpin:kongguan');
+		}
+		if($dotype == '补订订单'){
+			A("Method")->showDirectory("补订订单");
+			$this->display('zituanlist');
+		}
+		if($dotype == '团费确认'){
+			A("Method")->showDirectory("补订订单");
+			$this->display('zituanlist');
+		}
 		return $datalist['chanpin'];
 	}
 	
 	
 	//添加订单
-    public function _zituanbaoming() {
+    public function _zituanbaoming($roletype) {
+		if($roletype == '计调'){
+			$chanpinID = $_REQUEST['chanpin'];
+			//检查dataOM
+			$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
+			if(false === $xiaoshou){
+				$this->display('Index:error');
+				exit;
+			}
+		}
 		$Chanpin = D("Chanpin");
 		$ViewZituan = D("ViewZituan");
 		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		$this->assign("zituan",$zituan);
+		if($roletype == '前台'){
+			//报名截止
+			if( (time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0)  || $zituan['status_baozhang'] == '批准'){
+				justalert("错误！只有超过团期后并且没有报账的子团才能进行补订订单操作！！");
+				gethistoryback();
+				exit;
+			}
+		}
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 		$xianlu = simple_unserialize($xianlu['copy']);

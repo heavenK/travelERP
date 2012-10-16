@@ -394,14 +394,10 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	
-	
-	
-	
 	public function zituanlist() {
-		A("Method")->_zituanlist();	
+		$dotype = $_REQUEST['dotype'];
+		A("Method")->_zituanlist($dotype);	
 	}
-	
-	
 	
 	
 	public function shenheback() {

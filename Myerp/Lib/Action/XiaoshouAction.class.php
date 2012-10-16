@@ -580,32 +580,13 @@ class XiaoshouAction extends Action{
 	
 	
 	public function zituanlist() {
-		$chanpin_list = A("Method")->_zituanlist();
-//		foreach($chanpin_list as $v){
-//			$chanpin_list[$i]['xianludata_copy'] = simple_unserialize($v['xianludata_copy']);
-//			dump($chanpin_list[$i]['xianludata_copy']);
-//		}
-		foreach($chanpin_list as $v){
-			//计算子团人数
-			$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID'],$_REQUEST['shoujiaID']);
-			$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
-			$baomingrenshu = $tuanrenshu['baomingrenshu'];
-			if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu))
-			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
-			else
-			$shengyurenshu = $shoujia['shoujia']['renshu'] - $shoujia_renshu;
-			$this->assign("shengyurenshu",$shengyurenshu);
-			$this->assign("shoujia_renshu",$shoujia_renshu);
-			$this->assign("renshu",$renshu);
-		}
-
-
+		$chanpin_list = A("Method")->_zituanlist('补订订单');
 	}
 	
 	
 	//添加订单
     public function zituanbaoming() {
-		A("Method")->_zituanbaoming();	
+		A("Method")->_zituanbaoming('前台');	
 	}
 	
 	

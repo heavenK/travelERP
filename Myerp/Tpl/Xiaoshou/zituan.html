@@ -91,7 +91,11 @@ $(function(){
       </ul>
       <u>
       <php>if($baoming_root == 1){</php>
-      <a href="<{:SITE_INDEX}>Xiaoshou/zituan/dobaoming/报名/chanpinID/<{$chanpinID}>/xianluID/<{$xianluID}>/shoujiaID/<{$shoujiaID}>"></a>
+          <php>if($shoujiaID){</php>
+              <a href="<{:SITE_INDEX}>Xiaoshou/zituan/dobaoming/报名/chanpinID/<{$chanpinID}>/xianluID/<{$xianluID}>/shoujiaID/<{$shoujiaID}>"></a>
+          <php>}else{</php>
+              <a href="<{:SITE_INDEX}>Xiaoshou/zituanbaoming/chanpinID/<{$chanpinID}>"></a>
+          <php>}</php>
       <php>}else{</php>
       <a href="javascript:alert('报名截止');"></a>
       <php>}</php>
