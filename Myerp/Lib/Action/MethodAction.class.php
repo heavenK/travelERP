@@ -15,6 +15,8 @@ class MethodAction extends CommonAction{
 			$where['status_system'] =  array('neq',-1);//默认
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 			$where['status'] = '待检出';
 			if($relation == 'xianlu')
 			$where['datatype'] = '线路';
@@ -33,8 +35,10 @@ class MethodAction extends CommonAction{
 			if($relation == 'baozhang'){
 				$relation = 'taskshenhe';
 				$where['datatype'] = '报账单';
-				if($where['baozhangtitle_copy'])
-				$where['title_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
+				if($where['baozhangtitle_copy']){
+					$where['title_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
+					unset($where['baozhangtitle_copy']);
+				}
 				if($where['tuantitle_copy'])
 				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 				if($where['tuanhao_copy'])
@@ -42,8 +46,6 @@ class MethodAction extends CommonAction{
 			}
 			if($relation == 'dingdan')
 			$where['datatype'] = '订单';
-			$where['title_copy'] = array('like','%'.$where['title'].'%');
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 		}
 		if($datatype == '线路'){
 			$class_name = 'OMViewXianlu';

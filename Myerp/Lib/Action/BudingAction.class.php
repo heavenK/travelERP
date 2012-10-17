@@ -150,6 +150,62 @@ class BudingAction extends Action{
     }
 	
 	
+	//线路销售价格补订
+    public function xianluxiaoshoujiage() {
+		C('TOKEN_ON',false);
+		echo "线路销售价格补订";
+		$ViewXianlu = D("ViewXianlu");
+		$ViewShoujia = D("ViewShoujia");
+		$Chanpin = D("Chanpin");
+		$glxianlu = M("glxianlu");
+		$glxianlujiage = M("glxianlujiage");
+		$glshoujia = M("glshoujia");
+		$zhenxiaoshouall = $ViewShoujia->findall();
+		foreach($zhenxiaoshouall as $v){
+			$xianlu = $ViewXianlu->where("`chanpinID` = $v[parentID]")->find();
+			$where['mingcheng'] = $xianlu['title'];
+			//$where['chutuanriqi'] = $xianlu['chutuanriqi'];
+			$where['time'] = $xianlu['time'];
+			$xianlu_old = $glxianlu->where($where)->find();
+			//价格表
+			$jiage = $glxianlujiage->where("`xianluID` = '$xianlu_old[xianluID]'")->find();
+			//售价表
+			$shoujiaall = $glshoujia->where("`jiageID` = '$jiage[jiageID]'")->findall();
+			foreach($shoujiaall as $vol){
+				$price_chengren = $vol['chengrenshoujia'];
+				if($price_chengren < $vol['chengrenshoujia'])
+					$price_chengren = $vol['chengrenshoujia'];
+				$price_ertong = $vol['ertongshoujia'];
+				if($price_ertong < $vol['ertongshoujia'])
+					$price_ertong = $vol['ertongshoujia'];
+			}
+			$data = $v;
+			$data['shoujia'] = $data;
+			$data['shoujia']['adultprice'] = $price_chengren;
+			$data['shoujia']['childprice'] = $price_ertong;
+			$Chanpin->relation("shoujia")->myRcreate($data);
+			
+		}
+
+		echo "结束";
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 ?>
