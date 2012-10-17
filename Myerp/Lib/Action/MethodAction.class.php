@@ -31,6 +31,9 @@ class MethodAction extends CommonAction{
 				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 				if($where['tuanhao_copy'])
 				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+				if($where['tuanqi_copy'])
+				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+				$order = 'tuanqi_copy desc';
 			}
 			if($relation == 'baozhang'){
 				$relation = 'taskshenhe';
@@ -43,6 +46,9 @@ class MethodAction extends CommonAction{
 				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 				if($where['tuanhao_copy'])
 				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+				if($where['tuanqi_copy'])
+				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+				$order = 'tuanqi_copy desc';
 			}
 			if($relation == 'dingdan')
 			$where['datatype'] = '订单';
