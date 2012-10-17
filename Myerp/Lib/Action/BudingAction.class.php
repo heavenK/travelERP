@@ -77,8 +77,8 @@ class BudingAction extends Action{
 		exit;
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*400;
-		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("$num,400")->findall();
+		$num = ($_REQUEST['page']-1)*800;
+		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("$num,800")->findall();
 		if(count($all)==0)
 		exit;
 		dump("共".count($ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall()).'个'.'<br>');
