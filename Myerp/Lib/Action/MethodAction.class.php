@@ -3102,17 +3102,23 @@ class MethodAction extends CommonAction{
 	
 	//任务搜索字段填充信息
     public function _gettaskshenheinfo($dataID,$datatype,$data) {
+		$ViewBaozhang = D("ViewBaozhang");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
 			if($datatype == '报账项'){
+				$cp = $ViewBaozhangitem->where("`chanpinID` = '$v[dataID]'")->find();
+				$data['taskShenhe']['datatext_copy'] = serialize($cp);
 				$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
 				$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
 				$zituanID = $cp['baozhanglist']['parentID'];
 			}
 			if($datatype == '报账单'){
+				$cp = $ViewBaozhang->where("`chanpinID` = '$v[dataID]'")->find();
+				$data['taskShenhe']['datatext_copy'] = serialize($cp);
 				$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				$zituanID = $cp['parentID'];
 			}
