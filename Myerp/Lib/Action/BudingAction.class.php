@@ -59,6 +59,7 @@ class BudingAction extends Action{
 	
 	//审核任务表字段填充，报账标题，子团日期，子团团号，子团标题
     public function shenherenwutianchong() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "报账项字段填充，报账标题，子团日期，子团团号，子团标题<br>";
 		$ViewBaozhang = D("ViewBaozhang");
@@ -68,10 +69,6 @@ class BudingAction extends Action{
 		$ViewDJtuan = D("ViewDJtuan");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
-//		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall();
-//		
-//		echo count($all);
-//		exit;
 		if(!$_REQUEST['page']){
 				dump('无page参数');
 		exit;
@@ -83,10 +80,6 @@ class BudingAction extends Action{
 		if(count($all)==0){
 			exit;
 		}
-		dump(count($all));
-		
-		//dump("共".count($ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall()).'个'.'<br>');
-		dump(count($all));
 		$jishu_xianlu = 0;
 		foreach($all as $v){
 			dump("正在执行".$num+(++$jishu_xianlu).'个'.$v['systemID'].'<br>');

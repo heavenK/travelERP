@@ -124,16 +124,16 @@
                   <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名（单项服务名） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 审核阶段 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 备注说明 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
                 </tr>
-                <php> $i = -1; foreach($chanpin_list as $v){ $datatext = simple_unserialize($v['datatext_copy']['datatext']);</php>
+                <php> $i = -1; foreach($chanpin_list as $v){$i++; $datatext = simple_unserialize($v['datatext_copy']['datatext']);</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['datatext_copy']['chanpinID']}>" target="_blank">
-                  <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['baozhangtitle_copy']</php></a>
+                  <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['title_copy']</php></a>
                   </td>
                   <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['type']}></td>
