@@ -967,7 +967,7 @@ class MethodAction extends CommonAction{
 		$data['taskShenhe']['title_copy'] = $tmdt['title'];
 		//搜索字段填充
 		if($data['datatype'] == '报账单' || $data['datatype'] == '报账项'){
-			$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
+			//$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
 		}
 		//审核任务
 		$System = D("System");
@@ -2453,6 +2453,14 @@ class MethodAction extends CommonAction{
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
 			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
+			
+			if($_REQUEST['datatype'] == '报账项' || $_REQUEST['datatype'] == '报账单'){
+				//任务搜索字段填充
+				$djc = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
+				$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$djc);
+				$System = D("System");
+				$System->relation("taskShenhe")->myRcreate($data);
+			}
 			
 			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
