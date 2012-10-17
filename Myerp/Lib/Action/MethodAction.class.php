@@ -969,7 +969,6 @@ class MethodAction extends CommonAction{
 		if($data['datatype'] == '报账单' || $data['datatype'] == '报账项'){
 			$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
 		}
-		dump($data);
 		//审核任务
 		$System = D("System");
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
