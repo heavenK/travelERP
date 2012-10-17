@@ -2340,7 +2340,6 @@ class MethodAction extends CommonAction{
 		//生成待检出	
 		$userIDlist = $this->_shenheDO($_REQUEST,$need);
 		if (false !== $userIDlist){
-			
 			$Chanpin = D("Chanpin");
 			$editdat['chanpinID'] = $_REQUEST['dataID'];
 			if($status == '批准'){
