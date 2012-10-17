@@ -167,30 +167,36 @@ class BudingAction extends Action{
 			//$where['chutuanriqi'] = $xianlu['chutuanriqi'];
 			$where['time'] = $xianlu['time'];
 			$xianlu_old = $glxianlu->where($where)->find();
-			//价格表
-			$jiage = $glxianlujiage->where("`xianluID` = '$xianlu_old[xianluID]'")->find();
-			//售价表
-			$shoujiaall = $glshoujia->where("`jiageID` = '$jiage[jiageID]'")->findall();
-			foreach($shoujiaall as $vol){
-				$price_chengren = $vol['chengrenshoujia'];
-				if($price_chengren < $vol['chengrenshoujia'])
-					$price_chengren = $vol['chengrenshoujia'];
-				$price_ertong = $vol['ertongshoujia'];
-				if($price_ertong < $vol['ertongshoujia'])
-					$price_ertong = $vol['ertongshoujia'];
-				$cut = $vol['cut'];
-				if($cut > $vol['cut'])
-					$cut = $vol['cut'];
+			if($xianlu_old){
+				//价格表
+				$jiage = $glxianlujiage->where("`xianluID` = '$xianlu_old[xianluID]'")->find();
+				if($jiage){
+					//售价表
+					$shoujiaall = $glshoujia->where("`jiageID` = '$jiage[jiageID]'")->findall();
+					if(count($shoujiaall) > 0){
+						foreach($shoujiaall as $vol){
+							$price_chengren = $vol['chengrenshoujia'];
+							if($price_chengren < $vol['chengrenshoujia'])
+								$price_chengren = $vol['chengrenshoujia'];
+							$price_ertong = $vol['ertongshoujia'];
+							if($price_ertong < $vol['ertongshoujia'])
+								$price_ertong = $vol['ertongshoujia'];
+							$cut = $vol['cut'];
+							if($cut > $vol['cut'])
+								$cut = $vol['cut'];
+						}
+						$data = $v;
+						$data['shoujia'] = $data;
+						$data['shoujia']['adultprice'] = $price_chengren;
+						$data['shoujia']['childprice'] = $price_ertong;
+						$data['shoujia']['cut'] = $cut;
+						$data['shoujia']['chengben'] = $price_chengren;
+						$Chanpin->relation("shoujia")->myRcreate($data);
+						$xianlu['xianlu']['shoujia'] = $price_chengren;
+						$Chanpin->relation("xianlu")->myRcreate($xianlu);
+					}
+				}
 			}
-			$data = $v;
-			$data['shoujia'] = $data;
-			$data['shoujia']['adultprice'] = $price_chengren;
-			$data['shoujia']['childprice'] = $price_ertong;
-			$data['shoujia']['cut'] = $cut;
-			$data['shoujia']['chengben'] = $price_chengren;
-			$Chanpin->relation("shoujia")->myRcreate($data);
-			$xianlu['xianlu']['shoujia'] = $price_chengren;
-			$Chanpin->relation("xianlu")->myRcreate($xianlu);
 		}
 
 		echo "结束";
