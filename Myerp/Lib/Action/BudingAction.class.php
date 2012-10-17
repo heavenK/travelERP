@@ -68,7 +68,10 @@ class BudingAction extends Action{
 		$ViewDJtuan = D("ViewDJtuan");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
-		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall();
+//		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall();
+//		
+//		echo count($all);
+//		exit;
 		if(!$_REQUEST['page']){
 				dump('无page参数');
 		exit;
@@ -112,7 +115,12 @@ class BudingAction extends Action{
 				$data['taskShenhe']['tuanqi_copy'] = $zituan['jietuantime'];
 				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
 			}
-			$System->relation("taskShenhe")->myRcreate($data);
+			if(false === $System->relation("taskShenhe")->myRcreate($data))
+			{
+				dump($data);	
+				dump($System);	
+				exit;
+			}
 		}
 		$url = SITE_INDEX."Buding/shenherenwutianchong/page/".($_REQUEST['page']+1);
 		$this->assign("url",$url);
