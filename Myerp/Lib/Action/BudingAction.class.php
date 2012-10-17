@@ -57,38 +57,50 @@ class BudingAction extends Action{
     }
 	
 	
-	//报账项字段填充，报账标题，子团日期，子团团号，子团标题
-    public function baozhangxiangtianchong() {
+	//审核任务表字段填充，报账标题，子团日期，子团团号，子团标题
+    public function shenherenwutianchong() {
 		C('TOKEN_ON',false);
 		echo "报账项字段填充，报账标题，子团日期，子团团号，子团标题";
-		$ViewBaozhangitem = D("ViewBaozhangitem");
 		$ViewBaozhang = D("ViewBaozhang");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
+		$System = D("System");
 		$Chanpin = D("Chanpin");
-		$all = $ViewBaozhangitem->findall();
+		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("0,100")->order("systemID desc")->findall();
 		foreach($all as $v){
 			$data = $v;
-			$data['baozhangitem'] = $v;
-			//获得报账单
-			$baozhang = $ViewBaozhang->where("`chanpinID` = $v[parentID]")->find();
-			$data['baozhangitem']['baozhangtitle_copy'] = $baozhang['title'];
+			$data['taskShenhe'] = $v;
+			if($v['datatype'] == '报账项'){
+				$cp = $ViewBaozhangitem->where("`chanpinID` = '$v[dataID]'")->find();
+				$data['taskShenhe']['datatext_copy'] = serialize($cp);
+				$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$v[dataID]'")->find();
+				$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
+				$zituanID = $cp['baozhanglist']['parentID'];
+			}
+			if($v['datatype'] == '报账单'){
+				$cp = $ViewBaozhang->where("`chanpinID` = '$v[dataID]'")->find();
+				$data['taskShenhe']['datatext_copy'] = serialize($cp);
+				$cp = $Chanpin->where("`chanpinID` = '$v[dataID]'")->find();
+				$zituanID = $cp['parentID'];
+			}
 			//获得团
-			$cp = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
+			$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
 			if($cp['marktype'] == 'zituan'){
 				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-				$data['baozhangitem']['tuantitle_copy'] = $zituan['title_copy'];
-				$data['baozhangitem']['tuanqi_copy'] = $zituan['chutuanriqi'];
-				$data['baozhangitem']['tuanhao_copy'] = $zituan['tuanhao'];
+				$data['taskShenhe']['tuantitle_copy'] = $zituan['title_copy'];
+				$data['taskShenhe']['tuanqi_copy'] = $zituan['chutuanriqi'];
+				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
 					
 			}
 			if($cp['marktype'] == 'DJtuan'){
 				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-				$data['baozhangitem']['tuantitle_copy'] = $zituan['title'];
-				$data['baozhangitem']['tuanqi_copy'] = $zituan['jietuantime'];
-				$data['baozhangitem']['tuanhao_copy'] = $zituan['tuanhao'];
+				$data['taskShenhe']['tuantitle_copy'] = $zituan['title'];
+				$data['taskShenhe']['tuanqi_copy'] = $zituan['jietuantime'];
+				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
 			}
-			$Chanpin->relation("baozhangitem")->myRcreate($data);
+			$System->relation("taskShenhe")->myRcreate($data);
 		}
 		echo "结束";
     }

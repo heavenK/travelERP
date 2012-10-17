@@ -12,11 +12,9 @@ class CaiwuAction extends CommonAction{
 			$this->assign("datakind",'全部');
 		}
 		$datalist = A("Method")->_shenhe();
-		$ViewBaozhang = D("ViewBaozhang");
 		$i = 0;
 		foreach($datalist['chanpin'] as $v){
-			$baozhang = $ViewBaozhang->relation("zituanlist")->where("`chanpinID` = $v[parentID]")->find();
-			$datalist['chanpin'][$i]['baozhang'] = $baozhang;
+			$datalist['chanpin'][$i]['datatext_copy'] = simple_unserialize($v['datatext_copy']);
 			$i++;
 		}
 		if($_REQUEST['type'] == '收支项')

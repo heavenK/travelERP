@@ -15,6 +15,8 @@ class OMViewTaskShenheModel extends RelationModel {
 		'dingdan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Dingdan','true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//DJtuan
 		'DJtuan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'DJtuan','true_class_name'=>'myerpview_chanpin_djtuan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
+		//taskshenhe
+		'taskshenhe'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'TaskShenhe','true_class_name'=>'myerpview_system_taskshenhe','foreign_key'=>'dataID','parent_key'=>'dataID','condition'=>"`processID` = '1'"),
 	);
 	
 

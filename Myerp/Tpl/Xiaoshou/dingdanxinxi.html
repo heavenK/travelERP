@@ -92,7 +92,7 @@ function querendingdan(id){
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
       <php>}}if(A("Method")->checkshenheback($chanpinID,'订单')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="shenhe_back(<{$chanpinID}>,'订单');">
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'订单');">
 	  <php>}</php>
           
           <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>');">

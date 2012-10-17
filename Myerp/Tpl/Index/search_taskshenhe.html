@@ -26,7 +26,13 @@
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
-                          <td scope="row" nowrap="nowrap"> 标题： </td>
+                          <td scope="row" nowrap="nowrap"> 团名： </td>
+                          <td nowrap="nowrap"><input type="text" class="baozhangtitle_copy" value="<{$baozhangtitle_copy}>"></td>
+                          <td scope="row" nowrap="nowrap"> 团期： </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanqi_copy" value="<{$tuanqi_copy}>"></td>
+                          <td scope="row" nowrap="nowrap"> 团号： </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanhao_copy" value="<{$tuanhao_copy}>"></td>
+                          <td scope="row" nowrap="nowrap"> 报账项标题： </td>
                           <td nowrap="nowrap"><input type="text" class="title" value="<{$title}>"></td>
                           <td scope="row" nowrap="nowrap"> 申请人： </td>
                           <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"></td>
@@ -109,6 +115,9 @@ function clearsearch(){
 		jQuery('.title').val('');
 		jQuery('.user_name').val('');
 		jQuery('.departmentID').val('');
+		jQuery('.baozhangtitle_copy').val('');
+		jQuery('.tuanqi_copy').val('');
+		jQuery('.tuanhao_copy').val('');
 }
 
 function _dosearch(sorttabid){
@@ -119,6 +128,12 @@ function _dosearch(sorttabid){
 	str += '/user_name/'+jQuery('.user_name').val();
 	if(jQuery('.departmentID').val())
 	str += '/departmentID/'+jQuery('.departmentID').val();
+	if(jQuery('.baozhangtitle_copy').val())
+	str += '/baozhangtitle_copy/'+jQuery('.baozhangtitle_copy').val();
+	if(jQuery('.tuanqi_copy').val())
+	str += '/tuanqi_copy/'+jQuery('.tuanqi_copy').val();
+	if(jQuery('.tuanhao_copy').val())
+	str += '/tuanhao_copy/'+jQuery('.tuanhao_copy').val();
 	dosearch(str);
 }
 </script>

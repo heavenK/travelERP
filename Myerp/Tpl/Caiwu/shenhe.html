@@ -46,7 +46,7 @@
                   <php>}</php>
                   href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/订房">订房</a> </li>
                 <li> <a 
-                  <php>if($datakind == '订餐'){</php>
+                  <php>if($datakind == '餐饮'){</php>
                   class="current"
                   <php>}</php>
                   href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/datakind/餐饮">订餐</a> </li>
@@ -89,31 +89,31 @@
                 <php>if($type == '收支项'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名（单项服务名） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 报账项标题 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 方式 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
                 </tr>
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['baozhang']['title']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['baozhang']['zituanlist']['chutuanriqi']}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['parentID']}>" target="_blank"><{$v['title']}></a></td>
-                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['value']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['method']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+                  <td scope="row" align="left" valign="top">
+                  <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['baozhangtitle_copy']</php>
+                  </td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['datatext_copy']['parentID']}>" target="_blank"><{$v['title_copy']}></a></td>
+                  <td scope="row" align="left" valign="top">
+                  <php>if($v['datatext_copy']['type'] == '结算项目') echo "应收"; elseif($v['datatext_copy']['type'] == '支出项目') echo "应付"; else echo $v['datatext_copy']['type'];</php>
+                  </td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['value']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['parentID']}>);">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['parentID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -121,23 +121,27 @@
                 <php>if($type == '报账单'){</php>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名（单项服务名） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 备注说明 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
                 </tr>
-                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <php> $i = -1; foreach($chanpin_list as $v){ $datatext = simple_unserialize($v['datatext_copy']['datatext']);</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
-                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['remark']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['datatext_copy']['chanpinID']}>" target="_blank">
+                  <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['baozhangtitle_copy']</php></a>
+                  </td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['type']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
+                  <td scope="row" align="left" valign="top"><{$datatext['remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['chanpinID']}>);">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['chanpinID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>

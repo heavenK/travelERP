@@ -132,6 +132,12 @@ class ChanpinAction extends CommonAction{
 				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
 				A("Method")->_createDataOM($_REQUEST['chanpinID'],'线路','管理',$dataOMlist);
 			}
+			//自动申请审核
+			$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
+			$_REQUEST['dotype'] = '申请';
+			$_REQUEST['datatype'] = '线路';
+			$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
+			A("Method")->_autoshenqing();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);

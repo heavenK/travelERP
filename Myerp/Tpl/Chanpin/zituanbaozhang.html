@@ -385,7 +385,7 @@ function shenhe_after(data,status){
       </php>
       <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
 	  <php>}</php>
       
           <td scope="row" align="left" valign="top"><input type="checkbox" 
@@ -458,7 +458,7 @@ function shenhe_after(data,status){
       </php>
       <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
 	  <php>}</php>
       
           <td scope="row" align="left" valign="top"><input type="checkbox" 
