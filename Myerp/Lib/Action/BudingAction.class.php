@@ -152,6 +152,7 @@ class BudingAction extends Action{
 	
 	//线路销售价格补订
     public function xianluxiaoshoujiage() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "线路销售价格补订";
 		$ViewXianlu = D("ViewXianlu");
@@ -201,6 +202,38 @@ class BudingAction extends Action{
 
 		echo "结束";
     }
+	
+	
+	
+	//报账单状态根据流程重置
+    public function baozhangzhuangtai() {
+		C('TOKEN_ON',false);
+		echo "报账单状态根据流程重置";
+		$Chanpin = D("Chanpin");
+		$ViewBaozhang = D("ViewBaozhang");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+//		$baozhangall = $ViewBaozhang->order("chanpinID desc")->limit("1000")->findall();
+		$baozhangall = $ViewBaozhang->findall();
+		foreach($baozhangall as $v){
+			
+			$need = $ViewTaskShenhe->where("`dataID` = '$v[chanpinID]' and `status` = '批准' AND (`status_system` = '1')")->order("processID desc")->find();
+			if(!$need)	{
+				$need = $ViewTaskShenhe->where("`dataID` = '$v[chanpinID]' and `status` = '检出' AND (`status_system` = '1')")->order("processID desc")->find();
+				if(!$need){
+					$need = $ViewTaskShenhe->where("`dataID` = '$v[chanpinID]' and `status` = '申请' AND (`status_system` = '1')")->order("processID desc")->find();
+				}
+			}
+			if($need){
+				$data = $v; 
+				$data['shenhe_remark'] = $need['remark'];
+				$data['status_shenhe'] = $need['status'];
+				$Chanpin->mycreate($data);
+			}
+		}
+		
+		echo "结束";
+    }
+	
 	
 	
 	
