@@ -33,6 +33,8 @@ class MethodAction extends CommonAction{
 			if($relation == 'baozhang'){
 				$relation = 'taskshenhe';
 				$where['datatype'] = '报账单';
+				if($where['baozhangtitle_copy'])
+				$where['baozhangtitle_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
 				if($where['tuantitle_copy'])
 				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 				if($where['tuanhao_copy'])
