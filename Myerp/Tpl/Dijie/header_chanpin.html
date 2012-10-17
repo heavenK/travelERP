@@ -147,7 +147,7 @@ function shenhe_after(data,status){
   <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
   
       <php>
-      if('单项服务' == $markpos)
+      if('单项服务' == $markpos || '团队报账单' == $markpos)
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
