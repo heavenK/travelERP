@@ -178,13 +178,19 @@ class BudingAction extends Action{
 				$price_ertong = $vol['ertongshoujia'];
 				if($price_ertong < $vol['ertongshoujia'])
 					$price_ertong = $vol['ertongshoujia'];
+				$cut = $vol['cut'];
+				if($cut > $vol['cut'])
+					$cut = $vol['cut'];
 			}
 			$data = $v;
 			$data['shoujia'] = $data;
 			$data['shoujia']['adultprice'] = $price_chengren;
 			$data['shoujia']['childprice'] = $price_ertong;
+			$data['shoujia']['cut'] = $cut;
+			$data['shoujia']['chengben'] = $price_chengren;
 			$Chanpin->relation("shoujia")->myRcreate($data);
-			
+			$xianlu['xianlu']['shoujia'] = $price_chengren;
+			$Chanpin->relation("xianlu")->myRcreate($xianlu);
 		}
 
 		echo "结束";
