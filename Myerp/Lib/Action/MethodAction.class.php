@@ -969,6 +969,7 @@ class MethodAction extends CommonAction{
 		if($data['datatype'] == '报账单' || $data['datatype'] == '报账项'){
 			$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
 		}
+		dump($data);
 		//审核任务
 		$System = D("System");
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
@@ -3114,14 +3115,14 @@ class MethodAction extends CommonAction{
 		$System = D("System");
 		$Chanpin = D("Chanpin");
 			if($datatype == '报账项'){
-				$cp = $ViewBaozhangitem->where("`chanpinID` = '$v[dataID]'")->find();
+				$cp = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
 				$data['taskShenhe']['datatext_copy'] = serialize($cp);
 				$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
 				$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
 				$zituanID = $cp['baozhanglist']['parentID'];
 			}
 			if($datatype == '报账单'){
-				$cp = $ViewBaozhang->where("`chanpinID` = '$v[dataID]'")->find();
+				$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
 				$data['taskShenhe']['datatext_copy'] = serialize($cp);
 				$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				$zituanID = $cp['parentID'];
