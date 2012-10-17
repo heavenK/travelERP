@@ -68,7 +68,7 @@ class BudingAction extends Action{
 		$ViewDJtuan = D("ViewDJtuan");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
-		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("0,100")->order("systemID desc")->findall();
+		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall();
 		foreach($all as $v){
 			$data = $v;
 			$data['taskShenhe'] = $v;
