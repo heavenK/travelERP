@@ -79,12 +79,14 @@ class BudingAction extends Action{
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*800;
 		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("$num,800")->findall();
-		dump(count($all));
 		
 		if(count($all)==0){
 			exit;
 		}
-		dump("共".count($ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall()).'个'.'<br>');
+		dump(count($all));
+		
+		//dump("共".count($ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->findall()).'个'.'<br>');
+		dump(count($all));
 		$jishu_xianlu = 0;
 		foreach($all as $v){
 			dump("正在执行".$num+(++$jishu_xianlu).'个'.$v['systemID'].'<br>');
