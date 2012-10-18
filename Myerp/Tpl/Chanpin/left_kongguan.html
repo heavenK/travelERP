@@ -1,25 +1,53 @@
 
   <div id="leftColumn" style="margin-top:0px; width:150px;">
-        <div id="navtab_1" class="leftList">
-          <h3><span>产品分类</span></h3>
+        
+        <div class="leftList">
+          <h3 style="border:none">产品分类</h3>
+          <h3><span>国内/拼团</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/近郊游">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/长线游">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/国内">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/国内">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>境外</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/韩国">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/日本">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/台湾">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/港澳">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/东南亚">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/欧美岛">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/境外">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/境外">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>散客（联合体提供）</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($bumenlist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/departmentID/<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+        </div>
+        <div class="leftList">
+          <h3><span>产品控管</span></h3>
           <ul id="ul_shortcuts">
             <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan">&nbsp;<span>子团产品</span></a> </li>
             <li id="subModuleList" style="padding:0px; border-top:none">
                   <ul>
                     <li class="subTabMore" style="font-size:12px;"> <a href="<{:SITE_INDEX}>Chanpin/index">&nbsp;线路发布及控管&gt;&gt;</a> 
                         <ul class="cssmenu" style="margin-top:8px;">
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/近郊游/guojing/国内">近郊游 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/长线游/guojing/国内">长线游 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/自由人/guojing/国内">国内自由人 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/包团/guojing/国内">国内包团 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/韩国/guojing/境外">韩国 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/日本/guojing/境外">日本 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/台湾/guojing/境外">台湾 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/港澳/guojing/境外">港澳 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/东南亚/guojing/境外">东南亚 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/欧美岛/guojing/境外">欧美岛 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/自由人/guojing/境外">境外自由人 </a> </li>
-                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/包团/guojing/境外">境外包团 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/近郊游/guojing_copy/国内">近郊游 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/长线游/guojing_copy/国内">长线游 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/自由人/guojing_copy/国内">国内自由人 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/包团/guojing_copy/国内">国内包团 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/韩国/guojing_copy/境外">韩国 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/日本/guojing_copy/境外">日本 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/台湾/guojing_copy/境外">台湾 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/港澳/guojing_copy/境外">港澳 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/东南亚/guojing_copy/境外">东南亚 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/欧美岛/guojing_copy/境外">欧美岛 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/自由人/guojing_copy/境外">境外自由人 </a> </li>
+                          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/包团/guojing_copy/境外">境外包团 </a> </li>
                         </ul>
                     </li>
                   </ul>

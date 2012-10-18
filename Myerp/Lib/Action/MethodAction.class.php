@@ -329,6 +329,8 @@ class MethodAction extends CommonAction{
 		//根据线路判断生成
 		$ViewZituan = D("ViewZituan");
 		foreach($riqiAll as $riqi){
+			if(strtotime($riqi) < strtotime('2011-11-11'))
+			continue;
 			$datazituan = '';
 			$zituan = $ViewZituan->where("`parentID` = '$chanpinID' and `chutuanriqi` = '$riqi' AND (`status_system` = '1')")->find();
 			$datazituan['zituan']['title_copy'] = $chanpin['xianlu']['title'];
@@ -3022,14 +3024,29 @@ class MethodAction extends CommonAction{
 			$_REQUEST['status_baozhang'] = '未审核';
 		}
 		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
-		if($dotype == '团费确认'){
-			$ViewDingdan = D("ViewDingdan");
-			$DataCD = D("DataCD");
-			$i = 0;
-			foreach($datalist['chanpin'] as $v){
-				//搜索订单
-				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-				foreach($dingdanall as $vol){
+		$ViewDingdan = D("ViewDingdan");
+		$DataCD = D("DataCD");
+		$i = 0;
+		foreach($datalist['chanpin'] as $v){
+			//搜索订单
+			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+			foreach($dingdanall as $vol){
+				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+				foreach($customerall as $c){
+					if($c['ispay'] == '已付款'){
+						$datalist['chanpin'][$i]['payed'] += $c['price'];
+					}
+					if($c['ispay'] == '未付款'){
+						$datalist['chanpin'][$i]['unpay'] += $c['price'];
+					}
+					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
+				}
+			}
+			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]'")->findall();
+			foreach($dingdanall as $vol){
+				if($vol['status'] == '确认'){
+					$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+					//团费确认
 					$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
 					foreach($customerall as $c){
 						if($c['ispay'] == '已付款'){
@@ -3041,8 +3058,12 @@ class MethodAction extends CommonAction{
 						$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 					}
 				}
-				$i++;
+				if($vol['status'] == '占位'){
+					$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+				}
 			}
+			$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
+			$i++;
 		}
 		
 		if($dotype == '补订订单'){

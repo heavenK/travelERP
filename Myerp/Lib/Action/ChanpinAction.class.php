@@ -370,15 +370,13 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
-	public function left_fabu() {
-		
+	public function left_fabu($html) {
 		$ViewDepartment = D("ViewDepartment");
 		$where['type'] = array('like','%联合体%');
 		$bumenlist = $ViewDepartment->where($where)->findall();
 		$this->assign("bumenlist",$bumenlist);
-		$this->display('Chanpin:left_fabu');
+		$this->display('Chanpin:'.$html);
 	}
-	
 	
 	public function header_chanpin() {
 		$chanpinID = $_REQUEST["chanpinID"];
