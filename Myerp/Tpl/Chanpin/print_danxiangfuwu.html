@@ -303,7 +303,9 @@
         <td width="20%" align="left"><strong>财务总监：</strong><{$task[3][user_name]}></td>
         <td width="20%" align="left"><strong>财务审核：</strong><{$task[2][user_name]}></td>
         <td width="20%" align="left"><strong>部门经理：</strong><{$task[1][user_name]}></td>
-        <td width="20%" align="left"><strong>操作人：</strong><{$task[0][user_name]}></td>
+        <td width="20%" align="left"><strong>操作人：</strong>
+        <PHP>if($task[0]['user_name']) echo $task[0][user_name]; else echo $zituan['user_name'];</PHP>
+        </td>
       </tr>
     </tbody>
   </table>
