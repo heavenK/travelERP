@@ -426,7 +426,13 @@ class ChanpinAction extends CommonAction{
 	
 	public function shenhe() {
 		A("Method")->showDirectory("产品审核");
-		A("Method")->_shenhe('子团');
+		$datalist = A("Method")->_shenhe('子团');
+		$i = 0;
+		foreach($datalist['chanpin'] as $v){
+			$datalist['chanpin'][$i]['datatext_copy'] = simple_unserialize($v['datatext_copy']);
+			$i++;
+		}
+		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->assign("chanpin_mark",'Chanpin');
 		$this->display('shenhe');
 	}
