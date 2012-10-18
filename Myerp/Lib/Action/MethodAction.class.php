@@ -2667,6 +2667,16 @@ class MethodAction extends CommonAction{
 
 	public function _xiangmu($type) {
 		$this->assign("markpos",'应收及应付');
+		if($_REQUEST['baozhangID']){
+			$baozhangID = $_REQUEST['baozhangID'];
+			$ViewBaozhang = D("ViewBaozhang");
+			$baozhang = $ViewBaozhang->where("`chanpinID` = '$baozhangID'")->find();
+			$chanpinID = $baozhang['parentID'];
+			if($baozhang['type'] != '团队报账单'){
+				redirect(SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$baozhangID);
+			}
+			redirect(SITE_INDEX.'Chanpin/zituanxiangmu/chanpinID/'.$chanpinID);
+		}
 		$chanpinID = $_REQUEST['chanpinID'];
 		if($type == '子团'){
 			$this->showDirectory("子团产品");

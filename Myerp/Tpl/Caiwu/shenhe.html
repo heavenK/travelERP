@@ -105,7 +105,7 @@
                   <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['baozhangtitle_copy']</php>
                   </td>
                   <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['datatext_copy']['parentID']}>" target="_blank"><{$v['title_copy']}></a></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/<{$v['datatext_copy']['parentID']}>" target="_blank"><{$v['title_copy']}></a></td>
                   <td scope="row" align="left" valign="top">
                   <php>if($v['datatext_copy']['type'] == '结算项目') echo "应收"; elseif($v['datatext_copy']['type'] == '支出项目') echo "应付"; else echo $v['datatext_copy']['type'];</php>
                   </td>
