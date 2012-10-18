@@ -160,7 +160,6 @@
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 审核阶段 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 备注说明 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
                 </tr>
@@ -173,7 +172,6 @@
                   <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['type']}></td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
-                  <td scope="row" align="left" valign="top"><{$datatext['remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
               <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['chanpinID']}>);">
