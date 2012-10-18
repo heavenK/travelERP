@@ -113,7 +113,7 @@
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['parentID']}>);">
+              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo_item(<{$v['datatext_copy']['parentID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -224,6 +224,9 @@
 </div>
 <script language="javascript"> 
 
+function showinfo_item(baozhangID){
+	window.open('<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/'+baozhangID);
+}
 function showinfo(baozhangID){
 	window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+baozhangID);
 }
