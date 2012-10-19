@@ -149,11 +149,17 @@ p   {   page-break-after:auto;   }
       </tr>
     </table>
     
-      <php>for($t=1;$t<=$djtuan[tianshu];$t++){ $xc_array[$t-1] = explode('@_@',$xingcheng_array[$t-1]);}</php>
-            <php>dump( $xc_array)</php>
+      <php>for($t=1;$t<=$djtuan[tianshu];$t++){ $xc_array[$t-1] = explode('@_@',$xingcheng_array[$t-1]);}
+      </php>
     <table width="840" border="0" align="center" cellpadding="0" cellspacing="0">
       <tbody >
-      	<php>for($j=0 ; $j< 4; $j++,$i++){</php>
+      	<php>for($j=0 ; $j< 4; $j++,$i++){
+        
+      list($zaocan_price,$zaocan_addres,$zaocan_telnum) = explode('#_#',$xc_array[$i][0]);
+      list($wucan_price,$wucan_addres,$wucan_telnum) = explode('#_#',$xc_array[$i][1]);
+      list($wancan_price,$wancan_addres,$wancan_telnum) = explode('#_#',$xc_array[$i][2]);
+        
+        </php>
         
         <tr <php>if($i%2 == 0)echo 'class="t1gp"'</php>>
           <td height="105" colspan="3" align="left" valign="top" class="text_02"><div class="text_01"><php>if($i<$djtuan[datatext]['days']) echo jisuanriqi($djtuan['jietuantime'],$i+1)</php></div>            
@@ -164,19 +170,19 @@ p   {   page-break-after:auto;   }
         <table width="98%" border="0" align="right" cellpadding="0" cellspacing="0">
 
               <tr>
-                <td width="27%" height="24" align="center"><{$rcitemAll[$i][breakfastprice]}></td>
-                <td width="42%" height="24" align="center"><{$rcitemAll[$i][breakfastplace]}></td>
-                <td width="31%" height="24" align="center"><{$rcitemAll[$i][breakfasttelnum]}></td>
+                <td width="27%" height="24" align="center"><{$zaocan_price}></td>
+                <td width="42%" height="24" align="center"><{$zaocan_addres}></td>
+                <td width="31%" height="24" align="center"><{$zaocan_telnum}></td>
               </tr>
               <tr>
-                <td height="24" align="center"><{$rcitemAll[$i][lunchprice]}></td>
-                <td height="24" align="center"><{$rcitemAll[$i][lunchplace]}></td>
-                <td height="24" align="center"><{$rcitemAll[$i][lunchtelnum]}></td>
+                <td height="24" align="center"><{$wucan_price}></td>
+                <td height="24" align="center"><{$wucan_addres}></td>
+                <td height="24" align="center"><{$wucan_telnum}></td>
               </tr>
               <tr>
-                <td height="24" align="center"><{$rcitemAll[$i][dinnerprice]}></td>
-                <td height="24" align="center"><{$rcitemAll[$i][dinnerpalce]}></td>
-                <td height="24" align="center"><{$rcitemAll[$i][dinnertelnum]}></td>
+                <td height="24" align="center"><{$wancan_price}></td>
+                <td height="24" align="center"><{$wancan_addres}></td>
+                <td height="24" align="center"><{$wancan_telnum}></td>
             </tr>
               <tr>
                 <td height="24" align="center">&nbsp;</td>
@@ -196,14 +202,14 @@ p   {   page-break-after:auto;   }
     <table class="table_01" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td height="50">&nbsp;</td>
-    <td width="240"><{$itinerary[carnumber]}></td>
-    <td width="246"><{$itinerary[carpilot]}></td>
-    <td width="247" height="40"><{$itinerary[cartelnum]}></td>
+    <td width="240"><{$djtuan['datatext_xingcheng'][carnumber]}></td>
+    <td width="246"><{$djtuan['datatext_xingcheng'][carpilot]}></td>
+    <td width="247" height="40"><{$djtuan['datatext_xingcheng'][cartelnum]}></td>
     </tr>
   <tr>
     <td height="55">&nbsp;</td>
-    <td height="55"><{$itinerary[jidiao]}></td>
-    <td height="55"><{$itinerary[jidiaotelnum]}></td>
+    <td height="55"><{$djtuan[user_name]}></td>
+    <td height="55"><php>$u = A("Method")->_getuserinfo($djtuan['user_name']); echo $u['telnum']</php></td>
     <td height="55">&nbsp;</td>
     </tr>
   <tr>

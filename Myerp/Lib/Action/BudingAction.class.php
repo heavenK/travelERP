@@ -252,12 +252,13 @@ class BudingAction extends Action{
 			$where['title'] = $v['tuantitle'];
 			$where['time'] = $v['time'];
 			$newdjtuan = $ViewDJtuan->where($where)->find();
-			if(!$newdjtuan)
-			continue;
-			$datatext_xingcheng = simple_unserialize($newdjtuan['datatext_xingcheng']);
-			//$xingcheng_array = $datatext_xingcheng['xingcheng_array'];
 			$iti = $dj_itinerary->where("`djtuanID` = $v[djtuanID]")->find();
 			$rcall = $dj_rcitem->where("`itineraryID` = $iti[itineraryID]")->findall();
+			if(!$newdjtuan)
+			continue;
+			//行程项目
+			$datatext_xingcheng = simple_unserialize($newdjtuan['datatext_xingcheng']);
+			//$xingcheng_array = $datatext_xingcheng['xingcheng_array'];
 			$i = 0;
 			foreach($rcall as $vol){
 				$xingcheng_array[$i] = $vol['breakfastprice'].'#_#'.$vol['breakfastplace'].'#_#'.$vol['breakfasttelnum'].'@_@';
@@ -266,6 +267,10 @@ class BudingAction extends Action{
 				$xingcheng_array[$i] .= $vol['content'];
 				$i++;
 			}
+			//行程
+			$datatext_xingcheng['carnumber'] = $iti['carnumber'];
+			$datatext_xingcheng['carpilot'] = $iti['carpilot'];
+			$datatext_xingcheng['cartelnum'] = $iti['cartelnum'];
 			$datatext_xingcheng['xingcheng_array'] =  $xingcheng_array;
 			$newdjtuan['datatext_xingcheng'] =  serialize($datatext_xingcheng);
 			$newdjtuan['DJtuan'] =  $newdjtuan;
@@ -279,6 +284,27 @@ class BudingAction extends Action{
 		echo "结束";
 	}
 	
+	
+	
+	
+	//重置电话号码
+    public function yonghutelnum() {
+		C('TOKEN_ON',false);
+		echo "重置电话号码";
+		$ViewUser = D("ViewUser");
+		$System = D("System");
+		$glkehu = M("glkehu");
+		$userall = $ViewUser->findall();
+		foreach($userall as $v){
+			$user = $glkehu->where("`user_name` = '$v[title]'")->find();
+			if(!$user)
+			continue;
+			$v['telnum'] = $user['mobiletel'];
+			$v['user'] = $v;
+			$System->relation("user")->myRcreate($v);
+		}
+		echo "结束";
+	}
 	
 	
 	

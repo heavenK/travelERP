@@ -224,6 +224,9 @@ class DijieAction extends CommonAction{
 		$datatext['roomnumber'] =  $_REQUEST["roomnumber"];
 		$datatext['quanpei'] =  $_REQUEST["quanpei"];
 		$datatext['quanpeitelnum'] =  $_REQUEST["quanpeitelnum"];
+		$datatext['carnumber'] =  $_REQUEST["carnumber"];
+		$datatext['carpilot'] =  $_REQUEST["carpilot"];
+		$datatext['cartelnum'] =  $_REQUEST["cartelnum"];
 		$i = 0;
 		foreach($_REQUEST['content'] as $v){
 			$xingcheng_array[$i] = $_REQUEST['zaocan_price'][$i].'#_#'.$_REQUEST['zaocan_addres'][$i].'#_#'.$_REQUEST['zaocan_telnum'][$i].'@_@';
