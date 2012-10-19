@@ -302,9 +302,10 @@
         <td width="20%" align="left"><strong>总经理：</strong><{$task[4][user_name]}></td>
         <td width="20%" align="left"><strong>财务总监：</strong><{$task[3][user_name]}></td>
         <td width="20%" align="left"><strong>财务审核：</strong><{$task[2][user_name]}></td>
-        <td width="20%" align="left"><strong>部门经理：</strong><{$task[1][user_name]}></td>
-        <td width="20%" align="left"><strong>操作人：</strong>
-        <PHP>if($task[0]['user_name']) echo $task[0][user_name]; else echo $zituan['user_name'];</PHP>
+        <td width="20%" align="left"><strong>部门经理：</strong>
+        <PHP>if($task[1]['user_name']) echo $task[1][user_name]; else echo $baozhang['manager_copy'];</PHP>
+        </td>
+        <td width="20%" align="left"><strong>操作人：</strong><{$baozhang[user_name]}>
         </td>
       </tr>
     </tbody>

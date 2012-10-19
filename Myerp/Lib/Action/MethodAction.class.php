@@ -2384,6 +2384,13 @@ class MethodAction extends CommonAction{
 				$ViewBaozhangitem = D("ViewBaozhangitem");
 				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
+				//报账单经理临时签字
+				if($status == '检出'){
+					$ViewBaozhang = D("ViewBaozhang");
+					$bzddata = $ViewBaozhang->where("`chanpinID` = '$item[parentID]'")->find();
+					$bzddata['baozhang']['manager_copy'] = $this->user['title'];
+					$Chanpin->relation("baozhang")->myRcreate($bzddata);
+				}
 			}
 			if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
