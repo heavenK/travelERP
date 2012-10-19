@@ -143,7 +143,7 @@
   
   <php>
   $markhigh = 28;
-  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++;
+  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
       $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
@@ -151,8 +151,8 @@
       else
       $high_1[$i] = $remark;
       if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
-  }
-  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$j++;
+  }}
+  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
       $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
       if($title > $remark)
@@ -160,7 +160,7 @@
       else
       $high_2[$j] = $remark;
       if($high_2[$j] < $markhigh) $high_2[$j] = $markhigh;
-  }
+  }}
   $max = $j;
   if($i > $j)
   $max = $i;
@@ -189,7 +189,7 @@
               <td width="220" align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue; else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++; $value_i += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value'];
           </php>
           <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
@@ -199,7 +199,7 @@
               <td width="50" align="center"> <{$v['method']}> </td>
               <td width="220" align="center"> <{$v['remark']}> </td>
             </tr>
-        <php>}</php>
+        <php>}}</php>
         <php>for($t=1;$t<=$i_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"></td>
@@ -232,7 +232,7 @@
               <td width="220"  align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印' ) continue;else if($doprint != '计调打印' && $v['status_shenhe'] != '批准') continue;$i++; $value_j += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value'];
           </php>
           <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
@@ -242,7 +242,7 @@
               <td width="50" align="center"> <{$v['method']}> </td>
               <td width="220" align="center"> <{$v['remark']}> </td>
             </tr>
-        <php>}</php>
+        <php>}}</php>
         <php>for($t=1;$t<=$j_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"></td>

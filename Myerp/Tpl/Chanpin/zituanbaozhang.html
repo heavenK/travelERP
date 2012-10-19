@@ -371,7 +371,7 @@ function shenhe_after(data,status){
               <option value="月结">月结</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
-          <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+          <td scope="row" align="left" valign="top"><strong><{$v['shenhe_remark']}></strong></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
   
@@ -445,7 +445,7 @@ function shenhe_after(data,status){
               <option value="月结">月结</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
-          <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+          <td scope="row" align="left" valign="top"><strong><{$v['shenhe_remark']}></strong></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
       <php>
@@ -491,7 +491,7 @@ function shenhe_after(data,status){
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div>  </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 不打印 </div></th>
           </tr>
@@ -517,7 +517,7 @@ function shenhe_after(data,status){
               <option value="月结">月结</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
-          <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
+          <td scope="row" align="left" valign="top"></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist<{$v[chanpinID]}>');"/>
           <td scope="row" align="left" valign="top"><input type="checkbox" 

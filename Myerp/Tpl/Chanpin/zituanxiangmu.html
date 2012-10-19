@@ -17,21 +17,21 @@
       <tbody>
         <tr height="20">
           <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 金额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 方式 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:240px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '结算项目') continue;</php>
           <tr height="40" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
-            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
+            <td scope="row" align="left" valign="top"><strong><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
+              <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($vol['chanpinID'],'报账项');
@@ -63,21 +63,21 @@
       <tbody>
         <tr height="20">
           <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 金额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 方式 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 审核阶段 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:240px; width:10%"><div> 操作 </div></th>
         </tr>
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '支出项目') continue;</php>
           <tr height="40" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
-            <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
+            <td scope="row" align="left" valign="top"><strong><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
+              <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
               
       <php>
@@ -89,8 +89,8 @@
       <php>}if(cookie('show_action') == '申请'){
       </php>
       <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
-      <php>}}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <php>}}if(A("Method")->checkshenheback($vol['chanpinID'],'报账项')){</php>
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
 	  <php>}</php>
             </td>
           </tr>

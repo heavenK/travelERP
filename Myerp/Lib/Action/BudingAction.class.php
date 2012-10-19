@@ -240,6 +240,7 @@ class BudingAction extends Action{
 	
 	//重置地接行程信息
     public function dijiexingcheng() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "重置地接行程信息";
 		$ViewDJtuan = D("ViewDJtuan");
@@ -289,6 +290,7 @@ class BudingAction extends Action{
 	
 	//重置电话号码
     public function yonghutelnum() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "重置电话号码";
 		$User = D("User");
