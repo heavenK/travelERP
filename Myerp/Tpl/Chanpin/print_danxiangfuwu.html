@@ -305,7 +305,15 @@
         <td width="20%" align="left"><strong>部门经理：</strong>
         <PHP>if($task[1]['user_name']) echo $task[1][user_name]; else echo $baozhang['manager_copy'];</PHP>
         </td>
-        <td width="20%" align="left"><strong>操作人：</strong><{$baozhang[user_name]}>
+        <td width="20%" align="left"><strong>操作人：</strong>
+        <PHP>
+        //判断用户是否属于联合体部门
+        $istrue = A("Method")->_checkbumenshuxing('联合体,办事处','',$baozhang['user_name']);
+        if($istrue)
+            echo $task[0]['user_name'];
+        else
+            echo $baozhang['user_name'];
+        </PHP>
         </td>
       </tr>
     </tbody>
