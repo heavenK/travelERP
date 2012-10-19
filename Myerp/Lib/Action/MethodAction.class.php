@@ -3198,7 +3198,7 @@ class MethodAction extends CommonAction{
 	//获得用户信息
     public function _getuserinfo($username) {
 		$ViewUser = D("ViewUser");
-		$user = $ViewUser->where("`title` = '$uesrname'")->find();
+		$user = $ViewUser->where("`title` = '$username'")->find();
 		return $user;
 	}
 	

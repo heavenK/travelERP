@@ -291,12 +291,12 @@ class BudingAction extends Action{
     public function yonghutelnum() {
 		C('TOKEN_ON',false);
 		echo "重置电话号码";
-		$ViewUser = D("ViewUser");
+		$User = D("User");
 		$System = D("System");
 		$glkehu = M("glkehu");
-		$userall = $ViewUser->findall();
+		$userall = $User->findall();
 		foreach($userall as $v){
-			$user = $glkehu->where("`user_name` = '$v[title]'")->find();
+			$user = $glkehu->where("`user_name` = '$v[user_name]'")->find();
 			if(!$user)
 			continue;
 			$v['telnum'] = $user['mobiletel'];
