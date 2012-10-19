@@ -144,8 +144,8 @@
   <php>
   $markhigh = 28;
   $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
-      $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
+      $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
       if($title > $remark)
       $high_1[$i] = $title;
       else
@@ -153,8 +153,8 @@
       if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
   }}
   $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 6 * $markhigh;
-      $remark =  iconv_strlen($v['remark'],"UTF-8") / 32 * $markhigh;
+      $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
+      $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
       if($title > $remark)
       $high_2[$j] = $title;
       else
