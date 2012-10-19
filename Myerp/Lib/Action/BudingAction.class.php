@@ -238,12 +238,44 @@ class BudingAction extends Action{
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	//重置地接行程信息
+    public function dijiexingcheng() {
+		C('TOKEN_ON',false);
+		echo "重置地接行程信息";
+		$ViewDJtuan = D("ViewDJtuan");
+		$Chanpin = D("Chanpin");
+		$dj_itinerary = M("dj_itinerary");
+		$dj_rcitem = M("dj_rcitem");
+		$dj_tuan = M("dj_tuan");
+		$tuanall = $dj_tuan->order("time desc")->findall();
+		foreach($tuanall as $v){
+			$where['title'] = $v['tuantitle'];
+			$where['time'] = $v['time'];
+			$newdjtuan = $ViewDJtuan->where($where)->find();
+			$datatext_xingcheng = simple_unserialize($newdjtuan['datatext_xingcheng']);
+			//$xingcheng_array = $datatext_xingcheng['xingcheng_array'];
+			$iti = $dj_itinerary->where("`djtuanID` = $v[djtuanID]")->find();
+			$rcall = $dj_rcitem->where("`itineraryID` = $iti[itineraryID]")->findall();
+			$i = 0;
+			foreach($rcall as $vol){
+				$xingcheng_array[$i] = $vol['breakfastprice'].'#_#'.$vol['breakfastplace'].'#_#'.$vol['breakfasttelnum'].'@_@';
+				$xingcheng_array[$i] .= $vol['lunchprice'].'#_#'.$vol['lunchplace'].'#_#'.$vol['lunchtelnum'].'@_@';
+				$xingcheng_array[$i] .= $vol['dinnerprice'].'#_#'.$vol['dinnerpalce'].'#_#'.$vol['dinnertelnum'].'@_@';
+				$xingcheng_array[$i] .= $vol['content'];
+				$i++;
+			}
+			$datatext_xingcheng['xingcheng_array'] =  $xingcheng_array;
+			$newdjtuan['datatext_xingcheng'] =  serialize($datatext_xingcheng);
+			$newdjtuan['DJtuan'] =  $newdjtuan;
+			$re = $Chanpin->relation("DJtuan")->myRcreate($newdjtuan);
+			if($re === false){
+				dump($re);
+				exit;
+			}
+				
+		}
+		echo "结束";
+	}
 	
 	
 	

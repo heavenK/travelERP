@@ -173,6 +173,7 @@ class DijieAction extends CommonAction{
 		$ViewDJtuan = D('ViewDJtuan');
 		$djtuan = $ViewDJtuan->where("`chanpinID` = '$chanpinID'")->find();
 		$djtuan['datatext_xingcheng'] = simple_unserialize($djtuan['datatext_xingcheng']);
+		$djtuan['datatext'] = simple_unserialize($djtuan['datatext']);
 		$this->assign("datatext_xingcheng",$djtuan['datatext_xingcheng']);
 		$this->assign("jiaotong_array",$djtuan['datatext_xingcheng']['jiaotong_array']);
 		$this->assign("djtuan",$djtuan);
@@ -180,7 +181,7 @@ class DijieAction extends CommonAction{
 		$this->assign("remark",$djtuan['datatext_xingcheng']['remark']);
 		$this->assign("datatitle",' : "'.$djtuan['title'].'"');
 		if($_REQUEST['doprint'] == '打印'){
-			$this->display('print_xingcheng');
+			$this->display('print_travelnotice');
 		}
 		elseif($_REQUEST['export'] == 1){
 			//导出Word
@@ -224,8 +225,12 @@ class DijieAction extends CommonAction{
 		$datatext['quanpei'] =  $_REQUEST["quanpei"];
 		$datatext['quanpeitelnum'] =  $_REQUEST["quanpeitelnum"];
 		$i = 0;
-		foreach($_REQUEST['zaocan'] as $v){
-			$xingcheng_array[$i] = $_REQUEST['zaocan'][$i].'@_@'.$_REQUEST['wucan'][$i].'@_@'.$_REQUEST['wancan'][$i].'@_@'.$_REQUEST['content'][$i];
+		foreach($_REQUEST['content'] as $v){
+			$xingcheng_array[$i] = $_REQUEST['zaocan_price'][$i].'#_#'.$_REQUEST['zaocan_addres'][$i].'#_#'.$_REQUEST['zaocan_telnum'][$i].'@_@';
+			$xingcheng_array[$i] .= $_REQUEST['wucan_price'][$i].'#_#'.$_REQUEST['wucan_addres'][$i].'#_#'.$_REQUEST['wucan_telnum'][$i].'@_@';
+			$xingcheng_array[$i] .= $_REQUEST['wancan_price'][$i].'#_#'.$_REQUEST['wancan_addres'][$i].'#_#'.$_REQUEST['wancan_telnum'][$i].'@_@';
+			$xingcheng_array[$i] .= $_REQUEST['content'][$i];
+			//$xingcheng_array[$i] = $_REQUEST['zaocan'][$i].'@_@'.$_REQUEST['wucan'][$i].'@_@'.$_REQUEST['wancan'][$i].'@_@'.$_REQUEST['content'][$i];
 			$i++;	
 		}
 		$datatext['xingcheng_array'] = $xingcheng_array;

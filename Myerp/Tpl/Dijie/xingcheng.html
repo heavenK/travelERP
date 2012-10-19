@@ -149,39 +149,84 @@ function doprint(type){
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
         <tbody>
         
-      <php>for($i=1;$i<=$djtuan[tianshu];$i++){ list($zaocan,$wucan,$wancan,$content) = explode('@_@',$xingcheng_array[$i-1]);</php>
+      <php>for($i=1;$i<=$djtuan[tianshu];$i++){ list($zaocan,$wucan,$wancan,$content) = explode('@_@',$xingcheng_array[$i-1]); 
+      list($zaocan_price,$zaocan_addres,$zaocan_telnum) = explode('#_#',$zaocan);
+      list($wucan_price,$wucan_addres,$wucan_telnum) = explode('#_#',$wucan);
+      list($wancan_price,$wancan_addres,$wancan_telnum) = explode('#_#',$wancan);
+      </php>
           <tr>
             <th align="left" colspan="8"> <h4>日程安排：第<{$i}>天</h4>
             </th>
           </tr>
           <tr>
-            <td valign="top" scope="row" style="min-width:100px;"> 早餐: </td>
-            <td valign="top" scope="row"><input type="text" name="zaocan[]" value="<{$zaocan}>" style="width:200px;"/></td>
-            <td valign="top" scope="row" style="min-width:100px;"> 午餐: </td>
-            <td valign="top" scope="row"><input type="text" name="wucan[]" value="<{$wucan}>" style="width:200px;"/></td>
-            <td valign="top" scope="row" style="min-width:100px;"> 晚餐: </td>
-            <td valign="top" scope="row"><input type="text" name="wancan[]" value="<{$wancan}>" style="width:200px;"/></td>
-          </tr>
-          <tr>
-            <td valign="top" colspan="6" scope="row"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+          <td width="50%">
+              <table border="0">
                 <tbody>
                   <tr>
-                    <td valign="top"><fieldset style="border:#CBDAE6 1px solid">
+                    <td valign="top" scope="row" width="100%"><fieldset style="border:#CBDAE6 1px solid">
                         <legend>内容</legend>
                         <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
                           <tbody>
                             <tr>
-                              <td><textarea style="width:99%; resize:none" rows="4" name="content[]"><{$content}></textarea></td>
+                              <td><textarea style="width:600px; resize:none" rows="10" name="content[]"><{$content}></textarea></td>
                             </tr>
                           </tbody>
                         </table>
                       </fieldset></td>
                   </tr>
                 </tbody>
-              </table></td>
-          </tr>
+              </table>
+		  </td>  
+          <td width="50%">
+              <table border="0">
+                <tbody>
+                  <tr>
+                    <td valign="top" scope="row" style="min-width:600px;"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>早餐</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><label style="float:left; width:50px;">餐费：</label><input type="text" name="zaocan_price[]" value="<{$zaocan_price}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">地点：</label><input type="text" name="zaocan_addres[]" value="<{$zaocan_addres}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">电话：</label><input type="text" name="zaocan_telnum[]" value="<{$zaocan_telnum}>" style="float:left"/></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  <tr>
+                  </tr>
+                    <td valign="top" scope="row" width="100%"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>午餐</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><label style="float:left; width:50px;">餐费：</label><input type="text" name="wucan_price[]" value="<{$wucan_price}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">地点：</label><input type="text" name="wucan_addres[]" value="<{$wucan_addres}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">电话：</label><input type="text" name="wucan_telnum[]" value="<{$wucan_telnum}>" style="float:left"/></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  <tr>
+                  </tr>
+                    <td valign="top" scope="row" width="100%"><fieldset style="border:#CBDAE6 1px solid">
+                        <legend>晚餐</legend>
+                        <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit">
+                          <tbody>
+                            <tr>
+                              <td><label style="float:left; width:50px;">餐费：</label><input type="text" name="wancan_price[]" value="<{$wancan_price}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">地点：</label><input type="text" name="wancan_addres[]" value="<{$wancan_addres}>" style="float:left"/></td>
+                              <td><label style="float:left; width:50px;">电话: </label><input type="text" name="wancan_telnum[]" value="<{$wancan_telnum}>" style="float:left"/></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </fieldset></td>
+                  </tr>
+                </tbody>
+              </table>
       <php>}</php>
-          
+		  </td> 
+          </tr>
         </tbody>
       </table>
       <div class="buttons">

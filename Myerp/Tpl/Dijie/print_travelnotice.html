@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$navlist}></title>
+
+<style>
+*	{ margin:0; padding:0; border:0;  line-height:16px;}
+body	{font-size:18px;}
+#content_bb	{ width:1000px; margin:0 auto;}
+.jbxxy	{ width:840px; padding:130px 0 0 140px; float:left;}
+.p_01	{ text-align:center; float:right;}
+.p_01 a	{ width:100px; height:24px; color:#999999; text-decoration:none; line-height:24px; text-align:center; border: 1px #CCCCCC solid;}
+.p_01 a:hover	{ width:100px; height:24px; color:#FFFFFF; background:#0099FF; line-height:24px; text-align:center; border: 1px #CCCCCC dashed;}
+
+.table_01	{ width:840px; font-size:18px;}
+.t1gp	{ background-color:#e6f2f2}
+
+.text_01	{ width:190px; font-size:18px; font-weight:bold; float:left;}
+.text_02	{ padding:3px;}
+
+p   {   page-break-after:auto;   } 
+</style>
+</head>
+<body>
+<div id="content_bb">
+  <div class="p_01" ><a style="float:right" href="javascript:window.print();">打 印</a> </div>
+  
+
+
+<php>for($i=0; $i< $djtuan['datatext']['days']; $i++){</php>
+<php>if($i%4 == 0 && $i != 0) echo "<div style='height:270px;width:850px;float:left;'><br /></div>";</php>
+<div class="jbxxy" >
+<table class="table_01" border="0" align="center" cellpadding="0" cellspacing="0">
+<tbody >
+        <tr class="t1gp">
+          <td align="left" height="40" width="12%">&nbsp;</td>
+          <td width="15%" height="50" colspan="1" align="left">&nbsp;</td>
+          <td align="right" height="40" width="6%">&nbsp;</td>
+          <td width="18%" height="40" colspan="1" align="left">&nbsp;</td>
+          <td align="left" height="40" width="6%">&nbsp;</td>
+          <td width="13%" height="40" colspan="1" align="left"></td>
+          <td align="right" height="40" width="8%">&nbsp;</td>
+          <td width="22%" height="40" colspan="1" align="left" valign="top"><{$djtuan[tuanhao]}></td>
+      </tr>
+        <tr>
+          <td align="left" height="50">&nbsp;</td>
+          <td height="50" colspan="1" align="left"><{$djtuan[daoyou]}></td>
+          <td align="right" height="50">&nbsp;</td>
+          <td height="50" colspan="1" align="left">&nbsp;</td>
+          <td align="right" height="50">&nbsp;</td>
+          <td height="50" colspan="1" align="left">&nbsp;</td>
+          <td align="right" height="50">&nbsp;</td>
+          <td height="50" colspan="2" align="left">&nbsp;</td>
+      </tr>
+        <tr class="t1gp">
+          <td align="left" height="50" width="12%">&nbsp;</td>
+          <td width="15%" height="50" colspan="1" align="left"><{$djtuan[fromcompany]}></td>
+          <td align="right" height="50" width="6%">&nbsp;</td>
+          <td width="18%" height="50" colspan="1" align="left"><{$djtuan[tuanhao]}></td>
+          <td align="right" height="50" width="6%">&nbsp;</td>
+          <td width="13%" height="50" colspan="1" align="left"><{$djtuan[tuanbiao]}></td>
+          <td align="right" height="50" width="8%">&nbsp;</td>
+          <td width="22%" height="50" colspan="2" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$djtuan[renshu]}></td>
+      </tr>
+        <tr>
+          <td align="left" height="50" width="12%">&nbsp;</td>
+          <td width="15%" height="50" colspan="1" align="left"><{$djtuan['datatext_xingcheng'][hotel]}></td>
+          <td align="right" height="50" width="6%">&nbsp;</td>
+          <td width="18%" height="50" colspan="1" align="left"><{$djtuan['datatext_xingcheng'][roomnumber]}></td>
+          <td align="right" height="50" width="6%">&nbsp;</td>
+          <td width="13%" height="50" colspan="1" align="left"><{$djtuan['datatext_xingcheng'][quanpei]}></td>
+          <td align="right" height="50" width="8%">&nbsp;</td>
+          <td width="22%" height="50" colspan="1" align="left"><{$djtuan['datatext_xingcheng'][quanpeitelnum]}></td>
+      </tr>
+      </tbody>
+    </table>
+    
+	<php>for($t=1;$t<=count($jiaotong_array);$t++){ $jt_array[$t-1] = explode('@_@',$jiaotong_array[$t-1]);}</php>
+    
+    <table width="840" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="170" valign="top"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+            <td width="38%" height="150" align="center" valign="middle"><p>
+            <php>foreach($jt_array as $c){ if($c[0] == '去程'){</php>
+            <{$c[3]}>
+            <php>}}</php>
+            </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p></td>
+            <td width="20%" align="center"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="45" align="center"><php>if($c['1'] == '飞机') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+              </tr>
+              <tr>
+                <td height="45" align="center"><php>if($c['1'] == '火车') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+              </tr>
+              <tr>
+                <td height="45" align="center"><php>if($c['1'] == '轮船') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+              </tr>
+            </table></td>
+            <td width="42%" align="center"><p><{$c[4]}></p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table></td>
+        <td valign="top"><table width="80%" border="0" align="right" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="51%" height="150" align="center" valign="middle"><p>
+            <php>foreach($jt_array as $c){ if($c[0] == '回程'){</php>
+            <{$c[3]}>
+            <php>}}</php>
+            </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p></td>
+            <td width="15%" align="center"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td height="45" align="center"><php>if($c['1'] == '飞机') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+                </tr>
+                <tr>
+                  <td height="45" align="center"><php>if($c['1'] == '火车') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+                </tr>
+                <tr>
+                  <td height="45" align="center"><php>if($c['1'] == '轮船') {</php><strong>█</strong><php>}else{</php>&nbsp;<php>}</php></td>
+                </tr>
+            </table></td>
+            <td width="34%" align="center"><p></p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+    
+      <php>for($t=1;$t<=$djtuan[tianshu];$t++){ $xc_array[$t-1] = explode('@_@',$xingcheng_array[$t-1]);}</php>
+            <php>dump( $xc_array)</php>
+    <table width="840" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tbody >
+      	<php>for($j=0 ; $j< 4; $j++,$i++){</php>
+        
+        <tr <php>if($i%2 == 0)echo 'class="t1gp"'</php>>
+          <td height="105" colspan="3" align="left" valign="top" class="text_02"><div class="text_01"><php>if($i<$djtuan[datatext]['days']) echo jisuanriqi($djtuan['jietuantime'],$i+1)</php></div>            
+          <{$xc_array[$j][3]}></td>
+          
+          
+          <td width="49%" colspan="5" align="left" valign="top">
+        <table width="98%" border="0" align="right" cellpadding="0" cellspacing="0">
+
+              <tr>
+                <td width="27%" height="24" align="center"><{$rcitemAll[$i][breakfastprice]}></td>
+                <td width="42%" height="24" align="center"><{$rcitemAll[$i][breakfastplace]}></td>
+                <td width="31%" height="24" align="center"><{$rcitemAll[$i][breakfasttelnum]}></td>
+              </tr>
+              <tr>
+                <td height="24" align="center"><{$rcitemAll[$i][lunchprice]}></td>
+                <td height="24" align="center"><{$rcitemAll[$i][lunchplace]}></td>
+                <td height="24" align="center"><{$rcitemAll[$i][lunchtelnum]}></td>
+              </tr>
+              <tr>
+                <td height="24" align="center"><{$rcitemAll[$i][dinnerprice]}></td>
+                <td height="24" align="center"><{$rcitemAll[$i][dinnerpalce]}></td>
+                <td height="24" align="center"><{$rcitemAll[$i][dinnertelnum]}></td>
+            </tr>
+              <tr>
+                <td height="24" align="center">&nbsp;</td>
+                <td height="24" align="center"></td>
+                <td height="24" align="center"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+          </table>          </td>
+        </tr>
+        <php>if($i%4 == 3) break;}</php>
+      </tbody>
+    </table>
+    <table class="table_01" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="50">&nbsp;</td>
+    <td width="240"><{$itinerary[carnumber]}></td>
+    <td width="246"><{$itinerary[carpilot]}></td>
+    <td width="247" height="40"><{$itinerary[cartelnum]}></td>
+    </tr>
+  <tr>
+    <td height="55">&nbsp;</td>
+    <td height="55"><{$itinerary[jidiao]}></td>
+    <td height="55"><{$itinerary[jidiaotelnum]}></td>
+    <td height="55">&nbsp;</td>
+    </tr>
+  <tr>
+    <td width="107" height="40">&nbsp;</td>
+    <td height="90" colspan="3" valign="top"><{$itinerary[remark]}></td>
+    </tr>
+</table>
+<table class="table_01" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="40" align="right">大连古莲国际</td>
+    <td width="170">&nbsp;</td>
+  </tr>
+</table>
+
+
+  </div>
+
+<php>}</php>
+</div>
+</body>
+</html>
