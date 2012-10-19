@@ -252,6 +252,8 @@ class BudingAction extends Action{
 			$where['title'] = $v['tuantitle'];
 			$where['time'] = $v['time'];
 			$newdjtuan = $ViewDJtuan->where($where)->find();
+			if(!$newdjtuan)
+			continue;
 			$datatext_xingcheng = simple_unserialize($newdjtuan['datatext_xingcheng']);
 			//$xingcheng_array = $datatext_xingcheng['xingcheng_array'];
 			$iti = $dj_itinerary->where("`djtuanID` = $v[djtuanID]")->find();
