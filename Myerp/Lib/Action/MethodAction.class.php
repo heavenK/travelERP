@@ -1623,15 +1623,15 @@ class MethodAction extends CommonAction{
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
 			//序列化
 			if($cus['zhengjiantype'] == '身份证'){
-				$cus['sfz_haoma'] = $cus['zhengjiantype'];
+				$cus['sfz_haoma'] = $cus['zhengjianhaoma'];
 				$cus['sfz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if($cus['zhengjiantype'] == '护照'){
-				$cus['hz_haoma'] = $cus['zhengjiantype'];
+				$cus['hz_haoma'] = $cus['zhengjianhaoma'];
 				$cus['hz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if($cus['zhengjiantype'] == '通行证'){
-				$cus['txz_haoma'] = $cus['zhengjiantype'];
+				$cus['txz_haoma'] = $cus['zhengjianhaoma'];
 				$cus['txz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if(!$cus['datatext'])//第一次执行
