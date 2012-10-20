@@ -314,11 +314,12 @@ class BudingAction extends Action{
 	
 	
 	
-	//地接团om补充
+	//地接团om补充,及报账单om
     public function dijietuanom() {
 		C('TOKEN_ON',false);
 		echo "地接团om补充";
 		$ViewDJtuan = D("ViewDJtuan");
+		$ViewBaozhang = D("ViewBaozhang");
 		$OMViewDJtuanModel = D("OMViewDJtuanModel");
 		$djtuanall = $ViewDJtuan->findall();
 		foreach($djtuanall as $v){
@@ -340,6 +341,12 @@ class BudingAction extends Action{
 					$do_dataOMlist[0] = $w;
 					A("Method")->_createDataOM($where['dataID'],'地接','管理',$do_dataOMlist);
 				}
+			}
+			//报账单
+			$dataOMlist = A('Method')->_getDataOM($v['chanpinID'],'地接');
+			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+			if($bzd){
+				A("Method")->_createDataOM($bzd['chanpinID'],'报账单','管理',$dataOMlist);
 			}
 		}
 		echo "结束";
