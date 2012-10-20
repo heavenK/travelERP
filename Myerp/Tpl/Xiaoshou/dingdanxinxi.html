@@ -30,9 +30,9 @@
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 <script>
 
-<php>if(!$tuanyuan){</php>
+<php>if(!$tuanyuan_has){</php>
 jQuery(window).bind('beforeunload',function(){ 
-return '您输入的内容尚未保存，确定离开此页面吗？'; 
+return '请确认人员信息已经保存，确定离开此页面吗？'; 
 });
 <php>}</php>
 
@@ -59,6 +59,7 @@ var user = [
  
 function quxiao_after(data,status){
 	if(status == 1){
+		jQuery(window).unbind('beforeunload');
 		window.location = SITE_INDEX+'Xiaoshou/dingdanlist';
 	}
 }
@@ -399,7 +400,7 @@ function querendingdan(id){
         
         
         <tr>
-          <td colspan="20" height="32" align="center" >
+          <td colspan="20" height="32" align="center" ><strong style="color:red">人员信息填写后，请点击保存</strong>
           <input style="width:60px;" class="button" type="button" value=" 保存 " onClick="if(CheckForm('form1','resultdiv_2'))save();">
           </td>
         </tr>

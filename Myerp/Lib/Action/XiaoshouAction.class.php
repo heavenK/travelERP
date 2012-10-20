@@ -387,7 +387,9 @@ class XiaoshouAction extends Action{
 		$this->assign("dingdan",$dingdan);
 		//tuanyuan
 		$tuanyuan = $ViewDingdan->relationGet("tuanyuanlist");
+		$this->assign("tuanyuan_has",1);
 		if(!$tuanyuan){
+			$this->assign("tuanyuan_has",0);
 			for($i=0;$i<$dingdan['chengrenshu'];$i++){
 				$tuanyuan[$i]['manorchild'] = '成人';
 				$tuanyuan[$i]['price'] = $shoujia['adultprice'];
