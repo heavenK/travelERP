@@ -165,7 +165,7 @@ function save(){
        <php>$i = 0; foreach($tuanyuan as $vo){$i++;</php>
         <tr>
           <td align="left" style="height: 32px"><input name="name<{$i}>" type="text" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="pinyin<{$i}>" type="text" check="^\S+$" warning="拼音不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="pinyin<{$i}>" type="text"></td>
           <td align="left" style="height: 32px">
           <input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}>
           </td>
@@ -182,10 +182,10 @@ function save(){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"  check="^\S+$" warning="出生日期不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" check="^\S+$" warning="户籍地不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" check="^\S+$" warning="证件有效期不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text"></td>
+          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"></td>
+          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"></td>
           <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" ></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
         </tr>

@@ -1,25 +1,8 @@
 <tp:includeCA file="Index:showheader" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Xiaoshou/dingdanxinxi.js'></script>
-<head>
- <title>Confirm Before Leave</title>
- <script language="javascript" type="text/javascript"><!--
- var pb_strConfirmCloseMessage;
- var pb_blnCloseWindow = false;
- pb_strConfirmCloseMessage ="您真的要离开本页吗?";
- function ConfirmClose() {
-     window.event.returnValue = pb_strConfirmCloseMessage;
-     pb_blnCloseWindow = true;
- }
- function ShowConfirmClose(blnValue) {
-     if(blnValue) {
-         document.body.onbeforeunload = ConfirmClose;
-     } else {
-         document.body.onbeforeunload = null;
-     }
- }
- //--></script>
-</head><style>
+
+<style>
 .tb1 {
 	border-left:1px dashed #CCCCCC;
 	border-bottom:1px dashed #CCCCCC
@@ -46,6 +29,13 @@
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 <script>
+
+<php>if(!$tuanyuan){</php>
+jQuery(window).bind('beforeunload',function(){ 
+return '您输入的内容尚未保存，确定离开此页面吗？'; 
+});
+<php>}</php>
+
 var chanpinID = '<{$chanpinID}>';
 var title =  '编号<{$chanpinID}>订单';
 var user = [
