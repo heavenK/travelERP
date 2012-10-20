@@ -1416,6 +1416,12 @@ class MethodAction extends CommonAction{
 		}
 		foreach($dataOMlist as $d){
 			$dom['DUR'] = $d["DUR"];
+			$where['DUR'] = $dom['DUR'];
+			$where['datatype'] = $dom['datatype'];
+			$where['dataID'] = $dom['dataID'];
+			$theom = $DataOM->where($where)->find();
+			if($theom)
+			continue;
 			$DataOM->mycreate($dom);
 		}
 	 }

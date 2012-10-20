@@ -319,23 +319,29 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		echo "地接团om补充";
 		$ViewDJtuan = D("ViewDJtuan");
+		$OMViewDJtuanModel = D("OMViewDJtuanModel");
 		$djtuanall = $ViewDJtuan->findall();
 		foreach($djtuanall as $v){
 			$bumenlist = A("Method")->_checkbumenshuxing('地接','',$v['user_name']);
 			if($bumenlist){
 				$i = 0;
+				$dataOMlist = '';
 				foreach($bumenlist as $vol){
-					$dataOMlist[$i]['DUR'] = $vol['bumenID'].','.$vol['rolesID'].',';
+					$dataOMlist[$i]['DUR'] = $vol['bumenID'].',,';
 					$i++;
 				}
-			dump($bumenlist);
-			exit;
+				foreach($dataOMlist as $w){
+					$where['DUR'] = $w['DUR'];
+					$where['dataID'] = $v['chanpinID'];
+					$where['time'] = $v['time'];
+					$om = $OMViewDJtuanModel->where($where)->find();
+					if($om)
+					continue;
+					$do_dataOMlist[0] = $w;
+					A("Method")->_createDataOM($where['dataID'],'地接','管理',$do_dataOMlist);
+				}
 			}
-			
-			
 		}
-	
-	
 		echo "结束";
 	}
 	
