@@ -314,5 +314,40 @@ class BudingAction extends Action{
 	
 	
 	
+	//地接团om补充
+    public function dijietuanom() {
+		C('TOKEN_ON',false);
+		echo "地接团om补充";
+		$ViewDJtuan = D("ViewDJtuan");
+		$djtuanall = $ViewDJtuan->findall();
+		foreach($djtuanall as $v){
+			$bumenlist = A("Method")->_checkbumenshuxing('地接','',$v['user_name']);
+			if($bumenlist){
+				$i = 0;
+				foreach($bumenlist as $vol){
+					$dataOMlist[$i]['DUR'] = $vol['bumenID'].','.$vol['rolesID'].',';
+					$i++;
+				}
+			dump($bumenlist);
+			exit;
+			}
+			
+			
+		}
+	
+	
+		echo "结束";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>

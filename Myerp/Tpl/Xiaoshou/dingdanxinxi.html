@@ -273,7 +273,7 @@ function querendingdan(id){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>"></td>
           <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
           <td align="left" style="height: 32px">
@@ -329,7 +329,7 @@ function querendingdan(id){
        <input type="hidden" name="datatext<{$i}>" value="<{$vo['datatext']}>" />
         <tr>
           <td align="left" style="height: 32px"><input type="text" name="name<{$i}>" value="<{$vo['name']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input type="text" name="pinyin<{$i}>" value="<{$vo[datatext]['pinyin']}>" check="^\S" warning="所有拼音不能为空"></td>
+          <td align="left" style="height: 32px"><input type="text" name="pinyin<{$i}>" value="<{$vo[datatext]['pinyin']}>"></td>
           <td align="left" style="height: 32px"><input type="hidden" name="manorchild<{$i}>" value="<{$vo['manorchild']}>" /><{$vo['manorchild']}></td>
           <td align="left" style="height: 32px">
           <select name="sex<{$i}>">
@@ -352,10 +352,10 @@ function querendingdan(id){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>" check="^\S+$" warning="证件号码不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['chushengriqi']}>" check="^\S+$" warning="生日不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" value="<{$vo['datatext']['hujidi']}>" check="^\S+$" warning="户籍地不能为空,且不能含有空格"></td>
-          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['zhengjianyouxiaoqi']}>" check="^\S+$" warning="证件有效期不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>"></td>
+          <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['chushengriqi']}>"></td>
+          <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" value="<{$vo['datatext']['hujidi']}>" ></td>
+          <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['zhengjianyouxiaoqi']}>"></td>
           <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
           <td align="left" style="height: 32px">
