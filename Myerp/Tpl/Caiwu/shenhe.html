@@ -91,12 +91,12 @@
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名（单项服务名） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 报账项标题 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 审核阶段 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 计调 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 报账项目 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 金额 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作 </div></th>
                 </tr>
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
@@ -105,13 +105,11 @@
                   <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['baozhangtitle_copy']</php>
                   </td>
                   <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanhao_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang']['user_name']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang']['renshu']}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/<{$v['datatext_copy']['parentID']}>" target="_blank"><{$v['title_copy']}></a></td>
-                  <td scope="row" align="left" valign="top">
-                  <php>if($v['datatext_copy']['type'] == '结算项目') echo "应收"; elseif($v['datatext_copy']['type'] == '支出项目') echo "应付"; else echo $v['datatext_copy']['type'];</php>
-                  </td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['value']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
-                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
               <input type="button" value="查看" name="button" class="button primary" onClick="showinfo_item(<{$v['datatext_copy']['parentID']}>);">
                   </td>
@@ -122,11 +120,14 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:300px;"><div> 团名（单项服务名） </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 审核阶段 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 备注说明 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 提交时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团期 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 计调 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 总收入 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 总支出 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 盈亏 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
                 </tr>
                 <php> $i = -1; foreach($chanpin_list as $v){$i++; $datatext = simple_unserialize($v['datatext_copy']['datatext']);</php>
@@ -135,11 +136,14 @@
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['datatext_copy']['chanpinID']}>" target="_blank">
                   <php>if($v['tuantitle_copy']) echo $v['tuantitle_copy']; else echo $v['title_copy']</php></a>
                   </td>
-                  <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['type']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['shenhe_remark']}></td>
-                  <td scope="row" align="left" valign="top"><{$datatext['remark']}></td>
-                  <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanqi_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanhao_copy']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['user_name']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['datatext_copy']['renshu']}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['datatext_copy']['yingshou_copy'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['datatext_copy']['yingfu_copy'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['datatext_copy']['yingshou_copy'] -$v['datatext_copy']['yingfu_copy'])</php></td>
                   <td scope="row" align="left" valign="top">
               <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['chanpinID']}>);">
                   </td>

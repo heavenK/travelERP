@@ -358,6 +358,7 @@ class BudingAction extends Action{
 	
 	//报账项未审核解锁
     public function baozhangxiangmujiesuo() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "报账项未审核解锁";
 		$ViewBaozhangitem = D("ViewBaozhangitem");
