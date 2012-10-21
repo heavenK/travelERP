@@ -356,10 +356,27 @@ class BudingAction extends Action{
 	
 	
 	
-	
-	
-	
-	
+	//报账项未审核解锁
+    public function baozhangxiangmujiesuo() {
+		C('TOKEN_ON',false);
+		echo "报账项未审核解锁";
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$Chanpin = D("Chanpin");
+		$itemall = $ViewBaozhangitem->findall();
+		dump(count($itemall));
+		$aaa = 0;
+		foreach($itemall as $v){
+			echo $aaa++.'<br>';
+			if($v['status_shenhe'] == '未审核'){
+				$data['chanpinID'] = $v['chanpinID'];
+				$data['islock'] = '未锁定';
+				if(false === $Chanpin->save($data)){
+			dump($Chanpin);
+				}
+			}
+		}
+		echo "结束";
+	}
 	
 	
 }
