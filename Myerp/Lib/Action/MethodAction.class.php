@@ -1140,8 +1140,11 @@ class MethodAction extends CommonAction{
 			}
 		}
 		else{
-			$omdata = $this->_checkDataOM($dataID,$datatype,'管理');
-			if(false !== $omdata){
+			if(false === $this->_checkShenhe($datatype,1,$this->user['systemID'],$dataID)){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+				cookie('errormessage','您没有申请审核的权限！',30);
+				return false;
+			}
+			else{
 				$Chanpin = D("Chanpin");
 				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				if(($data['status_shenhe'] != '批准' || ($datatype == '线路' || $datatype == '地接')) && $data['status'] != '截止'){
@@ -1154,10 +1157,24 @@ class MethodAction extends CommonAction{
 				}
 				return false;
 			}
-			else{
-				cookie('errormessage','错误！您没有产品的管理权限！',30);
-				return false;
-			}
+//			$omdata = $this->_checkDataOM($dataID,$datatype,'管理');
+//			if(false !== $omdata){
+//				$Chanpin = D("Chanpin");
+//				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+//				if(($data['status_shenhe'] != '批准' || ($datatype == '线路' || $datatype == '地接')) && $data['status'] != '截止'){
+//					if($this->_checkShenhe($datatype,2))
+//					cookie('show_word','申请审核',30);
+//					else
+//					cookie('show_word','批准',30);
+//					cookie('show_action','申请',30);
+//					return $omdata;
+//				}
+//				return false;
+//			}
+//			else{
+//				cookie('errormessage','错误！您没有产品的管理权限！',30);
+//				return false;
+//			}
 		}
 	 }
 	 

@@ -105,7 +105,9 @@ function shenhe_after(data,status){
       <php>}if(cookie('show_action') == '申请'){
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php>成团 " name="button" onclick="doshenhe('申请');">
-      <php>}}if(A("Method")->checkshenheback($chanpinID,'地接')){</php>
+      <php>}}else{</php>
+      <input type="button" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
+      <php>}if(A("Method")->checkshenheback($chanpinID,'地接')){</php>
       <input type="button" style="float:right" value=" 成团回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'地接');">
 	  <php>}</php>
   <php>}</php>
@@ -156,7 +158,13 @@ function shenhe_after(data,status){
       <php>}if(cookie('show_action') == '申请'){
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
-      <php>}}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
+      <php>}}else{</php>
+      <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
+      <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
+      <php>if(count(explode('财务审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
+      <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
+      <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
       <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$baozhangID}>,'报账单');">
 	  <php>}</php>
   <php>}</php>

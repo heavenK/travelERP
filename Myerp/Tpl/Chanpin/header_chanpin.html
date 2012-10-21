@@ -88,7 +88,9 @@ function shenhe_after(data,status){
       <php>}if(cookie('show_action') == '申请'){
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
-      <php>}}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
+      <php>}}else{</php>
+      <input type="button" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
+      <php>}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
       <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'线路');">
 	  <php>}</php>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
