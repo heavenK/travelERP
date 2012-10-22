@@ -422,7 +422,7 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	public function djtuanlist() {
-		A("Dijie")->index("团费确认");
+		A("Dijie")->index("财务管理");
 	}
 	
 	
