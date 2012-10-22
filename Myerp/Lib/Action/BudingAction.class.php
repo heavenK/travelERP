@@ -383,6 +383,7 @@ class BudingAction extends Action{
 	
 	//报账单经理签名报账项关联
     public function baozhangmanagercopy() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "报账单经理签名报账项关联";
 		$ViewBaozhang = D("ViewBaozhang");
