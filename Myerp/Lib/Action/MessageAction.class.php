@@ -15,7 +15,7 @@ class MessageAction extends Action{
     public function index() {
 		$datatype = $_REQUEST['datatype'];
 		A("Method")->showDirectory($datatype);
-		$chanpin_list = A('Method')->getDataOMlist($datatype,'infohistory',$_REQUEST,'管理');
+		$chanpin_list = A('Method')->getDataOMlist($datatype,'info',$_REQUEST,'管理');
 		if($_REQUEST['returntype'] == 'ajax' ){
 				$str = '
 					<table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
