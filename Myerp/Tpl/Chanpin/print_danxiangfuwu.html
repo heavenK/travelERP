@@ -268,7 +268,12 @@
   <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item" style="margin-top:4px;">
     <tr >
             <php>
-        foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$value_m += $v['value'];}
+        foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;
+        if($v['type'] == '结算项目')
+        $value_m += $v['value'];
+        if($v['type'] == '支出项目')
+        $value_m -= $v['value'];
+        }
           </php>
       <td align="left" height="28px" style="min-width:150px">
       	<table  border="0" cellspacing="0" cellpadding="0" >

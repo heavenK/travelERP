@@ -20,12 +20,14 @@ class DijieAction extends CommonAction{
 	}
 	
 	
-    public function index() {
+    public function index($directory) {
 		A("Method")->showDirectory("团队创建及控管");
+		if($directory)
+		A("Method")->showDirectory($directory);
 		$chanpin_list = A('Method')->getDataOMlist('地接','DJtuan',$_REQUEST);
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
-		$this->display('index');
+		$this->display('Dijie:index');
     }
 	
 	

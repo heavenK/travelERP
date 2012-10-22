@@ -1,7 +1,14 @@
-
+        <style>
+		#navtab_2 h3 { color:#0B578F}
+		#navtab_3 h3 { color:#999}
+		</style>
   <div id="leftColumn" style="margin-top:0px; width:150px;">
-        
-        <div class="leftList">
+        <ul id="searchTabs" class="tablist tablist_2">
+          <li><a id="shownavtab_1" <php>if(!$status){</php>class="current"<php>}</php> href="<{:SITE_INDEX}>Chanpin/kongguan" onclick="shownavtab(1)">&nbsp;全部&nbsp;</a></li>
+          <li><a id="shownavtab_2" <php>if($status == '报名'){</php>class="current"<php>}</php> href="<{:SITE_INDEX}>Chanpin/kongguan/status/报名" onclick="shownavtab(2)">&nbsp;报名&nbsp;</a></li>
+          <li><a id="shownavtab_3" <php>if($status == '截止'){</php>class="current"<php>}</php> href="<{:SITE_INDEX}>Chanpin/kongguan/status/截止" onclick="shownavtab(3)">&nbsp;截止&nbsp;</a></li>
+        </ul>
+        <div id="navtab_1" class="leftList" <php>if($status){</php>style="display:none;"<php>}</php>>
           <h3 style="border:none">产品分类</h3>
           <h3><span>国内/拼团</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内">&nbsp;<span>全部</span></a></h3>
           <ul id="ul_shortcuts">
@@ -28,6 +35,63 @@
             <php>}</php>
           </ul>
         </div>
+        
+        <div id="navtab_2" class="leftList" <php>if($status != '报名'){</php>style="display:none;"<php>}</php>>
+          <h3 style="border:none">产品分类</h3>
+          <h3><span>国内/拼团</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/status/报名">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/近郊游/status/报名">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/长线游/status/报名">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/国内/status/报名">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/国内/status/报名">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>境外</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/status/报名">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/韩国/status/报名">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/日本/status/报名">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/台湾/status/报名">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/港澳/status/报名">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/东南亚/status/报名">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/欧美岛/status/报名">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/境外/status/报名">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/境外/status/报名">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>散客（联合体提供）</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($bumenlist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/departmentID/<{$v['systemID']}>/status/报名">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+        </div>
+        
+        <div id="navtab_3" class="leftList" <php>if($status != '截止'){</php>style="display:none;"<php>}</php>>
+          <h3 style="border:none">产品分类</h3>
+          <h3><span>国内/拼团</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/国内/status/截止">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/近郊游/status/截止">&nbsp;<span>近郊游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/长线游/status/截止">&nbsp;<span>长线游</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/国内/status/截止">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/国内/status/截止">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>境外</span><a href="<{:SITE_INDEX}>Chanpin/kongguan/guojing_copy/境外/status/截止">&nbsp;<span>全部</span></a></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/韩国/status/截止">&nbsp;<span>韩国</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/日本/status/截止">&nbsp;<span>日本</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/台湾/status/截止">&nbsp;<span>台湾</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/港澳/status/截止">&nbsp;<span>港澳</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/东南亚/status/截止">&nbsp;<span>东南亚</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/欧美岛/status/截止">&nbsp;<span>欧美岛</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/自由人/guojing_copy/境外/status/截止">&nbsp;<span>自由人</span></a> </li>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/kind_copy/包团/guojing_copy/境外/status/截止">&nbsp;<span>包团</span></a> </li>
+          </ul>
+          <h3><span>散客（联合体提供）</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($bumenlist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Chanpin/kongguan/departmentID/<{$v['systemID']}>/status/截止">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+        </div>
+        
         <div class="leftList">
           <h3><span>产品控管</span></h3>
           <ul id="ul_shortcuts">
@@ -57,4 +121,45 @@
           </ul>
         </div>
   </div>
+
+<script>
+function shownavtab(s)
+{
+	if(s == 1){
+		var divRili = document.getElementById('navtab_1'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('navtab_2'); 
+		divRili.style.display = 'none';	
+		divRili = document.getElementById('navtab_3'); 
+		divRili.style.display = 'none';	
+		jQuery('#shownavtab_1').addClass('current');
+		jQuery('#shownavtab_2').removeClass('current');
+		jQuery('#shownavtab_3').removeClass('current');
+	}
+	if(s == 2){
+		var divRili = document.getElementById('navtab_2'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('navtab_1'); 
+		divRili.style.display = 'none';	
+		divRili = document.getElementById('navtab_3'); 
+		divRili.style.display = 'none';	
+		jQuery('#shownavtab_2').addClass('current');
+		jQuery('#shownavtab_1').removeClass('current');
+		jQuery('#shownavtab_3').removeClass('current');
+	}
+	if(s == 3){
+		var divRili = document.getElementById('navtab_3'); 
+		divRili.style.display = '';			
+		divRili = document.getElementById('navtab_1'); 
+		divRili.style.display = 'none';	
+		divRili = document.getElementById('navtab_2'); 
+		divRili.style.display = 'none';	
+		jQuery('#shownavtab_3').addClass('current');
+		jQuery('#shownavtab_1').removeClass('current');
+		jQuery('#shownavtab_2').removeClass('current');
+	}
+}
+
+
+</script>
 

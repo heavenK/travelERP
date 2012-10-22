@@ -421,8 +421,9 @@ class CaiwuAction extends CommonAction{
 		A("Method")->_shenheback();
 	}
 	
-	
-	
+	public function djtuanlist() {
+		A("Dijie")->index("团费确认");
+	}
 	
 	
 	
