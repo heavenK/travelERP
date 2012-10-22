@@ -143,7 +143,7 @@
   
   <php>
   $markhigh = 28;
-  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
+  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
       $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
       if($title > $remark)
@@ -152,7 +152,7 @@
       $high_1[$i] = $remark;
       if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
   }}
-  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
+  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
       $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
       $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
       if($title > $remark)
@@ -189,7 +189,7 @@
               <td width="220" align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value'];
           </php>
           <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
@@ -232,7 +232,7 @@
               <td width="220"  align="center">备注</td>
             </tr>
             <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' || $baozhang_data['baozhangitemlist'][$tem]['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value'];
+        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value'];
           </php>
           <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
@@ -269,9 +269,11 @@
     <tr >
             <php>
         foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;
-        if($v['type'] == '结算项目')
+        if($v['type'] == '结算项目' && $v['is_print'] != '不打印' )
+        if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') 
         $value_m += $v['value'];
-        if($v['type'] == '支出项目')
+        if($v['type'] == '支出项目' && $v['is_print'] != '不打印' )
+        if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') 
         $value_m -= $v['value'];
         }
           </php>
