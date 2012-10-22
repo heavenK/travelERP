@@ -158,7 +158,8 @@ class MethodAction extends CommonAction{
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';
 			$where['datatype'] = $datatype;
-			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['message'] = array('like','%'.$where['title'].'%');
+			unset($where['title']);
 		}
 		if($datatype == '公告'){
 			$class_name = 'OMViewInfo';
