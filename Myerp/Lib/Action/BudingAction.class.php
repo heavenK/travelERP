@@ -410,6 +410,32 @@ class BudingAction extends Action{
 	
 	
 	
+	//地接，截止团报账单填补
+    public function djtuanbaozhangtianbu() {
+		C('TOKEN_ON',false);
+		echo "地接，截止团报账单填补";
+		$ViewDJtuan = D("ViewDJtuan");
+		$Chanpin = D("Chanpin");
+		$tuanall = $ViewDJtuan->findall();
+		foreach($tuanall as $v){
+			$bzd = $Chanpin->where("`parentID` = '$v[chanpinID]' and `marktype` = 'baozhang'")->find();
+			if($bzd)
+			continue;
+			$data['parentID'] = $v['chanpinID'];
+			$data['user_name'] = $v['user_name'];
+			$data['departmentID'] = $v['departmentID'];
+			$data['baozhang']['type'] = '团队报账单';
+			$data['baozhang']['title'] = $v['title'].'/'.$v['jietuantime'].'团队报账单';
+			$data['baozhang']['renshu'] = $v['renshu'];
+			$Chanpin->relation("baozhang")->myRcreate($data);
+			$baozhangID = $Chanpin->getRelationID();
+			//生成OM
+			$dataOMlist = A("Method")->_getDataOM($v['chanpinID'],'地接');
+			A("Method")->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
+		}
+		echo "结束";
+	}
+	
 	
 	
 	
