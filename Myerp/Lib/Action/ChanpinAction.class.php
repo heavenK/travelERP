@@ -515,8 +515,9 @@ class ChanpinAction extends CommonAction{
 		$data = $_REQUEST;
 		$data['zituan'] = $data;
 		$Chanpin = D("Chanpin");
-		if( false !== $Chanpin->relation("zituan")->myRcreate($data))
+		if( false !== $Chanpin->relation("zituan")->myRcreate($data)){
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}
 		else
 			$this->ajaxReturn($_REQUEST, '错误，请联系管理员', 0);
 		

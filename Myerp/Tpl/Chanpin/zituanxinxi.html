@@ -26,7 +26,7 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td valign="top" scope="row" style="min-width:100px;"> 团号: </td>
-          <td valign="top" scope="row" style="min-width:200px;"><input name="title" type="text" value="<php>echo trim($zituan['tuanhao'])</php>" check="^\S+$" warning="团号不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="min-width:200px;"><input name="tuanhao" type="text" value="<php>echo trim($zituan['tuanhao'])</php>" check="^\S+$" warning="团号不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row" style="min-width:100px;"> 报名截止: </td>
           <td valign="top" scope="row" style="min-width:200px;"><span>出团前</span>
             <input style="width:50px; margin:0 4px 0 4px;" name="baomingjiezhi" type="text" value="<php>echo trim($zituan['baomingjiezhi'])</php>" check="^\S+$" warning="报名截止不能为空,且不能含有空格">
@@ -34,7 +34,7 @@ function doComplete(data,status){
         </tr>
         <tr>
           <td valign="top" scope="row"> 出团日期: </td>
-          <td valign="top" scope="row"><input name="title" type="text" value="<php>echo trim($zituan['chutuanriqi'])</php>" check="^\S+$" warning="出团日期不能为空,且不能含有空格" onfocus="WdatePicker()" ></td>
+          <td valign="top" scope="row"><input name="chutuanriqi" type="text" value="<php>echo trim($zituan['chutuanriqi'])</php>" check="^\S+$" warning="出团日期不能为空,且不能含有空格" onfocus="WdatePicker()" ></td>
           <td valign="top" scope="row"> 团队人数: </td>
           <td valign="top" scope="row"><input name="renshu" type="text" value="<php>echo trim($zituan['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
         </tr>
