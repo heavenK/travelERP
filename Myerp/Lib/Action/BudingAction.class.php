@@ -380,5 +380,42 @@ class BudingAction extends Action{
 	}
 	
 	
+	
+	//报账单经理签名报账项关联
+    public function baozhangmanagercopy() {
+		C('TOKEN_ON',false);
+		echo "报账单经理签名报账项关联";
+		$ViewBaozhang = D("ViewBaozhang");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$Chanpin = D("Chanpin");
+		$bzdall = $ViewBaozhang->findall();
+		foreach($bzdall as $v){
+			if($v['manager_copy'] == ''){
+				$itemall = $ViewBaozhangitem->where("`parentID` = $v[chanpinID]")->findall();
+				foreach($itemall as $vol){
+					$task = $ViewTaskShenhe->where("`dataID` = '$vol[chanpinID]' and `status` = '检出' and `status_system` = 1")->find();
+					if($task){
+						$data['chanpinID'] = $v['chanpinID'];
+						$data['baozhang']['manager_copy'] = $task['user_name'];
+						$Chanpin->relation("baozhang")->myRcreate($data);
+						break;
+					}
+				}
+			}
+		}
+		echo "结束";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>
