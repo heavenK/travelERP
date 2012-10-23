@@ -438,6 +438,30 @@ class BudingAction extends Action{
 	}
 	
 	
+	//单项服务报账单om补充
+    public function djtuandanxiangfuomkaifang() {
+		C('TOKEN_ON',false);
+		echo "单项服务报账单om补充";
+		$ViewBaozhang = D("ViewBaozhang");
+		$bzdall = $ViewBaozhang->where("`type` != '团队报账单'")->findall();
+		foreach($bzdall as $v){
+			$bumenlist = A("Method")->_checkbumenshuxing('地接','',$v['user_name']);
+			if($bumenlist){
+				$i = 0;
+				$dataOMlist = '';
+				foreach($bumenlist as $vol){
+					$dataOMlist[$i]['DUR'] = $vol['bumenID'].',,';
+					$i++;
+				}
+				foreach($dataOMlist as $w){
+					$do_dataOMlist[0] = $w;
+					A("Method")->_createDataOM($v['chanpinID'],'报账单','管理',$do_dataOMlist);
+				}
+			}
+		}
+		echo "结束";
+	}
+	
 	
 	
 	
