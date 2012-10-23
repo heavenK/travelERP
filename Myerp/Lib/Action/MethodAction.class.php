@@ -12,7 +12,8 @@ class MethodAction extends CommonAction{
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
-			$where['status_system'] =  array('neq',-1);//默认
+		if($where['status_system'] != -1)
+			$where['status_system'] =  array('eq',1);//默认
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where['title_copy'] = array('like','%'.$where['title'].'%');
@@ -183,8 +184,8 @@ class MethodAction extends CommonAction{
 			$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
-		if($status_system != -1)
-		$where .= "AND (`status_system` = '1')";
+//		if($status_system != -1)
+//		$where .= "AND (`status_system` = '1')";
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
@@ -3225,6 +3226,61 @@ class MethodAction extends CommonAction{
 		$user = $ViewUser->where("`title` = '$username'")->find();
 		return $user;
 	}
+	
+	
+	
+	public function _deletechanpin($type) {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) > 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行复制！！', 0);
+		$Chanpin = D("Chanpin");
+		$ViewDJtuan = D("ViewDJtuan");
+		$ViewZituan = D("ViewZituan");
+		$ViewBaozhang = D("ViewBaozhang");
+		$Chanpin->startTrans();
+		foreach($itemlist as $v){
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($v,$type);
+			if(false === $xianlu){
+				$mark = 1;
+				continue;
+			}
+			if($type == '地接'){
+				$chanp = $ViewDJtuan->where("`chanpinID` = '$v'")->find();
+				if($chanp['status_baozhang'] == '批准'){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
+				}
+				else{
+					$bzd = $ViewBaozhang->where("`parentID` = '$v'")->find();
+					if($bzd['yingshou_copy'] || $bzd['yingfu_copy']){
+						$Chanpin->rollback();
+						$this->ajaxReturn($_REQUEST,'该团已经开始报账，报账项目已审核，不能删除！！！', 0);
+					}
+				}
+				$data['chanpinID'] = $v;
+				$data['status_system'] = -1;
+				if(false === $Chanpin->save($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+				}
+			}
+			$Chanpin->commit();
+		}
+		$this->ajaxReturn($_REQUEST,'操作成功！', 1);
+	
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

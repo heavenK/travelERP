@@ -372,5 +372,10 @@ class DijieAction extends CommonAction{
     public function copytonew() {
 		A('Method')->_copytonew('地接');
 	}
+	
+    public function deletechanpin() {
+		A('Method')->_deletechanpin('地接');
+	}
+	
 }
 ?>
