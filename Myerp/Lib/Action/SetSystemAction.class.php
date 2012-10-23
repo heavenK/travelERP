@@ -429,8 +429,10 @@ class SetSystemAction extends CommonAction{
 			if($_REQUEST['version'] == 'full')
 			$this->display('templatelist');
 			else{
-				$tupianlist = split(',',$_REQUEST['title']);
-				$this->assign("tupianlist",$tupianlist);
+				if($_REQUEST['title']){
+					$tupianlist = split(',',$_REQUEST['title']);
+					$this->assign("tupianlist",$tupianlist);
+				}
 				$this->assign("datatitle",'图片选择');
 				$this->display('tupian');
 			}

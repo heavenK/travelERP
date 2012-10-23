@@ -153,13 +153,13 @@ jQuery(document).ready(function(){
 </body>
 </html>
 <script language="javascript">
-jQuery("document").ready(function(){
-	var arr = jQuery("#own").attr("value").split(',');
-	for(var i in arr){
-		v = arr[i]
-		jQuery("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
-	}
-})
+//jQuery("document").ready(function(){
+//	var arr = jQuery("#own").attr("value").split(',');
+//	for(var i in arr){
+//		v = arr[i]
+//		jQuery("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
+//	}
+//})
 
 function sendValue(){
 	jQuery("input[name='checkboxs']:checked").each(function(i){

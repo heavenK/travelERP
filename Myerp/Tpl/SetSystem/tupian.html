@@ -113,15 +113,13 @@ jQuery(document).ready(function(){
                 <th scope="col" nowrap="nowrap"> 序号</th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 描述 </div></th>
-                <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 视频地址 </div></th>
                 <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 封面图片 </div></th>
               </tr>
               <php>$i=0;foreach($datalist as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
-                  <td scope="row" align="left" valign="top"><input <php>if(in_array($v['title'],$tupianlist)){</php> checked="checked"<php>}</php> id="<{$v[systemID]}>" type="checkbox" name="checkboxs" value="<{$v[title]}>"></td>
+                  <td scope="row" align="left" valign="top"><input <php>if($tupianlist && in_array($v['title'],$tupianlist)){</php> checked="checked"<php>}</php> id="<{$v[systemID]}>" type="checkbox" name="checkboxs" value="<{$v[title]}>"></td>
                   <td scope="row" align="left" valign="top"><{$v['title']}></td>
                   <td scope="row" align="left" valign="top"><{$v['description']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['video_url']}></td>
                   <td scope="row" align="left" valign="top"><a href="javascript:void(0)" onmouseover="showpic('<{$v[pic_url]}>');" onmouseout="closeshowpic();">查看</a></td>
                 </tr>
               <php>}</php>
@@ -152,14 +150,14 @@ jQuery(document).ready(function(){
 </body>
 </html>
 <script language="javascript">
-	jQuery("document").ready(function(){
-	var arr = jQuery("#own").attr("value").split(',');
-	for(var i in arr){
-		v = arr[i]
-		jQuery("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
-	}
-	
-	})
+//	jQuery("document").ready(function(){
+//	var arr = jQuery("#own").attr("value").split(',');
+//	for(var i in arr){
+//		v = arr[i]
+//		jQuery("input[name='checkboxs'][value=" + v + "]").attr("checked",true);
+//	}
+//	
+//	})
 	
 	function sendValue(){
 		jQuery("input[name='checkboxs']:checked").each(function(i){
