@@ -98,7 +98,7 @@
       <php>if(count(explode('财务审核',$vol['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <input type="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($vol['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
 	  <php>}</php>
             </td>
           </tr>
