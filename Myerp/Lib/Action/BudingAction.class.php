@@ -412,6 +412,7 @@ class BudingAction extends Action{
 	
 	//地接，截止团报账单填补
     public function djtuanbaozhangtianbu() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "地接，截止团报账单填补";
 		$ViewDJtuan = D("ViewDJtuan");
