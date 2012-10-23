@@ -299,6 +299,9 @@ class CaiwuAction extends CommonAction{
 		//搜索
 		if($_REQUEST['title'])
 			$where_unit['title'] = array('like','%'.$_REQUEST['title'].'%');
+		if($_REQUEST['listtype'] == '员工'){
+			$where['user_name'] = array('like','%'.$_REQUEST['title'].'%');
+		}
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
 			$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
@@ -312,8 +315,10 @@ class CaiwuAction extends CommonAction{
 			$this->assign("start_time",$fm_forward_month.'-01');
 			$this->assign("end_time",date("Y-m").'-01');
 		}
+		if($_REQUEST['departmentID'])
+			$where['departmentID'] = $_REQUEST["departmentID"];
 		$ViewDataDictionary = D("ViewDataDictionary");
-		//订单列表
+		//总体统计。订单列表
 		$ViewBaozhang = D("ViewBaozhang");
 		$baozhangall = $ViewBaozhang->where($where)->findall();
 		foreach($baozhangall as $v){
@@ -324,17 +329,57 @@ class CaiwuAction extends CommonAction{
 		}
 		$tongji['maolilv'] = sprintf( '%.2f%%',$tongji['maoli']/$tongji['yingshou'] * 100);
 		$this->assign("tongji",$tongji);
-		//部门列表
-		if($_REQUEST["systemID"])
-		$where_unit['systemID'] = $_REQUEST["systemID"];
-		$ViewDepartment = D("ViewDepartment");
-		$unitdata = $ViewDepartment->where($where_unit)->findall();
+		
+		if($_REQUEST['listtype'] == '员工'){
+			$this->assign("markpos",$_REQUEST['listtype']);
+			//用户列表
+			$ViewUser = D("ViewUser");
+			$unitdata = $ViewUser->where($where_unit)->findall();
+			//根据部门过滤用户
+			if($_REQUEST['departmentID']){
+				$ii = 0;
+				foreach($unitdata as $u){
+					$durlist = A("Method")->_getDURlist_name($u['title']);
+					$markt = 0;
+					foreach($durlist as $dr){
+						if($dr['bumenID'] == $_REQUEST['departmentID']){
+							$markt = 1;
+							break;
+						}
+					}
+					if($markt == 0)
+						unset($unitdata[$ii]);
+					$ii++;
+				}
+				$unitdata = array_diff($unitdata, array(null));
+				$unitdata = array_values($unitdata);
+			}
+		}
+		else{
+			//部门列表
+			if($_REQUEST["systemID"])
+			$where_unit['systemID'] = $_REQUEST["systemID"];
+			$ViewDepartment = D("ViewDepartment");
+			$unitdata = $ViewDepartment->where($where_unit)->findall();
+		}
 		//分类处理
 		$i = 0;
 		foreach($unitdata as $v){
+			if($_REQUEST['listtype'] == '员工'){
+				$right = $v['title'];
+			}
+			else{
+				$right = $v['systemID'];
+			}
 			$m = 0;
 			foreach($baozhangall as $vol){
-				if($vol['departmentID'] == $v['systemID']){
+				if($_REQUEST['listtype'] == '员工'){
+					$left = $vol['user_name'];
+				}
+				else{
+					$left = $vol['departmentID'];
+				}
+				if($left == $right){
 					$vol['maoli'] = $vol['yingshou_copy'] - $vol['yingfu_copy'];
 					$vol['maolilv'] = sprintf( '%.2f%%',$vol['maoli']/$vol['yingshou_copy'] * 100);
 					$unitdata[$i]['baozhang'][$m] = $vol;
@@ -406,8 +451,9 @@ class CaiwuAction extends CommonAction{
 				';
 				$this->ajaxReturn($str, '', 1);
 		}
-		else
-		$this->display('tongji_yingshou');
+		else{
+			$this->display('tongji_yingshou');
+		}
 	}
 	
 	

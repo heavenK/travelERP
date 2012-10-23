@@ -23,11 +23,18 @@
         <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
               <div class="edit view search ">
               <input type="hidden" class="systemID" value="<{$systemID}>" />
+              <input type="hidden" class="departmentID" value="<{$departmentID}>" />
+              <input type="hidden" class="listtype" value="<{$listtype}>" />
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
+                        <php>if($listtype == '员工'){</php>
+                          <td scope="row" nowrap="nowrap"> 员工 </td>
+                          <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
+                        <php>}else{</php>
                           <td scope="row" nowrap="nowrap"> 部门 </td>
                           <td nowrap="nowrap"><input type="text" class="title_1" value="<{$title}>"></td>
+                        <php>}</php>
                           <td scope="row" nowrap="nowrap"> 时间 </td>
                           <td nowrap="nowrap">
                           <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
@@ -112,6 +119,7 @@ function clearsearch(){
 		jQuery('.start_time').val('');
 		jQuery('.end_time').val('');
 		jQuery('.systemID').val('');
+		jQuery('.departmentID').val('');
 }
 
 function _dosearch(sorttabid){
@@ -124,6 +132,12 @@ function _dosearch(sorttabid){
 	str += '/end_time/'+jQuery('.end_time').val();
 	if(jQuery('.systemID').val())
 	str += '/systemID/'+jQuery('.systemID').val();
+	if(jQuery('.departmentID').val())
+	str += '/departmentID/'+jQuery('.departmentID').val();
+                        <php>if($listtype == '员工'){</php>
+	if(jQuery('.listtype').val())
+	str += '/listtype/'+jQuery('.listtype').val();
+                        <php>}</php>
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

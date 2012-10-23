@@ -37,6 +37,23 @@
             </table>
             <php>}</php>
             
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <php>if($markpos == ''){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">部门统计</a> </li>
+        <li> <a 
+          <php>if($markpos == '员工'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji/listtype/员工">员工统计</a> </li>
+      </ul>
+    </div>
+    
+            
+            
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
                 <tr class="pagination">
@@ -83,7 +100,11 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['maoli'])</php></td>
                   <td scope="row" align="left" valign="top"><{$v['maolilv']}></td>
                   <td scope="row" align="left" valign="top">
+                  <php>if($listtype == '员工'){</php>
+                      <input type="button" value="报账明细" name="button" class="button primary" onclick="setbumen('<{$departmentID}>');opendialog_1();">
+                  <php>}else{</php>
                       <input type="button" value="报账明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_1();">
+                  <php>}</php>
                   </td>
                 </tr>
                 <php> }</php>
@@ -195,7 +216,7 @@ jQuery(document).ready(function(){
 function opendialog_1(){
 	jQuery.ajax({
 		type:	"POST",
-		url:	"<{:SITE_INDEX}>Caiwu/yingshou_tongji/returntype/ajax/systemID/"+systemID,
+		url:	"<{$_SERVER[REQUEST_URI]}>/returntype/ajax/systemID/"+systemID,
 		data:	"",
 		success:	function(msg){
 				ThinkAjax.myAjaxResponse(msg,'',click_after);
