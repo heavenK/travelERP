@@ -316,6 +316,7 @@ class BudingAction extends Action{
 	
 	//地接团om补充,及报账单om
     public function dijietuanom() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "地接团om补充";
 		$ViewDJtuan = D("ViewDJtuan");
@@ -440,6 +441,7 @@ class BudingAction extends Action{
 	
 	//单项服务报账单om补充
     public function djtuandanxiangfuomkaifang() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "单项服务报账单om补充";
 		$ViewBaozhang = D("ViewBaozhang");
