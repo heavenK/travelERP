@@ -160,7 +160,7 @@ function shenhe_after(data,status){
       <php>}}else{</php>
       <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
-      <php>if(count(explode('财务审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
+      <php>if(count(explode('财务',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
       <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
