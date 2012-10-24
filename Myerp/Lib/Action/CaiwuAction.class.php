@@ -319,6 +319,8 @@ class CaiwuAction extends CommonAction{
 			$where['departmentID'] = $_REQUEST["departmentID"];
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//总体统计。订单列表
+		if(!$_REQUEST['shenhe_remark'])
+			$where['shenhe_remark'] = array(array('like','财务总监%'),array('like','总经理%'), 'or');;
 		$ViewBaozhang = D("ViewBaozhang");
 		$baozhangall = $ViewBaozhang->where($where)->findall();
 		foreach($baozhangall as $v){

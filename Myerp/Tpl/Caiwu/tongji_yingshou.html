@@ -12,6 +12,21 @@
             
             <include file="Index:search_yingshoutongji" />
             
+    <div id="mysearchdiv" style="margin:10px 0 0 0;">
+      <ul id="searchTabs" class="tablist tablist_2">
+        <li> <a 
+          <php>if($markpos == ''){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">部门统计</a> </li>
+        <li> <a 
+          <php>if($markpos == '员工'){</php>
+          class="current"
+          <php>}</php>
+          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji/listtype/员工">员工统计</a> </li>
+      </ul>
+    </div>
+            
             <php>if(!$systemID){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
               <tbody>
@@ -36,23 +51,8 @@
               </tbody>
             </table>
             <php>}</php>
-            
-    <div id="mysearchdiv" style="margin:10px 0 0 0;">
-      <ul id="searchTabs" class="tablist tablist_2">
-        <li> <a 
-          <php>if($markpos == ''){</php>
-          class="current"
-          <php>}</php>
-          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">部门统计</a> </li>
-        <li> <a 
-          <php>if($markpos == '员工'){</php>
-          class="current"
-          <php>}</php>
-          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji/listtype/员工">员工统计</a> </li>
-      </ul>
-    </div>
     
-            
+            根据报账单统计（ps：<strong style="color:red">报账单只有被财务总监审核后才被当作有效数据，时间以审核时间为依据。</strong>）
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -101,9 +101,9 @@
                   <td scope="row" align="left" valign="top"><{$v['maolilv']}></td>
                   <td scope="row" align="left" valign="top">
                   <php>if($listtype == '员工'){</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="setbumen('<{$departmentID}>');opendialog_1();">
+                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
                   <php>}else{</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_1();">
+                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
                   <php>}</php>
                   </td>
                 </tr>
@@ -194,10 +194,6 @@ function dosearch(str){
 </div>
 
 <script language="javascript"> 
-var systemID ='';
-function setbumen(id){
-	systemID = id;
-}
 jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_fatuan').dialog({
@@ -213,10 +209,22 @@ jQuery(document).ready(function(){
 	});
 });
 // Dialog Link
-function opendialog_1(){
+function opendialog_1(systemID){
 	jQuery.ajax({
 		type:	"POST",
 		url:	"<{$_SERVER[REQUEST_URI]}>/returntype/ajax/systemID/"+systemID,
+		data:	"",
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_fatuan').dialog('open');
+}
+// Dialog Link
+function opendialog_2(title){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{$_SERVER[REQUEST_URI]}>/returntype/ajax/title/"+title,
 		data:	"",
 		success:	function(msg){
 				ThinkAjax.myAjaxResponse(msg,'',click_after);
