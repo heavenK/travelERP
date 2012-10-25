@@ -2052,27 +2052,39 @@ class MethodAction extends CommonAction{
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		if($datatype == '报账项'){
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+				//$this->assign("huitui_words",'该项目所属的报账单已被批准，请先回退报账单！！');//失效，原因大概是没有在display之前加载！！
 				return false;
+			}
 		}
 		if($datatype == '线路'){
 			$p_cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
-			if($p_cpin['status'] == '截止')
+			if($p_cpin['status'] == '截止'){
+				//$this->assign("huitui_words",'该线路已经截止，不允许回退！！');
 				return false;
+			}
 		}
 		if($datatype == '地接'){
 			$p_cpin = $Chanpin->where("`parentID` = '$dataID' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+				//$this->assign("huitui_words",'该地接团已经报账审核，不允许回退！！');
 				return false;
+			}
 		}
 		//检查批准
 		$pz = $this->_getTaskPZ($dataID,$datatype);
-	 	if($pz)
-		return $cpin;
+	 	if($pz){
+			if(false === $this->_checkshenhe_admin($dataID,$datatype)){
+				//$this->assign("huitui_words",'该项目已被批准，只有最后批准人允许回退！！');
+				return false;
+			}
+				return $cpin;
+		}
 		//检查待审核
 		$djc = $this->_getTaskDJC($dataID,$datatype);
 	 	if($djc)
 		return $cpin;
+		//$this->assign("huitui_words",'您没有权限执行该操作！！');
 		return false;
 	}
 	
@@ -2606,36 +2618,42 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$dataID = $_REQUEST['dataID'];
 		$datatype = $_REQUEST['datatype'];
-		//检查OM
-		$tempom = $this->_checkDataOM($dataID,$datatype,'管理');
-		if(false === $tempom)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+		if(false === $this->_checkshenhe_admin($dataID,$datatype))
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
 		$Chanpin = D("Chanpin");
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
-		if(!$cpin)
-			$this->ajaxReturn('', '错误！', 0);
-		if($datatype == '报账项'){//检查父状态
-			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
-				$this->ajaxReturn($_REQUEST,'错误，该报账项的报账单已被审核通过，无法审核回退！', 0);
-		}
-		if($datatype == '地接'){//检查报账单状态
-			$p_cpin = $Chanpin->where("`parentID` = '$cpin[chanpinID]' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
-				$this->ajaxReturn($_REQUEST,'错误，该地接产品的报账单已被审核通过，无法审核回退！', 0);
-		}
-		
-		if($cpin['status_shenhe'] == '批准'){
-			$ViewShenhe = D("ViewShenhe");
-			$djc = $this->_getTaskDJC($dataID,$datatype);
-			if($djc)
-				$piz['processID'] = $djc['processID']-1;
-			else
-				$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
-			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
-			if(false === $checkds)
-				$this->ajaxReturn('', '错误！您没有操作权限！', 0);
-		}
+//		$dataID = $_REQUEST['dataID'];
+//		$datatype = $_REQUEST['datatype'];
+//		//检查OM
+//		$tempom = $this->_checkDataOM($dataID,$datatype,'管理');
+//		if(false === $tempom)
+//			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+//		$Chanpin = D("Chanpin");
+//		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
+//		if(!$cpin)
+//			$this->ajaxReturn('', '错误！', 0);
+//		if($datatype == '报账项'){//检查父状态
+//			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
+//			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+//				$this->ajaxReturn($_REQUEST,'错误，该报账项的报账单已被审核通过，无法审核回退！', 0);
+//		}
+//		if($datatype == '地接'){//检查报账单状态
+//			$p_cpin = $Chanpin->where("`parentID` = '$cpin[chanpinID]' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
+//			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定')
+//				$this->ajaxReturn($_REQUEST,'错误，该地接产品的报账单已被审核通过，无法审核回退！', 0);
+//		}
+//		
+//		if($cpin['status_shenhe'] == '批准'){
+//			$ViewShenhe = D("ViewShenhe");
+//			$djc = $this->_getTaskDJC($dataID,$datatype);
+//			if($djc)
+//				$piz['processID'] = $djc['processID']-1;
+//			else
+//				$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
+//			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$_REQUEST['dataID']);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+//			if(false === $checkds)
+//				$this->ajaxReturn('', '错误！您没有操作权限！', 0);
+//		}
 		$chanp['chanpinID'] = $cpin['chanpinID'];
 		$chanp['shenhe_remark'] = '审核回退';
 		$chanp['status_shenhe'] = '未审核';
@@ -3266,7 +3284,55 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	
+	function _checkshenhe_admin($dataID,$datatype){
+		//检查OM
+		$tempom = $this->_checkDataOM($dataID,$datatype,'管理');
+		if(false === $tempom){
+			//$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+			cookie('errormessage','错误，无管理权限！',30);
+			return false;
+		}
+		$Chanpin = D("Chanpin");
+		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
+		if(!$cpin){
+			//$this->ajaxReturn('', '错误！', 0);
+			cookie('errormessage','错误！',30);
+			return false;
+		}
+		if($datatype == '报账项'){//检查父状态
+			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+				//$this->ajaxReturn($_REQUEST,'错误，该报账项的报账单已被审核通过，无法审核回退！', 0);
+				cookie('errormessage','错误，该报账项的报账单已被审核通过,无法审核回退！',30);
+				return false;
+			}
+		}
+		if($datatype == '地接'){//检查报账单状态
+			$p_cpin = $Chanpin->where("`parentID` = '$cpin[chanpinID]' AND (`status_system` = '1') AND `marktype` = 'baozhang'")->find();
+			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+				//$this->ajaxReturn($_REQUEST,'错误，该地接产品的报账单已被审核通过，无法审核回退！', 0);
+				cookie('errormessage','错误，该地接产品的报账单已被审核通过,无法审核回退！',30);
+				return false;
+			}
+		}
+		
+		if($cpin['status_shenhe'] == '批准'){
+			$ViewShenhe = D("ViewShenhe");
+			$djc = $this->_getTaskDJC($dataID,$datatype);
+			if($djc)
+				$piz['processID'] = $djc['processID']-1;
+			else
+				$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
+			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$dataID);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+			if(false === $checkds){
+				//$this->ajaxReturn('', '错误！您没有操作权限！', 0);
+				cookie('errormessage','错误，您没有操作权限！',30);
+				return false;
+			}
+		}
+		return true;
+		
+	}
 	
 	
 	

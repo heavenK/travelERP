@@ -213,10 +213,16 @@ function shenhe_back(dataID,datatype){
 		data:	"dataID="+dataID+"&datatype="+datatype,
 		success:function(msg){
 			scroll(0,0);
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',back_after);
 		}
 	});
 }
+
+function back_after(data,status){
+	if(status == 1)
+	 location.reload();
+}
+
 function shenheshow_doit(chanpinID,obj){
    if(jQuery("#shenhediv").is(":visible")==true){ 
 	  jQuery('#shenhediv').hide();
