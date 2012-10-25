@@ -136,8 +136,8 @@ function save(){
 	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Chanpin/dopostxingcheng/',doComplete,'resultdiv');
 }
 function doComplete(data,status){
-//	if(status == 1){
-//			window.location.href='<{:SITE_INDEX}>Chanpin/xingcheng/chanpinID/'+data['chanpinID'];
-//	}
+	if(status == 1){
+		location.reload();
+	}
 }
 </script>
