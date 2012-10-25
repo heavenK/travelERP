@@ -2548,31 +2548,6 @@ class MethodAction extends CommonAction{
 		}
 		if(!$baozhang)
 			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
-			
-/*		//报账单及团信息	
-		$ViewBaozhangitem = D("ViewBaozhangitem");
-		$ViewBaozhang = D("ViewBaozhang");
-		$ViewZituan = D("ViewZituan");
-		$ViewDJtuan = D("ViewDJtuan");
-		//获得报账单
-		$baozhang = $ViewBaozhang->where("`chanpinID` = $_REQUEST[parentID]")->find();
-		$data['baozhangitem']['baozhangtitle_copy'] = $baozhang['title'];
-		//获得团
-		$cp = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
-		if($cp['marktype'] == 'zituan'){
-			$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-			$data['baozhangitem']['tuantitle_copy'] = $zituan['title_copy'];
-			$data['baozhangitem']['tuanqi_copy'] = $zituan['chutuanriqi'];
-			$data['baozhangitem']['tuanhao_copy'] = $zituan['tuanhao'];
-				
-		}
-		if($cp['marktype'] == 'DJtuan'){
-			$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-			$data['baozhangitem']['tuantitle_copy'] = $zituan['title'];
-			$data['baozhangitem']['tuanqi_copy'] = $zituan['jietuantime'];
-			$data['baozhangitem']['tuanhao_copy'] = $zituan['tuanhao'];
-		}
-*/		
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM

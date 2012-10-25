@@ -212,6 +212,8 @@
 		htmlcontent += "</tr>";
 		jQuery("#shoujiarow_t"+id).replaceWith(htmlcontent);
 		myautocomplete("#"+data['chanpinID'],data['opentype']);
+		
+		jQuery(window).unbind('beforeunload');
 	}
  }
 

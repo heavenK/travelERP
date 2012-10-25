@@ -27,6 +27,14 @@ jQuery().ready(function() {
 		var str = '成人总成本：'+t['chengren']+',儿童总成本：'+t['ertong'];
 		jQuery("#chengbenjisuan").html(str); 
 		});
+		
+
+<php>if(!$shoujia){</php>
+jQuery(window).bind('beforeunload',function(){ 
+return '指定销售没有添加，将不会门市销售！！！'; 
+});
+<php>}</php>
+		
 </script>
 <div id="main">
   <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
