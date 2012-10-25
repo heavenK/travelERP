@@ -2104,8 +2104,14 @@ class MethodAction extends CommonAction{
 			$xianlu = $this->_checkDataOM($_REQUEST['chanpinID'],'报账单','管理');
 			if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！！！', 0);
+			//判断角色
+			if(A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
+				if($baozhang['status_shenhe'] == '批准' )
+					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
+			}
+			else
 			if($baozhang['islock'] == '已锁定' ){
-				$this->ajaxReturn($_REQUEST, '错误！该产品已经被锁定！', 0);
+				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被锁定，请审核回退后修改！', 0);
 			}
 		}
 		else{
@@ -2530,8 +2536,8 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
+		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]' and `marktype` = 'baozhangitem'")->find();
 		if($_REQUEST['dotype'] == 'setprint'){
-			$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]' and `marktype` = 'baozhangitem'")->find();
 			$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]' and `marktype` = 'baozhang'")->find();
 			$data['chanpinID'] = $_REQUEST['chanpinID'];
 			$data['baozhangitem']['is_print'] = $_REQUEST['is_print'];
@@ -2543,8 +2549,14 @@ class MethodAction extends CommonAction{
 			$data['baozhangitem'] = $_REQUEST;
 			if($_REQUEST['chanpinID'])
 				unset($data['baozhangitem']['type']);
-			if($baozhang['islock'] == '已锁定' )
-				$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
+			//判断角色
+			if(A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
+				if($item['status_shenhe'] == '批准' )
+					$this->ajaxReturn($_REQUEST,'错误，该项目已经批准，请审核回退后修改！', 0);
+			}
+			else
+			if($item['islock'] == '已锁定' )
+				$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
 		}
 		if(!$baozhang)
 			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
