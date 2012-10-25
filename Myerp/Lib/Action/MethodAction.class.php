@@ -2537,13 +2537,16 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]' and `marktype` = 'baozhangitem'")->find();
+		$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
+		if(!$baozhang)
+			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
+		if($baozhang['status_shenhe'] == '批准' )
+			$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，请审核回退报账单后修改！', 0);
 		if($_REQUEST['dotype'] == 'setprint'){
-			$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]' and `marktype` = 'baozhang'")->find();
 			$data['chanpinID'] = $_REQUEST['chanpinID'];
 			$data['baozhangitem']['is_print'] = $_REQUEST['is_print'];
 		}
 		else{
-			$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 			$data = $_REQUEST;
 			$data['deparmentID'] = $baozhang['deparmentID'];
 			$data['baozhangitem'] = $_REQUEST;
@@ -2558,8 +2561,6 @@ class MethodAction extends CommonAction{
 			if($item['islock'] == '已锁定' )
 				$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
 		}
-		if(!$baozhang)
-			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
