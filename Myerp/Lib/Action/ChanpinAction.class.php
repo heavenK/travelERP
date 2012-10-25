@@ -57,6 +57,9 @@ class ChanpinAction extends CommonAction{
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist('组团');
 		$this->assign("bumenfeilei",$bumenfeilei);
+		//部门列表
+		$bumenall = A("Method")->_getDepartmentList();
+		$this->assign("bumenall",$bumenall);
 		$this->display('fabu');
 	}
 	
@@ -71,14 +74,10 @@ class ChanpinAction extends CommonAction{
 			//检查dataOM
 			$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'线路','管理');
 			if(false === $xianlu)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+				$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 			$xianlu = $Chanpin->relation("xianlu")->find($_REQUEST['chanpinID']);
 			$_REQUEST['xianlu']['kind'] = $xianlu['xianlu']['kind'];
 			$_REQUEST['xianlu']['guojing'] = $xianlu['xianlu']['guojing'];
-			//部门
-			$ViewDepartment = D("ViewDepartment");
-			$bumen = $ViewDepartment->where("`systemID` = '$_REQUEST[departmentID]'")->find();
-			$_REQUEST['bumen_copy'] = $bumen['title'];
 		}
 		else{
 			//判断计调角色,返回用户DUR

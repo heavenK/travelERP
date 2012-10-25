@@ -338,16 +338,14 @@ class MethodAction extends CommonAction{
 			$datazituan['zituan']['title_copy'] = $chanpin['xianlu']['title'];
 			$datazituan['zituan']['guojing_copy'] = $chanpin['xianlu']['guojing'];
 			$datazituan['zituan']['kind_copy'] = $chanpin['xianlu']['kind'];
-			$datazituan['zituan']['renshu'] = $chanpin['xianlu']['renshu'];
-			$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
-			$datazituan['zituan']['chutuanriqi'] = $riqi;
-			$datazituan['zituan']['tuanhao'] =  $chanpinID.'/'.$riqi;
+			$datazituan['departmentID'] = $chanpin['departmentID'];
 			if(!$zituan){
+				$datazituan['zituan']['renshu'] = $chanpin['xianlu']['renshu'];
+				$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
+				$datazituan['zituan']['chutuanriqi'] = $riqi;
+				$datazituan['zituan']['tuanhao'] =  $chanpinID.'/'.$riqi;
 				$datazituan['parentID'] = $chanpinID;
 				$datazituan['user_name'] = $chanpin['user_name'];
-				$datazituan['user_id'] = $chanpin['user_id'];
-				$datazituan['bumen_copy'] = $chanpin['bumen_copy'];
-				$datazituan['departmentID'] = $chanpin['departmentID'];
 				$datazituan['status'] = '报名';
 				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan)){
 					$zituanID = $Chanpin->getRelationID();
@@ -358,18 +356,17 @@ class MethodAction extends CommonAction{
 			}
 			else{
 				$zituanID = $zituan['chanpinID'];
-				if($zituan['islock'] != '已锁定' && $zituan['status_baozhang'] != '批准'){
-					//修改子团内容
-					$datazituan['chanpinID'] = $zituan['chanpinID'];
-					if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
-				}
-				else
-					$locklist .= $zituan['chutuanriqi'].";";
+				//修改子团内容
+				$datazituan['chanpinID'] = $zituan['chanpinID'];
+				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan));
 			}
+			$zituan = $ViewZituan->where("`parentID` = '$chanpinID' and `chutuanriqi` = '$riqi' AND (`status_system` = '1')")->find();
 			//线路审核通过,生成默认报账单
 			$ViewBaozhang = D('ViewBaozhang');
 			$bzd = $ViewBaozhang->where("`type` = '团队报账单' and `parentID` = '$zituanID' AND (`status_system` = '1')")->find();
 			if(!$bzd){
+				$td['user_name'] = $zituan['user_name'];
+				$td['departmentID'] = $zituan['departmentID'];
 				$td['parentID'] = $zituanID;
 				$td['baozhang']['type'] = '团队报账单';
 				$td['baozhang']['title'] = $datazituan['zituan']['title_copy'].'/'.$datazituan['zituan']['chutuanriqi'].'团队报账单';
@@ -380,24 +377,56 @@ class MethodAction extends CommonAction{
 				$dataOMlist = $this->_getDataOM($zituanID,'子团');
 				$this->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
 			}
+			else{
+				$bzd_data['chanpinID'] = $bzd['chanpinID'];
+				$bzd_data['departmentID'] = $zituan['departmentID'];
+				if(false === $Chanpin->mycreate($bzd_data))
+				dump($Chanpin);
+			}
 		}
 		//删除多余子团
 		$viewxianlu = D("ViewXianlu");
+		$ViewDingdan = D("ViewDingdan");
 		$xianlu = $viewxianlu->relation("zituanlist")->where("`chanpinID` = '$chanpinID' AND (`status_system` = '1')")->find();
 		$zituanlist = $xianlu['zituanlist'];
 		foreach($zituanlist as $zituan){
 			if(false === strpos($chanpin['xianlu']['chutuanriqi'],$zituan['chutuanriqi'])){
-				if($zituan['islock'] != '已锁定'){
-					$zituan['status_system'] = -1;
-					if (false !== $Chanpin->relation("zituan")->myRcreate($zituan)){
-						//清空相关om
-						$DataOM =D("DataOM");
-						$DataOM->where("`dataID` = '$zituan[chanpinID]' and `datatype` = '子团'")->delete();
+				//报账情况
+				if($zituan['status_baozhang'] == '批准'){
+						$locklist .= $zituan['chutuanriqi'].";";
+						continue;	
+				}else{
+					$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$zituan[chanpinID]' AND (`status_system` = '1')")->find();
+					if($bzd['baozhangitemlist']){
+						$locklist .= $zituan['chutuanriqi'].";";
 						continue;	
 					}
 				}
-				else
+				//订单情况
+				$dingdan = $ViewDingdan->where("`parentID` = '$zituan[chanpinID]' AND `status_system` = '1' AND `status` != '候补'")->find();
+				if($dingdan){
 					$locklist .= $zituan['chutuanriqi'].";";
+					continue;	
+				}
+				
+				$zituan['status_system'] = -1;
+				if (false !== $Chanpin->relation("zituan")->myRcreate($zituan)){
+					//清空相关om
+					$DataOM =D("DataOM");
+					$DataOM->where("`dataID` = '$zituan[chanpinID]' and `datatype` = '子团'")->delete();
+					continue;	
+				}
+//				if($zituan['islock'] != '已锁定'){
+//					$zituan['status_system'] = -1;
+//					if (false !== $Chanpin->relation("zituan")->myRcreate($zituan)){
+//						//清空相关om
+//						$DataOM =D("DataOM");
+//						$DataOM->where("`dataID` = '$zituan[chanpinID]' and `datatype` = '子团'")->delete();
+//						continue;	
+//					}
+//				}
+//				else
+//					$locklist .= $zituan['chutuanriqi'].";";
 			}
 			if($chutuanlist)
 			$chutuanlist .= ";".$zituan['chutuanriqi'];

@@ -61,6 +61,9 @@ class ChanpinModel extends RelationModel {
 	}
 	
 	protected function set_bumen_copy($departmentID,$chanpinID) {
+		if($departmentID){
+			return NF_getbumen_title($departmentID);
+		}
 		if($chanpinID){
 			$dt = $this->where("`chanpinID` = '$chanpinID'")->find();
 			return $dt['bumen_copy'];
