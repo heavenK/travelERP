@@ -2536,7 +2536,8 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]' and `marktype` = 'baozhangitem'")->find();
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 		if(!$baozhang)
 			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
@@ -2558,7 +2559,7 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'错误，该项目已经批准，请审核回退后修改！', 0);
 			}
 			else
-			if($item['islock'] == '已锁定' )
+			if($item['islock'] == '已锁定' &&  $item['type'] != '利润')
 				$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
