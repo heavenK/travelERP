@@ -59,6 +59,7 @@ class BudingAction extends Action{
 	
 	//审核任务表字段填充，报账标题，子团日期，子团团号，子团标题
     public function shenherenwutianchong() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "报账项字段填充，报账标题，子团日期，子团团号，子团标题<br>";
 		$ViewBaozhang = D("ViewBaozhang");
@@ -74,7 +75,7 @@ class BudingAction extends Action{
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*800;
-		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("$num,800")->findall();
+		$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("$num,800")->order("systemID desc")->findall();
 		//$all = $ViewTaskShenhe->where("`datatype` = '报账单' or `datatype` = '报账项'")->limit("50")->order("systemID desc")->findall();
 		
 		if(count($all)==0){
