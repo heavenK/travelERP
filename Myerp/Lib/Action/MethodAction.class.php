@@ -3379,6 +3379,61 @@ class MethodAction extends CommonAction{
 	
 	
 	
+	function _jiezhiorbaoming($type){
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) > 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行截止或报名！！', 0);
+		$Chanpin = D("Chanpin");
+		$ViewShoujia = D("ViewShoujia");
+		$Chanpin->startTrans();
+		foreach($itemlist as $v){
+			$chanp = $Chanpin->where("`chanpinID` = '$v'")->find();
+			
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($v,$type);
+			if(false === $xianlu){
+				$mark = 1;
+				continue;
+			}
+			if($type == '线路'){
+				$data['chanpinID'] = $v;
+				if($chanp['status'] == '报名')
+					$data['status'] = '截止';
+				if($chanp['status'] == '截止')
+					$data['status'] = '报名';
+				if(false === $Chanpin->mycreate($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+				}
+				else{//同步更新售价
+					$shoujialist = $Chanpin->relationGet("shoujialist");
+					foreach($shoujialist as $s){
+						$shoujia_data['chanpinID'] = $s['chanpinID'];
+						$shoujia_data['shoujia']['xianlu_status'] = $data['status'];
+						$Chanpin->relation("shoujia")->myRcreate($shoujia_data);
+						
+					}
+				}
+			}
+		}
+		$Chanpin->commit();
+		//开放
+		if($mark == 1)
+			$this->ajaxReturn($_REQUEST,'完成！,一部分线路您没有操作权限！无法进行修改！！', 1);
+		$this->ajaxReturn($_REQUEST,'完成！', 1);
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 ?>

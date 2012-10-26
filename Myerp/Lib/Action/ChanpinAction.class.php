@@ -993,6 +993,16 @@ class ChanpinAction extends CommonAction{
 		A('Method')->_copytonew('线路');
 	}
 	
+	
+	
+    public function jiezhiorbaoming() {
+		A('Method')->_jiezhiorbaoming('线路');
+	}
+	
+	
+	
+	
+	
 
 }
 ?>
