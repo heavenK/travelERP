@@ -3261,10 +3261,10 @@ class MethodAction extends CommonAction{
 					
 			}
 			if($cp['marktype'] == 'DJtuan'){
-				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-				$data['taskShenhe']['tuantitle_copy'] = $zituan['title'];
-				$data['taskShenhe']['tuanqi_copy'] = $zituan['jietuantime'];
-				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
+				$djtuan = $ViewDJtuan->where("`chanpinID` = '$cp[chanpinID]'")->find();
+				$data['taskShenhe']['tuantitle_copy'] = $djtuan['title'];
+				$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
+				$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
 			}
 			return $data;
 	}
