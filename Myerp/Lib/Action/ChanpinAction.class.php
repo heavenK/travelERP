@@ -78,6 +78,17 @@ class ChanpinAction extends CommonAction{
 			$xianlu = $Chanpin->relation("xianlu")->find($_REQUEST['chanpinID']);
 			$_REQUEST['xianlu']['kind'] = $xianlu['xianlu']['kind'];
 			$_REQUEST['xianlu']['guojing'] = $xianlu['xianlu']['guojing'];
+			$zituanlist = $Chanpin->relationGet("zituanlist");
+			$ViewBaozhang = D('ViewBaozhang');
+			foreach($zituanlist as $z){
+				//判断子团报账单
+				$bzdall = $ViewBaozhang->where("`parentID` = '$z[chanpinID]' AND (`status_system` = '1')")->findall();
+				foreach($bzdall as $b){
+					if($b['status_shenhe'] == '批准'){
+						$this->ajaxReturn($_REQUEST, '部门子团已经报账，禁止修改线路信息！！！', 0);
+					}
+				}
+			}
 		}
 		else{
 			//判断计调角色,返回用户DUR
