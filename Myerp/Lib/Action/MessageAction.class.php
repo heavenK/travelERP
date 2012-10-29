@@ -42,7 +42,7 @@ class MessageAction extends Action{
 		if($_REQUEST['returntype'] == 'array' ){
 			$data = $chanpin_list['chanpin'][0];
 			//获得omlist
-			$dataOMlist = A("Method")->_getDataOM($data['messageID'],'公告','管理','DataOMMessage');
+			$dataOMlist = A("Method")->_getDataOM($data['messageID'],$datatype,'管理','DataOMMessage');
 			$i = 0;
 			foreach($dataOMlist as $v){
 				list($bumenID,$rolesID,$userID) = split(',',$v['DUR']);

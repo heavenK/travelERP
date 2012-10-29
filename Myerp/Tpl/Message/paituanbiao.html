@@ -81,7 +81,7 @@
           <tr>
             <td valign="top" scope="row" style="min-width:50px;"> 标题: </td>
             <td valign="top" scope="row" style="min-width:400px;">
-            <input name="title" type="text" id="info_title" style="width:400px;" check="^\S+$" warning="标题不能为空,且不能含有空格" onfocus="{dateFmt:'yyyy年MM月'}" >
+            <input name="title" type="text" id="info_title" style="width:400px;" check="^\S+$" warning="标题不能为空,且不能含有空格">
             </td>
           </tr>
           <tr>
@@ -176,11 +176,13 @@ function arraymessage_after(data,status){
 	if(status == 1){
 		jQuery("#info_title").val(data['title']);
 		jQuery("#messageID").val(data['messageID']);
-		jQuery("#sortvalue").val(data['sortvalue']);
+		if(data['bumenlist'])
+			for(var i = 0, l = data['bumenlist'].length; i< l; i++){
+				jQuery("."+data['bumenlist'][i]).attr('checked','checked');
+			}
 		jQuery('#dialog_gonggao').dialog('open');
 	}
 }
-
 
 function uploadComplete(data){
   ThinkAjax.myAjaxResponse(data,'resultdiv',doComplete);
