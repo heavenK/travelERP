@@ -349,8 +349,10 @@
         $istrue = A("Method")->_checkbumenshuxing('联合体,办事处','',$baozhang['user_name']);
         if($istrue)
             echo $baozhang['user_name'];
-        else
+        elseif($task[0]['user_name'])    
             echo $task[0]['user_name'];
+        else
+            echo $baozhang['user_name'];
         </PHP>
         </td>
       </tr>
