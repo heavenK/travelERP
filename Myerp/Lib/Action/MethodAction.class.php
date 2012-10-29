@@ -173,6 +173,7 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
+			$order = 'sortvalue desc,time desc';
 		}
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');

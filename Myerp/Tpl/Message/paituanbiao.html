@@ -85,6 +85,12 @@
             </td>
           </tr>
           <tr>
+            <td valign="top" scope="row" style="min-width:50px;"> 排序值: </td>
+            <td valign="top" scope="row" style="min-width:400px;">
+            <input name="sortvalue" type="text" id="sortvalue"  value="0" onfocus="WdatePicker({dateFmt:'yyyyMM'})">
+            </td>
+          </tr>
+          <tr>
             <td valign="top" scope="row" style="min-width:50px;"> 接收部门: </td>
             <td valign="top">
             	<php>foreach($categorylist as $v){</php>
@@ -175,6 +181,7 @@ function infoedit(messageID){
 function arraymessage_after(data,status){
 	if(status == 1){
 		jQuery("#info_title").val(data['title']);
+		jQuery("#sortvalue").val(data['sortvalue']);
 		jQuery("#messageID").val(data['messageID']);
 		if(data['bumenlist'])
 			for(var i = 0, l = data['bumenlist'].length; i< l; i++){
