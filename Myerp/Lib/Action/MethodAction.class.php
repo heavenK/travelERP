@@ -2504,7 +2504,7 @@ class MethodAction extends CommonAction{
 					if($cpd['marktype'] == 'zituan')
 					$this->_tongbuzituanxianlucopy($baozhang['parentID']);
 					//报账单审核标记与时间同步到父产品（子团）
-					$pdat[$cpd['marktype']]['baozhang_remark'] = $editdat['shenhe_remark'];
+					$pdat[$cpd['marktype']]['baozhang_remark'] = $baozhang['shenhe_remark'];
 					//订单
 					$ViewDingdan = D("ViewDingdan");
 					$dingdanall = $ViewDingdan->where("`parentID` = '$cpd[chanpinID]'")->findall();

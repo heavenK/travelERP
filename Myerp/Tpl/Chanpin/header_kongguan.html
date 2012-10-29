@@ -103,6 +103,7 @@
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}}else{</php>
+      <php>if(count(explode('审核回退',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
