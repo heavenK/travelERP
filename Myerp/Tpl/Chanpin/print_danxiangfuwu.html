@@ -286,13 +286,16 @@
         </table>
       </td>
             <php>
-        $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++;
+        $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$newlinrun[$i] = $v;$i++;}
+          </php>
+			<php>
+        for($i=0;$i<5;$i++){
           </php>
       <td align="left" height="28px" style="min-width:150px; border-left:none">
         <table  border="0" cellspacing="0" cellpadding="0" >
           <tr>
-            <td width="80" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$v['title']}>&nbsp;</td>
-            <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$v['value']}>&nbsp;</td>
+            <td width="80" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['title']}>&nbsp;</td>
+            <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['value']}>&nbsp;</td>
           </tr>
         </table>
       </td>
@@ -301,6 +304,34 @@
       </td>
       
     </tr>
+    
+    <tr >
+      <td align="left" height="28px" style="min-width:150px">
+      	<table  border="0" cellspacing="0" cellpadding="0" >
+          <tr>
+            <td width="80" align="center" style="border:none; border-right:#000 solid 1px"></td>
+            <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+			<php>if(count($newlinrun)>5)
+        for($i=6;$i<11;$i++){
+          </php>
+      <td align="left" height="28px" style="min-width:150px; border-left:none">
+        <table  border="0" cellspacing="0" cellpadding="0" >
+          <tr>
+            <td width="80" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['title']}>&nbsp;</td>
+            <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['value']}>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+        <php>}</php>
+      <td align="left" height="28px" width="100%" style=" border-left:none">
+      </td>
+      
+    </tr>
+    
+    
   </table>
   
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #000; margin-top:4px;">
