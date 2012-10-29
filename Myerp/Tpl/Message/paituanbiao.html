@@ -37,16 +37,14 @@
                 
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="text-align:center; width:50%; min-width:300px;"><div> 日期 </div></th>
-                  <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:100px;"><div> 时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:70%; min-width:300px;"><div> 日期 </div></th>
                   <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:140px;"><div> 操作 </div></th>
                 </tr>
                 
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
-                  <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
+                  <td scope="row" align="center" valign="top"><{$v['title']}></td>
                   <td scope="row" align="center" valign="top">
 <php>if($is_fabu){</php>      
                         <input class="button" type="button" value=" 删除 " onclick="infodelete('<{$v[messageID]}>')">
