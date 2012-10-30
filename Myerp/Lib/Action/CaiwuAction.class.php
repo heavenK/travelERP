@@ -433,7 +433,7 @@ class CaiwuAction extends CommonAction{
 					$str .= '
 					<tr class="evenListRowS1">
 					  <td>'.$i.'</td>
-					  <td><a target="_blank" href="'.SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$v['chanpinID'].'">'.$v['title'].'</a></td>'.$tabvalue.'
+					  <td><a target="_blank" href="'.SITE_INDEX.'Chanpin/zituanbaozhang/doprint/打印/baozhangID/'.$v['chanpinID'].'">'.$v['title'].'</a></td>'.$tabvalue.'
 					  <td>'.$v['type'].'</td>
 					  <td>'.$v['renshu'].'</td>
 					  <td>'.$v['yingshou_copy'].'</td>
