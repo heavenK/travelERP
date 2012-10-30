@@ -286,7 +286,7 @@
         </table>
       </td>
             <php>
-        $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$newlinrun[$i] = $v;$i++;}
+        $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润' || $v['is_print'] == '不打印' ) continue;$newlinrun[$i] = $v;$i++;}
           </php>
 			<php>
         for($i=0;$i<5;$i++){
