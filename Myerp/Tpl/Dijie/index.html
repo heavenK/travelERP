@@ -19,7 +19,7 @@
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input class="button" type="button" value=" 复制 " onclick="copytonew()">
                     <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
-                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"><{$page}> </td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
             </table></td>
@@ -56,6 +56,19 @@
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
       </tr>
       <php> }</php>
+      
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
+                    <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
         </tbody>
       
     </table>

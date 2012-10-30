@@ -80,7 +80,7 @@
                     <input class="button" type="button" value=" +门票 " id="menpiao_create">
                     <input class="button" type="button" value=" +导游 " id="daoyou_create">
                     <input class="button" type="button" value=" +补账 " id="buzhang_create">
-                  <td nowrap="nowrap" align="right" class="paginationChangeButtons"><{$page}> </td>
+					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
             </table></td>
@@ -224,7 +224,24 @@
           </tr>
       <php> }}</php>
       
-      
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input class="button" type="button" value=" 添加签证结算报告 " id="qianzheng_create">
+                    <input class="button" type="button" value=" +办证 " id="banzheng_create">
+                    <input class="button" type="button" value=" +交通 " id="jiaotong_create">
+                    <input class="button" type="button" value=" +订房 " id="dingfang_create">
+                    <input class="button" type="button" value=" +订餐 " id="dingcan_create">
+                    <input class="button" type="button" value=" +门票 " id="menpiao_create">
+                    <input class="button" type="button" value=" +导游 " id="daoyou_create">
+                    <input class="button" type="button" value=" +补账 " id="buzhang_create">
+					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
         </tbody>
     </table>
   </div>
