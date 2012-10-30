@@ -471,20 +471,17 @@ class BudingAction extends Action{
     public function chanpinbaozhangremark() {
 		C('TOKEN_ON',false);
 		echo "产品报账状态描述重置";
+		$Chanpin = D("Chanpin");
 		$ViewBaozhang = D("ViewBaozhang");
-		$bzdall = $ViewBaozhang->where("`type` != '团队报账单'")->findall();
+		$bzdall = $ViewBaozhang->where("`type` = '团队报账单'")->findall();
 		foreach($bzdall as $v){
-			$bumenlist = A("Method")->_checkbumenshuxing('地接','',$v['user_name']);
-			if($bumenlist){
-				$i = 0;
-				$dataOMlist = '';
-				foreach($bumenlist as $vol){
-					$dataOMlist[$i]['DUR'] = $vol['bumenID'].',,';
-					$i++;
-				}
-				foreach($dataOMlist as $w){
-					$do_dataOMlist[0] = $w;
-					A("Method")->_createDataOM($v['chanpinID'],'报账单','管理',$do_dataOMlist);
+			if($v['status_shenhe'] == '批准'){
+				$data['chanpinID'] = $v['parentID'];
+				$d = $Chanpin->where("`chanpinID` = '$data[chanpinID] '")->find();
+				$data[$d['marktype']]['baozhang_remark'] = $v['shenhe_remark'];
+				if(false === $Chanpin->relation($d['marktype'])->myRcreate($data)){
+				dump($data);
+				dump($Chanpin);
 				}
 			}
 		}
