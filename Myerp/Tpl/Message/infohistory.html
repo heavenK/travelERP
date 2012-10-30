@@ -41,7 +41,7 @@
                 <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><{$v['message']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{$v['url']}>" target="_blank"><{$v['message']}></a></td>
                   <td scope="row" align="center" valign="top"><php>echo date('y/m/d H:i',$v['time'])</php></td>
                 </tr>
                 <php> }</php>
