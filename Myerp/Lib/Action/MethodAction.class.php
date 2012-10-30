@@ -2308,6 +2308,7 @@ class MethodAction extends CommonAction{
 		}
 		//所属产品
 		$Chanpin = D("Chanpin");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
 		if($baozhang['parentID']){
 			$pdata = $Chanpin->where("`chanpinID` = '$baozhang[parentID]'")->find();
 			$this->assign("chanpin",$pdata);
@@ -2347,7 +2348,8 @@ class MethodAction extends CommonAction{
 				$newdata = simple_unserialize($data['copy']);
 				$baozhang = $newdata['baozhang'];
 				$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
-				$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
+				//$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
+				$baozhang['baozhangitemlist'] = $ViewBaozhangitem->where("`parentID` = $baozhang[chanpinID]")->findall();
 				$this->assign("baozhang",$baozhang);
 			}
 			if($_REQUEST['export']){
@@ -2593,11 +2595,11 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
 		$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		if($item)
+			$_REQUEST['parentID'] = $item['parentID'];
 		$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 		if(!$baozhang)
 			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
-		if($baozhang['status_shenhe'] == '批准' )
-			$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，请审核回退报账单后修改！', 0);
 		if($_REQUEST['dotype'] == 'setprint'){
 			$data['chanpinID'] = $_REQUEST['chanpinID'];
 			$data['baozhangitem']['is_print'] = $_REQUEST['is_print'];
@@ -2608,14 +2610,27 @@ class MethodAction extends CommonAction{
 			$data['baozhangitem'] = $_REQUEST;
 			if($_REQUEST['chanpinID'])
 				unset($data['baozhangitem']['type']);
-			//判断角色
-			if(A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
-				if($item['status_shenhe'] == '批准' )
-					$this->ajaxReturn($_REQUEST,'错误，该项目已经批准，请审核回退后修改！', 0);
+			if($item['type'] == '利润' || $_REQUEST['type'] == '利润'){
+				//判断角色
+				if(!A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
+					if($baozhang['status_shenhe'] == '批准' )
+						$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，只有财务可修改利润！', 0);
+				}
 			}
-			else
-			if($item['islock'] == '已锁定' &&  $item['type'] != '利润')
-				$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
+			else{
+				if($baozhang['status_shenhe'] == '批准' )
+					$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，请审核回退报账单后修改！', 0);
+				//判断角色
+				if(A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
+					if($item['status_shenhe'] == '批准' )
+						$this->ajaxReturn($_REQUEST,'错误，该项目已经批准，请审核回退后修改！', 0);
+				}
+				else
+				if($item['islock'] == '已锁定' &&  $item['type'] != '利润')
+					$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
+			}
+				
+				
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
