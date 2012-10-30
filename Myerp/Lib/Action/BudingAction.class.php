@@ -469,6 +469,7 @@ class BudingAction extends Action{
 	
 	//产品报账状态描述重置
     public function chanpinbaozhangremark() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "产品报账状态描述重置";
 		$Chanpin = D("Chanpin");
