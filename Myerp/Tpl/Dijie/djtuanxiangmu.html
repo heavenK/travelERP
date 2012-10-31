@@ -27,7 +27,9 @@
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
-            <td scope="row" align="left" valign="top"><strong><{$vol['shenhe_remark']}></strong></td>
+            <td scope="row" align="left" valign="top"><strong 
+            <PHP>if($vol['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
+            ><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
               <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
@@ -84,7 +86,9 @@
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
-            <td scope="row" align="left" valign="top"><strong><{$vol['shenhe_remark']}></strong></td>
+            <td scope="row" align="left" valign="top"><strong 
+            <PHP>if($vol['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
+            ><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
               <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
               <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
