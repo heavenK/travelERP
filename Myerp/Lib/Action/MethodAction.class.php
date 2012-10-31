@@ -1689,6 +1689,7 @@ class MethodAction extends CommonAction{
 			$cus['hujidi'] = $_REQUEST['hujidi'.$id];
 			$cus['zhengjianyouxiaoqi'] = $_REQUEST['zhengjianyouxiaoqi'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
+			$cus['is_leader'] = $_REQUEST['is_leader'.$id];
 			//序列化
 			if($cus['zhengjiantype'] == '身份证'){
 				$cus['sfz_haoma'] = $cus['zhengjianhaoma'];

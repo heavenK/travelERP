@@ -113,10 +113,46 @@ function TravelerDetail(id)
 }
 
 
+function dofukuan(id){
+	jQuery("#ispay"+id).val('已付款');
+	scroll(0,0);
+	ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/daokuanqueren/1',doComplete,'resultdiv');
+}
 
+function lingduiortuanyuan(id){
+	if(!id)
+		alert("不存在团员信息，请保存信息后操作！！！");
+	else{
+		if(jQuery("#is_leader"+id).val() == '领队')
+		jQuery("#is_leader"+id).val('团员');
+		else
+		jQuery("#is_leader"+id).val('领队');
+		scroll(0,0);
+		ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/daokuanqueren/1',doComplete,'resultdiv');
+	}
+}
 
+function quxiaocantuan(id){
+	if(!id)
+		alert("不存在团员信息，请取消订单并重新提交订单！！！");
+	else	
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Xiaoshou/quxiaocantuan",
+		data:	"tuanyuanID="+id,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv_2',quxiaocantuan_after);
+		}
+	});
+}
+function quxiaocantuan_after(data,status){
+	if(status == 1){
+		location.reload();
+	}
+}
 
-
-
-
+function querendingdan(id){
+	jQuery("#status").val('确认');
+	ThinkAjax.sendForm('form2',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
+}
 

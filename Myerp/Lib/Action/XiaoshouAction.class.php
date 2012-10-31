@@ -596,8 +596,48 @@ class XiaoshouAction extends Action{
 		A("Method")->_zituanbaoming('前台');	
 	}
 	
+	public function quxiaocantuan(){
+		C('TOKEN_ON',false);
+		$tuanyuanID = $_REQUEST['tuanyuanID'];
+		$DataCD = D("DataCD");
+		$Chanpin = D("Chanpin");
+		$ViewDingdan = D("ViewDingdan");
+		$tuanyuan = $DataCD->where("`id` = '$tuanyuanID'")->find();
+		//判断
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$tuanyuan[dingdanID]'")->find();
+		if(!$dingdan)
+			$this->ajaxReturn('', '错误！！！', 0);
+		elseif($dingdan['status_shenhe'] == '批准')
+			$this->ajaxReturn('', '订单已经被审核，请审核回退后操作！！！', 0);
+		if($tuanyuan){
+			//删除团员
+			if($DataCD->where("`id` = '$tuanyuanID'")->delete()){
+				  $tuanyuanall = $DataCD->where("`dingdanID` = '$dingdan[chanpinID]'")->findall();
+				  $data['dingdan']['chengrenshu'] = 0;
+				  $data['dingdan']['ertongshu'] = 0;
+				  $data['dingdan']['lingui_num'] = 0;
+				  $data['dingdan']['jiage'] = 0;
+				  foreach($tuanyuanall as $v){
+					  if($v['manorchild'] == '成人')
+					  $data['dingdan']['chengrenshu'] += 1;
+					  if($v['manorchild'] == '儿童')
+					  $data['dingdan']['ertongshu'] += 1;
+					  if($v['is_leader'] == '领队')
+					  $data['dingdan']['lingui_num'] += 1;
+					  $data['dingdan']['jiage'] += $v['jiage'];
+				  }
+				  $data['chanpinID'] = $dingdan['chanpinID'];
+				  if(false !== $Chanpin->relation("dingdan")->myRcreate($data))
+					  $this->ajaxReturn($_REQUEST, '取消成功！', 1);
+				  else
+					  $this->ajaxReturn($_REQUEST, $DataCD->getError(), 0);
+			}
+		}
+		
+		
+	}
 	
-	
+
 	
 }
 ?>
