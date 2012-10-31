@@ -164,9 +164,9 @@ function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/jietuantime/'+jQuery('.jietuantime').val();
 	if(jQuery('.jietuantime').val())
+	str += '/jietuantime/'+jQuery('.jietuantime').val();
+	if(jQuery('.start_time').val())
 	str += '/start_time/'+jQuery('.start_time').val();
 	if(jQuery('.end_time').val())
 	str += '/end_time/'+jQuery('.end_time').val();
