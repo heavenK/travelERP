@@ -94,7 +94,6 @@
           <th scope="col" nowrap="nowrap"><div> 确认/占位 </div></th>
           <th scope="col" nowrap="nowrap"><div> 剩余 </div></th>
           <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 锁状态 </div></th>
           <th scope="col" nowrap="nowrap"><div> 报账情况 </div></th>
         </tr>
           <php>
@@ -114,7 +113,6 @@
         <td scope="row" align="left" valign="top"><php> echo number_format($v['queren_num'])</php>/<php> echo number_format($v['zhanwei_num'])</php></td>
         <td scope="row" align="left" valign="top"><{$v['shengyu_num']}></td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
-        <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top"><{$v['baozhang_remark']}></td>
       </tr>
       <php> }</php>

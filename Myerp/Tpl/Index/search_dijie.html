@@ -33,6 +33,8 @@
                           <td scope="row" nowrap="nowrap"> 团期 </td>
                           <td nowrap="nowrap">
                           <input type="text" onfocus="WdatePicker()" class="jietuantime" value="<{$jietuantime}>" >
+                          <td scope="row" nowrap="nowrap"> 团号 </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanhao_1" value="<{$tuanhao}>"/></td>
                       </tbody>
                     </table>
                 </div>
@@ -52,8 +54,12 @@
                           <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
                           <span>--</span>
                           <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
+                          <td scope="row" nowrap="nowrap"> 团号 </td>
+                          <td nowrap="nowrap"><input type="text" class="tuanhao_2" value="<{$tuanhao}>"/></td>
                           <td scope="row" nowrap="nowrap"> 创建人 </td>
                           <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"/></td>
+                        </tr>
+                        <tr>
                           <td scope="row" nowrap="nowrap"> 状态 </td>
                           <td nowrap="nowrap">
                         <select class="status"> 
@@ -66,10 +72,6 @@
                             <option value="截止">截止</option> 
                         </select>
                           </td>
-                        </tr>
-                        <tr>
-                          <td scope="row" nowrap="nowrap"> 团号 </td>
-                          <td nowrap="nowrap"><input type="text" class="tuanhao" value="<{$tuanhao}>"/></td>
                           <td scope="row" nowrap="nowrap"> 发团单位 </td>
                           <td nowrap="nowrap"><input type="text" class="fromcompany" value="<{$fromcompany}>"/></td>
                         </tr>
@@ -156,7 +158,8 @@ function clearsearch(){
 		jQuery('.user_name').val('');
 		jQuery('.status').val('');
 		jQuery('.fromcompany').val('');
-		jQuery('.tuanhao').val('');
+		jQuery('.tuanhao_1').val('');
+		jQuery('.tuanhao_2').val('');
 		
 }
 
@@ -176,8 +179,8 @@ function _dosearch(sorttabid){
 	str += '/status/'+jQuery('.status').val();
 	if(jQuery('.fromcompany').val())
 	str += '/fromcompany/'+jQuery('.fromcompany').val();
-	if(jQuery('.tuanhao').val())
-	str += '/tuanhao/'+jQuery('.tuanhao').val();
+	if(jQuery('.tuanhao_'+sorttabid).val())
+	str += '/tuanhao/'+jQuery('.tuanhao_'+sorttabid).val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }
