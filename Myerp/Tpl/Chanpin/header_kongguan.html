@@ -97,8 +97,10 @@
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
+      if(A("Method")->check_baozhangitemstatus($baozhangID))
+      	$bzdalter = '部分报账项未审核！！是否继续？？';
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="<PHP>if($bzdalter){</PHP>if(window.confirm('部分报账项目未审核！！是否继续？？')==true)<PHP>}</PHP>doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
@@ -114,7 +116,6 @@
 	  <php>}</php>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
-      
   <php>}</php>
   <php>if('应收及应付' == $markpos){</php>
   <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">

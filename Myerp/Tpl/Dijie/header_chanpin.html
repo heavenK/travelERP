@@ -152,6 +152,8 @@ function shenhe_after(data,status){
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
+      if(A("Method")->check_baozhangitemstatus($baozhangID))
+      	$bzdalter = '部分报账项未审核！！是否继续？？';
       </php>
       <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}if(cookie('show_action') == '申请'){
