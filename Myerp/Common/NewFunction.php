@@ -10,6 +10,8 @@ function NF_getmydepartmentid($chanpinID = ''){
 	{
 		//$DURlist = A("Method")->_getDURlist(A("Method")->user['systemID'],1,);
 		$DURlist = A("Method")->_getbumenfenleilist('组团,地接,业务');
+		if(!$DURlist)
+			$DURlist = A("Method")->_getbumenfenleilist('行政');
 		$bumenID = $DURlist[0]['bumenID'];
 		//获得部门名
 		$ViewDepartment = D("ViewDepartment");
