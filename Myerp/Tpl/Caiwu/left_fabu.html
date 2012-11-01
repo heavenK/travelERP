@@ -3,7 +3,10 @@
         <div id="navtab_1" class="leftList">
           <h3><span>组团部门</span></h3>
           <ul id="ul_shortcuts">
-            <php>foreach($zutuanlist as $v){</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] == '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] != '国内部-组团')continue;</php>
             <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/<{$type}>/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
             <php>}</php>
           </ul>
@@ -106,7 +109,10 @@
         <div id="navtab_1" class="leftList">
           <h3><span>组团部门</span></h3>
           <ul id="ul_shortcuts">
-            <php>foreach($zutuanlist as $v){</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] == '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/zituanlist/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] != '国内部-组团')continue;</php>
             <li> <a href="<{:SITE_INDEX}>Caiwu/zituanlist/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
             <php>}</php>
           </ul>
