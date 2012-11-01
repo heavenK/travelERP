@@ -112,6 +112,10 @@ class MethodAction extends CommonAction{
 			$class_name = 'OMViewZituan';
 			$where['datatype'] = $datatype;
 			//处理搜索
+			if($where['bzd_status'] == '未报账')
+				$where['status_baozhang'] = array('neq','批准');
+			if($where['bzd_status'] == '已报账')
+				$where['status_baozhang'] = array('eq','批准');
 			if($where['start_time'] && $where['end_time']){
 				$where['chutuanriqi'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
 			}
