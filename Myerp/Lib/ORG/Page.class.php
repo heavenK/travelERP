@@ -186,4 +186,98 @@ window.location = url;
         return $pageStr;
     }
 }
+
+
+
+
+	
+    /**
+     +----------------------------------------------------------
+     * 分页显示输出
+     +----------------------------------------------------------
+     * @access public
+     +----------------------------------------------------------
+     */
+    public function show_ajax($fun_name) {
+        if(0 == $this->totalRows) return '';
+        $p = C('VAR_PAGE');
+        $nowCoolPage      = ceil($this->nowPage/$this->rollPage);
+        $url  =  $_SERVER['REQUEST_URI'].(strpos($_SERVER['REQUEST_URI'],'?')?'':"?").$this->parameter;
+        $parse = parse_url($url);
+        if(isset($parse['query'])) {
+            parse_str($parse['query'],$params);
+            unset($params[$p]);
+            $url   =  $parse['path'].'?'.http_build_query($params);
+        }
+        //上下翻页字符串
+        $upRow   = $this->nowPage-1;
+        $downRow = $this->nowPage+1;
+		
+        $url_upRow  =  "javascript:$fun_name('".$url."&".$p."=$upRow')";
+        $url_downRow  =  "javascript:$fun_name('".$url."&".$p."=$downRow')";
+		
+        if ($upRow>0){
+            $upPage="<a href=\"".$url_upRow."\">".$this->config['prev']."</a>";
+        }else{
+            $upPage="";
+        }
+
+        if ($downRow <= $this->totalPages){
+            $downPage="<a href=\"".$url_downRow."\">".$this->config['next']."</a>";
+        }else{
+            $downPage="";
+        }
+        // << < > >>
+        if($nowCoolPage == 1){
+            $theFirst = "";
+            $prePage = "";
+        }else{
+            $preRow =  $this->nowPage-$this->rollPage;
+			$url_preRow  =  "javascript:$fun_name('".$url."&".$p."=$preRow')";
+            $prePage = "<a href=\"".$url_preRow."\" >上".$this->rollPage."页</a>";
+            $theFirst = "<a href=\"javascript:$fun_name('".$url."&".$p."=1')\" >".$this->config['first']."</a>";
+        }
+        if($nowCoolPage == $this->coolPages){
+            $nextPage = "";
+            $theEnd="";
+        }else{
+            $nextRow = $this->nowPage+$this->rollPage;
+			$url_nextRow  =  "javascript:$fun_name('".$url."&".$p."=$nextRow')";
+            $theEndRow = $this->totalPages;
+			$url_theEndRow  =  "javascript:$fun_name('".$url."&".$p."=$theEndRow')";
+            $nextPage = "<a href=\"".$url_nextRow."\" >下".$this->rollPage."页</a>";
+            $theEnd = "<a href=\"".$url_theEndRow."\" >".$this->config['last']."</a>";
+        }
+        // 1 2 3 4 5
+        $linkPage = "";
+        for($i=1;$i<=$this->rollPage;$i++){
+            $page=($nowCoolPage-1)*$this->rollPage+$i;
+			$url_page  =  "javascript:$fun_name('".$url."&".$p."=$page')";
+            if($page!=$this->nowPage){
+                if($page<=$this->totalPages){
+                    $linkPage .= "&nbsp;<a href=\"".$url_page."\">&nbsp;".$page."&nbsp;</a>";
+                }else{
+                    break;
+                }
+            }else{
+                if($this->totalPages != 1){
+                    $linkPage .= "&nbsp;<span class='current'>".$page."</span>";
+                }
+            }
+        }
+        $pageStr	 =	 str_replace(
+            array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%'),
+            array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd),$this->config['theme']);
+        return $pageStr;
+    }
+	
+	
+	
+
+
+
+
+
+
+
 ?>
