@@ -185,10 +185,10 @@ window.location = url;
             array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$theFirst,$upPage,$downPage,$theEnd,$script,$up,$linkPage,$down,$nextPage,$prePage),$this->config['theme']);
         return $pageStr;
     }
-}
-
-
-
+	
+	
+	
+	
 
 	
     /**
@@ -272,6 +272,15 @@ window.location = url;
     }
 	
 	
+	
+	
+	
+	
+	
+}
+
+
+
 	
 
 
