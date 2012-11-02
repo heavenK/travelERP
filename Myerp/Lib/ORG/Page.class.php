@@ -129,7 +129,7 @@ protected $down;
 <!--
 function MM_jumpMenu(selObj){ //v3.0
 var url=selObj.options[selObj.selectedIndex].value;
-open(url,"mainFrame"); //这里设置在那里显示 显示方式 __blank __parent __top 等 这里的 mainFrame 是在名叫 mainFrame这个框架中显示
+window.location = url;
 }
 //-->
 </script>';
