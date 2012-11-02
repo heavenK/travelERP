@@ -199,7 +199,7 @@ class MessageAction extends Action{
 		$myuserID = $this->user['systemID'];
 		$where['userID'] = $myuserID;
 		$DataNotice = D("DataNotice");
-        import("@.ORG.Page");
+        import("@.ORG.OldPage");
         C('PAGE_NUMBERS',10);
 		$count = $DataNotice->where($where)->count();
 		$p= new Page($count,$pagenum);
