@@ -3008,7 +3008,17 @@ class MethodAction extends CommonAction{
 						$Chanpin->rollback();
 						$this->ajaxReturn($_REQUEST,'错误！！！', 0);
 					}
-					
+				}
+				//成本项目
+				$ViewChengben = D("ViewChengben");
+				$chengbenall = $ViewChengben->where("`parentID` = $v")->findall();
+				foreach($chengbenall as $vol){
+					$data['parentID'] = $chanpinID;
+					$data['chengben'] = $vol;
+					if(false === $Chanpin->relation("chengben")->myRcreate($data)){
+						$Chanpin->rollback();
+						$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+					}
 				}
 				
 			}
