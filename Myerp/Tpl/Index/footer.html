@@ -55,6 +55,24 @@
         </tr>
       </tbody>
     </table>
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 部门 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 角色 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 锁 </div></th>
+        </tr>
+<php>foreach($DURlist as $v){</php>
+        <tr>
+          <td valign="top" scope="row"><{$v['department']['title']}>: </td>
+          <td valign="top" scope="row"><{$v['roles']['title']}></td>
+          <td valign="top" scope="row"><{$v['islock']}></td>
+        </tr>
+<php>}</php>
+      </tbody>
+    </table>
+    
 </form>
 </div>
 

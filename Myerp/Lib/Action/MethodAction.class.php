@@ -2481,8 +2481,10 @@ class MethodAction extends CommonAction{
 				$ViewBaozhang = D("ViewBaozhang");
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]' AND `status_system` = '1'")->find();
 				$cpd = $Chanpin->where("`chanpinID` = '$baozhang[parentID]' AND `status_system` = '1'")->find();
-				if(!$cpd)
+				if(!$cpd){
+					return ;
 					$this->ajaxReturn($_REQUEST, '内部错误！', 0);
+				}
 				$pdat['chanpinID'] = $baozhang['parentID'];
 				$pdat['islock'] = '已锁定';
 				if($cpd['marktype'] == 'zituan'){

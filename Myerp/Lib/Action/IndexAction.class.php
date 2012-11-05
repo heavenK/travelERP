@@ -82,6 +82,13 @@ class IndexAction extends Action{
 	}
 	
 	public function footer() {
+		//获得用户部门列表
+		$System = D("System");
+		$systemID = $this->user['systemID'];
+		$data = $System->relation("DURlist")->where("`systemID` = '$systemID'")->find();
+		$DURlist = $data['DURlist'];
+		A('Method')->_facesystem($DURlist,'用户');
+		$this->assign("DURlist",$DURlist);
 		$this->display('Index:footer');
 	}
 	
