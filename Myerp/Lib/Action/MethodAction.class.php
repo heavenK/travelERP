@@ -1050,10 +1050,8 @@ class MethodAction extends CommonAction{
 			$md['parentID'] = $to_dataID;
 			$System->save($md);
 		}
-		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
-		//生成待检出	
+		//生成待检出
 		$process = $this->_checkShenhe($data['datatype'],$processID+1);
-		$userIDlist = array();
 		if($process){
 			$data['status'] = '待检出';
 			if($processID == 1)
@@ -1068,27 +1066,7 @@ class MethodAction extends CommonAction{
 			unset($data['systemID']);
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
-			$System->relation("taskShenhe")->myRcreate($data);
-			$dshID = $System->getRelationID();
-			//生成待检出OM
-			$DataOM = D("DataOM");
-			foreach($to_dataomlist as $vo){
-				list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
-				$to_dataom['type'] = '管理';
-				$to_dataom['dataID'] = $dshID;
-				$to_dataom['datatype'] = '审核任务';
-				foreach($process as $p){
-					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
-					//过滤统一部门DUR
-					$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
-					if(!$tmp_d){
-						$DataOM->mycreate($to_dataom);
-						//返回需要提示的用户
-						$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
-						$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
-					}
-				}
-			}
+			$userIDlist = $this->_djcCreate($data,$process);
 		}
 		else{
 			foreach($to_dataomlist as $vo){
@@ -1097,6 +1075,7 @@ class MethodAction extends CommonAction{
 				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
 		}
+		
 		return $userIDlist;
 	 }
 	
@@ -2506,7 +2485,18 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST, '内部错误！', 0);
 				$pdat['chanpinID'] = $baozhang['parentID'];
 				$pdat['islock'] = '已锁定';
-				$pdat['status'] = '截止';
+				if($cpd['marktype'] == 'zituan'){
+					$zituan = $Chanpin->relationGet("zituan");
+					if(strtotime($zituan['chutuanriqi']) > time()){
+						$pdat['status'] = '截止';
+					}
+				}
+				if($cpd['marktype'] == 'DJtuan'){
+					$DJtuan = $Chanpin->relationGet("DJtuan");
+					if(strtotime($DJtuan['jietuantime']) > time()){
+						$pdat['status'] = '截止';
+					}
+				}
 				if($baozhang['type'] == '团队报账单'){
 					//子团保存线路拷贝
 					if($cpd['marktype'] == 'zituan')
@@ -2686,49 +2676,79 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		$chanp['chanpinID'] = $cpin['chanpinID'];
-		$chanp['shenhe_remark'] = '审核回退';
-		$chanp['status_shenhe'] = '未审核';
-		$chanp['islock'] = '未锁定';
-		$Chanpin->save($chanp);
-		//清空任务
+		//任务
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$System = D("System");
-		$shenhe['status_system'] = -1;
-		$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->findall();
-		foreach($taskall as $v){
-			$shenhe['systemID'] = $v['systemID'];
-			$System->save($shenhe);
+		if($cpin['status_shenhe'] == '批准' && ($datatype == '报账单' || $datatype == '报账项')){
+			$task = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1")->order("systemID desc")->find();
+			$p_task = $ViewTaskShenhe->where("`systemID` = '$task[parentID]'")->find();
+			$newtask = $task;
+			$task['status_system'] = -1;
+			$task['status'] = '审核回退';
+			$task['taskShenhe'] = $newtask;
+			$System->relation("taskShenhe")->myRcreate($task);
+			$sec_task = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1")->order("systemID desc")->find();
+			//生成任务
+			unset($newtask['roles_copy']);
+			unset($newtask['bumen_copy']);
+			unset($newtask['time']);
+			unset($newtask['systemID']);
+			$newtask['taskShenhe'] = $newtask;
+			$newtask['user_name'] = $p_task['user_name'];
+			$newtask['status'] = '待检出';
+			$newtask['departmentID'] = $p_task['departmentID'];
+			$process = $this->_checkShenhe($datatype,$task['processID']);
+			$userIDlist = $this->_djcCreate($newtask,$process);
+			//产品状态
+			$chanp['shenhe_remark'] = $task['remark'].'回退';
+			$chanp['status_shenhe'] = $sec_task['status'];
+			if($chanp['status_shenhe'] != '批准')
+			$chanp['shenhe_time'] = '';
 		}
+		else{
+			$chanp['shenhe_remark'] = '审核回退';
+			$chanp['status_shenhe'] = '未审核';
+			$chanp['islock'] = '未锁定';
+			$shenhe['status_system'] = -1;
+			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->findall();
+			foreach($taskall as $v){
+				$shenhe['systemID'] = $v['systemID'];
+				$System->save($shenhe);
+			}
+		}
+		$Chanpin->save($chanp);
 		//相关产品状态同步
-		if($datatype == '报账单'){
-			$ViewBaozhang = D("ViewBaozhang");
-			$bzd = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
-			if($bzd['type'] == '团队报账单'){
-				$tem = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
-				//子团,地接
-				$chdat['chanpinID'] = $bzd['parentID'];
-				$chdat[$tem['marktype']]['baozhang_remark'] = '审核回退';
-				$chdat[$tem['marktype']]['baozhang_time'] = '';
-				$chdat[$tem['marktype']]['status_baozhang'] = '未审核';
-				$Chanpin->relation($tem['marktype'])->myRcreate($chdat);
-				//订单
-				if($tem['marktype'] == 'zituan'){
-					$ViewDingdan = D("ViewDingdan");
-					$dingdanall = $ViewDingdan->where("`parentID` = '$tem[chanpinID]'")->findall();
-					foreach($dingdanall as $v){
-						$v['dingdan']['baozhang_remark'] = '审核回退';
-						$v['dingdan']['baozhang_time'] = '';
-						$v['dingdan']['status_baozhang'] = '未审核';
-						$Chanpin->relation('dingdan')->myRcreate($v);
+		if($chanp['status_shenhe'] != '批准'){
+			if($datatype == '报账单'){
+				$ViewBaozhang = D("ViewBaozhang");
+				$bzd = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
+				if($bzd['type'] == '团队报账单'){
+					$tem = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+					//子团,地接
+					$chdat['chanpinID'] = $bzd['parentID'];
+					$chdat[$tem['marktype']]['baozhang_remark'] = '审核回退';
+					$chdat[$tem['marktype']]['baozhang_time'] = '';
+					$chdat[$tem['marktype']]['status_baozhang'] = '未审核';
+					$Chanpin->relation($tem['marktype'])->myRcreate($chdat);
+					//订单
+					if($tem['marktype'] == 'zituan'){
+						$ViewDingdan = D("ViewDingdan");
+						$dingdanall = $ViewDingdan->where("`parentID` = '$tem[chanpinID]'")->findall();
+						foreach($dingdanall as $v){
+							$v['dingdan']['baozhang_remark'] = '审核回退';
+							$v['dingdan']['baozhang_time'] = '';
+							$v['dingdan']['status_baozhang'] = '未审核';
+							$Chanpin->relation('dingdan')->myRcreate($v);
+						}
 					}
 				}
 			}
-		}
-		if($datatype == '线路'){
-			//销售开放重置-1
-			$Chanpin = D("Chanpin");
-			$data['status_system'] = -1;
-			$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
+			if($datatype == '线路'){
+				//销售开放重置-1
+				$Chanpin = D("Chanpin");
+				$data['status_system'] = -1;
+				$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
+			}
 		}
 		
 		$this->ajaxReturn('', '操作成功！', 1);
@@ -3438,6 +3458,41 @@ class MethodAction extends CommonAction{
 		}
 		return false;
 	}
+	
+	
+	
+	
+	//生成待检出
+	function _djcCreate($data,$process){//任务数据,omlist,下一流程
+			$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
+			$System = D("System");
+			$System->relation("taskShenhe")->myRcreate($data);
+			$dshID = $System->getRelationID();
+			//生成待检出OM
+			$DataOM = D("DataOM");
+			foreach($to_dataomlist as $vo){
+				list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
+				$to_dataom['type'] = '管理';
+				$to_dataom['dataID'] = $dshID;
+				$to_dataom['datatype'] = '审核任务';
+				foreach($process as $p){
+					$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
+					//过滤统一部门DUR
+					$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
+					if(!$tmp_d){
+						if(false === $DataOM->mycreate($to_dataom))
+							dump($DataOM);
+						//返回需要提示的用户
+						$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
+						$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+					}
+				}
+			}
+			return $userIDlist;
+	}
+	
+	
+	
 	
 	
 	
