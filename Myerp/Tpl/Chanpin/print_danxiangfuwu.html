@@ -350,12 +350,20 @@
         <PHP>
         //判断用户是否属于联合体部门
         $istrue = A("Method")->_checkbumenshuxing('联合体,办事处','',$baozhang['user_name']);
-        if($istrue)
-            echo $baozhang['user_name'];
-        elseif($task[0]['user_name'])    
+//        if($istrue)
+//            echo $baozhang['user_name'];
+
+        if($doprint == '计调打印'){
+            if($task[0]['user_name'])    
+                echo $task[0]['user_name'];
+            else{
+                if(!$istrue)
+                    echo $baozhang['user_name'];
+			}
+        }else{
             echo $task[0]['user_name'];
-        else
-            echo $baozhang['user_name'];
+		}
+        
         </PHP>
         </td>
       </tr>
