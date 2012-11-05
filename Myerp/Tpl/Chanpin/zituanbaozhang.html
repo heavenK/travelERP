@@ -392,7 +392,7 @@ function shenhe_after(data,status){
       <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <input type="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] == '批准'){</php>
       <input type="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >
@@ -480,7 +480,7 @@ function shenhe_after(data,status){
       <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <input type="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项');">
+      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] == '批准'){</php>
       <input type="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >

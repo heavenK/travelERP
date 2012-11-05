@@ -205,11 +205,13 @@ function ajaxalert(title){
 		},3000);
 }
 
-function shenhe_back(dataID,datatype){
+function shenhe_back(dataID,datatype,actionmethod){
+	if(!actionmethod)
+		actionmethod = 'Chanpin';
 	ThinkAjax.myloading('resultdiv');
 	jQuery.ajax({
 		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/shenheback",
+		url:	SITE_INDEX+actionmethod+"/shenheback",
 		data:	"dataID="+dataID+"&datatype="+datatype,
 		success:function(msg){
 			scroll(0,0);
