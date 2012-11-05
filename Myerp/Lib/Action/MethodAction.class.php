@@ -2481,48 +2481,47 @@ class MethodAction extends CommonAction{
 				$ViewBaozhang = D("ViewBaozhang");
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]' AND `status_system` = '1'")->find();
 				$cpd = $Chanpin->where("`chanpinID` = '$baozhang[parentID]' AND `status_system` = '1'")->find();
-				if(!$cpd){
-					return ;
-					$this->ajaxReturn($_REQUEST, '内部错误！', 0);
-				}
-				$pdat['chanpinID'] = $baozhang['parentID'];
-				$pdat['islock'] = '已锁定';
-				if($cpd['marktype'] == 'zituan'){
-					$zituan = $Chanpin->relationGet("zituan");
-					if(strtotime($zituan['chutuanriqi']) > time()){
-						$pdat['status'] = '截止';
-					}
-				}
-				if($cpd['marktype'] == 'DJtuan'){
-					$DJtuan = $Chanpin->relationGet("DJtuan");
-					if(strtotime($DJtuan['jietuantime']) > time()){
-						$pdat['status'] = '截止';
-					}
-				}
-				if($baozhang['type'] == '团队报账单'){
-					//子团保存线路拷贝
-					if($cpd['marktype'] == 'zituan')
-					$this->_tongbuzituanxianlucopy($baozhang['parentID']);
-					//报账单审核标记与时间同步到父产品（子团）
-					$pdat[$cpd['marktype']]['baozhang_remark'] = $baozhang['shenhe_remark'];
-					//订单
-					$ViewDingdan = D("ViewDingdan");
-					$dingdanall = $ViewDingdan->where("`parentID` = '$cpd[chanpinID]'")->findall();
-					foreach($dingdanall as $v){
-						$v['dingdan']['status_baozhang'] = $status;
-						$v['dingdan']['baozhang_remark'] = $baozhang['shenhe_remark'];
-						if($status == '批准'){
-							$v['dingdan']['baozhang_time'] = $editdat['shenhe_time'];
+				if($cpd){
+					//$this->ajaxReturn($_REQUEST, '内部错误！', 0);
+					$pdat['chanpinID'] = $baozhang['parentID'];
+					$pdat['islock'] = '已锁定';
+					if($cpd['marktype'] == 'zituan'){
+						$zituan = $Chanpin->relationGet("zituan");
+						if(strtotime($zituan['chutuanriqi']) > time()){
+							$pdat['status'] = '截止';
 						}
-						$Chanpin->relation('dingdan')->myRcreate($v);
 					}
-					$pdat[$cpd['marktype']]['status_baozhang'] = $status;
-					if($status == '批准'){
+					if($cpd['marktype'] == 'DJtuan'){
+						$DJtuan = $Chanpin->relationGet("DJtuan");
+						if(strtotime($DJtuan['jietuantime']) > time()){
+							$pdat['status'] = '截止';
+						}
+					}
+					if($baozhang['type'] == '团队报账单'){
+						//子团保存线路拷贝
+						if($cpd['marktype'] == 'zituan')
+						$this->_tongbuzituanxianlucopy($baozhang['parentID']);
 						//报账单审核标记与时间同步到父产品（子团）
-						$pdat[$cpd['marktype']]['baozhang_time'] = $editdat['shenhe_time'];
+						$pdat[$cpd['marktype']]['baozhang_remark'] = $baozhang['shenhe_remark'];
+						//订单
+						$ViewDingdan = D("ViewDingdan");
+						$dingdanall = $ViewDingdan->where("`parentID` = '$cpd[chanpinID]'")->findall();
+						foreach($dingdanall as $v){
+							$v['dingdan']['status_baozhang'] = $status;
+							$v['dingdan']['baozhang_remark'] = $baozhang['shenhe_remark'];
+							if($status == '批准'){
+								$v['dingdan']['baozhang_time'] = $editdat['shenhe_time'];
+							}
+							$Chanpin->relation('dingdan')->myRcreate($v);
+						}
+						$pdat[$cpd['marktype']]['status_baozhang'] = $status;
+						if($status == '批准'){
+							//报账单审核标记与时间同步到父产品（子团）
+							$pdat[$cpd['marktype']]['baozhang_time'] = $editdat['shenhe_time'];
+						}
 					}
+					$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
 				}
-				$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
 				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '地接'){
