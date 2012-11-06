@@ -3382,7 +3382,7 @@ class MethodAction extends CommonAction{
 		}
 		if($datatype == '报账项'){//检查父状态
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+			if($p_cpin['status_shenhe'] == '批准'){
 				//$this->ajaxReturn($_REQUEST,'错误，该报账项的报账单已被审核通过，无法审核回退！', 0);
 				cookie('errormessage','错误，该报账项的报账单已被审核通过,无法审核回退！',30);
 				return false;
