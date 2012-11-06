@@ -2385,8 +2385,8 @@ class MethodAction extends CommonAction{
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$baozhang = $Chanpin->relation('baozhangitem')->where("`chanpinID` = '$data[chanpinID]'")->find();
-		if($baozhang['islock'] == '已锁定' )
-			$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
+		if($baozhang['status_shenhe'] == '批准' )
+			$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，无法修改报账项！', 0);
 		//检查报账项是否有批准项目
 		foreach($baozhang['baozhangitem'] as $v){
 			if(false !== $this->_getTaskPZ($v['chanpinID'],'报账项'))
