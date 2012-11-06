@@ -2674,8 +2674,8 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]'")->find();
-		if($baozhang['islock'] == '已锁定' )
-			$this->ajaxReturn($_REQUEST,'错误，报账单已经锁定，无法修改报账项！', 0);
+		if($baozhang['status_shenhe'] == '批准' )
+			$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
 		if($item['islock'] == '已锁定' )
 			$this->ajaxReturn($_REQUEST,'错误，已经锁定，无法删除！', 0);
 		$data['status_system'] = -1;
