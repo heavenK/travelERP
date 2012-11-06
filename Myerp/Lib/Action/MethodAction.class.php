@@ -1427,7 +1427,7 @@ class MethodAction extends CommonAction{
 			return $process;
 			return false;
 		}
-		elseif($processID == 1 && $tc['status_shenhe'] == '未审核'){
+		elseif($processID == 1 && ($tc['status_shenhe'] == '未审核' || $tc['status_shenhe'] == '')){
 			return $process;
 		}
 		elseif($processID != 1 && ($tc['status_shenhe'] == '申请' || $tc['status_shenhe'] == '检出')){
@@ -2713,6 +2713,10 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$System = D("System");
 		if($cpin['status_shenhe'] == '批准' && ($datatype == '报账单' || $datatype == '报账项')){
+			//删除待检出
+			$djctask = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1 and `status` = '待检出'")->order("systemID desc")->find();
+			$System->where("`systemID` = '$djctask[systemID]'")->delete();
+			//回退批准
 			$task = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1 and `status` = '批准'")->order("systemID desc")->find();
 			$p_task = $ViewTaskShenhe->where("`systemID` = '$task[parentID]'")->find();
 			$newtask = $task;
@@ -2735,10 +2739,10 @@ class MethodAction extends CommonAction{
 			//产品状态
 			$chanp['shenhe_remark'] = $task['remark'].'回退';
 			$chanp['status_shenhe'] = $sec_task['status'];
-			if($chanp['status_shenhe'] == '待审核')
+			if($chanp['status_shenhe'] != '批准'){
 				$chanp['status_shenhe'] = '检出';
-			if($chanp['status_shenhe'] != '批准')
-			$chanp['shenhe_time'] = '';
+				$chanp['shenhe_time'] = '';
+			}
 		}
 		else{
 			$chanp['shenhe_remark'] = '审核回退';
