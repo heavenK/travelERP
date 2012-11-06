@@ -2677,7 +2677,7 @@ class MethodAction extends CommonAction{
 		if($baozhang['status_shenhe'] == '批准' )
 			$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
 		$durlist = $this->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
-		if(false !== $durlist){
+		if(false === $durlist){
 			if($item['islock'] == '已锁定' )
 				$this->ajaxReturn($_REQUEST,'错误，已经锁定，无法删除！', 0);
 		}
