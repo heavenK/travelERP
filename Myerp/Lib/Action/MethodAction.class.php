@@ -2599,8 +2599,12 @@ class MethodAction extends CommonAction{
 			$omtype = '地接';
 		}
 		$durlist = $this->_checkRolesByUser($omrole,$omtype);
-		if (false === $durlist)
+		if (false === $durlist){
+			//财务权限
+			$durlist = $this->_checkRolesByUser('财务,财务总监','行政');
+			if (false === $durlist)
 			$this->ajaxReturn('', '没有'.$omrole.'权限！', 0);
+		}
 		//检查OM
 		$xianlu = $this->_checkDataOM($_REQUEST['parentID'],'报账单','管理');
 		if(false === $xianlu)
