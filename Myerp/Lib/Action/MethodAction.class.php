@@ -2097,7 +2097,7 @@ class MethodAction extends CommonAction{
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		if($datatype == '报账项'){
 			$p_cpin = $Chanpin->where("`chanpinID` = '$cpin[parentID]' AND (`status_system` = '1')")->find();
-			if($p_cpin['status_shenhe'] == '批准' || $p_cpin['islock'] == '已锁定'){
+			if($p_cpin['status_shenhe'] == '批准'){
 				//$this->assign("huitui_words",'该项目所属的报账单已被批准，请先回退报账单！！');//失效，原因大概是没有在display之前加载！！
 				return false;
 			}
