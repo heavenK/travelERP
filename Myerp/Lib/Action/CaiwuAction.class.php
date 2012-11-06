@@ -475,7 +475,25 @@ class CaiwuAction extends CommonAction{
 	
 	
 	
-	
+	public function tuansearch() {
+		$ViewZituan = D("ViewZituan");
+		$ViewDJtuan = D("ViewDJtuan");
+		$chanpin_list = A('Method')->data_list_noOM('ViewSearch');
+	$i = 0;
+		foreach($chanpin_list['chanpin'] as $v){
+			if($v['marktype'] == 'zituan'){
+				$tuan = $ViewZituan->where("`chanpinID` = '$v[chanpinID]'")->find();
+			}
+			if($v['marktype'] == 'DJtuan'){
+				$tuan = $ViewDJtuan->where("`chanpinID` = '$v[chanpinID]'")->find();
+			}
+				$chanpin_list['chanpin'][$i]['tuan'] = $tuan;
+			$i++;
+		}
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		$this->display('tuansearch');
+	}
 	
 	
 	

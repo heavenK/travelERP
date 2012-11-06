@@ -216,6 +216,24 @@ class MethodAction extends CommonAction{
     //显示产品列表
     public function data_list_noOM($class_name,$where,$pagenum = 20) {
 		//处理搜索
+			
+		if($class_name == 'ViewSearch'){
+//			if($where['start_time'] && $where['end_time']){
+//				$where['jietuantime'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+//			}
+//			elseif($where['start_time']){
+//				$where['jietuantime'] = $where['start_time'];
+//			}
+//			elseif($where['end_time']){
+//				$where['jietuantime'] = $where['end_time'];
+//			}
+//			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+//			$where['title'] = array('like','%'.$where['title'].'%');
+//			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+//			if($where['fromcompany'])
+//			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+			$order = 'case when tuanqi_1 is null then 0 else tuanqi_1 end + case when tuanqi_2 is null then 0 else tuanqi_2 end ';
+		}
 		if($class_name == 'ViewCustomer'){
 			if($where['title']){
 				$where['name'] = array('like','%'.$where['title'].'%');
@@ -253,7 +271,7 @@ class MethodAction extends CommonAction{
 		}
 		$where['status_system'] = 1;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
-		$where['status'] = array('neq',-1);;
+		//$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
@@ -2681,7 +2699,7 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$System = D("System");
 		if($cpin['status_shenhe'] == '批准' && ($datatype == '报账单' || $datatype == '报账项')){
-			$task = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1")->order("systemID desc")->find();
+			$task = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status_system` = 1 and `status` = '批准'")->order("systemID desc")->find();
 			$p_task = $ViewTaskShenhe->where("`systemID` = '$task[parentID]'")->find();
 			$newtask = $task;
 			$task['status_system'] = -1;
@@ -2703,6 +2721,8 @@ class MethodAction extends CommonAction{
 			//产品状态
 			$chanp['shenhe_remark'] = $task['remark'].'回退';
 			$chanp['status_shenhe'] = $sec_task['status'];
+			if($chanp['status_shenhe'] == '待审核')
+				$chanp['status_shenhe'] = '检出';
 			if($chanp['status_shenhe'] != '批准')
 			$chanp['shenhe_time'] = '';
 		}
