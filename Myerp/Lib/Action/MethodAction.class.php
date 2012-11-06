@@ -2637,15 +2637,16 @@ class MethodAction extends CommonAction{
 			}
 			else{
 				if($baozhang['status_shenhe'] == '批准' )
-					$this->ajaxReturn($_REQUEST,'错误，报账单已经批准，请审核回退报账单后修改！', 0);
+					$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
 				//判断角色
 				if(A("Method")->_checkRolesByUser('财务,财务总监,总经理','行政')){
 					if($item['status_shenhe'] == '批准' )
-						$this->ajaxReturn($_REQUEST,'错误，该项目已经批准，请审核回退后修改！', 0);
+						$this->ajaxReturn($_REQUEST,'该项目已经批准，请审核回退后修改！', 0);
 				}
 				else
-				if($item['islock'] == '已锁定' &&  $item['type'] != '利润')
-					$this->ajaxReturn($_REQUEST,'错误，该项目已经锁定，请审核回退后修改！', 0);
+				if($item['type'] != '利润')
+				if($item['status_shenhe'] == '检出' || $item['status_shenhe'] == '批准')
+					$this->ajaxReturn($_REQUEST,'该项目已经审核，请审核回退后修改！', 0);
 			}
 				
 				
@@ -2656,6 +2657,12 @@ class MethodAction extends CommonAction{
 			if($Chanpin->getLastmodel() == 'add'){
 				$dataOMlist = $this->_setDataOMlist($omrole,$omtype);
 				$this->_createDataOM($_REQUEST['chanpinID'],'报账项','管理',$dataOMlist);
+				//自动申请审核
+				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
+				$_REQUEST['dotype'] = '申请';
+				$_REQUEST['datatype'] = '报账项';
+				$_REQUEST['title'] = $_REQUEST['title'];
+				$this->_autoshenqing();
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
@@ -2679,7 +2686,7 @@ class MethodAction extends CommonAction{
 		$durlist = $this->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
 		if(false === $durlist){
 			if($item['islock'] == '已锁定' )
-				$this->ajaxReturn($_REQUEST,'错误，已经锁定，无法删除！', 0);
+				$this->ajaxReturn($_REQUEST,'请审核回退报账项后删除！', 0);
 		}
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
