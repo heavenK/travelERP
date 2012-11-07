@@ -228,11 +228,13 @@ class MethodAction extends CommonAction{
 //				$where['jietuantime'] = $where['end_time'];
 //			}
 //			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-//			$where['title'] = array('like','%'.$where['title'].'%');
-//			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+			$where['title_1'] = array('like','%'.$where['title'].'%');
+			$where['title_2'] = $where['title_1'];
+			$where['tuanhao_1'] = array('like','%'.$where['tuanhao'].'%');
+			$where['tuanhao_2'] = $where['tuanhao_2'];
 //			if($where['fromcompany'])
 //			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
-			$order = 'case when tuanqi_1 is null then 0 else tuanqi_1 end + case when tuanqi_2 is null then 0 else tuanqi_2 end ';
+			$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
 		}
 		if($class_name == 'ViewCustomer'){
 			if($where['title']){
