@@ -65,11 +65,11 @@ function shenhe_after(data,status){
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> 
 
-<php>if($actionmethod == 'Chanpin'){</php>
+<php>if($actionmethod == 'Chanpin' && !$action_type){</php>
 <include file="Chanpin:left_kongguan" />
   <div id="content" style="margin-left:180px;">
 <php>}</php>
-<php>if($actionmethod == 'Dijie'){</php>
+<php>if($actionmethod == 'Dijie' && !$action_type){</php>
     <php>if($chanpinID){</php>
       <tp:includeCA file="Dijie:left_chanpin" />
       <div id="content" style="margin-left:180px;">
@@ -81,11 +81,14 @@ function shenhe_after(data,status){
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
     
-    <php>if($actionmethod == 'Chanpin'){</php>
+    <php>if($actionmethod == 'Chanpin' && !$action_type){</php>
     <tp:includeCA file="Chanpin:header_kongguan" />
     <php>}</php>
-    <php>if($actionmethod == 'Dijie'){</php>
+    <php>if($actionmethod == 'Dijie' && !$action_type){</php>
     <tp:includeCA file="Dijie:header_chanpin" />
+    <php>}</php>
+    <php>if($action_type == 'Caiwu'){</php>
+    <tp:includeCA file="Chanpin:header_kongguan" />
     <php>}</php>
     
     <form name="form1" method="post" id="form1" >

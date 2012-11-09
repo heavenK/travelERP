@@ -476,10 +476,11 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function tuansearch() {
+		A("Method")->showDirectory("组团地接产品");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
-		$chanpin_list = A('Method')->data_list_noOM('ViewSearch');
-	$i = 0;
+		$chanpin_list = A('Method')->data_list_noOM('ViewSearch',$_REQUEST);
+		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			if($v['marktype'] == 'zituan'){
 				$tuan = $ViewZituan->where("`chanpinID` = '$v[chanpinID]'")->find();
@@ -487,7 +488,7 @@ class CaiwuAction extends CommonAction{
 			if($v['marktype'] == 'DJtuan'){
 				$tuan = $ViewDJtuan->where("`chanpinID` = '$v[chanpinID]'")->find();
 			}
-				$chanpin_list['chanpin'][$i]['tuan'] = $tuan;
+			$chanpin_list['chanpin'][$i]['tuan'] = $tuan;
 			$i++;
 		}
 		$this->assign("page",$chanpin_list['page']);
@@ -496,10 +497,36 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	
+	public function danxiangfuwu() {
+		A("Method")->_danxiangfuwu('财务');
+	}
 	
-	
-	
-	
+	public function tuanbaozhang() {
+		$Chanpin = D("Chanpin");
+		$bzd = $Chanpin->where("`chanpinID` = '$_REQUEST[baozhangID]'")->find();
+		$pcp = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+		if($pcp['marktype'] == 'zituan'){
+			$actionmethod = 'Chanpin';
+			$type = '子团';
+		}
+		elseif($pcp['marktype'] == 'DJtuan'){
+			$actionmethod = 'Dijie';
+			$type = '地接';
+		}
+		else{
+			$is_o = 1;
+			$actionmethod = 'Chanpin';
+		}
+		$this->assign("actionmethod",$actionmethod);
+		A("Method")->showDirectory("签证及票务");
+		if($is_o == 1)
+			$actionmethod = 'Caiwu';
+		$this->assign("action_type",$actionmethod);
+		if(!$_REQUEST['chanpinID'])
+			A("Method")->_baozhang();
+		else
+			A("Method")->_baozhang($type);
+	}
 	
 }
 ?>

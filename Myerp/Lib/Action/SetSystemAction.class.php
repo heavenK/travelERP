@@ -369,7 +369,8 @@ class SetSystemAction extends CommonAction{
 				$_REQUEST['systemID'] = $System->getRelationID();
 			}
 			A('Method')->_ShenheToDataShenhe($_REQUEST);
-			
+			//修复开放om
+			A('Method')->_djcOMCreateRepair($data['datatype'],$data['processID']);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -382,10 +383,14 @@ class SetSystemAction extends CommonAction{
 	{
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
+		$ViewShenhe = D("ViewShenhe");
+		$data = $ViewShenhe->where("`systemID` = '$systemID'")->find();
 		if (false !== $System->relation("shenhe")->delete("$systemID"))
 		{
 			$DataShenhe = D("DataShenhe");
 			$DataShenhe->where("`shenheID` = '$systemID'")->delete();
+			//修复开放om
+			A('Method')->_djcOMCreateRepair($data['datatype'],$data['processID']);
 			$this->ajaxReturn('', '删除成功！', 1);
 		}
 		else

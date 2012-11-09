@@ -37,6 +37,8 @@
 
  function save(id,divname,mark,type)
  {
+	scroll(0,0);
+	ThinkAjax.myloading('resultdiv');
 	var it = '';
 	if(!mark){
 		it ="&chanpinID="+id;
@@ -104,6 +106,8 @@
 
  function deleteSystemItem(id,divname,type)
  {
+	scroll(0,0);
+	ThinkAjax.myloading('resultdiv');
 	if(type == 'temp')
 		jQuery("#"+divname+id).remove();
 	else	

@@ -111,6 +111,7 @@ class ChanpinModel extends RelationModel {
 		'fenfang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Fenfang','foreign_key'=>'chanpinID'),
 		//baozhang
 		'baozhang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID'),
+		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		'baozhangzituanlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Zituan','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),//class_name写,true_class_name读，更新需求parentID非空
 		'baozhangDJtuanlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'DJtuan','true_class_name'=>'myerpview_chanpin_djtuan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),//class_name写,true_class_name读，更新需求parentID非空
 		//baozhangitem

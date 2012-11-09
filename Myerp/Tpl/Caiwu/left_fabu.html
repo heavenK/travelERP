@@ -134,6 +134,66 @@
 <php>}</php>
 
 
+<php>if($pagetype == '组团地接产品'){</php>
+  <div id="leftColumn" style="margin-top:7px; width:160px;">
+        <div id="navtab_1" class="leftList">
+          <h3><span>组团部门</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($zutuanlist as $v){ if($v['title'] == '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/tuansearch/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] != '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/tuansearch/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+          <h3><span>地接部门</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($dijielist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/tuansearch/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+          <h3><span>散客（联合体提供）</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($bumenlist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/tuansearch/departmentID/<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+        </div>
+    
+  </div>
+<php>}</php>
+
+
+<php>if($pagetype == '单项服务'){</php>
+  <div id="leftColumn" style="margin-top:7px; width:160px;">
+        <div id="navtab_1" class="leftList">
+          <h3><span>组团部门</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($zutuanlist as $v){ if($v['title'] == '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/danxiangfuwu/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+            <php>foreach($zutuanlist as $v){ if($v['title'] != '国内部-组团')continue;</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/danxiangfuwu/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+          <h3><span>地接部门</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($dijielist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/danxiangfuwu/departmentID/<{$v['systemID']}>">&nbsp;<span><{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+          <h3><span>散客（联合体提供）</span></h3>
+          <ul id="ul_shortcuts">
+            <php>foreach($bumenlist as $v){</php>
+            <li> <a href="<{:SITE_INDEX}>Caiwu/danxiangfuwu/departmentID/<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}</php>
+          </ul>
+        </div>
+    
+  </div>
+<php>}</php>
+
+
 
 
 

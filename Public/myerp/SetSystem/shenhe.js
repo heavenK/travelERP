@@ -35,6 +35,8 @@
  
  function additem(id,parenttype,mark)
  {
+	scroll(0,0);
+	ThinkAjax.myloading('resultdiv');
 	var it = '';
 	if(!mark){
 		it ="&systemID="+id;
@@ -93,6 +95,8 @@
  
  function deleteItem(id,type)
  {
+	scroll(0,0);
+	ThinkAjax.myloading('resultdiv');
 	if(type == 'temp')
 		jQuery("#itemrow_t"+id).remove();
 	else	
