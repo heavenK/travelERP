@@ -149,6 +149,8 @@ class MethodAction extends CommonAction{
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 			if($where['fromcompany'])
 			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+			if($where['status_baozhang'] != '批准')
+			$where['status_baozhang'] = array('neq','批准');
 			$order = 'jietuantime desc';
 		}
 		if($datatype == '报账单'){
