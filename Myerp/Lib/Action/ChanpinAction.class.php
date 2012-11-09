@@ -380,12 +380,15 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
-	public function left_fabu($html) {
+	public function left_fabu($htmltp='',$pagetype='') {
 		$ViewDepartment = D("ViewDepartment");
 		$where['type'] = array('like','%联合体%');
 		$bumenlist = $ViewDepartment->where($where)->findall();
 		$this->assign("bumenlist",$bumenlist);
-		$this->display('Chanpin:'.$html);
+		$zutuanlist = $ViewDepartment->where("`type` like '%组团%' and `type` not like '%联合体%' and `type` not like '%办事处%'")->findall();
+		$this->assign("zutuanlist",$zutuanlist);
+		$this->assign("pagetype",$pagetype);
+		$this->display('Chanpin:'.$htmltp);
 	}
 	
 	public function header_chanpin() {

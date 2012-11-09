@@ -4,7 +4,7 @@
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
-  <tp:includeCA file="Caiwu:left_fabu:'left_fabu','营收'" />
+  <tp:includeCA file="Chanpin:left_fabu:'left_kongguan','营收'" />
   <div id="content" style="margin-left:180px;">
   
             <div id="resultdiv" class="resultdiv"></div>
@@ -81,7 +81,7 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 部门 </div></th>
-            <php>if($systemID){</php>
+            <php>if($departmentID){</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 时间范围 </div></th>
 			<php> }</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团数 </div></th>
@@ -97,7 +97,7 @@
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><{$v['title']}></td>
-            <php>if($systemID){</php>
+            <php>if($departmentID){</php>
                   <td scope="row" align="left" valign="top"><{$start_time}>至<{$end_time}></td>
 			<php> }</php>
                   <td scope="row" align="left" valign="top"><php> echo number_format(count($v['zituan']))</php></td>
@@ -136,7 +136,7 @@
             </table>
             
             
-          <php>if($systemID){</php>
+          <php>if($departmentID){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
                 <tr height="20">
@@ -149,7 +149,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 毛利 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 毛利率 </div></th>
                 </tr>
-                <php> $i = -1; foreach($unitdata[0]['baozhang'] as $v){ $i++;</php>
+                <php> $i = -1; foreach($unitdata[0]['zituan'] as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
@@ -193,7 +193,7 @@ function show_dingdan(chanpinID){
 	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
 function dosearch(str){
-		window.location = SITE_INDEX+'Caiwu/yingshou_tongji'+str;
+		window.location = SITE_INDEX+'Chanpin/tongji'+str;
 }
 </script>
 </script>
