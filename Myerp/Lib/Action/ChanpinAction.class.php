@@ -1235,9 +1235,9 @@ class ChanpinAction extends CommonAction{
 					  <td>'.$v['dingdan_renshu'].'/'.$v['queren_renshu'].'/'.$v['zhanwei_renshu'].'/'.$v['houbu_renshu'].'</td>
 					  <td>'.$v['baozhang_remark'].'</td>
 					  <td>'.$v['baozhang_renshu'].'</td>
-					  <td>'.$v['yingshou'].'</td>
-					  <td>'.$v['yingfu'].'</td>
-					  <td>'.($v['yingshou']-$v['yingfu']).'</td>
+					  <td>'.number_format($v['yingshou']).'</td>
+					  <td>'.number_format($v['yingfu']).'</td>
+					  <td>'.number_format($v['yingshou']-$v['yingfu']).'</td>
 					</tr>
 					';
 				}

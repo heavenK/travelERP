@@ -142,23 +142,31 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团队类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应收款 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应付款 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 毛利 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 毛利率 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 计划人数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单人数/确认/占位/候补 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 报账情况 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 报账人数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应付 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 盈亏 </div></th>
                 </tr>
                 <php> $i = -1; foreach($unitdata[0]['zituan'] as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
-                  <td scope="row" align="left" valign="top"><{$v['type']}></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['renshu'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou_copy'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu_copy'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['maoli'])</php></td>
-                  <td scope="row" align="left" valign="top"><{$v['maolilv']}></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title_copy']}></a></td>
+                  <td scope="row" align="left" valign="top"><{$v['tuanhao']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['dingdan_renshu']}>/<{$v['queren_renshu']}>/<{$v['zhanwei_renshu']}>/<{$v['houbu_renshu']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang_remark']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['baozhang_renshu']}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou']-$v['yingfu'])</php></td>
                 </tr>
                 <php> }</php>
                 <tr class="pagination">

@@ -149,6 +149,7 @@ class MethodAction extends CommonAction{
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 			if($where['fromcompany'])
 			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+			$order = 'jietuantime desc';
 		}
 		if($datatype == '报账单'){
 			$class_name = 'OMViewBaozhang';
