@@ -2159,8 +2159,8 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！！！', 0);
 			//判断角色
 			if($this->_checkRolesByUser('财务,财务总监,总经理','行政')){
-				if($baozhang['status_shenhe'] == '批准' )
-					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
+//				if($baozhang['status_shenhe'] == '批准' )
+//					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
 			}
 			else
 			if($baozhang['islock'] == '已锁定' ){
