@@ -60,6 +60,20 @@ function shenhe_after(data,status){
 		location.reload();
 	}
 }
+
+
+function shenhehistory(chanpinID,obj){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+
 </script>
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
@@ -566,4 +580,26 @@ function shenhe_after(data,status){
     </form>
   </div>
 </div>
+
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<{:__PUBLIC__}>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <tp:includeCA file="Index:footer" />

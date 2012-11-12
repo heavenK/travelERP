@@ -149,7 +149,7 @@ class MethodAction extends CommonAction{
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 			if($where['fromcompany'])
 			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
-			if($where['status_baozhang'] != '批准')
+			if($where['status_baozhang'] && $where['status_baozhang'] != '批准')
 			$where['status_baozhang'] = array('neq','批准');
 			$order = 'jietuantime desc';
 		}
@@ -197,6 +197,9 @@ class MethodAction extends CommonAction{
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
+		if($ajaxdiv)
+        import("@.ORG.OldPage");
+		else
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
 		$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
