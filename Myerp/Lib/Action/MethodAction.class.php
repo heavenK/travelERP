@@ -2300,7 +2300,6 @@ class MethodAction extends CommonAction{
 		}
 		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
-		$this->assign("baozhang_1",$baozhang);
 		$this->assign("baozhang_data",$baozhang);
 		if(!$baozhang){
 			$this->assign("message",'报账单数据异常，未找到相关数据！');
@@ -2357,7 +2356,7 @@ class MethodAction extends CommonAction{
 				$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 				//$baozhang['baozhangitemlist'] = $newdata['baozhangitem'];
 				$baozhang['baozhangitemlist'] = $ViewBaozhangitem->where("`parentID` = $baozhang[chanpinID]")->findall();
-				$this->assign("baozhang",$baozhang);
+				//$this->assign("baozhang",$baozhang);
 			}
 			if($_REQUEST['export']){
 				//导出Word必备头
