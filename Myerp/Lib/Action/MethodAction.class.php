@@ -2300,8 +2300,6 @@ class MethodAction extends CommonAction{
 		}
 		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
-		if($_REQUEST['aaa'])
-		dump($baozhang);
 		$this->assign("baozhang_data",$baozhang);
 		if(!$baozhang){
 			$this->assign("message",'报账单数据异常，未找到相关数据！');
