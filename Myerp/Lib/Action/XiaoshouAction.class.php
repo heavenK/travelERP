@@ -498,17 +498,20 @@ class XiaoshouAction extends Action{
 		//判断订单状态
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
+		if($dingdan['status_shenhe'] == '批准'){
+			  $this->ajaxReturn($_REQUEST, '订单已经被审核，请审核回退后取消！', 0);
+		}
 		if($dingdan['status'] == '确认'){
 			$durlist = A("Method")->_checkRolesByUser('经理,计调','组团',1);
 			if(false === $durlist){
-			  $this->ajaxReturn($_REQUEST, '错误，没有经理权限！', 0);
+			  $this->ajaxReturn($_REQUEST, '订单已经确认，请联系计调取消订单！', 0);
 			}
 		}
-		$dingdanID = $_REQUEST['dingdanID'];
-		$Chanpin = D("Chanpin");
-		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
-		if($dat['islock'] == '已锁定')
-			$this->ajaxReturn($_REQUEST, '失败，该订单已经锁定，请审核回退后重试', 0);
+//		$dingdanID = $_REQUEST['dingdanID'];
+//		$Chanpin = D("Chanpin");
+//		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
+//		if($dat['islock'] == '已锁定')
+//			$this->ajaxReturn($_REQUEST, '失败，该订单已经锁定，请审核回退后重试', 0);
 		$dat['status_system'] = -1;
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat)){
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
