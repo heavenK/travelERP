@@ -2763,8 +2763,29 @@ class MethodAction extends CommonAction{
 				$shenhe['systemID'] = $v['systemID'];
 				$System->save($shenhe);
 			}
+			//更新报账单应收应付
+			if($datatype == '报账单'){
+				$cpin['baozhang']['yingshou_copy'] = 0;
+				$cpin['baozhang']['yingfu_copy'] = 0;
+				$Chanpin->relation("baozhang")->myRcreate($cpin);
+			}
 		}
 		$Chanpin->save($chanp);
+	  
+		//记录
+		if($datatype == '地接')
+		  $url = 'index.php?s=/Dijie/fabu/chanpinID/'.$dataID;
+		if($datatype == '报账单')
+		  $url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$dataID;
+		if($datatype == '报账项')
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$cpin['parentID'];
+		if($datatype == '订单')
+			$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$dataID;
+		if($datatype == '线路')
+			$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$dataID;
+		$message = $datatype.$chanp['shenhe_remark'];
+		$this->_setMessageHistory($dataID,$datatype,$message,$url);
+	  
 		//相关产品状态同步
 		if($chanp['status_shenhe'] != '批准'){
 			if($datatype == '报账单'){
@@ -3353,6 +3374,7 @@ class MethodAction extends CommonAction{
 		$ViewDJtuan = D("ViewDJtuan");
 		$ViewZituan = D("ViewZituan");
 		$ViewBaozhang = D("ViewBaozhang");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
 		$Chanpin->startTrans();
 		foreach($itemlist as $v){
 			//检查dataOM
@@ -3368,10 +3390,12 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
 				}
 				else{
-					$bzd = $ViewBaozhang->where("`parentID` = '$v'")->find();
-					if($bzd['yingshou_copy'] || $bzd['yingfu_copy']){
-						$Chanpin->rollback();
-						$this->ajaxReturn($_REQUEST,'该团已经开始报账，报账项目已审核，不能删除！！！', 0);
+					$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$v'")->find();
+					foreach($bzd['baozhangitemlist'] as $vol){
+						if($vol['status_shenhe'] == '批准'){
+							$Chanpin->rollback();
+							$this->ajaxReturn($_REQUEST,'该团已经开始报账，报账项目已审核，不能删除！！！', 0);
+						}
 					}
 				}
 				$data['chanpinID'] = $v;
