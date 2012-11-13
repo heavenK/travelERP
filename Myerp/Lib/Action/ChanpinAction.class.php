@@ -1028,12 +1028,46 @@ class ChanpinAction extends CommonAction{
 			$where['departmentID'] = $_REQUEST["departmentID"];
 		$ViewDataDictionary = D("ViewDataDictionary");
 		
+		//获得用户权限，部门列表
+		$ViewDepartment = D("ViewDepartment");
+		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
+		if($role){
+			$unitdata = $ViewDepartment->where("`type` like '%组团%'")->findall();
+		}
+		else{
+			$role = A("Method")->_checkRolesByUser('经理','组团');
+			if(!$role)
+				exit;
+			$i = 0;
+			foreach($role as $v){
+				$unitdata[$i] = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+				$i++;
+			}
+			$unitdata = about_unique($unitdata);
+		}
+		//部门列表
+		if($_REQUEST["departmentID"]){
+			foreach($unitdata as $b){
+				if($b['systemID'] == $_REQUEST["departmentID"])
+				$newdata[0] = $b;
+			}
+			$unitdata = $newdata;
+		}
+		//end
 		//总体统计。
 		$ViewZituan = D("ViewZituan");
 		$ViewDingdan = D("ViewDingdan");
 		$ViewBaozhang = D("ViewBaozhang");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
-		$zituanall = $ViewZituan->where($where)->findall();
+		$i = 0;
+		foreach($unitdata as $v){
+			$where['departmentID'] = $v['systemID'];
+			$tuanall = $ViewZituan->where($where)->findall();
+			foreach($tuanall as $vol){
+				$zituanall[$i] = $vol;
+				$i++;
+			}
+		}
 		$i = 0;
 		foreach($zituanall as $v){
 			$tongji['tuanshu'] += 1;
@@ -1091,69 +1125,34 @@ class ChanpinAction extends CommonAction{
 			$i++;
 		}
 		$this->assign("tongji",$tongji);
-		
-		//获得用户权限，部门列表
-		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
-		if($role){
-			$ViewDepartment = D("ViewDepartment");
-			$unitdata = $ViewDepartment->where("`type` like '%组团%'")->findall();
-		}
-		else{
-			$role = A("Method")->_checkRolesByUser('经理','组团');
-			if(!$role)
-				exit;
-				$i = 0;
-			foreach($role as $v){
-				$unitdata[$i]['systemID'] = $v['bumenID'];
-				$i++;
-			}
-			$unitdata = about_unique($unitdata);
-		}
-		//部门列表
-		if($_REQUEST["departmentID"]){
-			foreach($unitdata as $b){
-				if($b['systemID'] == $_REQUEST["departmentID"])
-				$newdata[0] = $b;
-			}
-			$unitdata = $newdata;
-		}
-		//end
-		
-		if(!$unitdata)
+		//分类处理
+		//人员统计
 		if($_REQUEST['listtype'] == '员工'){
 			$this->assign("markpos",$_REQUEST['listtype']);
 			//用户列表
 			$ViewUser = D("ViewUser");
-			$unitdata = $ViewUser->where($where_unit)->findall();
-			//根据部门过滤用户
-			if($_REQUEST['departmentID']){
-				$ii = 0;
-				foreach($unitdata as $u){
-					$durlist = A("Method")->_getDURlist_name($u['title']);
-					$markt = 0;
-					foreach($durlist as $dr){
-						if($dr['bumenID'] == $_REQUEST['departmentID']){
-							$markt = 1;
-							break;
-						}
-					}
-					if($markt == 0)
-						unset($unitdata[$ii]);
-					$ii++;
+			$i = 0;
+			foreach($unitdata as $v){
+				$listarray = A("Method")->_getBumenUserlist($v['systemID']);
+				foreach($listarray as $lol){
+					$userlist[$i] = $lol;
+					$i++;
 				}
-				$unitdata = array_diff($unitdata, array(null));
-				$unitdata = array_values($unitdata);
+			}
+			$unitdata = about_unique($userlist);
+			$unitdata = array_values($unitdata);
+			//搜索用户
+			if($_REQUEST['title']){
+				foreach($unitdata as $tt){
+					if($tt['title'] == $_REQUEST['title']){
+						$unitdata = null;
+						$unitdata[0] = $tt;
+						break;
+					}
+				}
 			}
 		}
-		else{
-			//部门列表
-			if($_REQUEST["systemID"])
-			$where_unit['systemID'] = $_REQUEST["systemID"];
-			$ViewDepartment = D("ViewDepartment");
-			$unitdata = $ViewDepartment->where($where_unit)->findall();
-		}
-		
-		//分类处理
+		//end人员统计
 		$i = 0;
 		foreach($unitdata as $v){
 			if($_REQUEST['listtype'] == '员工'){

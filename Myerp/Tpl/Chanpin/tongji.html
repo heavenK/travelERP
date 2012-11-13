@@ -18,15 +18,14 @@
           <php>if($markpos == ''){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">部门统计</a> </li>
+          href="<{:SITE_INDEX}>Chanpin/tongji">部门统计</a> </li>
         <li> <a 
           <php>if($markpos == '员工'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Caiwu/yingshou_tongji/listtype/员工">员工统计</a> </li>
+          href="<{:SITE_INDEX}>Chanpin/tongji/listtype/员工">员工统计</a> </li>
       </ul>
     </div>
-            
             <php>if(!$systemID){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
               <tbody>
@@ -57,7 +56,7 @@
             <php>}</php>
     
             <strong style="color:red">报账数据采用全部数据（未审核及已审核）,并只包含子团数据，不包含单项服务</strong>
-            
+	<php>if(!$listtype){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
                 <tr class="pagination">
@@ -108,11 +107,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top">
-                  <php>if($listtype == '员工'){</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
-                  <php>}else{</php>
                       <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
-                  <php>}</php>
                   </td>
                 </tr>
                 <php> }</php>
@@ -134,8 +129,6 @@
                 </tr>
               </tbody>
             </table>
-            
-            
           <php>if($departmentID){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -188,7 +181,80 @@
               </tbody>
             </table>
           <php> }</php>
+	<php> }</php>
+   
+   
+	<php>if($listtype == '员工'){</php>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                            <input class="button" type="button" value=" 导出 " onclick="exports()">
+                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 姓名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划人数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单人数/确认/占位/候补 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账人数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应付 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 盈亏  </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
+                </tr>
+                <php> $i = -1; foreach($unitdata as $v){ $i++;</php>
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="left" valign="top"><{$v['title']}></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format(count($v['zituan']))</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['jihua_renshu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['dingdan_renshu'])</php>/<php> echo number_format($v['queren_renshu'])</php>/<php> echo number_format($v['zhanwei_renshu'])</php>/<php> echo number_format($tongji['houbu_renshu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['baozhang_renshu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
+                  <td scope="row" align="left" valign="top">
+                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
+                  </td>
+                </tr>
+                <php> }</php>
+                
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+	<php> }</php>
             
+   
+   
             
             
   </div>

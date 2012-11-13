@@ -3588,7 +3588,34 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	
+	//获得部门用户列表
+     public function _getBumenUserlist($bumenID,$bumentitle='') {
+		$ViewDepartment = D("ViewDepartment");
+		$ViewSystemDUR = D("ViewSystemDUR");
+		$ViewUser = D("ViewUser");
+		if($bumenID)
+		$all = $ViewSystemDUR->where("`bumenID` = '$bumenID'")->findall();
+		if($bumentitle){
+			$d = $ViewDepartment->where("`title` = '$bumentitle'")->find();
+			$all = $ViewSystemDUR->where("`bumenID` = '$d[systemID]'")->findall();
+		}
+		$i = 0;
+		foreach($all as $v){
+			$userIDlist[$i] = $v['userID'];
+			$i++;
+		}
+		$userIDlist = array_unique($userIDlist);
+		$i = 0;
+		foreach($userIDlist as $v){
+			$user = $ViewUser->where("`systemID` = '$v'")->find();
+			$userlist[$i] = $user;
+			$i++;
+		}
+		if($userlist)
+		return $userlist;
+		else
+		return false;
+	 }
 	
 	
 	
