@@ -2690,13 +2690,11 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$item = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		$baozhang = $Chanpin->where("`chanpinID` = '$item[parentID]'")->find();
-		if($item['status_shenhe'] == '批准')
+		if($item['status_shenhe'] == '批准'){
 			if($baozhang['status_shenhe'] == '批准' )
 				$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
-		$durlist = $this->_checkRolesByUser('出纳,会计,财务,财务总监','行政');
-		if(false === $durlist){
-			if($item['islock'] == '已锁定' )
-				$this->ajaxReturn($_REQUEST,'请审核回退报账项后删除！', 0);
+			else
+				$this->ajaxReturn($_REQUEST,'请审核回退后删除！', 0);
 		}
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
