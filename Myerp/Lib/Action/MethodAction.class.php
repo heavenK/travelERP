@@ -3509,6 +3509,19 @@ class MethodAction extends CommonAction{
 					}
 				}
 			}
+			
+			if($type == '地接'){
+				$data['chanpinID'] = $v;
+				if($chanp['status'] == '在线')
+					$data['status'] = '截止';
+				if($chanp['status'] == '截止')
+					$data['status'] = '在线';
+				if(false === $Chanpin->mycreate($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+				}
+			}
+			
 		}
 		$Chanpin->commit();
 		//开放

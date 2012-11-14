@@ -377,5 +377,11 @@ class DijieAction extends CommonAction{
 		A('Method')->_deletechanpin('地接');
 	}
 	
+    public function jiezhiorbaoming() {
+		A('Method')->_jiezhiorbaoming('地接');
+	}
+	
+	
+	
 }
 ?>
