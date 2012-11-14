@@ -2513,13 +2513,13 @@ class MethodAction extends CommonAction{
 					$pdat['islock'] = '已锁定';
 					if($cpd['marktype'] == 'zituan'){
 						$zituan = $Chanpin->relationGet("zituan");
-						if(strtotime($zituan['chutuanriqi']) > time()){
+						if(strtotime($zituan['chutuanriqi']) < time()){
 							$pdat['status'] = '截止';
 						}
 					}
 					if($cpd['marktype'] == 'DJtuan'){
 						$DJtuan = $Chanpin->relationGet("DJtuan");
-						if(strtotime($DJtuan['jietuantime']) > time()){
+						if(strtotime($DJtuan['jietuantime']) < time()){
 							$pdat['status'] = '截止';
 						}
 					}
