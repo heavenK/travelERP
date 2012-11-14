@@ -2702,6 +2702,10 @@ class MethodAction extends CommonAction{
 		if (false !== $Chanpin->save($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+			//记录
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
+			$message = '报账项'.$item['shenhe_remark'];
+			$this->_setMessageHistory($item['chanpinID'],'报账项',$message,$url);
 		}
 		else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
