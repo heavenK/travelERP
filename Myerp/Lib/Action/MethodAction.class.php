@@ -2526,20 +2526,12 @@ class MethodAction extends CommonAction{
 						$Chanpin->relation("baozhang")->myRcreate($bzddata);
 					}
 				}
+				//报账单同步报账项费用
+				$this->_updatebaozhangdata($item['parentID']);
 			}
 			if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
-				$ViewBaozhangitem = D("ViewBaozhangitem");
-				$baozhangitemlist = $ViewBaozhangitem->where("`parentID` = '$editdat[chanpinID]' and `status_system` = 1 and `status_shenhe` = '批准'")->findall();
-				foreach($baozhangitemlist as $va){
-					if($va['type'] == '结算项目')
-						$jisuan +=$va['value'];
-					if($va['type'] == '支出项目')
-						$zhichu +=$va['value'];
-				}
-				$editdat['baozhang']['yingshou_copy'] = $jisuan;
-				$editdat['baozhang']['yingfu_copy'] = $zhichu;
-				$Chanpin->relation("baozhang")->myRcreate($editdat);
+				$this->_updatebaozhangdata($editdat['chanpinID']);
 				//父产品锁定截止
 				$ViewBaozhang = D("ViewBaozhang");
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]' AND `status_system` = '1'")->find();
@@ -3668,6 +3660,31 @@ class MethodAction extends CommonAction{
 		return $userlist;
 		else
 		return false;
+	 }
+	
+	//报账单同步报账项费用
+     public function _updatebaozhangdata($baozhangID,$itemID='') {
+		  $Chanpin = D("Chanpin");
+		  $ViewBaozhangitem = D("ViewBaozhangitem");
+		  if($baozhangID){
+			  $editdat['chanpinID'] = $baozhangID;
+			  $baozhangitemlist = $ViewBaozhangitem->where("`parentID` = '$baozhangID' and `status_system` = 1 and `status_shenhe` = '批准'")->findall();
+		  }
+		  if($itemID){
+			  $item = $ViewBaozhangitem->where("`chanpinID` = '$itemID' and `status_system` = 1 and `status_shenhe` = '批准'")->find();
+			  $editdat['chanpinID'] = $item['parentID'];
+			  $baozhangitemlist = $ViewBaozhangitem->where("`parentID` = '$item[parentID]' and `status_system` = 1 and `status_shenhe` = '批准'")->findall();
+		  }
+		  foreach($baozhangitemlist as $va){
+			  if($va['type'] == '结算项目')
+				  $jisuan +=$va['value'];
+			  if($va['type'] == '支出项目')
+				  $zhichu +=$va['value'];
+		  }
+		  $editdat['chanpinID'] = $baozhangID;
+		  $editdat['baozhang']['yingshou_copy'] = $jisuan;
+		  $editdat['baozhang']['yingfu_copy'] = $zhichu;
+		  $Chanpin->relation("baozhang")->myRcreate($editdat);
 	 }
 	
 	

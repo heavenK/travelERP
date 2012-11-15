@@ -479,6 +479,7 @@ class CaiwuAction extends CommonAction{
 		A("Method")->showDirectory("组团地接产品");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
+		$ViewBaozhang = D("ViewBaozhang");
 		$chanpin_list = A('Method')->data_list_noOM('ViewSearch',$_REQUEST);
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
@@ -489,6 +490,9 @@ class CaiwuAction extends CommonAction{
 				$tuan = $ViewDJtuan->where("`chanpinID` = '$v[chanpinID]'")->find();
 			}
 			$chanpin_list['chanpin'][$i]['tuan'] = $tuan;
+			//报账单
+			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+			$chanpin_list['chanpin'][$i]['baozhang'] = $bzd;
 			$i++;
 		}
 		$this->assign("page",$chanpin_list['page']);

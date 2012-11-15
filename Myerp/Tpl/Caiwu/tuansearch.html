@@ -31,7 +31,10 @@
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 类型 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 部门 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 报账情况 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收入款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 支出款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 盈亏 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账情况 </div></th>
         </tr>
           <php>
       
@@ -62,6 +65,9 @@
         </td>
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
         <td scope="row" align="left" valign="top"><{$v['bumen_copy']}></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingfu_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);</php></td>
         <td scope="row" align="left" valign="top"><{$v['tuan']['baozhang_remark']}></td>
       </tr>
       <php> }</php>
