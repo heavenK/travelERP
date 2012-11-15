@@ -35,7 +35,10 @@
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 发团社 </div></th>
           <th scope="col" nowrap="nowrap"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:50px;"><div> 状态 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 报账情况 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 收入款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 支出款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 盈亏 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账情况 </div></th>
         </tr>
           <php>
       
@@ -52,6 +55,9 @@
         <td scope="row" align="left" valign="top"><{$v['fromcompany']}></td>
         <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingfu_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);</php></td>
         <td scope="row" align="left" valign="top"><{$v['baozhang_remark']}></td>
       </tr>
       <php> }</php>

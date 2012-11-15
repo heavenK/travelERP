@@ -86,15 +86,18 @@
           <th scope="col" nowrap="nowrap"><input type="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团号 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:300px; width:30%"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:300px; width:30%;"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
           <th scope="col" nowrap="nowrap"><div> 修正值 </div></th>
           <th scope="col" nowrap="nowrap"><div> 名额 </div></th>
           <th scope="col" nowrap="nowrap"><div> 确认/占位 </div></th>
           <th scope="col" nowrap="nowrap"><div> 剩余 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 报账情况 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 状态 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 收入款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 支出款 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 盈亏 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账情况 </div></th>
         </tr>
           <php>
       
@@ -113,6 +116,9 @@
         <td scope="row" align="left" valign="top"><php> echo number_format($v['queren_num'])</php>/<php> echo number_format($v['zhanwei_num'])</php></td>
         <td scope="row" align="left" valign="top"><{$v['shengyu_num']}></td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingfu_copy']);</php></td>
+        <td scope="row" align="left" valign="top"><php>echo number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);</php></td>
         <td scope="row" align="left" valign="top"><{$v['baozhang_remark']}></td>
       </tr>
       <php> }</php>

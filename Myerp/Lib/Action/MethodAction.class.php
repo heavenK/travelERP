@@ -3225,6 +3225,7 @@ class MethodAction extends CommonAction{
 		}
 		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
 		$ViewDingdan = D("ViewDingdan");
+		$ViewBaozhang = D("ViewBaozhang");
 		$DataCD = D("DataCD");
 		$i = 0;
 		foreach($datalist['chanpin'] as $v){
@@ -3263,6 +3264,11 @@ class MethodAction extends CommonAction{
 				}
 			}
 			$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
+			
+			//报账单
+			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+			$datalist['chanpin'][$i]['baozhang'] = $bzd;
+			
 			$i++;
 		}
 		

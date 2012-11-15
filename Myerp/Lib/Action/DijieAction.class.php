@@ -26,6 +26,14 @@ class DijieAction extends CommonAction{
 		$this->assign("navposition",$directory);
 		$chanpin_list = A('Method')->getDataOMlist('地接','DJtuan',$_REQUEST);
 		$this->assign("page",$chanpin_list['page']);
+		$ViewBaozhang = D("ViewBaozhang");
+		$i = 0;
+		foreach($chanpin_list['chanpin'] as $v){
+			//报账单
+			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+			$chanpin_list['chanpin'][$i]['baozhang'] = $bzd;
+			$i++;
+		}
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('Dijie:index');
     }
