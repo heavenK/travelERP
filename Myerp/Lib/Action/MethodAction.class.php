@@ -117,7 +117,7 @@ class MethodAction extends CommonAction{
 			if($where['bzd_status'] == '已报账')
 				$where['status_baozhang'] = array('eq','批准');
 			if($where['start_time'] && $where['end_time']){
-				$where['chutuanriqi'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+				$where['chutuanriqi'] = array('between',"".$where['start_time'].",".$where['end_time']."");
 			}
 			elseif($where['start_time']){
 				$where['chutuanriqi'] = $where['start_time'];
@@ -136,7 +136,7 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			//处理搜索
 			if($where['start_time'] && $where['end_time']){
-				$where['jietuantime'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+				$where['jietuantime'] = array('between',"".$where['start_time'].",".$where['end_time']."");
 			}
 			elseif($where['start_time']){
 				$where['jietuantime'] = $where['start_time'];
@@ -197,6 +197,9 @@ class MethodAction extends CommonAction{
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
+		
+			dump($where);
+		
 		if($ajaxdiv)
         import("@.ORG.OldPage");
 		else
@@ -256,7 +259,7 @@ class MethodAction extends CommonAction{
 		if($class_name == 'ViewZituan'){
 			//处理搜索
 			if($where['start_time'] && $where['end_time'])
-				$where['chutuanriqi'] = array('between',"'".$where['start_time'].",".$where['end_time']."'");
+				$where['chutuanriqi'] = array('between',"".$where['start_time'].",".$where['end_time']."");
 			elseif($where['start_time'])
 				$where['chutuanriqi'] = $where['start_time'];
 			elseif($where['end_time'])
