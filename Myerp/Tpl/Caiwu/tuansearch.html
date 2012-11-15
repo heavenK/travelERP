@@ -40,7 +40,9 @@
       
       <tr height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><{$i+1}></td>
-        <td scope="row" align="left" valign="top"><{$v['tuan']['tuanhao']}></td>
+        <td scope="row" align="left" valign="top">
+        <PHP>if($v['tuanhao_1']) echo $v['tuanhao_1']; else echo $v['tuanhao_2'];</PHP>
+        </td>
         <td scope="row" align="left" valign="top">
         
         <PHP>if($v['marktype'] == 'zituan'){</PHP>
@@ -49,7 +51,7 @@
         <a target="_blank" href="<{:SITE_INDEX}>Dijie/djtuanbaozhang/type/团队报账单/chanpinID/<{$v['chanpinID']}>">
         <PHP>}</PHP>
         <a target="_blank" href="<{:SITE_INDEX}>Caiwu/tuanbaozhang/type/团队报账单/chanpinID/<{$v['chanpinID']}>">
-        <PHP>if($v['marktype'] == 'zituan') echo $v['tuan']['title_copy']; else echo $v['tuan']['title'];</PHP>
+        <PHP>if($v['title_1']) echo $v['title_1']; else echo $v['title_2'];</PHP>
         </a></td>
         <td scope="row" align="left" valign="top">
         <PHP>if($v['marktype'] == 'zituan') echo $v['tuan']['chutuanriqi']; else echo $v['tuan']['jietuantime'];</PHP>

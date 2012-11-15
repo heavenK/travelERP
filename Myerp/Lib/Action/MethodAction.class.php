@@ -215,6 +215,25 @@ class MethodAction extends CommonAction{
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
+		//关键字高亮
+		$i = 0;
+		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
+			  foreach($redata['chanpin'] as $v){
+				  if($_REQUEST['title']){
+					  $str = '<strong style="color:red">'.$_REQUEST['title'].'</strong>';
+					  if($datatype == '子团')
+						  $v['title_copy'] = str_ireplace($_REQUEST['title'],$str,$v['title_copy']);
+					  else
+						  $v['title'] = str_ireplace($_REQUEST['title'],$str,$v['title']);
+				  }
+				  if($_REQUEST['tuanhao']){
+					  $str = '<strong style="color:red">'.$_REQUEST['tuanhao'].'</strong>';
+					  $v['tuanhao'] = str_ireplace($_REQUEST['tuanhao'],$str,$v['tuanhao']);
+				  }
+				  $redata['chanpin'][$i] = $v;
+				  $i++;
+			  }
+		}
 		return $redata;
 	}
 
@@ -285,6 +304,24 @@ class MethodAction extends CommonAction{
         $chanpin = $ViewClass->where($where)->order($order)->limit($p->firstRow.','.$p->listRows)->select();
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
+		//关键字高亮
+		$i = 0;
+		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
+			  foreach($redata['chanpin'] as $v){
+				  if($_REQUEST['title']){
+					  $str = '<strong style="color:red">'.$_REQUEST['title'].'</strong>';
+					  $v['title_1'] = str_ireplace($_REQUEST['title'],$str,$v['title_1']);
+					  $v['title_2'] = str_ireplace($_REQUEST['title'],$str,$v['title_2']);
+				  }
+				  if($_REQUEST['tuanhao']){
+					  $str = '<strong style="color:red">'.$_REQUEST['tuanhao'].'</strong>';
+					  $v['tuanhao_1'] = str_ireplace($_REQUEST['tuanhao'],$str,$v['tuanhao_1']);
+					  $v['tuanhao_2'] = str_ireplace($_REQUEST['tuanhao'],$str,$v['tuanhao_2']);
+				  }
+				  $redata['chanpin'][$i] = $v;
+				  $i++;
+			  }
+		}
 		return $redata;
 	}
 	
