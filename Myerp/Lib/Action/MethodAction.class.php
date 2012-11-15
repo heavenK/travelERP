@@ -197,9 +197,6 @@ class MethodAction extends CommonAction{
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
-		
-			dump($where);
-		
 		if($ajaxdiv)
         import("@.ORG.OldPage");
 		else
