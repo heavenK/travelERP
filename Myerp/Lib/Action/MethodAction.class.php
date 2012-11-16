@@ -3556,6 +3556,17 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
 				}
 			}
+			if($type == '地接'){
+				$data['chanpinID'] = $v;
+				if($chanp['status'] == '报名')
+					$data['status'] = '截止';
+				if($chanp['status'] == '截止')
+					$data['status'] = '报名';
+				if(false === $Chanpin->mycreate($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+				}
+			}
 			
 		}
 		$Chanpin->commit();

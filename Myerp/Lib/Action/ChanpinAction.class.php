@@ -999,6 +999,9 @@ class ChanpinAction extends CommonAction{
 	
 	
     public function jiezhiorbaoming() {
+		if($_REQUEST['datatype'])
+		A('Method')->_jiezhiorbaoming($_REQUEST['datatype']);
+		else
 		A('Method')->_jiezhiorbaoming('线路');
 	}
 	
