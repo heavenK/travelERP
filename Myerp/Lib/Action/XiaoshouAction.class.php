@@ -116,8 +116,12 @@ class XiaoshouAction extends Action{
 		//报名截止
 //		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
 //		$this->assign("baoming_root",1);
-		if($zituan['status_baozhang'] != '批准')
+		if($zituan['status_baozhang'] != '批准'){
+			if($_REQUEST['shoujiaID'] && $zituan['status'] == '截止')
+			;
+			else	
 			$this->assign("baoming_root",1);
+		}
 		//行程一
 		$datatext = simple_unserialize($xianlu['xianlu']['datatext']);
 		$xingcheng_1 = $datatext['xingcheng'];
