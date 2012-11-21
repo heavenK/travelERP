@@ -693,7 +693,7 @@ class SetSystemAction extends CommonAction{
 			foreach($bzditemall as $bzditem){
 				$bzditem['user_name'] = $cp['user_name'];
 				$bzditem['departmentID'] = $cp['departmentID'];
-				$Chanpin->mycreate($bzditem);
+				//$Chanpin->mycreate($bzditem);
 				A('Method')->_OMRcreate($bzditem['chanpinID'],'报账项',$username,$dataOMlist);
 			}
 		
