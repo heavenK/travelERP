@@ -628,18 +628,20 @@ class SetSystemAction extends CommonAction{
 		$bumen = $ViewDepartment->where("`title` = '$bumentitle'")->find();	
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if($username)
+			$cp['user_name'] = $username;
+		if($bumen)
+			$cp['departmentID'] = $bumen['systemID'];
 		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan' || $cp['marktype'] == 'xianlu'){
 			//产品转移
 			if($cp['marktype'] == 'xianlu'){
-				if($username)
-					$cp['user_name'] = $username;
-				if($bumen)
-					$cp['departmentID'] = $bumen['systemID'];
 				$Chanpin->mycreate($cp);
 				$datatype = '线路';
 				A('Method')->_OMRcreate($chanpinID,$datatype,$username);
 				$tuanall = $Chanpin->where("`parentID` = '$chanpinID'")->findall();
 				foreach($tuanall as $tuan){
+					$tuan['user_name'] = $cp['user_name'];
+					$tuan['departmentID'] = $cp['departmentID'];
 					$this->_tuanchanpinpingyi($tuan,$tuan['chanpinID'],$username);
 				}
 			}
@@ -660,10 +662,6 @@ class SetSystemAction extends CommonAction{
 
 	public function _tuanchanpinpingyi($cp,$chanpinID,$username){
 			$Chanpin = D("Chanpin");
-			if($username)
-				$cp['user_name'] = $username;
-			if($bumen)
-				$cp['departmentID'] = $bumen['systemID'];
 			$Chanpin->mycreate($cp);
 			//删除OM并重新生成
 			if($cp['marktype'] == 'zituan'){
