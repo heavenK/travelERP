@@ -681,6 +681,8 @@ class SetSystemAction extends CommonAction{
 			$bzdall = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'baozhang'")->findall();
 			$dataOMlist = A('Method')->_getDataOM($chanpinID,$datatype);
 			foreach($bzdall as $bzd){
+				if(!$bzd['parentID'])
+				continue;
 				$bzd['user_name'] = $cp['user_name'];
 				$bzd['departmentID'] = $cp['departmentID'];
 				$Chanpin->mycreate($bzd);
