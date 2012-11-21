@@ -3666,15 +3666,9 @@ class MethodAction extends CommonAction{
 				$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$user_name);
 			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 		}
-		if($datatype == '报账单'){
+		if($datatype == '报账单' || $datatype == '报账项'){
 				if($dataOMlist)
 					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
-				else{
-					$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name);
-					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
-					$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$user_name);
-					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
-				}
 		}
 	}
 	
