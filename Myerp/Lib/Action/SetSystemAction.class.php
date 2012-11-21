@@ -687,7 +687,7 @@ class SetSystemAction extends CommonAction{
 				A('Method')->_OMRcreate($bzd['chanpinID'],'报账单',$username,$dataOMlist);
 				
 				//报账项目转移
-				$bzditemall = $Chanpin->where("`parentID` = '$bzd[chanpinID]'")->findall();
+				$bzditemall = $Chanpin->where("`parentID` = '$bzd[chanpinID]' and `marktype` = 'baozhangitem'")->findall();
 				foreach($bzditemall as $bzditem){
 					$bzditem['user_name'] = $cp['user_name'];
 					$bzditem['departmentID'] = $cp['departmentID'];
