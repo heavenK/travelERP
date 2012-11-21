@@ -15,6 +15,14 @@ class SetSystemAction extends CommonAction{
 	public function index(){
 		$type = $_REQUEST['type'];
 		A("Method")->showDirectory($type);
+		
+		$ViewUser = D("ViewUser");
+		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$this->assign("userlist",$userlist);
+			
+		$datas = A('Method')->_getDepartmentList();
+		$this->assign("bumenlist",$datas);
+		
 		$this->display('index');
 	}
 	
@@ -611,8 +619,85 @@ class SetSystemAction extends CommonAction{
 	}
 	
 
+	public function dopost_chanpinpingyi(){
+		C('TOKEN_ON',false);
+		$chanpinID = $_REQUEST['chanpinID'];
+		$username = $_REQUEST['username'];
+		$bumentitle = $_REQUEST['bumentitle'];
+		$ViewDepartment = D("ViewDepartment");
+		$bumen = $ViewDepartment->where("`title` = '$bumentitle'")->find();	
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan' || $cp['marktype'] == 'xianlu'){
+			//产品转移
+			if($cp['marktype'] == 'xianlu'){
+				if($username)
+					$cp['user_name'] = $username;
+				if($bumen)
+					$cp['departmentID'] = $bumen['systemID'];
+				$Chanpin->mycreate($cp);
+				$datatype = '线路';
+				A('Method')->_OMRcreate($chanpinID,$datatype,$username);
+				$tuanall = $Chanpin->where("`parentID` = '$chanpinID'")->findall();
+				foreach($tuanall as $tuan){
+					$this->_tuanchanpinpingyi($tuan,$tuan['chanpinID'],$username);
+				}
+			}
+			else
+				$this->_tuanchanpinpingyi($cp,$chanpinID,$username);
+		}
+		if($cp['marktype'] == 'baohang'){
+			$baozhang = $Chanpin->relationGet("baozhang");
+			if($baozhang['type'] == '团队报账单')
+				$this->ajaxReturn('', '团队报账单不允许转移！', 0);
+		}
+		
+		$this->ajaxReturn('', '成功！', 1);
+		
+		
+	}
 
 
-
+	public function _tuanchanpinpingyi($cp,$chanpinID,$username){
+			$Chanpin = D("Chanpin");
+			if($username)
+				$cp['user_name'] = $username;
+			if($bumen)
+				$cp['departmentID'] = $bumen['systemID'];
+			$Chanpin->mycreate($cp);
+			//删除OM并重新生成
+			if($cp['marktype'] == 'zituan'){
+				$datatype = '子团';
+				//订单OM添加
+				$dingdanall = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'dingdan'")->findall();
+				foreach($dingdanall as $dingdan){
+					//开放给自己部门
+					$dataOMlist = A("Method")->_getmyOMlist($username);
+					A("Method")->_createDataOM($dingdan['chanpinID'],'订单','管理',$dataOMlist);
+				}
+			}
+			if($cp['marktype'] == 'DJtuan')
+			$datatype = '地接';
+			A('Method')->_OMRcreate($chanpinID,$datatype,$username);
+			//报账单转移
+			$bzdall = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'baozhang'")->findall();
+			$dataOMlist = A('Method')->_getDataOM($chanpinID,$datatype);
+			foreach($bzdall as $bzd){
+				$bzd['user_name'] = $cp['user_name'];
+				$bzd['departmentID'] = $cp['departmentID'];
+				$Chanpin->mycreate($bzd);
+				A('Method')->_OMRcreate($bzd['chanpinID'],'报账单',$username,$dataOMlist);
+			}
+			//报账项目转移
+			$bzditemall = $Chanpin->where("`parentID` = '$bzd[chanpinID]'")->findall();
+			foreach($bzditemall as $bzditem){
+				$bzditem['user_name'] = $cp['user_name'];
+				$bzditem['departmentID'] = $cp['departmentID'];
+				$Chanpin->mycreate($bzditem);
+				A('Method')->_OMRcreate($bzditem['chanpinID'],'报账项',$username,$dataOMlist);
+			}
+		
+	}
+	
 }
 ?>

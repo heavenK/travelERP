@@ -104,11 +104,13 @@
       <php>}</php>
       </tbody>
     </table>
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
     <table class="other view">
       <tbody>
         <tr>
-          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="<{:SITE_INDEX}>SetSystem/">产品平移</a></td>
-          <td width="30%">把一些部门归为一类，对某类部门进行统一操作</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="pingyi_create">产品平移</a></td>
+          <td width="30%">产品平移</td>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="<{:SITE_INDEX}>SetSystem/">部门数据平移</a></td>
           <td width="30%">部门数据平移</td>
         </tr>
@@ -118,3 +120,91 @@
   </div>
 </div>
 <tp:includeCA file="Index:footer" />
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+<script>
+jQuery(document).ready(function(){
+	// Dialog
+	jQuery('#dialog_pingyi').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_pingyi','resultdiv_2')){
+						ThinkAjax.sendForm('form_pingyi',SITE_INDEX+'SetSystem/dopost_chanpinpingyi','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#pingyi_create').click(function(){
+		jQuery('#dialog_pingyi').dialog('open');
+		return false;
+	});
+});
+
+var user = [
+	 <php>foreach($userlist as $v){</php>
+		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+var bumen = [
+	 <php>foreach($bumenlist as $v){</php>
+		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+
+jQuery().ready(function() {
+	  myautocomplete("#username_pingyi",'用户');
+	  myautocomplete("#bumentitle_pingyi",'部门');
+});
+		
+ function myautocomplete(target,parenttype){
+		if(parenttype == '用户')
+		datas = user;
+		if(parenttype == '部门')
+		datas = bumen;
+		jQuery(target).unautocomplete().autocomplete(datas, {
+		   max: 50,    //列表里的条目数
+		   minChars: 0,    //自动完成激活之前填入的最小字符
+		   width: 150,     //提示的宽度，溢出隐藏
+		   scroll:false,
+		   matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+		   autoFill: true,    //自动填充
+		   formatItem: function(data, i, num) {//多选显示
+			   return data.title;
+		   },
+		   formatMatch: function(data, i, num) {//匹配格式
+			   return data.title;
+		   },
+		   formatResult: function(data) {//选定显示
+			   return data.title;
+		   }
+		})
+}
+</script>
+
+
+<div id="dialog_pingyi" title="产品平移" style="background:#FFF">
+<form id="form_pingyi" id="form_pingyi" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_pingyi" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 用户名: </td>
+          <td valign="top" scope="row"><input name="username" type="text" id="username_pingyi" check="^\S+$" warning="用户名不能为空,且不能含有空格"></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 部门名: </td>
+          <td valign="top" scope="row" colspan="3"><input name="bumentitle" type="text" id="bumentitle_pingyi" check="^\S+$" warning="部门名不能为空,且不能含有空格"></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>

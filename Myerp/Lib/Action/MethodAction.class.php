@@ -3649,6 +3649,35 @@ class MethodAction extends CommonAction{
 		}
 	}
 	
+	//删除OM并重新生成
+	function _OMRcreate($dataID,$datatype,$user_name,$dataOMlist){
+		C('TOKEN_ON',false);
+		//修复开放om
+		$DataOM = D("DataOM");
+		$Chanpin = D("Chanpin");
+		$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
+		if($datatype == '线路' || $datatype == '子团'){
+				if(!$dataOMlist)
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name);
+			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+		}
+		if($datatype == '地接'){
+				if(!$dataOMlist)
+				$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$user_name);
+			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+		}
+		if($datatype == '报账单'){
+				if($dataOMlist)
+					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+				else{
+					$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name);
+					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$user_name);
+					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+				}
+		}
+	}
+	
 	
 	//获得部门用户列表
      public function _getBumenUserlist($bumenID,$bumentitle='') {
