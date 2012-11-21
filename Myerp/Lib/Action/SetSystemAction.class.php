@@ -685,16 +685,18 @@ class SetSystemAction extends CommonAction{
 				continue;
 				$bzd['user_name'] = $cp['user_name'];
 				$bzd['departmentID'] = $cp['departmentID'];
-				//$Chanpin->mycreate($bzd);
+				$Chanpin->mycreate($bzd);
 				A('Method')->_OMRcreate($bzd['chanpinID'],'报账单',$username,$dataOMlist);
-			}
-			//报账项目转移
-			$bzditemall = $Chanpin->where("`parentID` = '$bzd[chanpinID]'")->findall();
-			foreach($bzditemall as $bzditem){
-				$bzditem['user_name'] = $cp['user_name'];
-				$bzditem['departmentID'] = $cp['departmentID'];
-				//$Chanpin->mycreate($bzditem);
-				A('Method')->_OMRcreate($bzditem['chanpinID'],'报账项',$username,$dataOMlist);
+				
+				//报账项目转移
+				$bzditemall = $Chanpin->where("`parentID` = '$bzd[chanpinID]'")->findall();
+				foreach($bzditemall as $bzditem){
+					$bzditem['user_name'] = $cp['user_name'];
+					$bzditem['departmentID'] = $cp['departmentID'];
+					$Chanpin->mycreate($bzditem);
+					A('Method')->_OMRcreate($bzditem['chanpinID'],'报账项',$username,$dataOMlist);
+				}
+				
 			}
 		
 	}
