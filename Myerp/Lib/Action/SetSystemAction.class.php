@@ -685,7 +685,7 @@ class SetSystemAction extends CommonAction{
 				continue;
 				$bzd['user_name'] = $cp['user_name'];
 				$bzd['departmentID'] = $cp['departmentID'];
-				$Chanpin->mycreate($bzd);
+				//$Chanpin->mycreate($bzd);
 				A('Method')->_OMRcreate($bzd['chanpinID'],'报账单',$username,$dataOMlist);
 			}
 			//报账项目转移
