@@ -78,6 +78,7 @@
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input class="button" type="button" value=" 调价 " id="tiaojia_create">
                     <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -285,6 +286,28 @@ function jiezhiorbaoming()
 	jQuery.ajax({
 		type:	"POST",
 		url:	"<{:SITE_INDEX}>Chanpin/jiezhiorbaoming/datatype/子团",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+}
+function to_delete(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/deletechanpin",
 		data:	"checkboxitem="+checkboxitem,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);

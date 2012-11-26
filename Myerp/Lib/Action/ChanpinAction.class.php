@@ -1258,7 +1258,8 @@ class ChanpinAction extends CommonAction{
 		}
 	}
 	
-	
-
+    public function deletechanpin() {
+		A('Method')->_deletechanpin('子团');
+	}
 }
 ?>

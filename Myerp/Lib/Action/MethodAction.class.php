@@ -3421,8 +3421,11 @@ class MethodAction extends CommonAction{
 				$mark = 1;
 				continue;
 			}
-			if($type == '地接'){
-				$chanp = $ViewDJtuan->where("`chanpinID` = '$v'")->find();
+			if($type == '地接' || $type == '子团'){
+				if($type == '地接')
+					$chanp = $ViewDJtuan->where("`chanpinID` = '$v'")->find();
+				if($type == '子团'){
+					$chanp = $ViewZituan->where("`chanpinID` = '$v'")->find();
 				if($chanp['status_baozhang'] == '批准'){
 					$Chanpin->rollback();
 					$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
@@ -3443,6 +3446,7 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'错误！！！', 0);
 				}
 			}
+			
 			$Chanpin->commit();
 		}
 		$this->ajaxReturn($_REQUEST,'操作成功！', 1);
