@@ -23,7 +23,7 @@ class SetSystemAction extends CommonAction{
 		$datas = A('Method')->_getDepartmentList();
 		$this->assign("bumenlist",$datas);
 		
-		$this->display('index');
+		$this->display('SetSystem:index');
 	}
 	
 	public function category(){
@@ -31,7 +31,7 @@ class SetSystemAction extends CommonAction{
 		$ViewCategory = D("ViewCategory");
 		$datas = $ViewCategory->findall();
 		$this->assign("datalist",$datas);
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 	public function dopostCategory(){
@@ -52,7 +52,7 @@ class SetSystemAction extends CommonAction{
 		$this->assign("systemDClist",$datalist['systemDClist']);
 		$this->assign("category",$datalist);
 		$this->assign("datatitle",' : "'.$datalist['category']['title'].'"');
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 		
 	}
 	
@@ -104,11 +104,11 @@ class SetSystemAction extends CommonAction{
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("listdatas",$datas);
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		else{
 			A("Method")->showDirectory("数据开放与管理");
-			$this->display('OMindex');
+			$this->display('SetSystem:OMindex');
 		}
 		
 	}
@@ -121,7 +121,7 @@ class SetSystemAction extends CommonAction{
 		A('Method')->unitlist();
 		A("Method")->showDirectory("数据开放与管理");
 		$this->assign("datatitle",' > '.$_REQUEST['method'].' : "'.$_REQUEST['datatitle'].'"');
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 		
 	}
 	
@@ -165,7 +165,7 @@ class SetSystemAction extends CommonAction{
 		$users = A('Method')->data_list_noOM("ViewUser",$_REQUEST);
 		$this->assign("users",$users);
 		A("Method")->unitlist();
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 	
@@ -179,7 +179,7 @@ class SetSystemAction extends CommonAction{
 		A('Method')->unitlist();
 		$this->assign("DURlist",$DURlist);
 		$this->assign("datatitle",' : "'.$_REQUEST['datatitle'].'"');
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 	
@@ -270,7 +270,7 @@ class SetSystemAction extends CommonAction{
 		$dd = $ViewDirectory->relation("directory")->where("`systemID` = '$parentID'")->find();
 		if($dd)
 		$this->assign("datatitle",' : "'.$dd['title'].'"');
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 	//统一system内表数据增加
@@ -357,11 +357,11 @@ class SetSystemAction extends CommonAction{
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("datatitle",' : "'.$datatype.'"');
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		else{
 			A("Method")->showDirectory("审核流程");
-			$this->display('shenheIndex');
+			$this->display('SetSystem:shenheIndex');
 		}
 	}
 	
@@ -431,43 +431,43 @@ class SetSystemAction extends CommonAction{
 		if($where['type'] == '视频'){
 			A("Method")->showDirectory("视频");
 			if($_REQUEST['version'] == 'full')
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 			else{
 				$this->assign("datatitle",'视频选择');
-				$this->display('shipin');
+				$this->display('SetSystem:shipin');
 			}
 		}
 		elseif($where['type'] == '图片'){
 			A("Method")->showDirectory("图片");
 			if($_REQUEST['version'] == 'full')
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 			else{
 				if($_REQUEST['title']){
 					$tupianlist = split(',',$_REQUEST['title']);
 					$this->assign("tupianlist",$tupianlist);
 				}
 				$this->assign("datatitle",'图片选择');
-				$this->display('tupian');
+				$this->display('SetSystem:tupian');
 			}
 		}
 		elseif($where['type'] == '主题'){
 			A("Method")->showDirectory("主题");
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		elseif($where['type'] == '成本'){
 			A("Method")->showDirectory("成本");
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		elseif($where['type'] == '提成'){
 			A("Method")->showDirectory("提成");
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		elseif($where['type'] == 'FAQ'){
 			A("Method")->showDirectory("FAQ");
-			$this->display('templatelist');
+			$this->display('SetSystem:templatelist');
 		}
 		else
-			$this->display('DDindex');
+			$this->display('SetSystem:DDindex');
 	}
 	
 	
@@ -608,14 +608,14 @@ class SetSystemAction extends CommonAction{
 		A("Method")->showDirectory("部门设置");
 		$datas = A('Method')->_getDepartmentList();
 		$this->assign("datalist",$datas);
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 	public function roles(){
 		A("Method")->showDirectory("角色设置");
 		$datas = A('Method')->_getRolesList();
 		$this->assign("datalist",$datas);
-		$this->display('templatelist');
+		$this->display('SetSystem:templatelist');
 	}
 	
 
