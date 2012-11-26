@@ -3424,7 +3424,7 @@ class MethodAction extends CommonAction{
 			if($type == '地接' || $type == '子团'){
 				if($type == '地接')
 					$chanp = $ViewDJtuan->where("`chanpinID` = '$v'")->find();
-				if($type == '子团'){
+				if($type == '子团')
 					$chanp = $ViewZituan->where("`chanpinID` = '$v'")->find();
 				if($chanp['status_baozhang'] == '批准'){
 					$Chanpin->rollback();
