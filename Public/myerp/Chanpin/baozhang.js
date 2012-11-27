@@ -29,7 +29,7 @@
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
-    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "</tr>";
 	jQuery("#"+divname).append(htmlcontent);
@@ -39,6 +39,8 @@
  {
 	scroll(0,0);
 	ThinkAjax.myloading('resultdiv');
+	act = jQuery("#btsave_"+id).attr("onclick"); 
+	jQuery("#btsave_"+id).attr("onclick","alert('正在执行请稍候...')"); 
 	var it = '';
 	if(!mark){
 		it ="&chanpinID="+id;
@@ -57,6 +59,7 @@
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&parentID="+parentID+it,
 		success:function(msg){
 			scroll(0,0);
+			jQuery("#btsave_"+id).attr("onclick","alert("+act+")"); 
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
 		}
 	});
@@ -86,6 +89,7 @@
 		htmlcontent += "<option value=\"支票\">支票</option>";
 		htmlcontent += "<option value=\"签单\">签单</option>";
 		htmlcontent += "<option value=\"对冲\">对冲</option>";
+		htmlcontent += "<option value=\"月结\">月结</option>";
 		htmlcontent += "</select>";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
@@ -95,9 +99,9 @@
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+data['chanpinID']+",'"+divname+"',);\" />";
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
-		if(data['type'] != '利润')
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"申请审核\" onclick=\"doshenhe_baozhangitem('申请','报账项',"+data['chanpinID']+",'"+data['title']+"');\"/>";
+		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+//		if(data['type'] != '利润')
+//		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btshenhe_"+data['chanpinID']+"\" value=\"申请审核\" onclick=\"doshenhe_baozhangitem('申请','报账项',"+data['chanpinID']+",'"+data['title']+"');\"/>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"checkbox\" onclick=\"javascript:dosetprint(this,"+data['chanpinID']+")\"/></td>";
 		htmlcontent += "</tr>";
 		jQuery("#"+divname+id).replaceWith(htmlcontent);
