@@ -622,7 +622,7 @@ class XiaoshouAction extends Action{
 				  $tuanyuanall = $DataCD->where("`dingdanID` = '$dingdan[chanpinID]'")->findall();
 				  $data['dingdan']['chengrenshu'] = 0;
 				  $data['dingdan']['ertongshu'] = 0;
-				  $data['dingdan']['lingui_num'] = 0;
+				  $data['dingdan']['lindui_num'] = 0;
 				  $data['dingdan']['jiage'] = 0;
 				  foreach($tuanyuanall as $v){
 					  if($v['manorchild'] == '成人')
@@ -630,7 +630,7 @@ class XiaoshouAction extends Action{
 					  if($v['manorchild'] == '儿童')
 					  $data['dingdan']['ertongshu'] += 1;
 					  if($v['is_leader'] == '领队')
-					  $data['dingdan']['lingui_num'] += 1;
+					  $data['dingdan']['lindui_num'] += 1;
 					  $data['dingdan']['jiage'] += $v['jiage'];
 				  }
 				  $data['chanpinID'] = $dingdan['chanpinID'];

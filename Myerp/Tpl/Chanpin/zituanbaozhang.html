@@ -71,7 +71,8 @@ function shenhehistory(chanpinID,obj){
 	  jQuery('#shenhediv').hide();
 	  return ;
    }
-    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+//    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+    getshenhemessage("index.php?s=/Message/get_BZDshenhemessage/chanpinID/"+chanpinID);
 	objleft = getPosLeft(obj) - 370;
 	objtop = getPosTop(obj) + 20;
 	jQuery('#shenhediv').css({top:objtop , left:objleft });

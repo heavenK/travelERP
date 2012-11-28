@@ -270,13 +270,14 @@ class MessageAction extends Action{
 
 	public function getshenhemessage($pagenum = 10){
 		$where['chanpinID'] = $_REQUEST['chanpinID'];
-		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','message');
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','dataID');
 		$data = $chanpin_list['chanpin'];
 		$str = '
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
                 <tr>
                   <th height="24px" width="30px"><div> 序号 </div></th>
                   <th width="400px"><div> 内容 </div></th>
+                  <th height="24px" width="30px"><div> 时间 </div></th>
                 </tr>
 		';
 		$i = 0;
@@ -288,6 +289,53 @@ class MessageAction extends Action{
 			  <a style="text-decoration:none" href="javascript:void(0)">
 			  '.$v['message'].'
 			  </td>
+			  <td>'.date('Y/m/d',$v['time']).'</td>
+			</tr>
+			';
+		}
+		$str .= '
+			<tr class="evenListRowS1">
+			  <td align="right" colspan="3">
+			  '.$page.'
+			  </td>
+			</tr>
+            </table>
+		';
+		$this->ajaxReturn($str, '', 1);
+	}
+
+
+
+
+	public function get_BZDshenhemessage($pagenum = 10){
+		$chanpinID = $_REQUEST['chanpinID'];
+		$Chanpin = D("Chanpin");
+		$baozhang = $Chanpin->relation("baozhangitemlist")->where("`chanpinID` = '$chanpinID'")->find();
+		$list = $baozhang['chanpinID'];
+		foreach($baozhang['baozhangitemlist'] as $v){
+			$list .= ",".$v['chanpinID'];
+		}
+		$where['chanpinID'] = array('in',$list);
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','dataID');
+		$data = $chanpin_list['chanpin'];
+		$str = '
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+                <tr>
+                  <th height="24px" width="30px"><div> 序号 </div></th>
+                  <th width="400px"><div> 内容 </div></th>
+                  <th height="24px" width="30px"><div> 时间 </div></th>
+                </tr>
+		';
+		$i = 0;
+		foreach($data as $v){$i++;
+			$str .= '
+			<tr class="evenListRowS1">
+			  <td>'.$i.'</td>
+			  <td>
+			  <a style="text-decoration:none" href="javascript:void(0)">
+			  '.$v['message'].'
+			  </td>
+			  <td>'.date('Y/m/d',$v['time']).'</td>
 			</tr>
 			';
 		}
