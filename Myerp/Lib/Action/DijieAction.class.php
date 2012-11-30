@@ -15,7 +15,19 @@ class DijieAction extends CommonAction{
 			$zituan = $Chanpin->where("`chanpinID` = '$chanpinID' and `status` != '准备'")->find();
 			if($zituan)
 				$this->assign("show_chengtuan",true);
+			if($_REQUEST['type'] == '团队报账单'){
+				$tem_cp = $Chanpin->relation("tdbzdlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+				$tem_cp = $tem_cp['tdbzdlist'];
+			}
+			elseif($_REQUEST['baozhangID']){
+				$tem_cp = $Chanpin->where("`chanpinID` = '$_REQUEST[baozhangID]'")->find();
+			}
+			else	
+			$tem_cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+			$this->assign("tem_cp",$tem_cp);
 		}
+		
+		
 		$this->display('Dijie:header_chanpin');
 	}
 	
