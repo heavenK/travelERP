@@ -50,7 +50,7 @@
 		divname = '';
 	}
 	var title = jQuery("#title"+mark+id).val();
-	var value = parseInt(jQuery("#value"+mark+id).val());
+	var value = jQuery("#value"+mark+id).val();
 	var method = jQuery("#method"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
 	jQuery.ajax({
