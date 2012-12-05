@@ -318,18 +318,21 @@ class ChanpinAction extends CommonAction{
 	{
 		C('TOKEN_ON',false);
 		$chanpinID = $_REQUEST['chanpinID'];
-		$Chengben = D("Chengben");
-		$ViewChengben = D("ViewChengben");
-		$cb = $ViewChengben->where("`chanpinID` = '$chanpinID'")->find();
+		$Chanpin = D("Chanpin");
+//		$ViewChengben = D("ViewChengben");
+//		$cb = $ViewChengben->where("`chanpinID` = '$chanpinID'")->find();
+		$cb = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
 		$cb['status_system'] = -1;
 		//检查dataOM
 		$xianlu = A('Method')->_checkDataOM($cb['parentID'],'线路','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
-		if (false !== $Chengben->myCreate($cb))
+		if (false !== $Chanpin->save($cb)){
 			$this->ajaxReturn('', '删除成功！', 1);
+			
+		}
 		else
-			$this->ajaxReturn('', $Chengben->getError(), 0);
+			$this->ajaxReturn('', $Chanpin->getError(), 0);
 	}
 	
 	
