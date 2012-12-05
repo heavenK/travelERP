@@ -699,5 +699,28 @@ class SetSystemAction extends CommonAction{
 		
 	}
 	
+	//重置联合体线路om
+	public function resetOM(){
+		$Chanpin = D("Chanpin");
+		$ViewDepartment = D("ViewDepartment");
+		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
+		foreach($filterlist as $v){
+			$xianluall = $Chanpin->where("`departmentID` = '$v[systemID]' and `marktype` = 'xianlu'")->findall();
+			foreach($xianluall as $vol){
+				$cp = $Chanpin->where("`chanpinID` = '$vol[chanpinID]'")->find();
+				A("Method")->_OMRcreate($vol['chanpinID'],'线路',$cp['user_name']);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>

@@ -15,8 +15,11 @@ class CaiwuAction extends CommonAction{
 		$i = 0;
 		$ViewBaozhang = D("ViewBaozhang");
 		foreach($datalist['chanpin'] as $v){
+			
 			//项目信息
-			$datalist['chanpin'][$i]['datatext_copy'] = simple_unserialize($v['datatext_copy']);
+			$datalist['chanpin'][$i]['datatext_copy'] = $dat = simple_unserialize($v['datatext_copy']);
+			$bzd = $ViewBaozhang->where("`chanpinID` = '$dat[chanpinID]'")->find();
+			//$datalist['chanpin'][$i]['datatext_copy'] = $bzd;
 			if($_REQUEST['type'] == '收支项'){
 				//所属报账单信息
 				$bzdID = $datalist['chanpin'][$i]['datatext_copy']['parentID'];
