@@ -139,7 +139,7 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团','',$_REQUEST);
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团','',$_REQUEST['xianlu']['guojing']);
 				A("Method")->_createDataOM($_REQUEST['chanpinID'],'线路','管理',$dataOMlist);
 			}
 			//自动申请审核
@@ -1261,5 +1261,24 @@ class ChanpinAction extends CommonAction{
     public function deletechanpin() {
 		A('Method')->_deletechanpin('子团');
 	}
+	
+	
+	
+    public function resetOM() {
+		if(false !== A('Method')->_resetOM())
+		$this->ajaxReturn('', '成功！', 1);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>

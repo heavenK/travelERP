@@ -1981,7 +1981,7 @@ class MethodAction extends CommonAction{
 	
 	
 	//获得DUR,应用OM
-     public function _setDataOMlist($role,$type,$username='',$data='') {
+     public function _setDataOMlist($role,$type,$username='',$guojing='') {
 		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
 		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
@@ -1994,8 +1994,8 @@ class MethodAction extends CommonAction{
 				  $t++;
 			  }
 			  //判断数据类型
-			  if($data)
-		      $where = "`type` like '%组团%' AND `type` like '%".$data['xianlu']['guojing']."%'";
+			  if($guojing)
+		      $where = "`type` like '%组团%' AND `type` like '%".$guojing."%'";
 			  else
 		      $where['type'] = array('like','%组团%');
 			  $bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
@@ -3663,11 +3663,28 @@ class MethodAction extends CommonAction{
 		//修复开放om
 		$DataOM = D("DataOM");
 		$Chanpin = D("Chanpin");
+		$ViewXianlu = D("ViewXianlu");
 		$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
 		if($datatype == '线路' || $datatype == '子团'){
-				if(!$dataOMlist)
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name);
+			if(!$dataOMlist){
+				if($datatype == '线路'){
+					$xl = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
+					$guojing = $xl['guojing'];
+				}
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name,$guojing);
+			}
 			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+			if($datatype == '线路'){
+				$Chanpin = D("Chanpin");
+				$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
+				foreach($zituanall as $v){
+					A("Method")->_OMRcreate($v['chanpinID'],'子团',$user_name,$dataOMlist);
+					$bzdall = $Chanpin->where("`parentID` = '$v[chanpinID]' and `marktype` = 'baozhang'")->findall();
+					foreach($bzdall as $vol){
+						A("Method")->_OMRcreate($vol['chanpinID'],'报账单',$user_name,$dataOMlist);
+					}
+				}
+			}
 		}
 		if($datatype == '地接'){
 				if(!$dataOMlist)
@@ -3734,6 +3751,26 @@ class MethodAction extends CommonAction{
 		  $editdat['baozhang']['yingfu_copy'] = $zhichu;
 		  $Chanpin->relation("baozhang")->myRcreate($editdat);
 	 }
+	
+	
+	
+	//报账单同步报账项费用
+     public function _resetOM() {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+//		if(count($itemlist) > 1)
+//			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			$cp = $Chanpin->where("`chanpinID` = '$v'")->find();
+			$this->_OMRcreate($v,'线路',$cp['user_name']);
+		}
+		return true;
+		
+	 }
+	
+	
 	
 	
 	
