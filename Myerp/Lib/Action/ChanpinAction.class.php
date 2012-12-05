@@ -325,7 +325,7 @@ class ChanpinAction extends CommonAction{
 		$xianlu = A('Method')->_checkDataOM($cb['parentID'],'线路','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
-		if (false !== $Chengben->save($cb))
+		if (false !== $Chengben->myCreate($cb))
 			$this->ajaxReturn('', '删除成功！', 1);
 		else
 			$this->ajaxReturn('', $Chengben->getError(), 0);
