@@ -316,6 +316,7 @@ class ChanpinAction extends CommonAction{
 	
 	public function deletechengben()
 	{
+		C('TOKEN_ON',false);
 		$chanpinID = $_REQUEST['chanpinID'];
 		$Chengben = D("Chengben");
 		$ViewChengben = D("ViewChengben");
