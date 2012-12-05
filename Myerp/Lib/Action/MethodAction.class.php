@@ -3410,8 +3410,8 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$itemlist = $_REQUEST['checkboxitem'];
 		$itemlist = explode(',',$itemlist);
-//		if(count($itemlist) > 1)
-//			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行复制！！', 0);
+		if(count($itemlist) > 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行删除！！', 0);
 		$Chanpin = D("Chanpin");
 		$ViewDJtuan = D("ViewDJtuan");
 		$ViewZituan = D("ViewZituan");
