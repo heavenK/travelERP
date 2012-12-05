@@ -1981,7 +1981,7 @@ class MethodAction extends CommonAction{
 	
 	
 	//获得DUR,应用OM
-     public function _setDataOMlist($role,$type,$username='') {
+     public function _setDataOMlist($role,$type,$username='',$data='') {
 		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
 		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
@@ -1993,6 +1993,10 @@ class MethodAction extends CommonAction{
 				  $filterlist_2[$t] = $v['systemID'];
 				  $t++;
 			  }
+			  //判断数据类型
+			  if($data)
+		      $where = "`type` like '%组团%' AND `type` like '%".$data['xianlu']['guojing']."%'";
+			  else
 		      $where['type'] = array('like','%组团%');
 			  $bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
 			  $ViewRoles = D("ViewRoles");

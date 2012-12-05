@@ -804,7 +804,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <tr height="20">
           <th scope="col" nowrap="nowrap"> 序号</th>
           <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 职能类型 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 职能类型及属性 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
@@ -852,7 +852,18 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">行政</label>
         <php>}else{</php>
         <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>"/>行政
+        
+        <php>}if(in_array('国内',$typearray)){</php>
+        <input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">国内</label>
+        <php>}else{</php>
+        <input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>"/>国内
+        
+        <php>}if(in_array('境外',$typearray)){</php>
+        <input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">境外</label>
+        <php>}else{</php>
+        <input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>"/>境外
         <php>}</php>
+        
         </td>
         <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<{$v['systemID']}>" style="width:80px" value="<{$v['lianxiren']}>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="officetel<{$v['systemID']}>" style="width:80px" value="<{$v['officetel']}>"></td>
@@ -1039,23 +1050,6 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         </td>
       </tr>
       <php>}}</php>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
         </tbody>
     </table>
