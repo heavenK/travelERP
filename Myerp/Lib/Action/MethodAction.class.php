@@ -2532,6 +2532,19 @@ class MethodAction extends CommonAction{
 				}
 				//报账单同步报账项费用
 				$this->_updatebaozhangdata($item['parentID']);
+				//同步报账单待检出任务
+				$ViewTaskShenhe = D("ViewTaskShenhe");
+				$TaskShenhe = D("TaskShenhe");
+				$wherelimit['status'] = '待检出';
+				$wherelimit['status_system'] = 1;
+				$wherelimit['datatype'] = '报账单';
+				$wherelimit['dataID'] = $item['parentID'];
+				$djctsk = $ViewTaskShenhe->where($wherelimit)->find();
+				$djcdata['systemID'] = $djctsk['systemID'];
+				$ViewBaozhang = D("ViewBaozhang");
+				$baozhang = $ViewBaozhang->where("`chanpinID` = '$item[parentID]' AND `status_system` = '1'")->find();
+				$djcdata['datatext_copy'] = serialize($baozhang);
+				$TaskShenhe->save($djcdata);
 			}
 			if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
