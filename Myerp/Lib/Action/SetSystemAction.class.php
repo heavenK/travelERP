@@ -712,9 +712,11 @@ class SetSystemAction extends CommonAction{
 		$num_2 = ($_REQUEST['page_2']-1)*100;
 		$Chanpin = D("Chanpin");
 		$ViewDepartment = D("ViewDepartment");
+		$countnum = count($ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall());
+		dump($countnum);
 		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->find();
 		dump($filterlist);
-		if(!$filterlist){
+		if($num == $countnum){
 			exit;
 		}
 		else{
