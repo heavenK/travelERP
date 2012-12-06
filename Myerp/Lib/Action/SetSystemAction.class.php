@@ -716,11 +716,12 @@ class SetSystemAction extends CommonAction{
 		dump($countnum);
 		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->find();
 		dump($filterlist);
-		if($num == $countnum){
+		if($num > $countnum){
 			exit;
 		}
 		else{
 			$xianluall = $Chanpin->where("`departmentID` = '$filterlist[systemID]' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
+			dump($xianluall);
 			if($xianluall == null){
 				$url = SITE_INDEX."SetSystem/resetOM/page/".($_REQUEST['page']+1)."/page_2/1";
 			}
