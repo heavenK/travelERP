@@ -185,15 +185,10 @@ jQuery().ready(function() {
 		   }
 		})
 }
+
 function resetOM(){
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>SetSystem/resetOM",
-		data:	"",
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
-		}
-	});
+	var url = SITE_INDEX+'SetSystem/resetOM/page/1/page_2/1';
+    window.open(url,'_blank');
 }
 
 </script>

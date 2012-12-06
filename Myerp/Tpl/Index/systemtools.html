@@ -1,0 +1,10 @@
+<include file="Index:simple_header" />
+<div id="main">
+<script>
+<php>if($url){</php>
+timer=setTimeout('Redirect("<{$url}>")', 3000); //跳转
+function Redirect(url){ 
+window.location = url; 
+} 
+<php>}</php>
+</script>

@@ -701,16 +701,37 @@ class SetSystemAction extends CommonAction{
 	
 	//重置联合体线路om
 	public function resetOM(){
+		C('TOKEN_ON',false);
+		echo "重置联合体线路om<br>";
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*1;
+		$num_2 = ($_REQUEST['page_2']-1)*100;
 		$Chanpin = D("Chanpin");
 		$ViewDepartment = D("ViewDepartment");
-		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
-		foreach($filterlist as $v){
-			$xianluall = $Chanpin->where("`departmentID` = '$v[systemID]' and `marktype` = 'xianlu'")->findall();
+		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->find();
+		dump($filterlist);
+		if(!$filterlist){
+			exit;
+		}
+		else{
+			$xianluall = $Chanpin->where("`departmentID` = '$filterlist[systemID]' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
+			if($xianluall == null){
+				$url = SITE_INDEX."SetSystem/resetOM/page/".($_REQUEST['page']+1)."/page_2/1";
+			}
+			else
+				$url = SITE_INDEX."SetSystem/resetOM/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
 			foreach($xianluall as $vol){
 				$cp = $Chanpin->where("`chanpinID` = '$vol[chanpinID]'")->find();
 				A("Method")->_OMRcreate($vol['chanpinID'],'线路',$cp['user_name']);
 			}
 		}
+		$this->assign("url",$url);
+		$this->display('Index:systemtools');
+		echo "结束";
 	}
 	
 	
