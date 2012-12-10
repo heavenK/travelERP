@@ -32,7 +32,15 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
 </script>
 
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Index/header.js'></script>
-
+<style>
+.font1{
+	color:#aaaaaa;
+}
+.font2
+{
+	color:black;
+}
+</style>
 </head>
 
 <body>
@@ -50,7 +58,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     </strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
   <div id="search" style="padding:18px 0 0 10px; border:none ">
       <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
-      <input type="text" id="query_string" size="20" >
+      <input type="text" id="query_string" value="请输入查询码" class="font1" onblur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onfocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
       &nbsp;
       <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
   </div>

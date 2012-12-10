@@ -3,23 +3,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>打印</title>
-<style media="print" type="text/css"> 
-.noprint{visibility:hidden} 
+<style media="print" type="text/css">
+.noprint {
+	visibility:hidden
+}
 </style>
 <style>
 * {
 	font-size:14px;
 	line-height:20px;
 }
-.big_box{ width:900px; margin:0 auto; overflow:hidden;}
-.table_item { border-right:1px solid #000; border-top:1px solid #000}
-.table_item tr td{ border-left:1px solid #000; border-bottom:1px solid #000}
+.big_box {
+	width:900px;
+	margin:0 auto;
+	overflow:hidden;
+}
+.table_item {
+	border-right:1px solid #000;
+	border-top:1px solid #000
+}
+.table_item tr td {
+	border-left:1px solid #000;
+	border-bottom:1px solid #000
+}
 </style>
 </head>
 <body>
-
 <div class="big_box">
-
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="noprint" style="background:#CCCCCC">
     <tbody>
       <tr>
@@ -27,157 +37,155 @@
       </tr>
     </tbody>
   </table>
-
-
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tbody>
       <tr>
         <td width="250" height="50" align="left" ><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_p.gif" border="0" height="37" width="223"></td>
-        <td align="center"><span style="border-bottom:#000000 1px solid; font-size:26px; font-weight:bold; font-family:'黑体';"><{$baozhang['type']}>结算报告<php>if($doprint == '计调打印'){</php>(计调打印)<php>}</php></span>&nbsp;</td>
-        <td valign="bottom" width="250" align="right"><span style=" font-size:12px; height:20px; overflow:hidden;">填送日期:
-          <php>echo date('Y年m月d日',$baozhang[time]);</php>
-          &nbsp;&nbsp;&nbsp;&nbsp;单位：元</span></td>
+        <td align="center"><span style="border-bottom:#000000 1px solid; font-size:26px; font-weight:bold; font-family:'黑体';"><{$baozhang['type']}>结算报告
+          <php>if($doprint == '计调打印'){</php>
+          (计调打印)
+          <php>}</php>
+          </span>&nbsp;</td>
+        <td valign="bottom" width="250" align="right"><table>
+            <tr>
+              <td><span style=" font-size:12px; height:20px; overflow:hidden;">查询码:<{$baozhang['chanpinID']}></span></td>
+            </tr>
+            <tr>
+              <td><span style=" font-size:12px; height:20px; overflow:hidden;">填送日期:
+                <php>echo date('Y年m月d日',$baozhang[time]);</php>
+                &nbsp;&nbsp;&nbsp;&nbsp;单位：元</span></td>
+            </tr>
+          </table></td>
       </tr>
     </tbody>
   </table>
-  
   <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item">
     <tbody>
+        <php>
+    if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'zituan'){
+      </php>
     
-    <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'zituan'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;团号：<{$zituan['tuanhao']}></td>
-        <td width="20%">&nbsp;接团单位：<{$baozhang['datatext']['jietuandanwei']}></td>
-        <td width="20%">&nbsp;部门：<{$zituan['bumen_copy']}></td>
-        <td width="10%">&nbsp;天数：<{$zituan['xianlulist']['tianshu']}></td>
-        <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
-      </tr>
-      <tr height="28px" >
-        <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
-        <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
-        <td width="20%">&nbsp;回团日期：<php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
-        <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
-        <td width="10%">&nbsp;全陪：<{$baozhang['datatext']['quanpei']}></td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;团号：<{$zituan['tuanhao']}></td>
+      <td width="20%">&nbsp;接团单位：<{$baozhang['datatext']['jietuandanwei']}></td>
+      <td width="20%">&nbsp;部门：<{$zituan['bumen_copy']}></td>
+      <td width="10%">&nbsp;天数：<{$zituan['xianlulist']['tianshu']}></td>
+      <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
+    </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
+      <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
+      <td width="20%">&nbsp;回团日期：
+        <php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
+      <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
+      <td width="10%">&nbsp;全陪：<{$baozhang['datatext']['quanpei']}></td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'DJtuan'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;团号：<{$djtuan['tuanhao']}></td>
-        <td width="20%">&nbsp;发团社：<{$djtuan['fromcompany']}></td>
-        <td width="20%">&nbsp;联系人：<{$djtuan['lianxiren']}></td>
-        <td width="15%">&nbsp;电话：<{$djtuan['lianxirentelnum']}></td>
-        <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
-      </tr>
-      <tr height="28px" >
-        <td>&nbsp;线路：<{$djtuan['title']}></td>
-        <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
-        <td>&nbsp;回团日期：<php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
-        <td>&nbsp;全陪：<{$djtuan['datatext_xingcheng']['quanpei']}></td>
-        <td>&nbsp;导游：<{$djtuan['daoyou']}></td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;团号：<{$djtuan['tuanhao']}></td>
+      <td width="20%">&nbsp;发团社：<{$djtuan['fromcompany']}></td>
+      <td width="20%">&nbsp;联系人：<{$djtuan['lianxiren']}></td>
+      <td width="15%">&nbsp;电话：<{$djtuan['lianxirentelnum']}></td>
+      <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
+    </tr>
+    <tr height="28px" >
+      <td>&nbsp;线路：<{$djtuan['title']}></td>
+      <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
+      <td>&nbsp;回团日期：
+        <php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
+      <td>&nbsp;全陪：<{$djtuan['datatext_xingcheng']['quanpei']}></td>
+      <td>&nbsp;导游：<{$djtuan['daoyou']}></td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '签证' || $baozhang['type'] == '办证'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
-        <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
-        <td width="25%">&nbsp;</td>
-        <td width="25%">&nbsp;</td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+      <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
+      <td width="25%">&nbsp;</td>
+      <td width="25%">&nbsp;</td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '机票' || $baozhang['type'] == '交通'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
-        <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
-        <td width="25%">&nbsp;航班号:<{$baozhang['datatext']['hangbanhao']}></td>
-        <td width="25%">&nbsp;</td>
-      </tr>
-      <tr height="28px" >
-        <td width="25%">&nbsp;始发地：<{$baozhang['datatext']['shifadi']}></td>
-        <td width="25%">&nbsp;目的地：<{$baozhang['datatext']['mudidi']}></td>
-        <td width="25%">&nbsp;起飞时间：<{$baozhang['datatext']['leavetime']}></td>
-        <td width="25%">&nbsp;抵达时间：<{$baozhang['datatext']['arrivetime']}></td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+      <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
+      <td width="25%">&nbsp;航班号:<{$baozhang['datatext']['hangbanhao']}></td>
+      <td width="25%">&nbsp;</td>
+    </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;始发地：<{$baozhang['datatext']['shifadi']}></td>
+      <td width="25%">&nbsp;目的地：<{$baozhang['datatext']['mudidi']}></td>
+      <td width="25%">&nbsp;起飞时间：<{$baozhang['datatext']['leavetime']}></td>
+      <td width="25%">&nbsp;抵达时间：<{$baozhang['datatext']['arrivetime']}></td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '订房'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
-        <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
-        <td width="25%">&nbsp;酒店名称:<{$baozhang['datatext']['hotel']}></td>
-        <td width="25%">&nbsp;联系电话:<{$baozhang['datatext']['hoteltelnum']}></td>
-      </tr>
-      <tr height="28px" >
-        <td width="25%">&nbsp;订房时间：<{$baozhang['datatext']['dingfangshijian']}></td>
-        <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuanshijian']}></td>
-        <td width="25%">&nbsp;</td>
-        <td width="25%">&nbsp;</td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+      <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
+      <td width="25%">&nbsp;酒店名称:<{$baozhang['datatext']['hotel']}></td>
+      <td width="25%">&nbsp;联系电话:<{$baozhang['datatext']['hoteltelnum']}></td>
+    </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;订房时间：<{$baozhang['datatext']['dingfangshijian']}></td>
+      <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuanshijian']}></td>
+      <td width="25%">&nbsp;</td>
+      <td width="25%">&nbsp;</td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '补账'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
-        <td width="25%">&nbsp;</td>
-        <td width="25%">&nbsp;</td>
-        <td width="25%">&nbsp;</td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+      <td width="25%">&nbsp;</td>
+      <td width="25%">&nbsp;</td>
+      <td width="25%">&nbsp;</td>
+    </tr>
     <php>}</php>
-      
     <php>if($baozhang['type'] == '导游' || $baozhang['type'] == '餐饮' || $baozhang['type'] == '门票'){</php>
-      <tr height="28px" >
-        <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
-        <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
-        <td width="25%">&nbsp;联系电话：<{$baozhang['datatext']['telnum']}></td>
-        <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuantime']}></td>
-      </tr>
+    <tr height="28px" >
+      <td width="25%">&nbsp;标题：<{$baozhang['title']}></td>
+      <td width="25%">&nbsp;人数：<{$baozhang['renshu']}></td>
+      <td width="25%">&nbsp;联系电话：<{$baozhang['datatext']['telnum']}></td>
+      <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuantime']}></td>
+    </tr>
     <php>}</php>
-      
-      <tr height="28px" >
-        <td colspan="6">&nbsp;备注说明：<{$baozhang['datatext']['remark']}></td>
-      </tr>
-    </tbody>
+    <tr height="28px" >
+      <td colspan="6">&nbsp;备注说明：<{$baozhang['datatext']['remark']}></td>
+    </tr>
+      </tbody>
+    
   </table>
-  
-  <php>
-  $markhigh = 28;
-  $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
-      $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
-      if($title > $remark)
-      $high_1[$i] = $title;
-      else
-      $high_1[$i] = $remark;
-      if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
-  }}
-  $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
-      $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
-      $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
-      if($title > $remark)
-      $high_2[$j] = $title;
-      else
-      $high_2[$j] = $remark;
-      if($high_2[$j] < $markhigh) $high_2[$j] = $markhigh;
-  }}
-  $max = $j;
-  if($i > $j)
-  $max = $i;
-  if($max < 8)
-  $max = 8;
-  $i_num = $max - $i;
-  $j_num = $max - $j;
-  
-  
-  </php>
-  
-  
+  <php> $markhigh = 28;
+    $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
+    $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
+    $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
+    if($title > $remark)
+    $high_1[$i] = $title;
+    else
+    $high_1[$i] = $remark;
+    if($high_1[$i] < $markhigh) $high_1[$i] = $markhigh;
+    }}
+    $tem = -1;$j = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$j++;
+    $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;
+    $remark =  iconv_strlen($v['remark'],"UTF-8") / 16 * $markhigh;
+    if($title > $remark)
+    $high_2[$j] = $title;
+    else
+    $high_2[$j] = $remark;
+    if($high_2[$j] < $markhigh) $high_2[$j] = $markhigh;
+    }}
+    $max = $j;
+    if($i > $j)
+    $max = $i;
+    if($max < 8)
+    $max = 8;
+    $i_num = $max - $i;
+    $j_num = $max - $j; </php>
   <table width="100%" align="center" cellpadding="0" cellspacing="0" style="margin-top:4px;">
     <tbody>
       <tr>
-        <td align="left" valign="top">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
+        <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
             <tr height="28px">
               <td align="center" colspan="5"><b style="font-size:18px;">应  收  款  项</b></td>
             </tr>
@@ -188,19 +196,17 @@
               <td width="50" align="center">方式</td>
               <td width="220" align="center">备注</td>
             </tr>
-            <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value'];
-          </php>
-          <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
+            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value']; </php>
+            <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
-              <td width="40"  align="center"> <{$i}> </td>
-              <td width="120" align="center"> <{$v['title']}> </td>
-              <td width="70" align="center"> <{$v['value']}> </td>
-              <td width="50" align="center"> <{$v['method']}> </td>
-              <td width="220" align="center"> <{$v['remark']}> </td>
+              <td width="40"  align="center"><{$i}> </td>
+              <td width="120" align="center"><{$v['title']}> </td>
+              <td width="70" align="center"><{$v['value']}> </td>
+              <td width="50" align="center"><{$v['method']}> </td>
+              <td width="220" align="center"><{$v['remark']}> </td>
             </tr>
-        <php>}}</php>
-        <php>for($t=1;$t<=$i_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
+            <php>}}</php>
+            <php>for($t=1;$t<=$i_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"></td>
               <td width="120" align="center"></td>
@@ -208,19 +214,17 @@
               <td width="50" align="center"></td>
               <td width="220" align="center"></td>
             </tr>
-        <php>}</php>
+            <php>}</php>
             <tr height="28px">
               <td width="40"  align="center"> 合计 </td>
               <td width="120" align="center"></td>
-              <td width="70" align="center"> <{$value_i}> </td>
+              <td width="70" align="center"><{$value_i}> </td>
               <td width="50" align="center"></td>
               <td width="220"  align="center"></td>
             </tr>
-          </table>
-        </td>
+          </table></td>
         <td align="left" valign="top" width="4px" style=" border-bottom:1px #000 solid; border-top:1px #000 solid"></td>
-        <td align="left" valign="top">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
+        <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
             <tr height="28px">
               <td align="center" colspan="5"><b style="font-size:18px;">应  付  款  项</b></td>
             </tr>
@@ -231,19 +235,17 @@
               <td width="50" align="center">方式</td>
               <td width="220"  align="center">备注</td>
             </tr>
-            <php>
-        $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value'];
-          </php>
-          <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
+            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value']; </php>
+            <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
-              <td width="40"  align="center"> <{$i}> </td>
-              <td width="120" align="center"> <{$v['title']}> </td>
-              <td width="70" align="center"> <{$v['value']}> </td>
-              <td width="50" align="center"> <{$v['method']}> </td>
-              <td width="220" align="center"> <{$v['remark']}> </td>
+              <td width="40"  align="center"><{$i}> </td>
+              <td width="120" align="center"><{$v['title']}> </td>
+              <td width="70" align="center"><{$v['value']}> </td>
+              <td width="50" align="center"><{$v['method']}> </td>
+              <td width="220" align="center"><{$v['remark']}> </td>
             </tr>
-        <php>}}</php>
-        <php>for($t=1;$t<=$j_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
+            <php>}}</php>
+            <php>for($t=1;$t<=$j_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"></td>
               <td width="120" align="center"></td>
@@ -251,89 +253,65 @@
               <td width="50" align="center"></td>
               <td width="220" align="center"></td>
             </tr>
-        <php>}</php>
+            <php>}</php>
             <tr height="28px">
               <td width="40"  align="center"> 合计 </td>
               <td width="120" align="center"></td>
-              <td width="70" align="center"> <{$value_j}> </td>
+              <td width="70" align="center"><{$value_j}> </td>
               <td width="50" align="center"></td>
               <td width="220"  align="center"></td>
             </tr>
-          </table>
-        </td>
+          </table></td>
       </tr>
     </tbody>
   </table>
-  
   <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item" style="margin-top:4px;">
     <tr >
-            <php>
-        foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;
+      <php> foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;
         if($v['type'] == '结算项目' && $v['is_print'] != '不打印' )
         if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') 
         $value_m += $v['value'];
         if($v['type'] == '支出项目' && $v['is_print'] != '不打印' )
         if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') 
         $value_m -= $v['value'];
-        }
-          </php>
-      <td align="left" height="28px" style="min-width:148px">
-      	<table  border="0" cellspacing="0" cellpadding="0" >
+        } </php>
+      <td align="left" height="28px" style="min-width:148px"><table  border="0" cellspacing="0" cellpadding="0" >
           <tr>
             <td width="80" align="center" style="border:none; border-right:#000 solid 1px">本团利润</td>
             <td  width="70" align="center" style="border:none; border-right:#000 solid 1px"><{$value_m}></td>
           </tr>
-        </table>
-      </td>
-            <php>
-        $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润' || $v['is_print'] == '不打印' ) continue;$newlinrun[$i] = $v;$i++;}
-          </php>
-			<php>
-        for($i=0;$i<5;$i++){
-          </php>
-      <td align="left" height="28px" style="min-width:148px; border-left:none">
-        <table  border="0" cellspacing="0" cellpadding="0" >
+        </table></td>
+      <php> $i = 0;foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润' || $v['is_print'] == '不打印' ) continue;$newlinrun[$i] = $v;$i++;} </php>
+      <php> for($i=0;$i<5;$i++){ </php>
+      <td align="left" height="28px" style="min-width:148px; border-left:none"><table  border="0" cellspacing="0" cellpadding="0" >
           <tr>
             <td width="80" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['title']}>&nbsp;</td>
             <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['value']}>&nbsp;</td>
           </tr>
-        </table>
-      </td>
-        <php>}</php>
-      <td align="left" height="28px" width="100%" style=" border-left:none">
-      </td>
-      
+        </table></td>
+      <php>}</php>
+      <td align="left" height="28px" width="100%" style=" border-left:none"></td>
     </tr>
-			<php>if(count($newlinrun)> 5){</php>
+    <php>if(count($newlinrun)> 5){</php>
     <tr >
-      <td align="left" height="28px" style="min-width:148px">
-      	<table  border="0" cellspacing="0" cellpadding="0" >
+      <td align="left" height="28px" style="min-width:148px"><table  border="0" cellspacing="0" cellpadding="0" >
           <tr>
             <td width="80" align="center" style="border:none; border-right:#000 solid 1px"></td>
             <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;</td>
           </tr>
-        </table>
-      </td>
-      <php>
-        for($i=5;$i < 10;$i++){
-          </php>
-      <td align="left" height="28px" style="min-width:148px; border-left:none">
-        <table  border="0" cellspacing="0" cellpadding="0" >
+        </table></td>
+      <php> for($i=5;$i < 10;$i++){ </php>
+      <td align="left" height="28px" style="min-width:148px; border-left:none"><table  border="0" cellspacing="0" cellpadding="0" >
           <tr>
             <td width="80" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['title']}>&nbsp;</td>
             <td  width="70" align="center" style="border:none; border-right:#000 solid 1px">&nbsp;<{$newlinrun[$i]['value']}>&nbsp;</td>
           </tr>
-        </table>
-      </td>
-        <php>}</php>
-      <td align="left" height="28px" width="100%" style=" border-left:none">
-      </td>
-      
+        </table></td>
+      <php>}</php>
+      <td align="left" height="28px" width="100%" style=" border-left:none"></td>
     </tr>
-        <php>}</php>
-    
+    <php>}</php>
   </table>
-  
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #000; margin-top:4px;">
     <tbody>
       <tr>
@@ -341,35 +319,29 @@
         <td width="20%" align="left"><strong>财务总监：</strong><{$task[3][user_name]}></td>
         <td width="20%" align="left"><strong>财务审核：</strong><{$task[2][user_name]}></td>
         <td width="20%" align="left"><strong>部门经理：</strong>
-        <php>if($doprint == '计调打印'){</php>
-        <PHP>if($task[1]['user_name']) echo $task[1][user_name]; else echo $baozhang['manager_copy'];</PHP>
-        <php>}else{</php>
-        <PHP>echo $task[1][user_name];}</PHP>
-        </td>
+          <php>if($doprint == '计调打印'){</php>
+          <PHP>if($task[1]['user_name']) echo $task[1][user_name]; else echo $baozhang['manager_copy'];</PHP>
+          <php>}else{</php>
+          <PHP>echo $task[1][user_name];}</PHP></td>
         <td width="20%" align="left"><strong>操作人：</strong>
-        <PHP>
-        //判断用户是否属于联合体部门
-        $istrue = A("Method")->_checkbumenshuxing('联合体,办事处','',$baozhang['user_name']);
-//        if($istrue)
-//            echo $baozhang['user_name'];
-
-        if($doprint == '计调打印'){
+          <PHP> //判断用户是否属于联合体部门
+            $istrue = A("Method")->_checkbumenshuxing('联合体,办事处','',$baozhang['user_name']);
+            //        if($istrue)
+            //            echo $baozhang['user_name'];
+            
+            if($doprint == '计调打印'){
             if($task[0]['user_name'])    
-                echo $task[0]['user_name'];
-            else{
-                if(!$istrue)
-                    echo $baozhang['user_name'];
-			}
-        }else{
             echo $task[0]['user_name'];
-		}
-        
-        </PHP>
-        </td>
+            else{
+            if(!$istrue)
+            echo $baozhang['user_name'];
+            }
+            }else{
+            echo $task[0]['user_name'];
+            } </PHP></td>
       </tr>
     </tbody>
   </table>
-  
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tbody>
       <tr>

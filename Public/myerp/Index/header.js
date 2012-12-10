@@ -172,8 +172,9 @@ function todo_logout(data,status){
 
 function headsearch()
 {
-	title = jQuery("#query_string").val();
-	window.location = SITE_INDEX+'Chanpin/index/title/'+title;
+	chanpinID = jQuery("#query_string").val();
+	url = SITE_INDEX+'Chanpin/chaxunma/chanpinID/'+chanpinID;
+    window.open(url,'_blank');
 }
 
 

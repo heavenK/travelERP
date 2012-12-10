@@ -1276,6 +1276,29 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
+    public function chaxunma() {
+		$chanpinID = $_REQUEST['chanpinID'];
+		$Chanpin = D("Chanpin");
+		$chanp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if(!$chanp)
+		echo "查询码对应的产品不存在！！！";
+		if($chanp['marktype'] == 'xianlu'){
+			redirect(SITE_INDEX."Chanpin/fabu/chanpinID/".$chanpinID);
+		}
+		if($chanp['marktype'] == 'zituan'){
+			redirect(SITE_INDEX."Chanpin/zituanxinxi/chanpinID/".$chanpinID);
+		}
+		if($chanp['marktype'] == 'Djtuan'){
+			redirect(SITE_INDEX."Dijie/fabu/chanpinID/".$chanpinID);
+		}
+		if($chanp['marktype'] == 'baozhang'){
+			$chanp_p = $Chanpin->where("`chanpinID` = '$chanp[parentID]'")->find();
+			if($chanp_p['marktype'] == 'zituan')
+			redirect(SITE_INDEX."Chanpin/zituanbaozhang/doprint/打印/baozhangID/".$chanpinID);
+			if($chanp_p['marktype'] == 'DJtuan')
+			redirect(SITE_INDEX."Dijie/zituanbaozhang/doprint/打印/baozhangID/".$chanpinID);
+		}
+    }
 	
 	
 	
