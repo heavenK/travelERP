@@ -3604,7 +3604,7 @@ class MethodAction extends CommonAction{
 	function check_baozhangitemstatus($chanpinID){
 		$ViewBaozhang = D("ViewBaozhang");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
-		$itemall = $ViewBaozhangitem->where("`parentID` = '$chanpinID' and `type` != '利润'")->findall();
+		$itemall = $ViewBaozhangitem->where("`parentID` = '$chanpinID' and `type` != '利润' and `status_system` = '1'")->findall();
 		foreach($itemall as $v){
 			if($v['status_shenhe'] != '批准'){
 				return true;
