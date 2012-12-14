@@ -1263,7 +1263,10 @@ class ChanpinAction extends CommonAction{
 	}
 	
     public function deletechanpin() {
-		A('Method')->_deletechanpin('子团');
+		$typevalue = $_REQUEST['typevalue'];
+		if(!$typevalue)
+			$typevalue = '子团';
+		A('Method')->_deletechanpin($typevalue);
 	}
 	
 	
