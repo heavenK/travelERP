@@ -3464,6 +3464,20 @@ class MethodAction extends CommonAction{
 				}
 			}
 			
+			if($type == '线路'){
+				$xianlu = $ViewXianlu->relation("zituanlist")->where("`chanpinID` = '$v'")->find();
+				foreach($xianlu['zituanlist'] as $zituan){
+					if($zituan['status_system'] == 1)
+							$this->ajaxReturn($_REQUEST,'请先删除该线路内所有子团后继续！！！', 0);
+				}
+				$data['chanpinID'] = $v;
+				$data['status_system'] = -1;
+				if(false === $Chanpin->save($data)){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'错误！！！', 0);
+				}
+			}
+			
 			$Chanpin->commit();
 		}
 		$this->ajaxReturn($_REQUEST,'操作成功！', 1);
