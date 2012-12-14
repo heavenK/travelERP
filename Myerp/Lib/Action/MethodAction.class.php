@@ -3465,6 +3465,7 @@ class MethodAction extends CommonAction{
 			}
 			
 			if($type == '线路'){
+				$ViewXianlu = D("ViewXianlu");
 				$xianlu = $ViewXianlu->relation("zituanlist")->where("`chanpinID` = '$v'")->find();
 				foreach($xianlu['zituanlist'] as $zituan){
 					if($zituan['status_system'] == 1)
