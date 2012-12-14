@@ -147,8 +147,8 @@ function deletetohsz()
 	}
 	jQuery.ajax({
 		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/deletechanpin/typevalue/线路",
-		data:	"checkboxitem="+checkboxitem,
+		url:	"<{:SITE_INDEX}>Chanpin/deletechanpin",
+		data:	"checkboxitem="+checkboxitem+"&typevalue=线路",
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
 		}
