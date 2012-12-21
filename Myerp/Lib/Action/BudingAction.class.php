@@ -491,7 +491,24 @@ class BudingAction extends Action{
 	
 	
 	
-	
+	//客户导出测试
+    public function customertest() {
+		$DataCD = D("DataCD");	
+		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
+		$i = 0;
+		foreach($cusall as $v){
+			if(strlen($v['telnum']) == 11)
+				$tellist[$i] = $v['telnum'];
+			$i++;
+		}
+		$this->assign("cusall",$tellist);
+		//导出Word必备头
+		header("Content-type:application/msword");
+		header("Content-Disposition:attachment;filename=" . '客户电话名单'.".txt");
+		header("Pragma:no-cache");        
+		header("Expires:0");  
+		$this->display('index:customerlist');
+	}
 	
 	
 	
