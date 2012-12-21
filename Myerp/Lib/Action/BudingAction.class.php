@@ -507,7 +507,7 @@ class BudingAction extends Action{
 		header("Content-Disposition:attachment;filename=" . '客户电话名单'.".txt");
 		header("Pragma:no-cache");        
 		header("Expires:0");  
-		$this->display('index:customerlist');
+		$this->display('Index:customerlist');
 	}
 	
 	
