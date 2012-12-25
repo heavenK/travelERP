@@ -117,9 +117,10 @@ class XiaoshouAction extends Action{
 //		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
 //		$this->assign("baoming_root",1);
 		if($zituan['status_baozhang'] != '批准'){
-			if($_REQUEST['shoujiaID'] && $zituan['status'] == '截止')
-			;
-			else	
+//			if($_REQUEST['shoujiaID'] && $zituan['status'] == '截止')
+//			;
+//			else
+			if($_REQUEST['shoujiaID'])
 			$this->assign("baoming_root",1);
 		}
 		//行程一
