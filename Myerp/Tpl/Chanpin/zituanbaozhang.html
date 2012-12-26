@@ -143,8 +143,8 @@ function shenhehistory(chanpinID,obj){
           <td valign="top" scope="row" style="min-width:100px;"><input name="lingdui_num" type="text" value="<php>echo trim($baozhang['datatext']['lingdui_num'])</php>"></td>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 领队名: </td>
           <td valign="top" scope="row" style="min-width:100px;"><input name="quanpei" type="text" value="<php>echo trim($baozhang['datatext']['quanpei'])</php>" ></td>
-          <td valign="top" scope="row" style="min-width:100px; width:100px;"></td>
-          <td valign="top" scope="row" style="min-width:100px;"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 自定义标题: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="retitle" type="text" style="width:200px;" value="<php>echo trim($baozhang['datatext']['retitle'])</php>" ></td>
         </tr>
         <php>}</php>
             <php>
@@ -175,6 +175,10 @@ function shenhehistory(chanpinID,obj){
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 抵连时间: </td>
           <td valign="top" scope="row" style="min-width:100px;"><input style="width:200px;" name="dilianshijian" type="text" value="<php>echo trim($baozhang['datatext']['dilianshijian'])</php>" onfocus="WdatePicker({dateFmt:'yyyy年MM月dd日 HH时mm分'})"></td>
         </tr>
+        <tr>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 自定义标题: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="retitle" type="text" style="width:200px;" value="<php>echo trim($baozhang['datatext']['retitle'])</php>" ></td>
+        </tr>
         <php>}</php>
         
             <php>
@@ -184,6 +188,8 @@ function shenhehistory(chanpinID,obj){
         <tr>
           <td valign="top" scope="row" style="min-width:100px; width:100px;"> 报账人数: </td>
           <td valign="top" scope="row" style="min-width:100px;"><input name="renshu" type="text" value="<php>echo trim($baozhang['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格"></td>
+          <td valign="top" scope="row" style="min-width:100px; width:100px;"> 自定义标题: </td>
+          <td valign="top" scope="row" style="min-width:100px;"><input name="retitle" type="text" style="width:200px;" value="<php>echo trim($baozhang['datatext']['retitle'])</php>" ></td>
         </tr>
         <php>}</php>
         

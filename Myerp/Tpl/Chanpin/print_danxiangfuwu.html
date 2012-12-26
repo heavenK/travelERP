@@ -73,7 +73,11 @@
       <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
     </tr>
     <tr height="28px" >
+    <php>if($baozhang['datatext']['retitle']){</php>
+      <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
+    <php>}else{</php>
       <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
+    <php>}</php>
       <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
       <td width="20%">&nbsp;回团日期：
         <php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
@@ -90,7 +94,11 @@
       <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
     </tr>
     <tr height="28px" >
-      <td>&nbsp;线路：<{$djtuan['title']}></td>
+    <php>if($baozhang['datatext']['retitle']){</php>
+      <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
+    <php>}else{</php>
+      <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
+    <php>}</php>
       <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
       <td>&nbsp;回团日期：
         <php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
