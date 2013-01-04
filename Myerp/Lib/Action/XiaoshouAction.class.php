@@ -512,9 +512,9 @@ class XiaoshouAction extends Action{
 			  $this->ajaxReturn($_REQUEST, '订单已经确认，请联系计调取消订单！', 0);
 			}
 		}
-//		$dingdanID = $_REQUEST['dingdanID'];
-//		$Chanpin = D("Chanpin");
-//		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
+		$dingdanID = $_REQUEST['dingdanID'];
+		$Chanpin = D("Chanpin");
+		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
 //		if($dat['islock'] == '已锁定')
 //			$this->ajaxReturn($_REQUEST, '失败，该订单已经锁定，请审核回退后重试', 0);
 		$dat['status_system'] = -1;
