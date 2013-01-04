@@ -146,11 +146,11 @@
 	htmlcontent += "</select></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"adultprice_t"+i+"\" ></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"childprice_t"+i+"\" ></td>";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"chengben_t"+i+"\" ></td>";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"cut_t"+i+"\" ></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"chengben_t"+i+"\" value=\"0\" ></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"cut_t"+i+"\" value=\"0\" ></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input style=\"width:80px;\" type=\"text\" id=\"renshu_t"+i+"\" ></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteshoujia("+i+",temp');\" />";
+	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteshoujia("+i+",'temp');\" />";
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"if(checktitle("+i+",'"+opentype+"','_t'))addshoujia("+i+",'"+opentype+"','_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#shoujia").append(htmlcontent);
