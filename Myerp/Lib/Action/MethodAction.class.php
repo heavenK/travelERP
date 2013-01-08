@@ -3260,7 +3260,7 @@ class MethodAction extends CommonAction{
 					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 				}
 			}
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]'")->findall();
+			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
 			foreach($dingdanall as $vol){
 				if($vol['status'] == '确认'){
 					$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
