@@ -15,6 +15,8 @@ class MethodAction extends CommonAction{
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
 		if($datatype == '审核任务'){
+			$where['is_notice'] =  array('eq',1);//默认
+			
 			$class_name = 'OMViewTaskShenhe';
 			$where['title_copy'] = array('like','%'.$where['title'].'%');
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
@@ -937,6 +939,7 @@ class MethodAction extends CommonAction{
 		$DS['datatype'] = $data['datatype'];
 		$DS['processID'] = $data['processID'];
 		$DS['remark'] = $data['remark'];
+		$DS['is_notice'] = $data['is_notice'];
 		if($data['parenttype'] == '角色'){
 			$DS['UR'] = $data['parentID'].',';
 		}
@@ -3655,6 +3658,8 @@ class MethodAction extends CommonAction{
 			$to_dataom['dataID'] = $data['systemID'];
 			$to_dataom['datatype'] = '审核任务';
 			foreach($process as $p){
+				//开关过滤
+				$to_dataom['is_notice'] = $p['is_notice'];
 				$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
 				//过滤统一部门DUR
 				$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();

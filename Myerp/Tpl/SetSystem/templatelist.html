@@ -544,8 +544,8 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap"><div> 对象 </div></th>
               <th scope="col" nowrap="nowrap"><div> 对象类型 </div></th>
               <th scope="col" nowrap="nowrap"><div> 流程序号 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 提醒 </div></th>
               <th scope="col" nowrap="nowrap"><div> 描述 </div></th>
-              <th scope="col" nowrap="nowrap"><div> 状态 </div></th>
               <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
             </tr>
             
@@ -571,10 +571,19 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               </select>
               </td>
               <td scope="row" align="left" valign="top">
-              <form id="form_t<{$v['systemID']}>" ><input type="text" id="remark<{$v['systemID']}>" value="<{$v['remark']}>" check='^\S+$' warning="描述不能为空,且不能含有空格" style="width:200px;" ></form>
+              <select id="is_notice<{$v['systemID']}>" style="width:100px;" >
+              <php>if($v['is_notice']){</php>
+              <option value="<{$v['is_notice']}>"><{$v['is_notice']}></option>
+              <php>}else{</php>
+              <option value="开">开</option>
+              <php>}</php>
+              <option disabled="disabled">---------------</option>
+              <option value="开">开</option>
+              <option value="关">关</option>
+              </select>
               </td>
               <td scope="row" align="left" valign="top">
-              <{$v['status']}>
+              <form id="form_t<{$v['systemID']}>" ><input type="text" id="remark<{$v['systemID']}>" value="<{$v['remark']}>" check='^\S+$' warning="描述不能为空,且不能含有空格" style="width:200px;" ></form>
               </td>
               <td scope="row" align="left" valign="top">
               <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteItem(<{$v['systemID']}>)" />

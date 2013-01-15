@@ -18,10 +18,12 @@
 	htmlcontent += "<option value=\"4\">4</option>";
 	htmlcontent += "<option value=\"5\">5</option>";
 	htmlcontent += "</select></td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"is_notice_t"+i+"\" style=\"width:100px;\" >";
+	htmlcontent += "<option value=\"开\">开</option>";
+	htmlcontent += "<option value=\"关\">关</option>";
+	htmlcontent += "</select></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"remark_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"描述不能为空,且不能含有空格\" ></form>";
-	htmlcontent += "</td>";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteItem("+i+",'temp');\" />";
@@ -46,10 +48,11 @@
 	var parentID = jQuery("#parentID"+mark+id).val();
 	var processID = jQuery("#processID"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
+	var is_notice = jQuery("#is_notice"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostShenhe",
-		data:	"parentID="+parentID+"&title="+title+"&parenttype="+parenttype+"&datatype="+datatype+"&processID="+processID+"&remark="+remark+it,
+		data:	"parentID="+parentID+"&title="+title+"&parenttype="+parenttype+"&datatype="+datatype+"&processID="+processID+"&remark="+remark+"&is_notice="+is_notice+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
@@ -72,6 +75,12 @@
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"processID"+data['systemID']+"\" style=\"width:100px;\" >";
 		htmlcontent += "<option value=\""+data['processID']+"\">"+data['processID']+"</option>";
 		htmlcontent += "<option disabled=\"disabled\">-------------</option>";
+		htmlcontent += "<option value=\"开\">开</option>";
+		htmlcontent += "<option value=\"关\">关</option>";
+		htmlcontent += "</select></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"is_notice"+data['systemID']+"\" style=\"width:100px;\" >";
+		htmlcontent += "<option value=\""+data['is_notice']+"\">"+data['is_notice']+"</option>";
+		htmlcontent += "<option disabled=\"disabled\">-------------</option>";
 		htmlcontent += "<option value=\"1\">1</option>";
 		htmlcontent += "<option value=\"2\">2</option>";
 		htmlcontent += "<option value=\"3\">3</option>";
@@ -80,8 +89,6 @@
 		htmlcontent += "</select></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"remark"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['remark']+"\" check='^\\S+$' warning=\"描述不能为空,且不能含有空格\" ></form>";
-		htmlcontent += "</td>";
-		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteItem("+data['systemID']+");\" />";
