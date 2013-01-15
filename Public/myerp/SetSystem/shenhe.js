@@ -57,7 +57,6 @@
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
 	});
-	
  }
  
  function om_save(data,status,info,type,id)
