@@ -195,23 +195,25 @@
       <tr>
         <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
             <tr height="28px">
-              <td align="center" colspan="5"><b style="font-size:18px;">应  收  款  项</b></td>
+              <td align="center" colspan="6"><b style="font-size:18px;">应  收  款  项</b></td>
             </tr>
             <tr height="28px">
               <td width="40"  align="center">序号 </td>
               <td width="120" align="center">项目</td>
               <td width="70" align="center">金额</td>
               <td width="50" align="center">方式</td>
-              <td width="220" align="center">备注</td>
+              <td width="50" align="center">人数</td>
+              <td width="170" align="center">备注</td>
             </tr>
-            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value']; </php>
+            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_i += $v['value']; $renshu_i += $v['renshu']; </php>
             <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"><{$i}> </td>
               <td width="120" align="center"><{$v['title']}> </td>
               <td width="70" align="center"><{$v['value']}> </td>
               <td width="50" align="center"><{$v['method']}> </td>
-              <td width="220" align="center"><{$v['remark']}> </td>
+              <td width="50" align="center"><{$v['renshu']}> </td>
+              <td width="170" align="center"><{$v['remark']}> </td>
             </tr>
             <php>}}</php>
             <php>for($t=1;$t<=$i_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
@@ -220,7 +222,8 @@
               <td width="120" align="center"></td>
               <td width="70" align="center"></td>
               <td width="50" align="center"></td>
-              <td width="220" align="center"></td>
+              <td width="50" align="center"></td>
+              <td width="170" align="center"></td>
             </tr>
             <php>}</php>
             <tr height="28px">
@@ -228,29 +231,32 @@
               <td width="120" align="center"></td>
               <td width="70" align="center"><{$value_i}> </td>
               <td width="50" align="center"></td>
-              <td width="220"  align="center"></td>
+              <td width="50" align="center"><{$renshu_i}> </td>
+              <td width="170"  align="center"></td>
             </tr>
           </table></td>
         <td align="left" valign="top" width="4px" style=" border-bottom:1px #000 solid; border-top:1px #000 solid"></td>
         <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_item">
             <tr height="28px">
-              <td align="center" colspan="5"><b style="font-size:18px;">应  付  款  项</b></td>
+              <td align="center" colspan="6"><b style="font-size:18px;">应  付  款  项</b></td>
             </tr>
             <tr height="28px">
               <td width="40"  align="center">序号 </td>
               <td width="120" align="center">项目</td>
               <td width="70" align="center">金额</td>
               <td width="50" align="center">方式</td>
-              <td width="220"  align="center">备注</td>
+              <td width="50" align="center">人数</td>
+              <td width="170"  align="center">备注</td>
             </tr>
-            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value']; </php>
+            <php> $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '支出项目' ||$v['is_print'] == '不打印' ) continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++; $value_j += $v['value']; $renshu_j += $v['renshu']; </php>
             <php>if($high_1[$i] > $high_2[$i]) $high = $high_1[$i]; else $high = $high_2[$i];</php>
             <tr height="<{$high}>px">
               <td width="40"  align="center"><{$i}> </td>
               <td width="120" align="center"><{$v['title']}> </td>
               <td width="70" align="center"><{$v['value']}> </td>
               <td width="50" align="center"><{$v['method']}> </td>
-              <td width="220" align="center"><{$v['remark']}> </td>
+              <td width="50" align="center"><{$v['renshu']}> </td>
+              <td width="170" align="center"><{$v['remark']}> </td>
             </tr>
             <php>}}</php>
             <php>for($t=1;$t<=$j_num;$t++){if($high_1[$i+$t] > $high_2[$i+$t]) $high = $high_1[$i+$t]; else $high = $high_2[$i+$t];if(!$high)$high=$markhigh;</php>
@@ -259,7 +265,8 @@
               <td width="120" align="center"></td>
               <td width="70" align="center"></td>
               <td width="50" align="center"></td>
-              <td width="220" align="center"></td>
+              <td width="50" align="center"></td>
+              <td width="170"  align="center"></td>
             </tr>
             <php>}</php>
             <tr height="28px">
@@ -267,7 +274,8 @@
               <td width="120" align="center"></td>
               <td width="70" align="center"><{$value_j}> </td>
               <td width="50" align="center"></td>
-              <td width="220"  align="center"></td>
+              <td width="50" align="center"><{$renshu_j}> </td>
+              <td width="170"  align="center"></td>
             </tr>
           </table></td>
       </tr>

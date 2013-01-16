@@ -372,6 +372,7 @@ function shenhehistory(chanpinID,obj){
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
@@ -383,8 +384,8 @@ function shenhehistory(chanpinID,obj){
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
@@ -398,6 +399,7 @@ function shenhehistory(chanpinID,obj){
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
             </select></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
           <td scope="row" align="left" valign="top"><strong 
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
@@ -427,7 +429,7 @@ function shenhehistory(chanpinID,obj){
           <php>}elseif($v['status_shenhe'] == '批准'){</php>
       <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
           <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('只有计调权限和没有申请的时候才能回退！')" >
+      <input type="button" value="回退" onclick="alert('已经回退！')" >
           <php>}</php>
 	  <php>}</php>
       
@@ -461,6 +463,7 @@ function shenhehistory(chanpinID,obj){
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:240px;"><div> 操作 </div></th>
@@ -472,8 +475,8 @@ function shenhehistory(chanpinID,obj){
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
@@ -487,6 +490,7 @@ function shenhehistory(chanpinID,obj){
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
             </select></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
           <td scope="row" align="left" valign="top"><strong 
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
@@ -515,7 +519,7 @@ function shenhehistory(chanpinID,obj){
           <php>}elseif($v['status_shenhe'] == '批准'){</php>
       <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
           <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('只有计调权限和没有申请的时候才能回退！')" >
+      <input type="button" value="回退" onclick="alert('已经回退！')" >
           <php>}</php>
 	  <php>}</php>
       

@@ -24,6 +24,9 @@
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+	htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" vlaue=\"0\" >";
+	htmlcontent += "</td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"remark_t"+i+"\" >";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
@@ -52,11 +55,12 @@
 	var title = jQuery("#title"+mark+id).val();
 	var value = jQuery("#value"+mark+id).val();
 	var method = jQuery("#method"+mark+id).val();
+	var renshu = jQuery("#renshu"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/dopost_baozhangitem",
-		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&parentID="+parentID+it,
+		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&parentID="+parentID+it,
 		success:function(msg){
 			scroll(0,0);
 			jQuery("#btsave_"+id).attr("onclick","alert("+act+")"); 
@@ -72,10 +76,10 @@
 		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\""+divname+data['chanpinID']+"\">";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"title"+data['chanpinID']+"\" value=\""+data['title']+"\">";
+		htmlcontent += "<input type=\"text\" id=\"title"+data['chanpinID']+"\" value=\""+data['title']+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"value"+data['chanpinID']+"\" style=\"width:80px;\" value=\""+data['value']+"\">";
+		htmlcontent += "<input type=\"text\" id=\"value"+data['chanpinID']+"\" style=\"width:80px;\" value=\""+data['value']+"\" check='^\\S+$' warning=\"金额不能为空,且不能含有空格\" >";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<select id=\"method"+data['chanpinID']+"\">";
@@ -91,6 +95,9 @@
 		htmlcontent += "<option value=\"对冲\">对冲</option>";
 		htmlcontent += "<option value=\"月结\">月结</option>";
 		htmlcontent += "</select>";
+		htmlcontent += "</td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+		htmlcontent += "<input type=\"text\" id=\"renshu"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
