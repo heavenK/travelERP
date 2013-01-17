@@ -205,7 +205,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
 		}
 		else{
-			$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$v'")->find();
+			$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$chanpinID'")->find();
 			foreach($bzd['baozhangitemlist'] as $vol){
 				if($vol['status_shenhe'] == '批准'){
 					$Chanpin->rollback();
