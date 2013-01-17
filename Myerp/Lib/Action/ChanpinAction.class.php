@@ -195,8 +195,8 @@ class ChanpinAction extends CommonAction{
 			$this->display('Index:error');
 			exit;
 		}
-		$Chanpin->startTrans();
 		$Chanpin = D("Chanpin");
+		$Chanpin->startTrans();
 		$ViewZituan = D("ViewZituan");
 		$ViewBaozhang = D("ViewBaozhang");
 		$chanp = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
