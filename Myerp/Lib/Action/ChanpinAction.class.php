@@ -186,6 +186,7 @@ class ChanpinAction extends CommonAction{
 	
 	public function deletezituan()
 	{
+		C('TOKEN_ON',false);
 //		$this->ajaxReturn('', '功能未开启', 0);
 		$chanpinID = $_REQUEST['chanpinID'];
 		$parentID = $_REQUEST['parentID'];
@@ -217,13 +218,15 @@ class ChanpinAction extends CommonAction{
 		$dat['chanpinID'] = $chanpinID;
 		$dat['status_system'] = -1;
 		if (false !== $Chanpin->save($dat)){
-			if(A("Method")->shengchengzituan_2($parentID)){
+//			if(A("Method")->shengchengzituan_2($parentID)){
 				$Chanpin->commit();
 				$this->ajaxReturn('', '删除成功！', 1);
-			}
+//			}
 		}
-		$Chanpin->rollback();
-		$this->ajaxReturn('', $Chanpin->getError(), 0);
+		else{
+			$Chanpin->rollback();
+			$this->ajaxReturn('', $Chanpin->getError(), 0);
+		}
 	}
 	
 	
