@@ -186,8 +186,7 @@ class ChanpinAction extends CommonAction{
 	
 	public function deletezituan()
 	{
-		$this->ajaxReturn('', '功能未开启', 0);
-		
+//		$this->ajaxReturn('', '功能未开启', 0);
 		$chanpinID = $_REQUEST['chanpinID'];
 		$parentID = $_REQUEST['parentID'];
 		//检查dataOM
@@ -196,10 +195,27 @@ class ChanpinAction extends CommonAction{
 			$this->display('Index:error');
 			exit;
 		}
+		$Chanpin->startTrans();
 		$Chanpin = D("Chanpin");
+		$ViewZituan = D("ViewZituan");
+		$ViewBaozhang = D("ViewBaozhang");
+		$chanp = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
+		if($chanp['status_baozhang'] == '批准'){
+			$Chanpin->rollback();
+			$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
+		}
+		else{
+			$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$v'")->find();
+			foreach($bzd['baozhangitemlist'] as $vol){
+				if($vol['status_shenhe'] == '批准'){
+					$Chanpin->rollback();
+					$this->ajaxReturn($_REQUEST,'该团已经开始报账，报账项目已审核，不能删除！！！', 0);
+				}
+			}
+		}
+		//保存
 		$dat['chanpinID'] = $chanpinID;
 		$dat['status_system'] = -1;
-		$Chanpin->startTrans();
 		if (false !== $Chanpin->save($dat)){
 			if(A("Method")->shengchengzituan_2($parentID)){
 				$Chanpin->commit();
