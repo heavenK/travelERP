@@ -176,6 +176,9 @@ class XiaoshouAction extends Action{
 			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 		}
 		else{
+			//报名截止
+			if($zituan['status'] == '截止')
+				$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
 			//检查dataOM
 			$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 			if(false === $xiaoshou)
