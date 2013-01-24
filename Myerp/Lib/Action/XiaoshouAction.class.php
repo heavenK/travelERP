@@ -113,15 +113,16 @@ class XiaoshouAction extends Action{
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
-		//报名截止
-//		if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
-//		$this->assign("baoming_root",1);
 		if($zituan['status_baozhang'] != '批准'){
-//			if($_REQUEST['shoujiaID'] && $zituan['status'] == '截止')
+			if($_REQUEST['shoujiaID'] && $zituan['status'] != '截止'){
+				//报名截止
+				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
+				$this->assign("baoming_root",1);
+			}
 //			;
 //			else
-			if($_REQUEST['shoujiaID'])
-			$this->assign("baoming_root",1);
+//			if($_REQUEST['shoujiaID'])
+//			$this->assign("baoming_root",1);
 		}
 		//行程一
 		$datatext = simple_unserialize($xianlu['xianlu']['datatext']);
