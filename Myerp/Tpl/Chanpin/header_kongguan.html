@@ -124,7 +124,9 @@
   <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">
   <input type="button" value=" +应付项目 " name="button" class="button primary" id="yingfu_create">
   <php>}</php>
-  
+      
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 状态：<strong><PHP>echo $zituan['status'];</PHP></strong></label>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 发团人：<strong><PHP>if($baozhang['user_name']) echo $baozhang['user_name']; else echo $zituan['user_name'];</PHP></strong></label>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> 发团部门：<strong><PHP>if($baozhang['bumen_copy']) echo $baozhang['bumen_copy']; else echo $zituan['bumen_copy'];</PHP></strong></label>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px">发团部门：<strong><PHP>if($baozhang['bumen_copy']) echo $baozhang['bumen_copy']; else echo $zituan['bumen_copy'];</PHP></strong></label>
+      
 </div>
