@@ -144,7 +144,7 @@
           <td valign="top" scope="row" style="width:80px;"> 标题: </td>
           <td valign="top" scope="row"><input name="title" id="title" type="text" style="width:100%" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
           <td valign="top" scope="row" style="width:80px;"> 人数: </td>
-          <td valign="top" scope="row"><input name="value" type="text" id="value" value="0" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row"><input name="renshu" type="text" id="renshu" value="0" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
         </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 金额: </td>
@@ -181,13 +181,6 @@ jQuery(document).ready(function(){
 		autoOpen: false,
 		width: 600,
 		buttons: {
-			"申请审核": function() {
-				title = jQuery("#title").val();
-				doshenhe_baozhangitem('申请','报账项',jQuery("#chanpinID").val(),title);
-			},
-			"批准": function() {
-				doshenhe_baozhangitem('检出','报账项',jQuery("#chanpinID").val(),title);
-			},
 			"确认": function() {
 				if(CheckForm('form_item','resultdiv_2'))
 				ThinkAjax.sendForm('form_item','<{:SITE_INDEX}>Chanpin/dopost_baozhangitem/parentID/'+baozhangID,save_after,'resultdiv');
