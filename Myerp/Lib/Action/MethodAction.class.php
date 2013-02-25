@@ -1264,8 +1264,11 @@ class MethodAction extends CommonAction{
 			$myuserID = $this->user['systemID'];
 			$DURlist = $this->_getDURlist($myuserID);
 		}
+		
 		$DataOM = D("DataOM");
 		$datalist = array();
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
@@ -1273,6 +1276,7 @@ class MethodAction extends CommonAction{
 		foreach($DURlist as $v){
 			$where['DUR'] = $v['bumenID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			
 			if(!$OMlist){
 				$where['DUR'] = $v['bumenID'].','.$v['rolesID'].','.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
