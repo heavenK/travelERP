@@ -16,6 +16,7 @@
       <tbody>
         <tr height="20">
           <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 金额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 方式 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
@@ -25,6 +26,7 @@
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '结算项目') continue;</php>
           <tr height="40" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
@@ -75,6 +77,7 @@
       <tbody>
         <tr height="20">
           <th scope="col" nowrap="nowrap" style="min-width:200px;width:200px;"><div style=" background:#4E8CCF; color:#FFF"> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 金额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;width:100px;"><div> 方式 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 备注说明 </div></th>
@@ -84,6 +87,7 @@
         <php>foreach($baozhanglist as $vol){ if($vol['type'] != '支出项目') continue;</php>
           <tr height="40" class="evenListRowS1">
             <td scope="row" align="left" valign="top"><{$vol['title']}></td>
+            <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
             <td scope="row" align="left" valign="top"><{$vol['value']}></td>
             <td scope="row" align="left" valign="top"><{$vol['method']}></td>
             <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
