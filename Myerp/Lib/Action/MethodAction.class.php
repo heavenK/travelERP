@@ -1267,8 +1267,8 @@ class MethodAction extends CommonAction{
 		
 		$DataOM = D("DataOM");
 		$datalist = array();
-//		$where['dataID'] = $dataID;
-//		$where['datatype'] = $datatype;
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
@@ -3320,7 +3320,7 @@ class MethodAction extends CommonAction{
 	//添加订单
     public function _zituanbaoming($roletype) {
 		if($roletype == '计调'){
-			$chanpinID = $_REQUEST['chanpin'];
+			$chanpinID = $_REQUEST['chanpinID'];
 			//检查dataOM
 			$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
 			if(false === $xiaoshou){
