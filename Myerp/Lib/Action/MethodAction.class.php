@@ -1267,8 +1267,8 @@ class MethodAction extends CommonAction{
 		
 		$DataOM = D("DataOM");
 		$datalist = array();
-		$where['dataID'] = $dataID;
-		$where['datatype'] = $datatype;
+//		$where['dataID'] = $dataID;
+//		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
