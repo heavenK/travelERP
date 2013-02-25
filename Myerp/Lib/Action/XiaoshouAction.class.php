@@ -58,10 +58,12 @@ class XiaoshouAction extends Action{
 	
     public function zituan() {
 		//检查dataOM
-		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
-		if(false === $xiaoshou){
-			$this->display('Index:error');
-			exit;
+		if($_REQUEST['shoujiaID']){
+			$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
+			if(false === $xiaoshou){
+				$this->display('Index:error');
+				exit;
+			}
 		}
 		$Chanpin = D("Chanpin");
 		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
@@ -170,7 +172,7 @@ class XiaoshouAction extends Action{
 			//检查dataOM
 			$xiaoshou = A('Method')->_checkDataOM($_REQUEST['zituanID'],'子团','管理');
 			if(false === $xiaoshou)
-				$this->ajaxReturn($_REQUEST,'权限错误！', 0);
+				$this->ajaxReturn($_REQUEST,'权限错误,无子团管理权限！', 0);
 			//人数及人数检查
 			$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['zituanID']);
 			$baomingrenshu = $tuanrenshu['baomingrenshu'];
@@ -180,10 +182,19 @@ class XiaoshouAction extends Action{
 			//报名截止
 			if($zituan['status'] == '截止')
 				$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
-			//检查dataOM
-			$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
-			if(false === $xiaoshou)
-				$this->ajaxReturn($_REQUEST,'权限错误！', 0);
+			if($zituan['status_baozhang'] == '批准')
+				$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
+				
+			//补订订单
+			if($_REQUEST['shoujiaID']){
+				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
+				if(false === $xiaoshou)
+					$this->ajaxReturn($_REQUEST,'权限错误！', 0);
+			}
+			elseif(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
+					$this->ajaxReturn($_REQUEST,'请正常报名！', 0);
+			}
+				
 			$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 			//价格计算
 			$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
@@ -206,9 +217,6 @@ class XiaoshouAction extends Action{
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
 			if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['childprice'])
 				$this->ajaxReturn($_REQUEST,'错误,儿童售价超过可折扣范围！', 0);
-			//报名截止
-			if($zituan['status_baozhang'] == '批准')
-				$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
 //			if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 )
 //			$this->ajaxReturn($_REQUEST,'错误,该团报名已经截止！', 0);
 		}
@@ -220,6 +228,7 @@ class XiaoshouAction extends Action{
 			$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 		}
 	}
+	
 	
     public function baoming() {
 		C('TOKEN_ON',false);
@@ -296,12 +305,6 @@ class XiaoshouAction extends Action{
 		else
 		session('verify',null);
 		$this->_ckeck_baoming();
-		//检查dataOM
-		$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价');
-		if(false === $xiaoshou){
-			$this->display('Index:error');
-			exit;
-		}
 		//检查子团ID
 		$ViewZituan = D("ViewZituan");
 		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[zituanID]'")->find();
@@ -382,10 +385,12 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
-		$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
-		if(false === $xiaoshou){
-			$this->display('Index:error');
-			exit;
+		if($dingdan['shoujiaID']){
+			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
+			if(false === $xiaoshou){
+				$this->display('Index:error');
+				exit;
+			}
 		}
 		$ViewShoujia = D("ViewShoujia");
 		$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();

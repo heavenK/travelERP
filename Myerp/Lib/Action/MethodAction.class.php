@@ -1267,12 +1267,13 @@ class MethodAction extends CommonAction{
 		
 		$DataOM = D("DataOM");
 		$datalist = array();
-//		$where['dataID'] = $dataID;
-//		$where['datatype'] = $datatype;
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
 		$where['type'] = array('in','开放,管理');
+		
 		foreach($DURlist as $v){
 			$where['DUR'] = $v['bumenID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
@@ -1301,7 +1302,6 @@ class MethodAction extends CommonAction{
 				$where['DUR'] = ',,'.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
-			
 			if($OMlist){
 				$ViewRoles = D("ViewRoles");
 				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
@@ -1317,12 +1317,9 @@ class MethodAction extends CommonAction{
 				cookie('_usedroles',$roles['title'],30);
 				cookie('_usedbumenaddr',$bumen['addr'],30);
 				cookie('_usedbumenfax',$bumen['fax'],30);
-				
 				return $omdata;
 			}
 		}
-		
-		
 		return false;
 	 }
 	 
