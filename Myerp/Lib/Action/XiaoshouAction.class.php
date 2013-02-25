@@ -485,7 +485,6 @@ class XiaoshouAction extends Action{
 			$this->ajaxReturn($_REQUEST, '错误！请完善游客数据后确认订单！', 0);
 		}
 		
-		
 		$dat['departmentID'] = $_REQUEST['departmentID'];
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];

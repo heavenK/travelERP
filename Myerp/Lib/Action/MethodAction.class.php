@@ -1267,8 +1267,8 @@ class MethodAction extends CommonAction{
 		
 		$DataOM = D("DataOM");
 		$datalist = array();
-//		$where['dataID'] = $dataID;
-//		$where['datatype'] = $datatype;
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
@@ -1672,10 +1672,12 @@ class MethodAction extends CommonAction{
 			exit;
 		}
 		//检查dataOM
-		$omxiaoshou = $this->_checkDataOM($_REQUEST['shoujiaID'],'售价');
-		if(false === $omxiaoshou){
-			$this->display('Index:error');
-			exit;
+		if($_REQUEST['shoujiaID']){
+			$omxiaoshou = $this->_checkDataOM($_REQUEST['shoujiaID'],'售价');
+			if(false === $omxiaoshou){
+				$this->display('Index:error');
+				exit;
+			}
 		}
 		$Chanpin = D("Chanpin");
 		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]' AND (`status_system` = '1')")->find();
