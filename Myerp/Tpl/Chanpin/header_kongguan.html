@@ -2,6 +2,13 @@
     var SITE_INDEX = '<{:SITE_INDEX}>';
     var chanpinID = '<{$chanpinID}>';
 	
+	function tod_oprompt(msg){
+		var str = window.prompt(msg,"")  
+        if(str == 'ok')
+			return true;
+		return false;
+	}
+	
     </script>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
@@ -112,7 +119,7 @@
       <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
       <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$baozhangID}>,'报账单');">
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(tod_oprompt('请输入ok进行回退！！')==true)shenhe_back(<{$baozhangID}>,'报账单');">
 	  <php>}</php>
       <input type="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
       
