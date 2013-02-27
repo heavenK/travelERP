@@ -11,7 +11,7 @@ function save_baozhang(){
 function doComplete(data,status){
 }
 
-function dosetprint(ele,id)
+function dosetprint(ele,id,p_id)
 {
 	checked = ele.checked;
 	if(checked)
@@ -21,7 +21,7 @@ function dosetprint(ele,id)
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"<{$actionmethod}>/dopost_baozhangitem/dotype/setprint",
-		data:	"chanpinID="+id+"&is_print="+value,
+		data:	"chanpinID="+id+"&is_print="+value+"&parentID="+p_id,
 		success:	function(msg){
 			  ThinkAjax.myAjaxResponse(msg,'resultdiv');
 		  }
@@ -437,7 +437,7 @@ function shenhehistory(chanpinID,obj){
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
             <php>}</php>
-            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>);"/></td>
+            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/></td>
         </tr>
         <php>}</php>
           </tbody>
@@ -527,7 +527,7 @@ function shenhehistory(chanpinID,obj){
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
             <php>}</php>
-            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>);"/></td>
+            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/></td>
         </tr>
         <php>}</php>
           </tbody>
@@ -586,7 +586,7 @@ function shenhehistory(chanpinID,obj){
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
             <php>}</php>
-            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>);"/></td>
+            onclick="javascript:dosetprint(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/></td>
         </tr>
         <php>}</php>
           </tbody>

@@ -1267,8 +1267,8 @@ class MethodAction extends CommonAction{
 		
 		$DataOM = D("DataOM");
 		$datalist = array();
-//		$where['dataID'] = $dataID;
-//		$where['datatype'] = $datatype;
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		if($type == '管理')
 		$where['type'] = '管理';
 		else
@@ -1302,6 +1302,7 @@ class MethodAction extends CommonAction{
 				$where['DUR'] = ',,'.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
 			}
+			
 			if($OMlist){
 				$ViewRoles = D("ViewRoles");
 				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
@@ -2669,6 +2670,7 @@ class MethodAction extends CommonAction{
 		$xianlu = $this->_checkDataOM($_REQUEST['parentID'],'报账单','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+			
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
