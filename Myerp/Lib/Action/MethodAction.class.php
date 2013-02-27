@@ -2680,7 +2680,12 @@ class MethodAction extends CommonAction{
 		$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 		if(!$baozhang)
 			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
-		if($_REQUEST['dotype'] == 'setprint'){
+			
+		if($_REQUEST['dotype'] == 'editremark'){//单纯修改备注
+			$data['chanpinID'] = $_REQUEST['chanpinID'];
+			$data['baozhangitem']['remark'] = $_REQUEST['remark'];
+		}
+		elseif($_REQUEST['dotype'] == 'setprint'){//不打印
 			$data['chanpinID'] = $_REQUEST['chanpinID'];
 			$data['baozhangitem']['is_print'] = $_REQUEST['is_print'];
 		}
