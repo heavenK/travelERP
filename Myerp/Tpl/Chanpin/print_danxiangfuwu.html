@@ -82,7 +82,7 @@
       <td width="20%">&nbsp;回团日期：
         <php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
       <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
-      <td width="10%">&nbsp;全陪：<{$baozhang['datatext']['quanpei']}></td>
+      <td width="10%">&nbsp;全陪:<php>if($baozhang['datatext']['quanpei']) echo $baozhang['datatext']['quanpei']; else echo $baozhang['datatext']['lingdui_name'];</php></td>
     </tr>
     <php>}</php>
     <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'DJtuan'){</php>
