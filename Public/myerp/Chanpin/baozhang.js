@@ -21,6 +21,7 @@
 	htmlcontent += "<option value=\"支票\">支票</option>";
 	htmlcontent += "<option value=\"签单\">签单</option>";
 	htmlcontent += "<option value=\"对冲\">对冲</option>";
+	htmlcontent += "<option value=\"月结\">月结</option>";
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
