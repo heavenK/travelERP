@@ -280,8 +280,12 @@ class XiaoshouAction extends Action{
 			if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 				$chanpinID = $Chanpin->getRelationID();
 				//生成OM
-				$dataOMlist = A("Method")->_getDataOM($zituan['parentID'],'线路','管理');
+				$dataOMlist = A("Method")->_getDataOM($data['parentID'],'子团','管理');
 				A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+				//开放给自己部门
+				$dataOMlist = A("Method")->_getmyOMlist($this->user['title']);
+				A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+				
 				redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$chanpinID);
 			}
 			else{
@@ -325,18 +329,18 @@ class XiaoshouAction extends Action{
 		$data['dingdan']['jiage'] = $jiage;
 		$data['dingdan']['bumen_copy'] = cookie('_usedbumen');
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
-			$dingdanID = $Chanpin->getRelationID();
+			$chanpinID = $Chanpin->getRelationID();
 			//生成OM
-			$dataOMlist = A("Method")->_getDataOM($zituan['parentID'],'线路','管理');
-			A("Method")->_createDataOM($dingdanID,'订单','管理',$dataOMlist);
+			$dataOMlist = A("Method")->_getDataOM($zituan['chanpinID'],'子团','管理');
+			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//开放给自己部门
-			$dataOMlist = A("Method")->_getmyOMlist($data['user_name']);
-			A("Method")->_createDataOM($dingdanID,'订单','管理',$dataOMlist);
+			$dataOMlist = A("Method")->_getmyOMlist($this->user['title']);
+			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
 			if($data['status'] == '确认')
-			A("Method")->createCustomer_new($_REQUEST,$dingdanID);
+			A("Method")->createCustomer_new($_REQUEST,$chanpinID);
 			justalert('确认成功！');
-			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdanID);
+			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$chanpinID);
 		}
 		justalert('错误，请联系管理员！');
 		gethistoryback();
