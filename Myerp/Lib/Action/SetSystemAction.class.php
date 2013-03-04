@@ -101,6 +101,11 @@ class SetSystemAction extends CommonAction{
 			A("Method")->showDirectory("报账单数据");
 			$datas = A('Method')->data_list_noOM("ViewBaozhang",$_GET);
 		}
+		if($_REQUEST['datatype'] == '订单'){
+			A("Method")->showDirectory("订单数据");
+			$datas = A('Method')->data_list_noOM("ViewDingdan",$_GET);
+		}
+		
 		//显示
 		if($_REQUEST['datatype']){
 			$this->assign("listdatas",$datas);

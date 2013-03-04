@@ -9,7 +9,15 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
+            <php>if($type == '线路产品'){</php>
+            <include file="Index:search_xianlu" />
+            <php>}elseif($type == '订单'){</php>
+            <include file="Index:search_dingdan" />
+            <php>}else{</php>
             <include file="Index:search_taskshenhe" />
+            <php>}</php>
+            
+            
             
             <div id="mysearchdiv" style="margin:10px 0 0 0;">
               <ul id="searchTabs" class="tablist tablist_2">
@@ -272,7 +280,7 @@ function show_dingdan(chanpinID){
 	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
 function dosearch(str){
-		window.location = SITE_INDEX+'Chanpin/shenhe'+str;
+		window.location = SITE_INDEX+'Chanpin/shenhe/type/<{$type}>'+str;
 }
 </script>
 

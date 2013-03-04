@@ -31,6 +31,7 @@ function dosetprint(ele,id,p_id)
 function doeditremark(ele,id,p_id)
 {
 	var remark = jQuery("#remark"+id).val();
+	remark = FixJqText(remark);
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"<{$actionmethod}>/dopost_baozhangitem/dotype/editremark",
@@ -40,10 +41,6 @@ function doeditremark(ele,id,p_id)
 		  }
 	});
 }
-
-
-
-
 
 function doprint(type){
 	var url = SITE_INDEX+'<{$actionmethod}>/zituanbaozhang/doprint/'+type+'/chanpinID/<{$chanpinID}>/baozhangID/<{$baozhangID}>';

@@ -15,65 +15,16 @@ class MethodAction extends CommonAction{
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
 		if($datatype == '审核任务'){
-			$where['is_notice'] =  array('eq',1);//默认
-			
 			$class_name = 'OMViewTaskShenhe';
-			$where['title_copy'] = array('like','%'.$where['title'].'%');
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['status'] = '待检出';
-			if($relation == 'xianlu')
-			$where['datatype'] = '线路';
-			if($relation == 'DJtuan')
-			$where['datatype'] = '地接';
+			$where = $this->_orderShenheTask($where,$datatype,$relation);
 			if($relation == 'baozhangitem'){
 				$relation = 'taskshenhe';
-				$where['datatype'] = '报账项';
-				if($where['baozhangtitle_copy'])
-				$where['baozhangtitle_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
-				if($where['tuantitle_copy'])
-				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
-				if($where['tuanhao_copy'])
-				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
-				if($where['tuanqi_copy'])
-				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
 				$order = 'tuanqi_copy desc';
 			}
 			if($relation == 'baozhang'){
 				$relation = 'taskshenhe';
-				$where['datatype'] = '报账单';
-				if($where['baozhangtitle_copy']){
-					$where['title_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
-					unset($where['baozhangtitle_copy']);
-				}
-				if($where['tuantitle_copy'])
-				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
-				if($where['tuanhao_copy'])
-				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
-				if($where['tuanqi_copy'])
-				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
 				$order = 'tuanqi_copy desc';
 			}
-			if($relation == 'dingdan')
-			$where['datatype'] = '订单';
-		}
-		if($datatype == '线路'){
-			$class_name = 'OMViewXianlu';
-			$where['datatype'] = $datatype;
-			//处理搜索
-			if($where['start_time'] && $where['end_time']){
-				$datelist = NF_getdatelistbetweentwodate($where['start_time'],$where['end_time'],"array");
-				$i = 0;
-				foreach($datelist as $v){
-					$where['chutuanriqi'][$i][0] = 'like';
-					$where['chutuanriqi'][$i][1] = '%'.$v.'%';
-					$i++;
-				}
-				$where['chutuanriqi'][$i] = 'or';
-			}
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['title'] = array('like','%'.$where['title'].'%');
-			$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
-			$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
 		}
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
@@ -97,62 +48,26 @@ class MethodAction extends CommonAction{
 				$where['xianlu_chutuanriqi'][$i] = 'or';
 			}
 		}
+		if($datatype == '线路'){
+			$class_name = 'OMViewXianlu';
+			$where['datatype'] = $datatype;
+			$where = $this->_orderXianlu($where,$datatype);
+		}
 		if($datatype == '订单'){
 			$class_name = 'OMViewDingdan';
 			$where['datatype'] = $datatype;
-			//处理搜索
-			if($where['start_time'] && $where['end_time']){
-				$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
-			}
-			$where['title'] = array('like','%'.$where['title'].'%');
-			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
-			$where['owner'] = array('like','%'.$where['owner'].'%');
-			if($where['remark'])
-			$where['remark'] = array('like','%'.$where['remark'].'%');
+			$where = $this->_orderDingdan($where,$datatype);
 		}
 		if($datatype == '子团'){
 			$class_name = 'OMViewZituan';
 			$where['datatype'] = $datatype;
-			//处理搜索
-			if($where['bzd_status'] == '未报账')
-				$where['status_baozhang'] = array('neq','批准');
-			if($where['bzd_status'] == '已报账')
-				$where['status_baozhang'] = array('eq','批准');
-			if($where['start_time'] && $where['end_time']){
-				$where['chutuanriqi'] = array('between',"".$where['start_time'].",".$where['end_time']."");
-			}
-			elseif($where['start_time']){
-				$where['chutuanriqi'] = $where['start_time'];
-			}
-			elseif($where['end_time']){
-				$where['chutuanriqi'] = $where['end_time'];
-			}
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['title_copy'] = array('like','%'.$where['title'].'%');
-			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
-			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
 			$order = 'chutuanriqi desc';
+			$where = $this->_orderZituan($where,$datatype);
 		}
 		if($datatype == '地接'){
 			$class_name = 'OMViewDJtuan';
 			$where['datatype'] = $datatype;
-			//处理搜索
-			if($where['start_time'] && $where['end_time']){
-				$where['jietuantime'] = array('between',"".$where['start_time'].",".$where['end_time']."");
-			}
-			elseif($where['start_time']){
-				$where['jietuantime'] = $where['start_time'];
-			}
-			elseif($where['end_time']){
-				$where['jietuantime'] = $where['end_time'];
-			}
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['title'] = array('like','%'.$where['title'].'%');
-			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
-			if($where['fromcompany'])
-			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
-			if($where['status_baozhang'] && $where['status_baozhang'] != '批准')
-			$where['status_baozhang'] = array('neq','批准');
+			$where = $this->_orderDijie($where,$datatype);
 			$order = 'jietuantime desc';
 		}
 		if($datatype == '报账单'){
@@ -218,15 +133,18 @@ class MethodAction extends CommonAction{
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		//关键字高亮
+		return $this->_keyStar($redata,$_REQUEST);
+	}
+	
+	//关键字高亮
+    public function _keyStar($redata,$_REQUEST) {
 		$i = 0;
 		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
 			  foreach($redata['chanpin'] as $v){
 				  if($_REQUEST['title']){
 					  $str = '<strong style="color:red">'.$_REQUEST['title'].'</strong>';
-					  if($datatype == '子团')
-						  $v['title_copy'] = str_ireplace($_REQUEST['title'],$str,$v['title_copy']);
-					  else
-						  $v['title'] = str_ireplace($_REQUEST['title'],$str,$v['title']);
+					  $v['title_copy'] = str_ireplace($_REQUEST['title'],$str,$v['title_copy']);
+					  $v['title'] = str_ireplace($_REQUEST['title'],$str,$v['title']);
 				  }
 				  if($_REQUEST['tuanhao']){
 					  $str = '<strong style="color:red">'.$_REQUEST['tuanhao'].'</strong>';
@@ -236,12 +154,168 @@ class MethodAction extends CommonAction{
 				  $i++;
 			  }
 		}
+		if($_REQUEST['baozhangtitle_copy'] || $_REQUEST['tuanhao_copy']){
+			  foreach($redata['chanpin'] as $v){
+				  if($_REQUEST['baozhangtitle_copy']){
+					  $str = '<strong style="color:red">'.$_REQUEST['baozhangtitle_copy'].'</strong>';
+					  $v['baozhangtitle_copy'] = str_ireplace($_REQUEST['baozhangtitle_copy'],$str,$v['baozhangtitle_copy']);
+					  $v['tuantitle_copy'] = str_ireplace($_REQUEST['baozhangtitle_copy'],$str,$v['tuantitle_copy']);
+				  }
+				  if($_REQUEST['tuanhao_copy']){
+					  $str = '<strong style="color:red">'.$_REQUEST['tuanhao_copy'].'</strong>';
+					  $v['tuanhao_copy'] = str_ireplace($_REQUEST['tuanhao_copy'],$str,$v['tuanhao_copy']);
+				  }
+				  $redata['chanpin'][$i] = $v;
+				  $i++;
+			  }
+		}
 		return $redata;
 	}
+	
+	//定制线路搜索条件
+    public function _orderXianlu($where,$datatype) {
+		//处理搜索
+		if($where['start_time'] && $where['end_time']){
+			$datelist = NF_getdatelistbetweentwodate($where['start_time'],$where['end_time'],"array");
+			$i = 0;
+			foreach($datelist as $v){
+				$where['chutuanriqi'][$i][0] = 'like';
+				$where['chutuanriqi'][$i][1] = '%'.$v.'%';
+				$i++;
+			}
+			$where['chutuanriqi'][$i] = 'or';
+		}
+		$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		$where['title'] = array('like','%'.$where['title'].'%');
+		$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
+		$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
+		return $where;
+	}
+	
+	
+	//定制订单搜索条件
+    public function _orderDingdan($where,$datatype) {
+		//处理搜索
+		if($where['start_time'] && $where['end_time']){
+			$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
+		}
+		$where['title'] = array('like','%'.$where['title'].'%');
+		$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
+		$where['owner'] = array('like','%'.$where['owner'].'%');
+		if($where['remark'])
+		$where['remark'] = array('like','%'.$where['remark'].'%');
+		return $where;
+	}
+	
+	//定制子团搜索条件
+    public function _orderZituan($where,$datatype) {
+		//处理搜索
+		if($where['bzd_status'] == '未报账')
+			$where['status_baozhang'] = array('neq','批准');
+		if($where['bzd_status'] == '已报账')
+			$where['status_baozhang'] = array('eq','批准');
+		if($where['start_time'] && $where['end_time']){
+			$where['chutuanriqi'] = array('between',"".$where['start_time'].",".$where['end_time']."");
+		}
+		elseif($where['start_time']){
+			$where['chutuanriqi'] = $where['start_time'];
+		}
+		elseif($where['end_time']){
+			$where['chutuanriqi'] = $where['end_time'];
+		}
+		$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		$where['title_copy'] = array('like','%'.$where['title'].'%');
+		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
+		return $where;
+	}
+	
+	//定制地接团搜索条件
+    public function _orderDijie($where,$datatype) {
+			//处理搜索
+		if($where['start_time'] && $where['end_time']){
+			$where['jietuantime'] = array('between',"".$where['start_time'].",".$where['end_time']."");
+		}
+		elseif($where['start_time']){
+			$where['jietuantime'] = $where['start_time'];
+		}
+		elseif($where['end_time']){
+			$where['jietuantime'] = $where['end_time'];
+		}
+		$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		$where['title'] = array('like','%'.$where['title'].'%');
+		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		if($where['fromcompany'])
+		$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+		if($where['status_baozhang'] && $where['status_baozhang'] != '批准')
+		$where['status_baozhang'] = array('neq','批准');
+		return $where;
+	}
+	
+	//定制审核任务搜索条件
+    public function _orderShenheTask($where,$datatype,$relation) {
+		$where['is_notice'] =  array('eq',1);//默认
+		$where['title_copy'] = array('like','%'.$where['title'].'%');
+		$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		$where['status'] = '待检出';
+		if($relation == 'xianlu')
+			$where['datatype'] = '线路';
+		if($relation == 'DJtuan')
+			$where['datatype'] = '地接';
+		if($relation == 'baozhangitem'){
+			$where['datatype'] = '报账项';
+			if($where['baozhangtitle_copy'])
+			$where['baozhangtitle_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
+			if($where['tuantitle_copy'])
+			$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
+			if($where['tuanhao_copy'])
+			$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+			if($where['tuanqi_copy'])
+			$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+		}
+		if($relation == 'baozhang'){
+			$where['datatype'] = '报账单';
+			if($where['baozhangtitle_copy']){
+				$where['title_copy'] = array('like','%'.$where['baozhangtitle_copy'].'%');
+				unset($where['baozhangtitle_copy']);
+			}
+			if($where['tuantitle_copy'])
+			$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
+			if($where['tuanhao_copy'])
+			$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+			if($where['tuanqi_copy'])
+			$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+		}
+		if($relation == 'dingdan')
+			$where['datatype'] = '订单';
+		return $where;
+	}
+	
+	
+	
+	
 
+	
+	
+	
 
     //显示产品列表
     public function data_list_noOM($class_name,$where,$pagenum = 20) {
+		
+		if($class_name == 'ViewXianlu'){
+			$where = $this->_orderXianlu($where,$datatype);
+		}
+		if($class_name == 'ViewDingdan'){
+			//处理搜索
+			if($where['start_time'] && $where['end_time']){
+				$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
+			}
+			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
+			$where['owner'] = array('like','%'.$where['owner'].'%');
+			if($where['remark'])
+			$where['remark'] = array('like','%'.$where['remark'].'%');
+		}
 		//处理搜索
 		if($class_name == 'ViewCustomer'){
 			if($where['title'])
@@ -307,24 +381,7 @@ class MethodAction extends CommonAction{
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		//关键字高亮
-		$i = 0;
-		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
-			  foreach($redata['chanpin'] as $v){
-				  if($_REQUEST['title']){
-					  $str = '<strong style="color:red">'.$_REQUEST['title'].'</strong>';
-					  $v['title_1'] = str_ireplace($_REQUEST['title'],$str,$v['title_1']);
-					  $v['title_2'] = str_ireplace($_REQUEST['title'],$str,$v['title_2']);
-				  }
-				  if($_REQUEST['tuanhao']){
-					  $str = '<strong style="color:red">'.$_REQUEST['tuanhao'].'</strong>';
-					  $v['tuanhao_1'] = str_ireplace($_REQUEST['tuanhao'],$str,$v['tuanhao_1']);
-					  $v['tuanhao_2'] = str_ireplace($_REQUEST['tuanhao'],$str,$v['tuanhao_2']);
-				  }
-				  $redata['chanpin'][$i] = $v;
-				  $i++;
-			  }
-		}
-		return $redata;
+		return $this->_keyStar($redata,$_REQUEST);
 	}
 	
 	

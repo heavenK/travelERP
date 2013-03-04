@@ -58,6 +58,8 @@
 	var method = jQuery("#method"+mark+id).val();
 	var renshu = jQuery("#renshu"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
+	title = FixJqText(title);
+	remark = FixJqText(remark);
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/dopost_baozhangitem",
