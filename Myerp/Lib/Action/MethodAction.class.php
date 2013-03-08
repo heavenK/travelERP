@@ -2946,6 +2946,7 @@ class MethodAction extends CommonAction{
 
 	public function _xiangmu($type) {
 		$this->assign("markpos",'应收及应付');
+		$chanpinID = $_REQUEST['chanpinID'];
 		if($_REQUEST['baozhangID']){
 			$baozhangID = $_REQUEST['baozhangID'];
 			$ViewBaozhang = D("ViewBaozhang");
