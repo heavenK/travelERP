@@ -71,12 +71,6 @@
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">"+data['parenttype'];
 		htmlcontent += "</td>";
-		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"processID"+data['systemID']+"\" style=\"width:100px;\" >";
-		htmlcontent += "<option value=\""+data['processID']+"\">"+data['processID']+"</option>";
-		htmlcontent += "<option disabled=\"disabled\">-------------</option>";
-		htmlcontent += "<option value=\"开\">开</option>";
-		htmlcontent += "<option value=\"关\">关</option>";
-		htmlcontent += "</select></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"is_notice"+data['systemID']+"\" style=\"width:100px;\" >";
 		htmlcontent += "<option value=\""+data['is_notice']+"\">"+data['is_notice']+"</option>";
 		htmlcontent += "<option disabled=\"disabled\">-------------</option>";
@@ -85,6 +79,12 @@
 		htmlcontent += "<option value=\"3\">3</option>";
 		htmlcontent += "<option value=\"4\">4</option>";
 		htmlcontent += "<option value=\"5\">5</option>";
+		htmlcontent += "</select></td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"processID"+data['systemID']+"\" style=\"width:100px;\" >";
+		htmlcontent += "<option value=\""+data['processID']+"\">"+data['processID']+"</option>";
+		htmlcontent += "<option disabled=\"disabled\">-------------</option>";
+		htmlcontent += "<option value=\"开\">开</option>";
+		htmlcontent += "<option value=\"关\">关</option>";
 		htmlcontent += "</select></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"remark"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['remark']+"\" check='^\\S+$' warning=\"描述不能为空,且不能含有空格\" ></form>";

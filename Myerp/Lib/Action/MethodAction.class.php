@@ -2954,9 +2954,13 @@ class MethodAction extends CommonAction{
 			if($baozhang['type'] != '团队报账单'){
 				redirect(SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$baozhangID);
 			}
+			$Chanpin = D("Chanpin");
+			$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+			if($cp['marktype'] == 'zituan')
 			redirect(SITE_INDEX.'Chanpin/zituanxiangmu/chanpinID/'.$chanpinID);
+			if($cp['marktype'] == 'DJtuan')
+			redirect(SITE_INDEX.'Dijie/djtuanxiangmu/chanpinID/'.$chanpinID);
 		}
-		$chanpinID = $_REQUEST['chanpinID'];
 		if($type == '子团'){
 			$this->showDirectory("子团产品");
 			//检查dataOM
