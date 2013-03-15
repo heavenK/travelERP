@@ -516,6 +516,15 @@ class BudingAction extends Action{
     public function customercounter() {
 		$DataCD = D("DataCD");	
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
+		$i = 0;
+		foreach($cusall as $v){
+			if(strlen($v) != 11){
+				unset($cusall[$i]);
+			}
+			$i++;
+		}
+		$cusall = sort($cusall);
+		
 		$num['num_8000'] = 0;
 		$num['num_15000_a'] = 0;
 		$num['num_15000_b'] = 0;
