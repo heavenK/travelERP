@@ -2776,6 +2776,10 @@ class MethodAction extends CommonAction{
 				
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
+			
+			dump($data);
+			exit;
+			
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
