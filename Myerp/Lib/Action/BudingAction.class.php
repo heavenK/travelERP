@@ -549,7 +549,7 @@ class BudingAction extends Action{
 				$level = '8000';
 			}
 			
-			$cusall[$i]['vol'] = $v;
+			$cusall[$i]['vol'] = $vol;
 			$cusall[$i]['level'] = $level;
 			$cusall[$i]['price'] = $price;
 			$i++;
