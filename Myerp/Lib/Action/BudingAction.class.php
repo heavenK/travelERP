@@ -512,6 +512,65 @@ class BudingAction extends Action{
 	
 	
 	
+	//客户统计
+    public function customercounter() {
+		$DataCD = D("DataCD");	
+		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
+		$num['num_8000'] = 0;
+		$num['num_15000_a'] = 0;
+		$num['num_15000_b'] = 0;
+		$num['num_30000'] = 0;
+		$i = 0;
+		foreach($cusall as $v){
+			$telnum_one = $DataCD->where("`telnum` = '$v[telnum]'")->findall();
+			$price = 0;
+			$level = 0;
+			foreach($telnum_one as $vol){
+				$price += $vol['price'];
+			}
+			if($price > 8000){
+				if($price > 15000){
+					if($price > 30000){
+						$num['num_30000'] += 1;
+						$level = '30000';
+					}
+					else{
+						$num['num_15000_b'] += 1;
+						$level = '15000_b';
+					}
+				}
+				else{
+					$num['num_15000_a'] += 1;
+					$level = '15000_a';
+				}
+			}
+			else{
+				$num['num_8000'] += 1;
+				$level = '8000';
+			}
+			
+			$cusall[$i]['vol'] = $v;
+			$cusall[$i]['level'] = $level;
+			$cusall[$i]['price'] = $price;
+			$i++;
+			
+		}
+		
+		$this->assign("cusall",$tellist);
+		$this->assign("num",$num);
+		
+		//导出Word必备头
+		header("Content-type:application/vnd.ms-excel");
+		header("Content-Disposition:attachment;filename=" . '客户统计名单' . ".xls");
+		$this->display('Index:customerlist_1');
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 }
 ?>

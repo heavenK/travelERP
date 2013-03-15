@@ -1,0 +1,176 @@
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>截止日期</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>总人数</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费8000以内人数</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>8000-15000</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>15000-30000</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>30000以上</strong></td>
+    </tr>
+    <tr>
+      <td class="xxxx" height="27" align="center"><php>echo date('Y/m/d',time())</php></td>
+      <td class="xxxx" height="27" align="center"><php>echo count($cusall)</php></td>
+      <td class="xxxx" height="27" align="center"><{$num[num_8000]}></td>
+      <td class="xxxx" height="27" align="center"><{$num[num_15000_a]}></td>
+      <td class="xxxx" height="27" align="center"><{$num[num_15000_b]}></td>
+      <td class="xxxx" height="27" align="center"><{$num[num_30000]}></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费8000以内</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费金额</strong></td>
+    </tr>
+      <php>$counter = 0;
+  foreach($cusall as $v){ if($v['level'] == '8000'){$counter++;
+    </php>
+  <tr>
+    <td class="xxxx" height="27" align="center"><{$v[$counter]}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['name']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['sex']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['manorchild']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['zhengjiantype']}> </td>
+    <td class="xxxx" height="27" align="center">&nbsp;<{$v[vol]['zhengjianhaoma']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v[vol]['telnum']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v['price']}> </td>
+  </tr>
+  <php>}}</php>
+    </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>8000-15000</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费金额</strong></td>
+    </tr>
+      <php>
+  foreach($cusall as $v){ if($v['level'] == '15000_a'){$counter++;
+    </php>
+  <tr>
+    <td class="xxxx" height="27" align="center"><{$v[$counter]}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['name']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['sex']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['manorchild']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['zhengjiantype']}> </td>
+    <td class="xxxx" height="27" align="center">&nbsp;<{$v[vol]['zhengjianhaoma']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v[vol]['telnum']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v['price']}> </td>
+  </tr>
+  <php>}}</php>
+    </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>15000-30000</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费金额</strong></td>
+    </tr>
+      <php>
+  foreach($cusall as $v){ if($v['level'] == '15000_b'){$counter++;
+    </php>
+  <tr>
+    <td class="xxxx" height="27" align="center"><{$v[$counter]}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['name']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['sex']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['manorchild']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['zhengjiantype']}> </td>
+    <td class="xxxx" height="27" align="center">&nbsp;<{$v[vol]['zhengjianhaoma']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v[vol]['telnum']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v['price']}> </td>
+  </tr>
+  <php>}}</php>
+    </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>30000以上</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>序号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>消费金额</strong></td>
+    </tr>
+      <php>
+  foreach($cusall as $v){ if($v['level'] == '30000'){$counter++;
+    </php>
+  <tr>
+    <td class="xxxx" height="27" align="center"><{$v[$counter]}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['name']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['sex']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['manorchild']}> </td>
+    <td class="xxxx" height="27" align="center"><{$v[vol]['zhengjiantype']}> </td>
+    <td class="xxxx" height="27" align="center">&nbsp;<{$v[vol]['zhengjianhaoma']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v[vol]['telnum']}> </td>
+    <td align="center" height="27" class="xxxx"><{$v['price']}> </td>
+  </tr>
+  <php>}}</php>
+    </tbody>
+</table>
