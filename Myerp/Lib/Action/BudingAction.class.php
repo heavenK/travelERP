@@ -525,6 +525,9 @@ class BudingAction extends Action{
 		}
 		$cusall = sort($cusall);
 		
+		
+		dump($cusall);
+		
 		$num['num_8000'] = 0;
 		$num['num_15000_a'] = 0;
 		$num['num_15000_b'] = 0;
