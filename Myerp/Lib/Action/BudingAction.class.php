@@ -518,7 +518,7 @@ class BudingAction extends Action{
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
 		$i = 0;
 		foreach($cusall as $v){
-			if(strlen($v) != 11){
+			if(strlen($v['telnum']) != 11){
 				unset($cusall[$i]);
 			}
 			$i++;
