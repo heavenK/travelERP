@@ -516,17 +516,17 @@ class BudingAction extends Action{
     public function customercounter() {
 		$DataCD = D("DataCD");	
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
-		$i = 0;
-		foreach($cusall as $v){
-			if(strlen($v['telnum']) != 11){
-				unset($cusall[$i]);
-			}
-			$i++;
-		}
-		$cusall = sort($cusall);
-		
-		
-		dump($cusall);
+//		$i = 0;
+//		foreach($cusall as $v){
+//			if(strlen($v['telnum']) != 11){
+//				unset($cusall[$i]);
+//			}
+//			$i++;
+//		}
+//		$cusall = sort($cusall);
+//		
+//		
+//		dump($cusall);
 		
 		$num['num_8000'] = 0;
 		$num['num_15000_a'] = 0;
@@ -534,7 +534,7 @@ class BudingAction extends Action{
 		$num['num_30000'] = 0;
 		$i = 0;
 		foreach($cusall as $v){
-			$telnum_one = $DataCD->where("`telnum` = '$v[telnum]'")->findall();
+			$telnum_one = $DataCD->where("`telnum` = '$v[telnum]' AND len(telnum) = 11")->findall();
 			$price = 0;
 			$level = 0;
 			foreach($telnum_one as $vol){
