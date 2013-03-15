@@ -497,9 +497,10 @@ class BudingAction extends Action{
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
 		$i = 0;
 		foreach($cusall as $v){
-			if(strlen($v['telnum']) == 11)
+			if(strlen($v['telnum']) == 11){
 				$tellist[$i] = $v['telnum'];
-			$i++;
+				$i++;
+			}
 		}
 		$this->assign("cusall",$tellist);
 		//导出Word必备头
@@ -518,14 +519,12 @@ class BudingAction extends Action{
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
 		$i = 0;
 		foreach($cusall as $v){
-			if(strlen($v['telnum']) == 11)
+			if(strlen($v['telnum']) == 11){
 				$tellist[$i] = $v['telnum'];
-			$i++;
+				$i++;
+			}
 		}
 		$cusall = $tellist;
-		
-		dump($cusall);
-		
 		$num['num_8000'] = 0;
 		$num['num_15000_a'] = 0;
 		$num['num_15000_b'] = 0;
