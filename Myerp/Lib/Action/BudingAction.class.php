@@ -590,7 +590,7 @@ class BudingAction extends Action{
 			}
 		}
 		
-		echo "总人数:".$num_renshu.',总金额:'.$num_price;
+		echo "总人数:".number_format($num_renshu).',总金额:'.number_format($num_price);
 		
 	}
 	
