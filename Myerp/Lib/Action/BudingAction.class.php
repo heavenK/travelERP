@@ -579,6 +579,20 @@ class BudingAction extends Action{
 	
 	
 	
+	//订单统计
+    public function dingdancounter() {
+		$ViewDingdan = D("ViewDingdan");
+		$all = $ViewDingdan->where("`status_system` = 1")->findall();
+		foreach($all as $v){
+			if($v['jiage'] > 0){
+				$num_renshu += $v['chengrenshu'] + $v['ertongshu'];
+				$num_price += $v['jiage'];
+			}
+		}
+		
+		echo "总人数:".$num_renshu.',总金额:'.$num_price;
+		
+	}
 	
 	
 }
