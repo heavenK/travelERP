@@ -520,7 +520,7 @@ class BudingAction extends Action{
 		$i = 0;
 		foreach($cusall as $v){
 			if(strlen($v['telnum']) == 11){
-				$tellist[$i] = $v['telnum'];
+				$tellist[$i]['telnum'] = $v['telnum'];
 				$i++;
 			}
 		}
