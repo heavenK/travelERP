@@ -556,7 +556,7 @@ class BudingAction extends Action{
 			
 		}
 		
-		$this->assign("cusall",$tellist);
+		$this->assign("cusall",$cusall);
 		$this->assign("num",$num);
 		
 		//导出Word必备头
