@@ -38,11 +38,18 @@
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
-    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	if(type != '利润'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else{
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "</tr>";
 	jQuery("#"+divname).append(htmlcontent);
-	myautocomplete("#title_t"+i,'部门');
+	if(type == '利润'){
+		myautocomplete("#title_t"+i,'部门');
+	}
  }
 
  function save(id,divname,mark,type)
@@ -123,13 +130,20 @@
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+data['chanpinID']+",'"+divname+"',);\" />";
-		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+"))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+		if(data['type'] != '利润'){
+			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+"))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+		}
+		else{
+			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+		}
 //		if(data['type'] != '利润')
 //		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btshenhe_"+data['chanpinID']+"\" value=\"申请审核\" onclick=\"doshenhe_baozhangitem('申请','报账项',"+data['chanpinID']+",'"+data['title']+"');\"/>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"checkbox\" onclick=\"javascript:dosetprint(this,"+data['chanpinID']+")\"/></td>";
 		htmlcontent += "</tr>";
 		jQuery("#"+divname+id).replaceWith(htmlcontent);
-		myautocomplete("#title"+data['chanpinID'],'部门');
+		if(data['type'] == '利润'){
+			myautocomplete("#title"+data['chanpinID'],'部门');
+		}
 	}
  }
 
