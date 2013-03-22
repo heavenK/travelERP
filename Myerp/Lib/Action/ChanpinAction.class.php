@@ -887,6 +887,7 @@ class ChanpinAction extends CommonAction{
 	public function zituanbaozhang() {
 		A("Method")->showDirectory("签证及票务");
 		$this->assign("actionmethod",'Chanpin');
+		A('Method')->unitlist();
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else

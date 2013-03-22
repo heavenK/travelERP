@@ -42,7 +42,6 @@
  function dp_save(data,status,info,type,id)
  {
 	if(status == 1){
-		
 		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"departmentrow"+data['systemID']+"\">";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
@@ -54,24 +53,7 @@
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"修改\" onClick=\"if(checktitle("+data['systemID']+"))addSystemDC("+data['systemID']+");\" /></td>";
 		htmlcontent += "</tr>";
 		jQuery("#departmentrow_t"+id).replaceWith(htmlcontent);
-		
-		jQuery("#"+data['systemID']).autocomplete(datas, {
-		   max: 20,    //列表里的条目数
-		   minChars: 0,    //自动完成激活之前填入的最小字符
-		   width: 200,     //提示的宽度，溢出隐藏
-		   scrollHeight: 300,   //提示的高度，溢出显示滚动条
-		   matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-		   autoFill: true,    //自动填充
-		   formatItem: function(data, i, num) {//多选显示
-			   return i + '/' + num + ':"' + data.title;
-		   },
-		   formatMatch: function(data, i, num) {//匹配格式
-			   return data.title;
-		   },
-		   formatResult: function(data) {//选定显示
-			   return data.title;
-		   }
-		})
+		myautocomplete("#"+data['systemID'],'部门');
 	}
  }
  

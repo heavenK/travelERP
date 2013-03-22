@@ -24,19 +24,25 @@
 	htmlcontent += "<option value=\"月结\">月结</option>";
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
-	htmlcontent += "</td>";
+	if(type != '利润'){
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+		htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
+		htmlcontent += "</td>";
+	}
+	else{
+		htmlcontent += "<input type=\"hidden\" id=\"expand_t"+i+"\">";
+	}
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"remark_t"+i+"\" >";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
-    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+    htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'title_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "</tr>";
 	jQuery("#"+divname).append(htmlcontent);
+	myautocomplete("#title_t"+i,'部门');
  }
 
  function save(id,divname,mark,type)
@@ -58,6 +64,10 @@
 	var method = jQuery("#method"+mark+id).val();
 	var renshu = jQuery("#renshu"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
+	var expand = jQuery("#expand"+mark+id).val();
+	alert(expand)
+	if(expand)
+		it +="&expand="+expand
 	title = FixJqText(title);
 	remark = FixJqText(remark);
 	jQuery.ajax({
@@ -99,9 +109,14 @@
 		htmlcontent += "<option value=\"月结\">月结</option>";
 		htmlcontent += "</select>";
 		htmlcontent += "</td>";
-		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"renshu"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
-		htmlcontent += "</td>";
+		if(data['type'] != '利润'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+		}
+		else{
+			htmlcontent += "<input type=\"hidden\" id=\"expand"+i+"\">";
+		}
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
 		htmlcontent += "</td>";
@@ -109,12 +124,13 @@
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+data['chanpinID']+",'"+divname+"',);\" />";
-		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+",'title'))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
 //		if(data['type'] != '利润')
 //		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btshenhe_"+data['chanpinID']+"\" value=\"申请审核\" onclick=\"doshenhe_baozhangitem('申请','报账项',"+data['chanpinID']+",'"+data['title']+"');\"/>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"checkbox\" onclick=\"javascript:dosetprint(this,"+data['chanpinID']+")\"/></td>";
 		htmlcontent += "</tr>";
 		jQuery("#"+divname+id).replaceWith(htmlcontent);
+		myautocomplete("#title"+data['chanpinID'],'部门');
 	}
  }
 
@@ -142,5 +158,65 @@
 		jQuery("#"+id).remove();
 	}
  }
+
+
+
+ function myautocomplete(target,parenttype)
+{
+		if(parenttype == '部门')
+		datas = department;
+	
+		jQuery(target).unautocomplete().autocomplete(datas, {
+		   max: 50,    //列表里的条目数
+		   minChars: 0,    //自动完成激活之前填入的最小字符
+		   width: 150,     //提示的宽度，溢出隐藏
+		   scroll:false,
+		   matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+		   autoFill: true,    //自动填充
+		   formatItem: function(data, i, num) {//多选显示
+			   return data.title;
+		   },
+		   formatMatch: function(data, i, num) {//匹配格式
+			   return data.title;
+		   },
+		   formatResult: function(data) {//选定显示
+			   return data.title;
+		   }
+		})
+}
+
+
+function checktitle(id,mark){
+	if(!mark)
+		mark = '';
+	var title = document.getElementById("title"+mark+id).value;
+	var ishas = 0;
+	for (var i=0;i<datas.length;i++) { 
+		if(title == datas[i]['title']){
+			systemID = datas[i]['systemID'];
+			ishas = 1;
+			break;
+		}
+	} 
+	if(!ishas){
+		jQuery("#title"+id).val('');
+		jQuery("#expand"+id).val('');
+		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+',不存在,请重新选择！！</div>';
+		jQuery("#resultdiv_2").show("fast"); 
+		this.intval = window.setTimeout(function (){
+			document.getElementById('resultdiv_2').style.display='none';
+			document.getElementById('resultdiv_2').innerHTML='';
+			},3000);
+			return false;
+	}
+	else{
+		jQuery("#expand"+mark+id).val(systemID);
+		return true;
+	}
+}
+
+
+
+
 
 
