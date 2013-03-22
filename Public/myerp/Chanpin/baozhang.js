@@ -65,7 +65,6 @@
 	var renshu = jQuery("#renshu"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
 	var expand = jQuery("#expand"+mark+id).val();
-	alert(expand)
 	if(expand)
 		it +="&expand="+expand
 	title = FixJqText(title);
