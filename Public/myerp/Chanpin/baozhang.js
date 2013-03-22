@@ -81,9 +81,12 @@
 		url:	SITE_INDEX+"Chanpin/dopost_baozhangitem",
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&parentID="+parentID+it,
 		success:function(msg){
-			scroll(0,0);
-			jQuery("#btsave_"+id).attr("onclick","alert("+act+")"); 
+			jQuery("#btsave_"+id).attr("onclick",act); 
+			if(mark)
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
+			else{
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			}
 		}
 	});
 	
@@ -117,11 +120,11 @@
 		htmlcontent += "</td>";
 		if(data['type'] != '利润'){
 			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-			htmlcontent += "<input type=\"text\" id=\"renshu"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
 			htmlcontent += "</td>";
 		}
 		else{
-			htmlcontent += "<input type=\"hidden\" id=\"expand"+i+"\" value=\""+data['expand']+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expand"+data['chanpinID']+"\" value=\""+data['expand']+"\">";
 		}
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
@@ -131,7 +134,7 @@
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+data['chanpinID']+",'"+divname+"',);\" />";
 		if(data['type'] != '利润'){
-			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+",'itemlist');\" />";
 		}
 		else{
 			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+"))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
