@@ -121,7 +121,7 @@
 			htmlcontent += "</td>";
 		}
 		else{
-			htmlcontent += "<input type=\"hidden\" id=\"expand"+i+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expand"+i+"\" value=\""+data['expand']+"\">";
 		}
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
@@ -131,10 +131,10 @@
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+data['chanpinID']+",'"+divname+"',);\" />";
 		if(data['type'] != '利润'){
-			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+"))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
 		}
 		else{
-			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
+			htmlcontent += "<input class=\"button\" type=\"button\" id=\"btsave_"+data['chanpinID']+"\" value=\"修改\" onClick=\"if(checktitle("+data['chanpinID']+"))if(CheckForm('form_yingshou','resultdiv_2'))save("+data['chanpinID']+");\" />";
 		}
 //		if(data['type'] != '利润')
 //		htmlcontent += "<input class=\"button\" type=\"button\" id=\"btshenhe_"+data['chanpinID']+"\" value=\"申请审核\" onclick=\"doshenhe_baozhangitem('申请','报账项',"+data['chanpinID']+",'"+data['title']+"');\"/>";
