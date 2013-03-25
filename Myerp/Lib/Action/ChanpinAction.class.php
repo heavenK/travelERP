@@ -1036,7 +1036,7 @@ class ChanpinAction extends CommonAction{
 		$where['status_baozhang'] = '批准';
 		
 		if($_REQUEST['title'])
-			$where_unit['title'] = array('like','%'.$_REQUEST['title'].'%');
+			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
 		if($_REQUEST['listtype'] == '员工'){
 			$where['user_name'] = array('like','%'.$_REQUEST['title'].'%');
 		}
