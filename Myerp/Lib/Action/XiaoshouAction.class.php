@@ -390,6 +390,7 @@ class XiaoshouAction extends Action{
 		//检查dataOM
 		if($dingdan['shoujiaID']){
 			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
+			dump($dingdan['shoujiaID']);
 			dump($xiaoshou);
 			if(false === $xiaoshou){
 				$this->display('Index:error');
