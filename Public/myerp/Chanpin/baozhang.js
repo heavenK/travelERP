@@ -215,6 +215,7 @@ function checktitle(id,mark){
 		}
 	} 
 	if(!ishas){
+		scroll(0,0);
 		jQuery("#title"+id).val('');
 		jQuery("#expand"+id).val('');
 		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+',不存在,请重新选择！！</div>';
