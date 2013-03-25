@@ -1033,6 +1033,8 @@ class ChanpinAction extends CommonAction{
 	public function tongji() {
 		A("Method")->showDirectory("统计");
 		//搜索
+		$where_unit['status_baozhang'] = '批准';
+		
 		if($_REQUEST['title'])
 			$where_unit['title'] = array('like','%'.$_REQUEST['title'].'%');
 		if($_REQUEST['listtype'] == '员工'){
