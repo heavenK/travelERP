@@ -1040,7 +1040,8 @@ class ChanpinAction extends CommonAction{
 		}
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
-			$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+//			$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			$where['chutuanriqi'] = array('between',$_REQUEST['start_time'].','.$_REQUEST['end_time']);	
 		}
 		else{
 			$month = NF_getmonth();
