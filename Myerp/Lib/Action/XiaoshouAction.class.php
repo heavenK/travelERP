@@ -380,21 +380,21 @@ class XiaoshouAction extends Action{
     public function dingdanxinxi() {
 		A("Method")->showDirectory("订单信息");
 		//检查dataOM
-//		$dingdan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'订单','管理');
-//		if(false === $dingdan){
-//			$this->display('Index:error');
-//			exit;
-//		}
+		$dingdan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'订单','管理');
+		if(false === $dingdan){
+			$this->display('Index:error');
+			exit;
+		}
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
-//		if($dingdan['shoujiaID']){
-//			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
-//			if(false === $xiaoshou){
-//				$this->display('Index:error');
-//				exit;
-//			}
-//		}
+		if($dingdan['shoujiaID']){
+			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价','开放');
+			if(false === $xiaoshou){
+				$this->display('Index:error');
+				exit;
+			}
+		}
 		$ViewShoujia = D("ViewShoujia");
 		$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
 		$this->assign("shoujia",$shoujia);
