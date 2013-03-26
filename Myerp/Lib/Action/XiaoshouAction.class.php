@@ -58,7 +58,7 @@ class XiaoshouAction extends Action{
 	
     public function zituan() {
 		//检查dataOM
-		if($_REQUEST['shoujiaID']){
+		if($_REQUEST['shoujiaID'] > 0){
 			$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 			if(false === $xiaoshou){
 				$this->display('Index:error');
@@ -116,14 +116,14 @@ class XiaoshouAction extends Action{
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		if($zituan['status_baozhang'] != '批准'){
-			if($_REQUEST['shoujiaID'] && $zituan['status'] != '截止'){
+			if($_REQUEST['shoujiaID'] > 0 && $zituan['status'] != '截止'){
 				//报名截止
 				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0 )
 				$this->assign("baoming_root",1);
 			}
 //			;
 //			else
-//			if($_REQUEST['shoujiaID'])
+//			if($_REQUEST['shoujiaID'] > 0)
 //			$this->assign("baoming_root",1);
 		}
 		//行程一
@@ -182,7 +182,7 @@ class XiaoshouAction extends Action{
 			if($zituan['status_baozhang'] == '批准')
 				$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
 			//补订订单
-			if($_REQUEST['shoujiaID']){
+			if($_REQUEST['shoujiaID'] > 0){
 				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 				if(false === $xiaoshou)
 					$this->ajaxReturn($_REQUEST,'权限错误！', 0);
@@ -202,7 +202,7 @@ class XiaoshouAction extends Action{
 			$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['zituanID'],$_REQUEST['shoujiaID']);
 			$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 			$baomingrenshu = $tuanrenshu['baomingrenshu'];
-			if($_REQUEST['shoujiaID']){
+			if($_REQUEST['shoujiaID'] > 0){
 				if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu)){
 					$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 				}
@@ -388,7 +388,7 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
-		if($dingdan['shoujiaID'] && $dingdan['shoujiaID'] > 0){
+		if($dingdan['shoujiaID']> 0){
 			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 			if(false === $xiaoshou){
 				$this->display('Index:error');

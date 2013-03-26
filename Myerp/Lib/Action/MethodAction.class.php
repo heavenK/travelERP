@@ -1730,7 +1730,7 @@ class MethodAction extends CommonAction{
 			exit;
 		}
 		//检查dataOM
-		if($_REQUEST['shoujiaID']){
+		if($_REQUEST['shoujiaID'] > 0){
 			$omxiaoshou = $this->_checkDataOM($_REQUEST['shoujiaID'],'售价');
 			if(false === $omxiaoshou){
 				$this->display('Index:error');
