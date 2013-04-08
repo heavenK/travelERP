@@ -134,12 +134,14 @@ function _dosearch(sorttabid){
 	str += '/systemID/'+jQuery('.systemID').val();
 	if(jQuery('.departmentID').val())
 	str += '/departmentID/'+jQuery('.departmentID').val();
+	str += '/sorttabid/'+sorttabid;
+	
                         <php>if($listtype == '员工'){</php>
 	if(jQuery('.listtype').val())
 	str += '/listtype/'+jQuery('.listtype').val();
                         <php>}</php>
-	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
+						
 }
 </script>
 

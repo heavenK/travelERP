@@ -402,6 +402,236 @@ class DijieAction extends CommonAction{
 	}
 	
 	
+	public function tongji() {
+		A("Method")->showDirectory("统计");
+		//搜索
+		$where['status_baozhang'] = '批准';
+		
+		if($_REQUEST['title'])
+			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
+		if($_REQUEST['listtype'] == '员工'){
+			$where['user_name'] = array('like','%'.$_REQUEST['title'].'%');
+		}
+		$where['status_system'] = 1;
+		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
+			$where['jietuantime'] = array('between',$_REQUEST['start_time'].','.$_REQUEST['end_time']);	
+		}
+		else{
+			$month = NF_getmonth();
+			$fm_forward_month = $month['forward'];
+			$where['jietuantime'] = array('between',$fm_forward_month.'-01'.','.date("Y-m").'-01');	
+			$_REQUEST['start_time'] = $fm_forward_month.'-01';
+			$_REQUEST['end_time'] = date("Y-m").'-01';
+			$this->assign("start_time",$fm_forward_month.'-01');
+			$this->assign("end_time",date("Y-m").'-01');
+		}
+		if($_REQUEST['departmentID'])
+			$where['departmentID'] = $_REQUEST["departmentID"];
+		
+		//获得用户权限，部门列表
+		$ViewDepartment = D("ViewDepartment");
+		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
+		if($role){
+			$unitdata = $ViewDepartment->where("`type` like '%地接%'")->findall();
+		}
+		else{
+			$role = A("Method")->_checkRolesByUser('经理','地接');
+			if(!$role)
+				exit;
+			$i = 0;
+			foreach($role as $v){
+				$unitdata[$i] = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+				$i++;
+			}
+			$unitdata = about_unique($unitdata);
+		}
+		//部门列表
+		if($_REQUEST["departmentID"]){
+			foreach($unitdata as $b){
+				if($b['systemID'] == $_REQUEST["departmentID"])
+				$newdata[0] = $b;
+			}
+			$unitdata = $newdata;
+		}
+		
+		//end
+		//总体统计。
+		$ViewDJtuan = D("ViewDJtuan");
+		$ViewBaozhang = D("ViewBaozhang");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$i = 0;
+		foreach($unitdata as $v){
+			$where['departmentID'] = $v['systemID'];
+			$tuanall = $ViewDJtuan->where($where)->findall();
+			foreach($tuanall as $vol){
+				$zituanall[$i] = $vol;
+				$i++;
+			}
+		}
+		$i = 0;
+		foreach($zituanall as $v){
+			$tongji['tuanshu'] += 1;
+			$tongji['jihua_renshu'] += $v['renshu'];
+			$yingfu = 0;
+			$yingshou = 0;
+			//报账单
+			$baozhangall = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->findall();
+			foreach($baozhangall as $vol){
+				if($vol['type'] == '团队报账单'){
+				  $tongji['baozhang_renshu'] += $vol['renshu'];
+				  $baozhang_renshu = $vol['renshu'];
+				}
+				$itemall = $ViewBaozhangitem->where("`parentID` = '$vol[chanpinID]' and `status_system` = 1")->findall();
+				foreach($itemall as $w){
+					if($w['type'] == '支出项目'){
+						$tongji['yingfu'] += $w['value'];
+						$yingfu += $w['value'];
+					}
+					if($w['type'] == '结算项目'){
+						$tongji['yingshou'] += $w['value'];
+						$yingshou += $w['value'];
+					}
+				}
+			}
+			$zituanall[$i]['baozhang_renshu'] = $baozhang_renshu;
+			$zituanall[$i]['yingshou'] = $yingshou;
+			$zituanall[$i]['yingfu'] = $yingfu;
+			$i++;
+		}
+		$this->assign("tongji",$tongji);
+		//分类处理
+		//人员统计
+		if($_REQUEST['listtype'] == '员工'){
+			$this->assign("markpos",$_REQUEST['listtype']);
+			//用户列表
+			$ViewUser = D("ViewUser");
+			$i = 0;
+			foreach($unitdata as $v){
+				$listarray = A("Method")->_getBumenUserlist($v['systemID']);
+				foreach($listarray as $lol){
+					$userlist[$i] = $lol;
+					$i++;
+				}
+			}
+			$unitdata = about_unique($userlist);
+			$unitdata = array_values($unitdata);
+			//搜索用户
+			if($_REQUEST['title']){
+				foreach($unitdata as $tt){
+					if($tt['title'] == $_REQUEST['title']){
+						$unitdata = null;
+						$unitdata[0] = $tt;
+						break;
+					}
+				}
+			}
+		}
+		//end人员统计
+		$i = 0;
+		foreach($unitdata as $v){
+			if($_REQUEST['listtype'] == '员工'){
+				$right = $v['title'];
+			}
+			else{
+				$right = $v['systemID'];
+			}
+			$m = 0;
+			foreach($zituanall as $vol){
+				if($_REQUEST['listtype'] == '员工'){
+					$left = $vol['user_name'];
+				}
+				else{
+					$left = $vol['departmentID'];
+				}
+				if($left == $right){
+					$unitdata[$i]['zituan'][$m] = $vol;
+					$unitdata[$i]['jihua_renshu'] += (int)$vol['renshu'];
+					$unitdata[$i]['baozhang_renshu'] += (int)$vol['baozhang_renshu'];
+					$unitdata[$i]['yingshou'] += (int)$vol['yingshou'];
+					$unitdata[$i]['yingfu'] += (int)$vol['yingfu'];
+					$m++;
+				}
+			}
+			if($_REQUEST['returntype'] == 'ajax')
+				$data = $unitdata[$i]['zituan'];
+			$i++;
+		}
+		$this->assign("unitdata",$unitdata);
+		//打印
+		if($_REQUEST['doprint'] == 1){
+			$this->display('Chanpin:print_yingshou');
+			return ;	
+		}
+		if($_REQUEST['export'] == 1){
+			//导出Word
+			header("Content-type:application/msword");
+			header("Content-Disposition:attachment;filename=" . $_REQUEST['start_time'].'至'.$_REQUEST['end_time'] . "绩效统计.doc");
+			header("Pragma:no-cache");        
+			header("Expires:0"); 
+			$this->display('Chanpin:print_yingshou');
+			return ;	
+		}
+		//返回	
+		if($_REQUEST['returntype'] == 'ajax'){
+				$str = '
+					<table cellpadding="0" cellspacing="0" width="100%" class="list view">
+						<tr height="20">
+						  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>'.$tabtile.'
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团号 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 接团日期  </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划人数 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账情况 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账人数 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应付 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 盈亏 </div></th>
+						</tr>
+				';
+				$i = 0;
+				foreach($data as $v){$i++;
+					$str .= '
+					<tr class="evenListRowS1">
+					  <td>'.$i.'</td>
+					  <td><a target="_blank" href="'.SITE_INDEX.'Dijie/djtuanbaozhang/type/团队报账单/chanpinID/'.$v['chanpinID'].'">'.$v['title'].'</a></td>'.$tabvalue.'
+					  <td>'.$v['tuanhao'].'</td>
+					  <td>'.$v['jietuantime'].'</td>
+					  <td>'.$v['user_name'].'</td>
+					  <td>'.$v['renshu'].'</td>
+					  <td>'.$v['baozhang_remark'].'</td>
+					  <td>'.$v['baozhang_renshu'].'</td>
+					  <td>'.number_format($v['yingshou']).'</td>
+					  <td>'.number_format($v['yingfu']).'</td>
+					  <td>'.number_format($v['yingshou']-$v['yingfu']).'</td>
+					</tr>
+					';
+				}
+				$str .= '
+					<tr class="evenListRowS1">
+					  <td align="right" colspan="3">
+					  '.$page.'
+					  </td>
+					</tr>
+					</table>
+				';
+				$this->ajaxReturn($str, '', 1);
+		}
+		else{
+			$this->display('Dijie:tongji');
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 ?>

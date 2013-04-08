@@ -1,7 +1,6 @@
 <tp:includeCA file="Index:showheader" />
 
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
   <tp:includeCA file="Chanpin:left_fabu:'left_kongguan','营收'" />
@@ -18,12 +17,12 @@
           <php>if($markpos == ''){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/tongji">部门统计</a> </li>
+          href="<{:SITE_INDEX}>Dijie/tongji">部门统计</a> </li>
         <li> <a 
           <php>if($markpos == '员工'){</php>
           class="current"
           <php>}</php>
-          href="<{:SITE_INDEX}>Chanpin/tongji/listtype/员工">员工统计</a> </li>
+          href="<{:SITE_INDEX}>Dijie/tongji/listtype/员工">员工统计</a> </li>
       </ul>
     </div>
             <php>if(!$systemID){</php>
@@ -34,7 +33,6 @@
                   <th scope="col" nowrap="nowrap"><div> 截止时间 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 团数 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 计划人数 </div></th>
-                  <th scope="col" nowrap="nowrap"><div> 订单人数/确认/占位/候补 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 报账人数 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 计划应收 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 计划应付 </div></th>
@@ -45,7 +43,6 @@
                   <td scope="row" align="left" valign="top"><{$end_time}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['tuanshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['jihua_renshu'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($tongji['dingdan_renshu'])</php>/<php> echo number_format($tongji['queren_renshu'])</php>/<php> echo number_format($tongji['zhanwei_renshu'])</php>/<php> echo number_format($tongji['houbu_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['baozhang_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['yingshou'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['yingfu'])</php></td>
@@ -85,7 +82,6 @@
 			<php> }</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划人数 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单人数/确认/占位/候补 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账人数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应付 </div></th>
@@ -101,7 +97,6 @@
 			<php> }</php>
                   <td scope="row" align="left" valign="top"><php> echo number_format(count($v['zituan']))</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['jihua_renshu'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['dingdan_renshu'])</php>/<php> echo number_format($v['queren_renshu'])</php>/<php> echo number_format($v['zhanwei_renshu'])</php>/<php> echo number_format($tongji['houbu_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['baozhang_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
@@ -136,10 +131,9 @@
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 标题 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团号 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 接团日期 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 计划人数 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单人数/确认/占位/候补 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 报账情况 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 报账人数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
@@ -149,12 +143,11 @@
                 <php> $i = -1; foreach($unitdata[0]['zituan'] as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title_copy']}></a></td>
+                  <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Dijie/djtuanbaozhang/type/团队报账单/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['tuanhao']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['jietuantime']}></td>
                   <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
                   <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
-                  <td scope="row" align="left" valign="top"><{$v['dingdan_renshu']}>/<{$v['queren_renshu']}>/<{$v['zhanwei_renshu']}>/<{$v['houbu_renshu']}></td>
                   <td scope="row" align="left" valign="top"><{$v['baozhang_remark']}></td>
                   <td scope="row" align="left" valign="top"><{$v['baozhang_renshu']}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'])</php></td>
@@ -210,7 +203,6 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 姓名 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划人数 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单人数/确认/占位/候补 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 报账人数 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应收 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 计划应付 </div></th>
@@ -223,7 +215,6 @@
                   <td scope="row" align="left" valign="top"><{$v['title']}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format(count($v['zituan']))</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['jihua_renshu'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['dingdan_renshu'])</php>/<php> echo number_format($v['queren_renshu'])</php>/<php> echo number_format($v['zhanwei_renshu'])</php>/<php> echo number_format($tongji['houbu_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['baozhang_renshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
@@ -267,9 +258,6 @@ function show_dingdan(chanpinID){
 	window.open('<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/'+chanpinID);
 }
 function dosearch(str){
-		window.location = SITE_INDEX+'Chanpin/tongji'+str;
-}
-function dosearch2(str){
 		window.location = SITE_INDEX+'Dijie/tongji'+str;
 }
 </script>

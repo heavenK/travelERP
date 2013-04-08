@@ -410,6 +410,10 @@ class ChanpinAction extends CommonAction{
 		$this->assign("bumenlist",$bumenlist);
 		$zutuanlist = $ViewDepartment->where("`type` like '%组团%' and `type` not like '%联合体%' and `type` not like '%办事处%'")->findall();
 		$this->assign("zutuanlist",$zutuanlist);
+		
+		$dijielist = $ViewDepartment->where("`type` like '%地接%'")->findall();
+		$this->assign("dijielist",$dijielist);
+		
 		$this->assign("pagetype",$pagetype);
 		$this->display('Chanpin:'.$htmltp);
 	}
