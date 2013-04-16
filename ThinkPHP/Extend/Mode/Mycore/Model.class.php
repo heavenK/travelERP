@@ -61,7 +61,7 @@ class Model {
     protected $autoCheckFields   =   true;
     // 是否批处理验证
     protected $patchValidate   =  false;
-    // add by gaopeng
+    // add by 
     // 最后一次操作类型
     protected $lastmodeltype   =  '';
 	//end
@@ -166,7 +166,7 @@ class Model {
             F('_fields/'.$db.'.'.$this->name,$this->fields);
         }
 		
-		//add by gaopeng
+		//add by 
 		return $this->fields;
 		//end
 		
@@ -854,6 +854,14 @@ class Model {
 
         // 状态
         $type = $type?$type:(!empty($data[$this->getPk()])?self::MODEL_UPDATE:self::MODEL_INSERT);
+		
+		//add by gaopeng
+		if($type == self::MODEL_UPDATE){
+			$ishas = $this->find($data[$this->getPk()]);
+			if(!$ishas)
+			$type = self::MODEL_INSERT;
+		}
+		//end
 
         // 数据自动验证
         if(!$this->autoValidation($data,$type)) return false;
@@ -966,7 +974,7 @@ class Model {
                             if(isset($data[$auto[0]])) {
                                 array_unshift($args,$data[$auto[0]]);
                             }
-							//add by gaooebg
+							//add by gaopeng
 							if($auto[5] == 1){
 								$args = $auto[4];
 								$arg_list = explode(',',$args);
@@ -1355,7 +1363,7 @@ class Model {
      +----------------------------------------------------------
      */
     public function getError(){
-		//add by gaopeng
+		//add by 
 		if($this->error)
         return $this->error;
 		else
@@ -1582,7 +1590,7 @@ class Model {
 
 
 
-	//add by gaopeng
+	//add by 
 	//调用顺序 create save add,如果save失败并且主键存在则调用add
      public function mycreate($data='',$type='',$options=array()) {
 		$vo = $this->create($data,$type);
@@ -1625,14 +1633,14 @@ class Model {
 	//end
 
 
-	//add by gaopeng
+	//add by 
     public function getLastmodel() {
         return $this->lastmodeltype;
     }
 	//end
 
 
-	//add by gaopeng
+	//add by 
 	//解析条件到字符串
     public function parseWhere($where) {
 		return $this->db->parseWhere($where,true);

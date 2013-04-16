@@ -152,7 +152,7 @@ function showsearch(s)
 function clearsearch(){
 		jQuery('.title_1').val('');
 		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
+		jQuery('.chutuanriqi').val('');
 		jQuery('.start_time').val('');
 		jQuery('.end_time').val('');
 		jQuery('.user_name').val('');
@@ -166,8 +166,8 @@ function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/chufariqi/'+jQuery('.chufariqi').val();
+	if(jQuery('.chutuanriqi').val())
+	str += '/chutuanriqi/'+jQuery('.chutuanriqi').val();
 	if(jQuery('.start_time').val())
 	str += '/start_time/'+jQuery('.start_time').val();
 	if(jQuery('.end_time').val())
