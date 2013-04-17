@@ -112,7 +112,11 @@
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="pingyi_create">产品平移</a></td>
           <td width="30%">产品平移</td>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM()">联合体OM重置</a></td>
-          <td width="30%">部门数据平移</td>
+          <td width="30%">联合体OM重置</td>
+        </tr>
+        </tr>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认？')==true)resetchanpinshoujia()">产品开放到部门</a></td>
+          <td width="30%">产品开放到部门</td>
         </tr>
       </tbody>
     </table>
@@ -162,7 +166,7 @@ jQuery().ready(function() {
 	  myautocomplete("#bumentitle_pingyi",'部门');
 });
 		
- function myautocomplete(target,parenttype){
+function myautocomplete(target,parenttype){
 		if(parenttype == '用户')
 		datas = user;
 		if(parenttype == '部门')
@@ -190,6 +194,13 @@ function resetOM(){
 	var url = SITE_INDEX+'SetSystem/resetOM/page/1/page_2/1';
     window.open(url,'_blank');
 }
+
+function resetchanpinshoujia(){
+	var url = SITE_INDEX+'SetSystem/chanpinkaifangdaobumen';
+    window.open(url,'_blank');
+}
+
+
 
 </script>
 

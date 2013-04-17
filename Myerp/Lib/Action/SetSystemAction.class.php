@@ -742,6 +742,44 @@ class SetSystemAction extends CommonAction{
 	}
 	
 	
+	//产品开放到部门
+	public function chanpinkaifangdaobumen(){
+		C('TOKEN_ON',false);
+		//部门搜索
+//		$bumentitle = $_REQUEST['bumentitle'];
+//		$ViewDepartment = D("ViewDepartment");
+//		$bumen = $ViewDepartment->where("`title` = '$bumentitle'")->find();	
+		//产品筛选
+		$datelist = NF_getdatelistbetweentwodate(date("Y-m-d",time()),date("Y-m-d",time() + 60*60*24*30*3));
+//		$datelist = NF_getdatelistbetweentwodate('2012-11-11',date("Y-m-d",time() + 60*60*24*30*3));
+		$i = 0;
+		foreach($datelist as $v){
+			$where['chutuanriqi'][$i][0] = 'like';
+			$where['chutuanriqi'][$i][1] = '%'.$v.'%';
+			$i++;
+		}
+		$where['chutuanriqi'][$i] = 'or';
+		$datas = A('Method')->data_list_noOM('ViewXianlu',$where);
+		$DataOM = D("DataOM");
+		$ViewShoujia = D("ViewShoujia");
+		foreach($datas['chanpin'] as $v){
+			$reset = 0;	
+			$shoujiaall = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->findall();
+			foreach($shoujiaall as $vol){
+				$dataom['chanpinID'] = $vol['chanpinID'];
+				$dataom['opentype'] = '分类';
+				$dataom['openID'] = $vol['openID'];
+				//生成开放OM	
+				A('Method')->_shoujiaToDataOM($dataom);
+			}
+		}
+		echo "执行结束！";
+			
+	}
+	
+	
+	
+	
 	
 	
 	
