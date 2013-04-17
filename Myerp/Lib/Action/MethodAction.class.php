@@ -1091,7 +1091,14 @@ class MethodAction extends CommonAction{
 			cookie('errormessage','错误，线路和地接状态已经截止！',30);
 			return false;
 		}
-		
+		//线路
+		if($cp['marktype'] == 'xianlu'){
+			$xianlu = $Chanpin->relationGet("xianlu");
+			if($xianlu['chutuanriqi'] == '0' || $xianlu['chutuanriqi'] == ''){
+				cookie('errormessage','错误，出团日期未添加！',30);
+				return false;
+			}
+		}
 		$dotype = $_REQUEST['dotype'];
 		$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
