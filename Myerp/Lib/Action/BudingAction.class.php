@@ -615,7 +615,9 @@ class BudingAction extends Action{
 				else
 					$v['shenhe_time'] = $vol['time'];
 			}
-			$Chanpin->save($v);
+			$dat['chanpinID'] = $v['chanpinID'];
+			$dat['shenhe_time'] = $v['shenhe_time'];
+			$Chanpin->save($dat);
 		}
 		echo "结束";
 	}
