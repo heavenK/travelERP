@@ -609,13 +609,13 @@ class BudingAction extends Action{
 			$ts = $ViewTaskShenhe->where("`dataID` = '$v[chanpinID]' and `remark` like '%财务%' and `status_system` = 1")->order("time desc")->findall();
 			foreach($ts as $vol){
 				if($vol['remark'] == '财务总监审核通过'){
-					$v['baozhang']['shenhe_time'] = $vol['time'];
+					$v['shenhe_time'] = $vol['time'];
 					break;
 				}
 				else
-					$v['baozhang']['shenhe_time'] = $vol['time'];
+					$v['shenhe_time'] = $vol['time'];
 			}
-			$Chanpin->relation('baozhang')->myRcreate($v);
+			$Chanpin->save($v);
 		}
 		echo "结束";
 	}
