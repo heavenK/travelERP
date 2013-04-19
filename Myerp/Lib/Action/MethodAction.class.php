@@ -2564,7 +2564,6 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
-				  	$Chanpin->save($editdat);
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
@@ -2574,7 +2573,6 @@ class MethodAction extends CommonAction{
 					$dataID = $_REQUEST['dataID'];
 					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 				}
-				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '订单'){
@@ -2582,11 +2580,9 @@ class MethodAction extends CommonAction{
 					//填入客户表
 					$this->_customerbuild($_REQUEST['dataID']);
 				}
-				$Chanpin->relation("dingdan")->myRcreate($editdat);
 				$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '报账项'){
-				$Chanpin->relation("baozhangitem")->myRcreate($editdat);
 				$ViewBaozhangitem = D("ViewBaozhangitem");
 				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
@@ -2670,7 +2666,6 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['datatype'] == '地接'){
 				if($status == '批准'){
 					$editdat['status'] = '在线';
-				  	$Chanpin->save($editdat);
 					//生成默认团队报账单
 					$ViewBaozhang = D('ViewBaozhang');
 					$bzd = $ViewBaozhang->where("`type` = '团队报账单' and `parentID` = '$_REQUEST[dataID]' AND (`status_system` = '1')")->find();
@@ -2690,7 +2685,8 @@ class MethodAction extends CommonAction{
 				}
 				$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
-			
+			//保存信息
+			$Chanpin->save($editdat);
 			//记录
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';

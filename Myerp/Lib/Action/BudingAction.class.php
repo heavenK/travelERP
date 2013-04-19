@@ -595,5 +595,35 @@ class BudingAction extends Action{
 	}
 	
 	
+	
+	//订单统计
+    public function baozhangshenhetime() {
+		C('TOKEN_ON',false);
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$ViewBaozhang = D("ViewBaozhang");
+		$Chanpin = D("Chanpin");
+		$baozhangall = $ViewBaozhang->where("`shenhe_remark` like '%财务%' and (`shenhe_time` = 0 or `shenhe_time` = ''  or `shenhe_time` is null) ")->findall();
+		dump(count($baozhangall));
+		$i = 0;
+		foreach($baozhangall as $v){
+			$ts = $ViewTaskShenhe->where("`dataID` = '$v[chanpinID]' and `remark` like '%财务%' and `status_system` = 1")->order("time desc")->findall();
+			foreach($ts as $vol){
+				if($vol['remark'] == '财务总监审核通过'){
+					$v['baozhang']['shenhe_time'] = $vol['time'];
+					break;
+				}
+				else
+					$v['baozhang']['shenhe_time'] = $vol['time'];
+			}
+			$Chanpin->relation('baozhang')->myRcreate($v);
+		}
+		echo "结束";
+	}
+	
+	
+	
+	
+	
+	
 }
 ?>

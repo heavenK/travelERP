@@ -163,6 +163,7 @@ class ChanpinAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$data['chanpinID'] = $_REQUEST['chanpinID'];
 		$data['xianlu']['shoujia'] = $_REQUEST['shoujia'];
+		$data['xianlu']['ertongshoujia'] = $_REQUEST['ertongshoujia'];
 		$data['xianlu']['remark'] = $_REQUEST['remark'];
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($data))
 				$this->ajaxReturn($_REQUEST, '保存成功！', 1);
@@ -296,8 +297,8 @@ class ChanpinAction extends CommonAction{
 		$this->assign("chengben",$chengbenlist);
 		$shoujia = A("Method")->_fenlei_filter($shoujia);
 		$this->assign("shoujia",$shoujia);
-		$xianlu = $Chanpin->relationGet("xianlu");
-		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
+		//$xianlu = $Chanpin->relationGet("xianlu");
+		$this->assign("datatitle",' : "'.$chanpin['title'].'"');
 		//成本数据字典
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$chengbenlist = $ViewDataDictionary->order("time desc")->where("`type` = '成本' AND `status_system` = '1'")->findall();
