@@ -153,7 +153,7 @@
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteshoujia("+i+",'temp');\" />";
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onclick=\"if(checktitle("+i+",'"+opentype+"','_t'))addshoujia("+i+",'"+opentype+"','_t');\" /></td>";
 	htmlcontent += "</tr>";
-	jQuery("#shoujia").append(htmlcontent);
+	jQuery("#xiaoshoulist").append(htmlcontent);
 	myautocomplete("#_t"+i,opentype);
  }
 
