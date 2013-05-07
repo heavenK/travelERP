@@ -2564,6 +2564,7 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
+				  	$Chanpin->save($editdat);
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
@@ -2573,6 +2574,7 @@ class MethodAction extends CommonAction{
 					$dataID = $_REQUEST['dataID'];
 					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 				}
+				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '订单'){
