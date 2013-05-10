@@ -664,8 +664,11 @@ class BudingAction extends Action{
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
 		foreach($uall as $v){
+			dump($v);
 			$v['companyID'] = '40150';
 			$Chanpin->save($v);
+			dump($Chanpin);
+			exit;
 		}
 		echo "结束";
 	}
