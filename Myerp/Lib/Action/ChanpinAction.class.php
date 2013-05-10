@@ -1054,7 +1054,6 @@ class ChanpinAction extends CommonAction{
 		if($_REQUEST['departmentID'])
 			$where['departmentID'] = $_REQUEST["departmentID"];
 		$ViewDataDictionary = D("ViewDataDictionary");
-		
 		//获得用户权限，部门列表
 		$ViewDepartment = D("ViewDepartment");
 		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
@@ -1064,8 +1063,11 @@ class ChanpinAction extends CommonAction{
 		}
 		else{
 			$role = A("Method")->_checkRolesByUser('经理','组团');
-			if(!$role)
+			if(!$role){
+				$this->assign("message",'您的访问受限！！');
+				$this->display('Index:error');
 				exit;
+			}
 			$i = 0;
 			foreach($role as $v){
 				$unitdata[$i] = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
