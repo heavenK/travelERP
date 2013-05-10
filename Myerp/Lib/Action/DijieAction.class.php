@@ -81,8 +81,7 @@ class DijieAction extends CommonAction{
 			}
 		}
 		//用户列表
-		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist('地接');
@@ -429,10 +428,11 @@ class DijieAction extends CommonAction{
 			$where['departmentID'] = $_REQUEST["departmentID"];
 		
 		//获得用户权限，部门列表
+		$ComID = A("Method")->_getComIDbyUser();
 		$ViewDepartment = D("ViewDepartment");
 		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
 		if($role){
-			$unitdata = $ViewDepartment->where("`type` like '%地接%'")->findall();
+			$unitdata = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%地接%'")->findall();
 		}
 		else{
 			$role = A("Method")->_checkRolesByUser('经理','地接');

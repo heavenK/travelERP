@@ -9,6 +9,9 @@
 	htmlcontent += "<input type=\"text\" id=\"_t"+i+"\" style=\"width:200px;\" >";
 	htmlcontent += "<input type=\"hidden\" id=\"parentID_t"+i+"\">";
 	htmlcontent += "</td>";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+	htmlcontent += "<input type=\"text\" id=\"companyID_t"+i+"\">";
+	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">"+parenttype;
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"processID_t"+i+"\" style=\"width:100px;\" >";
@@ -32,7 +35,7 @@
 	jQuery("#itemlist_box").append(htmlcontent);
 	
 	myautocomplete("#_t"+i,parenttype);
-	
+	myautocomplete("#companyID_t"+i,'部门');
  }
  
  function additem(id,parenttype,mark)
@@ -49,10 +52,11 @@
 	var processID = jQuery("#processID"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
 	var is_notice = jQuery("#is_notice"+mark+id).val();
+	var companyID = jQuery("#companyID"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostShenhe",
-		data:	"parentID="+parentID+"&title="+title+"&parenttype="+parenttype+"&datatype="+datatype+"&processID="+processID+"&remark="+remark+"&is_notice="+is_notice+it,
+		data:	"parentID="+parentID+"&title="+title+"&parenttype="+parenttype+"&datatype="+datatype+"&processID="+processID+"&remark="+remark+"&is_notice="+is_notice+"&companyID="+companyID+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id);
 		}
@@ -68,6 +72,9 @@
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\""+data['systemID']+"\" style=\"width:200px;\" value=\""+data['title']+"\">";
 		htmlcontent += "<input type=\"hidden\" id=\"parentID"+data['systemID']+"\">";
+		htmlcontent += "</td>";
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+		htmlcontent += "<input type=\"text\" id=\"companyID"+data['systemID']+"\" value=\""+data['companyID']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">"+data['parenttype'];
 		htmlcontent += "</td>";
@@ -150,6 +157,9 @@
 			   return data.title;
 		   },
 		   formatResult: function(data) {//选定显示
+			   if(parenttype == '部门')
+			   return data.systemID;
+			   else
 			   return data.title;
 		   }
 		})

@@ -140,8 +140,7 @@ class XiaoshouAction extends Action{
 			$this->assign("bumenfeilei",$bumenfeilei);
 			//清空占位过期订单
 			A('Method')->_cleardingdan();
-			$ViewUser = D("ViewUser");
-			$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+			$userlist = A("Method")->_getCompanyUserList();
 			$this->assign("userlist",$userlist);
 			$this->display('baoming');
 		}
@@ -430,8 +429,7 @@ class XiaoshouAction extends Action{
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
 		//用户列表
-		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist();

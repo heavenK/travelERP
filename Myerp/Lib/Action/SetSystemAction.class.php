@@ -16,8 +16,7 @@ class SetSystemAction extends CommonAction{
 		$type = $_REQUEST['type'];
 		A("Method")->showDirectory($type);
 		
-		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 			
 		$datas = A('Method')->_getDepartmentList();
@@ -29,8 +28,12 @@ class SetSystemAction extends CommonAction{
 	public function category(){
 		A("Method")->showDirectory("分类");
 		$ViewCategory = D("ViewCategory");
-		$datas = $ViewCategory->findall();
+//		$datas = $ViewCategory->findall();
+		$datas = A('Method')->getDataOMlistSystem("分类",'category',$_REQUEST);
 		$this->assign("datalist",$datas);
+		//获得公司列表
+		$comall = A('Method')->_getCompanyAll();
+		$this->assign("comall",$comall);
 		$this->display('SetSystem:templatelist');
 	}
 	
@@ -167,7 +170,7 @@ class SetSystemAction extends CommonAction{
 		}
 		A("Method")->showDirectory("用户");
 		$this->assign("showtitle",$showtitle);
-		$users = A('Method')->data_list_noOM("ViewUser",$_REQUEST);
+		$users = A('Method')->getDataOMlistSystem("用户",'user',$_REQUEST);
 		$this->assign("users",$users);
 		A("Method")->unitlist();
 		$this->display('SetSystem:templatelist');
@@ -177,11 +180,20 @@ class SetSystemAction extends CommonAction{
 	public function userDUR(){
 		A("Method")->showDirectory("部门角色");
 		$systemID = $_REQUEST['systemID'];
+		//检查dataOM
+		$user = A('Method')->_checkDataOM($_REQUEST['systemID'],'用户','管理','','','DataOMSystem');
+		if(false === $user){
+			$this->display('Index:error');
+			exit;
+		}
 		$System = D("System");
 		$data = $System->relation("DURlist")->where("`systemID` = '$systemID'")->find();
 		$DURlist = $data['DURlist'];
 		A('Method')->_facesystem($DURlist,'用户');
-		A('Method')->unitlist();
+		$ViewUser = D("ViewUser");
+		$u = $ViewUser->where("`systemID` = '$systemID'")->find();
+		$where['companyID'] = $u['companyID'];
+		A('Method')->unitlist($where);
 		$this->assign("DURlist",$DURlist);
 		$this->assign("datatitle",' : "'.$_REQUEST['datatitle'].'"');
 		$this->display('SetSystem:templatelist');
@@ -196,6 +208,14 @@ class SetSystemAction extends CommonAction{
 		if (false !== $System->relation("systemDUR")->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
 				$_REQUEST['systemID'] = $System->getRelationID();
+			$ViewUser = D("ViewUser");
+			$System = D("System");
+			$u = $ViewUser->where("`systemID` = '$data[userID]'")->find();
+			if(!$u['companyID']){
+				//标记公司ID
+				$u['companyID'] = $data['bumenID'];
+				$System->save($u);
+			}
 			//选填RBAC权限
 			//A("Method")->_opentoRBACbyUser($_REQUEST['systemID'],$_REQUEST['rolesID']);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
@@ -299,13 +319,17 @@ class SetSystemAction extends CommonAction{
 				}
 			}
 			else{
-				$user = $ViewUser->where("`systemID` = '$_REQUEST[title]'")->find();
+				$user = $ViewUser->where("`title` = '$_REQUEST[title]'")->find();
 				if($user)
 					$this->ajaxReturn($_REQUEST, '错误！用户名已在系统中存在！！', 0);
 				$data[$_REQUEST['tableName']]['user_name'] = $_REQUEST['title'];
 			}
 			if($_REQUEST['password'])
 				$data[$_REQUEST['tableName']]['password'] = md5(md5($_REQUEST['password']));
+			//标记公司ID
+			if($_REQUEST['isnewadmin'] != 1){
+				$data['companyID'] = A("Method")->_getComIDbyUser();
+			}
 		}
 		if($_REQUEST['tableName'] == 'roles'){
 			$ViewRoles = D("ViewRoles");
@@ -317,11 +341,32 @@ class SetSystemAction extends CommonAction{
 		}
 		if($_REQUEST['tableName'] == 'department'){
 			$ViewDepartment = D("ViewDepartment");
-			$roles = $ViewDepartment->where("`title` = '$_REQUEST[title]'")->find();
-			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
-				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！！！！！！', 0);
-			if($_REQUEST['systemID'] == '' && $roles)
-				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+//			$roles = $ViewDepartment->where("`title` = '$_REQUEST[title]'")->find();
+//			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
+//				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！！！！！！', 0);
+//			if($_REQUEST['systemID'] == '' && $roles)
+//				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+			if(!$_REQUEST['title'])
+				$this->ajaxReturn($_REQUEST, '错误！部门名不能为空！！', 0);
+			$typelist = explode(',',$_REQUEST['type']);
+			foreach($typelist as $v){
+				//行政类型判断，唯一性
+				if($v == '行政' && $_REQUEST['parentID'] != 0 && $_REQUEST['parentID'] != '')
+					$this->ajaxReturn($_REQUEST, '不能存在行政子部门！！', 0);
+				else
+				if($v == '行政' && count($typelist) > 1)
+					$this->ajaxReturn($_REQUEST, '行政与其他属性不能并存！！', 0);
+				//公司，部门排他设置（非行政属性部门必须拥有父部门ID）
+				else{
+					if($v != '行政'){
+						$comp = $ViewDepartment->where("`systemID` = '$_REQUEST[parentID]' and `type` = '行政' and `status_system` = 1")->find();
+						if(!$comp)
+							$this->ajaxReturn($_REQUEST, '属于公司不存在！！', 0);
+						//标记公司ID
+						$data['companyID'] = $_REQUEST['parentID'];
+					}
+				}
+			}
 		}
 		if($_REQUEST['tableName'] == 'category'){
 			$ViewCategory = D("ViewCategory");
@@ -330,6 +375,8 @@ class SetSystemAction extends CommonAction{
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
 			if($_REQUEST['systemID'] == '' && $roles)
 				$this->ajaxReturn($_REQUEST, '错误！分类名已在系统中存在！！', 0);
+			//标记公司ID
+			$data['companyID'] = $_REQUEST['parentID'];
 		}
 		if($_REQUEST['tableName'] == 'datadictionary'){
 			$data[$_REQUEST['tableName']]['datatext'] = serialize($_REQUEST);//在datacopy表测试无压力，此表诡异
@@ -342,7 +389,37 @@ class SetSystemAction extends CommonAction{
 		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
 			if($System->getLastmodel() == 'add')
-				$_REQUEST['systemID'] = $System->getRelationID();
+				$data['systemID'] = $System->getRelationID();
+			if($_REQUEST['tableName'] == 'user' || $_REQUEST['tableName'] == 'category'){
+				//管理员用户开放管理
+				if($_REQUEST['tableName'] == 'user'){//管理员可见
+					$datatype = '用户';
+					if($this->user['title'] == 'aaa' && $_REQUEST['isnewadmin'] == 1){
+						$dataOMlist[0]['DUR'] = ',,'.$this->user['systemID'];
+					}
+					else{
+						$department_type = '行政';
+						$role = '网管';
+					}
+					$actiontype = '管理';
+				}
+				if($_REQUEST['tableName'] == 'category'){//管理员不可见
+					$datatype = '分类';
+					$actiontype = '开放';
+				}
+				if(!$dataOMlist)
+				$dataOMlist = A("Method")->_setDataOMofCompany($_REQUEST['parentID'],$department_type,$role);
+				A("Method")->_createDataOM($data['systemID'],$datatype,$actiontype,$dataOMlist,'DataOMSystem');
+			}
+			if($_REQUEST['tableName'] == 'department'){
+				//标记公司ID
+				if(!$data['companyID']){
+					if($_REQUEST['tableName'] == 'department'){
+						$data['companyID'] = $data['systemID'];
+					}
+					$System->save($data);
+				}
+			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -352,16 +429,18 @@ class SetSystemAction extends CommonAction{
 	
 	
 	public function shenhe(){
-		$ViewShenhe = D("ViewShenhe");
-		A('Method')->unitlist();
-		$datatype = $_REQUEST['datatype'];
-		A("Method")->showDirectory("审核流程");
-		$datalist = $ViewShenhe->where("`datatype` = '$datatype'")->findall();
-		$datalist = A("Method")->_systemUnitFilter($datalist);
-		$this->assign("datalist",$datalist);
-		//显示
 		if($_REQUEST['datatype']){
+			$ViewShenhe = D("ViewShenhe");
+			A('Method')->unitlist();
+			$datatype = $_REQUEST['datatype'];
+			A("Method")->showDirectory("审核流程");
+			$datalist = $ViewShenhe->where("`datatype` = '$datatype'")->findall();
+			$datalist = A("Method")->_systemUnitFilter($datalist);
+			$this->assign("datalist",$datalist);
 			$this->assign("datatitle",' : "'.$datatype.'"');
+			//获得公司列表
+			$comall = A('Method')->_getCompanyAll();
+			$this->assign("comall",$comall);
 			$this->display('SetSystem:templatelist');
 		}
 		else{
@@ -612,6 +691,24 @@ class SetSystemAction extends CommonAction{
 	public function department(){
 		A("Method")->showDirectory("部门设置");
 		$datas = A('Method')->_getDepartmentList();
+		$i = 0;
+		if($_REQUEST['parentID']){
+			foreach($datas as $v){
+				if($v['parentID'] == $_REQUEST['parentID']){
+					$newlist[$i] = $v;
+					$i++;
+				}
+			}
+		}
+		else{
+			foreach($datas as $v){
+				if(!$v['parentID']){
+					$newlist[$i] = $v;
+					$i++;
+				}
+			}
+		}
+		$this->assign("newlist",$newlist);
 		$this->assign("datalist",$datas);
 		$this->display('SetSystem:templatelist');
 	}

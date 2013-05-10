@@ -18,6 +18,7 @@ class ChanpinModel extends RelationModel {
         array('islock', 'set_islock', 1,'callback','islock',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_system', 'set_status_system', 1,'callback','status_system',1),//1正常,-1删除
         array('status_shenhe', 'set_status_shenhe', 1,'callback','status_shenhe',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('companyID', 'set_companyID', 1,'callback','companyID',1),//1正常,-1删除
     ); 
 	
 	protected function set_status($status,$parentID) {
@@ -83,6 +84,14 @@ class ChanpinModel extends RelationModel {
 			return $status_shenhe;
 		else
 			return '未审核';
+	}
+	
+	protected function set_companyID($companyID) {
+		if($companyID != '')	
+			return $companyID;
+		else{
+			return $ComID = A("Method")->_getComIDbyUser();
+		}
 	}
 	
 	protected $_link = array(

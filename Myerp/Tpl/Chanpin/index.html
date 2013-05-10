@@ -1,7 +1,32 @@
 <tp:includeCA file="Index:showheader" />
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<script>
 
+function onshop(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onshop",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+}
+</script>
 <div id="main">
   <tp:includeCA file="Chanpin:left_fabu:'left_fabu'" />
   <div id="content" style="margin-left:180px;">
@@ -18,8 +43,11 @@
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input class="button" type="button" value=" 复制 " onclick="copytonew()">
                     <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <php>if($this->tVar['user']['user_name'] == 'aaa'){</php>
                     <input class="button" type="button" value=" 重置OM " onclick="resetOM()">
+                    <php>}</php>
                     <input class="button" type="button" value=" 删除到回收站 " onclick="deletetohsz()">
+                    <input class="button" type="button" value=" 提交到网店 " onclick="onshop()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -34,6 +62,7 @@
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 单位 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 分类 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:30px;"><div> 状态 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 网店提交 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 锁定 </div></th>
           <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
           <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
@@ -51,6 +80,7 @@
         <td scope="row" align="left" valign="top"><{$v['bumen_copy']}></td>
         <td scope="row" align="left" valign="top"><{$v['guojing']}>/<{$v['kind']}></td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
+        <td scope="row" align="left" valign="top"><php>if($v['serverdataID']) echo '已提交'; else echo 'NO';</php></td>
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
         <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<{$v['chanpinID']}>,this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
@@ -61,9 +91,7 @@
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
-                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
-                    <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                  <td nowrap="nowrap" class="paginationActionButtons">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>

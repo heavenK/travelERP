@@ -98,9 +98,9 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
 <php>if($is_wangguan){</php>      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '系统管理'){</php>
-      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
-      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
 <php>}</php>
       <li class="noBorder">&nbsp;</li>
@@ -169,10 +169,15 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
+        <php>if($this->tVar['user']['title'] == 'aaa'){</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/用户">用户</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统工具">系统工具</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/产品平移">产品平移</a> </li>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
+        <php>}else{</php>
+      <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
+        <php>}</php>
     </ul>
     </span> <span id="moduleLink_3" 
     <php>if($navposition == '销售'){</php>

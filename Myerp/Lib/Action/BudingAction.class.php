@@ -623,6 +623,55 @@ class BudingAction extends Action{
 	}
 	
 	
+	//重置管理员用户OM
+	public function resetUserOM40150(){
+		C('TOKEN_ON',false);
+		$dataOMlist[0]['DUR'] = '40150,43980,';
+		$ViewUser = D("ViewUser");
+		$uall = $ViewUser->findall();
+		foreach($uall as $v){
+			A("Method")->_createDataOM($v['systemID'],'用户','管理',$dataOMlist,'DataOMSystem');
+		}
+		echo "结束";
+	}
+	
+	
+	//重置分类OM
+	public function resetCategoryOM40150(){
+		C('TOKEN_ON',false);
+		$dataOMlist = A("Method")->_setDataOMtoAAA();
+		$ViewCategory = D("ViewCategory");
+		$uall = $ViewCategory->findall();
+		foreach($uall as $v){
+			A("Method")->_createDataOM($v['systemID'],'分类','管理',$dataOMlist,'DataOMSystem');
+		}
+		echo "结束";
+	}
+	
+	//重置分类OM
+	public function fillAllCompanyID40150(){
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$uall = $System->where("`marktype`='department' or `marktype`='user'")->findall();
+		foreach($uall as $v){
+			$v['companyID'] = '40150';
+			$System->save($v);
+		}
+		$Chanpin = D("Chanpin");
+		$uall = $Chanpin->findall();
+		foreach($uall as $v){
+			$v['companyID'] = '40150';
+			$Chanpin->save($v);
+		}
+		$Message = D("Message");
+		$uall = $Message->findall();
+		foreach($uall as $v){
+			$v['companyID'] = '40150';
+			$Message->save($v);
+		}
+		
+		echo "结束";
+	}
 	
 	
 	

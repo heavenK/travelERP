@@ -48,14 +48,7 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function left_fabu($htmltp='',$pagetype='') {
-		$ViewDepartment = D("ViewDepartment");
-		$where['type'] = array('like','%联合体%');
-		$bumenlist = $ViewDepartment->where($where)->findall();
-		$this->assign("bumenlist",$bumenlist);
-		$zutuanlist = $ViewDepartment->where("`type` like '%组团%' and `type` not like '%联合体%' and `type` not like '%办事处%'")->findall();
-		$this->assign("zutuanlist",$zutuanlist);
-		$dijielist = $ViewDepartment->where("`type` like '%地接%' and `type` not like '%联合体%' and `type` not like '%办事处%'")->findall();
-		$this->assign("dijielist",$dijielist);
+		A("Method")->_nav_leftdatas();
 		$this->assign("pagetype",$pagetype);
 		if($htmltp)
 			$this->display('Caiwu:'.$htmltp);
@@ -102,11 +95,14 @@ class CaiwuAction extends CommonAction{
 		if($_REQUEST["title"])
 		$where_unit['title'] = $_REQUEST["title"];
 		$where_unit['status_system'] = 1;
+		$ComID = A("Method")->_getComIDbyUser();//公司范围控制
 		if($_REQUEST['type'] == '员工'){
+			$where_unit['companyID'] = $ComID;
 			$ViewUser = D("ViewUser");
 			$unitdata = $ViewUser->where($where_unit)->findall();
 		}
 		if($_REQUEST['type'] == '部门'){
+			$where_unit['parentID'] = $ComID;
 			if($_REQUEST["systemID"])
 			$where_unit['systemID'] = $_REQUEST["systemID"];
 			$ViewDepartment = D("ViewDepartment");
@@ -334,10 +330,11 @@ class CaiwuAction extends CommonAction{
 		}
 		$tongji['maolilv'] = sprintf( '%.2f%%',$tongji['maoli']/$tongji['yingshou'] * 100);
 		$this->assign("tongji",$tongji);
-		
+		$ComID = A("Method")->_getComIDbyUser();//公司范围控制
 		if($_REQUEST['listtype'] == '员工'){
 			$this->assign("markpos",$_REQUEST['listtype']);
 			//用户列表
+			$where_unit['companyID'] = $ComID;
 			$ViewUser = D("ViewUser");
 			$unitdata = $ViewUser->where($where_unit)->findall();
 			//根据部门过滤用户
@@ -361,6 +358,7 @@ class CaiwuAction extends CommonAction{
 			}
 		}
 		else{
+			$where_unit['parentID'] = $ComID;
 			//部门列表
 			if($_REQUEST["systemID"])
 			$where_unit['systemID'] = $_REQUEST["systemID"];

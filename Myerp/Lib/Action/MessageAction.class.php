@@ -59,8 +59,11 @@ class MessageAction extends Action{
 			$this->assign("page",$chanpin_list['page']);
 			$this->assign("chanpin_list",$chanpin_list['chanpin']);
 			//部门分类
-			$ViewCategory = D("ViewCategory");
-			$categorylist = $ViewCategory->where("`islock` = '未锁定'")->findall();
+			$where['islock'] = '未锁定';
+			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
+			$categorylist = $category['chanpin'];
+//			$ViewCategory = D("ViewCategory");
+//			$categorylist = $ViewCategory->where("`islock` = '未锁定'")->findall();
 			$i = 0;
 			foreach($categorylist as $v){
 				$datalist = A("Method")->_getsystemDC($v['systemID']);

@@ -405,19 +405,11 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function left_fabu($htmltp='',$pagetype='') {
-		$ViewDepartment = D("ViewDepartment");
-		$where['type'] = array('like','%联合体%');
-		$bumenlist = $ViewDepartment->where($where)->findall();
-		$this->assign("bumenlist",$bumenlist);
-		$zutuanlist = $ViewDepartment->where("`type` like '%组团%' and `type` not like '%联合体%' and `type` not like '%办事处%'")->findall();
-		$this->assign("zutuanlist",$zutuanlist);
-		
-		$dijielist = $ViewDepartment->where("`type` like '%地接%'")->findall();
-		$this->assign("dijielist",$dijielist);
-		
+		A("Method")->_nav_leftdatas();
 		$this->assign("pagetype",$pagetype);
 		$this->display('Chanpin:'.$htmltp);
 	}
+	
 	
 	public function header_chanpin() {
 		$chanpinID = $_REQUEST["chanpinID"];
@@ -1066,8 +1058,9 @@ class ChanpinAction extends CommonAction{
 		//获得用户权限，部门列表
 		$ViewDepartment = D("ViewDepartment");
 		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
+		$ComID = A("Method")->_getComIDbyUser();
 		if($role){
-			$unitdata = $ViewDepartment->where("`type` like '%组团%'")->findall();
+			$unitdata = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%'")->findall();
 		}
 		else{
 			$role = A("Method")->_checkRolesByUser('经理','组团');

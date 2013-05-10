@@ -367,7 +367,18 @@ class MethodAction extends CommonAction{
 		else{
 			$where['status_system'] = 1;
 			$where = $this->_facade($class_name,$where);//过滤搜索项
+			$where = $this->_arraytostr_filter($where);
 		}
+		//获得财务所属公司，过滤出公司拥有部门列表
+		$bumenlist = $this->_getCompanyDepartmentList();
+		foreach($bumenlist as $v){
+			if($wherebumen)
+			$wherebumen .= " OR `departmentID` = '$v[systemID]'";
+			else
+			$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+		}
+		$wherebumen .= ")";
+		$where .= $wherebumen;
 		//$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
@@ -382,6 +393,68 @@ class MethodAction extends CommonAction{
 		$redata['chanpin'] = $chanpin;
 		//关键字高亮
 		return $this->_keyStar($redata,$_REQUEST);
+	}
+	
+	
+    //系统显示控制
+    public function getDataOMlistSystem($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
+		if($datatype == '用户'){
+			$class_name = 'OMViewSystemUser';
+			$where['datatype'] = $datatype;
+		}
+		if($datatype == '分类'){
+			$class_name = 'OMViewSystemCategory';
+			$where['datatype'] = $datatype;
+		}
+		if($datatype == '产品搜索'){
+			$class_name = 'OMViewSearch';
+			$where['status_system'] =  array('eq',1);//默认
+			if($where['user_name'])
+				$where['user_name'] = array('like','%'.$where['user_name'].'%');
+			if($where['title'])
+				$where_tem .= "AND (`title_1` like '%".$where['title']."%' OR `title_2` like '%".$where['title']."%')";
+			if($where['tuanhao'])
+				$where_tem .= "AND (`tuanhao_1` like '%".$where['tuanhao']."%' OR `tuanhao_2` like '%".$where['tuanhao']."%')";
+			if($where['chutuanriqi'])
+				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+			if($where['start_time'] && $where['end_time'])
+				$where_tem .= "AND (  `tuanqi_1` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' OR `tuanqi_2` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' )";
+			elseif($where['start_time'])
+				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+			elseif($where['end_time'])
+				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+			$where = $this->_facade($class_name,$where);//过滤搜索项
+			$where = $this->_openAndManage_filter($where);
+			$where = $this->_arraytostr_filter($where);
+			$where .= $where_tem;
+			$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
+		}
+		else{
+			$where = $this->_facade($class_name,$where);//过滤搜索项
+			$where = $this->_openAndManage_filter($where);
+		}
+		$DataOM = D($class_name);
+		if(!$distinctfield)
+		$distinctfield = 'dataID';
+		if($ajaxdiv)
+        import("@.ORG.OldPage");
+		else
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+		$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
+		$count = count($tempcount);
+		$p= new Page($count,$pagenum);
+		if($ajaxdiv)
+		$page = $p->show_ajax($ajaxdiv);
+		else
+		$page = $p->show();
+		if(!$order)
+			$order = 'time desc';
+        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
+		$redata['page'] = $page;
+		$redata['chanpin'] = $chanpin;
+		return $redata;
 	}
 	
 	
@@ -743,24 +816,51 @@ class MethodAction extends CommonAction{
     }
 	
 	
-     public function unitlist() {
+     public function unitlist($where_dept,$where_user,$where_cate) {
 		$ViewCategory = D("ViewCategory");
 		$ViewDepartment = D("ViewDepartment");
 		$ViewUser = D("ViewUser");
 		$ViewRoles = D("ViewRoles");
+		$where = "`status_system` != '-1' and `islock` = '未锁定' ";
 		//分类
-		$datas1 = $ViewCategory->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
-		$this->assign("categoryAll",$datas1);
+		if($this->user['title'] == 'aaa'){
+			$where .= $this->_arraytostr_filter($where_cate);
+			$datas1 = $ViewCategory->where($where)->findall();
+		}
+		else
+			$category = A('Method')->getDataOMlistSystem("分类",'category','');
+		$this->assign("categoryAll",$category['chanpin']);
 		//部门
-		$datas2 = $ViewDepartment->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
+		if($this->user['title'] == 'aaa'){
+			$where .= " AND ".$this->_arraytostr_filter($where_dept);
+			$datas2 = $ViewDepartment->where($where)->findall();
+		}
+		else
+			$datas2 = $this->_getCompanyDepartmentList();
 		$this->assign("departmentAll",$datas2);
 		//用户
-		$datas3 = $ViewUser->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
+		if($this->user['title'] == 'aaa'){
+			$where .= $this->_arraytostr_filter($where_user);
+			$datas3 = $ViewUser->where($where)->findall();
+		}
+		else
+			$datas3 = $this->getDataOMlistSystem("用户",'user','');
 		$this->assign("userAll",$datas3);
 		//角色
 		$datas4 = $ViewRoles->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
 		$this->assign("rolesAll",$datas4);
 	 }
+	 
+	 //获得公司及下属部门列表
+     public function _getCompanyDepartmentList($username) {
+		$ViewDepartment = D("ViewDepartment");
+		if(!$username)
+		$username = $this->user['title'];
+		$ComID = $this->_getComIDbyUser($username);
+		$bumenlist = $ViewDepartment->where("`systemID` = '$ComID' OR `parentID` = '$ComID' AND `status_system` = 1")->findall();
+		return $bumenlist;
+	 }
+	
 	
 	//解析 部门 角色 分类 用户
      public function _facesystem(&$dat,$type) {
@@ -789,10 +889,9 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//获得部门列表
-     public function _getDepartmentList() {
+     public function _getDepartmentList($where) {
 		$ViewDepartment = D("ViewDepartment");
-		//角色
-		$datas2 = $ViewDepartment->findall();
+		$datas2 = $ViewDepartment->where($where)->findall();
 		return $datas2;
 	 }
 	
@@ -940,10 +1039,12 @@ class MethodAction extends CommonAction{
 		$DataOM->mycreate($OM);
 	 }
 	
+	
 	//同步开放管理到对象
      public function _OMToDataOM_filter($data) {
 		 return $data['bumenID'].','.$data['rolesID'].','.$data['userID'];
 	 }
+	
 	
 	//同步开放管理到对象,序列化关系数据
      public function _getRelation_select_after($data,$relation_name) {
@@ -997,6 +1098,7 @@ class MethodAction extends CommonAction{
 		$DS['processID'] = $data['processID'];
 		$DS['remark'] = $data['remark'];
 		$DS['is_notice'] = $data['is_notice'];
+		$DS['companyID'] = $data['companyID'];
 		if($data['parenttype'] == '角色'){
 			$DS['UR'] = $data['parentID'].',';
 		}
@@ -1321,27 +1423,27 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//检查DataOM
-     public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='') {
+     public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='',$omclass='') {
 		if($userID)
 			$myuserID = $userID;
-		elseif($DURlist == ''){
+		if($DURlist == ''){
 			$myuserID = $this->user['systemID'];
-			$DURlist = $this->_getDURlist($myuserID);
 		}
-		
-		$DataOM = D("DataOM");
+		$DURlist = $this->_getDURlist($myuserID);
+		if($omclass)
+			$DataOM = D($omclass);
+		else
+			$DataOM = D("DataOM");
 		$datalist = array();
 		$where['dataID'] = $dataID;
 		$where['datatype'] = $datatype;
 		if($type == '管理')
-		$where['type'] = '管理';
+			$where['type'] = '管理';
 		else
-		$where['type'] = array('in','开放,管理');
-		
+			$where['type'] = array('in','开放,管理');
 		foreach($DURlist as $v){
 			$where['DUR'] = $v['bumenID'].',,';
 			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
-			
 			if(!$OMlist){
 				$where['DUR'] = $v['bumenID'].','.$v['rolesID'].','.$v['userID'];
 				$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
@@ -1417,7 +1519,8 @@ class MethodAction extends CommonAction{
      public function _checkShenhe($datatype,$processID,$userID='',$dataID='') {
 		$DataShenhe = D("DataShenhe");
 		if($userID){
-			if(!$dataID)
+			$ComID = $this->_getComIDbyUser('',$userID);
+			if(!$dataID || !$ComID)
 			return false;
 			$myuserID = $userID;
 			$DURlist = $this->_getDURlist($myuserID);
@@ -1426,7 +1529,8 @@ class MethodAction extends CommonAction{
 			foreach($DURlist as $v){
 				//开放给个人，不检查部门
 				$UR = ','.$v['userID'];
-				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
+				//公司范围控制
+				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
 				if($shenhe != null){
 					$roletitle = $ViewUser->where("`systemID` = '$v[userID]' AND (`status_system` = '1')")->find();
 					$shenhe['roletitle'] = $roletitle['title'];
@@ -1434,7 +1538,8 @@ class MethodAction extends CommonAction{
 				}
 				//开放给角色，检查部门
 				$UR = $v['rolesID'].',';
-				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR'")->find();
+				//公司范围控制
+				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
 				if($shenhe != null){
 					//检测部门是否有产品管理权
 					$omdata = $this->_checkDataOMbumen($dataID,$datatype,'管理',$v['bumenID'],$v['rolesID']);
@@ -1447,13 +1552,17 @@ class MethodAction extends CommonAction{
 			}
 		}
 		else{
-			$shenheAll = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID'")->findall();
+			//公司范围控制
+			$username = $this->user['title'];
+			$ComID = $this->_getComIDbyUser($username);
+			$shenheAll = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' AND `companyID` = '$ComID'")->findall();
 			if($shenheAll != null)
 				return $shenheAll;
 		}
 		return false;
 		
 	 }
+
 	
 	//获得任务管理角色和部门cookie
      public function _task_cookie_by_dur($dur) {
@@ -1535,7 +1644,7 @@ class MethodAction extends CommonAction{
 		 
 		 
 	//历史记录,保存到dataom_system
-     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$dataOMlist='',$userIDlist='') {
+     public function _setMessageHistory($dataID,$datatype,$message='',$url='',$dataOMlist='',$userIDlist='',$data='') {
 		$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
 		$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
 		$data['infohistory']['dataID'] = $dataID;
@@ -1571,6 +1680,12 @@ class MethodAction extends CommonAction{
 		else
 		$DataOM = D("DataOM");
 		if($dataOMlist == ''){
+			$where['DUR'] = $dom['DUR'];
+			$where['datatype'] = $dom['datatype'];
+			$where['dataID'] = $dom['dataID'];
+			$theom = $DataOM->where($where)->find();
+			if($theom)
+			continue;
 			$dom['DUR'] = ',,'.$this->user['systemID'];
 			$DataOM->mycreate($dom);
 		}
@@ -2051,61 +2166,149 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	//获得DUR,应用OM
-     public function _setDataOMlist($role,$type,$username='',$guojing='') {
-		  $durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
-		  //判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
-		  $istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
-		  if($istrue){
-			  $ViewDepartment = D("ViewDepartment");
-			  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->findall();
-			  $t = 0;
-			  foreach($filterlist as $v){
-				  $filterlist_2[$t] = $v['systemID'];
-				  $t++;
-			  }
-			  //判断数据类型
-			  if($guojing)
-		      $where = "`type` like '%组团%' AND `type` like '%".$guojing."%'";
-			  else
-		      $where['type'] = array('like','%组团%');
-			  $bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
-			  $ViewRoles = D("ViewRoles");
-			  $r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
-			  $t = 0;
-			  foreach($bumenlist as $v){//开放到角色，计调
-				  if(!in_array($v['systemID'],$filterlist_2)){
-					  $needlist[$t]['bumenID'] = $v['systemID'];
-					  $needlist[$t]['rolesID'] = $r_jidiao['systemID'];
-					  $t++;
-				  }
-			  }
-			  foreach($durlist_2 as $v){
-				   $needlist[$t]['bumenID'] = $v['bumenID'];
-				   $needlist[$t]['rolesID'] = $v['rolesID'];
-				   $t++;
-			  }
-			  $durlist_1 = about_unique($needlist);
-		  }
-		  if($durlist_1)
-		  $durlist = $durlist_1;
-		  else
-		  $durlist = $durlist_2;
-		  //附加开放给部门角色
-		  $i = 0;
-		  foreach($durlist as $v){
-			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
-			  $i++;
-		  }
-		  //附加开放到行政属性部门
-		  $ViewDepartment = D("ViewDepartment");
-		  $filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%行政%'")->findall();
-		  foreach($filterlist as $v){
-			  $dataOMlist[$i]['DUR'] = $v['systemID'].',,';
-			  $i++;
-		  }
-		  return $dataOMlist;
+	//获得用户公司ID
+     public function _getComIDbyUser($username,$userID = '') {
+		 if($username)
+			$durlist = $this->_getDURlist_name($username);
+		else
+			$durlist = $this->_getDURlist($userID);
+		$ViewDepartment = D("ViewDepartment");
+		$where['type'] = '行政';
+		$where['status_system'] = 1;
+		foreach($durlist as $v){
+			$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+			$wherelist = $this->_arraytostr_filter($where);//字符串化条件数组
+			$wherelist.=' AND (`parentID` is null or `parentID` = 0)';
+			$wherelist.=' AND (`systemID` = \''.$bumen[parentID].'\' or `systemID` = \''.$bumen[systemID].'\')';
+			$thecom = $ViewDepartment->where($wherelist)->find();
+			if($thecom)
+				return $thecom['systemID'];
+		}
+		return false;
 	 }
+	
+	
+	
+	//获得用户公司
+     public function _getCompanyAll() {
+		$ViewDepartment = D("ViewDepartment");
+		$where['type'] = '行政';
+		$where['status_system'] = 1;
+		$where = $this->_arraytostr_filter($where);//字符串化条件数组
+		$where.=' AND (`parentID` is null or `parentID` = 0)';
+		$comall = $ViewDepartment->where($where)->findall();
+		return $comall;
+	 }
+	
+	
+	
+	//根据部门角色要求，获得OM列表//定义：一个公司只允许一个行政部门
+     public function _setDataOMlist($role,$type,$username='',$guojing='') {
+		if(!$username)
+		  $username = $this->user['title'];
+		$durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
+		$ComID = $this->_getComIDbyUser($username);//行政公司ID
+		$ViewDepartment = D("ViewDepartment");
+		//判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
+		$istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
+		if($istrue){
+			//范围控制在公司部门内
+			if(!$ComID)
+			  break;
+			$conditons['parentID'] = array('eq',$ComID);
+			$conditons['type'] = array(array('like','%联合体%'),array('like','%办事处%'), 'or'); 
+			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where($conditons)->findall();
+			$t = 0;
+			foreach($filterlist as $v){
+				$filterlist_2[$t] = $v['systemID'];
+				$t++;
+			}
+			//判断数据类型
+			//范围控制在公司部门内
+			if($guojing)
+				$where = "`type` like '%组团%' AND `type` like '%".$guojing."%' AND `parentID` = '".$ComID."'";
+			else
+				$where = "`type` like '%组团%' AND `parentID` = '".$ComID."'";
+			$bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
+			$ViewRoles = D("ViewRoles");
+			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
+			$t = 0;
+			foreach($bumenlist as $v){//开放到角色，计调
+				if(!in_array($v['systemID'],$filterlist_2)){
+					$needlist[$t]['bumenID'] = $v['systemID'];
+					$needlist[$t]['rolesID'] = $r_jidiao['systemID'];
+					$t++;
+				}
+			}
+			foreach($durlist_2 as $v){
+				 $needlist[$t]['bumenID'] = $v['bumenID'];
+				 $needlist[$t]['rolesID'] = $v['rolesID'];
+				 $t++;
+			}
+			$durlist_1 = about_unique($needlist);
+		}
+		if($durlist_1)
+			$durlist = $durlist_1;
+		else
+			$durlist = $durlist_2;
+		//附加开放给部门角色
+		$i = 0;
+		foreach($durlist as $v){
+			$dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
+			$i++;
+		}
+		//附加开放到行政属性部门
+		//范围控制在公司部门内
+		$dataOMlist[$i]['DUR'] = $ComID.',,';
+		//aaa特权
+		$dataOMlist = $this->_setDataOMtoAAA($dataOMlist);
+		return $dataOMlist;
+	 }
+	 
+	 
+	 //获得OM. 获得网管所属部门列表
+     public function _setDataOMofCompany($companyID='',$department_type='',$role='') {
+		if(!$companyID){
+			$username = $this->user['title'];
+			$companyID = $this->_getComIDbyUser($username);
+			if(!$companyID)
+				return false;
+		}
+		if($department_type){
+			$where['type'] = array('like','%'.$department_type.'%');
+		}
+		if($role){
+			$ViewRoles = D("ViewRoles");
+			$roleinfo = $ViewRoles->where("`title` = '$role'")->find();
+		}
+		$datas = A('Method')->_getDepartmentList($where);
+		$i = 0;
+		foreach($datas as $v){
+			if($v['parentID'] == $companyID){
+				$dataOMlist[$i]['DUR'] = $v['systemID'].','.$roleinfo['systemID'].',';
+				$i++;
+			}
+		}
+		$dataOMlist[$i]['DUR'] = $companyID.','.$roleinfo['systemID'].',';
+		//aaa特权
+		$dataOMlist = $this->_setDataOMtoAAA($dataOMlist);
+		return $dataOMlist;
+	 }
+	 
+	 
+	 //om特权到aaa
+     public function _setDataOMtoAAA($dataOMlist) {
+		$ViewUser = D("ViewUser");
+		$aaa = $ViewUser->where("`title` = 'aaa'")->find();
+		$i = 0;
+		foreach($dataOMlist as $v){
+			$newlist[$i] = $v;
+			$i++;
+		}
+		$newlist[$i]['DUR'] = ',,'.$aaa['systemID'];
+		return $newlist;
+	 }
+	 
 	 
 	 //获得OM。自己部门的om
      public function _getmyOMlist($user_name) {
@@ -2117,8 +2320,6 @@ class MethodAction extends CommonAction{
 		  }
 		  return $dataOMlist;
 	 }
-	 
-	 
 	 
 	 
 	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
@@ -2564,6 +2765,7 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
+				  	$Chanpin->save($editdat);
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
@@ -2573,6 +2775,7 @@ class MethodAction extends CommonAction{
 					$dataID = $_REQUEST['dataID'];
 					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 				}
+				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '订单'){
@@ -3172,7 +3375,12 @@ class MethodAction extends CommonAction{
 	public function _getsystemDC($systemID){
 		$ViewCategory = D("ViewCategory");
 		$System = D("System");
-		$datas = A('Method')->_getDepartmentList();
+		if($systemID){
+			$category = $ViewCategory->where("`systemID` = '$systemID'")->find();
+			$where['companyID'] = $category['parentID'];
+		}
+		$datas = A('Method')->_getDepartmentList($where);
+		dump($where);
 		$this->assign("departmentAll",$datas);
 		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
 		$datas2['category'] = $System->relationGet("category");
@@ -3431,18 +3639,26 @@ class MethodAction extends CommonAction{
 		$this->assign("bumenfeilei",$bumenfeilei);
 		//清空占位过期订单
 		A('Method')->_cleardingdan();
-		$ViewUser = D("ViewUser");
-		$userlist = $ViewUser->where("`status_system` = '1'")->findall();
+		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 		$this->display('baoming');
 	}
 	
 	
+	//获得公司内用户
+    public function _getCompanyUserList() {
+		$ViewUser = D("ViewUser");
+		$ComID = A("Method")->_getComIDbyUser();
+		$userlist = $ViewUser->where("`companyID` = '$ComID' AND `status_system` = '1'")->findall();
+		return $userlist;
+	}
+	
 	
 	//自动申请
     public function _autoshenqing() {
 		$process = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);
-		if(!$process)
+		$step2 = $this->_checkShenhe($_REQUEST['datatype'],2);
+		if(!$process && $step2)
 		$this->_doshenhe();
 	}
 	
@@ -3814,7 +4030,10 @@ class MethodAction extends CommonAction{
 		if($bumenID)
 		$all = $ViewSystemDUR->where("`bumenID` = '$bumenID'")->findall();
 		if($bumentitle){
-			$d = $ViewDepartment->where("`title` = '$bumentitle'")->find();
+			//公司范围控制
+			$username = $this->user['title'];
+			$ComID = $this->_getComIDbyUser($username);
+			$d = $ViewDepartment->where("`title` = '$bumentitle' AND `parentID` = '$ComID'")->find();
 			$all = $ViewSystemDUR->where("`bumenID` = '$d[systemID]'")->findall();
 		}
 		$i = 0;
@@ -3834,6 +4053,7 @@ class MethodAction extends CommonAction{
 		else
 		return false;
 	 }
+
 	
 	//报账单同步报账项费用
      public function _updatebaozhangdata($baozhangID,$itemID='') {
@@ -3878,7 +4098,17 @@ class MethodAction extends CommonAction{
 		
 	 }
 	
-	
+	//侧导航部门提取
+	public function _nav_leftdatas() {
+		$ViewDepartment = D("ViewDepartment");
+		$ComID = $this->_getComIDbyUser();
+		$bumenlist = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%联合体%'")->findall();
+		$this->assign("bumenlist",$bumenlist);
+		$zutuanlist = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%' AND `type` not like '%联合体%' AND `type` not like '%办事处%'")->findall();
+		$this->assign("zutuanlist",$zutuanlist);
+		$dijielist = $ViewDepartment->where("`parentID` = '$ComID' AND　`type` like '%地接%'")->findall();
+		$this->assign("dijielist",$dijielist);
+	}
 	
 	
 	

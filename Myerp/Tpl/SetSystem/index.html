@@ -121,6 +121,34 @@
       </tbody>
     </table>
       <php>}</php>
+      
+      
+      <php>if( $nowDir['title'] == '设置与管理' || $nowDir['title'] == '系统管理'){</php>
+    <table cellspacing="0" cellpadding="0" width="100%" class="h3Row" style="margin-top:0px;">
+      <tbody>
+      <php>if( $nowDir['title'] == '设置与管理'){</php>
+      	<tr><td width="20%" valign="bottom"><h3><{$navigation}></h3></td></tr>
+        <tr><td style="padding-top: 3px; padding-bottom: 5px;"><{$nowDir['remark']}></td></tr>
+      <php>}else{</php>
+      	<tr><td width="20%" valign="bottom"><h3>设置与管理</h3></td></tr>
+        <tr><td style="padding-top: 3px; padding-bottom: 5px;">配置系统-按照您组织机构的特殊性. 用户能添加和废弃一些本地设置在他们的操作页面.</td></tr>
+      <php>}</php>
+      </tbody>
+    </table>
+    <table class="other view">
+      <tbody>
+        <tr>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Users.gif">&nbsp;<a href="<{:SITE_INDEX}>SetSystem/systemUser">用户管理</a></td>
+          <td width="30%">管理用户账号,密码等信息</td>
+        </tr>
+      </tbody>
+    </table>
+      <php>}</php>
+    
+    
+      
+      
+      
   </div>
 </div>
 <tp:includeCA file="Index:footer" />

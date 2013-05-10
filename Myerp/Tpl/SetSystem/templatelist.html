@@ -2,7 +2,6 @@
 <script type="text/javascript">
 var SITE_INDEX = '<{:SITE_INDEX}>';
 </script>
-
 <div id="main">
   <div id="content" style="margin-left:0;">
     <div id="resultdiv" class="resultdiv"></div>
@@ -28,7 +27,20 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       <php>if('分类' == $nowDir['title']){</php>
 		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/category.js"></script>
+		<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+        <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 		<script type="text/javascript">
+        var department = [
+             <php>foreach($comall as $v){</php>
+                      { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+             <php>}</php>
+         ];
+        
+        jQuery().ready(function() {
+                <php>foreach($datalist[chanpin] as $v){</php>
+                    myautocomplete("#parentID<{$v[systemID]}>",'部门');
+                 <php>}</php>
+        });
         var categorytype = '部门';
         </script>
         <tr class="pagination">
@@ -37,6 +49,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><strong><{$nowDir['title']}></strong>&nbsp;
                     <input class="button" type="button" value=" 新增 " onclick="insertItem('itemlist');"></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                    <{$datalist[page]}>
+                  </td>
                 </tr>
               </tbody>
             </table></td>
@@ -44,14 +59,16 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <tr height="20">
           <th scope="col" nowrap="nowrap"> 序号</th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 所属公司 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类类型 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 锁状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
         </tr>
-      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
+      <php>$i = 0; foreach($datalist['chanpin'] as $v){ $i++;</php>
       <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><input type="text" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></td>
+        <td scope="row" align="left" valign="top"><input type="text" id="parentID<{$v['systemID']}>" style="width:200px" value="<{$v['parentID']}>"></td>
         <td scope="row" align="left" valign="top"><{$v['type']}></td>
         <php>if($v[islock] == '已锁定'){</php>
         <td scope="row" align="left" valign="top" style="color:red"><{$v['islock']}></td>
@@ -527,6 +544,12 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 		<script type="text/javascript">
         var datatype = '<{$datatype}>';
 		
+		var department = [
+			 <php>foreach($comall as $v){</php>
+					  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+			 <php>}</php>
+		 ];
+		
         var roles = [
              <php>foreach($rolesAll as $v){</php>
                   { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
@@ -544,6 +567,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 				<php>foreach($datalist as $v){</php>
 					myautocomplete("#<{$v[systemID]}>",'<{$v[parenttype]}>');
 					myautocomplete("#roles<{$v[systemID]}>",'角色');
+					myautocomplete("#companyID<{$v[systemID]}>",'部门');
 				 <php>}</php>
 			
 		});
@@ -567,6 +591,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
             <tr height="20">
               <th scope="col" nowrap="nowrap"> 序号</th>
               <th scope="col" nowrap="nowrap"><div> 对象 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 所属公司 </div></th>
               <th scope="col" nowrap="nowrap"><div> 对象类型 </div></th>
               <th scope="col" nowrap="nowrap"><div> 流程序号 </div></th>
               <th scope="col" nowrap="nowrap"><div> 提醒 </div></th>
@@ -580,6 +605,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <td scope="row" align="left" valign="top">
               <input type="text" id="<{$v['systemID']}>" style="width:200px;" value="<{$v['title']}>">
               <input type="hidden" id="parentID<{$v['systemID']}>" value="<{$v['parentID']}>">
+              </td>
+              <td scope="row" align="left" valign="top">
+              <input type="text" id="companyID<{$v['systemID']}>" value="<{$v['companyID']}>">
               </td>
               <td scope="row" align="left" valign="top">
               <{$v['parenttype']}>
@@ -824,6 +852,29 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       <php>if('部门设置' == $nowDir['title']){</php>
 		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/department.js"></script>
+        
+		<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+        <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+        <script type="text/javascript">
+        var department = [
+             <php>foreach($datalist as $v){if(!$v['parentID']){$typearray = explode(',',$v['type']);if(in_array('行政',$typearray)){</php>
+                      { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+             <php>}}}</php>
+         ];
+        
+        jQuery().ready(function() {
+                <php>foreach($datalist as $v){</php>
+                    //myautocomplete("#parentID<{$v[systemID]}>",'部门');
+                 <php>}</php>
+        });
+		
+		function showsublist(parentID){
+			window.location = SITE_INDEX+'SetSystem/department/parentID/'+parentID;
+		
+		}
+		parentID = '<{$parentID}>';
+        </script>
+        
         <tr class="pagination">
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
@@ -838,6 +889,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <tr height="20">
           <th scope="col" nowrap="nowrap"> 序号</th>
           <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 所属部门 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 职能类型及属性 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
@@ -848,10 +900,11 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
         </tr>
         
-      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
-      <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
-        <td scope="row" align="left" valign="top"><{$i}></td>
+      <php>$i = 0; foreach($newlist as $v){ $i++;</php>
+      <tr height="40" <php>if($v['islock'] == '已锁定'){</php> style="background-color:#CCCCCC" <php>}</php> class="evenListRowS1" id="itemlist<{$v['systemID']}>">
+        <td scope="row" align="left" valign="top" ><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
+        <td scope="row" align="left" valign="top"><input readonly="readonly" type="text" id="parentID<{$v['systemID']}>" style="width:80px" value="<{$v['parentID']}>"></td>
         <td scope="row" align="left" valign="top">
         <php>$typearray = explode(',',$v['type']);</php>
         <php>if(in_array('组团',$typearray)){</php>
@@ -910,6 +963,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <php>}</php>
         <td scope="row" align="left" valign="top">
+        <php>if(!$parentID){</php>
+        <input class="button" type="button" value="部门列表" onClick="showsublist(<{$v[systemID]}>);" />
+        <php>}</php>
         <input class="button" type="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input class="button" type="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>
@@ -1127,6 +1183,12 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <td valign="top" scope="row" style="width:80px;"> 密码: </td>
           <td valign="top" scope="row" colspan="3"><input name="password" type="text" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
         </tr>
+        <PHP>if($this->tVar[user][title] == 'aaa'){</PHP>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 独立用户: </td>
+          <td valign="top" scope="row" colspan="3"><input type="checkbox" name="isnewadmin" value="1"  /></td>
+        </tr>
+        <PHP>}</PHP>
       </tbody>
     </table>
 </form>

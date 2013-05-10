@@ -8,6 +8,7 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"title_t"+i+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" ></form>";
 	htmlcontent += "</td>";
+    htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:80px\" value=\""+parentID+"\" readonly=\"readonly\" ></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"组团\" class=\"type_t"+i+"\"/>组团";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"地接\" class=\"type_t"+i+"\"/>地接";
@@ -16,6 +17,8 @@
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"办事处\" class=\"type_t"+i+"\"/>办事处";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"联合体\" class=\"type_t"+i+"\"/>联合体";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"行政\" class=\"type_t"+i+"\"/>行政";
+    htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"国内\" class=\"type_t"+i+"\"/>国内";
+    htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"境外\" class=\"type_t"+i+"\"/>境外";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"lianxiren_t"+i+"\" style=\"width:80px\" ></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"officetel_t"+i+"\" style=\"width:80px\" ></td>";
@@ -28,7 +31,7 @@
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onClick=\"if(CheckForm('form_t"+i+"','resultdiv_2'))save("+i+",'"+divname+"_t','_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#"+divname+"_box").append(htmlcontent);
-	
+	//myautocomplete("#parentID_t"+i,'部门');
  }
 
  function save(id,divname,mark)
@@ -48,6 +51,7 @@
 	var postal = jQuery("#postal"+mark+id).val();
 	var addr = jQuery("#addr"+mark+id).val();
 	var fax = jQuery("#fax"+mark+id).val();
+	var parentID = jQuery("#parentID"+mark+id).val();
 	var type = new Array();
 	var i = 0;
 	jQuery(".type"+mark+id).each(function(index, element) {
@@ -59,7 +63,7 @@
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostSystemHas/tableName/department",
-		data:	"title="+title+"&lianxiren="+lianxiren+"&officetel="+officetel+"&postal="+postal+"&addr="+addr+"&fax="+fax+"&type="+type+it,
+		data:	"title="+title+"&parentID="+parentID+"&lianxiren="+lianxiren+"&officetel="+officetel+"&postal="+postal+"&addr="+addr+"&fax="+fax+"&type="+type+it,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
 		}
@@ -115,3 +119,26 @@
  }
 
 
+ function myautocomplete(target,parenttype)
+{
+		if(parenttype == '部门')
+		datas = department;
+	
+		jQuery(target).unautocomplete().autocomplete(datas, {
+		   max: 50,    //列表里的条目数
+		   minChars: 0,    //自动完成激活之前填入的最小字符
+		   width: 150,     //提示的宽度，溢出隐藏
+		   scroll:false,
+		   matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+		   autoFill: true,    //自动填充
+		   formatItem: function(data, i, num) {//多选显示
+			   return data.systemID+'|'+data.title;
+		   },
+		   formatMatch: function(data, i, num) {//匹配格式
+			   return data.title;
+		   },
+		   formatResult: function(data) {//选定显示
+			   return data.systemID;
+		   }
+		})
+}
