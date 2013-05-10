@@ -663,6 +663,7 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
+			dump($uall);
 		foreach($uall as $v){
 			dump($v);
 			$v['companyID'] = '40150';
