@@ -689,8 +689,8 @@ class BudingAction extends Action{
 		exit;
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*3000;
-		$uall = $Chanpin->order('time asc')->limit("$num,3000")->findall();
+		$num = ($_REQUEST['page']-1)*9000;
+		$uall = $Chanpin->order('time asc')->limit("$num,9000")->findall();
 		if(count($uall)==0)
 		exit;
 		foreach($uall as $v){
