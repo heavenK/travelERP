@@ -60,6 +60,9 @@ class MessageAction extends Action{
 			$this->assign("chanpin_list",$chanpin_list['chanpin']);
 			//部门分类
 			$where['islock'] = '未锁定';
+			$where['status_system'] = '1';
+//			$ComID = A("Method")->_getComIDbyUser();
+//			$where['parentID'] = $ComID;
 			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
 			$categorylist = $category['chanpin'];
 //			$ViewCategory = D("ViewCategory");
