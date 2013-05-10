@@ -657,19 +657,21 @@ class BudingAction extends Action{
 			$v['companyID'] = '40150';
 			$System->save($v);
 		}
+		dump(123);
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
 		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Chanpin->save($v);
 		}
+		dump(123);
 		$Message = D("Message");
 		$uall = $Message->findall();
 		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Message->save($v);
 		}
-		
+		dump(123);
 		echo "结束";
 	}
 	
