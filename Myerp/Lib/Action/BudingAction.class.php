@@ -660,6 +660,8 @@ class BudingAction extends Action{
 		dump(123);
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
+		dump($uall);
+		dump($Chanpin);
 		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Chanpin->save($v);
