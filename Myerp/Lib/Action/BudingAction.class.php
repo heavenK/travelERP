@@ -673,8 +673,10 @@ class BudingAction extends Action{
 	
 	public function xxxxxxxxx(){
 		C('TOKEN_ON',false);
-		$Chanpin = D("Chanpin");
-		$uall = $Chanpin->findall();
+//		$Chanpin = D("Chanpin");
+//		$uall = $Chanpin->findall();
+		$ViewXianlu = D("ViewXianlu");
+		$uall = $ViewXianlu->findall();
 		dump(count($uall));
 //		foreach($uall as $v){
 //			$v['companyID'] = '40150';
