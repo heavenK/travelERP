@@ -675,13 +675,8 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		
-		$uall = $Chanpin->where("`status_system` = -1")->findall();
+		$uall = $Chanpin->where("`status_system` = 1")->findall();
 		dump(count($uall));
-		
-		$uall = $Chanpin->findall();
-//		$ViewXianlu = D("ViewXianlu");
-//		$uall = $ViewXianlu->findall();
-		
 		
 //		foreach($uall as $v){
 //			$v['companyID'] = '40150';
