@@ -3380,7 +3380,6 @@ class MethodAction extends CommonAction{
 			$where['companyID'] = $category['parentID'];
 		}
 		$datas = A('Method')->_getDepartmentList($where);
-		dump($where);
 		$this->assign("departmentAll",$datas);
 		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
 		$datas2['category'] = $System->relationGet("category");
