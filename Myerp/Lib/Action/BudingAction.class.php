@@ -662,7 +662,10 @@ class BudingAction extends Action{
 	public function fillAllCompanyID40150chanpin(){
 			dump(123213);
 		C('TOKEN_ON',false);
+			dump(123213);
 		$Chanpin = D("Chanpin");
+			dump(123213);
+			dump($Chanpin);
 		$uall = $Chanpin->findall();
 			dump($uall);
 			dump($Chanpin);
