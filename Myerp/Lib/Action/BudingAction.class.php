@@ -674,8 +674,7 @@ class BudingAction extends Action{
 	public function xxxxxxxxx(){
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		
-		$uall = $Chanpin->where("`status_system` = 1")->findall();
+		$uall = $Chanpin->order('time asc')->limit("0,400")->findall();
 		dump(count($uall));
 		
 //		foreach($uall as $v){
@@ -683,6 +682,29 @@ class BudingAction extends Action{
 //			$Chanpin->save($v);
 //		}
 		echo "结束";
+		
+		
+//		echo "开始";
+//		echo "<br>";
+//		C('TOKEN_ON',false);
+//		$gltuanyuan = M("gltuanyuan");
+//		if(!$_REQUEST['page']){
+//				dump('无page参数');
+//		exit;
+//		}
+//		echo "执行page=".$_REQUEST['page'].'<br>';
+//		$num = ($_REQUEST['page']-1)*400;
+//		$tuanyuanall = $gltuanyuan->order('time asc')->limit("$num,400")->findall();
+//		if(count($tuanyuanall)==0)
+//		exit;
+//		
+//		$url = SITE_INDEX."Forme/doCustomer/page/".($_REQUEST['page']+1);
+//		$this->assign("url",$url);
+//		$this->display('Index:forme');
+//		echo "结束";
+		
+		
+		
 	}
 	
 	
