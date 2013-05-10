@@ -660,14 +660,49 @@ class BudingAction extends Action{
 		echo "结束";
 	}
 	public function fillAllCompanyID40150chanpin(){
+//		C('TOKEN_ON',false);
+//		$Chanpin = D("Chanpin");
+//		$uall = $Chanpin->findall();
+//		foreach($uall as $v){
+//			$v['companyID'] = '40150';
+//			$Chanpin->save($v);
+//		}
+//		echo "结束";
+		
+		echo "开始";
+		echo "<br>";
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		$ttt = $Chanpin->findall();
-		foreach($ttt as $v){
+		if(!$_REQUEST['page']){
+				dump('无page参数');
+		exit;
+		}
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*400;
+		$uall = $Chanpin->order('time asc')->limit("$num,400")->findall();
+		if(count($uall)==0)
+		exit;
+		dump("共".count($uall->findall()).'个'.'<br>');
+		
+		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Chanpin->save($v);
 		}
+		
+		$url = SITE_INDEX."Buding/fillAllCompanyID40150chanpin/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
 		echo "结束";
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	public function fillAllCompanyID40150message(){
 		C('TOKEN_ON',false);
