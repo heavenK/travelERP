@@ -681,7 +681,6 @@ class BudingAction extends Action{
 		$uall = $Chanpin->findall();
 //		$ViewXianlu = D("ViewXianlu");
 //		$uall = $ViewXianlu->findall();
-		dump(count($uall));
 		
 		
 //		foreach($uall as $v){
