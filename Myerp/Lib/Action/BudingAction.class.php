@@ -657,23 +657,26 @@ class BudingAction extends Action{
 			$v['companyID'] = '40150';
 			$System->save($v);
 		}
-		dump(123);
+		echo "结束";
+	}
+	public function fillAllCompanyID40150chanpin(){
+		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
-		dump($uall);
-		dump($Chanpin);
 		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Chanpin->save($v);
 		}
-		dump(123);
+		echo "结束";
+	}
+	public function fillAllCompanyID40150message(){
+		C('TOKEN_ON',false);
 		$Message = D("Message");
 		$uall = $Message->findall();
 		foreach($uall as $v){
 			$v['companyID'] = '40150';
 			$Message->save($v);
 		}
-		dump(123);
 		echo "结束";
 	}
 	
