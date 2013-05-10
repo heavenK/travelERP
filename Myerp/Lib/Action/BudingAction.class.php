@@ -675,10 +675,11 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$uall = $Chanpin->findall();
-		foreach($uall as $v){
-			$v['companyID'] = '40150';
-			$Chanpin->save($v);
-		}
+		dump(count($uall));
+//		foreach($uall as $v){
+//			$v['companyID'] = '40150';
+//			$Chanpin->save($v);
+//		}
 		echo "结束";
 	}
 	
