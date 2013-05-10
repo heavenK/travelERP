@@ -659,6 +659,16 @@ class BudingAction extends Action{
 		}
 		echo "结束";
 	}
+	public function fillAllCompanyID40150chanpin(){
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$uall = $Chanpin->find();
+		foreach($uall as $v){
+			$v['companyID'] = '40150';
+			$Chanpin->save($v);
+		}
+		echo "结束";
+	}
 	
 	
 	public function fillAllCompanyID40150chanpin(){
@@ -706,6 +716,19 @@ class BudingAction extends Action{
 		echo "结束";
 	}
 	
+	public function xxxxxxxxx(){
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		
+		$uall = $Chanpin->where("`status_system` = 1")->findall();
+		dump(count($uall));
+		
+//		foreach($uall as $v){
+//			$v['companyID'] = '40150';
+//			$Chanpin->save($v);
+//		}
+		echo "结束";
+	}
 	
 	
 	
