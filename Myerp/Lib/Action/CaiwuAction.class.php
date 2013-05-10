@@ -77,6 +77,8 @@ class CaiwuAction extends CommonAction{
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
 		$where['status_shenhe'] = '批准';
+		$ComID = A("Method")->_getComIDbyUser();
+		$where['companyID'] = $ComID;
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
 		foreach($dingdanall as $v){
@@ -321,6 +323,8 @@ class CaiwuAction extends CommonAction{
 		if(!$_REQUEST['shenhe_remark'])
 			$where['shenhe_remark'] = array(array('like','财务总监%'),array('like','总经理%'), 'or');;
 		$ViewBaozhang = D("ViewBaozhang");
+		$ComID = $this->_getComIDbyUser();
+		$where['companyID'] = $ComID;
 		$baozhangall = $ViewBaozhang->where($where)->findall();
 		foreach($baozhangall as $v){
 			$tongji['renshu'] += $v['renshu'];
