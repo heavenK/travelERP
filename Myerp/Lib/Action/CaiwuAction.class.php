@@ -323,7 +323,7 @@ class CaiwuAction extends CommonAction{
 		if(!$_REQUEST['shenhe_remark'])
 			$where['shenhe_remark'] = array(array('like','财务总监%'),array('like','总经理%'), 'or');;
 		$ViewBaozhang = D("ViewBaozhang");
-		$ComID = $this->_getComIDbyUser();
+		$ComID = A("Method")->_getComIDbyUser();
 		$where['companyID'] = $ComID;
 		$baozhangall = $ViewBaozhang->where($where)->findall();
 		foreach($baozhangall as $v){
