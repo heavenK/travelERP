@@ -10,8 +10,10 @@ class ClientAction extends Action{
 	//获得线路
     public function _getxianlu() {
 		$chanpinID = $_REQUEST['chanpinID'];
-		if(!$this->_checkActHistory($chanpinID,'线路','提交到网店')){
-			echo 'false';
+		if($this->_checkActHistory($chanpinID,'线路','提交到网店')){
+			$returndata['msg'] = '产品已提交到网店！';
+			$returndata['error'] = 'true';
+			echo json_encode($returndata);
 			exit;
 		}
 		$ViewXianlu = D("ViewXianlu");

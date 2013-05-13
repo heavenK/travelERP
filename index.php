@@ -1,6 +1,7 @@
 <?php
 define('IN_ET', TRUE);
 require('./define.inc.php');
+require('./define2.inc.php');
 
 define('ET_ROOT', dirname(__FILE__));
 define('MODE_NAME','mycore');

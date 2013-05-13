@@ -27,6 +27,10 @@ class MethodClientAction extends CommonAction{
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
 				$serverdataID = FileGetContents("http://www.myerpcenter.com/index.php?s=/Server/dopostchanpin/chanpinID/".$v);
+				$getres = json_decode($serverdataID,true);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				}
 				if(!intval($serverdataID))
 					$this->ajaxReturn($_REQUEST,'提交失败！', 0);
 				$serverdataID = str_replace('﻿','',$serverdataID);
