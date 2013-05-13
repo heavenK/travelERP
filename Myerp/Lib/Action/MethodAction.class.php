@@ -824,7 +824,8 @@ class MethodAction extends CommonAction{
 		$where = "`status_system` != '-1' and `islock` = '未锁定' ";
 		//分类
 		if($this->user['title'] == 'aaa'){
-			$where .= $this->_arraytostr_filter($where_cate);
+			if($where_cate)
+			$where .= " AND ".$this->_arraytostr_filter($where_cate);
 			$datas1 = $ViewCategory->where($where)->findall();
 		}
 		else
@@ -832,6 +833,7 @@ class MethodAction extends CommonAction{
 		$this->assign("categoryAll",$category['chanpin']);
 		//部门
 		if($this->user['title'] == 'aaa'){
+			if($where_dept)
 			$where .= " AND ".$this->_arraytostr_filter($where_dept);
 			$datas2 = $ViewDepartment->where($where)->findall();
 		}
@@ -840,7 +842,8 @@ class MethodAction extends CommonAction{
 		$this->assign("departmentAll",$datas2);
 		//用户
 		if($this->user['title'] == 'aaa'){
-			$where .= $this->_arraytostr_filter($where_user);
+			if($where_user)
+			$where .= " AND ".$this->_arraytostr_filter($where_user);
 			$datas3 = $ViewUser->where($where)->findall();
 		}
 		else
