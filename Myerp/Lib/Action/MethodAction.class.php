@@ -2916,6 +2916,10 @@ class MethodAction extends CommonAction{
 	
 	
 	public function _dosavebaozhangitem($type) {
+		
+		if(!$_REQUEST['title'])
+			$this->ajaxReturn($_REQUEST,'标题不能为空,且不能含有空格！', 0);
+		
 		if($type == '子团'){
 			//判断计调角色
 			$omrole = '计调';

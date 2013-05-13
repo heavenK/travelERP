@@ -1,6 +1,6 @@
 ﻿
  var i=0;
- function insertItem(divname,type)
+ function insertItem(divname,type,other)
  {
 	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"itemlist_t"+i+"\">";
@@ -30,7 +30,11 @@
 		htmlcontent += "</td>";
 	}
 	else{
-		htmlcontent += "<input type=\"hidden\" id=\"expand_t"+i+"\">";
+		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
+		if(other == '部门')
+			htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='部门'>";
+		if(other == '用户')
+			htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='用户'>";
 	}
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"remark_t"+i+"\" >";
@@ -48,8 +52,15 @@
 	htmlcontent += "</tr>";
 	jQuery("#"+divname).append(htmlcontent);
 	if(type == '利润'){
+		if(other == '部门')
 		myautocomplete("#title_t"+i,'部门');
+		if(other == '用户')
+		myautocomplete("#title_t"+i,'用户');
 	}
+	
+	
+	
+	
  }
 
  function save(id,divname,mark,type)
@@ -71,19 +82,20 @@
 	var method = jQuery("#method"+mark+id).val();
 	var renshu = jQuery("#renshu"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
-	var expand = jQuery("#expand"+mark+id).val();
-	if(expand)
-		it +="&expand="+expand
+	var expandID = jQuery("#expandID"+mark+id).val();
+	var expandtype = jQuery("#expandtype"+mark+id).val();
+	if(expandID)
+		it += "&expandID="+expandID+"&expandtype="+expandtype
 	title = FixJqText(title);
 	remark = FixJqText(remark);
 	jQuery.ajax({
 		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/dopost_baozhangitem",
+		url:	SITE_INDEX+actionmethod+"/dopost_baozhangitem",
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&parentID="+parentID+it,
 		success:function(msg){
 			jQuery("#btsave_"+id).attr("onclick",act); 
 			if(mark)
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname,expandtype);
 			else{
 			ThinkAjax.myAjaxResponse(msg,'resultdiv');
 			}
@@ -92,7 +104,7 @@
 	
  }
  
- function om_save(data,status,info,type,id,divname)
+ function om_save(data,status,info,type,id,divname,other)
  {
 	if(status == 1){
 		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\""+divname+data['chanpinID']+"\">";
@@ -124,7 +136,8 @@
 			htmlcontent += "</td>";
 		}
 		else{
-			htmlcontent += "<input type=\"hidden\" id=\"expand"+data['chanpinID']+"\" value=\""+data['expand']+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expandID"+data['chanpinID']+"\" value=\""+data['expandID']+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expandtype"+data['chanpinID']+"\" value=\""+other+"\">";
 		}
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
@@ -145,7 +158,10 @@
 		htmlcontent += "</tr>";
 		jQuery("#"+divname+id).replaceWith(htmlcontent);
 		if(data['type'] == '利润'){
-			myautocomplete("#title"+data['chanpinID'],'部门');
+			if(other == '部门')
+				myautocomplete("#title"+data['chanpinID'],'部门');
+			if(other == '用户')
+				myautocomplete("#title"+data['chanpinID'],'用户');
 		}
 	}
  }
@@ -159,7 +175,7 @@
 	else	
 	jQuery.ajax({
 		type:	"POST",
-		url:	SITE_INDEX+"Chanpin/deleteBaozhangitem",
+		url:	SITE_INDEX+actionmethod+"/deleteBaozhangitem",
 		data:	"chanpinID="+id,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',del_after,divname+id);
@@ -181,7 +197,8 @@
 {
 		if(parenttype == '部门')
 		datas = department;
-	
+		if(parenttype == '用户')
+		datas = userlist;
 		jQuery(target).unautocomplete().autocomplete(datas, {
 		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符
@@ -206,6 +223,11 @@ function checktitle(id,mark){
 	if(!mark)
 		mark = '';
 	var title = document.getElementById("title"+mark+id).value;
+	var expandtype = document.getElementById("expandtype"+mark+id).value;
+	if(expandtype == '用户')
+		datas = userlist;
+	if(expandtype == '部门')
+		datas = department;
 	var ishas = 0;
 	for (var i=0;i<datas.length;i++) { 
 		if(title == datas[i]['title']){
@@ -217,7 +239,7 @@ function checktitle(id,mark){
 	if(!ishas){
 		scroll(0,0);
 		jQuery("#title"+id).val('');
-		jQuery("#expand"+id).val('');
+		jQuery("#expandID"+id).val('');
 		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+',不存在,请重新选择！！</div>';
 		jQuery("#resultdiv_2").show("fast"); 
 		this.intval = window.setTimeout(function (){
@@ -227,7 +249,7 @@ function checktitle(id,mark){
 			return false;
 	}
 	else{
-		jQuery("#expand"+mark+id).val(systemID);
+		jQuery("#expandID"+mark+id).val(systemID);
 		return true;
 	}
 }

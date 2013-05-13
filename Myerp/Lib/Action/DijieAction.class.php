@@ -337,6 +337,7 @@ class DijieAction extends CommonAction{
 	public function djtuanbaozhang() {
 		A("Method")->showDirectory("预订单项服务");
 		$this->assign("actionmethod",'Dijie');
+		A('Method')->unitlist();
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else

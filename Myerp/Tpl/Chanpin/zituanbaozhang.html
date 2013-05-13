@@ -2,8 +2,9 @@
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/<{$actionmethod}>/baozhang.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
+var actionmethod = '<{$actionmethod}>';
 var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
 function save_baozhang(){
@@ -100,13 +101,23 @@ var department = [
 			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
 	 <php>}</php>
  ];
+var userlist = [
+	 <php>foreach($userAll as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
 
 jQuery().ready(function() {
 		<php>
-		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++; 
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++;
+		if($v[expandtype] == '部门'){
 		</php>
 			myautocomplete("#title<{$v[chanpinID]}>",'部门');
-		 <php>}</php>
+		 <php>}
+		if($v[expandtype] == '用户'){
+		 </php>
+			myautocomplete("#title<{$v[chanpinID]}>",'用户');
+		 <php>}}</php>
 });
 
 </script>
@@ -388,7 +399,7 @@ jQuery().ready(function() {
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingshou_list">
         <tbody>
           <tr class="pagination">
-            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="2"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF;"><strong>应收费用</strong>&nbsp;
@@ -476,12 +487,11 @@ jQuery().ready(function() {
           </tbody>
         
       </table>
-    </form>
-    <form id="form_yingshou" name="form_yingshou" >
+      
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingfu_list">
         <tbody>
           <tr class="pagination">
-            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="2"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应付费用</strong>&nbsp;
@@ -508,8 +518,8 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" warning="标题不能为空,且不能含有空格" ></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" check="^\S+$" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
@@ -569,16 +579,16 @@ jQuery().ready(function() {
           </tbody>
         
       </table>
-    </form>
-    <form id="form_yingshou" name="form_yingshou" >
+
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="lirun_list">
         <tbody>
           <tr class="pagination">
-            <td><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="2"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
-                    <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>利润部门</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增 " onclick="insertItem('lirun_list','利润');"></td>
+                    <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>利润项</strong>&nbsp;
+                      <input class="button" type="button" value=" 新增部门利润 " onclick="insertItem('lirun_list','利润','部门');">
+                      <input class="button" type="button" value=" 新增员工利润 " onclick="insertItem('lirun_list','利润','用户');"></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -599,8 +609,12 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>"><input type="hidden" id="expand<{$v['chanpinID']}>" value="<{$v['expand']}>"></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>"></td>
+          <td scope="row" align="left" valign="top">
+          <input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          <input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
+          <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check='^\S+$' warning="金额不能为空,且不能含有空格"></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
               <option disabled="disabled">--------</option>
