@@ -846,8 +846,11 @@ class MethodAction extends CommonAction{
 			$where .= " AND ".$this->_arraytostr_filter($where_user);
 			$datas3 = $ViewUser->where($where)->findall();
 		}
-		else
-			$datas3 = $this->getDataOMlistSystem("用户",'user','');
+		else{
+//			$datas3 = $this->getDataOMlistSystem("用户",'user','');
+			$datas3 = $this->_getCompanyUserList();
+		}
+			
 		$this->assign("userAll",$datas3);
 		//角色
 		$datas4 = $ViewRoles->where("`status_system` != '-1' and `islock` = '未锁定' ")->findall();
@@ -862,6 +865,17 @@ class MethodAction extends CommonAction{
 		$ComID = $this->_getComIDbyUser($username);
 		$bumenlist = $ViewDepartment->where("`systemID` = '$ComID' OR `parentID` = '$ComID' AND `status_system` = 1")->findall();
 		return $bumenlist;
+	 }
+	
+	
+	 //获得公司及下属用户列表
+     public function _getCompanyUserList($username) {
+		$ViewUser = D("ViewUser");
+		if(!$username)
+		$username = $this->user['title'];
+		$ComID = $this->_getComIDbyUser($username);
+		$userall = $ViewUser->where("`companyID` = '$ComID' AND `status_system` = 1")->findall();
+		return $userall;
 	 }
 	
 	
@@ -3648,15 +3662,6 @@ class MethodAction extends CommonAction{
 		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 		$this->display('baoming');
-	}
-	
-	
-	//获得公司内用户
-    public function _getCompanyUserList() {
-		$ViewUser = D("ViewUser");
-		$ComID = A("Method")->_getComIDbyUser();
-		$userlist = $ViewUser->where("`companyID` = '$ComID' AND `status_system` = '1'")->findall();
-		return $userlist;
 	}
 	
 	

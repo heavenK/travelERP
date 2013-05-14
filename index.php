@@ -10,7 +10,6 @@ define('APP_NAME', 'Myerp');
 define('APP_PATH', './Myerp/');
 define('DEFAULT_TYPE','default');
 define('__PUBLIC__',ET_URL."Public");
-define('SITE_URL',ET_URL);
 define('APP_DEBUG', true);
 
 require(APP_PATH.'Common/Function.php');
