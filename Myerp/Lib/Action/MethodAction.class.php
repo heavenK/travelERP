@@ -1560,6 +1560,11 @@ class MethodAction extends CommonAction{
 				$UR = $v['rolesID'].',';
 				//公司范围控制
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
+			if($this->user['title'] == 'aaa'){
+				dump($DataShenhe);
+				
+			}
+
 				if($shenhe != null){
 					//检测部门是否有产品管理权
 					$omdata = $this->_checkDataOMbumen($dataID,$datatype,'管理',$v['bumenID'],$v['rolesID']);
