@@ -1516,7 +1516,10 @@ class MethodAction extends CommonAction{
 		$where['type'] = '管理';
 		else
 		$where['type'] = array('in','开放,管理');
-		$where['DUR'] = array('like',$bumenID.',%');
+		//$where['DUR'] = array('like',$bumenID.',%');
+		$where['DUR'] = array('like',$bumenID.",".$rolesID.',%');
+		$where['dataID'] = $dataID;
+		$where['datatype'] = $datatype;
 		$OMlist = $DataOM->where($where)->find();
 		if($OMlist){
 			$ViewRoles = D("ViewRoles");
@@ -1535,7 +1538,7 @@ class MethodAction extends CommonAction{
 	//检查审核流程,检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
      public function _checkShenhe($datatype,$processID,$userID='',$dataID='') {
 		$DataShenhe = D("DataShenhe");
-		if($userID){
+		if($userID){//判断用户权限
 			$ComID = $this->_getComIDbyUser('',$userID);
 			if(!$dataID || !$ComID)
 			return false;
@@ -1568,7 +1571,7 @@ class MethodAction extends CommonAction{
 				}
 			}
 		}
-		else{
+		else{//获得审核流程
 			//公司范围控制
 			$username = $this->user['title'];
 			$ComID = $this->_getComIDbyUser($username);
@@ -1611,11 +1614,9 @@ class MethodAction extends CommonAction{
 		 else
 		 {
 			$ViewTaskShenhe = D("ViewTaskShenhe");
-			if($processID == ''){
-			  $need = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '待检出' AND (`status_system` = '1')")->find();
-				if($need)
-				  return $need;
-			}
+			$need = $ViewTaskShenhe->where("`dataID` = '$dataID' and `datatype` = '$datatype' and `status` = '待检出' AND (`status_system` = '1')")->find();
+			if($need)
+			  return $need;
 		 }
 		return false;
 	 }
@@ -3659,7 +3660,7 @@ class MethodAction extends CommonAction{
 		$this->assign("bumenfeilei",$bumenfeilei);
 		//清空占位过期订单
 		A('Method')->_cleardingdan();
-		$userlist = A("Method")->_getCompanyUserList();
+		$userlist = $this->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
 		$this->display('baoming');
 	}
@@ -3960,6 +3961,10 @@ class MethodAction extends CommonAction{
 			$to_dataom['dataID'] = $data['systemID'];
 			$to_dataom['datatype'] = '审核任务';
 			foreach($process as $p){
+				list($pro_roles,$pro_user) = split(',',$p['UR']);
+				//角色存在，部门必须存在
+				if(!$om_bumen && $pro_roles)
+				continue;
 				//开关过滤
 				$to_dataom['is_notice'] = $p['is_notice'];
 				$to_dataom['DUR'] = $om_bumen.','.$p['UR'];
@@ -4006,29 +4011,29 @@ class MethodAction extends CommonAction{
 					$xl = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
 					$guojing = $xl['guojing'];
 				}
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团',$user_name,$guojing);
+				$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$guojing);
 			}
-			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+			$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 			if($datatype == '线路'){
 				$Chanpin = D("Chanpin");
 				$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
 				foreach($zituanall as $v){
-					A("Method")->_OMRcreate($v['chanpinID'],'子团',$user_name,$dataOMlist);
+					$this->_OMRcreate($v['chanpinID'],'子团',$user_name,$dataOMlist);
 					$bzdall = $Chanpin->where("`parentID` = '$v[chanpinID]' and `marktype` = 'baozhang'")->findall();
 					foreach($bzdall as $vol){
-						A("Method")->_OMRcreate($vol['chanpinID'],'报账单',$user_name,$dataOMlist);
+						$this->_OMRcreate($vol['chanpinID'],'报账单',$user_name,$dataOMlist);
 					}
 				}
 			}
 		}
 		if($datatype == '地接'){
 				if(!$dataOMlist)
-				$dataOMlist = A("Method")->_setDataOMlist('地接','地接',$user_name);
-			A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+				$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name);
+			$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 		}
 		if($datatype == '报账单' || $datatype == '报账项'){
 				if($dataOMlist)
-					A("Method")->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 		}
 	}
 	
