@@ -1516,8 +1516,8 @@ class MethodAction extends CommonAction{
 		$where['type'] = '管理';
 		else
 		$where['type'] = array('in','开放,管理');
-		//$where['DUR'] = array('like',$bumenID.',%');
-		$where['DUR'] = array('like',$bumenID.",".$rolesID.',%');
+		$where['DUR'] = array('like',$bumenID.',%');
+		//$where['DUR'] = array('like',$bumenID.",".$rolesID.',%');
 		$where['dataID'] = $dataID;
 		$where['datatype'] = $datatype;
 		$OMlist = $DataOM->where($where)->find();
@@ -1560,11 +1560,6 @@ class MethodAction extends CommonAction{
 				$UR = $v['rolesID'].',';
 				//公司范围控制
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
-			if($this->user['title'] == 'aaa'){
-				dump($DataShenhe);
-				
-			}
-
 				if($shenhe != null){
 					//检测部门是否有产品管理权
 					$omdata = $this->_checkDataOMbumen($dataID,$datatype,'管理',$v['bumenID'],$v['rolesID']);
@@ -3840,12 +3835,6 @@ class MethodAction extends CommonAction{
 			else
 				$piz = $ViewShenhe->where("`datatype` = '$datatype' AND (`status_system` = '1')")->order("processID desc")->find();
 			$checkds = $this->_checkShenhe($datatype,$piz['processID'],$this->user['systemID'],$dataID);//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
-			
-			if($this->user['title'] == 'aaa'){
-				dump($checkds);
-				
-			}
-			
 			if(false === $checkds){
 				//$this->ajaxReturn('', '错误！您没有操作权限！', 0);
 				cookie('errormessage','错误，您没有操作权限！',30);
