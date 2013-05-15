@@ -1516,7 +1516,7 @@ class MethodAction extends CommonAction{
 		$where['type'] = '管理';
 		else
 		$where['type'] = array('in','开放,管理');
-		$where['DUR'] = array('like',$bumenID.',%');
+		$where['DUR'] = array('like',$bumenID.',%');//只检查部门
 		$where['dataID'] = $dataID;
 		$where['datatype'] = $datatype;
 		$OMlist = $DataOM->where($where)->find();
