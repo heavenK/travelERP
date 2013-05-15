@@ -1517,7 +1517,6 @@ class MethodAction extends CommonAction{
 		else
 		$where['type'] = array('in','开放,管理');
 		$where['DUR'] = array('like',$bumenID.',%');
-		//$where['DUR'] = array('like',$bumenID.",".$rolesID.',%');
 		$where['dataID'] = $dataID;
 		$where['datatype'] = $datatype;
 		$OMlist = $DataOM->where($where)->find();
@@ -1559,9 +1558,11 @@ class MethodAction extends CommonAction{
 				//开放给角色，检查部门
 				$UR = $v['rolesID'].',';
 				//公司范围控制
+				//先检查角色
 				$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
 				if($shenhe != null){
 					//检测部门是否有产品管理权
+					//再检查部门
 					$omdata = $this->_checkDataOMbumen($dataID,$datatype,'管理',$v['bumenID'],$v['rolesID']);
 					if(false === $omdata)
 						continue;
