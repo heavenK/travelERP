@@ -493,6 +493,7 @@ class BudingAction extends Action{
 	
 	//客户导出测试
     public function customertest() {
+		exit;
 		$DataCD = D("DataCD");	
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
 		$i = 0;
@@ -515,6 +516,7 @@ class BudingAction extends Action{
 	
 	//客户统计
     public function customercounter() {
+		exit;
 		$DataCD = D("DataCD");	
 		$cusall = $DataCD->Distinct(true)->field("telnum")->findall();
 		$i = 0;
@@ -581,6 +583,7 @@ class BudingAction extends Action{
 	
 	//订单统计
     public function dingdancounter() {
+		exit;
 		$ViewDingdan = D("ViewDingdan");
 		$all = $ViewDingdan->where("`status_system` = 1")->findall();
 		foreach($all as $v){
@@ -598,6 +601,7 @@ class BudingAction extends Action{
 	
 	//订单统计
     public function baozhangshenhetime() {
+		exit;
 		C('TOKEN_ON',false);
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewBaozhang = D("ViewBaozhang");
@@ -625,6 +629,7 @@ class BudingAction extends Action{
 	
 	//重置管理员用户OM
 	public function resetUserOM40150(){
+		exit;
 		C('TOKEN_ON',false);
 		$dataOMlist[0]['DUR'] = '40150,43980,';
 		$ViewUser = D("ViewUser");
@@ -638,6 +643,7 @@ class BudingAction extends Action{
 	
 	//重置分类OM
 	public function resetCategoryOM40150(){
+		exit;
 		C('TOKEN_ON',false);
 		$dataOMlist = A("Method")->_setDataOMtoAAA();
 		$ViewCategory = D("ViewCategory");
@@ -650,6 +656,7 @@ class BudingAction extends Action{
 	
 	//重置分类OM
 	public function fillAllCompanyID40150(){
+		exit;
 		C('TOKEN_ON',false);
 		$System = D("System");
 		$uall = $System->where("`marktype`='department' or `marktype`='user'")->findall();
@@ -661,6 +668,7 @@ class BudingAction extends Action{
 	}
 	
 	public function fillAllCompanyID40150chanpin(){
+		exit;
 //		C('TOKEN_ON',false);
 //		$Chanpin = D("Chanpin");
 //		$uall = $Chanpin->order('time asc')->limit("0,400")->findall();
@@ -695,6 +703,7 @@ class BudingAction extends Action{
 	
 	
 	public function fillAllCompanyID40150message(){
+		exit;
 		C('TOKEN_ON',false);
 		$Message = D("Message");
 		$uall = $Message->findall();
@@ -706,6 +715,7 @@ class BudingAction extends Action{
 	}
 	
 	public function xxxxxxxxx(){
+		exit;
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		
@@ -718,6 +728,31 @@ class BudingAction extends Action{
 //		}
 		echo "结束";
 	}
+	
+	
+	
+	//重置报账利润类型expandtype为部门
+	public function resetlirunexpandtype(){
+		C('TOKEN_ON',false);
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$itemall = $ViewBaozhangitem->where("`type` = '利润' AND `expandID` is not null")->findall();
+		$Chanpin = D("Chanpin");
+		foreach($itemall as $v){
+			$dat['chanpinID'] = $v['chanpinID'];
+			$dat['baozhangitem']['expandtype'] = '部门';
+		}
+		if(false ===$Chanpin->relation("baozhangitem")->myRcreate($dat)){
+			echo "发生错误";
+			exit;
+		}
+		echo "结束";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
