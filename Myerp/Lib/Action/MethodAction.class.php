@@ -4123,7 +4123,7 @@ class MethodAction extends CommonAction{
 		$this->assign("bumenlist",$bumenlist);
 		$zutuanlist = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%' AND `type` not like '%联合体%' AND `type` not like '%办事处%'")->findall();
 		$this->assign("zutuanlist",$zutuanlist);
-		$dijielist = $ViewDepartment->where("`parentID` = '$ComID' AND　`type` like '%地接%'")->findall();
+		$dijielist = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%地接%'")->findall();
 		$this->assign("dijielist",$dijielist);
 	}
 	

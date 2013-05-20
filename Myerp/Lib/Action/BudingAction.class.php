@@ -733,6 +733,7 @@ class BudingAction extends Action{
 	
 	//重置报账利润类型expandtype为部门
 	public function resetlirunexpandtype(){
+		exit;
 		C('TOKEN_ON',false);
 		$ViewBaozhangitem = D("ViewBaozhangitem");
 		$itemall = $ViewBaozhangitem->where("`type` = '利润' AND `expandID` is not null")->findall();
