@@ -740,10 +740,10 @@ class BudingAction extends Action{
 		foreach($itemall as $v){
 			$dat['chanpinID'] = $v['chanpinID'];
 			$dat['baozhangitem']['expandtype'] = '部门';
-		}
-		if(false ===$Chanpin->relation("baozhangitem")->myRcreate($dat)){
-			echo "发生错误";
-			exit;
+			if(false === $Chanpin->relation("baozhangitem")->myRcreate($dat)){
+				echo "发生错误";
+				exit;
+			}
 		}
 		echo "结束";
 	}
