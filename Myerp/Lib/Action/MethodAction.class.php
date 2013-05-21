@@ -827,10 +827,12 @@ class MethodAction extends CommonAction{
 			if($where_cate)
 			$where .= " AND ".$this->_arraytostr_filter($where_cate);
 			$datas1 = $ViewCategory->where($where)->findall();
+			$this->assign("categoryAll",$datas1);
 		}
-		else
+		else{
 			$category = A('Method')->getDataOMlistSystem("分类",'category','');
-		$this->assign("categoryAll",$category['chanpin']);
+			$this->assign("categoryAll",$category['chanpin']);
+		}
 		//部门
 		if($this->user['title'] == 'aaa'){
 			if($where_dept)
