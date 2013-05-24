@@ -59,52 +59,62 @@
       </tr>
     </tbody>
   </table>
-  <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item">
-    <tbody>
-        <php>
-    if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'zituan'){
-      </php>
+  
+	<php>if($chanpin['marktype'] == 'zituan'){</php>
+          <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item">
+            <tbody>
+            <tr height="28px" >
+              <td width="25%">&nbsp;团号：<{$zituan['tuanhao']}></td>
+              <td width="20%">&nbsp;接团单位：<{$baozhang['datatext']['jietuandanwei']}></td>
+              <td width="20%">&nbsp;部门：<{$zituan['bumen_copy']}></td>
+              <td width="10%">&nbsp;天数：<{$zituan['xianlulist']['tianshu']}></td>
+              <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
+            </tr>
+            <tr height="28px" >
+            <php>if($baozhang['datatext']['retitle']){</php>
+              <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
+            <php>}else{</php>
+              <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
+            <php>}</php>
+              <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
+              <td width="20%">&nbsp;回团日期：
+                <php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
+              <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
+              <td width="10%">&nbsp;全陪:<php>if($baozhang['datatext']['quanpei']) echo $baozhang['datatext']['quanpei']; else echo $baozhang['datatext']['lingdui_name'];</php></td>
+            </tr>
+              </tbody>
+          </table>
+    <php>}</php>
     
-    <tr height="28px" >
-      <td width="25%">&nbsp;团号：<{$zituan['tuanhao']}></td>
-      <td width="20%">&nbsp;接团单位：<{$baozhang['datatext']['jietuandanwei']}></td>
-      <td width="20%">&nbsp;部门：<{$zituan['bumen_copy']}></td>
-      <td width="10%">&nbsp;天数：<{$zituan['xianlulist']['tianshu']}></td>
-      <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
-    </tr>
-    <tr height="28px" >
-    <php>if($baozhang['datatext']['retitle']){</php>
-      <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
-    <php>}else{</php>
-      <td width="25%">&nbsp;线路：<{$zituan['title_copy']}></td>
+    <php>if($chanpin['marktype'] == 'DJtuan'){</php>
+          <table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item">
+            <tbody>
+            <tr height="28px" >
+              <td width="25%">&nbsp;团号：<{$djtuan['tuanhao']}></td>
+              <td width="20%">&nbsp;发团社：<{$djtuan['fromcompany']}></td>
+              <td width="20%">&nbsp;联系人：<{$djtuan['lianxiren']}></td>
+              <td width="15%">&nbsp;电话：<{$djtuan['lianxirentelnum']}></td>
+              <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
+            </tr>
+            <tr height="28px" >
+            <php>if($baozhang['datatext']['retitle']){</php>
+              <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
+            <php>}else{</php>
+              <td width="25%">&nbsp;线路：<{$djtuan['title']}></td>
+            <php>}</php>
+              <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
+              <td>&nbsp;回团日期：
+                <php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
+              <td>&nbsp;全陪：<{$djtuan['datatext_xingcheng']['quanpei']}></td>
+              <td>&nbsp;导游：<{$djtuan['daoyou']}></td>
+            </tr>
+              </tbody>
+          </table>
     <php>}</php>
-      <td width="20%">&nbsp;出团日期：<{$zituan['chutuanriqi']}></td>
-      <td width="20%">&nbsp;回团日期：
-        <php>echo jisuanriqi($zituan['chutuanriqi'],$zituan['xianlulist']['tianshu']);</php></td>
-      <td width="10%">&nbsp;计调：<{$zituan['user_name']}></td>
-      <td width="10%">&nbsp;全陪:<php>if($baozhang['datatext']['quanpei']) echo $baozhang['datatext']['quanpei']; else echo $baozhang['datatext']['lingdui_name'];</php></td>
-    </tr>
-    <php>}</php>
-    <php>if($baozhang['type'] == '团队报账单' && $chanpin['marktype'] == 'DJtuan'){</php>
-    <tr height="28px" >
-      <td width="25%">&nbsp;团号：<{$djtuan['tuanhao']}></td>
-      <td width="20%">&nbsp;发团社：<{$djtuan['fromcompany']}></td>
-      <td width="20%">&nbsp;联系人：<{$djtuan['lianxiren']}></td>
-      <td width="15%">&nbsp;电话：<{$djtuan['lianxirentelnum']}></td>
-      <td width="10%">&nbsp;人数：<{$baozhang['renshu']}></td>
-    </tr>
-    <tr height="28px" >
-    <php>if($baozhang['datatext']['retitle']){</php>
-      <td width="25%">&nbsp;线路：<{$baozhang['datatext']['retitle']}></td>
-    <php>}else{</php>
-      <td width="25%">&nbsp;线路：<{$djtuan['title']}></td>
-    <php>}</php>
-      <td>&nbsp;出团日期：<{$djtuan['jietuantime']}></td>
-      <td>&nbsp;回团日期：
-        <php>echo jisuanriqi($djtuan['jietuantime'],$djtuan['tianshu']);</php></td>
-      <td>&nbsp;全陪：<{$djtuan['datatext_xingcheng']['quanpei']}></td>
-      <td>&nbsp;导游：<{$djtuan['daoyou']}></td>
-    </tr>
+    
+    <php>if($baozhang['type'] != '团队报账单'){</php>
+	<table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item" style="margin-top:4px;">
+    <tbody>
     <php>}</php>
     <php>if($baozhang['type'] == '签证' || $baozhang['type'] == '办证'){</php>
     <tr height="28px" >
@@ -158,12 +168,19 @@
       <td width="25%">&nbsp;结算时间：<{$baozhang['datatext']['jiesuantime']}></td>
     </tr>
     <php>}</php>
+    <php>if($baozhang['type'] != '团队报账单'){</php>
+    </tbody>
+	</table>
+    <php>}</php>
+	<table width="100%" align="center" cellpadding="0" cellspacing="0" class="table_item" style="margin-top:4px;">
+    <tbody>
     <tr height="28px" >
       <td colspan="6">&nbsp;备注说明：<{$baozhang['datatext']['remark']}></td>
     </tr>
-      </tbody>
+    </tbody>
+	</table>
     
-  </table>
+    
   <php> $markhigh = 28;
     $tem = -1;$i = 0;foreach($baozhang['baozhangitemlist'] as $v){$tem++;if($v['type'] != '结算项目' ||$v['is_print'] == '不打印') continue;if(($doprint == '计调打印' && $v['status_shenhe'] == '检出') || $v['status_shenhe'] == '批准') {$i++;
     $title =  iconv_strlen($v['title'],"UTF-8") / 4 * $markhigh;

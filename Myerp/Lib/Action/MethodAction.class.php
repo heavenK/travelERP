@@ -2935,9 +2935,6 @@ class MethodAction extends CommonAction{
 	
 	public function _dosavebaozhangitem($type) {
 		
-		if(!$_REQUEST['title'])
-			$this->ajaxReturn($_REQUEST,'标题不能为空,且不能含有空格！', 0);
-		
 		if($type == '子团'){
 			//判断计调角色
 			$omrole = '计调';
@@ -2978,6 +2975,8 @@ class MethodAction extends CommonAction{
 			$data['baozhangitem']['is_print'] = $_REQUEST['is_print'];
 		}
 		else{
+			if(!$_REQUEST['title'])
+				$this->ajaxReturn($_REQUEST,'标题不能为空,且不能含有空格！', 0);
 			$data = $_REQUEST;
 			$data['deparmentID'] = $baozhang['deparmentID'];
 			$data['baozhangitem'] = $_REQUEST;
