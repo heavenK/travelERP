@@ -36,9 +36,9 @@ class MethodClientAction extends CommonAction{
 				$serverdataID = str_replace('﻿','',$serverdataID);
 				$xianlu['xianlu']['serverdataID'] = $serverdataID;
 				$xianlu['chanpinID'] = $v;
-//				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
-//					$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
-//				}
+				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
+					$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+				}
 				//记录
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$v;
 				$message = '『'.$xianlu['title'].'』 被提交到网店。';
