@@ -63,7 +63,7 @@ function onshop(){
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 单位 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 分类 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:30px;"><div> 状态 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 网店提交 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 网店提交/线路ID </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 锁定 </div></th>
           <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
           <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
@@ -81,7 +81,7 @@ function onshop(){
         <td scope="row" align="left" valign="top"><{$v['bumen_copy']}></td>
         <td scope="row" align="left" valign="top"><{$v['guojing']}>/<{$v['kind']}></td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
-        <td scope="row" align="left" valign="top"><php>if($v['serverdataID']) echo '已提交'; else echo 'NO';</php></td>
+        <td scope="row" align="left" valign="top"><php>if($v['serverdataID']) echo '已提交/'.$v['serverdataID']; else echo 'NO';</php></td>
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
         <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<{$v['chanpinID']}>,this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
