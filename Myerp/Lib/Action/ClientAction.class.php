@@ -31,11 +31,33 @@ class ClientAction extends Action{
 	//检查记录
     public function _checkActHistory($dataID,$datatype,$status) {
 		$ViewInfohistory = D("ViewInfohistory");
-		$record = $ViewInfohistory->where("`dataID` = '$dataID' AND `$datatype` = '$datatype' AND `status` = '$status'")->find();
+		$record = $ViewInfohistory->where("`dataID` = '$dataID' AND `datatype` = '$datatype' AND `status` = '$status'")->find();
 		if($record)
-		return true;
+		return $record;
 		return false;
     }
+	
+	
+	//获得记录
+    public function _getActHistory() {
+		if($_REQUEST['dataID'])
+			$dataID = $_REQUEST['dataID'];
+		if($_REQUEST['datatype'])
+			$datatype = $_REQUEST['datatype'];
+		if($_REQUEST['status'])
+			$status = $_REQUEST['status'];
+		$ViewInfohistory = D("ViewInfohistory");
+		$record = $ViewInfohistory->where("`dataID` = '$dataID' AND `datatype` = '$datatype' AND `status` = '$status'")->find();
+		if(!$record){
+			$returndata['msg'] = '未获得相关记录！';
+			$returndata['error'] = 'true';
+			echo json_encode($returndata);
+			exit;
+		}
+		$data = serialize($record);
+		echo $data;
+    }
+	
 	
 	
 }

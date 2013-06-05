@@ -26,6 +26,12 @@ class MethodClientAction extends CommonAction{
 			$xianlu = $ViewXianlu->where("`chanpinID` = '$v'")->find();
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
+				//记录
+				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$v;
+				$message = '『'.$xianlu['title'].'』 被提交到网店。';
+				$data['status'] = '提交到网店';
+				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
+				//生成
 				$serverdataID = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
 				$getres = json_decode($serverdataID,true);
 				if($getres['error']){
@@ -39,11 +45,6 @@ class MethodClientAction extends CommonAction{
 				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
 					$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 				}
-				//记录
-				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$v;
-				$message = '『'.$xianlu['title'].'』 被提交到网店。';
-				$data['status'] = '提交到网店';
-				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
 			}
 			else{
 				$this->ajaxReturn($_REQUEST,'该产品已提交到网店！', 1);
