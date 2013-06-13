@@ -1230,6 +1230,10 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','错误，出团日期未添加！',30);
 				return false;
 			}
+			if($xianlu['shoujia'] == '0' || $xianlu['shoujia'] == ''){
+				cookie('errormessage','错误，销售价格（电商成人）未填写！',30);
+				return false;
+			}
 		}
 		//签证
 		if($cp['marktype'] == 'qianzheng'){
