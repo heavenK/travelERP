@@ -150,6 +150,9 @@ jQuery().ready(function() {
     <php>if($action_type == 'Caiwu'){</php>
     <tp:includeCA file="Chanpin:header_kongguan" />
     <php>}</php>
+    <php>if($actionmethod == 'Qianzheng' && !$action_type){</php>
+    <tp:includeCA file="Qianzheng:header_chanpin" />
+    <php>}</php>
     
     <form name="form1" method="post" id="form1" >
       <input type="hidden" name="chanpinID" value="<{$baozhangID}>">

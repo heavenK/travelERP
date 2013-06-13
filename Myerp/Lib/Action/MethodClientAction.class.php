@@ -24,6 +24,8 @@ class MethodClientAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		foreach($itemlist as $v){
 			$xianlu = $ViewXianlu->where("`chanpinID` = '$v'")->find();
+			if($xianlu['status_shenhe'] != '批准')
+				$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
 				//记录
@@ -32,11 +34,11 @@ class MethodClientAction extends CommonAction{
 				$data['status'] = '提交到网店';
 				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
 				//生成
-				$serverdataID = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
-				$getres = json_decode($serverdataID,true);
-				if($getres['error']){
+				$getres = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
+				if($getres['error'])
 					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
-				}
+				else
+					$serverdataID = $getres;
 				if(!intval($serverdataID))
 					$this->ajaxReturn($_REQUEST,'提交失败！', 0);
 				$serverdataID = str_replace('﻿','',$serverdataID);

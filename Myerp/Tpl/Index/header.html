@@ -19,10 +19,8 @@
 <load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
 <load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
-
 <link type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
-
 <script>
 
 var SITE_INDEX = '<{:SITE_INDEX}>';
@@ -30,14 +28,12 @@ var ET_URL = '<{:ET_URL}>';
 var SITE_PUBLIC = '<{:__PUBLIC__}>';
 
 </script>
-
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/Index/header.js'></script>
 <style>
-.font1{
+.font1 {
 	color:#aaaaaa;
 }
-.font2
-{
+.font2 {
 	color:black;
 }
 </style>
@@ -56,11 +52,10 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
   <div id="welcome" style="border:none; padding:18px 0 0 10px;"> 欢迎, <strong>
     <php> echo $this->tVar['user']['title'];</php>
     </strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
-  <div id="search" style="padding:18px 0 0 10px; border:none ">
-      <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
-      <input type="text" id="query_string" value="请输入查询码" class="font1" onblur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onfocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
-      &nbsp;
-      <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
+  <div id="search" style="padding:18px 0 0 10px; border:none "> <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
+    <input type="text" id="query_string" value="请输入查询码" class="font1" onblur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onfocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
+    &nbsp;
+    <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
   </div>
   <div class="clear"></div>
   <div id="moduleList">
@@ -71,38 +66,46 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Xiaoshou/index" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
-<php>if($is_jidiao || $is_caiwu){</php>      
+      <php>if($is_jidiao || $is_caiwu){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '旅游产品'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Chanpin/index" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Chanpin/index" id="grouptab_0">&nbsp;旅游产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
-<php>}</php>
-<php>if($is_dijie || $is_caiwu){</php>      
+      <php>}</php>
+      <php>if($is_jidiao || $is_caiwu){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '签证产品'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Qianzheng/index" id="grouptab_6">&nbsp;签证产品&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Qianzheng/index" id="grouptab_6">&nbsp;签证产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
+      <php>if($is_dijie || $is_caiwu){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '产品地接'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Dijie/index" id="grouptab_5">&nbsp;地接产品&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Dijie/index" id="grouptab_5">&nbsp;地接产品&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
-<php>}</php>
-<php>if($is_caiwu){</php>      
+      <php>}</php>
+      <php>if($is_caiwu){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '财务管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
-<php>}</php>
-<php>if($is_wangguan){</php>      
+      <php>}</php>
+      <php>if($is_wangguan){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '系统管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
-<php>}</php>
+      <php>}</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
@@ -113,6 +116,9 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
   </div>
   <div class="clear"></div>
   <div id="subModuleList"> <span id="moduleLink_0" 
+    
+    
+    
     <php>if($navposition == '旅游产品'){</php>
     class="selected"
     <php>}</php>
@@ -144,6 +150,9 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Chanpin/customer">游客管理</a> </li>
     </ul>
     </span> <span id="moduleLink_1" 
+    
+    
+    
     <php>if($navposition == '财务管理'){</php>
     class="selected"
     <php>}</php>
@@ -153,7 +162,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报账管理</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单">提成管理</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/zituanlist/dotype/团费确认">团费确认</a> </li>
-      <li class="subTabMore"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch">组团地接产品>></a> 
+      <li class="subTabMore"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch">组团地接产品>></a>
         <ul class="cssmenu">
           <li> <a href="<{:SITE_INDEX}>Caiwu/zituanlist/dotype/产品搜索">组团产品 </a> </li>
           <li> <a href="<{:SITE_INDEX}>Caiwu/djtuanlist">地接产品 </a> </li>
@@ -164,34 +173,42 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">统计(营收)</a> </li>
     </ul>
     </span> <span id="moduleLink_2" 
+    
+    
+    
     <php>if($navposition == '系统管理'){</php>
     class="selected"
     <php>}</php>
     >
     <ul>
-        <php>if($this->tVar['user']['title'] == 'aaa'){</php>
+      <php>if($this->tVar['user']['title'] == 'aaa'){</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/用户">用户</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统工具">系统工具</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/产品平移">产品平移</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
-        <php>}else{</php>
+      <php>}else{</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
-        <php>}</php>
+      <php>}</php>
     </ul>
     </span> <span id="moduleLink_3" 
+    
+    
+    
     <php>if($navposition == '销售'){</php>
     class="selected"
     <php>}</php>
     >
     <ul>
       <li> <a href="<{:SITE_INDEX}>Xiaoshou/index">线路产品</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Xiaoshou/index/chanpintype/签证">签证产品</a> </li>
       <li> <a href="<{:SITE_INDEX}>Xiaoshou/dingdanlist">订单控管</a> </li>
       <li> <a href="<{:SITE_INDEX}>Xiaoshou/zituanlist">补订订单（子团查找）</a> </li>
     </ul>
-    </span> 
+    </span> <span id="moduleLink_4" 
     
-    <span id="moduleLink_4" 
+    
+    
     <php>if($navposition == '信息'){</php>
     class="selected"
     <php>}</php>
@@ -201,9 +218,10 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Message/index/datatype/排团表">排团表</a> </li>
       <li> <a href="<{:SITE_INDEX}>Message/infohistory">系统提示</a> </li>
     </ul>
-    </span> 
+    </span> <span id="moduleLink_5" 
     
-    <span id="moduleLink_5" 
+    
+    
     <php>if($navposition == '产品地接'){</php>
     class="selected"
     <php>}</php>
@@ -219,17 +237,28 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Dijie/danxiangfuwu">单项服务及补账</a> </li>
       <li> <a href="<{:SITE_INDEX}>Dijie/tongji">地接产品统计</a> </li>
     </ul>
-    </span> 
+    </span> <span id="moduleLink_6" 
     
-    </div>
+    
+    
+    <php>if($navposition == '签证产品'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li class="subTabMore" style="font-size:12px;"> <a href="<{:SITE_INDEX}>Qianzheng/index">签证发布及控管&gt;&gt;</a>
+        <ul class="cssmenu">
+          <li> <a href="<{:SITE_INDEX}>Qianzheng/fabu">发布签证产品 </a> </li>
+        </ul>
+      </li>
+      <li> <a href="<{:SITE_INDEX}>Qianzheng/shenhe">签证产品审核</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Qianzheng/tongji">签证产品统计</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Qianzheng/dingdanlist">订单控管</a> </li>
+    </ul>
+    </span> </div>
   <div class="clear"></div>
   <div class="line"></div>
-  <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> 
-  	<b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> 
-    <span style="float:left; width:70%" id="alertitem"> </span> 
-  	<b style="white-space:nowrap;float:right;"> 
-  	<a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">
+  <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> <b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> <span style="float:left; width:70%" id="alertitem"> </span> <b style="white-space:nowrap;float:right;"> <a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">
     <div class="ui-icon ui-icon-newwin" style="float:left"></div>
-    显示全部</a> </b> 
-  </div>
+    显示全部</a> </b> </div>
 </div>

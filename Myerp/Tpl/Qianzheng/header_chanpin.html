@@ -1,0 +1,167 @@
+<script type="text/javascript">
+var SITE_INDEX = '<{:SITE_INDEX}>';
+var chanpinID = '<{$chanpinID}>';
+var title =  '<{$datatitle}>';
+function doshenhe(dotype){
+	ThinkAjax.myloading('resultdiv');
+	var dataID = chanpinID;
+	var datatype = '签证';
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Qianzheng/doshenhe",
+		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+		}
+	});
+}
+function shenhe_after(data,status){
+	if(status == 1){
+		alert(data['status_shenhe']+"操作成功！！");
+		location.reload();
+	}
+}
+</script>
+
+<div class="moduleTitle" style="margin-bottom:10px;">
+  <h3 style=""><{$navigation}><{$datatitle}></h3>
+  <span style="margin-top:10px;"> <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a> </span> </div>
+
+<php>if($chanpinID){</php>
+<div id="mysearchdiv" style="margin-bottom:10px;">
+  <ul id="searchTabs" class="tablist tablist_2">
+    <li> <a 
+      <php>if($nowDir['title'] == '签证信息'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/fabu/chanpinID/<{$chanpinID}>">签证信息</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '签证销售'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/zhidingxiaoshou/chanpinID/<{$chanpinID}>">指定销售</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '签证订单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/dingdanlist/chanpinID/<{$chanpinID}>">签证订单</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '签证报账列表' || $markpos == '签证报账单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/baozhangdanlist/chanpinID/<{$chanpinID}>">签证报账列表</a> </li>
+  </ul>
+</div>
+<php>}elseif(!$baozhangID){</php>
+<div id="mysearchdiv" style="margin-bottom:10px;">
+  <ul id="searchTabs" class="tablist tablist_2">
+    <li> <a 
+      <php>if($nowDir['title'] == '签证信息'){</php>
+      class="current"
+      <php>}</php>
+      href="javascript:ajaxalert('请先创建签证信息')">签证信息</a> </li>
+    <li> <a 
+      <php>if($nowDir['title'] == '签证销售'){</php>
+      class="current"
+      <php>}</php>
+      href="javascript:ajaxalert('请先创建基本信息')">指定销售</a> </li>
+  </ul>
+</div>
+<php>}</php>
+
+<div id="resultdiv" class="resultdiv"></div>
+<div id="resultdiv_2" class="resultdiv"></div>
+<div class="buttons">
+  
+  <php>if('签证信息' == $nowDir['title']){;</php>
+  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+  <php>}</php>
+  
+  <php>if('签证订单' == $nowDir['title']){</php>
+  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming(<{$chanpinID}>);">
+  <php>}</php>
+  
+  <php>if('签证报账列表' == $nowDir['title']){</php>
+  <input type="button" value="创建报账单 " name="button" class="button primary" id="qianzheng_create">
+  <php>}</php>
+  
+  
+  <php>if('签证报账单' !== $nowDir['title']){</php>
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'签证');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
+      <php>}}else{</php>
+      <input type="button" style="float:right" value="审核" name="button" onclick="alert('已批准！！！')" >
+      <php>}if(A("Method")->checkshenheback($chanpinID,'签证')){</php>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'签证','Dijie');">
+	  <php>}</php>
+  <php>}</php>
+  
+  
+  <php>if('签证报账单' == $nowDir['title']){</php>
+  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
+  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
+  <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
+  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+  
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      if(A("Method")->check_baozhangitemstatus($baozhangID))
+      	$bzdalter = '部分报账项未审核！！是否继续？？';
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <php>}}else{</php>
+      <php>if(count(explode('审核回退',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
+      <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
+      <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
+      <php>if(count(explode('财务',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
+      <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
+      <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
+      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$baozhangID}>,'报账单','Dijie');">
+	  <php>}</php>
+      <input type="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
+      
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px">| 锁状态：<strong><{$tem_cp['islock']}></strong></label>
+  <php>}</php>
+  
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 产品发布人：<strong><PHP>if($baozhang['user_name']) echo $baozhang['user_name']; else echo $qianzheng['user_name'];</PHP></strong></label>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> 发布部门：<strong><PHP>if($baozhang['bumen_copy']) echo $baozhang['bumen_copy']; else echo $qianzheng['bumen_copy'];</PHP></strong></label>
+  
+</div>
+
+<div style="position: absolute; display:none" id="shenhediv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('shenhediv');"> <img border="0" src="<{:__PUBLIC__}>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

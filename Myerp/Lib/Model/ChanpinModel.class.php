@@ -128,6 +128,8 @@ class ChanpinModel extends RelationModel {
 		'baozhanglist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Baozhang','true_class_name'=>'myerpview_chanpin_baozhang','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
 		//DJtuan
 		'DJtuan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'DJtuan','foreign_key'=>'chanpinID'),
+		//qianzheng
+		'qianzheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Qianzheng','foreign_key'=>'chanpinID'),
 	);
 	
 

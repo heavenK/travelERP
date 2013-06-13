@@ -1,0 +1,79 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
+
+<div id="main">
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+    <tp:includeCA file="Qianzheng:header_chanpin" />
+    <form name="form" method="post" id="form">
+      <php>if($qianzheng[chanpinID]){</php>
+      <input name="chanpinID" id="chanpinID" type="hidden" value="<{$qianzheng['chanpinID']}>" >
+      <php>}</php>
+      <input type="hidden" name="ajax" value="1">
+      <!--ajax提示-->
+      
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8"> <h4>基本信息（必填）</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row" > 标题: </td>
+            <td valign="top" scope="row" >
+            <input name="title" type="text" id="title" style="width:200px;" value="<php>echo trim($qianzheng['title'])</php>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+              所属部门:
+                  <select name="departmentID">
+                  <php>if($qianzheng['bumen_copy']){</php>
+                    <option value="<{$qianzheng['departmentID']}>"><{$qianzheng['bumen_copy']}></option>
+                    <option disabled="disabled">-----------</option>
+                  <php>}</php>
+                  <php>foreach($bumenfeilei as $v){</php>
+                    <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+                  <php>}</php>
+                  </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <style>
+	.cke_toolgroup { border: 1px solid #94C1E8;}
+	.cke_icon{ border: 1px solid #94C1E8;}
+	</style>
+      <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">
+        <tbody>
+          <tr>
+            <th align="left" colspan="8" style="min-width:100px;"> <h4>选填信息</h4>
+            </th>
+          </tr>
+          <tr>
+            <td valign="top" scope="row"> 产品说明: </td>
+            <td valign="top" colspan="3"><textarea name="shuoming" id="shuoming"><{$qianzheng['shuoming']}></textarea>
+              <script type="text/javascript">
+          var editor = CKEDITOR.replace( 'shuoming' );
+          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+          </script></td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </form>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />
+<script>	
+
+function save(){
+	document.getElementById('shuoming').value = CKEDITOR.instances.shuoming.getData();
+	ThinkAjax.sendForm('form','<{:SITE_INDEX}>Qianzheng/dopostfabu/',doComplete,'resultdiv');
+}
+
+function doComplete(data,status){
+	if(status == 1){
+			window.location.href='<{:SITE_INDEX}>Qianzheng/fabu/chanpinID/'+data['chanpinID'];
+	}
+}
+
+
+</script>

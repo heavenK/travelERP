@@ -1008,7 +1008,7 @@ class ChanpinAction extends CommonAction{
 	
 	//添加订单
     public function zituanbaoming() {
-		A("Method")->_zituanbaoming('计调');	
+		A("Method")->_chanpinbaoming('计调');	
 	}
 	
 	
