@@ -109,6 +109,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
 			
 		//数据处理
+		$_REQUEST['xianlu']['shoujia'] = 100000;//默认
 		if($_REQUEST['xianlu']['guojing'] == "国内")
 		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
