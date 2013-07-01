@@ -110,6 +110,7 @@ class ChanpinAction extends CommonAction{
 			
 		//数据处理
 		$_REQUEST['xianlu']['shoujia'] = 100000;//默认
+		$_REQUEST['xianlu']['ertongshoujia'] = 100000;//默认
 		if($_REQUEST['xianlu']['guojing'] == "国内")
 		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
@@ -134,7 +135,6 @@ class ChanpinAction extends CommonAction{
 			$xianlu_ext['remark'] = $_REQUEST['remark'];
 			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
 		}
-		//dump($_REQUEST);
 		//end
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
@@ -156,8 +156,16 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function dopostfabu_shoujia() {
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		if($cp['marktype'] == 'xianlu'){
+			$type = '线路';
+		}
+		else{
+			$type = '签证';
+		}
 		//检查dataOM
-		$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'线路','管理');
+		$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],$type,'管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
@@ -359,12 +367,21 @@ class ChanpinAction extends CommonAction{
 	
 	public function dopostshoujia()
 	{
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
+		if($cp['marktype'] == 'xianlu'){
+			$type = '线路';
+			$_REQUEST['chanpintype'] = '线路';
+		}
+		else{
+			$type = '签证';
+			$_REQUEST['chanpintype'] = '签证';
+		}
 		//检查dataOM
-		$xianlu = A('Method')->_checkDataOM($_REQUEST['parentID'],'线路','管理');
+		$xianlu = A('Method')->_checkDataOM($_REQUEST['parentID'],$type,'管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
-		$Chanpin = D("Chanpin");
 		$data = $_REQUEST;
 		$data['shoujia'] = $_REQUEST;
 		//折扣范围
@@ -378,7 +395,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, '该线路已经截止，不能开放销售！', 0);
 		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
 			//同步售价表线路状态
-			A("Method")->_tongbushoujia($_REQUEST['parentID']);
+			A("Method")->_tongbushoujia($_REQUEST['parentID'],$type);
 			if($Chanpin->getLastmodel() == 'add')
 				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成开放OM	

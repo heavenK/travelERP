@@ -42,6 +42,8 @@ class QianzhengAction extends CommonAction{
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['qianzheng'] = $_REQUEST;
+		$_REQUEST['qianzheng']['shoujia'] = 100000;//默认
+		$_REQUEST['qianzheng']['ertongshoujia'] = 100000;//默认
 		if(!$_REQUEST['departmentID'])
 			A("Method")->ajaxUploadResult($_REQUEST,'您没有权限发布签证产品！',0);
 		if (false !== $Chanpin->relation("qianzheng")->myRcreate($_REQUEST)){
@@ -143,52 +145,13 @@ class QianzhengAction extends CommonAction{
 	
 	
 	public function dopostfabu_shoujia() {
-		//检查dataOM
-		$qianzheng = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'签证','管理');
-		if(false === $xianlu)
-			$this->ajaxReturn($qianzheng,'错误，无管理权限！', 0);
-		C('TOKEN_ON',false);
-		$Chanpin = D("Chanpin");
-		$data['chanpinID'] = $_REQUEST['chanpinID'];
-		$data['qianzheng']['shoujia'] = $_REQUEST['shoujia'];
-		$data['qianzheng']['ertongshoujia'] = $_REQUEST['ertongshoujia'];
-		$data['qianzheng']['remark'] = $_REQUEST['remark'];
-		if (false !== $Chanpin->relation("qianzheng")->myRcreate($data))
-				$this->ajaxReturn($_REQUEST, '保存成功！', 1);
-		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+		A("Chanpin")->dopostfabu_shoujia();
 	}
-	
-	
+
 	
 	public function dopostshoujia()
 	{
-		//检查dataOM
-		$qianzheng = A('Method')->_checkDataOM($_REQUEST['parentID'],'签证','管理');
-		if(false === $qianzheng)
-			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
-		C('TOKEN_ON',false);
-		$Chanpin = D("Chanpin");
-		$data = $_REQUEST;
-		$data['shoujia'] = $_REQUEST;
-		//折扣范围
-		if($_REQUEST['adultprice'] -$_REQUEST['cut'] <0)
-			$this->ajaxReturn($_REQUEST, '成人销售价格与折扣范围相差不能为负！', 0);
-		if($_REQUEST['childprice'] -$_REQUEST['cut'] <0)
-			$this->ajaxReturn($_REQUEST, '儿童销售价格与折扣范围相差不能为负！', 0);
-		$ViewQianzheng = D("ViewQianzheng");	
-		$qianzheng = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
-		if($xianlu['status'] == '截止')
-			$this->ajaxReturn($_REQUEST, '该线路已经截止，不能开放销售！', 0);
-		if (false !== $Chanpin->relation("shoujia")->myRcreate($data)){
-			//同步售价表线路状态
-			A("Method")->_tongbushoujia($_REQUEST['parentID'],'签证');
-			if($Chanpin->getLastmodel() == 'add')
-				$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			//生成开放OM	
-			A('Method')->_shoujiaToDataOM($_REQUEST);
-			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
-		}else
-			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+		A("Chanpin")->dopostshoujia();
 	}
 	
 	

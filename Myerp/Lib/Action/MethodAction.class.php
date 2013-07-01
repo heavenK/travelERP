@@ -29,7 +29,10 @@ class MethodAction extends CommonAction{
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
 			$where['datatype'] = $datatype;
-			$where['xianlu_status'] = '报名';
+			if($where['chanpintype'] == ''){
+				$where['chanpintype'] = '线路';
+				
+			}
 			//处理搜索
 			if($where['title']){
 				$where['xianlu_title'] = array('like','%'.$where['title'].'%');
@@ -1234,6 +1237,10 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','错误，销售价格（电商成人）未填写！',30);
 				return false;
 			}
+			if($xianlu['ertongshoujia'] == '0' || $xianlu['ertongshoujia'] == ''){
+				cookie('errormessage','错误，销售价格（电商儿童）未填写！',30);
+				return false;
+			}
 		}
 		//签证
 		if($cp['marktype'] == 'qianzheng'){
@@ -1680,6 +1687,8 @@ class MethodAction extends CommonAction{
 			if($need)
 			return $process;
 			if($datatype == '线路')
+			return $process;
+			if($datatype == '签证')
 			return $process;
 			return false;
 		}
@@ -2836,9 +2845,41 @@ class MethodAction extends CommonAction{
 					$data['status_system'] = 1;
 					$dataID = $_REQUEST['dataID'];
 					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
+					//提交网店价格产品更新
+					$ViewXianlu = D("ViewXianlu");
+					$xianlu = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
+					if($xianlu['serverdataID']){
+						$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$editdat['chanpinID']);
+						if($getres['error']){
+							$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+						}
+					}
 				}
 				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
+			}
+			if($_REQUEST['datatype'] == '签证'){
+				if($status == '批准'){
+					$editdat['status'] = '报名';
+				  	$Chanpin->save($editdat);
+					//同步售价表线路状态
+					$this->_tongbushoujia($_REQUEST['dataID'],'签证');
+					//销售开放重置1
+					$data['status_system'] = 1;
+					$dataID = $_REQUEST['dataID'];
+					$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
+					//提交网店价格产品更新
+					$ViewQianzheng = D("ViewQianzheng");
+					$qianzheng = $ViewQianzheng->where("`chanpinID` = '$dataID'")->find();
+					if($qianzheng['serverdataID']){
+						$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin_qianzheng/chanpinID/".$editdat['chanpinID']);
+						if($getres['error']){
+							$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+						}
+					}
+				}
+				$Chanpin->save($editdat);
+				$url = 'index.php?s=/Qianzheng/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
 			if($_REQUEST['datatype'] == '订单'){
 				if($status == '批准'){
@@ -3360,6 +3401,7 @@ class MethodAction extends CommonAction{
 			}
 		}
 	}
+	
 	
 	//同步子团线路拷贝字段
 	public function _tongbuzituanxianlucopy($chanpinID) {

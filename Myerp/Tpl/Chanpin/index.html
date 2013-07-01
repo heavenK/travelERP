@@ -19,7 +19,7 @@ function onshop(){
 	}
 	jQuery.ajax({
 		type:	"POST",
-		url:	"<{:SITE_INDEX}>Client/onshop",
+		url:	"<{:SITE_INDEX}>Client/onshop/chanpintype/线路",
 		data:	"checkboxitem="+checkboxitem,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);

@@ -21,6 +21,17 @@ class ShoujiaModel extends Model {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
+        array('chanpintype', 'set_chanpintype', 1,'callback','chanpintype',1),//1正常,-1删除
     ); 
+	
+	protected function set_chanpintype($chanpintype) {
+		if($chanpintype != '')	
+			return $chanpintype;
+		else
+			return '线路';
+	}
+	
+	
+	
 }
 ?>

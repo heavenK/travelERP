@@ -751,6 +751,25 @@ class BudingAction extends Action{
 	
 	
 	
+	//重置销售类型chanpintype
+	public function resetshoujiachanpintype(){
+		C('TOKEN_ON',false);
+		$Shoujia = D("Shoujia");
+		$shoujiaall = $Shoujia->findall();
+		$Chanpin = D("Chanpin");
+		foreach($shoujiaall as $v){
+			$dat['chanpinID'] = $v['chanpinID'];
+			$dat['shoujia']['chanpintype'] = '线路';
+			if(false === $Chanpin->relation("shoujia")->myRcreate($dat)){
+				echo "发生错误";
+				exit;
+			}
+		}
+		echo "结束";
+	}
+	
+	
+	
 	
 	
 	

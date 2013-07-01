@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<link rel="shortcut icon" type="image/x-icon" href="<{:__PUBLIC__}>/myerp/images/sugar_icon.ico" media="screen" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$xianlu['xianlu']['title']}></title>
+<link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/jquery.KinSlideshow-1.2.1.min.js" type="text/javascript"></script>
+<script src="<{:__PUBLIC__}>/gulianstyle/js/tanchukuang.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$("#KinSlideshow").KinSlideshow();
+})
+
+</script>
+</head>
+
+<body>
+  
+<div class="ks_box"><!--整体-->
+
+  <dl class="ks_mainbav" style="margin-top:40px;">
+    <!--主导航-->
+    <dt></dt>
+    <dd>创建于：
+      <php>echo date('Y-m-d',$qianzheng['time']);</php>
+    </dd>
+  </dl>
+  
+  <dl class="ks_title">
+    <!--标题-->
+    <dt><{$xianlu['xianlu']['title']}></dt>
+    <dd><a href="javascript:doPrint()"></a></dd>
+  </dl>
+  
+  <dl class="ks_cont">
+    <!--内容-->
+    <dt> 
+    <img src="<{:__PUBLIC__}>/gulianstyle/images/gulianmark_1.jpg" width="328" height="95" style=" margin:0 0 4px 0; display:inline;" /> 
+    </dt>
+    <dd> <em>
+      <ol>
+        <li>成人价：<h1>¥<{$shoujia['adultprice']}></h1>起</li>
+        <li>儿童价：<h1>¥<{$shoujia['childprice']}></h1> 起</li>
+      </ol>
+      <ul>
+        <li>
+          <p>产品名：<b><{$qianzheng['title']}></b></p>
+        </li>
+        <li><span>创建者：<b>[<{$qianzheng['user_name']}>]办公电话:<php>foreach($userdurlist as $v) echo $v['officetel'].','</php> </b></span></li>
+      </ul>
+      <u>
+      <php>if($baoming_root == 1){</php>
+          <php>if($shoujiaID){</php>
+              <a href="<{:SITE_INDEX}>Xiaoshou/qianzheng/dobaoming/报名/chanpinID/<{$chanpinID}>/shoujiaID/<{$shoujiaID}>"></a>
+          <php>}else{</php>
+              <a href="<{:SITE_INDEX}>Qianzheng/qianzhengbaoming/chanpinID/<{$chanpinID}>"></a>
+          <php>}</php>
+      <php>}else{</php>
+      <a href="javascript:alert('报名截止!请补订订单！');"></a>
+      <php>}</php>
+      </u> </em> </dd>
+  </dl>
+  
+  <a name="ctxz"></a>
+  <div class="ks_main" ><!--主体内容--> 
+    <del>产品描述</del>
+    <div class="ks_main_1st"> <{$qianzheng['shuoming']}> </div>
+  </div>
+  
+  <div class="ks_footer"><!--底部--> 
+    <em></em>
+    <ul>
+      <li>联合路旗舰店：0411-82111105 \ 82111106 \ 82111107 \ 82111108</li>
+      <li>人民路旗舰店：0411-82657676 \ 82657070 \ 82652323 \ 82655050</li>
+      <li>国内接待电话：0411-84305290 \ 84305295</li>
+      <li>日本入境部：0411-84317755</li>
+      <li>劳动公园：0411-82556009 \ 83696009</li>
+      <li>金州区：0411-87685600 \ 87693699</li>
+      <li>普 兰 店：0411-83112367 \ 83114954</li>
+      <li>瓦房店：0411-66503722 \ 66503733</li>
+    </ul>
+    <i>Copyright © 2005-2011 dlgulian.com　All rights reserved 大连古莲国际旅行社 版权所有<br />
+    网站经营许可证号辽ICP备案06006255号</i> </div>
+</div>
+
+
+</body>
+</html>
+
+<script>
+function doPrint()
+{
+    var url="<{:SITE_INDEX}>Xiaoshou/qianzheng/doprint/打印/chanpinID/<{$chanpinID}>/shoujiaID/<{$shoujiaID}>";
+    window.open(url,'Printer','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+}
+
+</script>

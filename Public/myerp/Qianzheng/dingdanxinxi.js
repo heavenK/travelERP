@@ -111,9 +111,9 @@ function TravelerDetail(id)
 
 
 function dofukuan(id){
-	jQuery("#ispay"+id).val('已付款');
-	scroll(0,0);
-	ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/daokuanqueren/1',doComplete,'resultdiv');
+	is_pay = '已支付';
+	pay_method = jQuery("#pay_method").val();
+	ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dingdan_daokuanqueren/dingdanID/'+id+'/is_pay/'+is_pay+'/pay_method/'+pay_method,doComplete,'resultdiv');
 }
 
 function lingduiortuanyuan(id){

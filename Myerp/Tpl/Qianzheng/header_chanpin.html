@@ -133,10 +133,9 @@ function shenhe_after(data,status){
 	  <php>}</php>
       <input type="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
       
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px">| 锁状态：<strong><{$tem_cp['islock']}></strong></label>
   <php>}</php>
-  
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
+      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 锁状态：<strong><{$tem_cp['islock']}></strong></label>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 产品发布人：<strong><PHP>if($baozhang['user_name']) echo $baozhang['user_name']; else echo $qianzheng['user_name'];</PHP></strong></label>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> 发布部门：<strong><PHP>if($baozhang['bumen_copy']) echo $baozhang['bumen_copy']; else echo $qianzheng['bumen_copy'];</PHP></strong></label>
   
