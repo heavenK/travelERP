@@ -28,6 +28,14 @@ class QianzhengAction extends CommonAction{
 			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$chanpinID'")->find();
 			$this->assign("qianzheng",$qianzheng);
 		}
+		else{
+			//判断计调角色
+			$durlist = A("Method")->_checkRolesByUser('计调','组团');
+			if(false === $durlist){
+				$this->display('Index:error');
+				exit;
+			}
+		}
 		$this->assign("datatitle",' : "'.$qianzheng['title'].'"');
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist('组团');
@@ -46,6 +54,21 @@ class QianzhengAction extends CommonAction{
 		$_REQUEST['qianzheng']['ertongshoujia'] = 100000;//默认
 		if(!$_REQUEST['departmentID'])
 			A("Method")->ajaxUploadResult($_REQUEST,'您没有权限发布签证产品！',0);
+		//修改已有
+		if($_REQUEST['chanpinID']){
+			//检查dataOM
+			$qianzheng = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'签证','管理');
+			if(false === $qianzheng)
+				$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+		}
+		else{
+			//判断计调角色,返回用户DUR
+			$durlist = A("Method")->_checkRolesByUser('计调','组团');
+			if (false === $durlist)
+				$this->ajaxReturn('', '没有计调权限！', 0);
+			$_REQUEST['xianlu']['kind'] = $_REQUEST['kind'];
+			$_REQUEST['xianlu']['guojing'] = $_REQUEST['guojing'];
+		}
 		if (false !== $Chanpin->relation("qianzheng")->myRcreate($_REQUEST)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
