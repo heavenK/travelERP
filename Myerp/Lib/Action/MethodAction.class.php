@@ -542,7 +542,7 @@ class MethodAction extends CommonAction{
 		//根据线路判断生成
 		$ViewZituan = D("ViewZituan");
 		foreach($riqiAll as $riqi){
-			if(strtotime($riqi) < strtotime('2011-11-11'))
+			if(strtotime($riqi) < strtotime('2010-11-11'))
 			continue;
 			$datazituan = '';
 			$zituan = $ViewZituan->where("`parentID` = '$chanpinID' and `chutuanriqi` = '$riqi' AND (`status_system` = '1')")->find();
