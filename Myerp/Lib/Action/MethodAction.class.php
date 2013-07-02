@@ -2491,8 +2491,6 @@ class MethodAction extends CommonAction{
 		$pz = $this->_getTaskPZ($dataID,$datatype);
 	 	if($pz){
 			if(false === $this->_checkshenhe_admin($dataID,$datatype)){
-							dump(234);
-
 				//$this->assign("huitui_words",'该项目已被批准，只有最后批准人允许回退！！');
 				return false;
 			}
