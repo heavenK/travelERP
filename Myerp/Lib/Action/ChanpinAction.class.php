@@ -42,7 +42,7 @@ class ChanpinAction extends CommonAction{
 		}
 		else{
 			//判断计调角色
-			$durlist = A("Method")->_checkRolesByUser('计调','组团');
+			$durlist = A("Method")->_checkRolesByUser('计调','组团',1);
 			if(false === $durlist){
 				$this->display('Index:error');
 				exit;

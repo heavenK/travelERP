@@ -422,7 +422,7 @@ class XiaoshouAction extends Action{
 		  } 
 		else
 		session('verify',null);
-		$chanpinID = $_REQUEST['zituanID'];
+		$chanpinID = $_REQUEST['parentID'];
 		$this->_ckeck_baoming();
 		if($data['type'] == '签证'){
 			$ViewQianzheng = D("ViewQianzheng");
@@ -449,23 +449,8 @@ class XiaoshouAction extends Action{
 		for($i = 0;$i<$_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];$i++){
 			$jiage += $_REQUEST['price'.$i];
 		}
-		$data['dingdan']['zituanID'] = $_REQUEST['zituanID'];
 		$data['dingdan']['jiage'] = $jiage;
-		//$data['dingdan']['bumen_copy'] = cookie('_usedbumen');
-		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
-			$chanpinID = $Chanpin->getRelationID();
-			//生成OM
-			if($data['type'] == '签证')
-				$dataOMlist = A("Method")->_getDataOM($qianzheng['chanpinID'],'签证','管理');
-			else
-				$dataOMlist = A("Method")->_getDataOM($zituan['chanpinID'],'子团','管理');
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
-			//开放给自己部门
-			$dataOMlist = A("Method")->_getmyOMlist($this->user['title']);
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
-			//生成团员
-			if($data['status'] == '确认' && $data['type'] != '签证')
-				A("Method")->createCustomer_new($_REQUEST,$chanpinID);
+		if(A("Method")->_dingdansave_process($data,$this->user['title'])){
 			justalert('确认成功！');
 			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$chanpinID);
 		}

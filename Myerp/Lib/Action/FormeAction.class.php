@@ -1178,7 +1178,6 @@ class FormeAction extends Action{
 			$data['dingdan']['fuzebumenID'] = $zituan['departmentID'];
 			$data['dingdan']['type'] = '标准';
 			$data['dingdan']['shoujiaID'] = 0;
-			$data['dingdan']['zituanID'] = $zituan['chanpinID'];
 			if($data['dingdan']['telnum'] == '')
 				$data['dingdan']['telnum'] = 0;
 			//计算领队数

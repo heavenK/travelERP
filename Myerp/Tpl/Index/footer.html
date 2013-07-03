@@ -3,76 +3,152 @@
 </div>
 </body>
 </html>
-
-
 <div id="dialog" title="提示消息" style="background:#FFF"> </div>
-
 <div id="dialog_password" title="修改密码" style="background:#FFF">
-<form id="form_password" id="form_password" method="post" >
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 输入密码: </td>
-          <td valign="top" scope="row"><input name="password" type="password" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 输入新密码: </td>
-          <td valign="top" scope="row"><input name="new_password" type="password" id="new_password" check="^\S+$" warning="新密码不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 重复新密码: </td>
-          <td valign="top" scope="row" colspan="3"><input name="re_password" type="password" id="re_password" check="^\S+$" warning="重复密码不能为空,且不能含有空格" ></td>
-        </tr>
-      </tbody>
-    </table>
-</form>
+  <form id="form_password" id="form_password" method="post" >
+  <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+    <tbody>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 输入密码: </td>
+        <td valign="top" scope="row"><input name="password" type="password" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
+      </tr>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 输入新密码: </td>
+        <td valign="top" scope="row"><input name="new_password" type="password" id="new_password" check="^\S+$" warning="新密码不能为空,且不能含有空格" ></td>
+      </tr>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 重复新密码: </td>
+        <td valign="top" scope="row" colspan="3"><input name="re_password" type="password" id="re_password" check="^\S+$" warning="重复密码不能为空,且不能含有空格" ></td>
+      </tr>
+    </tbody>
+  </table>
+  </form>
 </div>
-
 <div id="dialog_userinfo" title="个人信息" style="background:#FFF">
-<form id="form_userinfo" id="form_userinfo" method="post" >
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
-          <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 性别: </td>
-          <td valign="top" scope="row">
-          <select name="user_gender">
-          	<php>if($this->tVar['user']['user_gender'])</php>
-          	<option value="<php>echo $this->tVar['user']['user_gender']</php>"><php>echo $this->tVar['user']['user_gender']</php></option>
-          	<option disabled="disabled">-------------</option>
+  <form id="form_userinfo" id="form_userinfo" method="post" >
+  <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+    <tbody>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
+        <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
+      </tr>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 性别: </td>
+        <td valign="top" scope="row"><select name="user_gender">
+            <php>if($this->tVar['user']['user_gender'])</php>
+            <option value="<php>echo $this->tVar['user']['user_gender']</php>">
+            <php>echo $this->tVar['user']['user_gender']</php>
+            </option>
+            <option disabled="disabled">-------------</option>
             <php></php>
-          	<option value="男">男</option>
-          	<option value="女">女</option>
-          </select>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
-          <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
-        </tr>
-      </tbody>
-    </table>
+            <option value="男">男</option>
+            <option value="女">女</option>
+          </select></td>
+      </tr>
+      <tr>
+        <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
+        <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+    <tbody>
+      <tr height="20">
+        <th scope="col" nowrap="nowrap"><div> 部门 </div></th>
+        <th scope="col" nowrap="nowrap"><div> 角色 </div></th>
+        <th scope="col" nowrap="nowrap"><div> 锁 </div></th>
+      </tr>
+        <php>
     
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr height="20">
-          <th scope="col" nowrap="nowrap"><div> 部门 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 角色 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 锁 </div></th>
-        </tr>
-<php>foreach($DURlist as $v){</php>
-        <tr>
-          <td valign="top" scope="row"><{$v['department']['title']}>: </td>
-          <td valign="top" scope="row"><{$v['roles']['title']}></td>
-          <td valign="top" scope="row"><{$v['islock']}></td>
-        </tr>
-<php>}</php>
-      </tbody>
-    </table>
+    foreach($DURlist as $v){
+      </php>
     
-</form>
+    <tr>
+      <td valign="top" scope="row"><{$v['department']['title']}>: </td>
+      <td valign="top" scope="row"><{$v['roles']['title']}></td>
+      <td valign="top" scope="row"><{$v['islock']}></td>
+    </tr>
+    <php>}</php>
+      </tbody>
+    
+  </table>
+  </form>
 </div>
+<SCRIPT type=text/javascript src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js"></SCRIPT> 
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/js/float.js"></script>
+<style>
+*{margin:0;padding:0;border:0;}
+body{font-size:12px; overflow-x:hidden;}
+em,i{ font-style:normal;}
+.newsTitle{
+	background-color:#c70909;
+	width:27px;height:65px;
+	color:#FFF;font-size:14px;font-weight:bold;text-align:center;
+	cursor:pointer;
+	float:left;
+}
+.timeNews{
+	background-color:#4E8CCF;
+	width:608px;
+	padding:5px 10px;
+	color:white;
+	line-height:24px;
+	overflow:hidden;
+	float:right;
+}
+.timeNews em{ float:left;}
+.timeNews lable{float:left; width:40px;}
+.timeNews a{ float:left; width:450px; cursor:pointer;}
+.timeNews a:hover{ float:left; width:450px; cursor:pointer; background-color:#0046AD; color:white; text-decoration:none}
+.timeNews i{ float:right; width:110px;}
+</style>
+<div class="noticebox" style="display:none">
+  <div id="newsTitle" class="newsTitle"></div>
+  <div id="timeNews" class="timeNews"></div>
+</div>
+<script>
+jQuery(".noticebox").float({
+					   position:"rm",
+					   offset : {right : -633},
+					   style:{width:660}
+					  });
+jQuery(".newsTitle").hover(function(){
+	jQuery(".newsTitle").hide();
+	jQuery(".noticebox").float("clearOffset","fast");
+})
 
+jQuery(".timeNews").hover(function(){
+},function(){
+	jQuery(".newsTitle").show();
+	jQuery(".noticebox").float("addOffset");
+})
+
+
+jQuery(document).ready(function(){
+		getNews();
+		window.setInterval(getNews,20000);
+	
+});
+
+function getNews(){
+	jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Message/getNews",
+			data:	"returntype=dialog",
+			success:	function(msg){
+							if(msg != 'false' && msg){
+								jQuery("#newsTitle").html('<img src="<{:__PUBLIC__}>/gulianstyle/images/ks_mes_033332.gif" />');
+								jQuery("#timeNews").html(msg);
+								jQuery(".noticebox").show();
+							}
+							else
+								jQuery(".noticebox").hide();
+					  }
+		});
+}
+function showmessages(url,id)
+{
+	window.open(url);
+}
+
+</script> 

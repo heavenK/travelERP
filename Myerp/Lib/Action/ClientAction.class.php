@@ -118,7 +118,6 @@ class ClientAction extends Action{
 		$dingdan['dingdan']['remark'] = $weborder['remark'];
 		$order['datatext'] = unserialize($order['datatext']);
 		if($order['type'] == '标准'){
-			$dingdan['dingdan']['zituanID'] = $dingdan['parentID'];
 			$i = 1;
 			foreach($order['datatext']['joinerlist'] as $v){
 				$dingdan['name'.$i] = $v['name'];
@@ -133,21 +132,8 @@ class ClientAction extends Action{
 				$i++;
 			}
 		}
-		if(false !== $Chanpin->relation('dingdan')->myRcreate($dingdan)){
-			$dingdan['chanpinID'] = $Chanpin->getRelationID();
-			$chanpinID = $dingdan['chanpinID'];
-			//生成OM
-			if($dingdan['type'] == '签证')
-				$dataOMlist = A("Method")->_getDataOM($dingdan['parentID'],'签证','管理');
-			else
-				$dataOMlist = A("Method")->_getDataOM($dingdan['parentID'],'子团','管理');
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
-			//开放给自己部门
-			$dataOMlist = A("Method")->_getmyOMlist('电商');
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
-			//生成团员
-			if($dingdan['type'] != '签证')
-				A("Method")->createCustomer_new($dingdan,$chanpinID);
+		
+		if(A("Method")->_dingdansave_process($dingdan,'电商')){
 			echo serialize($dingdan);
 		}
 		else{

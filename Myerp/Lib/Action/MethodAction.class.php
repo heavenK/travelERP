@@ -271,6 +271,8 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = '线路';
 		if($relation == 'DJtuan')
 			$where['datatype'] = '地接';
+		if($relation == 'qianzheng')
+			$where['datatype'] = '签证';
 		if($relation == 'baozhangitem'){
 			$where['datatype'] = '报账项';
 			if($where['baozhangtitle_copy'])
@@ -3423,6 +3425,9 @@ class MethodAction extends CommonAction{
 		}elseif($_REQUEST['type'] == '报账单') {
 			$relation = 'baozhang';
 			$this->assign("markpos",'报账单');
+		}elseif($_REQUEST['type'] == '签证') {
+			$relation = 'qianzheng';
+			$this->assign("markpos",'签证产品');
 		}elseif($_REQUEST['type'] == '订单') {
 			$relation = 'dingdan';
 			$this->assign("markpos",'订单');
@@ -3442,6 +3447,10 @@ class MethodAction extends CommonAction{
 			if($showtype == '子团' || $_REQUEST['type'] == '线路产品'){
 				$relation = 'xianlu';
 				$this->assign("markpos",'线路产品');
+			}
+			if($showtype == '签证'){
+				$relation = 'qianzheng';
+				$this->assign("markpos",'签证产品');
 			}
 		}
 		
@@ -3733,18 +3742,17 @@ class MethodAction extends CommonAction{
 				//报名截止
 				if( (time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) <= 0)  || $zituan['status_baozhang'] == '批准'){
 					justalert("错误！只有超过团期后并且没有报账的子团才能进行补订订单操作！！");
-					gethistoryback();
+					echo "<script>window.close();</script>";
 					exit;
 				}
 			}
 		}
 		if($chanpintype == '签证'){
-			
 			$ViewQianzheng = D("ViewQianzheng");
 			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$chanpinID'")->find();
 			if($qianzheng['status_shenhe'] != '批准'){
-				justalert("错误！只有超过团期后并且没有报账的子团才能进行补订订单操作！！");
-				gethistoryback();
+				justalert("错误！签证未被通过审核！！");
+				echo "<script>window.close();</script>";
 				exit;
 			}
 			if($roletype == '计调'){
@@ -4249,6 +4257,30 @@ class MethodAction extends CommonAction{
 	}
 	
 	
+	
+	
+	//订单存储流程
+	public function _dingdansave_process($data,$username) {
+		$Chanpin = D("Chanpin");
+		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
+			$chanpinID = $Chanpin->getRelationID();
+			//生成OM
+			if($data['type'] == '签证')
+				$dataOMlist = A("Method")->_getDataOM($data['parentID'],'签证','管理');
+			else
+				$dataOMlist = A("Method")->_getDataOM($data['parentID'],'子团','管理');
+			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+			//开放给自己部门
+			$dataOMlist = A("Method")->_getmyOMlist($username);
+			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+			//生成团员
+			if($data['status'] == '确认' && $data['type'] != '签证')
+				A("Method")->createCustomer_new($data,$chanpinID);
+			return $data;
+		}
+		else
+			return false;
+	}
 	
 }
 ?>

@@ -23,6 +23,8 @@ class DataOMModel extends RelationModel {
 		'infohistory'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Infohistory','true_class_name'=>'merpview_message_infohistory','foreign_key'=>'dataID','parent_key'=>'messageID'),
 		//dingdan
 		'dingdan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Dingdan','true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
+		//qianzheng
+		'qianzheng'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Qianzheng','true_class_name'=>'myerpview_chanpin_qianzheng','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 
 	);
 

@@ -162,9 +162,17 @@ class MessageAction extends Action{
     public function infohistory() {
 		A("Method")->showDirectory('系统提示');
 		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$_REQUEST,'管理');
-		$this->assign("page",$chanpin_list['page']);
-		$this->assign("chanpin_list",$chanpin_list['chanpin']);
-		$this->display('infohistory');
+		if($_REQUEST['returntype'] == 'dialog'){
+			$i = 0;
+			foreach($chanpin_list['chanpin'] as $v){$i++;
+				echo '<em id="em_'.$v['messageID'].'"><lable>'.$i.'.</lable><a target="_blank" onclick="showmessages(\''.$v['url'].'\');">'.$v['message'].'</a><i>'.date("Y-m-d H:i",$v["time"]).'</i></em><br>';
+			}
+		}
+		else{
+			$this->assign("page",$chanpin_list['page']);
+			$this->assign("chanpin_list",$chanpin_list['chanpin']);
+			$this->display('infohistory');
+		}
 	}
 	
 	
@@ -173,7 +181,17 @@ class MessageAction extends Action{
 	public function getNews(){
 		$DataNotice = D("DataNotice");
 		$myuserID = $this->user['systemID'];
-		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,10')->findall();
+		$counter = 10;
+		if($_REQUEST['returntype'] == 'dialog')
+			$counter = 20;
+		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,'.$counter)->findall();
+		if($_REQUEST['returntype'] == 'dialog'){
+			$i = 0;
+			foreach($notice as $v){$i++;
+				echo '<em id="em_'.$v['messageID'].'"><lable>'.$i.'.</lable><a target="_blank" onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">'.$v['message'].'</a><i>'.date("Y-m-d H:i",$v["time"]).'</i></em><br>';
+			}
+			exit;
+		}
 		if($notice != null){
 			foreach($notice as $v){
 				$str .= '<span style="width:100%;float:left;"><a href="javascript:void(0)" style="padding:0 2px 4px 8px; " onclick="del_alert('.$v['id'].');window.open(\''.$v['url'].'\')">

@@ -243,6 +243,14 @@ class QianzhengAction extends CommonAction{
 	}
 	
 	
+	public function shenhe() {
+		A("Method")->showDirectory("团队审核");
+		A("Method")->_shenhe('签证');
+		$this->assign("chanpin_mark",'Qianzheng');
+		$this->display('Chanpin:shenhe');
+	}
+	
+	
 	
 }
 ?>
