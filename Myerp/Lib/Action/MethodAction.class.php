@@ -4265,10 +4265,9 @@ class MethodAction extends CommonAction{
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
 			//生成OM
-			if($data['type'] == '签证')
-				$dataOMlist = A("Method")->_getDataOM($data['parentID'],'签证','管理');
-			else
-				$dataOMlist = A("Method")->_getDataOM($data['parentID'],'子团','管理');
+			if($data['type'] != '签证')
+				$data['type'] = '子团';
+			$dataOMlist = A("Method")->_getDataOM($data['parentID'],$data['type'],'管理');
 			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//开放给自己部门
 			$dataOMlist = A("Method")->_getmyOMlist($username);
@@ -4276,6 +4275,14 @@ class MethodAction extends CommonAction{
 			//生成团员
 			if($data['status'] == '确认' && $data['type'] != '签证')
 				A("Method")->createCustomer_new($data,$chanpinID);
+			//生成提醒消息
+			$Chanpin = D("Chanpin");
+			$message = '《'.$data['lianxiren'].'》'.'预订了：'.'『'.$data['title'].'』 。';
+			$url = SITE_INDEX.'Chanpin/zituanxinxi/typemark/'.$_REQUEST['typemark'].'/chanpinID/'.$_REQUEST['chanpinID'];
+			$this->_setMessageHistory($chanpinID,'订单',$message,$url);
+			
+				
+				
 			return $data;
 		}
 		else
