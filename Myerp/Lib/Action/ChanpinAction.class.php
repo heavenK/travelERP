@@ -160,9 +160,11 @@ class ChanpinAction extends CommonAction{
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		if($cp['marktype'] == 'xianlu'){
 			$type = '线路';
+			$relation = 'xianlu';
 		}
 		else{
 			$type = '签证';
+			$relation = 'qianzheng';
 		}
 		//检查dataOM
 		$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],$type,'管理');
@@ -171,10 +173,10 @@ class ChanpinAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$data['chanpinID'] = $_REQUEST['chanpinID'];
-		$data['xianlu']['shoujia'] = $_REQUEST['shoujia'];
-		$data['xianlu']['ertongshoujia'] = $_REQUEST['ertongshoujia'];
-		$data['xianlu']['remark'] = $_REQUEST['remark'];
-		if (false !== $Chanpin->relation("xianlu")->myRcreate($data))
+		$data[$relation]['shoujia'] = $_REQUEST['shoujia'];
+		$data[$relation]['ertongshoujia'] = $_REQUEST['ertongshoujia'];
+		$data[$relation]['remark'] = $_REQUEST['remark'];
+		if (false !== $Chanpin->relation($relation)->myRcreate($data))
 				$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
