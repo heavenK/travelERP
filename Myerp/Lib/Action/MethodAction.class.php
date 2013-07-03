@@ -4278,11 +4278,8 @@ class MethodAction extends CommonAction{
 			//生成提醒消息
 			$Chanpin = D("Chanpin");
 			$message = '《'.$data['lianxiren'].'》'.'预订了：'.'『'.$data['title'].'』 。';
-			$url = SITE_INDEX.'Chanpin/zituanxinxi/typemark/'.$_REQUEST['typemark'].'/chanpinID/'.$_REQUEST['chanpinID'];
+			$url = SITE_INDEX.'Xiaoshou/dingdanxinxi/chanpinID/'.$chanpinID;
 			$this->_setMessageHistory($chanpinID,'订单',$message,$url);
-			
-				
-				
 			return $data;
 		}
 		else
