@@ -3768,9 +3768,12 @@ class MethodAction extends CommonAction{
 			}
 		}
 		$DataCopy = D("DataCopy");
-		$chanpin = $DataCopy->where("`dataID` = '$chanpinID' and `datatype` = '$chanpintype'")->order("time desc")->find();
-		$chanpin = simple_unserialize($chanpin['copy']);
+		if($chanpintype == '签证')
+			$chanpin = $DataCopy->where("`dataID` = '$chanpinID' and `datatype` = '$chanpintype'")->order("time desc")->find();
+		
 		if($chanpintype == '线路'){
+			$chanpin = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '$chanpintype'")->order("time desc")->find();
+			$chanpin = simple_unserialize($chanpin['copy']);
 			$chanpin['xianlu_ext'] = simple_unserialize($chanpin['xianlu']['xianlu_ext']);
 			$this->assign("xianlu",$chanpin);
 			//计算子团人数
@@ -3781,8 +3784,8 @@ class MethodAction extends CommonAction{
 			//清空占位过期订单
 			A('Method')->_cleardingdan();
 		}
-		else
-			$this->assign("chanpin",$chanpin);
+		
+		$this->assign("chanpin",$chanpin);
 		//提成数据
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
