@@ -249,11 +249,11 @@ class XiaoshouAction extends Action{
 		if($_REQUEST['backdoor'] == 1){
 			if($chanpintype == '子团'){
 				//检查dataOM
-				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['zituanID'],'子团','管理');
+				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['parentID'],'子团','管理');
 				if(false === $xiaoshou)
 					$this->ajaxReturn($_REQUEST,'权限错误,无子团管理权限！', 0);
 				//人数及人数检查
-				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['zituanID']);
+				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID']);
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
 				$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 			}
@@ -287,7 +287,7 @@ class XiaoshouAction extends Action{
 				if($zituan['status'] == '截止')
 					$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
 				//人数及人数检查
-				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['zituanID'],$_REQUEST['shoujiaID']);
+				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID'],$_REQUEST['shoujiaID']);
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
 				if($_REQUEST['shoujiaID'] > 0){
@@ -336,7 +336,7 @@ class XiaoshouAction extends Action{
 				if($_REQUEST['status'] == '确认'){
 					unset($_REQUEST['__hash__']);
 					$renshu = $_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];
-					$_REQUEST['parentID'] = $_REQUEST['zituanID'];
+					$_REQUEST['parentID'] = $_REQUEST['parentID'];
 					$this->assign("renshu",$renshu);
 					$this->assign("_REQUEST",$_REQUEST);
 					//tuanyuan
@@ -363,7 +363,7 @@ class XiaoshouAction extends Action{
 					//生成订单
 					$Chanpin = D("Chanpin");
 					$data = $_REQUEST;
-					$data['parentID'] = $data['zituanID'];
+					$data['parentID'] = $data['parentID'];
 					$data['dingdan'] = $data;
 					$data['dingdan']['jiage'] = $_REQUEST['chengrenshu']*$_REQUEST['adultprice']+$_REQUEST['ertongshu']*$_REQUEST['childprice'];
 					$data['dingdan']['bumen_copy'] = cookie('_usedbumen');
