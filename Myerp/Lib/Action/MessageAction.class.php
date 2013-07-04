@@ -185,8 +185,8 @@ class MessageAction extends Action{
 		if($_REQUEST['returntype'] == 'dialog')
 			$counter = 20;
 		$where['userID'] = 	$myuserID;
-		if($_REQUEST['marktype'])	
-		$where['marktype'] = $_REQUEST['marktype'];
+		if($_REQUEST['datatype'])	
+		$where['datatype'] = $_REQUEST['datatype'];
 		$notice = $DataNotice->where($where)->order("id desc")->limit('0,'.$counter)->findall();
 		if($_REQUEST['returntype'] == 'dialog'){
 			$i = 0;

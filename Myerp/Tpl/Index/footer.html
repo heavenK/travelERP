@@ -125,15 +125,15 @@ jQuery(".timeNews").hover(function(){
 
 
 jQuery(document).ready(function(){
-		getNews();
-		window.setInterval(getNews,60000);
+		getDingdanNotice();
+		window.setInterval(getDingdanNotice,60000);
 	
 });
 
-function getNews(){
+function getDingdanNotice(){
 	jQuery.ajax({
 			type:	"POST",
-			url:	"<{:SITE_INDEX}>Message/getNews/marktype/订单",
+			url:	"<{:SITE_INDEX}>Message/getDingdanNotice/datatype/订单",
 			data:	"returntype=dialog",
 			success:	function(msg){
 							if(msg != 'false' && msg){

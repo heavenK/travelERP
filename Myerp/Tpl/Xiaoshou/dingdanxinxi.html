@@ -410,8 +410,6 @@ function quxiao_after(data,status){
         <php>}</php>
 	<php>}</php>
         
-        
-        
         <tr>
           <td colspan="20" height="32" align="center" ><strong style="color:red">人员信息填写后，请点击保存</strong>
           <input style="width:60px;" class="button" type="button" value=" 保存 " onClick="if(CheckForm('form1','resultdiv_2'))save();">
@@ -422,10 +420,35 @@ function quxiao_after(data,status){
     </table>
   </form>
         
-        
+    <table width="100%" class="tb1 renyuanxinxi" cellpadding="0" cellspacing="0" >
+      <tbody>
+        <tr style="background-color:#4E8CCF; color:white">
+          <td colspan="20" height="32" align="left" >
+          <h4 style="float:left;color:white"><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 订单备忘  <input style="width:60px;" class="button" type="button" value=" 添加 " id="remark_create" ></h4> 
+          </td>
+        </tr>
+        <tr>
+          <td align="left" style="height: 32px; width:10%;"> 操作人： </td>
+          <td align="left" style="height: 32px; width:50%;"> 内容： </td>
+          <td align="left" style="height: 32px; width:10%;"> 时间： </td>
+        </tr>
+        <php>foreach($remarkall as $v){</php>
+        <tr>
+          <td align="left" style="height: 32px"><{$v['user_name']}>
+          </td>
+          <td align="left" style="height: 32px"><{$v['content']}>
+          </td>
+          <td align="left" style="height: 32px"><php>echo date('Y-m-d H:i',$v['time'])</php>
+          </td>
+        <php>}</php>
+        </tr>
+      </tbody>
+    </table>
+   
             
   </div>
 </div>
+
 
 <tp:includeCA file="Index:footer" />
 <div style="position: absolute; display:none" id="shenhediv">
@@ -448,4 +471,68 @@ function quxiao_after(data,status){
     </tbody>
   </table>
 </div>
+
+
+
+
+
+
+
+
+<div id="dialog_remark" title="编辑内容" style="background:#FFF">
+<form id="form_remark" id="form_remark" method="post" >
+<input type="hidden" id="remarkID" name="id" />
+<input type="hidden" name="dataID" value="<{$chanpinID}>" />
+<input type="hidden" name="datatype" value="订单" />
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 备注说明: </td>
+          <td valign="top" scope="row"><textarea name="content" rows="4" style="width:100%"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<script language="javascript"> 
+jQuery(document).ready(function(){
+	// Dialog
+	jQuery('#dialog_remark').dialog({
+		autoOpen: false,
+		width: 600,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_remark','resultdiv_2'))
+				ThinkAjax.sendForm('form_remark','<{:SITE_INDEX}>Xiaoshou/dopost_dataremark',save_after,'resultdiv');
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#remark_create').click(function(){
+		jQuery('#dialog_remark').dialog('open');
+		return false;
+	});
+	
+});
+
+
+function save_after(data,status){
+	if(status == 1)
+	location.reload();
+}
+	
+</script> 
+
+
+
+
+
+
+
+
+
 

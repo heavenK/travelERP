@@ -460,7 +460,10 @@ class XiaoshouAction extends Action{
 		}
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
-		$this->display('dingdanlist');
+		if($_REQUEST['user_name'] == '电商')
+			$this->display('dingdanlist_web');
+		else
+			$this->display('dingdanlist');
 	}
 	
 	
@@ -515,6 +518,12 @@ class XiaoshouAction extends Action{
 				$tuanyuan[$i]['datatext'] = simple_unserialize($v['datatext']);
 				$i++;
 			}
+			
+			//备忘
+			$DataRemark = D("DataRemark");
+			$remarkall = $DataRemark->where("`dataID` = '$_REQUEST[chanpinID]' AND `datatype` = '订单'")->findall();
+			$this->assign("remarkall",$remarkall);
+			
 			$this->assign("tuanyuan",$tuanyuan);
 		}
 
@@ -782,6 +791,31 @@ class XiaoshouAction extends Action{
 		
 		
 	}
+	
+	//备忘
+	public function dopost_dataremark(){
+		$data = $_REQUEST;
+		$DataRemark = D("DataRemark");
+//		if($_REQUEST['id'])
+//			$data['id'] = $_REQUEST['id'];
+		if(!$_REQUEST['content'])	
+			$this->ajaxReturn($_REQUEST, '内容不能为空', 0);
+		$data['content'] = $_REQUEST['content'];
+		$data['copy'] = serialize($data);
+		if($DataRemark->mycreate($data))
+			$this->ajaxReturn($_REQUEST, '取消成功！', 1);
+		else
+			$this->ajaxReturn($_REQUEST, $DataRemark->getError(), 0);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	
