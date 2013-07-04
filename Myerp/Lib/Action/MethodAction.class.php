@@ -1805,7 +1805,7 @@ class MethodAction extends CommonAction{
 		foreach($userIDlist as $v){
 			if($v['userID']){
 				$data['userID'] = $v['userID'];
-				$data['marktype'] = $data['datatype'];
+				$data['datatype'] = $data['datatype'];
 				$DataNotice->mycreate($data);
 			}
 		}
