@@ -132,7 +132,6 @@ class ClientAction extends Action{
 				$i++;
 			}
 		}
-		
 		if(A("Method")->_dingdansave_process($dingdan,'电商')){
 			echo serialize($dingdan);
 		}

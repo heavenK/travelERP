@@ -184,7 +184,10 @@ class MessageAction extends Action{
 		$counter = 10;
 		if($_REQUEST['returntype'] == 'dialog')
 			$counter = 20;
-		$notice = $DataNotice->where("`userID` = '$myuserID'")->order("id desc")->limit('0,'.$counter)->findall();
+		$where['userID'] = 	$myuserID;
+		if($_REQUEST['marktype'])	
+		$where['marktype'] = $_REQUEST['marktype'];
+		$notice = $DataNotice->where($where)->order("id desc")->limit('0,'.$counter)->findall();
 		if($_REQUEST['returntype'] == 'dialog'){
 			$i = 0;
 			foreach($notice as $v){$i++;

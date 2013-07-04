@@ -10,12 +10,19 @@ class DataNoticeModel extends RelationModel {
     ); 
     // 自动填充设置 
     protected $_auto = array( 
-//        array('time', 'time', 1, 'function'), 
+        array('time', 'set_time', 1,'callback','time',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
     ); 
 
 	protected $_link = array(
 
 	);
+
+	protected function set_time($time) {
+		if($time != '')	
+			return $time;
+		else
+			return time();
+	}
 
 
 }

@@ -102,52 +102,53 @@ em,i{ font-style:normal;}
 .timeNews a:hover{ float:left; width:450px; cursor:pointer; background-color:#0046AD; color:white; text-decoration:none}
 .timeNews i{ float:right; width:110px;}
 </style>
-<!--<div class="noticebox" style="display:none">
+<div class="noticebox" style="display:none">
   <div id="newsTitle" class="newsTitle"></div>
   <div id="timeNews" class="timeNews"></div>
 </div>
---><script>
-//jQuery(".noticebox").float({
-//					   position:"rm",
-//					   offset : {right : -633},
-//					   style:{width:660}
-//					  });
-//jQuery(".newsTitle").hover(function(){
-//	jQuery(".newsTitle").hide();
-//	jQuery(".noticebox").float("clearOffset","fast");
-//})
-//
-//jQuery(".timeNews").hover(function(){
-//},function(){
-//	jQuery(".newsTitle").show();
-//	jQuery(".noticebox").float("addOffset");
-//})
+<script>
+jQuery(".noticebox").float({
+					   position:"rm",
+					   offset : {right : -633},
+					   style:{width:660}
+					  });
+jQuery(".newsTitle").hover(function(){
+	jQuery(".newsTitle").hide();
+	jQuery(".noticebox").float("clearOffset","fast");
+})
+
+jQuery(".timeNews").hover(function(){
+},function(){
+	jQuery(".newsTitle").show();
+	jQuery(".noticebox").float("addOffset");
+})
 
 
-//jQuery(document).ready(function(){
-//		getNews();
-//		window.setInterval(getNews,20000);
-//});
+jQuery(document).ready(function(){
+		getNews();
+		window.setInterval(getNews,20000);
+	
+});
 
-//function getNews(){
-//	jQuery.ajax({
-//			type:	"POST",
-//			url:	"<{:SITE_INDEX}>Message/getNews",
-//			data:	"returntype=dialog",
-//			success:	function(msg){
-//							if(msg != 'false' && msg){
-//								jQuery("#newsTitle").html('<img src="<{:__PUBLIC__}>/gulianstyle/images/ks_mes_033332.gif" />');
-//								jQuery("#timeNews").html(msg);
-//								jQuery(".noticebox").show();
-//							}
-//							else
-//								jQuery(".noticebox").hide();
-//					  }
-//		});
-//}
-//function showmessages(url,id)
-//{
-//	window.open(url);
-//}
+function getNews(){
+	jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Message/getNews/marktype/订单",
+			data:	"returntype=dialog",
+			success:	function(msg){
+							if(msg != 'false' && msg){
+								jQuery("#newsTitle").html('<img src="<{:__PUBLIC__}>/gulianstyle/images/ks_mes_033332.gif" />');
+								jQuery("#timeNews").html(msg);
+								jQuery(".noticebox").show();
+							}
+							else
+								jQuery(".noticebox").hide();
+					  }
+		});
+}
+function showmessages(url,id)
+{
+	window.open(url);
+}
 
 </script> 

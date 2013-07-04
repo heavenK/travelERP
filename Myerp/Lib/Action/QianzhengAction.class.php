@@ -91,11 +91,11 @@ class QianzhengAction extends CommonAction{
 	public function header_chanpin() {
 		$chanpinID = $_REQUEST["chanpinID"];
 		if($chanpinID){
-			$Chanpin = D("Chanpin");
-			$tem_cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+			$ViewQianzheng = D("ViewQianzheng");
+			$tem_cp = $ViewQianzheng->where("`chanpinID` = '$chanpinID'")->find();
 			$this->assign("tem_cp",$tem_cp);
-			$zituan = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'qianzheng'")->find();
 		}
+		$this->assign("datatitle",' : "'.$tem_cp['title'].'"');
 		$this->display('header_chanpin');
 	}
 	

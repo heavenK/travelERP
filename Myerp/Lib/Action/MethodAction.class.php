@@ -1706,11 +1706,20 @@ class MethodAction extends CommonAction{
 		 
 	//历史记录,保存到dataom_system
      public function _setMessageHistory($dataID,$datatype,$message='',$url='',$dataOMlist='',$userIDlist='',$data='') {
-		$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
-		$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
+		 if($datatype == '订单'){
+			$data['infohistory']['message'] = $message;
+			if($data['usermame'])
+				$data['infohistory']['usedDUR'] = $data['usermame'];
+			else
+				$data['infohistory']['usedDUR'] = $this->user['title'];
+		 }else{
+			$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
+			$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
+		 }
 		$data['infohistory']['dataID'] = $dataID;
 		$data['infohistory']['datatype'] = $datatype;
 		$data['infohistory']['url'] = $url;
+		
 		$Message = D("Message");
 		if (false !== $Message->relation("infohistory")->myRcreate($data))
 			$data['messageID'] = $Message->getRelationID();
@@ -1725,6 +1734,17 @@ class MethodAction extends CommonAction{
 				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
 				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
+		}
+		if($data['usermame'] == '电商'){
+			//开放给电商
+			$dataOMlist = A("Method")->_getmyOMlist('电商');
+			$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist,'DataOMMessage');
+			foreach($dataOMlist as $vo){
+				//返回需要提示的用户
+				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+			}
+			
 		}
 		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
 	}
@@ -1785,6 +1805,7 @@ class MethodAction extends CommonAction{
 		foreach($userIDlist as $v){
 			if($v['userID']){
 				$data['userID'] = $v['userID'];
+				$data['marktype'] = $data['datatype'];
 				$DataNotice->mycreate($data);
 			}
 		}
@@ -4267,6 +4288,7 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
+			$data['chanpinID'] = $chanpinID;
 			//生成OM
 			if($data['type'] != '签证')
 				$data['type'] = '子团';
@@ -4279,10 +4301,10 @@ class MethodAction extends CommonAction{
 			if($data['status'] == '确认' && $data['type'] != '签证')
 				A("Method")->createCustomer_new($data,$chanpinID);
 			//生成提醒消息
-			$Chanpin = D("Chanpin");
 			$message = '《'.$data['lianxiren'].'》'.'预订了：'.'『'.$data['title'].'』 。';
 			$url = SITE_INDEX.'Xiaoshou/dingdanxinxi/chanpinID/'.$chanpinID;
-			$this->_setMessageHistory($chanpinID,'订单',$message,$url);
+			$data['username'] = $username;
+			$this->_setMessageHistory($chanpinID,'订单',$message,$url,'','',$data);
 			return $data;
 		}
 		else
