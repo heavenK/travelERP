@@ -133,7 +133,7 @@ jQuery(document).ready(function(){
 function getDingdanNotice(){
 	jQuery.ajax({
 			type:	"POST",
-			url:	"<{:SITE_INDEX}>Message/getDingdanNotice/datatype/订单",
+			url:	"<{:SITE_INDEX}>Message/getNews/datatype/订单",
 			data:	"returntype=dialog",
 			success:	function(msg){
 							if(msg != 'false' && msg){
