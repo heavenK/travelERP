@@ -38,6 +38,7 @@ return '请确认人员信息已经保存，确定离开此页面吗？';
 
 var chanpinID = '<{$chanpinID}>';
 var title =  '编号<{$chanpinID}>订单';
+var orderNo =  '<{$dingdan[orderNo]}>';
 var user = [
 	 <php>foreach($userlist as $v){</php>
 		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
@@ -89,6 +90,8 @@ function quxiao_after(data,status){
     </div>
       
       <div class="buttons">
+      		
+            <input type="button" value="支付查询" name="button" class="button primary" style="float:right" id="zhifuchaxun_create">
             <input type="button" value="审核记录" name="button" class="button primary" style="float:right" onclick="shenheshow_doit(<{$chanpinID}>,this);">
           
       <php>
@@ -96,14 +99,14 @@ function quxiao_after(data,status){
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
+      <input type="button" class="button primary" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
+      <input type="button" class="button primary" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
       <php>}}else{</php>
-      <input type="button" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
+      <input type="button" class="button primary" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
       <php>}if(A("Method")->checkshenheback($chanpinID,'订单')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'订单');">
+      <input type="button" class="button primary" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'订单');">
 	  <php>}</php>
           <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>');">
           <input type="button" value=" 确认订单 " name="button" class="button primary" onClick="querendingdan();">
@@ -118,6 +121,11 @@ function quxiao_after(data,status){
             <span style="float:right; color:#000; margin-right:20px;">财务：<strong style="color:#4e8ccf;"><{$task[1][user_name]}></strong></span>
             <span style="float:right; color:#000; margin-right:100px;">审核阶段：<strong style="color:#4e8ccf;"><{$dingdan['shenhe_remark']}></strong></span>
             <span style="float:right; color:#000; margin-right:20px;">审核状态：<strong style="color:#4e8ccf;"><{$dingdan['status_shenhe']}></strong></span>
+            
+            <php>if($dingdan['orderID'] && $dingdan['orderNo']){</php>
+                <span style="float:right; color:#000; margin-right:20px;">网站订单ID：<strong style="color:#4e8ccf;"><{$dingdan['orderID']}></strong></span>
+            <php>}</php>
+            
             </h4>
             </th>
           </tr>
@@ -495,6 +503,19 @@ function quxiao_after(data,status){
 </form>
 </div>
 
+<div id="dialog_zhifuchaxun" title="支付查询" style="background:#FFF">
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 查询结果: </td>
+          <td valign="top" scope="row" id="chaxunjieguo"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+
 <script language="javascript"> 
 jQuery(document).ready(function(){
 	// Dialog
@@ -517,12 +538,50 @@ jQuery(document).ready(function(){
 		return false;
 	});
 	
+	// Dialog
+	jQuery('#dialog_zhifuchaxun').dialog({
+		autoOpen: false,
+		width: 600,
+		buttons: {
+			"确认": function() {
+				
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#zhifuchaxun_create').click(function(){
+		ThinkAjax.sendForm('form_remark','<{:SITE_INDEX}>Xiaoshou/zhifuchaxun/orderNo/'+orderNo,dingdanchaxun_after,'resultdiv');
+		return false;
+	});
+	
 });
 
 
 function save_after(data,status){
 	if(status == 1)
 	location.reload();
+}
+	
+function dingdanchaxun_after(data,status){
+	if(data['error'] == 'true'){
+		jQuery('#chaxunjieguo').html(data.msg); 
+	}
+	else{
+		msg = '<strong>已支付</strong>:'+data.zhifu+'<br>';
+		msg += '<strong>时间</strong>:'+data.shijian+'<br>';
+		msg += '<strong>描述</strong>:'+data.miaoshu+'<br>';
+		msg += '<strong>产品地址</strong>:'+data.url+'<br>';
+		for(i=0;i<data.itemcount;i++){
+			msg += '<strong>项目</strong>:'+data.list[i]['ProductName']+'<br>';
+			msg += '<strong>数量</strong>:'+data.list[i]['Qty']+'<br>';
+			msg += '<strong>单价</strong>:'+data.list[i]['UnitPrice']+'<br>';
+		}
+		jQuery('#chaxunjieguo').html(msg); 
+	}
+	jQuery('#dialog_zhifuchaxun').dialog('open');
 }
 	
 </script> 

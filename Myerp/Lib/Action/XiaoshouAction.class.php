@@ -811,6 +811,12 @@ class XiaoshouAction extends Action{
 	
 	
 	
+	//备忘
+	public function zhifuchaxun(){
+		$orderNo = $_REQUEST['orderNo'];
+		$res = A("Method")->_NH_zhifuchaxun($orderNo);
+		$this->ajaxReturn($res, '查询成功！', 1);
+	}
 	
 	
 	

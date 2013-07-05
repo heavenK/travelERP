@@ -4311,5 +4311,12 @@ class MethodAction extends CommonAction{
 			return false;
 	}
 	
+	
+	
+	//查询
+	public function _NH_zhifuchaxun($orderNo) {
+		$record = FileGetContents_b(WEB_INDEX."NHOrder/_interface_query_order_byorderNo/orderNo/".$orderNo);
+		return $record;
+	}
 }
 ?>

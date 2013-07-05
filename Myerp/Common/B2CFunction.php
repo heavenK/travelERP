@@ -8,6 +8,19 @@ function FileGetContents($url){
 }
 
 
+function FileGetContents_b($url){
+	$d = file_get_contents($url);
+	$d = str_replace('
+
+
+
+
+','',$d);//未知原因2。
+	$d = unserialize($d);
+	return $d;
+}
+
+
 
 
 ?>
