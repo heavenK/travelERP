@@ -83,6 +83,7 @@ function quxiao_after(data,status){
     </div>
       
       <div class="buttons">
+            <input type="button" value="支付查询" name="button" class="button primary" style="float:right" id="zhifuchaxun_create">
             <input type="button" value="审核记录" name="button" class="button primary" style="float:right" onclick="shenheshow_doit(<{$chanpinID}>,this);">
           
       <php>
@@ -112,6 +113,11 @@ function quxiao_after(data,status){
             <span style="float:right; color:#000; margin-right:20px;">财务：<strong style="color:#4e8ccf;"><{$task[1][user_name]}></strong></span>
             <span style="float:right; color:#000; margin-right:100px;">审核阶段：<strong style="color:#4e8ccf;"><{$dingdan['shenhe_remark']}></strong></span>
             <span style="float:right; color:#000; margin-right:20px;">审核状态：<strong style="color:#4e8ccf;"><{$dingdan['status_shenhe']}></strong></span>
+            
+            <php>if($dingdan['orderID'] && $dingdan['orderNo']){</php>
+                <span style="float:right; color:#000; margin-right:20px;">网站订单ID：<strong style="color:#4e8ccf;"><{$dingdan['orderID']}></strong></span>
+            <php>}</php>
+            
             </h4>
             </th>
           </tr>
