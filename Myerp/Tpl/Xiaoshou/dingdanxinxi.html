@@ -38,7 +38,6 @@ return '请确认人员信息已经保存，确定离开此页面吗？';
 
 var chanpinID = '<{$chanpinID}>';
 var title =  '编号<{$chanpinID}>订单';
-var orderNo =  '<{$dingdan[orderNo]}>';
 var user = [
 	 <php>foreach($userlist as $v){</php>
 		  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
@@ -517,6 +516,8 @@ function quxiao_after(data,status){
 
 
 <script language="javascript"> 
+var orderNo =  '<{$dingdan[orderNo]}>';
+
 jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_remark').dialog({

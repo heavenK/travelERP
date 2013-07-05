@@ -315,7 +315,22 @@ function quxiao_after(data,status){
 </form>
 </div>
 
+<div id="dialog_zhifuchaxun" title="支付查询" style="background:#FFF">
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 查询结果: </td>
+          <td valign="top" scope="row" id="chaxunjieguo"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+
 <script language="javascript"> 
+var orderNo =  '<{$dingdan[orderNo]}>';
+
 jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_remark').dialog({
@@ -337,6 +352,25 @@ jQuery(document).ready(function(){
 		return false;
 	});
 	
+	// Dialog
+	jQuery('#dialog_zhifuchaxun').dialog({
+		autoOpen: false,
+		width: 600,
+		buttons: {
+			"确认": function() {
+				
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#zhifuchaxun_create').click(function(){
+		ThinkAjax.sendForm('form_remark','<{:SITE_INDEX}>Xiaoshou/zhifuchaxun/orderNo/'+orderNo,dingdanchaxun_after,'resultdiv');
+		return false;
+	});
+	
 });
 
 
@@ -345,6 +379,33 @@ function save_after(data,status){
 	location.reload();
 }
 	
+function dingdanchaxun_after(data,status){
+	if(data['error'] == 'true'){
+		jQuery('#chaxunjieguo').html(data.msg); 
+	}
+	else{
+		msg = '<strong>已支付</strong>:'+data.zhifu+'<br>';
+		msg += '<strong>时间</strong>:'+data.shijian+'<br>';
+		msg += '<strong>描述</strong>:'+data.miaoshu+'<br>';
+		msg += '<strong>产品地址</strong>:'+data.url+'<br>';
+		for(i=0;i<data.itemcount;i++){
+			msg += '<strong>项目</strong>:'+data.list[i]['ProductName']+'<br>';
+			msg += '<strong>数量</strong>:'+data.list[i]['Qty']+'<br>';
+			msg += '<strong>单价</strong>:'+data.list[i]['UnitPrice']+'<br>';
+		}
+		jQuery('#chaxunjieguo').html(msg); 
+	}
+	jQuery('#dialog_zhifuchaxun').dialog('open');
+}
+	
 </script> 
+
+
+
+
+
+
+
+
 
 
