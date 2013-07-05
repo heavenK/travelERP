@@ -140,6 +140,37 @@ class QianzhengAction extends CommonAction{
 	}
 	
 	
+    public function dingdanlist_index() {
+		if($_REQUEST['status_shenhe']){
+			$this->assign("markpos",$_REQUEST['status_shenhe']);
+		}
+		if($_REQUEST['status']){
+			$this->assign("markpos",$_REQUEST['status']);
+		}
+		
+		A("Method")->showDirectory("订单控管");
+		$chanpin_list = A('Method')->getDataOMlist('订单','dingdan',$_REQUEST);
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$DataCD = D("DataCD");
+		$i = 0;
+		foreach($chanpin_list['chanpin'] as $v){
+			//提成
+			$chanpin_list['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+		//新老客户数
+			$chanpin_list['chanpin'][$i]['xinkehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '0'")->count();
+			$chanpin_list['chanpin'][$i]['laokehu_num'] = $DataCD->where("`dingdanID` = '$v[chanpinID]' and `laokehu` = '1'")->count();
+			$i++;
+		}
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		if($_REQUEST['user_name'] == '电商')
+			$this->display('dingdanlist_web');
+		else
+			$this->display('dingdanlist');
+	}
+	
+	
+	
 	public function zhidingxiaoshou() {
 		A("Method")->showDirectory("签证销售");
 		$chanpinID = $_REQUEST["chanpinID"];
@@ -249,6 +280,23 @@ class QianzhengAction extends CommonAction{
 		$this->assign("chanpin_mark",'Qianzheng');
 		$this->display('Chanpin:shenhe');
 	}
+	
+	
+	public function tongji() {
+		$this->assign("ActionName",'Qianzheng');
+		A("Method")->_tongji('签证');
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
