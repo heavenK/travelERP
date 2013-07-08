@@ -4314,8 +4314,8 @@ class MethodAction extends CommonAction{
 	
 	
 	//查询
-	public function _NH_zhifuchaxun($orderNo) {
-		$record = FileGetContents_b(WEB_INDEX."NHOrder/_interface_query_order_byorderNo/orderNo/".$orderNo);
+	public function _NH_zhifuchaxun($orderNo='',$orderID='') {
+		$record = FileGetContents_b(WEB_INDEX."NHOrder/_interface_query_order/orderNo/".$orderNo."/orderID/".$orderID);
 		return $record;
 	}
 	

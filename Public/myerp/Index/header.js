@@ -276,3 +276,17 @@ function FixJqText(str) {
     tempstr = tempstr.replace(/\&/g, "%26");
     return tempstr;
 }
+
+
+function tod_oprompt(msg){
+	var str = window.prompt(msg,"")  
+	if(str == 'ok')
+		return true;
+	return false;
+}
+
+
+
+
+
+

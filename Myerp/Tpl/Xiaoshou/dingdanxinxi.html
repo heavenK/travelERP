@@ -567,7 +567,7 @@ function save_after(data,status){
 }
 	
 function dingdanchaxun_after(data,status){
-	if(data['error'] == 'true'){
+	if(data.error == 'true'){
 		jQuery('#chaxunjieguo').html(data.msg); 
 	}
 	else{

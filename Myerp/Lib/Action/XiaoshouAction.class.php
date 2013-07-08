@@ -592,11 +592,14 @@ class XiaoshouAction extends Action{
 			$this->ajaxReturn($_REQUEST, '错误！请完善游客数据后确认订单！', 0);
 		}
 		
-		$dat['departmentID'] = $_REQUEST['departmentID'];
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
 		$dat['dingdan']['tichengID'] = $_REQUEST['tichengID'];
-		$dat['dingdan']['owner'] = $_REQUEST['owner'];
+		//电商不许修改
+		if(!$dat['dingdan']['orderID']){
+			$dat['dingdan']['owner'] = $_REQUEST['owner'];
+			$dat['departmentID'] = $_REQUEST['departmentID'];
+		}
 		$dat['dingdan']['fuzeren'] = $_REQUEST['fuzeren'];
 		$dat['dingdan']['lxr_address'] = $_REQUEST['lxr_address'];
 		$dat['dingdan']['lxr_email'] = $_REQUEST['lxr_email'];
@@ -814,7 +817,10 @@ class XiaoshouAction extends Action{
 	//备忘
 	public function zhifuchaxun(){
 		$orderNo = $_REQUEST['orderNo'];
-		$res = A("Method")->_NH_zhifuchaxun($orderNo);
+		if(!$orderNo)
+			$orderNo = 0;
+		$orderID = $_REQUEST['orderID'];
+		$res = A("Method")->_NH_zhifuchaxun($orderNo,$orderID);
 		$this->ajaxReturn($res, '查询成功！', 1);
 	}
 	

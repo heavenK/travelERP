@@ -63,9 +63,9 @@ function checktable()
 	if(CheckForm('form1','resultdiv_2'))
 	{
 		if(checktitle()){
-			var state=document.getElementById("status");
-			if(state.value=="占位")
-				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
+//			var state=document.getElementById("status");
+//			if(state.value=="占位")
+//				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
 			save();
 		}
 		else
@@ -141,6 +141,7 @@ function ajaxalert(title){
       <input type="hidden" name="parentID" value="<{$chanpinID}>" />
       <input type="hidden" name="chanpintype" value="签证" />
       <input type="hidden" name="type" value="签证" />
+      <input type="hidden" name="status" value="确认" />
       
       <table width="100%" class="tb1" cellpadding="0" cellspacing="0">
         <tbody>
@@ -176,14 +177,6 @@ function ajaxalert(title){
           <td align="left" style="height: 32px"><input name="lianxiren" type="text" id="lianxiren" check="^\S+$" warning="联系人不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"> 联系电话：</td>
           <td align="left" style="height: 32px"><input name="telnum" type="text" id="telnum" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')" check="^\S+$" warning="联系电话不能为空,且不能含有空格"></td>
-        </tr>
-        <tr>
-          <td align="left" style="height: 32px"> 订单状态：</td>
-          <td align="left" style="height: 32px">
-          	<select name="status" id="status" onchange="return CheckState();">
-              <option value="占位">占位</option>
-              <option value="确认">确认</option>
-            </select></td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 成人人数：</td>
