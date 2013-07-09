@@ -379,6 +379,29 @@ class MessageAction extends Action{
 
 
 
+	public function gexingdingzhilist(){
+		$pagenum = 10;
+		A("Method")->showDirectory('电商个性定制信息');
+		$WEBServiceGexingdingzhi = D("WEBServiceGexingdingzhi");
+        import("@.ORG.OldPage");
+        C('PAGE_NUMBERS',10);
+		$count = $WEBServiceGexingdingzhi->where($where)->count();
+		$p= new Page($count,$pagenum);
+		$page = $p->show();
+        $data = $WEBServiceGexingdingzhi->where($where)->limit($p->firstRow.','.$p->listRows)->order("id desc")->select();
+		$i =0;
+		foreach($data as $v){
+			$data[$i]['datatext'] = unserialize($v['datatext']);
+			$i++;
+		}
+		$redata['page'] = $page;
+		$redata['chanpin'] = $data;
+		$this->assign("page",$redata['page']);
+		$this->assign("chanpin_list",$redata['chanpin']);
+		$this->display('gexingdingzhilist');
+	}
+
+
 
 
 

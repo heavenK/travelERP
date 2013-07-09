@@ -1,0 +1,88 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<div id="main">
+  <tp:includeCA file="Message:left_kongguan" />
+  <div id="content" style="margin-left:180px;">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:search_message" />
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 联系人 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 电话 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 旅游目的地 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 其他目的地 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 出发时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 其他时间 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 天数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 出发城市 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 行程预算 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 成人/儿童/婴儿 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 其他需求 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:10%; "><div> 时间 </div></th>
+                </tr>
+                
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="center" valign="top"><{$i+1}></td>
+                  <td scope="row" align="center" valign="top"><{$v['lianxiren']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['lianxidianhua']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['lvyoumudidi']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['qitamudidi']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['chufanian']}><{$v['datatext']['chufayue']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['qitashijian']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['chuxingtianshu']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['chufachengshi']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['xingchengyusuan']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['chengren']}>/<{$v['datatext']['ertong']}>/<{$v['datatext']['yinger']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['datatext']['qitaxuqiu']}></td>
+                  <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
+                </tr>
+                <php> }</php>
+                
+                
+              </tbody>
+            </table>
+            
+  </div>
+  
+  
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+function dosearch(str)
+{
+		window.location = SITE_INDEX+'Message/infohistory'+str;
+}
+</script>
+
+
+
