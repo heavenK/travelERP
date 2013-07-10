@@ -4300,11 +4300,13 @@ class MethodAction extends CommonAction{
 			//生成团员
 			if($data['status'] == '确认' && $data['type'] != '签证')
 				A("Method")->createCustomer_new($data,$chanpinID);
-			//生成提醒消息
-			$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
-			$url = SITE_INDEX.'Xiaoshou/dingdanxinxi/chanpinID/'.$chanpinID;
-			$data['username'] = $username;
-			$this->_setMessageHistory($chanpinID,'订单',$message,$url,'','',$data);
+			if($data['usermame'] == '电商'){
+				//生成提醒消息
+				$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
+				$url = SITE_INDEX.'Xiaoshou/dingdanxinxi/chanpinID/'.$chanpinID;
+				$data['username'] = $username;
+				$this->_setMessageHistory($chanpinID,'订单',$message,$url,'','',$data);
+			}
 			return $data;
 		}
 		else
