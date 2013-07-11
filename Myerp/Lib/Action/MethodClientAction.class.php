@@ -31,6 +31,56 @@ class MethodClientAction extends CommonAction{
 	
 	
 	
+	function _onoffshop(){
+		//判断角色,返回用户DUR
+		$durlist = A("Method")->_checkRolesByUser('网管','行政');
+		if(false === $durlist)
+			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) != 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+//		if($_REQUEST['chanpintype'] == '线路'){
+//			$this->_doonoffshop_xianlu($itemlist);	
+//		}
+		if($_REQUEST['chanpintype'] == '子团'){
+			$this->_doonoffshop_zituan($itemlist);	
+		}
+		if($_REQUEST['chanpintype'] == '签证'){
+			$this->_doonoffshop_qianzheng($itemlist);	
+		}
+		
+	}
+	
+	
+	function _doonoffshop_zituan($itemlist){
+		$ViewZituan = D("ViewZituan");
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$v'")->find();
+			if($zituan['xianlulist']['status_shenhe'] != '批准')
+				$this->ajaxReturn($_REQUEST,'子团所属线路未被审核批准,禁止提交！', 0);
+			if($zituan['xianlulist']['serverdataID']<0 || $zituan['xianlulist']['serverdataID'] == NULL)
+				$this->ajaxReturn($_REQUEST,'子团所属线路未被提交到网店！', 0);
+			//修改子团状态
+			if($zituan['status_shop'] == '上架' || $zituan['status_shop'] == NULL)
+				$zituan['zituan']['status_shop'] = '下架';	
+			else
+				$zituan['zituan']['status_shop'] = '上架';
+			if(false !== $Chanpin->relation('zituan')->myRcreate($zituan)){
+				//修改服务器子团状态
+				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin_status/chanpintype/子团/chanpinID/".$v);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST, '服务器更新失败！', 0);
+				}
+			}
+		}
+		$this->ajaxReturn($_REQUEST,'产品'.$zituan['zituan']['status_shop'], 1);
+	}
+	
+	
+	
 	function _doonshop_xianlu($itemlist){
 		$ViewXianlu = D("ViewXianlu");
 		$Chanpin = D("Chanpin");
@@ -40,6 +90,14 @@ class MethodClientAction extends CommonAction{
 				$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
+				//更新产品状态
+				$xianlu['xianlu']['status_shop'] = '上架';
+				$Chanpin->relation('xianlu')->myRcreate($xianlu);
+				$zituanlist = $ViewXianlu->relationGet("zituanlist");
+				foreach($zituanlist as $vol){
+					$vol['zituan']['status_shop'] = '上架';
+					$Chanpin->relation('zituan')->myRcreate($vol);
+				}
 				//记录
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$v;
 				$message = '『'.$xianlu['title'].'』 被提交到网店。';
@@ -53,7 +111,6 @@ class MethodClientAction extends CommonAction{
 					$serverdataID = $getres;
 				if(!intval($serverdataID))
 					$this->ajaxReturn($_REQUEST,'提交失败！', 0);
-//				$serverdataID = str_replace('﻿','',$serverdataID);
 				$xianlu['xianlu']['serverdataID'] = $serverdataID;
 				$xianlu['chanpinID'] = $v;
 				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){

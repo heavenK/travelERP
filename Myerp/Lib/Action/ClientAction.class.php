@@ -2,9 +2,14 @@
 
 class ClientAction extends Action{
 	
-	//上架
+	//网站销售
     public function onshop() {
 		A("MethodClient")->_onshop();
+	}
+	
+	//下/上架
+    public function onoffshop() {
+		A("MethodClient")->_onoffshop();
 	}
 	
 	//获得线路
@@ -23,6 +28,24 @@ class ClientAction extends Action{
 		$xianlu['shoujialist'] = $ViewXianlu->relationGet("shoujialist");
 		$xianlu['chengbenlist'] = $ViewXianlu->relationGet("chengbenlist");
 		$data = serialize($xianlu);
+		echo $data;
+		
+    }
+	
+	
+	//获得线路
+    public function _getzituan() {
+		$chanpinID = $_REQUEST['chanpinID'];
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
+		$zituan['xianlulist'] = $ViewZituan->relationGet("xianlulist");
+		if($zituan['xianlulist'] == NULL){
+			$returndata['msg'] = '子团所属线路获取失败';
+			$returndata['error'] = 'true';
+			echo serialize($returndata);
+			exit;
+		}
+		$data = serialize($zituan);
 		echo $data;
 		
     }

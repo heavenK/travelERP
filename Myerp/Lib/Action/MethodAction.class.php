@@ -31,8 +31,8 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			if($where['chanpintype'] == ''){
 				$where['chanpintype'] = '线路';
-				
 			}
+			$where['xianlu_status'] = '报名';
 			//处理搜索
 			if($where['title']){
 				$where['xianlu_title'] = array('like','%'.$where['title'].'%');
