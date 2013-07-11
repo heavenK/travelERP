@@ -2876,6 +2876,11 @@ class MethodAction extends CommonAction{
 						}
 					}
 				}
+				else{
+					$editdat['status'] = '准备';
+					//同步售价表线路状态
+					$this->_tongbushoujia($_REQUEST['dataID']);
+				}
 				$Chanpin->save($editdat);
 				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
 			}
