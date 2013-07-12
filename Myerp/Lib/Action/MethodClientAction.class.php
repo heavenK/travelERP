@@ -12,7 +12,7 @@ class MethodClientAction extends CommonAction{
 	
 	function _onshop(){
 		//判断角色,返回用户DUR
-		$durlist = A("Method")->_checkRolesByUser('网管','行政');
+		$durlist = A("Method")->_checkRolesByUser('网店计调','组团');
 		if(false === $durlist)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
@@ -33,7 +33,7 @@ class MethodClientAction extends CommonAction{
 	
 	function _onoffshop(){
 		//判断角色,返回用户DUR
-		$durlist = A("Method")->_checkRolesByUser('网管','行政');
+		$durlist = A("Method")->_checkRolesByUser('网店计调','组团');
 		if(false === $durlist)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		C('TOKEN_ON',false);
