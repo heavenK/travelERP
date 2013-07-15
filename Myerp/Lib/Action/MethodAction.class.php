@@ -4305,7 +4305,7 @@ class MethodAction extends CommonAction{
 			//生成团员
 			if($data['status'] == '确认' && $data['type'] != '签证')
 				$this->createCustomer_new($data,$chanpinID);
-			if($data['usermame'] == '电商'){
+			if($data['user_mame'] == '电商' || $data['dingdan']['owner'] == '电商'){
 				//生成提醒消息
 				$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
 				$url = SITE_INDEX.'Xiaoshou/dingdanxinxi/chanpinID/'.$chanpinID;
