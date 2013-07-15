@@ -1737,7 +1737,7 @@ class MethodAction extends CommonAction{
 		}
 		if($data['usermame'] == '电商'){
 			//开放给电商
-			$dataOMlist = A("Method")->_getmyOMlist('电商');
+			$dataOMlist = $this->_getmyOMlist('电商');
 			$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist,'DataOMMessage');
 			foreach($dataOMlist as $vo){
 				//返回需要提示的用户
@@ -4297,14 +4297,14 @@ class MethodAction extends CommonAction{
 			//生成OM
 			if($data['type'] != '签证')
 				$data['type'] = '子团';
-			$dataOMlist = A("Method")->_getDataOM($data['parentID'],$data['type'],'管理');
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+			$dataOMlist = $this->_getDataOM($data['parentID'],$data['type'],'管理');
+			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//开放给自己部门
-			$dataOMlist = A("Method")->_getmyOMlist($username);
-			A("Method")->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
+			$dataOMlist = $this->_getmyOMlist($username);
+			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
 			if($data['status'] == '确认' && $data['type'] != '签证')
-				A("Method")->createCustomer_new($data,$chanpinID);
+				$this->createCustomer_new($data,$chanpinID);
 			if($data['usermame'] == '电商'){
 				//生成提醒消息
 				$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
@@ -4340,7 +4340,7 @@ class MethodAction extends CommonAction{
 			$ModelName = 'ViewQianzheng';
 			$baozhang_type = '签证';
 		}
-		A("Method")->showDirectory("统计");
+		$this->showDirectory("统计");
 		//搜索
 		if($_REQUEST['title'])
 			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
@@ -4373,13 +4373,13 @@ class MethodAction extends CommonAction{
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//获得用户权限，部门列表
 		$ViewDepartment = D("ViewDepartment");
-		$role = A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
-		$ComID = A("Method")->_getComIDbyUser();
+		$role = $this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
+		$ComID = $this->_getComIDbyUser();
 		if($role){
 			$unitdata = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%'")->findall();
 		}
 		else{
-			$role = A("Method")->_checkRolesByUser('经理','组团');
+			$role = $this->_checkRolesByUser('经理','组团');
 			if(!$role){
 				$this->assign("message",'您的访问受限！！');
 				$this->display('Index:error');
@@ -4481,7 +4481,7 @@ class MethodAction extends CommonAction{
 			$ViewUser = D("ViewUser");
 			$i = 0;
 			foreach($unitdata as $v){
-				$listarray = A("Method")->_getBumenUserlist($v['systemID']);
+				$listarray = $this->_getBumenUserlist($v['systemID']);
 				foreach($listarray as $lol){
 					$userlist[$i] = $lol;
 					$i++;
