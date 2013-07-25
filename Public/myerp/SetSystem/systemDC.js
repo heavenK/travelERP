@@ -20,6 +20,11 @@
 
  function addSystemDC(id,mark)
  {
+	scroll(0,0);
+	ThinkAjax.myloading('resultdiv');
+	act = jQuery("#btsave_"+id).attr("onclick"); 
+	jQuery("#btsave_"+id).attr("onclick","alert('正在执行请稍候...')"); 
+	 
 	var it = '';
 	if(!mark){
 		it ="&systemID="+id;

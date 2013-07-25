@@ -129,7 +129,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               </td>
               <td scope="row" align="left" valign="top">
               <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteDepartemntDC(<{$v['systemID']}>)" />
-              <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['systemID']}>))addSystemDC(<{$v['systemID']}>);" />
+              <input class="button" type="button" value="修改" id="btsave_<{$v['systemID']}>" onClick="if(checktitle(<{$v['systemID']}>))addSystemDC(<{$v['systemID']}>);" />
               </td>
             </tr>
       <php>}}</php>

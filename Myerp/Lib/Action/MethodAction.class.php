@@ -4658,12 +4658,13 @@ class MethodAction extends CommonAction{
 		$shoujiaall = $ViewShoujia->where("`openID` = '$categoryID'")->findall();
 		$ViewXianlu = D("ViewXianlu");
 		foreach($shoujiaall as $v){
+			$xianlu = $ViewXianlu->where("`chanpinID` = '$v[parentID]' AND `status` = '报名'")->find();
+			if(!$xianlu)
+				continue;
 			$OM['chanpinID'] = $v['chanpinID'];
 			$OM['opentype'] = '分类';
 			$OM['openID'] = $categoryID;
 			$this->_shoujiaToDataOM($OM);
-			exit;
-			
 		}
 	}
 	

@@ -772,6 +772,7 @@ class BudingAction extends Action{
 	
 	//线路截止
     public function xianlujiezhi() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "开始";
 		$ViewXianlu = D("ViewXianlu");
