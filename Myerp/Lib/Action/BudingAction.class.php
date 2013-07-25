@@ -753,6 +753,7 @@ class BudingAction extends Action{
 	
 	//重置销售类型chanpintype
 	public function resetshoujiachanpintype(){
+		exit;
 		C('TOKEN_ON',false);
 		$Shoujia = D("Shoujia");
 		$shoujiaall = $Shoujia->findall();
@@ -768,6 +769,18 @@ class BudingAction extends Action{
 		echo "结束";
 	}
 	
+	
+	//线路截止
+    public function xianlujiezhi() {
+		C('TOKEN_ON',false);
+		echo "开始";
+		$ViewXianlu = D("ViewXianlu");
+		$all = $ViewXianlu->where("`status` != '截止'")->findall();
+		foreach($all as $v){
+			A('Method')->_updatexianlu($v['chanpinID']);
+		}
+		echo "结束";
+    }
 	
 	
 	
