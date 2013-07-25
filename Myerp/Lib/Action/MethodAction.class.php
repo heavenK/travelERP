@@ -1009,8 +1009,8 @@ class MethodAction extends CommonAction{
 		if($data['opentype'] == '分类'){
 			$departmentlist = $this->_getDClist($data['openID']);
 			foreach($departmentlist as $s){
-				$OM['bumenID'] = $s['dataID'];
-				$OM['DUR'] = $this->_OMToDataOM_filter($OM);
+				$temp['bumenID'] = $s['dataID'];
+				$OM['DUR'] = $this->_OMToDataOM_filter($temp);
 				//查询重复
 				$has = $DataOM->where($OM)->find();
 				if($has)
@@ -1023,10 +1023,10 @@ class MethodAction extends CommonAction{
 			return;
 		}
 		if($data['opentype'] == '部门'){
-			$OM['bumenID'] = $data['openID'];
+			$temp['bumenID'] = $data['openID'];
+			$OM['DUR'] = $this->_OMToDataOM_filter($temp);
+			$DataOM->mycreate($OM);
 		}
-		$OM['DUR'] = $this->_OMToDataOM_filter($OM);
-		$DataOM->mycreate($OM);
 	 }
 	 
 	 
@@ -4650,12 +4650,17 @@ class MethodAction extends CommonAction{
 	public function _dc_reset_to_shoujia_om($data){
 		$categoryID = $data['parentID'];
 		$ViewShoujia = D("ViewShoujia");
-		$shoujiaall = $ViewShoujia->Distinct(true)->field('openID')->where("`openID` = '$categoryID'")->findall();
+//		$shoujiaall = $ViewShoujia->Distinct(true)->field('parentID')->where("`openID` = '$categoryID'")->findall();
+		$shoujiaall = $ViewShoujia->where("`openID` = '$categoryID'")->findall();
 		foreach($shoujiaall as $v){
-			$OM['dataID'] = $v['parentID'];
+			//$OM['dataID'] = $v['parentID'];
+//			$OM['chanpinID'] = $v['parentID'];
+			$OM['chanpinID'] = $v['chanpinID'];
 			$OM['opentype'] = '分类';
 			$OM['openID'] = $categoryID;
 			$this->_shoujiaToDataOM($OM);
+			exit;
+			
 		}
 	}
 	
