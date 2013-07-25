@@ -2963,6 +2963,7 @@ class MethodAction extends CommonAction{
 						$zituan = $Chanpin->relationGet("zituan");
 						if(strtotime($zituan['chutuanriqi']) < time()){
 							$pdat['status'] = '截止';
+							$this->_updatexianlu('',$cpd['chanpinID']);
 						}
 					}
 					if($cpd['marktype'] == 'DJtuan'){
@@ -4070,6 +4071,9 @@ class MethodAction extends CommonAction{
 					$Chanpin->rollback();
 					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
 				}
+				else{
+					$this->_updatexianlu('',$chanp['chanpinID']);
+				}
 			}
 			
 		}
@@ -4652,9 +4656,8 @@ class MethodAction extends CommonAction{
 		$ViewShoujia = D("ViewShoujia");
 //		$shoujiaall = $ViewShoujia->Distinct(true)->field('parentID')->where("`openID` = '$categoryID'")->findall();
 		$shoujiaall = $ViewShoujia->where("`openID` = '$categoryID'")->findall();
+		$ViewXianlu = D("ViewXianlu");
 		foreach($shoujiaall as $v){
-			//$OM['dataID'] = $v['parentID'];
-//			$OM['chanpinID'] = $v['parentID'];
 			$OM['chanpinID'] = $v['chanpinID'];
 			$OM['opentype'] = '分类';
 			$OM['openID'] = $categoryID;
@@ -4663,6 +4666,28 @@ class MethodAction extends CommonAction{
 			
 		}
 	}
+	
+	
+	//线路状态更新
+	public function _updatexianlu($xianluID='',$zituanID=''){
+		$Chanpin = D("Chanpin");
+		if(!$xianluID){
+			$zituan = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
+			$xianluID = $zituan['parentID'];
+		}
+		$xianlu = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$xianluID'")->find();
+		$mark = 0;
+		foreach($xianlu['zituanlist'] as $v){
+			if($v['status'] != '截止'){
+				$mark = 1;
+			}
+		}
+		if($mark == 0){
+			$xianlu['status'] = '截止';
+			$xianlu = $Chanpin->save($xianlu);
+		}
+	}
+	
 	
 	
 	
