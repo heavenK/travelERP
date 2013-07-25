@@ -65,13 +65,11 @@ class SetSystemAction extends CommonAction{
 		$data = $_REQUEST;
 		$data['systemDC'] = $_REQUEST;
 		if (false !== $System->relation("systemDC")->myRcreate($data)){
-			if($System->getLastmodel() == 'add')
+			if($System->getLastmodel() == 'add'){
 				$_REQUEST['systemID'] = $System->getRelationID();
-			else
-			{
-				$DataShenhe = D("DataShenhe");
-				$DataShenhe->where("`shenheID` = '$_REQUEST[systemID]'")->delete();
 			}
+			//指定销售处理
+			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -80,15 +78,29 @@ class SetSystemAction extends CommonAction{
 		}
 	}
 	
+	
 	public function deleteDepartemntDC()
 	{
 		$systemID = $_REQUEST['systemID'];
 		$System = D("System");
-		if (false !== $System->relation("systemDC")->delete("$systemID"))
+		$dc = $System->where("`systemID` = '$systemID'")->find();
+		if (false !== $System->relation("systemDC")->delete("$systemID")){
+			//销售om处理
+			$ViewShoujia = D("ViewShoujia");
+			$shoujiaall = $ViewShoujia->Distinct(true)->field('openID')->where("`openID` = '$dc[parentID]'")->find();
+			$DataOM = D("DataOM");
+			foreach($shoujiaall as $v){
+				$det_where['DUR'] = $dc['dataID'].',,';
+				$det_where['dataID'] = $v['chanpinID'];
+				$det_where['datatype'] = '售价';
+				$DataOM->where($det_where)->delete();
+			}
 			$this->ajaxReturn('', '删除成功！', 1);
+		}
 		else
 			$this->ajaxReturn('', $System->getError(), 0);
 	}
+	
 	
 	public function systemOM(){
 		$System = D("System");

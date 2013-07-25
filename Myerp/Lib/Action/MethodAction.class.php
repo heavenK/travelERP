@@ -1000,10 +1000,9 @@ class MethodAction extends CommonAction{
 	//同步DataOM:售价开放管理到对象
      public function _shoujiaToDataOM($data) {
 		$DataOM = D("DataOM");
-		$where['dataID'] = $data['chanpinID'];
-		$where['datatype'] = '售价';
-		$DataOM->where($where)->delete();
-		//$DataOM->where("`dataID` = '$data[chanpinID]' and `datatype` = '售价' ")->delete();
+//		$where['dataID'] = $data['chanpinID'];
+//		$where['datatype'] = '售价';
+//		$DataOM->where($where)->delete();
 		$OM['dataID'] = $data['chanpinID'];
 		$OM['datatype'] = '售价';
 		$OM['type'] = '开放';
@@ -1012,6 +1011,10 @@ class MethodAction extends CommonAction{
 			foreach($departmentlist as $s){
 				$OM['bumenID'] = $s['dataID'];
 				$OM['DUR'] = $this->_OMToDataOM_filter($OM);
+				//查询重复
+				$has = $DataOM->where($OM)->find();
+				if($has)
+					continue;
 				if(false === $DataOM->mycreate($OM)){
 					dump($DataOM);
 					exit;	
@@ -4638,6 +4641,21 @@ class MethodAction extends CommonAction{
 				$this->display('Chanpin:tongji');
 			if($chanpintype == '签证')
 				$this->display('Qianzheng:tongji');
+		}
+	}
+	
+	
+	
+	//新增分类，指定销售处理
+	public function _dc_reset_to_shoujia_om($data){
+		$categoryID = $data['parentID'];
+		$ViewShoujia = D("ViewShoujia");
+		$shoujiaall = $ViewShoujia->Distinct(true)->field('openID')->where("`openID` = '$categoryID'")->findall();
+		foreach($shoujiaall as $v){
+			$OM['dataID'] = $v['parentID'];
+			$OM['opentype'] = '分类';
+			$OM['openID'] = $categoryID;
+			$this->_shoujiaToDataOM($OM);
 		}
 	}
 	
