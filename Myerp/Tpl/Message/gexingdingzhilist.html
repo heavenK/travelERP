@@ -61,7 +61,7 @@
                   <td scope="row" align="center" valign="top"><{$v['datatext']['chufachengshi']}></td>
                   <td scope="row" align="center" valign="top"><{$v['datatext']['xingchengyusuan']}></td>
                   <td scope="row" align="center" valign="top"><{$v['datatext']['chengren']}>/<{$v['datatext']['ertong']}>/<{$v['datatext']['yinger']}></td>
-                  <td scope="row" align="center" valign="top"><php> echo mb_substr($v['datatext']['qitaxuqiu'], 0,100,"UTF-8");</php></td>
+                  <td scope="row" align="center" valign="top"><php> echo substr($v['datatext']['qitaxuqiu'], 0,100);</php></td>
                   <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
                 </tr>
                 <php> }</php>
