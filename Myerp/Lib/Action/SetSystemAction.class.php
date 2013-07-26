@@ -70,6 +70,8 @@ class SetSystemAction extends CommonAction{
 			}
 			//指定销售处理
 			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
+			//信息公告处理
+//			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
