@@ -167,6 +167,22 @@ class ClientAction extends Action{
 	}
 	
 	
+	//获得记录
+    public function bankOfChinaFileUpload() {
+		
+		
+		$this->display('Index:bankofchinafileupload');
+		
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
