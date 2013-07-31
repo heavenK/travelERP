@@ -170,6 +170,17 @@ class ClientAction extends Action{
 	//获得记录
     public function bankOfChinaFileUpload() {
 		
+       $allUidArr=array();
+		$uids_path='README.txt';
+		if(!file_exists($uids_path)){
+			dump('break');
+			break;
+		}
+		$uidArr=file($uids_path,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$allUidArr=$allUidArr + array_fill_keys($uidArr,$i);
+				
+		dump($allUidArr['1234']);
+		dump($allUidArr);
 		
 		$this->display('Index:bankofchinafileupload');
 		
