@@ -568,15 +568,18 @@ class ChanpinAction extends CommonAction{
 		$data = $_REQUEST;
 		$data['zituan'] = $data;
 		$Chanpin = D("Chanpin");
-		$zituan = $Chanpin->where("`chanpinID` = '$data[chanpinID]'")->find();
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$data[chanpinID]'")->find();
 		if($zituan['status_baozhang'] == '批准'){
 			$this->ajaxReturn($_REQUEST, '失败，该团队已经报账不能再修改信息！！', 0);
 		}
 		if( false !== $Chanpin->relation("zituan")->myRcreate($data)){
 			//更新信息
-			$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
-			if($getres['error']){
-				$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+			if($zituan['xianlulist']['serverdataID']){
+				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				}
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
