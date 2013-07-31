@@ -573,6 +573,11 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, '失败，该团队已经报账不能再修改信息！！', 0);
 		}
 		if( false !== $Chanpin->relation("zituan")->myRcreate($data)){
+			//更新信息
+			$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
+			if($getres['error']){
+				$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
