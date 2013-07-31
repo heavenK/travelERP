@@ -118,7 +118,12 @@ class MethodClientAction extends CommonAction{
 				}
 			}
 			else{
-				$this->ajaxReturn($_REQUEST,'该产品已提交到网店！', 1);
+				//更新信息
+				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$v);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				}
+				$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
 			}
 		}
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
@@ -155,7 +160,11 @@ class MethodClientAction extends CommonAction{
 				}
 			}
 			else{
-				$this->ajaxReturn($_REQUEST,'该产品已提交到网店！', 1);
+				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin_qianzheng/chanpinID/".$v);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				}
+				$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
 			}
 		}
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
