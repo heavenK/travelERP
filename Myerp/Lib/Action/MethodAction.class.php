@@ -3572,6 +3572,8 @@ class MethodAction extends CommonAction{
 				$ViewXianlu = D("ViewXianlu");
 				$xianlu = $ViewXianlu->where("`chanpinID` = $v")->find();
 				unset($xianlu['ispub']);
+				unset($xianlu['serverdataID']);
+				unset($xianlu['status_shop']);
 				$xianlu['chutuanriqi'] = 0;
 				$xianlu['title'] = $xianlu['title'].'【复制生成请修改】';
 				$data['xianlu'] = $xianlu;
