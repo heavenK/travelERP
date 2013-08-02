@@ -103,6 +103,12 @@
             <td valign="top"><input type="text" id="tianshu" name="tianshu" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" value="<{$xianlu['tianshu']}>" check="^\S+$" warning="行程天数不能为空,且不能含有空格" >
               <span>天</span></td>
           </tr>
+          <tr>
+            <td valign="top" scope="row"> 二次确认: </td>
+            <td valign="top"><input type="checkbox" value="1" name="second_confirm" <php>if($xianlu['second_confirm'] == 1){ echo 'checked="checked"';}</php> />(点选确认)<strong style=" color:red">网店预订有效</strong></td>
+            <td valign="top" scope="row"></td>
+            <td valign="top"></td>
+          </tr>
         </tbody>
       </table>
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view" style=" border-top-color: #CBDAE6 !important;">

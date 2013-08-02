@@ -380,8 +380,14 @@ class MessageAction extends Action{
 
 
 	public function gexingdingzhilist(){
+		if($_REQUEST['user_name'] == '电商'){
+			$this->assign("navposition",'电商管理');
+			A("Method")->showDirectory("电商定制信息");
+		}
+		else{
+			A("Method")->showDirectory('电商个性定制信息');
+		}
 		$pagenum = 10;
-		A("Method")->showDirectory('电商个性定制信息');
 		$WEBServiceGexingdingzhi = D("WEBServiceGexingdingzhi");
         import("@.ORG.OldPage");
         C('PAGE_NUMBERS',10);
@@ -398,7 +404,7 @@ class MessageAction extends Action{
 		$redata['chanpin'] = $data;
 		$this->assign("page",$redata['page']);
 		$this->assign("chanpin_list",$redata['chanpin']);
-		$this->display('gexingdingzhilist');
+		$this->display('Message:gexingdingzhilist');
 	}
 
 

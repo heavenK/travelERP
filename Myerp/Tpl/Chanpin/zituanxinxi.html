@@ -5,6 +5,9 @@ function save(){
 	ThinkAjax.sendForm('form1','<{:SITE_INDEX}>Chanpin/dopostzituanxinxi',doComplete,'resultdiv');
 }
 function doComplete(data,status){
+	if(status == 1){
+		location.reload()
+	}
 }
 </script>
 
@@ -43,8 +46,9 @@ function doComplete(data,status){
           <td valign="top" scope="row"><span>成人价</span>
             <input style="width:50px; margin:0 4px 0 4px;" name="adultxiuzheng" type="text" value="<php>echo trim($zituan['adultxiuzheng'])</php>">
             <span>儿童价</span>
-            <input style="width:50px; margin:0 4px 0 4px;" name="childxiuzheng" type="text" value="<php>echo trim($zituan['childxiuzheng'])</php>"></td>
-          <td valign="top" scope="row" colspan="2"> (举例：加价200元，添入200即可，降价200则添入-200) </td>
+            <input style="width:50px; margin:0 4px 0 4px;" name="childxiuzheng" type="text" value="<php>echo trim($zituan['childxiuzheng'])</php>">(举例：加价200元，添入200即可，降价200则添入-200) </td>
+            <td valign="top" scope="row"> 二次确认: </td>
+            <td valign="top"><input type="checkbox" value="1" name="second_confirm" <php>if($zituan['second_confirm'] == 1){ echo 'checked="checked"';}</php> />(点选确认)<strong style=" color:red">网店预订有效</strong></td>
         </tr>
       </tbody>
     </table>

@@ -135,6 +135,9 @@ class ChanpinAction extends CommonAction{
 			$xianlu_ext['remark'] = $_REQUEST['remark'];
 			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
 		}
+		if(!$_REQUEST['second_confirm']){
+			$_REQUEST['xianlu']['second_confirm'] = 0;
+		}
 		//end
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
@@ -573,6 +576,9 @@ class ChanpinAction extends CommonAction{
 		if($zituan['status_baozhang'] == '批准'){
 			$this->ajaxReturn($_REQUEST, '失败，该团队已经报账不能再修改信息！！', 0);
 		}
+		if(!$_REQUEST['second_confirm']){
+			$data['zituan']['second_confirm'] = 0;
+		}
 		if( false !== $Chanpin->relation("zituan")->myRcreate($data)){
 			//更新信息
 			if($zituan['xianlulist']['serverdataID']){
@@ -796,9 +802,7 @@ class ChanpinAction extends CommonAction{
 		$this->assign("tuanyuan_in",$tuanyuan_in);
 		$this->assign("tuanyuan_out",$tuanyuan_out);
 		
-		
 		$this->assign("tuanyuanlist",$tuanyuanlist);
-		
 		
 		$this->assign("dingdanlist",$dingdanlist);
 		$this->display('select_tuanyuan');

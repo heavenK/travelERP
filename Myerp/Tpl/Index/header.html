@@ -106,6 +106,18 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
       <php>}</php>
+      
+      
+      <php>if($is_webjidiao || $is_wangguan){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '电商管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>B2CManage" id="grouptab_7">&nbsp;电商管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>B2CManage" id="grouptab_7">&nbsp;电商管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
+      
+      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
@@ -244,7 +256,6 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     </span> <span id="moduleLink_6" 
     
     
-    
     <php>if($navposition == '签证产品'){</php>
     class="selected"
     <php>}</php>
@@ -258,7 +269,23 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Qianzheng/shenhe">签证产品审核</a> </li>
       <li> <a href="<{:SITE_INDEX}>Qianzheng/tongji">签证产品统计</a> </li>
     </ul>
+    </span> <span id="moduleLink_7" 
+    
+    
+    <php>if($navposition == '电商管理'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/index">网店线路管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/zituanlist">网店子团控管</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/zituanlist/second_confirm/1">二次确认子团管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/dingdanlist">电商订单管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/dingzhixinxi">电商定制信息</a> </li>
+    </ul>
     </span> </div>
+    
+    
   <div class="clear"></div>
   <div class="line"></div>
   <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> <b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> <span style="float:left; width:70%" id="alertitem"> </span> <b style="white-space:nowrap;float:right;"> <a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">

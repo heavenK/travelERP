@@ -557,9 +557,12 @@ class MethodAction extends CommonAction{
 				$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
 				$datazituan['zituan']['chutuanriqi'] = $riqi;
 				$datazituan['zituan']['tuanhao'] =  $chanpinID.'/'.$riqi;
+				$datazituan['zituan']['second_confirm'] =  $chanpin['xianlu']['second_confirm'];
 				$datazituan['parentID'] = $chanpinID;
 				$datazituan['user_name'] = $chanpin['user_name'];
 				$datazituan['status'] = '报名';
+				$datazituan['zituan']['second_confirm'] = $chanpin['xianlu']['second_confirm'];
+				$datazituan['zituan']['status_shop'] = $chanpin['xianlu']['status_shop'];
 				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan)){
 					$zituanID = $Chanpin->getRelationID();
 					//生成OM
@@ -3726,10 +3729,22 @@ class MethodAction extends CommonAction{
 			//报账单
 			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
 			$datalist['chanpin'][$i]['baozhang'] = $bzd;
+			//二次确认订单
+			if($_REQUEST['webpage'] == 1){
+				$WEBServiceOrder = D("WEBServiceOrder");
+				$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
+				$yudinglist = '';
+				foreach($orderall as $ord){
+					$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
+					$yudinglist['chengrenshu'] += $ord['chengrenshu'];
+					$yudinglist['ertongshu'] += $ord['ertongshu'];
+				}
+				$datalist['chanpin'][$i]['orderall'] = $orderall;
+				$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
+			}
 			
 			$i++;
 		}
-		
 		if($dotype == '补订订单'){
 			$datalist = A('Method')->data_list_noOM('ViewZituan',$_REQUEST);
 		}
@@ -3738,7 +3753,11 @@ class MethodAction extends CommonAction{
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		if($dotype == '产品搜索'){
 			$this->showDirectory("子团产品");
-			$this->display('Chanpin:kongguan');
+			if($_REQUEST['webpage'] == 1){
+				$this->display('B2CManage:kongguan');
+			}
+			else
+				$this->display('Chanpin:kongguan');
 		}
 		if($dotype == '补订订单'){
 			$this->showDirectory("补订订单");

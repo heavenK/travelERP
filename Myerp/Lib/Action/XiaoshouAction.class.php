@@ -460,10 +460,15 @@ class XiaoshouAction extends Action{
 		}
 		$this->assign("page",$chanpin_list['page']);
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
-		if($_REQUEST['user_name'] == '电商')
-			$this->display('dingdanlist_web');
-		else
-			$this->display('dingdanlist');
+		if($_REQUEST['user_name'] == '电商'){
+			$this->assign("navposition",'电商管理');
+			A("Method")->showDirectory("电商订单管理");
+			$this->display('Xiaoshou:dingdanlist_web');
+		}
+		else{
+			A("Method")->showDirectory("订单控管");
+			$this->display('Xiaoshou:dingdanlist');
+		}
 	}
 	
 	
