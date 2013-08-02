@@ -45,7 +45,45 @@ class B2CManageAction extends CommonAction{
 		$chanpinID = $_REQUEST['chanpinID'];
 		$WEBServiceOrder = D("WEBServiceOrder");
 		$orderall = $WEBServiceOrder->where("`clientdataID` = '$chanpinID'")->findall();
-		$this->ajaxReturn($orderall, '读取成功！', 1);
+		//返回	
+		$str = '
+			<table cellpadding="0" cellspacing="0" width="100%" class="list view">
+				<tr height="20">
+				  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单编号 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 联系人姓名  </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 电话 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮箱 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 儿童 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单时间 </div></th>
+				</tr>
+		';
+		$i = 0;
+		foreach($orderall as $v){$i++;
+			$str .= '
+			<tr class="evenListRowS1">
+			  <td>'.$i.'</td>
+			  <td>'.$v['orderID'].'</a></td>
+			  <td>'.$v['lxr_name'].'</td>
+			  <td>'.$v['lxr_telnum'].'</td>
+			  <td>'.$v['lxr_email'].'</td>
+			  <td>'.$v['chengrenshu'].'</td>
+			  <td>'.$v['ertongshu'].'</td>
+			  <td>'.date("Y-m-d H:i:s",$v['time']).'</td>
+			</tr>
+			';
+		}
+		$str .= '
+			<tr class="evenListRowS1">
+			  <td align="right" colspan="3">
+			  '.$page.'
+			  </td>
+			</tr>
+			</table>
+		';
+		$this->ajaxReturn($str, '', 1);
+		//$this->ajaxReturn($orderall, '读取成功！', 1);
     }
 	
 	

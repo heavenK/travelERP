@@ -89,13 +89,12 @@
           <th scope="col" nowrap="nowrap"><input type="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 团号 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%;"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px; width:20%;"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 修正值 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 名额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 计划人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 预订人数 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 剩余 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 网店状态 </div></th>
         </tr>
@@ -105,7 +104,7 @@
         </php>
       
       <tr height="40" class="evenListRowS1">
-        <td scope="row" align="left" valign="top"><input value="<{$v['chanpinID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
+        <td scope="row" align="left" valign="top" style=" background:#03F; float:left width:40"><input value="<{$v['chanpinID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
         <td scope="row" align="left" valign="top"><{$i+1}></td>
         <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>"><{$v['tuanhao']}></a></td>
         <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>"><{$v['title_copy']}></a></td>
@@ -113,8 +112,7 @@
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
         <td scope="row" align="left" valign="top"><{$v['adultxiuzheng']}>/<{$v['childxiuzheng']}></td>
         <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
-        <td scope="row" align="left" valign="top"><php> echo number_format($v['yudinglist']['renshu'])</php>[<a href="#" onclick="getyudinglist(<{$v['chanpinID']}>)" id="yudinglist_create">详细列表</a>]</td>
-        <td scope="row" align="left" valign="top"><{$v['shengyu_num']}></td>
+        <td scope="row" align="left" valign="top"><php> echo number_format($v['yudinglist']['renshu'])</php>[<a href="#" onclick="getyudinglist(<{$v['chanpinID']}>)">详细列表</a>]</td>
         <td scope="row" align="left" valign="top"><{$v['status']}></td>
         <td scope="row" align="left" valign="top"><{$v['status_shop']}></td>
       </tr>
@@ -215,11 +213,6 @@ function dosearch(str){
 
 
 <div id="dialog_yudinglist" title="预订列表" style="background:#FFF">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" id="yudinglist_content">567547547</td>
-        </tr>
-      </tbody>
 </div>
 
 
@@ -269,7 +262,7 @@ jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_yudinglist').dialog({
 		autoOpen: false,
-		width: 400,
+		width: 900,
 		buttons: {
 			"确认": function() {
 				jQuery(this).dialog("close");
@@ -373,13 +366,12 @@ function getyudinglist(chanpinID){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',getyudinglist_after);
 		}
 	});
+	jQuery('#dialog_yudinglist').dialog('open');
 }
 function getyudinglist_after(data,status){
-//	var msg;
-//	for(var i=0; i<data.length();i++){
-//		msg += data[i].id;
-//	}
-//	jQuery('#yudinglist_content').html(12321312); 
+	if(status == 1){
+		jQuery("#dialog_yudinglist").html(data);
+	}
 }
 
 </script> 
