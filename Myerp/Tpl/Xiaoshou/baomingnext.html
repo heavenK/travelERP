@@ -115,7 +115,7 @@ function save(){
           <td align="left" style="height: 32px"> 姓名： </td>
           <td align="left" style="height: 32px"> 类型： </td>
           <td align="left" style="height: 32px"> 性别： </td>
-          <td align="left" style="height: 32px"> 联系电话： </td>
+          <td align="left" style="height: 32px"> 手机： </td>
           <td align="left" style="height: 32px"> 证件类型： </td>
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 应付： </td>
@@ -133,7 +133,7 @@ function save(){
           <option value="女">女</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" warning="所有人员电话号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" check="^1[3458]\d{9}$" warning="所有人员电话号码不能为空,且必须为手机号"></td>
           <td align="left" style="height: 32px">
           <select name="zhengjiantype<{$i}>">
           <option value="身份证">身份证</option>
@@ -155,7 +155,7 @@ function save(){
           <td align="left" style="height: 32px"> 类型： </td>
           <td align="left" style="height: 32px"> 性别： </td>
           <td align="left" style="height: 32px"> 证件类型： </td>
-          <td align="left" style="height: 32px"> 联系电话： </td>
+          <td align="left" style="height: 32px"> 手机： </td>
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 生日： </td>
           <td align="left" style="height: 32px"> 户籍地： </td>
@@ -176,7 +176,7 @@ function save(){
           <option value="女">女</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" warning="所有人员电话号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" check="^1[3458]\d{9}$" warning="所有人员电话号码不能为空,且必须为手机号"></td>
           <td align="left" style="height: 32px">
           <select name="zhengjiantype<{$i}>">
           <option value="身份证">身份证</option>
