@@ -4531,8 +4531,8 @@ class MethodAction extends CommonAction{
 						break;
 					}
 				}
+				$unitdata = $unitdata_tem;
 			}
-			$unitdata = $unitdata_tem;
 		}
 		
 		//end人员统计
