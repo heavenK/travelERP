@@ -4370,10 +4370,12 @@ class MethodAction extends CommonAction{
 		}
 		$this->showDirectory("统计");
 		//搜索
-		if($_REQUEST['title'])
-			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
 		if($_REQUEST['listtype'] == '员工'){
 			$where['user_name'] = array('like','%'.$_REQUEST['title'].'%');
+		}
+		else{
+//			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
+			$bumen_where['title'] = array('like','%'.$_REQUEST['title'].'%');
 		}
 		$where['status_system'] = 1;
 		
@@ -4404,7 +4406,9 @@ class MethodAction extends CommonAction{
 		$role = $this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
 		$ComID = $this->_getComIDbyUser();
 		if($role){
-			$unitdata = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%'")->findall();
+			$bumen_where['parentID'] = $ComID;
+			$bumen_where['type'] = array('like','%组团%');
+			$unitdata = $ViewDepartment->where($bumen_where)->findall();
 		}
 		else{
 			$role = $this->_checkRolesByUser('经理','组团');
@@ -4415,7 +4419,8 @@ class MethodAction extends CommonAction{
 			}
 			$i = 0;
 			foreach($role as $v){
-				$unitdata[$i] = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+				$bumen_where['parentID'] = $v['bumenID'];
+				$unitdata[$i] = $ViewDepartment->where($bumen_where)->find();
 				$i++;
 			}
 			$unitdata = about_unique($unitdata);
@@ -4428,6 +4433,7 @@ class MethodAction extends CommonAction{
 			}
 			$unitdata = $newdata;
 		}
+		
 		//end
 		//总体统计。
 		$ViewZituan = D($ModelName);
@@ -4504,6 +4510,7 @@ class MethodAction extends CommonAction{
 		//分类处理
 		//人员统计
 		if($_REQUEST['listtype'] == '员工'){
+			
 			$this->assign("markpos",$_REQUEST['listtype']);
 			//用户列表
 			$ViewUser = D("ViewUser");
@@ -4520,14 +4527,15 @@ class MethodAction extends CommonAction{
 			//搜索用户
 			if($_REQUEST['title']){
 				foreach($unitdata as $tt){
-					if($tt['title'] == $_REQUEST['title']){
-						$unitdata = null;
-						$unitdata[0] = $tt;
+					if($tt['user_name'] == $_REQUEST['title']){
+						$unitdata_tem[0] = $tt;
 						break;
 					}
 				}
 			}
 		}
+		$unitdata = $unitdata_tem;
+		
 		//end人员统计
 		$i = 0;
 		foreach($unitdata as $v){
