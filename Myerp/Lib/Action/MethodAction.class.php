@@ -4428,8 +4428,10 @@ class MethodAction extends CommonAction{
 		//部门列表
 		if($_REQUEST["departmentID"]){
 			foreach($unitdata as $b){
-				if($b['systemID'] == $_REQUEST["departmentID"])
-				$newdata[0] = $b;
+				if($b['systemID'] == $_REQUEST["departmentID"]){
+					$newdata[0] = $b;
+					break;
+				}
 			}
 			$unitdata = $newdata;
 		}
