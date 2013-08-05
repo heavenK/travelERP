@@ -4510,7 +4510,6 @@ class MethodAction extends CommonAction{
 		//分类处理
 		//人员统计
 		if($_REQUEST['listtype'] == '员工'){
-			
 			$this->assign("markpos",$_REQUEST['listtype']);
 			//用户列表
 			$ViewUser = D("ViewUser");
@@ -4533,8 +4532,8 @@ class MethodAction extends CommonAction{
 					}
 				}
 			}
+			$unitdata = $unitdata_tem;
 		}
-		$unitdata = $unitdata_tem;
 		
 		//end人员统计
 		$i = 0;
