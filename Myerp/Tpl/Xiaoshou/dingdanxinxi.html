@@ -227,11 +227,11 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px">
 			<select name="tichengID" id="tichengID">
             	<php>if($dingdan['ticheng']['title']){</php>
-                <option value="<{$dingdan['ticheng']['systemID']}>"><{$dingdan['ticheng']['title']}>:<{$dingdan['ticheng']['description']}>%</option>
+                <option value="<{$dingdan['ticheng']['systemID']}>"><{$dingdan['ticheng']['title']}>:<{$dingdan['ticheng']['description']}></option>
                 <option disabled="disabled">---------------</option>
             	<php>}</php>
           		<php>foreach($ticheng as $tiv){</php>
-                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
+                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}></option>
                 <php>}</php>
 			</select>
             <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">

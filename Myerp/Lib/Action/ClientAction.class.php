@@ -130,7 +130,7 @@ class ClientAction extends Action{
 		$dingdan['dingdan']['telnum'] = $order['lxr_telnum'];
 		//$dingdan['dingdan']['lxr_email'] = $order['lxr_email'];
 		//数据填充
-		$dingdan['dingdan']['tichengID'] = '43428';
+		//$dingdan['dingdan']['tichengID'] = '43428';
 		$dingdan['dingdan']['lingdui_num'] = 0;
 		$dingdan['dingdan']['owner'] = '电商';
 		//$dingdan['dingdan']['fuzebumenID'] = '40174';

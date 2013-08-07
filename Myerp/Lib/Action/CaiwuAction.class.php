@@ -87,7 +87,8 @@ class CaiwuAction extends CommonAction{
 			$tongji['zongrenshu'] += $v['chengrenshu']+$v['ertongshu'];
 			//收客提成
 			$ticheng = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-			$tongji['ticheng'] += $v['jiage'] * (int)$ticheng['description'] / 100 ;
+			//$tongji['ticheng'] += $v['jiage'] * (int)$ticheng['description'] / 100 ;
+			$tongji['ticheng'] += $ticheng['description'] ;
 		}
 		//操作费
 		$tongji['caozuofei'] = $tongji['zongrenshu'] * 2 ;
@@ -164,7 +165,9 @@ class CaiwuAction extends CommonAction{
 					$vol['jixiaotype'] = '收客';
 					$ticheng = $ViewDataDictionary->where("`systemID` = '$vol[tichengID]'")->find();
 					$vol['ticheng'] = $ticheng;
-					$vol['shouke_price'] = $vol['jiage'] * (int)$ticheng['description'] / 100 ;
+//					$vol['shouke_price'] = $vol['jiage'] * (int)$ticheng['description'] / 100 ;
+					$vol['shouke_price'] = $ticheng['description'] ;
+					
 					$unitdata[$i]['dingdan_shouke'][$n] = $vol;
 					$unitdata[$i]['shouke_shu'] += $vol['chengrenshu']+$vol['ertongshu'];
 					$unitdata[$i]['shouke_chengren'] += $vol['chengrenshu'];
@@ -234,7 +237,7 @@ class CaiwuAction extends CommonAction{
 					  <td>'.$v['type'].'</td>
 					  <td>'.$v['chengrenshu'].'/'.$v['ertongshu'].'/'.$v['lingdui_num'].'</td>
 					  <td>'.$v['jiage'].'</td>
-					  <td>'.$v['ticheng']['title'].'/'.$v['ticheng']['description'].'%</td>
+					  <td>'.$v['ticheng']['title'].'/'.$v['ticheng']['description'].'</td>
 					  <td>'.$v['shouke_price'].'</td>
 					</tr>
 					';
