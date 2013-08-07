@@ -140,6 +140,8 @@ function ajaxalert(title){
       <input type="hidden" name="parentID" value="<{$chanpinID}>" />
       <input type="hidden" name="shoujiaID" value="-1" />
       <input type="hidden" name="backdoor" value="1" />
+      <input type="hidden" name="guojing_copy" value="<{$zituan['guojing_copy']}>" />
+      
       <table width="100%" class="tb1" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
@@ -159,25 +161,7 @@ function ajaxalert(title){
           <tr>
             <td align="left" style="height: 27px;"> 剩余名额：</td>
             <td style="height: 27px; width: 288px;"><php>echo $shengyurenshu</php></td>
-            <td align="left" style="height: 27px; width: 156px;">收客人及所属部门：</td>
-            <td align="left" style="height: 32px">
-            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
-              <select name="departmentID">
-              <php>foreach($bumenfeilei as $v){</php>
-                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-              <php>}</php>
-              </select>
-                （绩效奖金）
-            </td>
-          </tr>
-        <tr>
-          <td align="left" style="height: 32px"> 提成类型：</td>
-          <td align="left" style="height: 32px"><select name="tichengID" id="tichengID">
-          		<php>foreach($ticheng as $tiv){</php>
-                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
-                <php>}</php>
-            </select>（提成依据）</td>
-          <td align="left" style="height: 32px"> 订单类型：</td>
+            <td align="left" style="height: 32px"> 订单类型：</td>
           <td align="left" style="height: 32px"><select name="type" id="type">
               <php>if($type){</php>
               <option value="<php>echo $shoujia['type']</php>"><php>echo $shoujia['type']</php></option>
@@ -186,6 +170,21 @@ function ajaxalert(title){
               <option value="标准">标准</option>
               <option value="机票酒店">机票酒店</option>
             </select></td>
+          </tr>
+        <tr>
+            <td align="left" style="height: 27px; width: 156px;">收客人：</td>
+            <td align="left" style="height: 32px">
+            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
+            </td>
+            <td align="left" style="height: 27px; width: 156px;">所属部门：</td>
+            <td align="left" style="height: 32px">
+              <select name="departmentID">
+              <php>foreach($bumenfeilei as $v){</php>
+                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+              <php>}</php>
+              </select>
+                （绩效奖金）
+            </td>
         </tr>
         <tr>
           <td align="left" style="height: 32px"> 联系人：</td>

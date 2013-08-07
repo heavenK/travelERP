@@ -149,40 +149,6 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['tuanhao']}></td>
           <td align="left" style="height: 32px; min-width:80px; width:10%"> 出团日期：</td>
           <td align="left" style="height: 32px; min-width:80px; width:20%"><{$dingdan['zituanlist']['chutuanriqi']}></td>
-          <td align="left" style="height: 32px; min-width:80px; width:10%"> 负责人(操作费)：</td>
-          <td align="left" style="height: 32px; min-width:80px; width:20%">
-            <input type="text" name="fuzeren" id="fuzeren" style="width:80px;" value="<{$dingdan['fuzeren']}>" check="^\S+$" warning="负责人不能为空,且不能含有空格">
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
-          </td>
-        </tr>
-        <tr>
-          <td align="left" style="height: 32px;">收客人及部门（提成）：</td>
-          <td align="left" style="height: 32px">
-            <input type="text" name="owner" id="owner" style="width:50px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
-              <select name="departmentID">
-              <php>if($dingdan['bumen_copy']){</php>
-                <option value="<{$dingdan['departmentID']}>"><{$dingdan['bumen_copy']}></option>
-                <option disabled="disabled">-----------</option>
-              <php>}</php>
-              <php>foreach($bumenfeilei as $v){</php>
-                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-              <php>}</php>
-              </select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
-          </td>
-          <td align="left" style="height: 32px"> 提成类型：</td>
-          <td align="left" style="height: 32px">
-			<select name="tichengID" id="tichengID">
-            	<php>if($dingdan['ticheng']['title']){</php>
-                <option value="<{$dingdan['ticheng']['systemID']}>"><{$dingdan['ticheng']['title']}>:<{$dingdan['ticheng']['description']}>%</option>
-                <option disabled="disabled">---------------</option>
-            	<php>}</php>
-          		<php>foreach($ticheng as $tiv){</php>
-                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
-                <php>}</php>
-			</select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
-          </td>
           <td align="left" style="height: 32px"> 订单类型：</td>
           <td align="left" style="height: 32px"><{$dingdan['type']}></td>
         </tr>
@@ -233,9 +199,70 @@ function quxiao_after(data,status){
         </tr>
       </tbody>
     </table>
+    <br />
+    <table width="100%" class="tb1 renyuanxinxi" cellpadding="0" cellspacing="0" >
+      <tbody>
+        <tr>
+          <td colspan="20" height="32" align="left" >
+          <h4 style="float:left"><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 审核信息 </h4> 
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="left" style="height: 32px;">收客人及部门（提成）：</td>
+          <td align="left" style="height: 32px">
+            <input type="text" name="owner" id="owner" style="width:50px;" value="<{$dingdan['owner']}>" check="^\S+$" warning="所有人员姓名不能为空,且不能含有空格">
+              <select name="departmentID">
+              <php>if($dingdan['bumen_copy']){</php>
+                <option value="<{$dingdan['departmentID']}>"><{$dingdan['bumen_copy']}></option>
+                <option disabled="disabled">-----------</option>
+              <php>}</php>
+              <php>foreach($bumenfeilei as $v){</php>
+                <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+              <php>}</php>
+              </select>
+            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+          </td>
+          <td align="left" style="height: 32px"> 提成：</td>
+          <td align="left" style="height: 32px">
+			<select name="tichengID" id="tichengID">
+            	<php>if($dingdan['ticheng']['title']){</php>
+                <option value="<{$dingdan['ticheng']['systemID']}>"><{$dingdan['ticheng']['title']}>:<{$dingdan['ticheng']['description']}>%</option>
+                <option disabled="disabled">---------------</option>
+            	<php>}</php>
+          		<php>foreach($ticheng as $tiv){</php>
+                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
+                <php>}</php>
+			</select>
+            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="left" style="height: 32px; min-width:80px;"> 负责人(操作费)：</td>
+          <td align="left" style="height: 32px; min-width:80px;">
+            <input type="text" name="fuzeren" id="fuzeren" style="width:80px;" value="<{$dingdan['fuzeren']}>" check="^\S+$" warning="负责人不能为空,且不能含有空格">
+            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+          </td>
+          <td align="left" style="height: 32px"> 操作费：</td>
+          <td align="left" style="height: 32px">
+			<select name="caozuofeiID" id="caozuofeiID" style="width:90px;">
+            	<php>if($dingdan['caozuofei']['title']){</php>
+                <option value="<{$dingdan['caozuofei']['caozuofeiID']}>"><{$dingdan['caozuofei']['description']}></option>
+                <option disabled="disabled">---------------</option>
+            	<php>}</php>
+          		<php>foreach($caozuofei as $czv){</php>
+                <option value="<{$czv['systemID']}>"><{$czv['description']}></option>
+                <php>}</php>
+			</select>
+            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
   </form>
-    
-    
+	<br />
   <form name="form1" method="post" id="form1" >
       <input type="hidden" name="tuanyuanmark" value="1" />
       <input type="hidden" name="dingdanID" value="<{$chanpinID}>" />

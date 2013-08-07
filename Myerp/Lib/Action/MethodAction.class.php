@@ -4331,7 +4331,7 @@ class MethodAction extends CommonAction{
 			$dataOMlist = $this->_getmyOMlist($username);
 			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
-			if($data['status'] == '确认' && $data['type'] != '签证')
+			if($data['type'] == '子团')
 				$this->createCustomer_new($data,$chanpinID);
 			if($data['user_mame'] == '电商' || $data['dingdan']['owner'] == '电商'){
 				//生成提醒消息
@@ -4342,8 +4342,11 @@ class MethodAction extends CommonAction{
 			}
 			return $data;
 		}
-		else
+		else{
+			dump($Chanpin);
 			return false;
+			
+		}
 	}
 	
 	

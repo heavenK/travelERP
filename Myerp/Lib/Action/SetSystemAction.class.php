@@ -70,8 +70,6 @@ class SetSystemAction extends CommonAction{
 			}
 			//指定销售处理
 			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
-			//信息公告处理
-//			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -558,6 +556,10 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == '提成'){
 			A("Method")->showDirectory("提成");
+			$this->display('SetSystem:templatelist');
+		}
+		elseif($where['type'] == '操作费'){
+			A("Method")->showDirectory("操作费");
 			$this->display('SetSystem:templatelist');
 		}
 		elseif($where['type'] == 'FAQ'){

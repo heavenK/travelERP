@@ -332,11 +332,9 @@ class XiaoshouAction extends Action{
 		//ajax测试
 		if($_REQUEST['ajaxtest'] == 1)
 			$this->ajaxReturn($_REQUEST,'成功！', 1);
-			
-		if($chanpintype == '子团' && $_REQUEST['status'] == '确认'){	
+		if($chanpintype == '子团'){	
 			  unset($_REQUEST['__hash__']);
 			  $renshu = $_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];
-			  $_REQUEST['parentID'] = $_REQUEST['parentID'];
 			  $this->assign("renshu",$renshu);
 			  $this->assign("_REQUEST",$_REQUEST);
 			  //tuanyuan
@@ -357,11 +355,20 @@ class XiaoshouAction extends Action{
 			  $bumen = $ViewDepartment->where("`systemID` = '$_REQUEST[departmentID]' and `status_system` = '1'")->find();
 			  $this->assign("bumen",$bumen);
 			  $this->assign("tuanyuan",$tuanyuan);
+			  //团
+			  $ViewZituan = D("ViewZituan");
+			  $zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[parentID]' and `status_system` = '1'")->find();
+			  $this->assign("zituan",$zituan);
+				//计算子团人数
+				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID']);
+				$baomingrenshu = $tuanrenshu['baomingrenshu'];
+				$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+				$this->assign("shengyurenshu",$shengyurenshu);
+			  
 			  $this->display('baomingnext');
 		}
 		else{
 			if($chanpintype == '子团' && $_REQUEST['status'] == '占位'){	
-				  //生成订单
 				  $Chanpin = D("Chanpin");
 				  $data = $_REQUEST;
 				  $data['parentID'] = $data['parentID'];
@@ -378,7 +385,6 @@ class XiaoshouAction extends Action{
 				  $data['dingdan']['jiage'] = $_REQUEST['chengrenshu']*$_REQUEST['adultprice']+$_REQUEST['ertongshu']*$_REQUEST['childprice'];
 				  $data['dingdan']['bumen_copy'] = cookie('_usedbumen');
 			}
-			
 			if($dingdan = A("Method")->_dingdansave_process($data,$this->user['title'])){
 				redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdan['chanpinID']);
 			}
@@ -495,9 +501,10 @@ class XiaoshouAction extends Action{
 		$ViewShoujia = D("ViewShoujia");
 		$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
 		$this->assign("shoujia",$shoujia);
-		//ticheng
+		//提成操作费
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$dingdan['ticheng'] = $ViewDataDictionary->where("`systemID` = '$dingdan[tichengID]'")->find();
+		$dingdan['caozuofei'] = $ViewDataDictionary->where("`systemID` = '$dingdan[caozuofeiID]'")->find();
 		$this->assign("dingdan",$dingdan);
 		if($dingdan['type'] != '签证' ){
 			//tuanyuan
@@ -532,9 +539,11 @@ class XiaoshouAction extends Action{
 			$this->assign("tuanyuan",$tuanyuan);
 		}
 
-		//提成数据
+		//提成数据操作费
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();
 		$this->assign("ticheng",$ticheng);
+		$caozuofei = $ViewDataDictionary->where("`type` = '操作费' AND `status_system` = '1'")->findall();
+		$this->assign("caozuofei",$caozuofei);
 		//用户列表
 		$userlist = A("Method")->_getCompanyUserList();
 		$this->assign("userlist",$userlist);
@@ -600,6 +609,7 @@ class XiaoshouAction extends Action{
 		$dat['dingdan']['lianxiren'] = $_REQUEST['lianxiren'];
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
 		$dat['dingdan']['tichengID'] = $_REQUEST['tichengID'];
+		$dat['dingdan']['caozuofeiID'] = $_REQUEST['caozuofeiID'];
 		//电商不许修改
 		if(!$dat['dingdan']['orderID']){
 			$dat['dingdan']['owner'] = $_REQUEST['owner'];

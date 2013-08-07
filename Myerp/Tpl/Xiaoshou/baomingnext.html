@@ -59,13 +59,13 @@ function save(){
           <td align="left" style="height: 32px"> 出团日期：</td>
           <td align="left" style="height: 32px"><{$zituan['chutuanriqi']}></td>
           <td align="left" style="height: 32px;"> 剩余名额：</td>
-          <td align="left" style="height: 32px; "><span id="lbSyno"><{$shengyu}></span></td>
+          <td align="left" style="height: 32px; "><span id="lbSyno"><{$shengyurenshu}></span></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">收客人及所属部门：</td>
-          <td align="left" style="height: 32px"><php>echo $_REQUEST['owner']</php>/<php>echo $bumen['title']</php></td>
-          <td align="left" style="height: 32px"> 可选大客户：</td>
-          <td align="left" style="height: 32px"><php>echo $_REQUEST['bigmanID']</php></td>
+          <td align="left" style="height: 32px;">收客人：</td>
+          <td align="left" style="height: 32px"><php>echo $_REQUEST['owner']</php></td>
+          <td align="left" style="height: 32px;">所属部门：</td>
+          <td align="left" style="height: 32px"><php>echo $bumen['title']</php></td>
           <td align="left" style="height: 32px"> 订单类型：</td>
           <td align="left" style="height: 32px"><php>echo $_REQUEST['type']</php></td>
         </tr>
