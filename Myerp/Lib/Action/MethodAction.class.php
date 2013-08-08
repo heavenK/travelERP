@@ -59,6 +59,12 @@ class MethodAction extends CommonAction{
 		if($datatype == '订单'){
 			$class_name = 'OMViewDingdan';
 			$where['datatype'] = $datatype;
+			if($where['tuanqi_copy']){
+				if($where['title'])
+					$where['title'] = array(array('like',$where['title']),array('like',$where['tuanqi_copy']));
+				else
+					$where['title'] = $where['tuanqi_copy'];
+			}
 			$where = $this->_orderDingdan($where,$datatype);
 		}
 		if($datatype == '子团'){
@@ -144,6 +150,7 @@ class MethodAction extends CommonAction{
 		//关键字高亮
 		return $this->_keyStar($redata,$_REQUEST);
 	}
+	
 	
 	//关键字高亮
     public function _keyStar($redata,$_REQUEST) {
@@ -1317,10 +1324,8 @@ class MethodAction extends CommonAction{
 			$tmdt = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 		}
 		$data['taskShenhe']['title_copy'] = $tmdt['title'];
-		//搜索字段填充
-		if($data['datatype'] == '报账单' || $data['datatype'] == '报账项'){
-			//$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
-		}
+		//任务搜索字段填充
+		$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$data);
 		//审核任务
 		$System = D("System");
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
@@ -1361,6 +1366,7 @@ class MethodAction extends CommonAction{
 			unset($data['systemID']);
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
+			
 			$userIDlist = $this->_djcCreate($data,$process);
 		}
 		else{
@@ -1381,6 +1387,7 @@ class MethodAction extends CommonAction{
 		$data =  $DataShenhe->where("`datatype` = '$datatype'")->findall();
 		return $data;
 	 }
+	
 	
 	//获得产品OM
      public function _getOM($dataID,$datatype,$type) {
@@ -3030,15 +3037,6 @@ class MethodAction extends CommonAction{
 			$Chanpin = D("Chanpin");
 			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
 			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
-			
-			if($_REQUEST['datatype'] == '报账项' || $_REQUEST['datatype'] == '报账单'){
-				//任务搜索字段填充
-				$djc = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
-				$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$djc);
-				$System = D("System");
-				$System->relation("taskShenhe")->myRcreate($data);
-			}
-			
 			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
 		else
@@ -3464,13 +3462,6 @@ class MethodAction extends CommonAction{
 		}elseif($_REQUEST['type'] == '订单') {
 			$relation = 'dingdan';
 			$this->assign("markpos",'订单');
-			//ticheng
-			$i = 0;
-			$ViewDataDictionary = D("ViewDataDictionary");
-			foreach($datalist['chanpin'] as $v){
-				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-				$i++;
-			}
 		}
 		else{
 			if($showtype == '地接' || $_REQUEST['type'] == '地接产品'){
@@ -3488,6 +3479,18 @@ class MethodAction extends CommonAction{
 		}
 		
 		$datalist = $this->getDataOMlist('审核任务',$relation,$_REQUEST);
+		
+		if($_REQUEST['type'] == '订单') {
+			//提成操作费
+			$i = 0;
+			$ViewDataDictionary = D("ViewDataDictionary");
+			foreach($datalist['chanpin'] as $v){
+				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+				$datalist['chanpin'][$i]['caozuofei'] = $ViewDataDictionary->where("`systemID` = '$v[caozuofeiID]'")->find();
+				$i++;
+			}
+		}
+		
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		return $datalist;
@@ -3864,40 +3867,49 @@ class MethodAction extends CommonAction{
     public function _gettaskshenheinfo($dataID,$datatype,$data) {
 		$ViewBaozhang = D("ViewBaozhang");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$ViewDingdan = D("ViewDingdan");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
-			if($datatype == '报账项'){
-				$cp = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['datatext_copy'] = serialize($cp);
-				$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
-				$zituanID = $cp['baozhanglist']['parentID'];
-			}
-			if($datatype == '报账单'){
-				$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['datatext_copy'] = serialize($cp);
-				$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-				$zituanID = $cp['parentID'];
-			}
-			//获得团
-			$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
-			if($cp['marktype'] == 'zituan'){
-				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-				$data['taskShenhe']['tuantitle_copy'] = $zituan['title_copy'];
-				$data['taskShenhe']['tuanqi_copy'] = $zituan['chutuanriqi'];
-				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
-					
-			}
-			if($cp['marktype'] == 'DJtuan'){
-				$djtuan = $ViewDJtuan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-				$data['taskShenhe']['tuantitle_copy'] = $djtuan['title'];
-				$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
-				$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
-			}
+		if($datatype == '报账项'){
+			$cp = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
+			$zituanID = $cp['baozhanglist']['parentID'];
+		}
+		elseif($datatype == '报账单'){
+			$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+			$zituanID = $cp['parentID'];
+		}
+		elseif($datatype == '订单'){
+			$cp = $ViewDingdan->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+			$zituanID = $cp['parentID'];
+		}
+		else
 			return $data;
+		//获得团
+		$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
+		if($cp['marktype'] == 'zituan'){
+			$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
+			$data['taskShenhe']['tuantitle_copy'] = $zituan['title_copy'];
+			$data['taskShenhe']['tuanqi_copy'] = $zituan['chutuanriqi'];
+			$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
+				
+		}
+		if($cp['marktype'] == 'DJtuan'){
+			$djtuan = $ViewDJtuan->where("`chanpinID` = '$cp[chanpinID]'")->find();
+			$data['taskShenhe']['tuantitle_copy'] = $djtuan['title'];
+			$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
+			$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
+		}
+		return $data;
 	}
 	
 	//获得用户信息

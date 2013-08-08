@@ -8,6 +8,13 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function shenhe() {
+		if($_REQUEST['type'] == '收支项')
+			A("Method")->showDirectory("收支项审核");
+		if($_REQUEST['type'] == '报账单')
+			A("Method")->showDirectory("报账单审核");
+		if($_REQUEST['type'] == '订单'){
+			A("Method")->showDirectory("订单审核");
+		}
 		if(!$_REQUEST['datakind']){
 			$this->assign("datakind",'全部');
 		}
@@ -15,7 +22,6 @@ class CaiwuAction extends CommonAction{
 		$i = 0;
 		$ViewBaozhang = D("ViewBaozhang");
 		foreach($datalist['chanpin'] as $v){
-			
 			//项目信息
 			$datalist['chanpin'][$i]['datatext_copy'] = $dat = simple_unserialize($v['datatext_copy']);
 			$bzd = $ViewBaozhang->where("`chanpinID` = '$dat[chanpinID]'")->find();
@@ -31,12 +37,6 @@ class CaiwuAction extends CommonAction{
 			}
 			$i++;
 		}
-		if($_REQUEST['type'] == '收支项')
-		A("Method")->showDirectory("收支项审核");
-		if($_REQUEST['type'] == '报账单')
-		A("Method")->showDirectory("报账单审核");
-		if($_REQUEST['type'] == '订单')
-		A("Method")->showDirectory("订单审核");
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->display('shenhe');
 	}
@@ -81,19 +81,21 @@ class CaiwuAction extends CommonAction{
 		$where['companyID'] = $ComID;
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
+		$tem_d = 0;
 		foreach($dingdanall as $v){
 			$tongji['chengrenshu'] += $v['chengrenshu'];
 			$tongji['ertongshu'] += $v['ertongshu'];
 			$tongji['zongrenshu'] += $v['chengrenshu']+$v['ertongshu'];
-			//收客提成
+			//收客提成操作费
 			$ticheng = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-			//$tongji['ticheng'] += $v['jiage'] * (int)$ticheng['description'] / 100 ;
-			$tongji['ticheng'] += $ticheng['description'] ;
+			$caozuofei = $ViewDataDictionary->where("`systemID` = '$v[caozuofeiID]'")->find();
+			$tongji['ticheng'] += (int)$ticheng['description'] ;
+			$tongji['caozuofei'] += (int)$caozuofei['description'] ;
+			$dingdanall[$tem_d]['ticheng'] = $ticheng;
+			$dingdanall[$tem_d]['caozuofei'] = $caozuofei;
+			$tem_d ++;
 		}
-		//操作费
-		$tongji['caozuofei'] = $tongji['zongrenshu'] * 2 ;
 		$this->assign("tongji",$tongji);
-		
 		//用户列表
 		if($_REQUEST["title"])
 		$where_unit['title'] = $_REQUEST["title"];
@@ -141,7 +143,7 @@ class CaiwuAction extends CommonAction{
 				//操作数
 				if($ok_caozuo){
 					$vol['jixiaotype'] = '操作';
-					$vol['caozuo_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * 2;
+					$vol['caozuo_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * (int)$vol['caozuofei']['description'];
 					$unitdata[$i]['dingdan_caozuo'][$m] = $vol;
 					$unitdata[$i]['caozuo_shu'] += $vol['chengrenshu']+$vol['ertongshu'];
 					$unitdata[$i]['caozuo_chengren'] += $vol['chengrenshu'];
@@ -163,22 +165,13 @@ class CaiwuAction extends CommonAction{
 					$vol['jixiaotype'] .= '/收客';
 					else
 					$vol['jixiaotype'] = '收客';
-					$ticheng = $ViewDataDictionary->where("`systemID` = '$vol[tichengID]'")->find();
-					$vol['ticheng'] = $ticheng;
-//					$vol['shouke_price'] = $vol['jiage'] * (int)$ticheng['description'] / 100 ;
-					$vol['shouke_price'] = $ticheng['description'] ;
 					
+					$vol['shouke_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * (int)$vol['ticheng']['description'];
 					$unitdata[$i]['dingdan_shouke'][$n] = $vol;
 					$unitdata[$i]['shouke_shu'] += $vol['chengrenshu']+$vol['ertongshu'];
 					$unitdata[$i]['shouke_chengren'] += $vol['chengrenshu'];
 					$unitdata[$i]['shouke_ertong'] += $vol['ertongshu'];
 					$unitdata[$i]['shouke_price'] += $vol['shouke_price'];
-					if($vol['title'] == '直客'){
-						$unitdata[$i]['zhike_num'] += $vol['chengrenshu']+$vol['ertongshu'];
-					}
-					if($vol['title'] == '散客'){
-						$unitdata[$i]['sanke_num'] += $vol['chengrenshu']+$vol['ertongshu'];
-					}
 					$n++;
 				}
 				if($ok_shouke || $ok_caozuo){

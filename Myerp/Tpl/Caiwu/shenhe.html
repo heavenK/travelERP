@@ -150,10 +150,10 @@
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 团名/日期 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 编号 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 审核阶段 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人数/儿童/领队 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:140px;"><div> 收客人/部门 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 状态 </div></th>
@@ -165,10 +165,10 @@
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/chanpinID/<{$v['chanpinID']}>" target="_blank"><{$v['title']}></a></td>
-                  <td scope="row" align="left" valign="top"><{$v['chanpinID']}></td>
                   <td scope="row" align="left" valign="top"><{$v['shenhe_remark']}></td>
                   <td scope="row" align="left" valign="top"><{$v['chengrenshu']}>/<{$v['ertongshu']}>/<{$v['lingdui_num']}></td>
                   <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>:<{$v['ticheng']['description']}></td>
+                  <td scope="row" align="left" valign="top"><{$v['caozuofei']['description']}></td>
                   <td scope="row" align="left" valign="top"><{$v['owner']}>/<{$v['bumen_copy']}></td>
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><{$v['status']}></td>
