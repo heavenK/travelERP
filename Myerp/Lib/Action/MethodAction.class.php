@@ -4343,8 +4343,14 @@ class MethodAction extends CommonAction{
 			$dataOMlist = $this->_getmyOMlist($username);
 			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
-			if($data['type'] == '子团')
-				$this->createCustomer_new($data,$chanpinID);
+			if($data['type'] == '子团'){
+				if($this->createCustomer_new($data,$chanpinID))
+					$Chanpin->commit();
+				else{
+					$Chanpin->rollback();
+					return false;
+				}
+			}
 			if($data['user_mame'] == '电商' || $data['dingdan']['owner'] == '电商'){
 				//生成提醒消息
 				$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
@@ -4355,9 +4361,7 @@ class MethodAction extends CommonAction{
 			return $data;
 		}
 		else{
-			dump($Chanpin);
 			return false;
-			
 		}
 	}
 	

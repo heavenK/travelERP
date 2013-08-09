@@ -141,8 +141,8 @@ function save(){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text"></td>
-          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" ></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$"></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>"  ></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
         </tr>
         <php>}</php>
