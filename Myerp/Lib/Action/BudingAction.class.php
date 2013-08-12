@@ -788,6 +788,7 @@ class BudingAction extends Action{
 	
 	//审核任务根据产品重置
     public function taskshenhelistreset() {
+		exit;
 		if(!$_REQUEST['page']){
 			dump('无page参数');
 			exit;

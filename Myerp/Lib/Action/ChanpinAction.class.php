@@ -198,57 +198,6 @@ class ChanpinAction extends CommonAction{
 		$this->display('zituan');
 	}
 	
-/*	
-	public function deletezituan()
-	{
-		C('TOKEN_ON',false);
-//		$this->ajaxReturn('', '功能未开启', 0);
-		$chanpinID = $_REQUEST['chanpinID'];
-		$parentID = $_REQUEST['parentID'];
-		//检查dataOM
-		$xianlu = A('Method')->_checkDataOM($parentID,'线路');
-		if(false === $xianlu){
-			$this->display('Index:error');
-			exit;
-		}
-		$Chanpin = D("Chanpin");
-		$Chanpin->startTrans();
-		$ViewZituan = D("ViewZituan");
-		$ViewBaozhang = D("ViewBaozhang");
-		$chanp = $ViewZituan->where("`chanpinID` = '$chanpinID'")->find();
-		if($chanp['status_baozhang'] == '批准'){
-			$Chanpin->rollback();
-			$this->ajaxReturn($_REQUEST,'该团已经报账，不能删除！！！', 0);
-		}
-		else{
-			$bzd = $ViewBaozhang->relation("baozhangitemlist")->where("`parentID` = '$chanpinID'")->find();
-			foreach($bzd['baozhangitemlist'] as $vol){
-				if($vol['status_shenhe'] == '批准'){
-					$Chanpin->rollback();
-					$this->ajaxReturn($_REQUEST,'该团已经开始报账，报账项目已审核，不能删除！！！', 0);
-				}
-			}
-		}
-		//保存
-		$dat['chanpinID'] = $chanpinID;
-		$dat['status_system'] = -1;
-		if (false !== $Chanpin->save($dat)){
-//			if(A("Method")->shengchengzituan_2($parentID)){
-				$Chanpin->commit();
-				
-				//相应审核任务
-				A("Method")->_taskshenhe_delete($chanpinID,'子团');
-				
-				$this->ajaxReturn('', '删除成功！', 1);
-//			}
-		}
-		else{
-			$Chanpin->rollback();
-			$this->ajaxReturn('', $Chanpin->getError(), 0);
-		}
-	}
-	
-*/	
 
 	public function xingcheng()
 	{

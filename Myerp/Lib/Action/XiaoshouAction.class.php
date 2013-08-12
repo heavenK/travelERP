@@ -685,6 +685,8 @@ class XiaoshouAction extends Action{
 //			$this->ajaxReturn($_REQUEST, '失败，该订单已经锁定，请审核回退后重试', 0);
 		$dat['status_system'] = -1;
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat)){
+			//相应审核任务
+			A('Method')->_taskshenhe_delete($_REQUEST['dingdanID'],'订单');
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else

@@ -851,7 +851,7 @@ class MethodAction extends CommonAction{
 			$this->assign("categoryAll",$datas1);
 		}
 		else{
-			$category = A('Method')->getDataOMlistSystem("分类",'category','');
+			$category = $this->getDataOMlistSystem("分类",'category','');
 			$this->assign("categoryAll",$category['chanpin']);
 		}
 		//部门
@@ -2376,7 +2376,7 @@ class MethodAction extends CommonAction{
 			$ViewRoles = D("ViewRoles");
 			$roleinfo = $ViewRoles->where("`title` = '$role'")->find();
 		}
-		$datas = A('Method')->_getDepartmentList($where);
+		$datas = $this->_getDepartmentList($where);
 		$i = 0;
 		foreach($datas as $v){
 			if($v['parentID'] == $companyID){
@@ -3543,7 +3543,7 @@ class MethodAction extends CommonAction{
 			$category = $ViewCategory->where("`systemID` = '$systemID'")->find();
 			$where['companyID'] = $category['parentID'];
 		}
-		$datas = A('Method')->_getDepartmentList($where);
+		$datas = $this->_getDepartmentList($where);
 		$this->assign("departmentAll",$datas);
 		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
 		$datas2['category'] = $System->relationGet("category");
@@ -3567,7 +3567,7 @@ class MethodAction extends CommonAction{
 		$Chanpin->startTrans();
 		foreach($itemlist as $v){
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
@@ -3691,7 +3691,7 @@ class MethodAction extends CommonAction{
 			$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
 			$_REQUEST['status_baozhang'] = '未审核';
 		}
-		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
+		$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
 		$ViewDingdan = D("ViewDingdan");
 		$ViewBaozhang = D("ViewBaozhang");
 		$DataCD = D("DataCD");
@@ -3753,7 +3753,7 @@ class MethodAction extends CommonAction{
 			$i++;
 		}
 		if($dotype == '补订订单'){
-			$datalist = A('Method')->data_list_noOM('ViewZituan',$_REQUEST);
+			$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
 		}
 		
 		$this->assign("page",$datalist['page']);
@@ -3785,7 +3785,7 @@ class MethodAction extends CommonAction{
 		if($chanpintype == '线路'){
 			if($roletype == '计调'){
 				//检查dataOM
-				$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
+				$xiaoshou = $this->_checkDataOM($chanpinID,'子团','管理');
 				if(false === $xiaoshou){
 					$this->display('Index:error');
 					exit;
@@ -3814,7 +3814,7 @@ class MethodAction extends CommonAction{
 			if($roletype == '计调'){
 				$chanpinID = $_REQUEST['chanpinID'];
 				//检查dataOM
-				$xiaoshou = A('Method')->_checkDataOM($chanpinID,'签证','管理');
+				$xiaoshou = $this->_checkDataOM($chanpinID,'签证','管理');
 				if(false === $xiaoshou){
 					$this->display('Index:error');
 					exit;
@@ -3839,7 +3839,7 @@ class MethodAction extends CommonAction{
 			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 			$this->assign("shengyurenshu",$shengyurenshu);
 			//清空占位过期订单
-			A('Method')->_cleardingdan();
+			$this->_cleardingdan();
 		}
 		$this->assign("chanpin",$chanpin);
 		//提成数据
@@ -3937,7 +3937,7 @@ class MethodAction extends CommonAction{
 		$Chanpin->startTrans();
 		foreach($itemlist as $v){
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
@@ -4062,7 +4062,7 @@ class MethodAction extends CommonAction{
 			$chanp = $Chanpin->where("`chanpinID` = '$v'")->find();
 			
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
