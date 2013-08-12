@@ -2817,6 +2817,8 @@ class MethodAction extends CommonAction{
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($_REQUEST['chanpinID'],'报账单');
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
@@ -3163,6 +3165,8 @@ class MethodAction extends CommonAction{
 			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 			$message = '报账项'.$item['shenhe_remark'];
 			$this->_setMessageHistory($item['chanpinID'],'报账项',$message,$url);
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($_REQUEST['chanpinID'],'报账项');
 		}
 		else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
@@ -3444,7 +3448,6 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	
 	public function _shenhe($showtype = '') {
 		
 		if($_REQUEST['type'] == '团队收支项'){
@@ -3490,7 +3493,6 @@ class MethodAction extends CommonAction{
 				$i++;
 			}
 		}
-		
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		return $datalist;
@@ -3982,6 +3984,9 @@ class MethodAction extends CommonAction{
 			}
 			
 			$Chanpin->commit();
+			
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
 		}
 		$this->ajaxReturn($_REQUEST,'操作成功！', 1);
 	
@@ -4737,6 +4742,25 @@ class MethodAction extends CommonAction{
 			$xianlu = $Chanpin->save($xianlu);
 		}
 	}
+	
+	
+	
+	//线路状态更新
+	public function _taskshenhe_delete($dataID,$datatype){
+		$System = D("System");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
+		foreach($taskall as $v){
+			$d['systemID'] = $v['systemID'];
+			$d['status_system'] = -1;
+			$System->save($d);
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 	

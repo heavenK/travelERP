@@ -786,6 +786,50 @@ class BudingAction extends Action{
 	
 	
 	
+	//审核任务根据产品重置
+    public function taskshenhelistreset() {
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$System = D("System");
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*800;
+		$all = $Chanpin->where("`marktype` = 'xianlu' or `marktype` = 'zituan' or `marktype` = 'DJtuan' or `marktype` = 'baozhang' or `marktype` = 'baozhangitem'")->limit("$num,800")->findall();
+		if(count($all)==0){
+			exit;
+		}
+		foreach($all as $v){
+			if($v['status_system'] == -1){
+			dump("正在执行".$_REQUEST['page'].'页'.$v['chanpinID'].'<br>');
+				
+				if($v['marktype'] == 'xianlu')
+					$datatype = '线路';
+				if($v['marktype'] == 'zituan')
+					$datatype = '子团';
+				if($v['marktype'] == 'DJtuan')
+					$datatype = '地接';
+				if($v['marktype'] == 'baozhang')
+					$datatype = '报账单';
+				if($v['marktype'] == 'baozhangitem')
+					$datatype = '报账项';
+				//相应审核任务
+				A("Method")->_taskshenhe_delete($v['chanpinID'],$datatype);
+			}
+			
+		}
+		$url = SITE_INDEX."Buding/taskshenhelistreset/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+    }
+	
+	
+	
+	
 	
 	
 	

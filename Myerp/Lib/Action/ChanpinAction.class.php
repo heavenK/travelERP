@@ -198,7 +198,7 @@ class ChanpinAction extends CommonAction{
 		$this->display('zituan');
 	}
 	
-	
+/*	
 	public function deletezituan()
 	{
 		C('TOKEN_ON',false);
@@ -235,6 +235,10 @@ class ChanpinAction extends CommonAction{
 		if (false !== $Chanpin->save($dat)){
 //			if(A("Method")->shengchengzituan_2($parentID)){
 				$Chanpin->commit();
+				
+				//相应审核任务
+				A("Method")->_taskshenhe_delete($chanpinID,'子团');
+				
 				$this->ajaxReturn('', '删除成功！', 1);
 //			}
 		}
@@ -244,7 +248,8 @@ class ChanpinAction extends CommonAction{
 		}
 	}
 	
-	
+*/	
+
 	public function xingcheng()
 	{
 		A("Method")->showDirectory("行程");

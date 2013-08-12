@@ -59,8 +59,8 @@ function deletezituan(chanpinID,parentID)
 {
   jQuery.ajax({
 	  type:	"POST",
-	  url:	SITE_INDEX+"Chanpin/deletezituan",
-	  data:	"chanpinID="+chanpinID+"&parentID="+parentID,
+	  url:	SITE_INDEX+"Chanpin/deletechanpin",
+	  data:	"chanpinID="+chanpinID,
 	  success:function(msg){
 		  ThinkAjax.myAjaxResponse(msg,'resultdiv',todo_del,chanpinID);
 	  }
