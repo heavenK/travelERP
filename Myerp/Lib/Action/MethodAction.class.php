@@ -3739,6 +3739,8 @@ class MethodAction extends CommonAction{
 			if($_REQUEST['second_confirm'] == 1){
 				$WEBServiceOrder = D("WEBServiceOrder");
 				$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
+				dump($WEBServiceOrder);
+				exit;
 				$yudinglist = '';
 				foreach($orderall as $ord){
 					$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
