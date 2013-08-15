@@ -3736,7 +3736,7 @@ class MethodAction extends CommonAction{
 			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
 			$datalist['chanpin'][$i]['baozhang'] = $bzd;
 			//二次确认订单
-			if($_REQUEST['webpage'] == 1){
+			if($_REQUEST['second_confirm'] == 1){
 				$WEBServiceOrder = D("WEBServiceOrder");
 				$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
 				$yudinglist = '';
