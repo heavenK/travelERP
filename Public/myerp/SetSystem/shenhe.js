@@ -103,6 +103,7 @@
 		jQuery("#itemrow_t"+id).replaceWith(htmlcontent);
 		
 		myautocomplete("#"+data['systemID'],data['parenttype']);
+		myautocomplete("#companyID"+data['systemID']+i,'部门');
 	}
  }
  

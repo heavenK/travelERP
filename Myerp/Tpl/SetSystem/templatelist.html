@@ -646,6 +646,67 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       <php>}}</php>
       
       
+      <php>if('商户条目' == $nowDir['title']){</php>
+		<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+        <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+        <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/SetSystem/shanghutiaomu.js'></script>
+		<script type="text/javascript">
+		var department = [
+			 <php>foreach($comall as $v){</php>
+					  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+			 <php>}</php>
+		 ];
+		jQuery().ready(function() {
+			<php>foreach($datalist as $v){</php>
+				myautocomplete("#companyID<{$v[systemID]}>",'部门');
+			<php>}</php>
+		});
+        </script>
+            <tr class="pagination">
+              <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                  <tbody>
+                    <tr>
+                      <td nowrap="nowrap" class="paginationActionButtons">
+                        <strong><{$nowDir['title']}></strong>&nbsp;
+                        <input class="button" type="button" value="新增" onclick="insertItem();" />
+                      </td>
+                      <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                        <{$page}>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table></td>
+            </tr>
+            <tr height="20">
+              <th scope="col" nowrap="nowrap"> 序号</th>
+              <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 所属公司 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 描述 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 操作 </div></th>
+            </tr>
+            
+            <php>$i=0;foreach($datalist as $v){$i++;</php>
+            <tr height="40" class="evenListRowS1" id="itemrow<{$v['systemID']}>">
+              <td scope="row" align="left" valign="top"><{$i}></td>
+              <td scope="row" align="left" valign="top">
+              <form id="form_t<{$v['systemID']}>" >
+              <input type="text" id="title<{$v['systemID']}>" style="width:200px;" value="<{$v['title']}>" check='^\S+$' warning="描述不能为空,且不能含有空格" >
+              </form>
+              </td>
+              <td scope="row" align="left" valign="top">
+              <input type="text" id="companyID<{$v['systemID']}>" value="<{$v['companyID']}>">
+              </td>
+              <td scope="row" align="left" valign="top">
+              <input type="text" id="remark<{$v['systemID']}>" value="<{$v['remark']}>" style="width:200px;" >
+              </td>
+              <td scope="row" align="left" valign="top">
+              <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteItem(<{$v['systemID']}>)" />
+              <input class="button" type="button" value="修改" onClick="if(CheckForm('form_t<{$v['systemID']}>','resultdiv_2'))additem(<{$v['systemID']}>,'<{$v[parenttype]}>');" />
+              </td>
+            </tr>
+      <php>}}</php>
+      
+      
       
       <php>if('视频' == $nowDir['title']){</php>
 		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/shipin.js"></script>

@@ -1376,9 +1376,8 @@ class MethodAction extends CommonAction{
 				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
 		}
-		
 		return $userIDlist;
-	 }
+	}
 	
 	
 	//获得审核流程

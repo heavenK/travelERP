@@ -396,7 +396,7 @@ class SetSystemAction extends CommonAction{
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
-			if($_REQUEST['systemID'] == '' && $roles)
+			if($_REQUEST['systemID'] == '' && $roles && ($_REQUEST['companyID'] == $roles['companyID']))
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
 		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
@@ -564,6 +564,13 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == 'FAQ'){
 			A("Method")->showDirectory("FAQ");
+			$this->display('SetSystem:templatelist');
+		}
+		elseif($where['type'] == '商户条目'){
+			//获得公司列表
+			$comall = A('Method')->_getCompanyAll();
+			$this->assign("comall",$comall);
+			A("Method")->showDirectory("商户条目");
 			$this->display('SetSystem:templatelist');
 		}
 		else

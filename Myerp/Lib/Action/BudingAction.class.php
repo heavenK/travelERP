@@ -829,11 +829,22 @@ class BudingAction extends Action{
     }
 	
 	
+	//审核任务根据产品重置
+    public function test() {
+		Vendor ( 'Excel.PHPExcel' );
+
+$inputFileName = '/list.xls';
+echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
+$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+
+
+echo '<hr />';
+
+$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+var_dump($sheetData);
+
 	
-	
-	
-	
-	
+	}
 	
 }
 ?>
