@@ -5,8 +5,8 @@ require('./define2.inc.php');
 
 define('ET_ROOT', dirname(__FILE__));
 define('MODE_NAME','mycore');
-define('THINK_PATH','./ThinkPHP/');
-//define('THINK_PATH',dirname(__FILE__).'/../ThinkPHP/');
+//define('THINK_PATH','./ThinkPHP/');
+define('THINK_PATH',dirname(__FILE__).'/../ThinkPHP/');
 define('APP_NAME', 'Myerp');
 define('APP_PATH', './Myerp/');
 define('DEFAULT_TYPE','default');
