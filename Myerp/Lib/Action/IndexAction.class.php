@@ -166,6 +166,9 @@ class IndexAction extends Action{
 	
 	
 	
+    public function new_shanghutiaomu() {
+		A("Method")->_new_shanghutiaomu();
+    }
 	
 	
 	

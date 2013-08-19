@@ -75,6 +75,28 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 }
 
 
+function new_shanghutiaomu(){
+	ThinkAjax.myloading('resultdiv');
+	var title = jQuery("#shanghutiaomu_add").val();
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Index/new_shanghutiaomu",
+		data:	"title="+title,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',add_after);
+		}
+	});
+}
+
+
+function add_after(data,status){
+	if(status == 1){
+		alert("操作成功！！");
+		location.reload();
+	}
+}
+
 function shenhe_after(data,status){
 	if(status == 1){
 		alert(data['status_shenhe']+"操作成功！！");
@@ -106,8 +128,21 @@ var userlist = [
 			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
 	 <php>}</php>
  ];
+var shanghutiaomu = [
+	 <php>foreach($shanghutiaomu as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
 
 jQuery().ready(function() {
+			myautocomplete("#shanghutiaomu_add",'商户条目');
+	
+		<php>
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '支出项目') continue;$i++;
+		</php>
+			myautocomplete("#title<{$v[chanpinID]}>",'商户条目');
+		<php>}</php>
+	
 		<php>
 		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++;
 		if($v[expandtype] == '部门'){
@@ -494,11 +529,15 @@ jQuery().ready(function() {
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingfu_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="2"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="10"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应付费用</strong>&nbsp;
                       <input class="button" type="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
+                    <td nowrap="nowrap" class="paginationActionButtons">
+                    <strong>新增商户条目</strong>&nbsp;
+                    <input type="text" style="width:200px;" id="shanghutiaomu_add" />
+                      <input class="button" type="button" value=" 确认 " onclick="new_shanghutiaomu()"></td>
                   </tr>
                 </tbody>
               </table>
@@ -521,7 +560,11 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top">
+          <input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          <input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" check="^\S+$" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -545,7 +588,7 @@ jQuery().ready(function() {
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
           ><{$v['shenhe_remark']}></strong></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
       if(false !== $taskom){

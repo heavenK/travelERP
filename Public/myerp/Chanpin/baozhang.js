@@ -24,10 +24,17 @@
 	htmlcontent += "<option value=\"月结\">月结</option>";
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
-	if(type != '利润'){
+	if(type == '结算项目'){
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
 		htmlcontent += "</td>";
+	}
+	else if(type == '支出项目'){
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+		htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
+		htmlcontent += "</td>";
+		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
+		htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
 	}
 	else{
 		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
@@ -42,8 +49,11 @@
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
-	if(type != '利润'){
+	if(type == '结算项目'){
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else if(type == '支出项目'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else{
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
@@ -56,6 +66,9 @@
 		myautocomplete("#title_t"+i,'部门');
 		if(other == '用户')
 		myautocomplete("#title_t"+i,'用户');
+	}
+	if(type == '支出项目'){
+		myautocomplete("#title_t"+i,'商户条目');
 	}
 	
 	
@@ -130,10 +143,17 @@
 		htmlcontent += "<option value=\"月结\">月结</option>";
 		htmlcontent += "</select>";
 		htmlcontent += "</td>";
-		if(data['type'] != '利润'){
+		if(data['type'] == '结算项目'){
 			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
 			htmlcontent += "</td>";
+		}
+		else if(data['type'] == '支出项目'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+			htmlcontent += "<input type=\"hidden\" id=\"expandID"+data['chanpinID']+"\" value=\""+data['expandID']+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expandtype"+data['chanpinID']+"\" value=\""+other+"\">";
 		}
 		else{
 			htmlcontent += "<input type=\"hidden\" id=\"expandID"+data['chanpinID']+"\" value=\""+data['expandID']+"\">";
@@ -163,6 +183,11 @@
 			if(other == '用户')
 				myautocomplete("#title"+data['chanpinID'],'用户');
 		}
+		
+		if(data['type'] == '支出项目'){
+			myautocomplete("#title"+data['chanpinID'],'商户条目');
+		}
+		
 	}
  }
 
@@ -199,6 +224,8 @@
 		datas = department;
 		if(parenttype == '用户')
 		datas = userlist;
+		if(parenttype == '商户条目')
+		datas = shanghutiaomu;
 		jQuery(target).unautocomplete().autocomplete(datas, {
 		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符
@@ -228,6 +255,8 @@ function checktitle(id,mark){
 		datas = userlist;
 	if(expandtype == '部门')
 		datas = department;
+	if(expandtype == '商户条目')
+		datas = shanghutiaomu;
 	var ishas = 0;
 	for (var i=0;i<datas.length;i++) { 
 		if(title == datas[i]['title']){

@@ -828,22 +828,55 @@ class BudingAction extends Action{
 		echo "结束";
     }
 	
-	
-	//审核任务根据产品重置
-    public function test() {
+	//商户条目输入
+    public function shanghutiaomu() {
 		Vendor ( 'Excel.PHPExcel' );
-
-$inputFileName = '/list.xls';
-echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
-$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-
-
-echo '<hr />';
-
-$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-var_dump($sheetData);
-
-	
+		$inputFileName = 'list.xls';
+		$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		$System = D("System");
+		$ViewDataDictionary = D("ViewDataDictionary");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num_cur = ($_REQUEST['page']-1)*100+1;
+		$num_limit = $num_cur + 100;
+		for($num_cur;$num_cur<=$num_limit;$num_cur++){
+			$val = $sheetData[$num_cur];
+			if(!$val['A']){
+				dump('循环'.$num_cur);
+				echo "结束";
+				exit;
+			}
+			if($num_cur == $num_limit){
+				$url = SITE_INDEX."Buding/shanghutiaomu/page/".($_REQUEST['page']+1);
+				$this->assign("url",$url);
+				$this->display('Index:forme');
+				exit;
+			}
+			$_REQUEST['title'] = $val['A'];
+			$_REQUEST['companyID'] = 40150;
+			$_REQUEST['type'] = '商户条目';
+			$data = $_REQUEST;
+			$data['datadictionary'] = $_REQUEST;
+			$data['datadictionary']['datatext'] = serialize($_REQUEST);
+			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
+			if($roles && ($_REQUEST['companyID'] == $roles['companyID'])){
+				dump('跳过'.$num_cur);
+				continue;
+			}
+			if (false === $System->relation('datadictionary')->myRcreate($data)){
+				dump('保存失败');
+				dump($System);
+			}
+			else{
+				dump('成功执行'.$num_cur);
+			}
+		}
+		echo "结束";
 	}
 	
 }

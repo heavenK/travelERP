@@ -881,6 +881,12 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+     public function _shanghutiaomulist() {
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$list = $ViewDataDictionary->where("`status_system` = 1 AND `type` = '商户条目'")->findall();
+		return $list;
+	 }
+	 
 	 //获得公司及下属部门列表
      public function _getCompanyDepartmentList($username) {
 		$ViewDepartment = D("ViewDepartment");
@@ -3291,6 +3297,25 @@ class MethodAction extends CommonAction{
 
 
 	public function _xiangmu($type) {
+		//屏蔽项目页
+		if($_REQUEST['baozhangID']){
+			$baozhangID = $_REQUEST['baozhangID'];
+			$ViewBaozhang = D("ViewBaozhang");
+			$baozhang = $ViewBaozhang->where("`chanpinID` = '$baozhangID'")->find();
+			$chanpinID = $baozhang['parentID'];
+			if($baozhang['type'] != '团队报账单'){
+				redirect(SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$baozhangID);
+			}
+		}
+		$chanpinID = $_REQUEST['chanpinID'];
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if($cp['marktype'] == 'zituan')
+			redirect(SITE_INDEX.'Chanpin/zituanbaozhang/type/团队报账单/chanpinID/'.$chanpinID);
+		if($cp['marktype'] == 'DJtuan')
+			redirect(SITE_INDEX.'Dijie/djtuanbaozhang/type/团队报账单/chanpinID/'.$chanpinID);
+		exit;
+		//end
 		$this->assign("markpos",'应收及应付');
 		$chanpinID = $_REQUEST['chanpinID'];
 		if($_REQUEST['baozhangID']){
@@ -4755,6 +4780,41 @@ class MethodAction extends CommonAction{
 			$System->save($d);
 		}
 	}
+	
+	
+	
+	//商户条目增加
+	public function _new_shanghutiaomu(){
+		//权限判断
+		$durlist = A("Method")->_checkRolesByUser('经理','组团');
+		if(false === $durlist){
+			$this->ajaxReturn('', '失败！需求经理级别以上权限！', 0);
+		}
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$_REQUEST['title'] = $_REQUEST['title'];
+		$_REQUEST['companyID'] = $this->_getComIDbyUser();
+		$_REQUEST['type'] = '商户条目';
+		$data = $_REQUEST;
+		$data['datadictionary'] = $_REQUEST;
+		$data['datadictionary']['datatext'] = serialize($_REQUEST);
+		$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
+		if($roles && ($_REQUEST['companyID'] == $roles['companyID'])){
+			$this->ajaxReturn('', '新增失败：条目重复！', 0);
+		}
+		if($_REQUEST['title'] == ''){
+			$this->ajaxReturn('', '新增失败：内容为空！', 0);
+		}
+		if (false === $System->relation('datadictionary')->myRcreate($data)){
+			$this->ajaxReturn('', '失败！', 0);
+		}
+		else{
+			$this->ajaxReturn('', '成功！', 1);
+		}
+	}
+	
+	
 	
 	
 	
