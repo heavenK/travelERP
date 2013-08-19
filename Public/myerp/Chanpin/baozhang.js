@@ -246,11 +246,12 @@
 }
 
 
-function checktitle(id,mark){
+function checktitle(id,mark,expandtype){
 	if(!mark)
 		mark = '';
 	var title = document.getElementById("title"+mark+id).value;
-	var expandtype = document.getElementById("expandtype"+mark+id).value;
+	if(!expandtype)
+		var expandtype = document.getElementById("expandtype"+mark+id).value;
 	if(expandtype == '用户')
 		datas = userlist;
 	if(expandtype == '部门')

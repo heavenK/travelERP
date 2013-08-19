@@ -4790,9 +4790,11 @@ class MethodAction extends CommonAction{
 	//商户条目增加
 	public function _new_shanghutiaomu(){
 		//权限判断
-		$durlist = A("Method")->_checkRolesByUser('经理','组团');
+		$durlist = A("Method")->_checkRolesByUser('计调,经理','组团');
 		if(false === $durlist){
-			$this->ajaxReturn('', '失败！需求经理级别以上权限！', 0);
+			$durlist = A("Method")->_checkRolesByUser('地接,经理','地接');
+			if(false === $durlist)
+				$this->ajaxReturn('', '失败！需求经理级别以上权限！', 0);
 		}
 		C('TOKEN_ON',false);
 		$System = D("System");
