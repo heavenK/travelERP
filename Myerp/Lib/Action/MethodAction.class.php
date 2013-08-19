@@ -2692,6 +2692,10 @@ class MethodAction extends CommonAction{
 	
 	
 	public function _baozhang($type) {
+		//商户条目
+		$list = A('Method')->_shanghutiaomulist();
+		$this->assign("shanghutiaomu",$list);
+		
 		if($_REQUEST['type'] == '团队报账单'){
 			$this->assign("markpos",'团队报账单');
 			$chanpinID = $_REQUEST['chanpinID'];

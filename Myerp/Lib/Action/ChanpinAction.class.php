@@ -871,8 +871,6 @@ class ChanpinAction extends CommonAction{
 		A("Method")->showDirectory("签证及票务");
 		$this->assign("actionmethod",'Chanpin');
 		A('Method')->unitlist();
-		$list = A('Method')->_shanghutiaomulist();
-		$this->assign("shanghutiaomu",$list);
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else

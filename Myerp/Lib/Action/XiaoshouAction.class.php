@@ -611,6 +611,7 @@ class XiaoshouAction extends Action{
 		$dat['dingdan']['telnum'] = $_REQUEST['telnum'];
 		$dat['dingdan']['tichengID'] = $_REQUEST['tichengID'];
 		$dat['dingdan']['caozuofeiID'] = $_REQUEST['caozuofeiID'];
+		$dat['dingdan']['tuandui_ticheng'] = $_REQUEST['tuandui_ticheng'];
 		//电商不许修改
 		if(!$dat['dingdan']['orderID']){
 			$dat['dingdan']['owner'] = $_REQUEST['owner'];
@@ -620,8 +621,15 @@ class XiaoshouAction extends Action{
 		$dat['dingdan']['lxr_address'] = $_REQUEST['lxr_address'];
 		$dat['dingdan']['lxr_email'] = $_REQUEST['lxr_email'];
 		$dat['status'] = $_REQUEST['status'];
-		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat))
+		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat)){
+//			if($_REQUEST['status'] == '确认'){
+//				$_REQUEST['dataID'] = $dingdanID;
+//				$_REQUEST['datatype'] = '订单';
+//				$_REQUEST['dotype'] = '申请';
+//				A("Method")->_autoshenqing();
+//			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
+		}
 		else{
 			$this->ajaxReturn($_REQUEST, '错误，请联系管理员', 0);
 		}

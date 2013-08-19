@@ -830,6 +830,7 @@ class BudingAction extends Action{
 	
 	//商户条目输入
     public function shanghutiaomu() {
+		exit;
 		Vendor ( 'Excel.PHPExcel' );
 		$inputFileName = 'list.xls';
 		$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);

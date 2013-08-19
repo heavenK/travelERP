@@ -90,6 +90,7 @@ class CaiwuAction extends CommonAction{
 			$ticheng = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
 			$caozuofei = $ViewDataDictionary->where("`systemID` = '$v[caozuofeiID]'")->find();
 			$tongji['ticheng'] += (int)$ticheng['description'] ;
+			$tongji['tuandui_ticheng'] += $v['tuandui_ticheng'] ;
 			$tongji['caozuofei'] += (int)$caozuofei['description'] ;
 			$dingdanall[$tem_d]['ticheng'] = $ticheng;
 			$dingdanall[$tem_d]['caozuofei'] = $caozuofei;
@@ -172,13 +173,13 @@ class CaiwuAction extends CommonAction{
 					$unitdata[$i]['shouke_chengren'] += $vol['chengrenshu'];
 					$unitdata[$i]['shouke_ertong'] += $vol['ertongshu'];
 					$unitdata[$i]['shouke_price'] += $vol['shouke_price'];
+					$unitdata[$i]['tuandui_ticheng'] += $vol['tuandui_ticheng'];
 					$n++;
 				}
 				if($ok_shouke || $ok_caozuo){
 					$unitdata[$i]['dingdan'][$k] = $vol;
 					$k++;
 				}
-				
 				$t++;
 			}
 			//搜索单人	
@@ -217,6 +218,7 @@ class CaiwuAction extends CommonAction{
 						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 售价 </div></th>
 						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型</div></th>
 						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 收客提成 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 团队提成 </div></th>
 						</tr>
 				';
 				$i = 0;
@@ -232,6 +234,7 @@ class CaiwuAction extends CommonAction{
 					  <td>'.$v['jiage'].'</td>
 					  <td>'.$v['ticheng']['title'].'/'.$v['ticheng']['description'].'</td>
 					  <td>'.$v['shouke_price'].'</td>
+					  <td>'.$v['tuandui_ticheng'].'</td>
 					</tr>
 					';
 				}

@@ -6,7 +6,7 @@
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"itemlist_t"+i+"\">";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
+	htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"value_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"金额不能为空,且不能含有空格\" >";
@@ -123,7 +123,7 @@
 		var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\""+divname+data['chanpinID']+"\">";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"title"+data['chanpinID']+"\" value=\""+data['title']+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
+		htmlcontent += "<input type=\"text\" id=\"title"+data['chanpinID']+"\" style=\"width:200px;\" value=\""+data['title']+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"value"+data['chanpinID']+"\" style=\"width:80px;\" value=\""+data['value']+"\" check='^\\S+$' warning=\"金额不能为空,且不能含有空格\" >";
