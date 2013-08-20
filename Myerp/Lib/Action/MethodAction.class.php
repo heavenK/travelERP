@@ -1840,7 +1840,7 @@ class MethodAction extends CommonAction{
         //设置上传文件大小 
         $upload->maxSize = 3292200; 
         //设置上传文件类型 
-        $upload->allowExts = explode(',', 'jpg,gif,png,jpeg,txt,doc,rar,xls,xlsx'); 
+        $upload->allowExts = explode(',', 'jpg,gif,png,jpeg,txt,doc,rar,xls,xlsx,csv'); 
         //设置附件上传目录 
         $upload->savePath = $savePath; 
         //设置需要生成缩略图，仅对图像文件有效 
@@ -3302,6 +3302,7 @@ class MethodAction extends CommonAction{
 
 	public function _xiangmu($type) {
 		//屏蔽项目页
+		$chanpinID = $_REQUEST['chanpinID'];
 		if($_REQUEST['baozhangID']){
 			$baozhangID = $_REQUEST['baozhangID'];
 			$ViewBaozhang = D("ViewBaozhang");
@@ -3311,7 +3312,6 @@ class MethodAction extends CommonAction{
 				redirect(SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$baozhangID);
 			}
 		}
-		$chanpinID = $_REQUEST['chanpinID'];
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
 		if($cp['marktype'] == 'zituan')
@@ -3691,7 +3691,11 @@ class MethodAction extends CommonAction{
 		$role = $this->_checkRolesByUser('网管','行政');
 		if(false !== $role)
 			$is_wangguan = 1;
+		$role = $this->_checkRolesByUser('网店计调','组团');
+		if(false !== $role)
+			$is_webjidiao = 1;
 		
+		$this->assign("is_webjidiao",$is_webjidiao);
 		$this->assign("is_caiwu",$is_caiwu);
 		$this->assign("is_dijie",$is_dijie);
 		$this->assign("is_jidiao",$is_jidiao);

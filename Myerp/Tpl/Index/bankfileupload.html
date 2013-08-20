@@ -11,6 +11,45 @@
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css">
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/mootools.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+<script>
+var SITE_INDEX = '<{:SITE_INDEX}>';
+//function dopostUpload(){
+//	ThinkAjax.myloading('resultdiv');
+//	jQuery.ajax({
+//		type:	"POST",
+//		url:	SITE_INDEX+"Client/dopost_bankFileUpload",
+//		data:	"",
+//		success:function(msg){
+//			scroll(0,0);
+//			ThinkAjax.myAjaxResponse(msg,'resultdiv',post_after);
+//		}
+//	});
+//}
+function post_after(data,status){
+	if(status == 1){
+		//alert("成功");
+	}
+}
+function uploadComplete(data){
+  ThinkAjax.myAjaxResponse(data,'resultdiv',om_save);
+}
+function om_save(data,stats){
+	if(status == 1){
+		alert("成功");
+	}
+}
+function dopostUpload(){
+	document.getElementById('form').submit();
+}
+</script>
+
+
+
 </head>
 <body>
 <div id="header">
@@ -18,8 +57,10 @@
   <div class="clear"></div>
   <div class="line"></div>
 </div>
-<div id="main">
+<div id="resultdiv" class="resultdiv"></div>
+<div id="resultdiv_2" class="resultdiv"></div>
 
+<div id="main">
   <div id="leftColumn" style="margin-top:0px; width:150px;">
         <div id="navtab_1" class="leftList">
           <h3><span>快捷方式</span></h3>
@@ -39,8 +80,13 @@
                 </tr>
                 <tr height="40" class="evenListRowS1">
                   <td scope="row" align="left" valign="top">
-						<input type="file"  name="upload" id="upload" />
-                  		<input type="submit" value="上传" />
+                    <iframe name="iframeUpload" src="" frameborder="0" SCROLLING="no" style="display:none"></iframe> 
+                    <form name="form" id="form" method="post" action="<{:SITE_INDEX}>Client/dopost_bankFileUpload" enctype="multipart/form-data" target="iframeUpload"> 
+                      <INPUT TYPE="hidden" name="uploadResponse" value="uploadComplete">
+                      <input type="hidden" name="ajax" value="1">
+                      <input type="file" name="attachment" id="attachment" />
+                      <input type="button" value="上传" onclick="dopostUpload()" />
+                    </form>
                   </td>
                 </tr>
               </tbody>

@@ -168,25 +168,46 @@ class ClientAction extends Action{
 	
 	
 	//获得记录
-    public function bankOfChinaFileUpload() {
-		
-       $allUidArr=array();
-		$uids_path='README.txt';
-		if(!file_exists($uids_path)){
-			dump('break');
-			break;
-		}
-		$uidArr=file($uids_path,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		$allUidArr=$allUidArr + array_fill_keys($uidArr,$i);
-				
-		dump($allUidArr['1234']);
-		dump($allUidArr);
-		
-		$this->display('Index:bankofchinafileupload');
+    public function bankFileUpload() {
+		$this->display('Index:bankfileupload');
 		
     }
 	
+	//获得记录
+    public function dopost_bankFileUpload() {
+		Vendor ( 'Excel.PHPExcel' );
+		$inputFileType = 'CSV';
+		$inputFileName = $_FILES['attachment']['name'];
+        if ($inputFileName == '')
+			A("Method")->ajaxUploadResult($_REQUEST,'文件未选择！',0);
+        if (pathinfo($inputFileName,PATHINFO_EXTENSION) != 'csv')
+			A("Method")->ajaxUploadResult($_REQUEST,'文件类型错误！',0);
+		if(false === $this->is_file_encode_utf8($inputFileName))
+			A("Method")->ajaxUploadResult($_REQUEST,'文件非utf8编码！',0);
+		//上传附件
+		$savepath = './Data/BankFiles/'; 
+		//文件
+		copy($_FILES["attachment"]["tmp_name"],$savepath.$inputFileName);
+		if($filepath = A("Method")->_upload($savepath)){
+			//操作记录
+			
+			//解析
+			$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+			$objPHPExcel = $objReader->load($inputFileName);
+			$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+			
+			A("Method")->ajaxUploadResult($_REQUEST,'上传成功',1);
+		}
+		else
+			A("Method")->ajaxUploadResult($_REQUEST,'上传失败！',0);
+    }
 	
+	
+	function is_file_encode_utf8($file){  
+		$string = file_get_contents($file);  
+		if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return true;  
+		return false;  
+	}
 	
 	
 	
