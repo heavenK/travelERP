@@ -44,7 +44,7 @@
 			htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='用户'>";
 	}
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input type=\"text\" id=\"remark_t"+i+"\" >";
+	htmlcontent += "<input type=\"text\" id=\"remark_t"+i+"\"  style=\"width:200px;\">";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
@@ -160,7 +160,7 @@
 			htmlcontent += "<input type=\"hidden\" id=\"expandtype"+data['chanpinID']+"\" value=\""+other+"\">";
 		}
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\">";
+		htmlcontent += "<input type=\"text\" id=\"remark"+data['chanpinID']+"\" value=\""+data['remark']+"\" style=\"width:200px;\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "</td>";

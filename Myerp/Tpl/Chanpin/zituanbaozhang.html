@@ -135,7 +135,7 @@ var shanghutiaomu = [
  ];
 
 jQuery().ready(function() {
-			myautocomplete("#shanghutiaomu_add",'商户条目');
+			//myautocomplete("#shanghutiaomu_add",'商户条目');
 	
 		<php>
 		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '支出项目') continue;$i++;
@@ -480,7 +480,7 @@ jQuery().ready(function() {
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>">
+          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
           <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
           <td scope="row" align="left" valign="top"><strong 
@@ -581,7 +581,7 @@ jQuery().ready(function() {
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>">
+          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
           <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
           <td scope="row" align="left" valign="top"><strong 
@@ -674,7 +674,7 @@ jQuery().ready(function() {
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
             </select></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;"></td>
           <td scope="row" align="left" valign="top"></td>
           <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
