@@ -5,6 +5,12 @@ function NF_getusername(){
 }
 
 function NF_getmydepartmentid($chanpinID = ''){  
+	if($chanpinID){
+		$Chanpin = D("Chanpin");
+		$chanp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		cookie('_usedbumen',$chanp['bumen_copy'],30);
+		return $chanp['departmentID'];
+	}
 	$bumenID = cookie('_usedbumenID');
 	if(!$bumenID)//随机选择部门
 	{
@@ -19,19 +25,11 @@ function NF_getmydepartmentid($chanpinID = ''){
 		cookie('_usedbumen',$bumen['title'],30);
 		return $bumenID;
 	}
-	elseif($chanpinID){
-		$Chanpin = D("Chanpin");
-		$chanp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
-		cookie('_usedbumen',$chanp['bumen_copy'],30);
-		return $chanp['departmentID'];
-	}
 	return $bumenID;
 }
 
 function NF_getbumen(){ 
 	$_usedbumen = cookie('_usedbumen');
-	if(!$_usedbumen)
-		return '系统发生错误！！！编号erp232';
 	return $_usedbumen;
 }
 

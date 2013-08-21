@@ -4,6 +4,9 @@ class ChanpinAction extends CommonAction{
 	
     public function _myinit() {
 		$this->assign("navposition",'旅游产品');
+		if($this->user['title'] != 'aaa'){
+			$this->display('Index:error');
+		}
 	}
 	
     public function index() {

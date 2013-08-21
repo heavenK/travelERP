@@ -60,11 +60,13 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
   <div class="clear"></div>
   <div id="moduleList">
     <ul>
+      <php>if($is_qiantai){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '销售'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Xiaoshou/index" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Xiaoshou/index" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
       <php>}</php>
       <php>if($is_jidiao || $is_caiwu){</php>
       <li class="noBorder">&nbsp;</li>
@@ -117,6 +119,14 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <php>}</php>
       <php>}</php>
       
+      <php>if($is_webjidiao || $is_wangguan){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '会员管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>VIP" id="grouptab_8">&nbsp;会员管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>VIP" id="grouptab_8">&nbsp;会员管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
       
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
@@ -227,11 +237,14 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
+      <php>if($is_yinghang_yewu){</php>
+      <li> <a href="<{:SITE_INDEX}>VIP/bankFileUpload">消费记录上传</a> </li>
+      <li> <a href="<{:SITE_INDEX}>VIP/uploadHistory">上传记录查询</a> </li>
+      <php>}if($is_qiantai){</php>
       <li> <a href="<{:SITE_INDEX}>Message/index/datatype/公告">公告</a> </li>
       <li> <a href="<{:SITE_INDEX}>Message/index/datatype/排团表">排团表</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/user_name/电商">电商订单管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Message/gexingdingzhilist">电商个性定制信息</a> </li>
       <li> <a href="<{:SITE_INDEX}>Message/infohistory">系统提示</a> </li>
+      <php>}</php>
     </ul>
     </span> <span id="moduleLink_5" 
     
@@ -282,6 +295,18 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>B2CManage/zituanlist/second_confirm/1">二次确认子团管理</a> </li>
       <li> <a href="<{:SITE_INDEX}>B2CManage/dingdanlist">电商订单管理</a> </li>
       <li> <a href="<{:SITE_INDEX}>B2CManage/dingzhixinxi">电商定制信息</a> </li>
+    </ul>
+    
+    
+    </span> <span id="moduleLink_8" 
+    
+    
+    <php>if($navposition == '会员管理'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li> <a href="<{:SITE_INDEX}>VIP/index">会员列表</a> </li>
     </ul>
     </span> </div>
     

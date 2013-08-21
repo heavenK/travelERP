@@ -11,6 +11,9 @@ class IndexAction extends Action{
 	
     private function toadmin() {
 		if($this->user){
+			$role = A("Method")->_checkRolesByUser('业务','银行',1);
+			if($role)
+				redirect(SITE_INDEX."VIP/bankFileUpload");
 			redirect(SITE_INDEX."Message/index/datatype/公告");
 		}
     }

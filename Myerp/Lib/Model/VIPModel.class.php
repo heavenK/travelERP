@@ -12,12 +12,11 @@ class VIPModel extends RelationModel {
         array('status', 'set_status', 1,'callback','status,parentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('time', 'set_time', 1,'callback','time',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('user_name', 'set_user_name', 1,'callback','user_name',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('departmentID', 'set_department', 1,'callback','departmentID,chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
-        array('bumen_copy', 'set_bumen_copy', 3,'callback','departmentID,chanpinID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('departmentID', 'set_department', 1,'callback','departmentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
+        array('bumen_copy', 'set_bumen_copy', 3,'callback','departmentID',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('marktype', 'set_marktype', 1,'callback'),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('islock', 'set_islock', 1,'callback','islock',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('status_system', 'set_status_system', 1,'callback','status_system',1),//1正常,-1删除
-        array('status_shenhe', 'set_status_shenhe', 1,'callback','status_shenhe',1),//array('field','填充内容','填充条件','附加规则',[额外参数],[表单数据标记])
         array('companyID', 'set_companyID', 1,'callback','companyID',1),//1正常,-1删除
     ); 
 	
@@ -54,22 +53,23 @@ class VIPModel extends RelationModel {
 		return $options;
 	}
 	
-	protected function set_department($departmentID,$chanpinID) {
+	protected function set_department($departmentID) {
 		if($departmentID != '')
 			return $departmentID;
-		else
-			return NF_getmydepartmentid($chanpinID);
+		else{
+			$role = A("Method")->_checkRolesByUser('业务','银行',1);
+			return $role[0]['bumenID'];
+		}
 	}
 	
-	protected function set_bumen_copy($departmentID,$chanpinID) {
+	protected function set_bumen_copy($departmentID) {
 		if($departmentID){
 			return NF_getbumen_title($departmentID);
 		}
-		if($chanpinID){
-			$dt = $this->where("`chanpinID` = '$chanpinID'")->find();
-			return $dt['bumen_copy'];
-		}
-		return NF_getbumen_title($departmentID);
+		$role = A("Method")->_checkRolesByUser('业务','银行',1);
+		$ViewDepartment = D("ViewDepartment");
+		$company = $ViewDepartment->where("`systemID` = '$role[0][ComID]'")->find();
+		return $company['title'];
 	}
 	
 	protected function set_user_name($user_name) {
@@ -96,36 +96,12 @@ class VIPModel extends RelationModel {
 	
 	protected $_link = array(
 		//member
-		'member'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Member','foreign_key'=>'vipID'),
+		'member'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPMember','foreign_key'=>'vipID'),
+		'consumelist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_vip_consume','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		//consume
-		'consume'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Consume','foreign_key'=>'vipID'),
+		'consume'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPConsume','foreign_key'=>'vipID'),
 		//record
-		'record'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Record','foreign_key'=>'chanpinID'),
-		
-		
-		
-		
-		//chengbenlist
-		'chengbenlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_chengben','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
-		//xingcheng
-		'xingcheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Xingcheng','foreign_key'=>'chanpinID'),
-		//dingdan
-		'dingdan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Dingdan','foreign_key'=>'chanpinID'),
-		'chanpinparentlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Chanpin','true_class_name'=>'myerp_chanpin','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
-		//fenfang
-		'fenfang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Fenfang','foreign_key'=>'chanpinID'),
-		//baozhang
-		'baozhang'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhang','foreign_key'=>'chanpinID'),
-		'baozhangitemlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_baozhangitem','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
-		'baozhangzituanlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Zituan','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),//class_name写,true_class_name读，更新需求parentID非空
-		'baozhangDJtuanlist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'DJtuan','true_class_name'=>'myerpview_chanpin_djtuan','foreign_key'=>'parentID','parent_key'=>'chanpinID'),//class_name写,true_class_name读，更新需求parentID非空
-		//baozhangitem
-		'baozhangitem'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Baozhangitem','foreign_key'=>'chanpinID'),
-		'baozhanglist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Baozhang','true_class_name'=>'myerpview_chanpin_baozhang','foreign_key'=>'parentID','parent_key'=>'chanpinID'),
-		//DJtuan
-		'DJtuan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'DJtuan','foreign_key'=>'chanpinID'),
-		//qianzheng
-		'qianzheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Qianzheng','foreign_key'=>'chanpinID'),
+		'record'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPRecord','foreign_key'=>'vipID'),
 	);
 	
 

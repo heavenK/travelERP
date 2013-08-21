@@ -444,6 +444,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <th scope="col" nowrap="nowrap" style="width:20px;"> 选择 </th>
               <th scope="col" nowrap="nowrap" style="width:20px;"> 序号 </th>
               <th scope="col" nowrap="nowrap"><div> 姓名 </div></th>
+              <th scope="col" nowrap="nowrap"><div> 所属公司 </div></th>
               <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
               <th scope="col" nowrap="nowrap"><div> 锁 </div></th>
               <th scope="col" nowrap="nowrap" style=" width:20%" ><div> 操作 </div></th>
@@ -453,6 +454,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
               <td scope="row" align="left" valign="top"><input type="radio" name="select" id="select" value="<{$v['systemID']}>" /></td>
               <td scope="row" align="left" valign="top"><{$i}></td>
               <td scope="row" align="left" valign="top"><{$v['title']}></td>
+              <td scope="row" align="left" valign="top"><{$v['companyID']}></td>
               <td scope="row" align="left" valign="top"><{$v['user_gender']}></td>
             <php>if($v[islock] == '已锁定'){</php>
             <td scope="row" align="left" valign="top" style="color:red"><{$v['islock']}></td>
@@ -951,15 +953,22 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <th scope="col" nowrap="nowrap"> 序号</th>
           <th scope="col" nowrap="nowrap"><div> 标题 </div></th>
           <th scope="col" nowrap="nowrap"><div> 所属部门 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:400px;"><div> 职能类型及属性 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:320px;"><div> 职能类型及属性 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 负责人 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 办公电话 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 邮编 </div></th>
           <th scope="col" nowrap="nowrap" ><div> 地址 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 传真 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 锁状态 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 操作 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 锁状态 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 操作 </div></th>
         </tr>
+        
+        <style>
+		
+		.style_ul li{ width:90px; float:left;}
+		
+		</style>
+        
         
       <php>$i = 0; foreach($newlist as $v){ $i++;</php>
       <tr height="40" <php>if($v['islock'] == '已锁定'){</php> style="background-color:#CCCCCC" <php>}</php> class="evenListRowS1" id="itemlist<{$v['systemID']}>">
@@ -967,51 +976,59 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
         <td scope="row" align="left" valign="top"><input readonly="readonly" type="text" id="parentID<{$v['systemID']}>" style="width:80px" value="<{$v['parentID']}>"></td>
         <td scope="row" align="left" valign="top">
+        <ul class="style_ul">
         <php>$typearray = explode(',',$v['type']);</php>
         <php>if(in_array('组团',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">组团</label>
+        <li><input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">组团</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>"/>组团
+        <li><input type="checkbox" name="type[]" value="组团" class="type<{$v['systemID']}>"/>组团</li>
         <php>}if(in_array('业务',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">业务</label>
+        <li><input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">业务</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>"/>业务
+        <li><input type="checkbox" name="type[]" value="业务" class="type<{$v['systemID']}>"/>业务</li>
         <php>}if(in_array('地接',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="地接" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">地接</label>
+        <li><input type="checkbox" name="type[]" value="地接" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">地接</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="地接" class="type<{$v['systemID']}>"/>地接
+        <li><input type="checkbox" name="type[]" value="地接" class="type<{$v['systemID']}>"/>地接</li>
         <php>}if(in_array('销售（直营）',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="销售（直营）" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">销售（直营）</label>
+        <li><input type="checkbox" name="type[]" value="销售（直营）" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">销售（直营）</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="销售（直营）" class="type<{$v['systemID']}>"/>销售（直营）
+        <li><input type="checkbox" name="type[]" value="销售（直营）" class="type<{$v['systemID']}>"/>销售（直营）</li>
         <php>}if(in_array('销售（加盟）',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="销售（加盟）" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">销售（加盟）</label>
+        <li><input type="checkbox" name="type[]" value="销售（加盟）" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">销售（加盟）</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="销售（加盟）" class="type<{$v['systemID']}>"/>销售（加盟）
+        <li><input type="checkbox" name="type[]" value="销售（加盟）" class="type<{$v['systemID']}>"/>销售（加盟）</li>
         <php>}if(in_array('办事处',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="办事处" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">办事处</label>
+        <li><input type="checkbox" name="type[]" value="办事处" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">办事处</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="办事处" class="type<{$v['systemID']}>"/>办事处
+        <li><input type="checkbox" name="type[]" value="办事处" class="type<{$v['systemID']}>"/>办事处</li>
         <php>}if(in_array('联合体',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">联合体</label>
+        <li><input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">联合体</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>"/>联合体
+        <li><input type="checkbox" name="type[]" value="联合体" class="type<{$v['systemID']}>"/>联合体</li>
         <php>}if(in_array('行政',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">行政</label>
+        <li><input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">行政</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>"/>行政
+        <li><input type="checkbox" name="type[]" value="行政" class="type<{$v['systemID']}>"/>行政</li>
         
         <php>}if(in_array('国内',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">国内</label>
+        <li><input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">国内</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>"/>国内
+        <li><input type="checkbox" name="type[]" value="国内" class="type<{$v['systemID']}>"/>国内</li>
         
         <php>}if(in_array('境外',$typearray)){</php>
-        <input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">境外</label>
+        <li><input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">境外</label></li>
         <php>}else{</php>
-        <input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>"/>境外
+        <li><input type="checkbox" name="type[]" value="境外" class="type<{$v['systemID']}>"/>境外</li>
+        
+        <php>}if(in_array('银行',$typearray)){</php>
+        <li><input type="checkbox" name="type[]" value="银行" class="type<{$v['systemID']}>" checked="checked"/><label style="color:#4e8ccf">银行</label></li>
+        <php>}else{</php>
+        <li><input type="checkbox" name="type[]" value="银行" class="type<{$v['systemID']}>"/>银行</li>
         <php>}</php>
         
+        
+        </ul>
         </td>
         <td scope="row" align="left" valign="top"><input type="text" id="lianxiren<{$v['systemID']}>" style="width:80px" value="<{$v['lianxiren']}>"></td>
         <td scope="row" align="left" valign="top"><input type="text" id="officetel<{$v['systemID']}>" style="width:80px" value="<{$v['officetel']}>"></td>

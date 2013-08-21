@@ -3670,31 +3670,61 @@ class MethodAction extends CommonAction{
 	
 	//获得用户权限标记
 	public function _getuser_roleright(){
-		$role = $this->_checkRolesByUser('计调','组团');
-		if(false !== $role)
+		$role = $this->_checkRolesByUser('计调','组团',1);
+		if(false !== $role){
 			$is_jidiao = 1;
-		$role = $this->_checkRolesByUser('票务','业务');
-		if(false !== $role)
+		}
+		$role = $this->_checkRolesByUser('票务','业务',1);
+		if(false !== $role){
 			$is_jidiao = 1;
-		$role = $this->_checkRolesByUser('地接','地接');
-		if(false !== $role)
+		}
+		$role = $this->_checkRolesByUser('地接','地接',1);
+		if(false !== $role){
 			$is_dijie = 1;
-		$role = $this->_checkRolesByUser('财务','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('财务','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('财务总监','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('财务总监','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('总经理','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('总经理','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('网管','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('网管','行政',1);
+		if(false !== $role){
 			$is_wangguan = 1;
-		$role = $this->_checkRolesByUser('网店计调','组团');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('网店计调','组团',1);
+		if(false !== $role){
 			$is_webjidiao = 1;
+			$is_qiantai = 1;
+		}
+		if($is_qiantai != 1){
+			$role = $this->_checkRolesByUser('前台','销售（加盟）',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+			$role = $this->_checkRolesByUser('前台','销售（直营）',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('业务','银行',1);
+		if(false !== $role)
+			$is_yinghang_yewu = 1;
+		elseif($this->user['title'] == 'aaa'){
+			$is_yinghang_yewu = 1;
+		}
 		
+		$this->assign("is_yinghang_yewu",$is_yinghang_yewu);
+		$this->assign("is_qiantai",$is_qiantai);
 		$this->assign("is_webjidiao",$is_webjidiao);
 		$this->assign("is_caiwu",$is_caiwu);
 		$this->assign("is_dijie",$is_dijie);

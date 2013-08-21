@@ -22,6 +22,8 @@
         
         <div class="search_form" id="searchdiv_1" style="<PHP>if($sorttabid != 1 && $sorttabid){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
               <div class="edit view search ">
+              <input type="hidden" class="departmentID" value="<{$departmentID}>" />
+              <input type="hidden" class="type" value="<{$type}>" />
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tbody>
                         <tr>
@@ -118,6 +120,11 @@ function _dosearch(sorttabid){
 	str += '/user_name/'+jQuery('.user_name').val();
 	if(jQuery('.shenhe_remark').val())
 	str += '/shenhe_remark/'+jQuery('.shenhe_remark').val();
+	if(jQuery('.type').val())
+	str += '/type/'+jQuery('.type').val();
+	if(jQuery('.departmentID').val())
+	str += '/departmentID/'+jQuery('.departmentID').val();
+	
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }

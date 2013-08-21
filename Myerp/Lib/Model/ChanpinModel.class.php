@@ -69,7 +69,7 @@ class ChanpinModel extends RelationModel {
 			$dt = $this->where("`chanpinID` = '$chanpinID'")->find();
 			return $dt['bumen_copy'];
 		}
-		return NF_getbumen_title($departmentID);
+		return NULL;
 	}
 	
 	protected function set_user_name($user_name) {
