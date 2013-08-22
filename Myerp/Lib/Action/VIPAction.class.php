@@ -73,8 +73,15 @@ class VIPAction extends CommonAction{
 		//文件
 		copy($_FILES["attachment"]["tmp_name"],$savepath.$inputFileName);
 		if($filepath = A("Method")->_upload($savepath)){
-			$VIP = D("VIP");
+			try {
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objPHPExcel = $objReader->load($savepath.$inputFileName);
+				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+			} catch (Exception $e) {
+				A("Method")->ajaxUploadResult($_REQUEST,'文件打开失败',0);
+			}	
 			//操作记录
+			$VIP = D("VIP");
 			$record['record']['filename_upload'] = $inputFileName;
 			$record['record']['filename_record'] = $filepath;
 			$record['record']['bank_type'] = $company['title'];
@@ -82,9 +89,6 @@ class VIPAction extends CommonAction{
 				A("Method")->ajaxUploadResult($_REQUEST,'备份失败！',0);
 			}
 			//解析
-			$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-			$objPHPExcel = $objReader->load($savepath.$inputFileName);
-			$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 			$consume['consume']['bank_type'] = $company['title'];
 			$ViewVIPConsume = D("ViewVIPConsume");
 			foreach($sheetData as $v){
