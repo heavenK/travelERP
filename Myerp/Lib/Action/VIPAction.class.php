@@ -83,10 +83,9 @@ class VIPAction extends CommonAction{
 			}
 			//解析
 			$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-			$objPHPExcel = $objReader->load($inputFileName);
+			$objPHPExcel = $objReader->load($savepath.$inputFileName);
 			$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 			$consume['consume']['bank_type'] = $company['title'];
-			
 			$ViewVIPConsume = D("ViewVIPConsume");
 			foreach($sheetData as $v){
 				$consume['consume']['cardNo'] = $v['A'];
