@@ -3723,6 +3723,12 @@ class MethodAction extends CommonAction{
 			$is_yinghang_yewu = 1;
 		}
 		
+		if($this->user['title'] == '吴爽' || $this->user['title'] == 'aaa'){
+			$is_vip = 1;
+		}
+		
+		
+		$this->assign("is_vip",$is_vip);
 		$this->assign("is_yinghang_yewu",$is_yinghang_yewu);
 		$this->assign("is_qiantai",$is_qiantai);
 		$this->assign("is_webjidiao",$is_webjidiao);

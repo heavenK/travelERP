@@ -5,8 +5,11 @@ class VIPAction extends CommonAction{
     public function _myinit() {
 		$this->assign("navposition",'会员管理');
 		if($this->user['title'] != 'aaa'){
-			$this->display('Index:error');
-			exit;
+			$role = A("Method")->_checkRolesByUser('业务','银行',1);
+			if(!$role){
+				$this->display('Index:error');
+				exit;
+			}
 		}
 	}
 	
@@ -14,6 +17,24 @@ class VIPAction extends CommonAction{
     public function index() {
 		A("Method")->showDirectory("会员列表");
 		$this->display('index');
+    }
+	
+    public function uploadHistory() {
+		$this->assign("navposition",'信息');
+		A("Method")->showDirectory("上传记录查询");
+		$ViewVIPRecord = D("ViewVIPRecord");
+		$where['user_name'] = $this->user['title'];
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+		$count = $ViewVIPRecord->where($where)->count();
+		$pagenum = 20;
+		$p= new Page($count,$pagenum);
+		$page = $p->show();
+        $list = $ViewVIPRecord->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+		$data['list'] = $list;
+		$data['page'] = $page;
+		$this->assign("data",$data);
+		$this->display('uploadHistory');
     }
 	
 	
@@ -57,8 +78,6 @@ class VIPAction extends CommonAction{
 			$record['record']['filename_record'] = $filepath;
 			$record['record']['bank_type'] = $company['title'];
 			if(false === $VIP->relation("record")->myRcreate($record)){
-				dump($record);
-				dump($VIP);
 				A("Method")->ajaxUploadResult($_REQUEST,'备份失败！',0);
 			}
 			//解析
@@ -66,6 +85,8 @@ class VIPAction extends CommonAction{
 			$objPHPExcel = $objReader->load($inputFileName);
 			$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 			$consume['consume']['bank_type'] = $company['title'];
+			
+			$ViewVIPConsume = D("ViewVIPConsume");
 			foreach($sheetData as $v){
 				$consume['consume']['cardNo'] = $v['A'];
 				$consume['consume']['name'] = $v['B'];
@@ -74,6 +95,11 @@ class VIPAction extends CommonAction{
 				$consume['consume']['transactionNo'] = $v['E'];
 				$consume['consume']['consumeAmount'] = $v['F'];
 				$consume['consume']['consumeTime'] = $v['G'];
+				//对比
+				$where['transactionNo'] = $consume['consume']['transactionNo'];
+				$tc = $ViewVIPConsume->where($where)->find();
+				if($tc)
+					continue;
 				if(false === $VIP->relation("consume")->myRcreate($consume)){
 					A("Method")->ajaxUploadResult($_REQUEST,'解析失败！',0);
 				}

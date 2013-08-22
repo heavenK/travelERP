@@ -110,7 +110,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <php>}</php>
       
       
-      <php>if($is_webjidiao || $is_wangguan){</php>
+      <php>if($is_webjidiao){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '电商管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>B2CManage" id="grouptab_7">&nbsp;电商管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
@@ -119,7 +119,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <php>}</php>
       <php>}</php>
       
-      <php>if($is_webjidiao || $is_wangguan){</php>
+      <php>if($is_vip){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '会员管理'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>VIP" id="grouptab_8">&nbsp;会员管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
@@ -209,7 +209,6 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/产品平移">产品平移</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Client/bankFileUpload">积分上传与管理</a> </li>
       <php>}else{</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
       <php>}</php>

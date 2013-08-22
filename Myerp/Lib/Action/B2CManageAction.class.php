@@ -8,6 +8,7 @@ class B2CManageAction extends CommonAction{
 	
 	
     public function index() {
+		A("Method")->showDirectory("网店线路管理");
 		//筛选条件
 		$_REQUEST['serverdataID'] = array('neq','');
 		if($_REQUEST['second_confirm'])
@@ -22,12 +23,14 @@ class B2CManageAction extends CommonAction{
 	
 	
     public function dingdanlist() {
+		A("Method")->showDirectory("电商订单管理");
 		$_REQUEST['user_name'] = '电商';
 		A("Xiaoshou")->dingdanlist();
     }
 	
 	
     public function dingzhixinxi() {
+		A("Method")->showDirectory("电商定制信息");
 		$_REQUEST['user_name'] = '电商';
 		A("Message")->gexingdingzhilist();
     }
