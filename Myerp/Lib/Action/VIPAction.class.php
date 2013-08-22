@@ -52,11 +52,12 @@ class VIPAction extends CommonAction{
 		Vendor ( 'Excel.PHPExcel' );
 		$inputFileType = 'CSV';
 		$inputFileName = $_FILES['attachment']['name'];
+		$inputFile = $_FILES["attachment"]["tmp_name"];
         if ($inputFileName == '')
 			A("Method")->ajaxUploadResult($_REQUEST,'文件未选择！',0);
         if (pathinfo($inputFileName,PATHINFO_EXTENSION) != 'csv')
 			A("Method")->ajaxUploadResult($_REQUEST,'文件类型错误！',0);
-		if(false === $this->is_file_encode_utf8($inputFileName))
+		if(false === $this->is_file_encode_utf8($inputFile))
 			A("Method")->ajaxUploadResult($_REQUEST,'文件非utf8编码！',0);
 		//上传附件
 		$savepath = './Data/BankFiles/'; 
@@ -111,8 +112,8 @@ class VIPAction extends CommonAction{
     }
 	
 	
-	function is_file_encode_utf8($file){  
-		$string = file_get_contents($file);  
+	function is_file_encode_utf8($file){
+		$string = file_get_contents($file);
 		if(chr(239).chr(187).chr(191) == substr($string, 0, 3)) return true;  
 		if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return true;  
 		return false;  
