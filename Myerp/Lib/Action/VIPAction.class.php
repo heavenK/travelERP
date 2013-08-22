@@ -4,6 +4,10 @@ class VIPAction extends CommonAction{
 	
     public function _myinit() {
 		$this->assign("navposition",'会员管理');
+		if($this->user['title'] != 'aaa'){
+			$this->display('Index:error');
+			exit;
+		}
 	}
 	
 	
