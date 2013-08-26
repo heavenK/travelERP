@@ -3,6 +3,8 @@
 class VIPAction extends CommonAction{
 	
     public function _myinit() {
+        if (!$this->user)
+            redirect(SITE_INDEX.'Index/index');
 		$this->assign("navposition",'会员管理');
 		if($this->user['title'] != 'aaa'){
 			$role = A("Method")->_checkRolesByUser('业务','银行',1);
