@@ -3673,10 +3673,12 @@ class MethodAction extends CommonAction{
 		$role = $this->_checkRolesByUser('计调','组团',1);
 		if(false !== $role){
 			$is_jidiao = 1;
+			$is_qiantai = 1;
 		}
 		$role = $this->_checkRolesByUser('票务','业务',1);
 		if(false !== $role){
 			$is_jidiao = 1;
+			$is_qiantai = 1;
 		}
 		$role = $this->_checkRolesByUser('地接','地接',1);
 		if(false !== $role){
