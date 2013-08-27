@@ -142,8 +142,18 @@ function simple_unserialize($serial_str) {
 }	
 
 
-
-
+function NF_is_file_encode_utf8($file){
+	$string = file_get_contents($file);
+	if(chr(239).chr(187).chr(191) == substr($string, 0, 3)) return true;  
+	if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return true;  
+	return false;  
+//		$string = file_get_contents($file);  
+//		if(chr(239).chr(187).chr(191) == substr($string, 0, 3)) return 'UTF-8 BOM';  
+//		if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return 'UTF-8';  
+//		if($string === iconv('UTF-8', 'ASCII',  iconv('ASCII', 'UTF-8', $string)))   return 'ASCII';  
+//		if($string === iconv('UTF-8', 'GB2312', iconv('GB2312', 'UTF-8', $string)))  return 'GB2312';  
+//		return '无法识别';		
+}
 
 
 

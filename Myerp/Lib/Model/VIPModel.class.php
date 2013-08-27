@@ -102,6 +102,8 @@ class VIPModel extends RelationModel {
 		'consume'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPConsume','foreign_key'=>'vipID'),
 		//record
 		'record'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPRecord','foreign_key'=>'vipID'),
+		//card
+		'card'=>array('mapping_type'=>HAS_ONE,'class_name'=>'VIPCard','foreign_key'=>'vipID'),
 	);
 	
 

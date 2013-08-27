@@ -44,6 +44,7 @@ class VIPAction extends CommonAction{
     public function bankFileUpload() {
 		$this->assign("navposition",'信息');
 		A("Method")->showDirectory("消费记录上传");
+		$this->assign('dopostpath','dopost_bankFileUpload');
 		$this->display('bankfileupload');
     }
 	
@@ -51,48 +52,17 @@ class VIPAction extends CommonAction{
 	//获得记录
     public function dopost_bankFileUpload() {
 		C('TOKEN_ON',false);
-		Vendor ( 'Excel.PHPExcel' );
-		$inputFileType = 'CSV';
-		$inputFileName = $_FILES['attachment']['name'];
-		$inputFile = $_FILES["attachment"]["tmp_name"];
-        if ($inputFileName == '')
-			A("Method")->ajaxUploadResult($_REQUEST,'文件未选择！',0);
-        if (pathinfo($inputFileName,PATHINFO_EXTENSION) != 'csv')
-			A("Method")->ajaxUploadResult($_REQUEST,'文件类型错误！',0);
-		if(false === $this->is_file_encode_utf8($inputFile))
-			A("Method")->ajaxUploadResult($_REQUEST,'文件非utf8编码！',0);
-		//上传附件
-		$savepath = './Data/BankFiles/'; 
-		$ViewDepartment = D("ViewDepartment");
-		$ComID = A("Method")->_getComIDbyUser();
-		$company = $ViewDepartment->where("`systemID` = '$ComID'")->find();
-		if($company['title'] == '中国银行')
-			$savepath .= 'BankOfChina/';
-		elseif($company['title'] == '中国农业银行')
-			$savepath .= 'ABChina/';
-		else
-			A("Method")->ajaxUploadResult($_REQUEST,'银行配置错误！',0);
-		//文件
-		copy($_FILES["attachment"]["tmp_name"],$savepath.$inputFileName);
-		if($filepath = A("Method")->_upload($savepath)){
-			try {
-				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-				$objPHPExcel = $objReader->load($savepath.$inputFileName);
-				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-			} catch (Exception $e) {
-				A("Method")->ajaxUploadResult($_REQUEST,'文件打开失败',0);
-			}	
-			//操作记录
-			$VIP = D("VIP");
-			$record['record']['filename_upload'] = $inputFileName;
-			$record['record']['filename_record'] = $filepath;
-			$record['record']['bank_type'] = $company['title'];
-			if(false === $VIP->relation("record")->myRcreate($record)){
-				A("Method")->ajaxUploadResult($_REQUEST,'备份失败！',0);
-			}
+		//检查并上传备份
+		$sheetData = A("Method")->_check_bankfile('消费');
+		if($sheetData){
 			//解析
+			$ViewDepartment = D("ViewDepartment");
+			$ComID = A("Method")->_getComIDbyUser();
+			$company = $ViewDepartment->where("`systemID` = '$ComID'")->find();
 			$consume['consume']['bank_type'] = $company['title'];
 			$ViewVIPConsume = D("ViewVIPConsume");
+			$VIP = D("VIP");
+			$VIP->startTrans();
 			foreach($sheetData as $v){
 				$consume['consume']['cardNo'] = $v['A'];
 				$consume['consume']['name'] = $v['B'];
@@ -107,9 +77,11 @@ class VIPAction extends CommonAction{
 				if($tc)
 					continue;
 				if(false === $VIP->relation("consume")->myRcreate($consume)){
+					$VIP->rollback();
 					A("Method")->ajaxUploadResult($_REQUEST,'解析失败！',0);
 				}
 			}
+			$VIP->commit();
 			A("Method")->ajaxUploadResult($_REQUEST,'上传成功',1);
 		}
 		else
@@ -117,22 +89,100 @@ class VIPAction extends CommonAction{
     }
 	
 	
-	function is_file_encode_utf8($file){
-		$string = file_get_contents($file);
-		if(chr(239).chr(187).chr(191) == substr($string, 0, 3)) return true;  
-		if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return true;  
-		return false;  
-//		$string = file_get_contents($file);  
-//		if(chr(239).chr(187).chr(191) == substr($string, 0, 3)) return 'UTF-8 BOM';  
-//		if($string === iconv('UTF-8', 'UTF-8',  iconv('UTF-8', 'UTF-8', $string)))  return 'UTF-8';  
-//		if($string === iconv('UTF-8', 'ASCII',  iconv('ASCII', 'UTF-8', $string)))   return 'ASCII';  
-//		if($string === iconv('UTF-8', 'GB2312', iconv('GB2312', 'UTF-8', $string)))  return 'GB2312';  
-//		return '无法识别';		
+	
+	public function left($htmltp='',$pagetype='') {
+		$this->assign("pagetype",$pagetype);
+		$this->display('VIP:'.$htmltp);
 	}
 	
 	
 	
+	//获得记录
+    public function memberFileUpload() {
+		$this->assign("navposition",'信息');
+		A("Method")->showDirectory("会员清单上传");
+		$this->assign('dopostpath','dopost_memberFileUpload');
+		$this->display('bankfileupload');
+    }
 	
+	
+	//获得记录
+    public function dopost_memberFileUpload() {
+		C('TOKEN_ON',false);
+		//检查并上传备份
+		$sheetData = A("Method")->_check_bankfile('会员');
+		if($sheetData){
+			//解析
+			$ViewDepartment = D("ViewDepartment");
+			$ComID = A("Method")->_getComIDbyUser();
+			$company = $ViewDepartment->where("`systemID` = '$ComID'")->find();
+			$member['member']['bank_type'] = $company['title'];
+			$ViewVIPMember = D("ViewVIPMember");
+			$ViewVIPCard = D("ViewVIPCard");
+			$VIP = D("VIP");
+			$VIP->startTrans();
+			foreach($sheetData as $v){
+				$member['member']['cardNo'] = $v['A'];
+				$member['member']['name'] = $v['B'];
+				$member['member']['sex'] = $v['C'];
+				$member['member']['IDtype'] = $v['D'];
+				$member['member']['IDNo'] = $v['E'];
+				$member['member']['tel'] = $v['F'];
+				$member['member']['birthday'] = $v['G'];
+				$member['member']['datatext'] = serialize($member['member']);
+				//对比
+				$where['IDtype'] = $member['member']['IDtype'];
+				$where['IDNo'] = $member['member']['IDNo'];
+				$where['bank_type'] = $member['member']['bank_type'];
+				$tc = $ViewVIPMember->where($where)->find();
+				if($tc)
+					continue;
+				if(false === $VIP->relation("member")->myRcreate($member)){
+					$VIP->rollback();
+					A("Method")->ajaxUploadResult($_REQUEST,'解析失败！',0);
+				}
+				else{
+					$vipID = $VIP->getRelationID();
+					$where_card['parentID'] = $vipID;
+					$where_card['bank_type'] = $member['member']['bank_type'];
+					$where_card['cardNo'] = $member['member']['cardNo'];
+					$tc_c = $ViewVIPCard->where($where_card)->find();
+					if(!$tc_c){
+						$card['parentID'] = $where_card['parentID'];
+						$card['card']['bank_type'] = $where_card['bank_type'];
+						$card['card']['cardNo'] = $where_card['cardNo'];
+						$card['status'] = '当前卡';
+						//重置卡状态
+						unset($where_card['cardNo']);
+						$cardlist = $ViewVIPCard->where($where_card)->findall();;
+						foreach($cardlist as $vol){
+							$recard['vipID'] = $vol['vipID'];
+							$recard['status'] = '失效卡';
+							if(false === $VIP->save($recard)){
+								$VIP->rollback();
+								A("Method")->ajaxUploadResult($_REQUEST,'卡状态重置失败！',0);
+							}
+						}
+						if(false === $VIP->relation("card")->myRcreate($card)){
+							$VIP->rollback();
+							A("Method")->ajaxUploadResult($_REQUEST,'卡号保存失败！',0);
+						}
+					}
+				}
+			}
+			$VIP->commit();
+			A("Method")->ajaxUploadResult($_REQUEST,'上传成功',1);
+		}
+		else
+			A("Method")->ajaxUploadResult($_REQUEST,'上传失败！',0);
+		
+	}
+		
+		
+		
+		
+		
+		
 	
 }
 ?>
