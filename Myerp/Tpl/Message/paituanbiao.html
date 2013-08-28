@@ -47,7 +47,7 @@
                   <td scope="row" align="center" valign="top"><{$v['title']}></td>
                   <td scope="row" align="center" valign="top">
 <php>if($is_fabu){</php>      
-                        <input class="button" type="button" value=" 删除 " onclick="infodelete('<{$v[messageID]}>')">
+                        <input class="button" type="button" value=" 删除 " onclick="if(tod_oprompt('请输入ok进行删除！！')==true)infodelete('<{$v[messageID]}>')">
                         <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
 <php>}</php>
                         <PHP>if($v['url_file']){</PHP>
