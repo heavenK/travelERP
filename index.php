@@ -11,7 +11,7 @@ define('APP_NAME', 'Myerp');
 define('APP_PATH', './Myerp/');
 define('DEFAULT_TYPE','default');
 define('__PUBLIC__',ET_URL."Public");
-define('APP_DEBUG', false);//调试模式（无缓存）
+define('APP_DEBUG', true);//调试模式（无缓存）
 
 require(APP_PATH.'Common/Function.php');
 require(APP_PATH.'Common/MyFunction.php');
