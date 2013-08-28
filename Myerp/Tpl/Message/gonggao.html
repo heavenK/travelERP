@@ -50,7 +50,7 @@
                   <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
                   <td scope="row" align="center" valign="top">
 <php>if($is_fabu){</php>      
-                        <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('要刪除嗎?')==true)infodelete('<{$v[messageID]}>')">
+                        <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('是否确认删除“<{$v['title']}>”公告?')==true)infodelete('<{$v[messageID]}>')">
                         <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
 <php>}</php>
                   </td>
