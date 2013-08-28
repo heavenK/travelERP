@@ -44,7 +44,7 @@ function onshop(){
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input class="button" type="button" value=" 复制 " onclick="copytonew()">
                     <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
-                    <php>if($this->tVar['user']['user_name'] == 'aaa'){</php>
+                    <php>if($login_user['user_name'] == 'aaa'){</php>
                     <input class="button" type="button" value=" 重置OM " onclick="resetOM()">
                     <php>}</php>
                     <input class="button" type="button" value=" 删除到回收站 " onclick="deletetohsz()">

@@ -30,14 +30,14 @@
     <tbody>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
-        <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
+        <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $login_user['telnum']</php>" ></td>
       </tr>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 性别: </td>
         <td valign="top" scope="row"><select name="user_gender">
-            <php>if($this->tVar['user']['user_gender'])</php>
-            <option value="<php>echo $this->tVar['user']['user_gender']</php>">
-            <php>echo $this->tVar['user']['user_gender']</php>
+            <php>if($login_user['user_gender'])</php>
+            <option value="<php>echo $login_user['user_gender']</php>">
+            <php>echo $login_user['user_gender']</php>
             </option>
             <option disabled="disabled">-------------</option>
             <php></php>
@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
-        <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
+        <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $login_user['mailadres']</php>"></td>
       </tr>
     </tbody>
   </table>

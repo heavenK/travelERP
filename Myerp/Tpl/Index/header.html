@@ -50,12 +50,12 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     </ul>
   </div>
   <div id="welcome" style="border:none; padding:18px 0 0 10px;"> 欢迎, <strong>
-    <php> echo $this->tVar['user']['title'];</php>
+    <php> echo $login_user['title'];</php>
     </strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
   <div id="search" style="padding:18px 0 0 10px; border:none "> <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
-    <input type="text" id="query_string" value="请输入查询码" class="font1" onblur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onfocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
+    <input type="text" id="query_string" value="请输入查询码" class="font1" onBlur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onFocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
     &nbsp;
-    <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
+    <input style="margin-top:-2px;" type="submit" class="button" value="查找" onClick="headsearch()">
   </div>
   <div class="clear"></div>
   <div id="moduleList">
@@ -203,7 +203,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
-      <php>if($this->tVar['user']['title'] == 'aaa'){</php>
+      <php>if($login_user['title'] == 'aaa'){</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/用户">用户</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统工具">系统工具</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>

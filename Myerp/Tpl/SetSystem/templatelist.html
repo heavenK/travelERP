@@ -1299,7 +1299,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <td valign="top" scope="row" style="width:80px;"> 密码: </td>
           <td valign="top" scope="row" colspan="3"><input name="password" type="text" check="^\S+$" warning="密码不能为空,且不能含有空格" ></td>
         </tr>
-        <PHP>if($this->tVar[user][title] == 'aaa'){</PHP>
+        <PHP>if($login_user['title'] == 'aaa'){</PHP>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 独立用户: </td>
           <td valign="top" scope="row" colspan="3"><input type="checkbox" name="isnewadmin" value="1"  /></td>
