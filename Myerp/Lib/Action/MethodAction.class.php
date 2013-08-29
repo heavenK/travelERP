@@ -1334,6 +1334,7 @@ class MethodAction extends CommonAction{
 		$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$data);
 		//审核任务
 		$System = D("System");
+		$System->startTrans();
 		if (false === $System->relation("taskShenhe")->myRcreate($data)){
 			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
 			return false;
@@ -1346,6 +1347,7 @@ class MethodAction extends CommonAction{
 			$dat_t['shenhe_remark'] = $data['taskShenhe']['remark'];
 			$dat_t['status_shenhe'] = $data['status'];
 			if (false === $Chanpin->save($dat_t)){
+				$System->rollback();
 				cookie('errormessage','错误，操作失败！'.$Chanpin->getError(),30);
 				return false;
 			}
@@ -1354,9 +1356,9 @@ class MethodAction extends CommonAction{
 		if($processID == 1 && $data['status'] == '批准'){
 			$md['systemID'] = $to_dataID;
 			$md['parentID'] = $to_dataID;
-			$System->save($md);
+			if(false === $System->save($md))
+				$System->rollback();
 		}
-		//生成待检出
 		$process = $this->_checkShenhe($data['datatype'],$processID+1);
 		if($process){
 			$data['status'] = '待检出';
@@ -1372,8 +1374,10 @@ class MethodAction extends CommonAction{
 			unset($data['systemID']);
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
-			
+			//生成待检出
 			$userIDlist = $this->_djcCreate($data,$process);
+			if(false === $userIDlist)
+				$System->rollback();
 		}
 		else{
 			foreach($to_dataomlist as $vo){
@@ -1382,6 +1386,7 @@ class MethodAction extends CommonAction{
 				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
 		}
+		$System->commit();
 		return $userIDlist;
 	}
 	
@@ -4246,7 +4251,7 @@ class MethodAction extends CommonAction{
 				$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 				if(!$tmp_d){
 					if(false === $DataOM->mycreate($to_dataom))
-						dump($DataOM);
+						return false;
 					//返回需要提示的用户
 					$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
 					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
