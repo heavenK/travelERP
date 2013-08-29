@@ -23,9 +23,15 @@ class B2CManageAction extends CommonAction{
 	
 	
     public function dingdanlist() {
-		A("Method")->showDirectory("电商订单管理");
-		$_REQUEST['user_name'] = '电商';
-		A("Xiaoshou")->dingdanlist();
+		if($_REQUEST['second_confirm']){
+			A("Method")->showDirectory("二次确认订单管理");
+			A("Method")->_dede_dingdanlist();
+		}
+		else{
+			A("Method")->showDirectory("电商订单管理");
+			$_REQUEST['user_name'] = '电商';
+			A("Xiaoshou")->dingdanlist();
+		}
     }
 	
 	

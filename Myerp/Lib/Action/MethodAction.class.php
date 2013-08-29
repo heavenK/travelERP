@@ -4919,6 +4919,37 @@ class MethodAction extends CommonAction{
 	
 	
 	
+	//商户条目增加
+	public function _dede_dingdanlist(){
+		$where['clientdataID'] = array('neq','');
+		$where['second_confirm'] = 1;
+		$order = 'time desc';
+		$WEBServiceOrder = D("WEBServiceOrder");
+		$distinctfield = 'clientdataID';
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+		$tempcount = $WEBServiceOrder->Distinct(true)->field($distinctfield)->where($where)->findall();
+		$count = count($tempcount);
+		$p= new Page($count,20);
+		$page = $p->show();
+        $chanpinlist = $WEBServiceOrder->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		$ViewZituan = D("ViewZituan");
+		$i = 0;
+		foreach($chanpinlist as $v){
+			$chanpin_list[$i] = $ViewZituan->where("`chanpinID` = '$v[clientdataID]'")->find();
+			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = 1")->findall();
+			$renshu = 0;
+			foreach($chanpin_list[$i]['orderlist'] as $vol){
+				$renshu += $vol['chengrenshu'] + $vol['ertongshu'];
+			}
+			$chanpin_list[$i]['yudinglist']['renshu'] = $renshu;
+			$i++;
+		}
+		$this->assign("page",$page);
+		$this->assign("chanpin_list",$chanpin_list);
+		$this->display('B2CManage:kongguan');
+	}
+	
 	
 	
 	
