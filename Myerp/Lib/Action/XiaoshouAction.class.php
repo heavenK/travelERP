@@ -26,20 +26,8 @@ class XiaoshouAction extends Action{
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
- if($this->user['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
-	 
-	 dump($xianlu);  
-	 
- }
-			$xianlu = simple_unserialize($xianlu['copy']);
-			
- if($this->user['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
-	 
-	 dump($xianlu);  
-	 
- }
- 
- 			
+			if(false === $xianlu)
+			$xianlu = unserialize($xianlu['copy']);
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
 			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status_system` = '1'")->findall();
 			//剩余名额
