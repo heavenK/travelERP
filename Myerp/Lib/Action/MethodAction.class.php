@@ -2902,11 +2902,13 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	//审核功能
+	//审核功能,更新产品属性
 	public function _doshehe_after() {
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$process = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
+		if(false === $process)
+			$this->ajaxReturn($_REQUEST,'产品审核状态获取失败', 0);
 		$status = $process['status'];
 		$editdat['chanpinID'] = $_REQUEST['dataID'];
 		$editdat['status_shenhe'] = $status;
@@ -2919,8 +2921,7 @@ class MethodAction extends CommonAction{
 		}
 		if($status == '批准'){
 				//生成备份
-				$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//备份需求
-				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
+				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$process['parentID']);
 				$editdat['shenhe_time'] = time();
 		}
 		if($_REQUEST['datatype'] == '线路'){
