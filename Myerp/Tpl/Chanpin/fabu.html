@@ -193,10 +193,10 @@
                 <option value="<{$theme['title']}>"><{$theme['title']}></option>
                 <php>}</php>
               </select>
-              <input id="addTheme" type="button" name="adds_theme" value="添加" onclick="add_theme()" class="button" style="margin: 0 0 2px 4px;"/>
+              <input type="button" class="button" id="addTheme" name="adds_theme" value="添加" onclick="add_theme()" style="margin: 0 0 2px 4px;"/>
               <input type="text" id="zhutititle" name="zhutititle" style="width:100px; display:none;"/>
               <input type="text" id="zhutitype" name="zhutitype" value="产品主题" style="width:100px; display:none;"/>
-              <input type="button" id="submitTheme" onclick="submit_theme()" value="确定" style="display:none;margin: 0 0 2px 4px;" /></td>
+              <input type="button" class="button" id="submitTheme" onclick="submit_theme()" value="确定" style="display:none;margin: 0 0 2px 4px;" /></td>
             <td valign="top" scope="row" style="min-width:100px;"> 导游服务: </td>
             <td valign="top"><php>if($xianlu['quanpei']){ </php>
               <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="全陪" checked="checked">
@@ -215,12 +215,12 @@
             <td valign="top" scope="row"> 视频: </td>
             <td valign="top"><input readonly name="shipin" type="text" id="shipin" value="<{$xianlu['shipin']}>" onclick="showdiv_2('shipin')" style="width:200px;">
               <input type="hidden" id="Videos_id" />
-              <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('shipin')" id="selectshipin"/></td>
+              <input type="button" class="button" value="选择" style="margin: 0 0 2px 4px;" onclick="showdiv_2('shipin')" id="selectshipin"/></td>
             <td valign="top" scope="row"> 图片: </td>
             <td valign="top"><input readonly name="tupian" type="text" id="tupian" value="<{$xianlu['tupian']}>" onclick="showdiv_2('tupian')" style="width:200px;">
               <input type="hidden" id="Images_id" />
-              <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('tupian')" id="selecttupian"/>
-              <input type="button" value="清空" class="button" style="margin: 0 0 2px 4px;" onclick="clearinput('tupian')" id="selecttupian"/></td>
+              <input type="button" class="button" value="选择" style="margin: 0 0 2px 4px;" onclick="showdiv_2('tupian')" id="selecttupian"/>
+              <input type="button" class="button" value="清空" style="margin: 0 0 2px 4px;" onclick="clearinput('tupian')" id="selecttupian"/></td>
           </tr>
         </tbody>
       </table>

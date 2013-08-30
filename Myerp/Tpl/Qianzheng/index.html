@@ -42,12 +42,12 @@ function onshop(){
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
                     <php>if($login_user['user_name'] == 'aaa'){</php>
-                    <input class="button" type="button" value=" 重置OM " onclick="resetOM()">
+                    <input type="button" class="button" value=" 重置OM " onclick="resetOM()">
                     <php>}</php>
-                    <input class="button" type="button" value=" 删除到回收站 " onclick="deletetohsz()">
-                    <input class="button" type="button" value=" 提交到网店 " onclick="onshop()">
+                    <input type="button" class="button" value=" 删除到回收站 " onclick="deletetohsz()">
+                    <input type="button" class="button" value=" 提交到网店 " onclick="onshop()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>

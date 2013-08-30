@@ -90,25 +90,25 @@ function quxiao_after(data,status){
       
       <div class="buttons">
       		
-            <input type="button" value="支付查询" name="button" class="button primary" style="float:right" id="zhifuchaxun_create">
-            <input type="button" value="审核记录" name="button" class="button primary" style="float:right" onclick="shenheshow_doit(<{$chanpinID}>,this);">
+            <input type="button" class="button" value="支付查询" name="button" style="float:right" id="zhifuchaxun_create">
+            <input type="button" class="button" value="审核记录" name="button" style="float:right" onclick="shenheshow_doit(<{$chanpinID}>,this);">
           
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'订单');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" class="button primary" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" class="button primary" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
       <php>}}else{</php>
-      <input type="button" class="button primary" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
+      <input type="button" class="button" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
       <php>}if(A("Method")->checkshenheback($chanpinID,'订单')){</php>
-      <input type="button" class="button primary" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'订单');">
+      <input type="button" class="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'订单');">
 	  <php>}</php>
-          <input type="button" value=" 取消订单 " name="button" class="button primary" onClick="quxiao('<{$chanpinID}>');">
-          <input type="button" value=" 确认订单 " name="button" class="button primary" onClick="querendingdan();">
+          <input type="button" class="button" value=" 取消订单 " name="button" onClick="quxiao('<{$chanpinID}>');">
+          <input type="button" class="button" value=" 确认订单 " name="button" onClick="querendingdan();">
       </div>
       
       
@@ -156,12 +156,12 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px"> 联系人：</td>
           <td align="left" style="height: 32px">
             <input type="text" name="lianxiren" style="width:80px;" value="<{$dingdan['lianxiren']}>" check="^\S+$" warning="联系人不能为空,且不能含有空格">
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 联系电话：</td>
           <td align="left" style="height: 32px">
             <input type="text" name="telnum" style="width:80px;" value="<{$dingdan['telnum']}>" check="^\S+$" warning="联系电话不能为空,且不能含有空格">
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 订单状态：</td>
           <td align="left" style="height: 32px">
@@ -221,7 +221,7 @@ function quxiao_after(data,status){
                 <option value="<{$v['bumenID']}>"><{$v['title']}></option>
               <php>}</php>
               </select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 提成：</td>
           <td align="left" style="height: 32px">
@@ -234,12 +234,12 @@ function quxiao_after(data,status){
                 <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}></option>
                 <php>}</php>
 			</select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 团队提成：</td>
           <td align="left" style="height: 32px">
           	<input type="text" name="tuandui_ticheng" id="tuandui_ticheng" value="<{$dingdan['tuandui_ticheng']}>"/>(直接输入金额)
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
         </tr>
         
@@ -247,7 +247,7 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px; min-width:80px;"> 负责人(操作费)：</td>
           <td align="left" style="height: 32px; min-width:80px;">
             <input type="text" name="fuzeren" id="fuzeren" style="width:80px;" value="<{$dingdan['fuzeren']}>" check="^\S+$" warning="负责人不能为空,且不能含有空格">
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"> 操作费：</td>
           <td align="left" style="height: 32px">
@@ -260,7 +260,7 @@ function quxiao_after(data,status){
                 <option value="<{$czv['systemID']}>"><{$czv['description']}></option>
                 <php>}</php>
 			</select>
-            <input style="width:60px;" class="button" type="button" value=" 修改 " onClick="checktable()">
+            <input style="width:60px;" type="button" value=" 修改 " onClick="checktable()">
           </td>
           <td align="left" style="height: 32px"></td>
           <td align="left" style="height: 32px">
@@ -345,7 +345,7 @@ function quxiao_after(data,status){
               <option value="签单">签单</option>
             </select>
            <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" <php>if(!$vo['ispay']){</php> value="未付款" <php>}</php> value="<{$vo['ispay']}>"/>
-            <input style="width:60px;" class="button" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
+            <input style="width:60px;" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
           </td>
           <td align="left" style="height: 32px"><input type="hidden" name="is_leader<{$i}>" id="is_leader<{$vo[id]}>" value="<{$vo['is_leader']}>"><php>if($vo['is_leader'] == '领队') echo '领队';else{if($vo[laokehu] == 0) echo '新客户' ;else echo '老客户';}</php></td>
           <td align="left" style="height: 32px">
@@ -356,8 +356,8 @@ function quxiao_after(data,status){
           <php>}</php>
           </td>
           <td align="left" style="height: 32px">
-            <input type="button" value="领队/团员" name="button" class="button primary" onclick="if(window.confirm('确定设置？')==true)lingduiortuanyuan(<{$vo['id']}>);">
-            <input type="button" value="取消参团" name="button" class="button primary" onclick="if(window.confirm('确定取消？')==true)quxiaocantuan(<{$vo['id']}>);">
+            <input type="button" class="button" value="领队/团员" name="button" onclick="if(window.confirm('确定设置？')==true)lingduiortuanyuan(<{$vo['id']}>);">
+            <input type="button" class="button" value="取消参团" name="button" onclick="if(window.confirm('确定取消？')==true)quxiaocantuan(<{$vo['id']}>);">
           </td>
         </tr>
         <php>}</php>
@@ -434,7 +434,7 @@ function quxiao_after(data,status){
               <option value="签单">签单</option>
             </select>
            <input type="hidden" name="ispay<{$i}>" id="ispay<{$vo[id]}>" <php>if(!$vo['ispay']){</php> value="未付款" <php>}</php> value="<{$vo['ispay']}>"/>
-            <input style="width:60px;" class="button" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
+            <input style="width:60px;" type="button" value=" 确认 " onclick="dofukuan(<{$vo[id]}>)">
           </td>
           <td align="left" style="height: 32px"><input type="hidden" name="is_leader<{$i}>" id="is_leader<{$vo[id]}>" value="<{$vo['is_leader']}>"><php>if($vo['is_leader'] == '领队') echo '领队';else{if($vo[laokehu] == 0) echo '新客户' ;else echo '老客户';}</php></td>
           <td align="left" style="height: 32px">
@@ -445,8 +445,8 @@ function quxiao_after(data,status){
           <php>}</php>
           </td>
           <td align="left" style="height: 32px">
-            <input type="button" value="领队/团员" name="button" class="button primary" onclick="if(window.confirm('确定设置？')==true)lingduiortuanyuan(<{$vo['id']}>);">
-            <input type="button" value="取消参团" name="button" class="button primary" onclick="if(window.confirm('确定取消？')==true)quxiaocantuan(<{$vo['id']}>);">
+            <input type="button" class="button" value="领队/团员" name="button" onclick="if(window.confirm('确定设置？')==true)lingduiortuanyuan(<{$vo['id']}>);">
+            <input type="button" class="button" value="取消参团" name="button" onclick="if(window.confirm('确定取消？')==true)quxiaocantuan(<{$vo['id']}>);">
           </td>
         </tr>
         <php>}</php>
@@ -454,7 +454,7 @@ function quxiao_after(data,status){
         
         <tr>
           <td colspan="20" height="32" align="center" ><strong style="color:red">人员信息填写后，请点击保存</strong>
-          <input style="width:60px;" class="button" type="button" value=" 保存 " onClick="if(CheckForm('form1','resultdiv_2'))save();">
+          <input style="width:60px;" type="button" value=" 保存 " onClick="if(CheckForm('form1','resultdiv_2'))save();">
           </td>
         </tr>
         
@@ -466,7 +466,7 @@ function quxiao_after(data,status){
       <tbody>
         <tr style="background-color:#4E8CCF; color:white">
           <td colspan="20" height="32" align="left" >
-          <h4 style="float:left;color:white"><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 订单备忘  <input style="width:60px;" class="button" type="button" value=" 添加 " id="remark_create" ></h4> 
+          <h4 style="float:left;color:white"><img src="<{:__PUBLIC__}>/gulianstyle/images/bmbbj.gif"></img> 订单备忘  <input style="width:60px;" type="button" value=" 添加 " id="remark_create" ></h4> 
           </td>
         </tr>
         <tr>

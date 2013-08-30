@@ -62,8 +62,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -102,7 +102,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_1('<{$v[systemID]}>');">
                   </td>
                 </tr>
                 <php> }</php>
@@ -186,8 +186,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -220,7 +220,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_2('<{$v[title]}>');">
                   </td>
                 </tr>
                 <php> }</php>

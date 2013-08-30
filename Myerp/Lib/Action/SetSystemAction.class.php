@@ -898,6 +898,13 @@ class SetSystemAction extends CommonAction{
 	}
 	
 	
+    public function chanpin_resetbyshenhetask() {
+		if(false === A('Method')->_check_chanpin_doshehe($_REQUEST['chanpinID'],$_REQUEST['datatype']))
+			$this->ajaxReturn('', '失败！', 0);
+		else
+			$this->ajaxReturn('', '完成！', 1);
+    }
+	
 	
 	
 	

@@ -441,7 +441,7 @@ jQuery().ready(function() {
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF;"><strong>应收费用</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增 " onclick="insertItem('yingshou_list','结算项目');"></td>
+                      <input type="button" class="button" value=" 新增 " onclick="insertItem('yingshou_list','结算项目');"></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -481,37 +481,37 @@ jQuery().ready(function() {
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
           <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
-          <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
+          <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
           <td scope="row" align="left" valign="top"><strong 
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
           ><{$v['shenhe_remark']}></strong></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
   
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}}else{</php>
       <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" value="审核" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+      <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
+      <input type="button" class="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
           <php>}elseif($v['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
+      <input type="button" class="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
           <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('已经回退！')" >
+      <input type="button" class="button" value="回退" onclick="alert('已经回退！')" >
           <php>}</php>
 	  <php>}</php>
       
@@ -533,11 +533,11 @@ jQuery().ready(function() {
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应付费用</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
+                      <input type="button" class="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
                     <td nowrap="nowrap" class="paginationActionButtons">
                     <strong>新增商户条目</strong>&nbsp;
                     <input type="text" style="width:200px;" id="shanghutiaomu_add" />
-                      <input class="button" type="button" value=" 确认 " onclick="new_shanghutiaomu()"></td>
+                      <input type="button" class="button" value=" 确认 " onclick="new_shanghutiaomu()"></td>
                   </tr>
                 </tbody>
               </table>
@@ -582,36 +582,36 @@ jQuery().ready(function() {
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
           <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
-          <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
+          <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
           <td scope="row" align="left" valign="top"><strong 
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
           ><{$v['shenhe_remark']}></strong></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}}else{</php>
       <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" value="审核" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+      <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
+      <input type="button" class="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
           <php>}elseif($v['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
+      <input type="button" class="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
           <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('已经回退！')" >
+      <input type="button" class="button" value="回退" onclick="alert('已经回退！')" >
           <php>}</php>
 	  <php>}</php>
       
@@ -633,8 +633,8 @@ jQuery().ready(function() {
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>利润项</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增部门利润 " onclick="insertItem('lirun_list','利润','部门');">
-                      <input class="button" type="button" value=" 新增员工利润 " onclick="insertItem('lirun_list','利润','用户');"></td>
+                      <input type="button" class="button" value=" 新增部门利润 " onclick="insertItem('lirun_list','利润','部门');">
+                      <input type="button" class="button" value=" 新增员工利润 " onclick="insertItem('lirun_list','利润','用户');"></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -676,8 +676,8 @@ jQuery().ready(function() {
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;"></td>
           <td scope="row" align="left" valign="top"></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"

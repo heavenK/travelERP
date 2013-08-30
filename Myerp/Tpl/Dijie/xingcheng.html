@@ -107,8 +107,8 @@ function doprint(type){
                           <tbody>
                             <tr>
                               <td nowrap="nowrap" class="paginationActionButtons"><strong>交通</strong>&nbsp;
-                                <input class="button" type="button" value="添加去程交通" onclick="insertjiaotong('去程');" />
-                                <input class="button" type="button" value="+回程交通" onclick="insertjiaotong('回程');" />
+                                <input type="button" class="button" value="添加去程交通" onclick="insertjiaotong('去程');" />
+                                <input type="button" class="button" value="+回程交通" onclick="insertjiaotong('回程');" />
                               <td nowrap="nowrap" align="right" class="paginationChangeButtons"></td>
                             </tr>
                           </tbody>
@@ -143,8 +143,8 @@ function doprint(type){
                     <td scope="row" align="left" valign="top"><input type="text" name="dachengshijian[]" value="<{$dachengshijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
                     <td scope="row" align="left" valign="top"><input type="text" name="didashijian[]" value="<{$didashijian}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
                     <td scope="row" align="left" valign="top">
-                    <input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletejiaotong(<{$i}>)" />
-					<input class="button" type="button" value="修改" onClick="save()" />
+                    <input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletejiaotong(<{$i}>)" />
+					<input type="button" class="button" value="修改" onClick="save()" />
                     </td>
                   </tr>
                    <php>}</php> 
@@ -239,7 +239,7 @@ function doprint(type){
         </tbody>
       </table>
       <div class="buttons">
-        <input type="button" value="保存" name="button" class="button primary" onclick="save();">
+        <input type="button" class="button" value="保存" name="button" onclick="save();">
       </div>
     </form>
   </div>

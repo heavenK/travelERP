@@ -2,7 +2,8 @@
 
 <div id="main">
   <div id="content" style="margin-left:0;">
-  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
       <php>if( $nowDir['title'] == '用户' || $nowDir['title'] == '系统管理'){</php>
     <table cellspacing="0" cellpadding="0" width="100%" class="h3Row" style="margin-top:0px;">
       <tbody>
@@ -43,6 +44,8 @@
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="<{:SITE_INDEX}>SetSystem/">数据开放权限查询</a></td>
           <td width="30%">数据开放权限查询</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="shenhe_create">产品审核重置</a></td>
+          <td width="30%">检查产品审核状态，重置产品属性。</td>
         </tr>
       </tbody>
     </table>
@@ -104,8 +107,6 @@
       <php>}</php>
       </tbody>
     </table>
-            <div id="resultdiv" class="resultdiv"></div>
-            <div id="resultdiv_2" class="resultdiv"></div>
     <table class="other view">
       <tbody>
         <tr>
@@ -174,6 +175,26 @@ jQuery(document).ready(function(){
 	// Dialog Link
 	jQuery('#pingyi_create').click(function(){
 		jQuery('#dialog_pingyi').dialog('open');
+		return false;
+	});
+	// Dialog
+	jQuery('#dialog_shenhe').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_shenhe','resultdiv_2')){
+						ThinkAjax.sendForm('form_shenhe',SITE_INDEX+'SetSystem/chanpin_resetbyshenhetask','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#shenhe_create').click(function(){
+		jQuery('#dialog_shenhe').dialog('open');
 		return false;
 	});
 });
@@ -253,3 +274,21 @@ function resetchanpinshoujia(){
     </table>
 </form>
 </div>
+
+<div id="dialog_shenhe" title="产品审核重置" style="background:#FFF">
+<form id="form_shenhe" id="form_shenhe" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
+          <td valign="top" scope="row"><input name="datatype" type="text" id="chanpin_type" check="^\S+$" warning="产品类型不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+

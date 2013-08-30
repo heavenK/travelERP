@@ -64,6 +64,7 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	
+	
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['xianlu'] = $_REQUEST;
@@ -156,6 +157,7 @@ class ChanpinAction extends CommonAction{
 		}
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
+	
 	
 	
 	public function dopostfabu_shoujia() {
@@ -871,6 +873,9 @@ class ChanpinAction extends CommonAction{
 		A("Method")->showDirectory("签证及票务");
 		$this->assign("actionmethod",'Chanpin');
 		A('Method')->unitlist();
+		//审核后续检查
+		
+		
 		if(!$_REQUEST['chanpinID'])
 			A("Method")->_baozhang();
 		else
@@ -1058,8 +1063,6 @@ class ChanpinAction extends CommonAction{
 			redirect(SITE_INDEX."Dijie/zituanbaozhang/doprint/打印/baozhangID/".$chanpinID);
 		}
     }
-	
-	
 	
 	
 	

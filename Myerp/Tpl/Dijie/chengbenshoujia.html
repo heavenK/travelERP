@@ -31,13 +31,13 @@ jQuery().ready(function() {
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><strong>成本项目</strong>&nbsp;
-                    <input class="button" type="button" value="新增大交通" onclick="insertItem('大交通');" />
-                    <input class="button" type="button" value="+旅游车" onclick="insertItem('旅游车');" />
-                    <input class="button" type="button" value="+酒店" onclick="insertItem('酒店');" />
-                    <input class="button" type="button" value="+餐饮" onclick="insertItem('餐饮');" />
-                    <input class="button" type="button" value="+门票" onclick="insertItem('门票');" />
-                    <input class="button" type="button" value="+导游" onclick="insertItem('导游');" />
-                    <input class="button" type="button" value="+其他" onclick="insertItem('其他');" />
+                    <input type="button" class="button" value="新增大交通" onclick="insertItem('大交通');" />
+                    <input type="button" class="button" value="+旅游车" onclick="insertItem('旅游车');" />
+                    <input type="button" class="button" value="+酒店" onclick="insertItem('酒店');" />
+                    <input type="button" class="button" value="+餐饮" onclick="insertItem('餐饮');" />
+                    <input type="button" class="button" value="+门票" onclick="insertItem('门票');" />
+                    <input type="button" class="button" value="+导游" onclick="insertItem('导游');" />
+                    <input type="button" class="button" value="+其他" onclick="insertItem('其他');" />
                     </td>
                 </tr>
               </tbody>
@@ -71,8 +71,8 @@ jQuery().ready(function() {
         <php>}</php>
         <td scope="row" align="left" valign="top"><input type="text" name="remark[]" value="<{$remark_t}>" ></td>
         <td scope="row" align="left" valign="top"><input type="text" name="price[]" value="<{$price}>" class='priceitem' check="^\S+$" warning="金额不能为空,且不能含有空格"></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem('chengbenrow<{$i}>')" />
-          <input class="button" type="button" value="修改" onClick="save()" /></td>
+        <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem('chengbenrow<{$i}>')" />
+          <input type="button" class="button" value="修改" onClick="save()" /></td>
       </tr>
       <php>}</php>
         </tbody>
@@ -106,7 +106,7 @@ jQuery().ready(function() {
       </tbody>
     </table>
       <div class="buttons">
-        <input type="button" value="保存" name="button" class="button primary" onclick="save();">
+        <input type="button" class="button" value="保存" name="button" onclick="save();">
       </div>
     </form>
   </div>

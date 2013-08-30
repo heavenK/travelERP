@@ -107,7 +107,7 @@
                   <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/<{$v['datatext_copy']['parentID']}>" target="_blank"><{$v['title_copy']}></a></td>
                   <td scope="row" align="left" valign="top"><{$v['datatext_copy']['value']}></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo_item(<{$v['datatext_copy']['parentID']}>);">
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo_item(<{$v['datatext_copy']['parentID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -141,7 +141,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['datatext_copy']['yingfu_copy'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['datatext_copy']['yingshou_copy'] -$v['datatext_copy']['yingfu_copy'])</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$v['datatext_copy']['chanpinID']}>);">
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$v['datatext_copy']['chanpinID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -175,7 +175,7 @@
                   <td scope="row" align="left" valign="top"><{$v['remark']}></td>
                   <td scope="row" align="left" valign="top"><php>echo date('Y/m/d H:i',$v['time']);</php></td>
                   <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="show_dingdan(<{$v['chanpinID']}>);">
+              <input type="button" class="button" value="查看" name="button" onClick="show_dingdan(<{$v['chanpinID']}>);">
                   </td>
                 </tr>
                 <php> }}</php>

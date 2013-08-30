@@ -60,8 +60,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -99,9 +99,9 @@
                   <td scope="row" align="left" valign="top"><{$v['maolilv']}></td>
                   <td scope="row" align="left" valign="top">
                   <php>if($listtype == '员工'){</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_2('<{$v[title]}>');">
                   <php>}else{</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_1('<{$v[systemID]}>');">
                   <php>}</php>
                   </td>
                 </tr>

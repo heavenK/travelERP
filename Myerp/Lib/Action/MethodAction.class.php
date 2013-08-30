@@ -1215,10 +1215,8 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
-	//审核任务
-	//生成待检出	
-	//检查审核流程
-     public function _shenheDO($_REQUEST,$need) {
+	 //审核检查商品
+     public function _shenheDO_chanpin_check() {
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 		//订单
@@ -1271,87 +1269,63 @@ class MethodAction extends CommonAction{
 				return false;
 			}
 		}
+	 
+	 }
+	 
+	 
+	 
+	 
+	//审核任务
+	//生成待检出	
+	//检查审核流程
+     public function _shenheDO($need) {
+		 //检查商品
+		if(false === $this->_shenheDO_chanpin_check())
+			return false;
+		$Chanpin = D("Chanpin");
 		$dotype = $_REQUEST['dotype'];
-		$data = $_REQUEST;
-		$data['taskShenhe'] = $_REQUEST;
-		$data['status'] = $_REQUEST['status_shenhe'];
-		$data['user_name'] = $this->user['title'];
 		if($dotype == '申请'){
-			if(false === $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID'])){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+			unset($_REQUEST['parentID']);//多余字段影响数据
+			$process = $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID']);
+			if(false === $process){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
 			$processID = 1;
-			cookie('successmessage','操作成功！',30);
 		}
 		else{
+			$process = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
+			if(false === $process){
+				cookie('errormessage','错误！该产品流程不存在或已被执行！',30);
+				return false;
+			}
 			$processID = $need['processID'];
-			$data['systemID'] = $need['systemID'];
-			cookie('successmessage','操作成功！',30);
+			$data['systemID'] = $need['systemID'];//审核覆盖
 		}
+		//$data = $_REQUEST;
+		$data['taskShenhe'] = $_REQUEST;
+		$data['status'] = $_REQUEST['status_shenhe'];
+		$data['user_name'] = $this->user['title'];
 		//检查流程状态
-		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID,$need);
-		if(false === $process){
-			cookie('errormessage','错误！该产品流程不存在或已被执行，请勿重复执行！',30);
-			return false;
-		}
+//		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID,$need);
+//		if(false === $process){
+//			cookie('errormessage','错误！该产品流程不存在或已被执行！',30);
+//			return false;
+//		}
 		$data['taskShenhe']['processID'] = $processID;
-		$data['taskShenhe']['remark'] = $process[0]['remark'];
+		$data['taskShenhe']['remark'] = $process['remark'];
 		$data['taskShenhe']['roles_copy'] = cookie('_task_roles');
 		$data['taskShenhe']['bumen_copy'] = cookie('_task_bumen');
-		if($_REQUEST['datatype'] == '订单'){
-			$ViewDingdan = D("ViewDingdan");
-			$tmdt = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['type'];
-		}
-		if($_REQUEST['datatype'] == '线路'){
-			$ViewXianlu = D("ViewXianlu");
-			$tmdt = $ViewXianlu->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['kind'];
-		}
-		if($_REQUEST['datatype'] == '报账项'){
-			$ViewBaozhangitem = D("ViewBaozhangitem");
-			$tmdt = $ViewBaozhangitem->relation("baozhanglist")->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['baozhanglist']['type'];//报账项与报账单类型相同
-		}
-		if($_REQUEST['datatype'] == '报账单'){
-			$ViewBaozhang = D("ViewBaozhang");
-			$tmdt = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['type'];
-		}
-		if($_REQUEST['datatype'] == '地接'){
-			$ViewDJtuan = D("ViewDJtuan");
-			$tmdt = $ViewDJtuan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['kind'];
-		}
-		if($_REQUEST['datatype'] == '签证'){
-			$data['taskShenhe']['datakind'] = '签证';
-			$ViewQianzheng = D("ViewQianzheng");
-			$tmdt = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-		}
-		$data['taskShenhe']['title_copy'] = $tmdt['title'];
 		//任务搜索字段填充
 		$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$data);
-		//审核任务
+		//审核任务，申请及检出
 		$System = D("System");
 		$System->startTrans();
-		if (false === $System->relation("taskShenhe")->myRcreate($data)){
+		if(false === $System->relation("taskShenhe")->myRcreate($data)){
 			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
 			return false;
 		}
-		else{
-			//锁定产品
-			$Chanpin = D("Chanpin");
-			$dat_t['chanpinID'] = $_REQUEST['dataID'];
-			$dat_t['islock'] = '已锁定';
-			$dat_t['shenhe_remark'] = $data['taskShenhe']['remark'];
-			$dat_t['status_shenhe'] = $data['status'];
-			if (false === $Chanpin->save($dat_t)){
-				$System->rollback();
-				cookie('errormessage','错误，操作失败！'.$Chanpin->getError(),30);
-				return false;
-			}
-		}
+		//如果流程只有批准
 		$to_dataID = $System->getRelationID();
 		if($processID == 1 && $data['status'] == '批准'){
 			$md['systemID'] = $to_dataID;
@@ -1359,7 +1333,8 @@ class MethodAction extends CommonAction{
 			if(false === $System->save($md))
 				$System->rollback();
 		}
-		$process = $this->_checkShenhe($data['datatype'],$processID+1);
+		//如果多流程
+		$process = $this->_checkShenhe($_REQUEST['datatype'],$processID+1);
 		if($process){
 			$data['status'] = '待检出';
 			if($processID == 1)
@@ -1387,8 +1362,29 @@ class MethodAction extends CommonAction{
 			}
 		}
 		$System->commit();
+		//记录
+		if($_REQUEST['datatype'] == '线路')
+			$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '地接')
+			$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '签证')
+			$url = 'index.php?s=/Qianzheng/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '订单')
+			$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '报账单')
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '报账项'){
+			$ViewBaozhangitem = D("ViewBaozhangitem");
+			$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
+		}
+		$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
+		$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
+		cookie('successmessage','操作成功！',30);
 		return $userIDlist;
 	}
+	
+	
 	
 	
 	//获得审核流程
@@ -1397,6 +1393,8 @@ class MethodAction extends CommonAction{
 		$data =  $DataShenhe->where("`datatype` = '$datatype'")->findall();
 		return $data;
 	 }
+	 
+	
 	
 	
 	//获得产品OM
@@ -2842,8 +2840,6 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	
-	
 	public function _doshenhe() {
 		C('TOKEN_ON',false);
 		if($_REQUEST['dotype'] == '申请'){
@@ -2874,19 +2870,62 @@ class MethodAction extends CommonAction{
 		//检查流程权限及状态
 		//生成审核任务
 		//生成待检出	
-		$userIDlist = $this->_shenheDO($_REQUEST,$need);
+		$userIDlist = $this->_shenheDO($need);
 		if (false !== $userIDlist){
-			$Chanpin = D("Chanpin");
-			$editdat['chanpinID'] = $_REQUEST['dataID'];
-			if($status == '批准'){
+			$this->_doshehe_after();
+		}
+		else
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+	}
+	
+	
+	
+	
+	//审核功能
+	public function _check_chanpin_doshehe($chanpinID,$datatype) {
+		$Chanpin = D("Chanpin");	
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if(false === $cp)
+			return false;
+		if($cp['status_shenhe'] != '批准'){
+			$task = $this->_get_chanpin_taskshenhe($chanpinID,$datatype);//获得产品审核状态
+			if($task['remark'] != $cp['shenhe_remark']){
+				$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+				$_REQUEST['dataID'] = $cp['chanpinID'];
+				$_REQUEST['datatype'] = $datatype;
+				$detail_cp = $Chanpin->relationGet($cp['marktype']);	
+				$_REQUEST['title'] = $detail_cp['title'];
+				$this->_doshehe_after();
+			}
+		}
+	}
+	
+	
+	
+	//审核功能
+	public function _doshehe_after() {
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$need = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
+		$status = $need['status'];
+		$editdat['chanpinID'] = $_REQUEST['dataID'];
+		//同步产品数据
+		$cp_up['chanpinID'] = $_REQUEST['dataID'];
+		$cp_up['shenhe_remark'] = $need['remark'];
+		if(false === $Chanpin->save($cp_up)){
+			cookie('errormessage','错误，产品同步失败！'.$Chanpin->getError(),30);
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		}
+		if($status == '批准'){
 				//生成备份
+				$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//备份需求
 				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
 				$editdat['shenhe_time'] = time();
-			}
-			if($_REQUEST['datatype'] == '线路'){
+		}
+		if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
-				  	$Chanpin->save($editdat);
+					$Chanpin->save($editdat);
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
@@ -2910,13 +2949,11 @@ class MethodAction extends CommonAction{
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID']);
 				}
-				$Chanpin->save($editdat);
-				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '签证'){
+		}
+		if($_REQUEST['datatype'] == '签证'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
-				  	$Chanpin->save($editdat);
+					$Chanpin->save($editdat);
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID'],'签证');
 					//销售开放重置1
@@ -2933,20 +2970,16 @@ class MethodAction extends CommonAction{
 						}
 					}
 				}
-				$Chanpin->save($editdat);
-				$url = 'index.php?s=/Qianzheng/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '订单'){
+		}
+		if($_REQUEST['datatype'] == '订单'){
 				if($status == '批准'){
 					//填入客户表
 					$this->_customerbuild($_REQUEST['dataID']);
 				}
-				$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '报账项'){
+		}
+		if($_REQUEST['datatype'] == '报账项'){
 				$ViewBaozhangitem = D("ViewBaozhangitem");
 				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 				//报账单经理临时签字
 				if($status == '检出'){
 					//检查经理权限
@@ -2973,8 +3006,8 @@ class MethodAction extends CommonAction{
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$item[parentID]' AND `status_system` = '1'")->find();
 				$djcdata['datatext_copy'] = serialize($baozhang);
 				$TaskShenhe->save($djcdata);
-			}
-			if($_REQUEST['datatype'] == '报账单'){
+		}
+		if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
 				$this->_updatebaozhangdata($editdat['chanpinID']);
 				//父产品锁定截止
@@ -3023,9 +3056,8 @@ class MethodAction extends CommonAction{
 					}
 					$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
 				}
-				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '地接'){
+		}
+		if($_REQUEST['datatype'] == '地接'){
 				if($status == '批准'){
 					$editdat['status'] = '在线';
 					//生成默认团队报账单
@@ -3045,19 +3077,25 @@ class MethodAction extends CommonAction{
 						$this->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
 					}
 				}
-				$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			//保存信息
-			$Chanpin->save($editdat);
-			//记录
-			$Chanpin = D("Chanpin");
-			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
-			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
-			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
-		else
-			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		//保存信息
+		$Chanpin->save($editdat);
+		$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 	}
+	
+	
+	
+	//获得当前产品审核状态
+    public function _get_chanpin_taskshenhe($chanpinID,$datatype) {
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$where['dataID'] = $chanpinID;
+		$where['datatype'] = $datatype;
+		$where['status'] = array('neq','待检出');
+		$where['status_system'] = 1;
+		$task = $ViewTaskShenhe->where($where)->order("systemID desc")->find();
+		return $task;
+	}
+	
 	
 	
 	
@@ -3948,46 +3986,64 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
+		$ViewXianlu = D("ViewXianlu");
+		$ViewQianzheng = D("ViewQianzheng");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
 		if($datatype == '报账项'){
-			$cp = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
+			$cp = $ViewBaozhangitem->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
 			$data['taskShenhe']['datatext_copy'] = serialize($cp);
-			$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
 			$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
 			$zituanID = $cp['baozhanglist']['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['baozhanglist']['type'];//报账项与报账单类型相同
 		}
-		elseif($datatype == '报账单'){
+		if($datatype == '报账单'){
 			$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
 			$data['taskShenhe']['datatext_copy'] = serialize($cp);
-			$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 			$zituanID = $cp['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['type'];
 		}
-		elseif($datatype == '订单'){
+		if($datatype == '订单'){
 			$cp = $ViewDingdan->where("`chanpinID` = '$dataID'")->find();
 			$data['taskShenhe']['datatext_copy'] = serialize($cp);
-			$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 			$zituanID = $cp['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['type'];
 		}
-		else
-			return $data;
+		if($datatype == '线路'){
+			$cp = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = $cp['kind'];
+		}
+		if($datatype == '地接'){
+			$cp = $ViewDJtuan->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = $cp['kind'];
+		}
+		if($datatype == '签证'){
+			$cp = $ViewQianzheng->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = '签证';
+		}
+		$data['taskShenhe']['title_copy'] = $cp['title'];
 		//获得团
-		$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
-		if($cp['marktype'] == 'zituan'){
-			$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-			$data['taskShenhe']['tuantitle_copy'] = $zituan['title_copy'];
-			$data['taskShenhe']['tuanqi_copy'] = $zituan['chutuanriqi'];
-			$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
-				
-		}
-		if($cp['marktype'] == 'DJtuan'){
-			$djtuan = $ViewDJtuan->where("`chanpinID` = '$cp[chanpinID]'")->find();
-			$data['taskShenhe']['tuantitle_copy'] = $djtuan['title'];
-			$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
-			$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
+		if($zituanID){
+			$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
+			if($cp['marktype'] == 'zituan'){
+				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
+				$data['taskShenhe']['tuantitle_copy'] = $zituan['title_copy'];
+				$data['taskShenhe']['tuanqi_copy'] = $zituan['chutuanriqi'];
+				$data['taskShenhe']['tuanhao_copy'] = $zituan['tuanhao'];
+					
+			}
+			if($cp['marktype'] == 'DJtuan'){
+				$djtuan = $ViewDJtuan->where("`chanpinID` = '$cp[chanpinID]'")->find();
+				$data['taskShenhe']['tuantitle_copy'] = $djtuan['title'];
+				$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
+				$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
+			}
 		}
 		return $data;
 	}
+	
+	
+	
 	
 	//获得用户信息
     public function _getuserinfo($username) {
@@ -4220,11 +4276,17 @@ class MethodAction extends CommonAction{
 	function _djcCreate($data,$process){//任务数据,下一流程
 		C('TOKEN_ON',false);
 		$System = D("System");
-		$System->relation("taskShenhe")->myRcreate($data);
-		$data['systemID'] = $System->getRelationID();
+		if(false === $System->relation("taskShenhe")->myRcreate($data)){
+			cookie('errormessage','生成待审核失败！',30);
+			return false;
+		}
 		//生成待检出OM
+		$data['systemID'] = $System->getRelationID();
+		$data['dataID'] = $data['taskShenhe']['dataID'];
+		$data['datatype'] = $data['taskShenhe']['datatype'];
 		return $this->_djcOMCreate($data,$process);
 	}
+	
 	
 	
 	

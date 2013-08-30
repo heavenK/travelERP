@@ -59,8 +59,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -97,8 +97,8 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_1();">
-                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_2();">
+                      <input type="button" class="button" value="收客明细" name="button" onclick="setuser('<{$v[title]}>');opendialog_1();">
+                      <input type="button" class="button" value="操作明细" name="button" onclick="setuser('<{$v[title]}>');opendialog_2();">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -131,8 +131,8 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_1_1();">
-                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_2_2();">
+                      <input type="button" class="button" value="收客明细" name="button" onclick="setbumen('<{$v[systemID]}>');opendialog_1_1();">
+                      <input type="button" class="button" value="操作明细" name="button" onclick="setbumen('<{$v[systemID]}>');opendialog_2_2();">
                   </td>
                 </tr>
                 <php> }}</php>
