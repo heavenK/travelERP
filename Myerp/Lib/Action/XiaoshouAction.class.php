@@ -26,6 +26,7 @@ class XiaoshouAction extends Action{
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
+			$xianlu = simple_unserialize($xianlu['copy']);
 			if(false === $xianlu)
 			$xianlu = unserialize($xianlu['copy']);
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
