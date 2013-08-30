@@ -29,7 +29,7 @@ class XiaoshouAction extends Action{
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 			$xianlu = simple_unserialize($xianlu['copy']);
 			if(false === $xianlu)
-				$xianlu = $zituan[0];
+				$xianlu['xianlu'] = $zituan[0];
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
 			//剩余名额
 			$jj = 0;
