@@ -25,10 +25,12 @@ class XiaoshouAction extends Action{
 		$System = D("System");
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
+			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status_system` = '1'")->findall();
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 			$xianlu = simple_unserialize($xianlu['copy']);
+			if(false === $xianlu)
+				$xianlu = $zituan[0];
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
-			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status_system` = '1'")->findall();
 			//剩余名额
 			$jj = 0;
 			foreach($zituan as $zt){
