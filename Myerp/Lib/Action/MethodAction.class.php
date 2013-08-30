@@ -2906,12 +2906,12 @@ class MethodAction extends CommonAction{
 	public function _doshehe_after() {
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
-		$need = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
-		$status = $need['status'];
+		$process = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
+		$status = $process['status'];
 		$editdat['chanpinID'] = $_REQUEST['dataID'];
 		//同步产品数据
 		$cp_up['chanpinID'] = $_REQUEST['dataID'];
-		$cp_up['shenhe_remark'] = $need['remark'];
+		$cp_up['shenhe_remark'] = $process['remark'];
 		if(false === $Chanpin->save($cp_up)){
 			cookie('errormessage','错误，产品同步失败！'.$Chanpin->getError(),30);
 			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
@@ -3006,6 +3006,9 @@ class MethodAction extends CommonAction{
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$item[parentID]' AND `status_system` = '1'")->find();
 				$djcdata['datatext_copy'] = serialize($baozhang);
 				$TaskShenhe->save($djcdata);
+				//特殊处理报账单报账项审核状态
+				if($process['processID'] > 2)
+					$editdat['status_shenhe'] = '批准';
 		}
 		if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
@@ -3056,6 +3059,9 @@ class MethodAction extends CommonAction{
 					}
 					$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
 				}
+				//特殊处理报账单报账项审核状态
+				if($process['processID'] > 2)
+					$editdat['status_shenhe'] = '批准';
 		}
 		if($_REQUEST['datatype'] == '地接'){
 				if($status == '批准'){
