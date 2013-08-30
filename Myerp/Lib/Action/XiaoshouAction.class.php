@@ -27,10 +27,6 @@ class XiaoshouAction extends Action{
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 			$xianlu = simple_unserialize($xianlu['copy']);
-			//获得部门名
-			$bumenID = $xianlu['xianlu']['departmentID'];
-			$bumen = $System->relation("department")->where("`systemID` = '$bumenID'")->find();
-			$xianlu['xianlu']['bumentitle'] = $bumen['department']['title'];
 			$chanpin_list['chanpin'][$i]['xianlu'] = $xianlu;
 			$zituan = $ViewZituan->where("`parentID` = '$v[parentID]' AND `status_system` = '1'")->findall();
 			//剩余名额
