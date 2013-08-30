@@ -26,14 +26,14 @@ class XiaoshouAction extends Action{
 		$i = 0;
 		foreach($chanpin_list['chanpin'] as $v){
 			$xianlu = $DataCopy->where("`dataID` = '$v[parentID]' and `datatype` = '线路'")->order("time desc")->find();
- if($this->tVar['user']['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
+ if($this->user['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
 	 
 	 dump($xianlu);  
 	 
  }
 			$xianlu = simple_unserialize($xianlu['copy']);
 			
- if($this->tVar['user']['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
+ if($this->user['title'] == 'aaa' && $v['xianlu_title'] == '9月22日金牌法意瑞12日'){
 	 
 	 dump($xianlu);  
 	 
