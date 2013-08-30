@@ -2909,6 +2909,7 @@ class MethodAction extends CommonAction{
 		$process = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
 		$status = $process['status'];
 		$editdat['chanpinID'] = $_REQUEST['dataID'];
+		$editdat['status_shenhe'] = $status;
 		//同步产品数据
 		$cp_up['chanpinID'] = $_REQUEST['dataID'];
 		$cp_up['shenhe_remark'] = $process['remark'];
