@@ -12,6 +12,13 @@ class MethodAction extends CommonAction{
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
+		
+		//优化查询
+		if(!$where){
+			$class_name = 'DataOM';
+			$order = 'dataID desc';
+		}
+		
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where = $this->_orderShenheTask($where,$datatype,$relation);
@@ -26,7 +33,6 @@ class MethodAction extends CommonAction{
 		}
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
-			$where['datatype'] = $datatype;
 			if($where['chanpintype'] == ''){
 				$where['chanpintype'] = '线路';
 			}
@@ -48,30 +54,27 @@ class MethodAction extends CommonAction{
 				}
 				$where['xianlu_chutuanriqi'][$i] = 'or';
 			}
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '线路'){
-			$class_name = 'OMViewXianlu';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewXianlu';
+				$where = $this->_orderXianlu($where,$datatype);
+			}
 			$where['datatype'] = $datatype;
-			$where = $this->_orderXianlu($where,$datatype);
 		}
 		if($datatype == '订单'){
-			$class_name = 'OMViewDingdan';
-			$where['datatype'] = $datatype;
-			if($where['tuanqi_copy']){
-				if($where['title'])
-					$where['title'] = array(array('like',$where['title']),array('like',$where['tuanqi_copy']));
-				else
-					$where['title'] = $where['tuanqi_copy'];
+			//优化查询
+			if($where){
+				$class_name = 'OMViewDingdan';
+				$where = $this->_orderDingdan($where,$datatype);
 			}
-			$where = $this->_orderDingdan($where,$datatype);
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '子团'){
 			//优化查询
-			if(!$where){
-				$class_name = 'DataOM';
-				$order = 'dataID desc';
-			}
-			else{
+			if($where){
 				$class_name = 'OMViewZituan';
 				$order = 'chutuanriqi desc';
 				$where = $this->_orderZituan($where,$datatype);
@@ -79,45 +82,57 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '地接'){
-			$class_name = 'OMViewDJtuan';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewDJtuan';
+				$where = $this->_orderDijie($where,$datatype);
+				$order = 'jietuantime desc';
+			}
 			$where['datatype'] = $datatype;
-			$where = $this->_orderDijie($where,$datatype);
-			$order = 'jietuantime desc';
 		}
 		if($datatype == '报账单'){
-			$class_name = 'OMViewBaozhang';
-			$where['datatype'] = $datatype;
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['title'] = array('like','%'.$where['title'].'%');
-			$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
-			if($where['type'] == '单项服务'){
-				$where['type'] = array('neq','团队报账单');
+			//优化查询
+			if($where){
+				$class_name = 'OMViewBaozhang';
+				if($where['user_name'])
+					$where['user_name'] = array('like','%'.$where['user_name'].'%');
+				if($where['title'])
+					$where['title'] = array('like','%'.$where['title'].'%');
+				if($where['shenhe_remark'])
+					$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
+				if($where['type'] == '单项服务')
+					$where['type'] = array('neq','团队报账单');
 			}
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';
-			$where['datatype'] = $datatype;
 			$where['message'] = array('like','%'.$where['title'].'%');
 			unset($where['title']);
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '公告'){
 			$class_name = 'OMViewInfo';
-			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '排团表'){
 			$class_name = 'OMViewInfo';
-			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$order = 'sortvalue desc,time desc';
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '签证'){
-			$class_name = 'OMViewQianzheng';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewQianzheng';
+				$where['title'] = array('like','%'.$where['title'].'%');
+			}
 			$where['datatype'] = $datatype;
-			$where['title'] = array('like','%'.$where['title'].'%');
 		}
+		
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
 		if($type == '开放')
@@ -207,10 +222,14 @@ class MethodAction extends CommonAction{
 			}
 			$where['chutuanriqi'][$i] = 'or';
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
-		$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title'])
+			$where['title'] = array('like','%'.$where['title'].'%');
+		if($where['mudidi'])
+			$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
+		if($where['chufadi'])
+			$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
 		return $where;
 	}
 	
@@ -218,14 +237,22 @@ class MethodAction extends CommonAction{
 	//定制订单搜索条件
     public function _orderDingdan($where,$datatype) {
 		//处理搜索
+		if($where['tuanqi_copy']){
+			if($where['title'])
+				$where['title'] = array(array('like',$where['title']),array('like',$where['tuanqi_copy']));
+			else
+				$where['title'] = $where['tuanqi_copy'];
+		}
+		$where['title'] = array('like','%'.$where['title'].'%');
 		if($where['start_time'] && $where['end_time']){
 			$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
 		}
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
-		$where['owner'] = array('like','%'.$where['owner'].'%');
+		if($where['lianxiren'])
+			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
+		if($where['owner'])
+			$where['owner'] = array('like','%'.$where['owner'].'%');
 		if($where['remark'])
-		$where['remark'] = array('like','%'.$where['remark'].'%');
+			$where['remark'] = array('like','%'.$where['remark'].'%');
 		return $where;
 	}
 	
@@ -245,10 +272,14 @@ class MethodAction extends CommonAction{
 		elseif($where['end_time']){
 			$where['chutuanriqi'] = $where['end_time'];
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title_copy'] = array('like','%'.$where['title'].'%');
-		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
-		$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title_copy'])
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+		if($where['tuanhao'])
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		if($where['kind_copy'])
+			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
 		return $where;
 	}
 	
@@ -264,13 +295,16 @@ class MethodAction extends CommonAction{
 		elseif($where['end_time']){
 			$where['jietuantime'] = $where['end_time'];
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title'])
+			$where['title'] = array('like','%'.$where['title'].'%');
+		if($where['tuanhao'])
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 		if($where['fromcompany'])
-		$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
 		if($where['status_baozhang'] && $where['status_baozhang'] != '批准')
-		$where['status_baozhang'] = array('neq','批准');
+			$where['status_baozhang'] = array('neq','批准');
 		return $where;
 	}
 	
@@ -304,20 +338,16 @@ class MethodAction extends CommonAction{
 				unset($where['baozhangtitle_copy']);
 			}
 			if($where['tuantitle_copy'])
-			$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
+				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 			if($where['tuanhao_copy'])
-			$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
 			if($where['tuanqi_copy'])
-			$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
 		}
 		if($relation == 'dingdan')
 			$where['datatype'] = '订单';
 		return $where;
 	}
-	
-	
-	
-	
 
 	
 	
