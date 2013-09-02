@@ -22,12 +22,16 @@ class DataOMModel extends RelationModel {
 		'zituanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID'),
 		//zituan
 		'zituan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Zituan','true_class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
+		//DJtuan
+		'DJtuan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'DJtuan','true_class_name'=>'myerpview_chanpin_djtuan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//infohistory
 		'infohistory'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Infohistory','true_class_name'=>'merpview_message_infohistory','foreign_key'=>'dataID','parent_key'=>'messageID'),
 		//dingdan
 		'dingdan'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Dingdan','true_class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 		//qianzheng
 		'qianzheng'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Qianzheng','true_class_name'=>'myerpview_chanpin_qianzheng','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
+		//baozhang
+		'baozhang'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Baozhang','true_class_name'=>'myerpview_chanpin_baozhang','foreign_key'=>'dataID','parent_key'=>'chanpinID'),
 
 	);
 
