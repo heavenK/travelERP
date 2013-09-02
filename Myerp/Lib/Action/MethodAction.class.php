@@ -82,12 +82,9 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '地接'){
-			//优化查询
-			if($where){
 				$class_name = 'OMViewDJtuan';
 				$where = $this->_orderDijie($where,$datatype);
 				$order = 'jietuantime desc';
-			}
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '报账单'){
