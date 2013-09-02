@@ -12,8 +12,6 @@ class MethodAction extends CommonAction{
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
-		if($where['status_system'] != -1)
-			$where['status_system'] =  array('eq',1);//默认
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where = $this->_orderShenheTask($where,$datatype,$relation);
@@ -68,10 +66,17 @@ class MethodAction extends CommonAction{
 			$where = $this->_orderDingdan($where,$datatype);
 		}
 		if($datatype == '子团'){
-			$class_name = 'OMViewZituan';
+			//优化查询
+			if(!$where){
+				$class_name = 'DataOM';
+				$order = 'dataID desc';
+			}
+			else{
+				$class_name = 'OMViewZituan';
+				$order = 'chutuanriqi desc';
+				$where = $this->_orderZituan($where,$datatype);
+			}
 			$where['datatype'] = $datatype;
-			$order = 'chutuanriqi desc';
-			$where = $this->_orderZituan($where,$datatype);
 		}
 		if($datatype == '地接'){
 			$class_name = 'OMViewDJtuan';
@@ -113,7 +118,8 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
 		}
-		
+		if($where['status_system'] != -1)
+			$where['status_system'] =  array('eq',1);//默认
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
