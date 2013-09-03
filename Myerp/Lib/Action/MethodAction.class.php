@@ -4590,6 +4590,7 @@ class MethodAction extends CommonAction{
 	//订单存储流程
 	public function _dingdansave_process($data,$username) {
 		$Chanpin = D("Chanpin");
+		$Chanpin->startTrans();
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
 			$data['chanpinID'] = $chanpinID;
@@ -4603,8 +4604,20 @@ class MethodAction extends CommonAction{
 			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
 			if($data['type'] == '子团'){
-				if($this->createCustomer_new($data,$chanpinID))
+				if($this->createCustomer_new($data,$chanpinID)){
+					//更新信息
+					if($data['type'] == '子团'){
+						$zituan = $Chanpin->relation("xianlulist")->where("`chanpinID` = '$data[parentID]'")->find();
+						if($zituan['xianlulist']['serverdataID']){
+							$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
+							if($getres['error']){
+								$Chanpin->rollback();
+								return false;
+							}
+						}
+					}
 					$Chanpin->commit();
+				}
 				else{
 					$Chanpin->rollback();
 					return false;

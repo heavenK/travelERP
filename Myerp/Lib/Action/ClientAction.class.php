@@ -24,12 +24,20 @@ class ClientAction extends Action{
 			echo serialize($returndata);
 			exit;
 		}
+		else{
+			$i = 0;
+			foreach($xianlu['zituanlist'] as $v){
+				//计算子团人数
+				$tongji = A("Method")->_getzituandingdan($v['chanpinID']);
+				$xianlu['zituanlist'][$i]['renshu'] = $xianlu['zituanlist'][$i]['renshu']-$tongji['querenrenshu']-$tongji['zhanweirenshu'];
+				$i++;
+			}
+		}
 		$xianlu['xingchenglist'] = $ViewXianlu->relationGet("xingchenglist");
 		$xianlu['shoujialist'] = $ViewXianlu->relationGet("shoujialist");
 		$xianlu['chengbenlist'] = $ViewXianlu->relationGet("chengbenlist");
 		$data = serialize($xianlu);
 		echo $data;
-		
     }
 	
 	
