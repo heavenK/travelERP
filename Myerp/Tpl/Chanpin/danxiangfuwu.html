@@ -16,8 +16,6 @@
   <div id="content" style="margin-left:180px;">
 <php>}</php>
 
-
-
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
     <include file="Index:search_danxiangfuwu" />
@@ -118,6 +116,9 @@
             <td scope="row" align="left" valign="top">
               <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
               <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -147,6 +148,9 @@
             <td scope="row" align="left" valign="top">
               <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
               <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -178,6 +182,9 @@
             <td scope="row" align="left" valign="top">
               <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
               <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -209,6 +216,9 @@
             <td scope="row" align="left" valign="top">
               <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
               <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -237,6 +247,9 @@
             <td scope="row" align="left" valign="top">
               <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
               <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -870,6 +883,19 @@ function del_after(data,status){
 		location.reload();
 	}
 }
+
+function resetOM(chanpinID){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/resetOM/chanpinID/"+chanpinID,
+		data:	"",
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+
+
 </script> 
 
 
