@@ -4657,6 +4657,8 @@ class MethodAction extends CommonAction{
 					$omtype = '地接';
 				if($cp['marktype'] == 'baozhang')
 					$omtype = '报账单';
+				if($cp['marktype'] == 'baozhangitem')
+					$omtype = '报账项';
 				$this->_OMRcreate($_REQUEST['chanpinID'],$omtype,$cp['user_name']);
 			}
 			else
