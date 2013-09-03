@@ -2399,10 +2399,6 @@ class MethodAction extends CommonAction{
 		if($bumenID){//直接开放到部门
 			$ViewRoles = D("ViewRoles");
 			$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
-		
-		dump($r_jidiao);
-		dump($ViewRoles);
-			
 			$durlist[0]['bumenID'] = $bumenID;
 			$durlist[0]['rolesID'] = $r_jidiao['systemID'];
 		}
@@ -2415,7 +2411,6 @@ class MethodAction extends CommonAction{
 			$dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			$i++;
 		}
-		
 		//判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		if($this->_checkbumenshuxing('联合体,办事处','',$username)){
 			$ViewRoles = D("ViewRoles");
@@ -4557,7 +4552,8 @@ class MethodAction extends CommonAction{
 		if($datatype == '报账项'){
 			if(!$dataOMlist){
 				$bzditem = $ViewBaozhangitem->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
-				$cp = $Chanpin->where("`chanpinID` = '$bzditem[baozhanglist][parentID]'")->find();
+				$cp_bzd = $Chanpin->where("`chanpinID` = '$bzditem[baozhanglist][parentID]'")->find();
+				$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
 				if($cp['marktype'] == 'zituan'){
 					$role = '计调';
 					$type = '组团';
