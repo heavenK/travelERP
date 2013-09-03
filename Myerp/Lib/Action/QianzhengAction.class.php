@@ -73,7 +73,7 @@ class QianzhengAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团');
+				$dataOMlist = A("Method")->_setDataOMlist('计调','组团','',$_REQUEST['departmentID']);
 				A("Method")->_createDataOM($_REQUEST['chanpinID'],'签证','管理',$dataOMlist);
 			}
 			//自动申请审核
