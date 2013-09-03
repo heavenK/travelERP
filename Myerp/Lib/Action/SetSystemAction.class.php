@@ -834,25 +834,28 @@ class SetSystemAction extends CommonAction{
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*1;
-		$num_2 = ($_REQUEST['page_2']-1)*100;
+		$num_2 = ($_REQUEST['page_2']-1)*10;
 		$Chanpin = D("Chanpin");
 		$ViewDepartment = D("ViewDepartment");
 		if($_REQUEST['type'] == '联合体')
-			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->findall();
-		if($_REQUEST['type'] == '全部')
-			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->limit("$num,1")->order("systemID desc")->findall();
+			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->findall();
+		if($_REQUEST['type'] == '全部'){
+//			$filterlist = $ViewDepartment->limit("$num,1")->findall();
+			$filterlist = $ViewDepartment->limit("$num,1")->where("`systemID` = '40159'")->findall();
+			if($_REQUEST['page'] > 2)
+			exit;
+		}
 		dump($filterlist);
 		if($filterlist == null){
 			exit;
 		}
 		else{
 			$systemID = $filterlist[0]['systemID'];
-//			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
-			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and (`marktype` = 'xianlu' OR `marktype` = 'qianzheng' OR `marktype` = 'DJtuan')")->limit("$num_2,100")->findall();
+//			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,10")->findall();
+			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and (`marktype` = 'xianlu' OR `marktype` = 'qianzheng' OR `marktype` = 'DJtuan')")->limit("$num_2,10")->findall();
 			dump($xianluall);
-			if($xianluall == null){
+			if($xianluall == null)
 				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".($_REQUEST['page']+1)."/page_2/1";
-			}
 			else
 				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
 			foreach($xianluall as $vol){
