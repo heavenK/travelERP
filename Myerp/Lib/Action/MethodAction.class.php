@@ -4558,13 +4558,9 @@ class MethodAction extends CommonAction{
 			if(!$dataOMlist){
 				$bzditem = $ViewBaozhangitem->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
 				$cp_bzd = $Chanpin->where("`chanpinID` = '$bzditem[baozhanglist][parentID]'")->find();
-				$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
-				
-				dump($bzditem);
-				dump($dataID);
 				dump($cp_bzd);
-				dump($cp);
-				
+				dump($Chanpin);
+				$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
 				if($cp['marktype'] == 'zituan'){
 					$role = '计调';
 					$type = '组团';
