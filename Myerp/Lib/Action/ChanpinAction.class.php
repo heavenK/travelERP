@@ -1062,6 +1062,29 @@ class ChanpinAction extends CommonAction{
     }
 	
 	
+	//开放到电商部
+    public function optoB2Cdepart() {
+		//判断角色,返回用户DUR
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+		if(false === $durlist)
+			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) != 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+		//电商部
+		$ViewDepartment = D("ViewDepartment");
+		$dep = $ViewDepartment->where("`title` = '直营-电子商务营业部'")->find();
+		$ViewRoles = D("ViewRoles");
+		$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
+		$dataOMlist[0]['DUR'] = $dep['systemID'].','.$r_jidiao['systemID'].',';
+		foreach($itemlist as $v){
+			A("Method")->_createDataOM($v,$_REQUEST['chanpintype'],'管理',$dataOMlist);
+		}
+		$this->ajaxReturn($_REQUEST,'操作完成！', 1);
+    }
+	
 	
 	
 	
