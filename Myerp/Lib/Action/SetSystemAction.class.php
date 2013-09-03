@@ -827,7 +827,7 @@ class SetSystemAction extends CommonAction{
 	//重置联合体线路om
 	public function resetOM(){
 		C('TOKEN_ON',false);
-		echo "重置联合体线路om<br>";
+		echo "重置".$_REQUEST['type']."线路om<br>";
 		if(!$_REQUEST['page']){
 			dump('无page参数');
 			exit;
@@ -837,23 +837,33 @@ class SetSystemAction extends CommonAction{
 		$num_2 = ($_REQUEST['page_2']-1)*100;
 		$Chanpin = D("Chanpin");
 		$ViewDepartment = D("ViewDepartment");
-		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->findall();
+		if($_REQUEST['type'] == '联合体')
+			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->findall();
+		if($_REQUEST['type'] == '全部')
+			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->limit("$num,1")->order("systemID desc")->findall();
 		dump($filterlist);
 		if($filterlist == null){
 			exit;
 		}
 		else{
 			$systemID = $filterlist[0]['systemID'];
-			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
+//			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
+			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and (`marktype` = 'xianlu' OR `marktype` = 'qianzheng' OR `marktype` = 'DJtuan')")->limit("$num_2,100")->findall();
 			dump($xianluall);
 			if($xianluall == null){
-				$url = SITE_INDEX."SetSystem/resetOM/page/".($_REQUEST['page']+1)."/page_2/1";
+				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".($_REQUEST['page']+1)."/page_2/1";
 			}
 			else
-				$url = SITE_INDEX."SetSystem/resetOM/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
+				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
 			foreach($xianluall as $vol){
+				if($vol['marktype'] == 'xianlu')
+					$omtype = '线路';
+				if($vol['marktype'] == 'qianzheng')
+					$omtype = '签证';
+				if($vol['marktype'] == 'DJtuan')
+					$omtype = '地接';
 				$cp = $Chanpin->where("`chanpinID` = '$vol[chanpinID]'")->find();
-				A("Method")->_OMRcreate($vol['chanpinID'],'线路',$cp['user_name']);
+				A("Method")->_OMRcreate($vol['chanpinID'],$omtype,$cp['user_name']);
 			}
 		}
 		$this->assign("url",$url);

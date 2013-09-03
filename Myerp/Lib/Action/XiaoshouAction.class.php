@@ -432,11 +432,11 @@ class XiaoshouAction extends Action{
 		}
 		$data['dingdan']['jiage'] = $jiage;
 		if($dingdan = A("Method")->_dingdansave_process($data,$this->user['title'])){
-//			if($dingdan)
-//			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdan['chanpinID']);
+			if($dingdan)
+			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdan['chanpinID']);
 		}
-		//justalert(cookie('errormessage'));
-		//gethistoryback();
+		justalert(cookie('errormessage'));
+		gethistoryback();
 	}
 	
 	

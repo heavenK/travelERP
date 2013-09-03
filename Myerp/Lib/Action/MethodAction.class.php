@@ -1486,6 +1486,7 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+	 
 	//根据产品相关DUR获得提示用户列表
      public function _getUserlistByDataOM($dataID,$datatype,$type = '') {
 		$omlist = $this->_getDataOM($dataID,$datatype,$type);
@@ -2670,7 +2671,13 @@ class MethodAction extends CommonAction{
 			$chanpinID = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = $this->_getDataOM($parentID,$type);
+				if($parentID)
+					$dataOMlist = $this->_getDataOM($parentID,$type);
+				else{
+					$dataOMlist = $this->_setDataOMlist('计调','组团','',$data['departmentID']);
+					if(!$dataOMlist)				
+						$dataOMlist = $this->_setDataOMlist('地接','地接','',$data['departmentID']);				
+				}
 				$this->_createDataOM($chanpinID,'报账单','管理',$dataOMlist);
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);

@@ -112,12 +112,14 @@
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="pingyi_create">产品平移</a></td>
           <td width="30%">产品平移</td>
-          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM()">联合体OM重置</a></td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM('联合体')">联合体OM重置</a></td>
           <td width="30%">联合体OM重置</td>
         </tr>
         </tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认？')==true)resetchanpinshoujia()">产品开放到部门</a></td>
           <td width="30%">产品开放到部门</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM('全部')">全部产品OM重置</a></td>
+          <td width="30%">联合体OM重置</td>
         </tr>
       </tbody>
     </table>
@@ -239,8 +241,8 @@ function myautocomplete(target,parenttype){
 		})
 }
 
-function resetOM(){
-	var url = SITE_INDEX+'SetSystem/resetOM/page/1/page_2/1';
+function resetOM(type){
+	var url = SITE_INDEX+'SetSystem/resetOM/type/'+type+'/page/1/page_2/1';
     window.open(url,'_blank');
 }
 
