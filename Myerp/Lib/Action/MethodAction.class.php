@@ -4560,6 +4560,7 @@ class MethodAction extends CommonAction{
 				$cp_bzd = $Chanpin->where("`chanpinID` = '$bzditem[baozhanglist][parentID]'")->find();
 				$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
 				
+				dump($dataID);
 				dump($cp_bzd);
 				dump($cp);
 				
