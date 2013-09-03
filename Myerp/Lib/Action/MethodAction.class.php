@@ -2399,10 +2399,6 @@ class MethodAction extends CommonAction{
 		if($bumenID){//直接开放到部门
 			$ViewRoles = D("ViewRoles");
 			$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
-		
-		dump($r_jidiao);
-		dump($ViewRoles);
-			
 			$durlist[0]['bumenID'] = $bumenID;
 			$durlist[0]['rolesID'] = $r_jidiao['systemID'];
 		}
