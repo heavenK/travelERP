@@ -2417,6 +2417,8 @@ class MethodAction extends CommonAction{
 				$durlist[0]['bumenID'] = $bumenID;
 				$durlist[0]['rolesID'] = $r_jidiao['systemID'];
 			}
+			else
+			return false;
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
