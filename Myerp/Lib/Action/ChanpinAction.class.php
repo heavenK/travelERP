@@ -144,8 +144,7 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('计调','组团','',$_REQUEST['departmentID']);
-				A("Method")->_createDataOM($_REQUEST['chanpinID'],'线路','管理',$dataOMlist);
+				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'线路');
 			}
 			//自动申请审核
 			$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
@@ -1083,7 +1082,7 @@ class ChanpinAction extends CommonAction{
 		$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 		$dataOMlist[0]['DUR'] = $dep['systemID'].','.$r_jidiao['systemID'].',';
 		foreach($itemlist as $v){
-			A("Method")->_createDataOM($v,$_REQUEST['chanpintype'],'管理',$dataOMlist);
+			A("Method")->_createDataOM($v,$_REQUEST['chanpintype'],'管理',$dataOMlist,'','指定');
 		}
 		$this->ajaxReturn($_REQUEST,'操作完成！', 1);
     }
