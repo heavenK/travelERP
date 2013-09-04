@@ -4592,10 +4592,6 @@ class MethodAction extends CommonAction{
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
 						$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
-						
-					dump($cp);
-						
-						if($cp['marktype'] == 'zituan'){
 							$role = '计调';
 							$bumentype = '组团';
 						}
@@ -4604,6 +4600,7 @@ class MethodAction extends CommonAction{
 							$bumentype = '地接';
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
+						dump($dataOMlist);
 					}
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
