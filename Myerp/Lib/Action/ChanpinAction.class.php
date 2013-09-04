@@ -186,6 +186,7 @@ class ChanpinAction extends CommonAction{
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
+	
 
 	public function zituan()
 	{
@@ -917,6 +918,8 @@ class ChanpinAction extends CommonAction{
 		}
 		A("Method")->_danxiangfuwu('组团');
 	}
+	
+	
 	
 	public function doposttiaojia() {
 		C('TOKEN_ON',false);

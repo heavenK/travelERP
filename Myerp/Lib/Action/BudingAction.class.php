@@ -778,7 +778,7 @@ class BudingAction extends Action{
 		$ViewXianlu = D("ViewXianlu");
 		$all = $ViewXianlu->where("`status` != '截止'")->findall();
 		foreach($all as $v){
-			A('Method')->_updatexianlu($v['chanpinID']);
+			A('Method')->_updatexianlu_status($v['chanpinID']);
 		}
 		echo "结束";
     }

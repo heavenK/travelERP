@@ -3106,7 +3106,7 @@ class MethodAction extends CommonAction{
 						$zituan = $Chanpin->relationGet("zituan");
 						if(strtotime($zituan['chutuanriqi']) < time()){
 							$pdat['status'] = '截止';
-							$this->_updatexianlu('',$cpd['chanpinID']);
+							$this->_updatexianlu_status('',$cpd['chanpinID']);//更新线路状态
 						}
 					}
 					if($cpd['marktype'] == 'DJtuan'){
@@ -3182,7 +3182,6 @@ class MethodAction extends CommonAction{
 					$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 					$cpd = $Chanpin->where("`chanpinID` = '$baozhang[parentID]' AND `marktype` = 'zituan'")->find();
 					if($cpd){
-						$cpd_xl = $Chanpin->relation('shoujialist')->where("`chanpinID` = '$cpd[parentID]'")->find();
 						$zituanlist = $Chanpin->relationGet('zituanlist');
 						$c_is_true = 1;
 						//每个团都报账
@@ -3191,15 +3190,24 @@ class MethodAction extends CommonAction{
 								$c_is_true = 0;
 						}
 						if($c_is_true){
-							foreach($cpd_xl['shoujialist'] as $sl){
-								$DataOM->where("`dataID` = '$sl[chanpinID]' AND `datatype` = '售价'")->delete();	
-							}
+							$this->_clean_shoujia_om($cpd['parentID']);
 						}
 					}
 				}
 		}
 		$Chanpin->save($editdat);
 		$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
+	}
+	
+	
+	
+	//清除销售OM
+	public function _clean_shoujia_om($xianluID){
+		$Chanpin = D("Chanpin");
+		$cpd_xl = $Chanpin->relation('shoujialist')->where("`chanpinID` = '$xianluID'")->find();
+		foreach($cpd_xl['shoujialist'] as $sl){
+			$DataOM->where("`dataID` = '$sl[chanpinID]' AND `datatype` = '售价'")->delete();	
+		}
 	}
 	
 	
@@ -4317,11 +4325,22 @@ class MethodAction extends CommonAction{
 				$data['chanpinID'] = $v;
 				if($chanp['status'] == '报名')
 					$data['status'] = '截止';
-				if($chanp['status'] == '截止')
-					$data['status'] = '报名';
+				if($chanp['status'] == '截止'){
+					$xianlu = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$v'")->find();
+					$mark = 0;
+					foreach($xianlu['zituanlist'] as $v){
+						if($v['status'] != '截止'){
+							$mark = 1;
+						}
+					}
+					if($mark == 1)
+						$data['status'] = '报名';
+					else
+						$this->ajaxReturn($_REQUEST,'线路所有子团截止，无法再报名！', 0);
+				}
 				if(false === $Chanpin->mycreate($data)){
 					$Chanpin->rollback();
-					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+					$this->ajaxReturn($_REQUEST,'错误！', 0);
 				}
 				else{//同步更新售价
 					$shoujialist = $Chanpin->relationGet("shoujialist");
@@ -4329,11 +4348,17 @@ class MethodAction extends CommonAction{
 						$shoujia_data['chanpinID'] = $s['chanpinID'];
 						$shoujia_data['shoujia']['xianlu_status'] = $data['status'];
 						$Chanpin->relation("shoujia")->myRcreate($shoujia_data);
-						
+					}
+					//处理销售OM
+					if($chanp['status'] == '报名'){
+						$this->_updatexianlu_status($xianluID);
+					}
+					if($chanp['status'] == '截止'){
+						//清除销售OM
+						$this->_clean_shoujia_om($xianluID);
 					}
 				}
 			}
-			
 			if($type == '地接'){
 				$data['chanpinID'] = $v;
 				if($chanp['status'] == '在线')
@@ -4356,7 +4381,7 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
 				}
 				else{
-					$this->_updatexianlu('',$chanp['chanpinID']);
+					$this->_updatexianlu_status('',$chanp['chanpinID']);
 				}
 			}
 			
@@ -4570,7 +4595,8 @@ class MethodAction extends CommonAction{
 		
 		//清除无用OM
 		$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
-		if($process['status'] == '批准'){
+		$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
+		if($process['status'] == '批准' && $need == false){
 			$ViewTaskShenhe = D("ViewTaskShenhe");
 			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
 			$DataOM = D("DataOM");
@@ -5103,7 +5129,7 @@ class MethodAction extends CommonAction{
 	
 	
 	//线路状态更新
-	public function _updatexianlu($xianluID='',$zituanID=''){
+	public function _updatexianlu_status($xianluID='',$zituanID=''){
 		$Chanpin = D("Chanpin");
 		if(!$xianluID){
 			$zituan = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
@@ -5119,7 +5145,10 @@ class MethodAction extends CommonAction{
 		if($mark == 0){
 			$xianlu['status'] = '截止';
 			$xianlu = $Chanpin->save($xianlu);
+			//清除销售OM
+			$this->_clean_shoujia_om($xianluID);
 		}
+		return $xianlu['status'];
 	}
 	
 	
