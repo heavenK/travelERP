@@ -4601,12 +4601,8 @@ class MethodAction extends CommonAction{
 							$bumentype = '地接';
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
-						
-						
-					dump($dataOMlist);
-						
 					}
-					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					//$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
 				
 				//清除无用OM
