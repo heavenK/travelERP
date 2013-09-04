@@ -4558,6 +4558,8 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$bzd = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 						$cp = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+						dump($bzd);
+						dump($Chanpin);
 						dump($cp);
 						if($cp){
 							if($cp['marktype'] == 'zituan'){
