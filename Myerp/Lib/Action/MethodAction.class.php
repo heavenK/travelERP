@@ -4588,11 +4588,13 @@ class MethodAction extends CommonAction{
 					}
 				}
 				if($datatype == '报账项'){
-					dump(123);
 					if(!$dataOMlist){
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
 						$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
+						
+					dump($cp);
+						
 						if($cp['marktype'] == 'zituan'){
 							$role = '计调';
 							$bumentype = '组团';
@@ -4702,7 +4704,6 @@ class MethodAction extends CommonAction{
 					$omtype = '报账单';
 				if($cp['marktype'] == 'baozhangitem')
 					$omtype = '报账项';
-					dump(44444);
 				$this->_OMRcreate($_REQUEST['chanpinID'],$omtype,$cp['user_name']);
 			}
 			else
