@@ -3171,12 +3171,13 @@ class MethodAction extends CommonAction{
 				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$process['parentID']);
 				$editdat['shenhe_time'] = time();
 				//清除无用OM
-				$ViewTaskShenhe = D("ViewTaskShenhe");
-				$taskall = $ViewTaskShenhe->where("`dataID` = '$_REQUEST[dataID]' AND `datatype` = '$_REQUEST[datatype]'")->findall();
-				$DataOM = D("DataOM");
-				foreach($taskall as $v){
-					$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
-				}
+				$this->_OMRcreate($_REQUEST['dataID'],$_REQUEST['datatype']);
+//				$ViewTaskShenhe = D("ViewTaskShenhe");
+//				$taskall = $ViewTaskShenhe->where("`dataID` = '$_REQUEST[dataID]' AND `datatype` = '$_REQUEST[datatype]'")->findall();
+//				$DataOM = D("DataOM");
+//				foreach($taskall as $v){
+//					$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
+//				}
 				//清除销售OM
 				if($_REQUEST['datatype'] == '报账单'){
 					$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
@@ -4595,16 +4596,16 @@ class MethodAction extends CommonAction{
 		}
 		
 		//清除无用OM
-//		$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
-//		$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
-//		if($process['status'] == '批准' && $need == false){
-//			$ViewTaskShenhe = D("ViewTaskShenhe");
-//			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
-//			$DataOM = D("DataOM");
-//			foreach($taskall as $v){
-//				$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
-//			}
-//		}
+		$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
+		$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
+		if($process['status'] == '批准' && $need == false){
+			$ViewTaskShenhe = D("ViewTaskShenhe");
+			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
+			$DataOM = D("DataOM");
+			foreach($taskall as $v){
+				$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
+			}
+		}
 		
 	}
 	
