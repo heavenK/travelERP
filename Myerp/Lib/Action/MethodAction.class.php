@@ -4488,6 +4488,7 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		//修复开放om
 		if($datatype == '消息'){
+				$DataOMMessage = D("DataOMMessage");
 				$DataOMMessage->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
 				if(!$dataOMlist){
 					$Message = D("Message");
