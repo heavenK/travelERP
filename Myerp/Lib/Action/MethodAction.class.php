@@ -3204,6 +3204,7 @@ class MethodAction extends CommonAction{
 	//清除销售OM
 	public function _clean_shoujia_om($xianluID){
 		$Chanpin = D("Chanpin");
+		$DataOM = D("DataOM");
 		$cpd_xl = $Chanpin->relation('shoujialist')->where("`chanpinID` = '$xianluID'")->find();
 		foreach($cpd_xl['shoujialist'] as $sl){
 			$DataOM->where("`dataID` = '$sl[chanpinID]' AND `datatype` = '售价'")->delete();	
@@ -4594,16 +4595,16 @@ class MethodAction extends CommonAction{
 		}
 		
 		//清除无用OM
-		$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
-		$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
-		if($process['status'] == '批准' && $need == false){
-			$ViewTaskShenhe = D("ViewTaskShenhe");
-			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
-			$DataOM = D("DataOM");
-			foreach($taskall as $v){
-				$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
-			}
-		}
+//		$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
+//		$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
+//		if($process['status'] == '批准' && $need == false){
+//			$ViewTaskShenhe = D("ViewTaskShenhe");
+//			$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
+//			$DataOM = D("DataOM");
+//			foreach($taskall as $v){
+//				$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
+//			}
+//		}
 		
 	}
 	
