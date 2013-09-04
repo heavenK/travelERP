@@ -131,8 +131,7 @@ class DijieAction extends CommonAction{
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = A("Method")->_setDataOMlist('地接','地接','',$_REQUEST['departmentID']);
-				A("Method")->_createDataOM($_REQUEST['chanpinID'],'地接','管理',$dataOMlist);
+				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'地接');
 			}
 			A("Method")->ajaxUploadResult($_REQUEST,'保存成功',1);
 		}

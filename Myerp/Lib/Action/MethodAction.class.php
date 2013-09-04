@@ -4482,6 +4482,7 @@ class MethodAction extends CommonAction{
 		}
 	}
 	
+	
 	//删除OM并重新生成
 	function _OMRcreate($dataID,$datatype,$user_name,$dataOMlist,$departmentID){
 		C('TOKEN_ON',false);
@@ -4587,6 +4588,7 @@ class MethodAction extends CommonAction{
 					}
 				}
 				if($datatype == '报账项'){
+					dump(123);
 					if(!$dataOMlist){
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
