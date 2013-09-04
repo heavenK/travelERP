@@ -2411,10 +2411,12 @@ class MethodAction extends CommonAction{
 		if(!$ComID)
 		  return false;
 		if($bumenID){//直接开放到部门
-			$ViewRoles = D("ViewRoles");
-			$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
-			$durlist[0]['bumenID'] = $bumenID;
-			$durlist[0]['rolesID'] = $r_jidiao['systemID'];
+			if($this->_checkbumenshuxing($type,'',$username)){
+				$ViewRoles = D("ViewRoles");
+				$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
+				$durlist[0]['bumenID'] = $bumenID;
+				$durlist[0]['rolesID'] = $r_jidiao['systemID'];
+			}
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
@@ -4571,7 +4573,6 @@ class MethodAction extends CommonAction{
 						}
 						else{
 							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
-						dump($departmentID);
 							if(!$dataOMlist)				
 								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
 						}
