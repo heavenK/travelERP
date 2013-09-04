@@ -4558,9 +4558,6 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$bzd = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 						$cp = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
-						dump($bzd);
-						dump($Chanpin);
-						dump($cp);
 						if($cp){
 							if($cp['marktype'] == 'zituan'){
 								$role = '计调';
@@ -4574,6 +4571,7 @@ class MethodAction extends CommonAction{
 						}
 						else{
 							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
+						dump($dataOMlist);
 							if(!$dataOMlist)				
 								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
 						}
