@@ -4602,7 +4602,7 @@ class MethodAction extends CommonAction{
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
 					}
-					//$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
 				
 				//清除无用OM
