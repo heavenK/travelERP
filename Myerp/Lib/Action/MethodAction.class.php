@@ -4599,6 +4599,7 @@ class MethodAction extends CommonAction{
 							$role = '地接';
 							$bumentype = '地接';
 						}
+						dump(123);
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
 						dump($dataOMlist);
 					}
