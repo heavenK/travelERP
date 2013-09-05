@@ -4249,6 +4249,7 @@ class MethodAction extends CommonAction{
 			$where_om['datatype'] = $type;
 			$where_om['status'] = array('neq','指定');
 			$DataOM->where($where_om)->delete();
+			dump($DataOM);
 			//相应审核任务
 			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
 		}
