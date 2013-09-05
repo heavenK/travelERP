@@ -47,6 +47,10 @@
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="shenhe_create">产品审核重置</a></td>
           <td width="30%">检查产品审核状态，重置产品属性。</td>
         </tr>
+        <tr>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="javascript:void(0)" id="resetOM_create">重置产品OM</a></td>
+          <td width="30%">指定产品ID,产品类型，重置OM</td>
+        </tr>
       </tbody>
     </table>
       <php>}</php>
@@ -195,8 +199,28 @@ jQuery(document).ready(function(){
 		}
 	});
 	// Dialog Link
-	jQuery('#shenhe_create').click(function(){
-		jQuery('#dialog_shenhe').dialog('open');
+	jQuery('#resetOM_create').click(function(){
+		jQuery('#dialog_resetOM').dialog('open');
+		return false;
+	});
+	// Dialog
+	jQuery('#dialog_resetOM').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_resetOM','resultdiv_2')){
+						ThinkAjax.sendForm('form_resetOM',SITE_INDEX+'Chanpin/resetOM','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#resetOM_create').click(function(){
+		jQuery('#dialog_resetOM').dialog('open');
 		return false;
 	});
 });
@@ -288,6 +312,22 @@ function resetchanpinshoujia(){
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
           <td valign="top" scope="row"><input name="datatype" type="text" id="chanpin_type" check="^\S+$" warning="产品类型不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_resetOM" title="重置产品OM" style="background:#FFF">
+<form id="form_resetOM" id="form_resetOM" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
         </tr>
       </tbody>
     </table>
