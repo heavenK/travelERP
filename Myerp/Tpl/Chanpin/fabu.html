@@ -31,23 +31,10 @@
                   <php>if($xianlu['bumen_copy']){</php>
                     <option value="<{$xianlu['departmentID']}>"><{$xianlu['bumen_copy']}></option>
                     <option disabled="disabled">-----------</option>
-                      <php>}foreach($bumenfeilei as $v){</php>
-                        <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-                      <php>}</php>
-                  
-                  
-<!--                  
-              <php>if($xianlu['kind'] == '包团' || $kind == '包团'){</php>
-                  <php>foreach($bumenall as $v){</php>
-                    <option value="<{$v['systemID']}>"><{$v['title']}></option>
-                  <php>}</php>
-              <php>}else{</php>
-                  <php>foreach($bumenfeilei as $v){</php>
-                    <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-                  <php>}</php>
-              <php>}</php>
-                  
--->                  </select>
+                    <php>}foreach($bumenfeilei as $v){</php>
+                      <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+                    <php>}</php>
+                 </select>
               
             </td>
             <td valign="top" scope="row"> 报名截止: </td>
