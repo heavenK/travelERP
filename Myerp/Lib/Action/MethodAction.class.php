@@ -4598,26 +4598,24 @@ class MethodAction extends CommonAction{
 				if($datatype == '报账项'){
 					if(!$dataOMlist){
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
-						
-						dump($bzditem);
-						dump($Chanpin);
-						
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
-						
-						dump($bzdi_pid);
-						
-						$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
-						dump($cp);
-						
-						if($cp['marktype'] == 'zituan'){
-							$role = '计调';
-							$bumentype = '组团';
+						if($bzdi_pid){
+							$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
+							if($cp['marktype'] == 'zituan'){
+								$role = '计调';
+								$bumentype = '组团';
+							}
+							if($cp['marktype'] == 'DJtuan'){
+								$role = '地接';
+								$bumentype = '地接';
+							}
+							$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
 						}
-						if($cp['marktype'] == 'DJtuan'){
-							$role = '地接';
-							$bumentype = '地接';
+						else{
+							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
+							if(!$dataOMlist)				
+								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
 						}
-						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
 					}
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
