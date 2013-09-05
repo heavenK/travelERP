@@ -199,8 +199,9 @@ jQuery(document).ready(function(){
 		}
 	});
 	// Dialog Link
-	jQuery('#resetOM_create').click(function(){
-		jQuery('#dialog_resetOM').dialog('open');
+	jQuery('#shenhe_create').click(function(){
+		jQuery('#shenhe_title').html("产品审核重置"); 
+		jQuery('#dialog_shenhe').dialog('open');
 		return false;
 	});
 	// Dialog
@@ -301,17 +302,30 @@ function resetchanpinshoujia(){
 </form>
 </div>
 
-<div id="dialog_shenhe" title="产品审核重置" style="background:#FFF">
+<div id="dialog_shenhe" title="" style="background:#FFF">
 <form id="form_shenhe" id="form_shenhe" method="post" >
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px; color:blue" id="shenhe_title">  </td>
+        </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
           <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
         </tr>
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
-          <td valign="top" scope="row"><input name="datatype" type="text" id="chanpin_type" check="^\S+$" warning="产品类型不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row">
+          <select name="datatype" id="chanpin_type">
+          	<option value="线路">线路</option>
+          	<option value="子团">子团</option>
+          	<option value="报账单">报账单</option>
+          	<option value="报账项">报账项</option>
+          	<option value="签证">签证</option>
+          	<option value="地接">地接</option>
+          	<option value="订单">订单</option>
+          </select>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -325,9 +339,6 @@ function resetchanpinshoujia(){
         <tr>
           <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
           <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
         </tr>
       </tbody>
     </table>
