@@ -4247,9 +4247,8 @@ class MethodAction extends CommonAction{
 			$DataOM = D("DataOM");
 			$where_om['dataID'] = $v;
 			$where_om['datatype'] = $type;
-			$where_om['status'] = '';
+			$where_om['status'] = array('exp','is NULL');
 			$DataOM->where($where_om)->delete();
-			dump($DataOM);
 			//相应审核任务
 			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
 		}
