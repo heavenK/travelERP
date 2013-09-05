@@ -1023,8 +1023,8 @@ class MethodAction extends CommonAction{
 			foreach($data as $v){
 				$ok_d = 0;
 				//比对部门类型
-				$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
-				$typelist = explode(',',$bumen['type']);
+				$bumen_t = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
+				$typelist = explode(',',$bumen_t['type']);
 				foreach($typelist as $vaa){
 					if(in_array($vaa,$bumentypelist)){
 						$ok_d = 1;
@@ -1040,6 +1040,7 @@ class MethodAction extends CommonAction{
 		}
 		return $data;
 	 }
+	 
 	 
 	//获得用户列表
      public function _getUserlist($bumenID,$rolesID) {
@@ -4516,6 +4517,14 @@ class MethodAction extends CommonAction{
 					$user_name = $d_cp['user_name'];//产品拥有者
 				}
 				if($datatype == '线路'){
+					//修复产品部门
+					if($cp['bumen_copy'] == '总经理' || $cp['bumen_copy'] == '大连古莲国际旅行社'){
+						$d_list = $this->_getDURlist_name($user_name,'','组团');	
+						//随即第一个
+						$cp['departmentID'] = $d_list[0];	
+						if(false !== $Chanpin->mycreate($cp))
+							$departmentID = $cp['departmentID'];
+					}
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
 					}
