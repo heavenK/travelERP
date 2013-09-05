@@ -4598,6 +4598,10 @@ class MethodAction extends CommonAction{
 				if($datatype == '报账项'){
 					if(!$dataOMlist){
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
+						
+						dump($bzditem);
+						dump($Chanpin);
+						
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
 						
 						dump($bzdi_pid);
