@@ -56,7 +56,6 @@ class ChanpinAction extends CommonAction{
 		$this->assign("datatitle",' : "'.$xianlu['title'].'"');
 		//获得个人部门及分类列表
 		$bumenfeilei = A("Method")->_getbumenfenleilist('组团');
-		dump($bumenfeilei);
 		$this->assign("bumenfeilei",$bumenfeilei);
 		//部门列表
 		$bumenall = A("Method")->_getDepartmentList();
