@@ -4517,13 +4517,19 @@ class MethodAction extends CommonAction{
 					$user_name = $d_cp['user_name'];//产品拥有者
 				}
 				if($datatype == '线路'){
+						dump($departmentID);	
 					//修复产品部门
 					if($cp['bumen_copy'] == '总经理' || $cp['bumen_copy'] == '大连古莲国际旅行社'){
 						$d_list = $this->_getDURlist_name($user_name,'','组团');	
+						dump($d_list);	
 						//随即第一个
 						$cp['departmentID'] = $d_list[0];	
 						if(false !== $Chanpin->mycreate($cp))
 							$departmentID = $cp['departmentID'];
+							
+						dump($departmentID);	
+							
+							
 					}
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
