@@ -4517,20 +4517,13 @@ class MethodAction extends CommonAction{
 					$user_name = $d_cp['user_name'];//产品拥有者
 				}
 				if($datatype == '线路'){
-						dump($departmentID);	
-						dump($cp);	
 					//修复产品部门
-					if($cp['bumen_copy'] == '总经理' || $cp['bumen_copy'] == '大连古莲国际旅行社'){
+					if($d_cp['bumen_copy'] == '总经理' || $d_cp['bumen_copy'] == '大连古莲国际旅行社'){
 						$d_list = $this->_getDURlist_name($user_name,'','组团');	
-						dump($d_list);	
 						//随即第一个
-						$cp['departmentID'] = $d_list[0];	
-						if(false !== $Chanpin->mycreate($cp))
-							$departmentID = $cp['departmentID'];
-							
-						dump($departmentID);	
-							
-							
+						$d_cp['departmentID'] = $d_list[0];	
+						if(false !== $Chanpin->mycreate($d_cp))
+							$departmentID = $d_cp['departmentID'];
 					}
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
@@ -4570,8 +4563,7 @@ class MethodAction extends CommonAction{
 				}
 				if($datatype == '订单'){
 					if(!$dataOMlist){
-						$dingdan = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-						$cp = $Chanpin->where("`chanpinID` = '$dingdan[parentID]'")->find();
+						$cp = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$cp['departmentID']);//user_name需要指定，必须为团拥有者
 					}
 					//处理订单//订单比较特殊
@@ -4584,8 +4576,7 @@ class MethodAction extends CommonAction{
 				}
 				if($datatype == '报账单'){
 					if(!$dataOMlist){
-						$bzd = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-						$cp = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+						$cp = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();
 						if($cp){
 							if($cp['marktype'] == 'zituan'){
 								$role = '计调';
@@ -4612,10 +4603,9 @@ class MethodAction extends CommonAction{
 				}
 				if($datatype == '报账项'){
 					if(!$dataOMlist){
-						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
-						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
-						if($bzdi_pid){
-							$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
+						$cp_bzd = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();//获得报账单
+						if($cp_bzd['parentID']){
+							$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
 							if($cp['marktype'] == 'zituan'){
 								$role = '计调';
 								$bumentype = '组团';
