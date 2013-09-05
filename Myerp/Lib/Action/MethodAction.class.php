@@ -4518,6 +4518,7 @@ class MethodAction extends CommonAction{
 				}
 				if($datatype == '线路'){
 						dump($departmentID);	
+						dump($cp);	
 					//修复产品部门
 					if($cp['bumen_copy'] == '总经理' || $cp['bumen_copy'] == '大连古莲国际旅行社'){
 						$d_list = $this->_getDURlist_name($user_name,'','组团');	
