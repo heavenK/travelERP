@@ -4520,13 +4520,10 @@ class MethodAction extends CommonAction{
 					//修复产品部门
 					if($d_cp['bumen_copy'] == '总经理' || $d_cp['bumen_copy'] == '大连古莲国际旅行社'){
 						$d_list = $this->_getDURlist_name($user_name,'','组团');	
-							dump($d_list);
 						//随即第一个
 						$d_cp['departmentID'] = $d_list[0]['bumenID'];	
-							dump($d_cp);
 						if(false !== $Chanpin->mycreate($d_cp))
 							$departmentID = $d_cp['departmentID'];
-							dump($departmentID);
 					}
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
