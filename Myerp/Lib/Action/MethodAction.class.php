@@ -132,9 +132,10 @@ class MethodAction extends CommonAction{
 			}
 			$where['datatype'] = $datatype;
 		}
-		
+		//查询状态下有效
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
+			
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
@@ -4242,7 +4243,12 @@ class MethodAction extends CommonAction{
 			}
 			
 			$Chanpin->commit();
-			
+			//删除OM
+			$DataOM = D("DataOM");
+			$where_om['dataID'] = $v;
+			$where_om['datatype'] = $type;
+			$where_om['status'] = array('neq','指定');
+			$DataOM->where($where_om)->delete();
 			//相应审核任务
 			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
 		}
