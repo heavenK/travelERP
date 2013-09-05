@@ -31,12 +31,11 @@
                   <php>if($xianlu['bumen_copy']){</php>
                     <option value="<{$xianlu['departmentID']}>"><{$xianlu['bumen_copy']}></option>
                     <option disabled="disabled">-----------</option>
-                    
-                  <php>foreach($bumenfeilei as $v){</php>
-                    <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-                  <php>}</php>
-                    
-                  <php>}</php>
+                      <php>}foreach($bumenfeilei as $v){</php>
+                        <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+                      <php>}</php>
+                  
+                  
 <!--                  
               <php>if($xianlu['kind'] == '包团' || $kind == '包团'){</php>
                   <php>foreach($bumenall as $v){</php>
