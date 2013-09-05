@@ -4599,7 +4599,12 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$bzditem = $Chanpin->relation('baozhanglist')->where("`chanpinID` = '$dataID'")->find();
 						$bzdi_pid = $bzditem['baozhanglist']['parentID'];
+						
+						dump($bzdi_pid);
+						
 						$cp = $Chanpin->where("`chanpinID` = '$bzdi_pid'")->find();
+						dump($cp);
+						
 						if($cp['marktype'] == 'zituan'){
 							$role = '计调';
 							$bumentype = '组团';
