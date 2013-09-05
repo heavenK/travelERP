@@ -4247,7 +4247,7 @@ class MethodAction extends CommonAction{
 			$DataOM = D("DataOM");
 			$where_om['dataID'] = $v;
 			$where_om['datatype'] = $type;
-			$where_om['status'] = array('neq','指定');
+			$where_om['status'] = '';
 			$DataOM->where($where_om)->delete();
 			dump($DataOM);
 			//相应审核任务
@@ -4507,7 +4507,7 @@ class MethodAction extends CommonAction{
 		else{
 				$DataOM = D("DataOM");
 				$Chanpin = D("Chanpin");
-				$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' AND `status` != '指定'")->delete();
+				$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' AND `status` = ''")->delete();
 				//获得产品
 				$d_cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				if(!$departmentID){
