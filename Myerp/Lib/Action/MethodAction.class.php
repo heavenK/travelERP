@@ -1342,8 +1342,8 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
-			A("Method")->_shenheback();//审核回退
-			$processID = 1;
+			if(A("Method")->_shenheback())//审核回退
+				$processID = 1;
 		}
 		else{
 			$process = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
@@ -1354,7 +1354,6 @@ class MethodAction extends CommonAction{
 			$processID = $need['processID'];
 			$data['systemID'] = $need['systemID'];//审核覆盖
 		}
-		//$data = $_REQUEST;
 		$data['taskShenhe'] = $_REQUEST;
 		$data['status'] = $_REQUEST['status_shenhe'];
 		$data['user_name'] = $this->user['title'];
@@ -3365,8 +3364,9 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$dataID = $_REQUEST['dataID'];
 		$datatype = $_REQUEST['datatype'];
-		if(false === $this->_checkshenhe_admin($dataID,$datatype))
-			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		if(false === $this->_checkshenhe_admin($dataID,$datatype)){
+			return false;
+		}
 		$Chanpin = D("Chanpin");
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		$chanp['chanpinID'] = $cpin['chanpinID'];
