@@ -3471,8 +3471,7 @@ class MethodAction extends CommonAction{
 				$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 			}
 		}
-		
-		$this->ajaxReturn('', '操作成功！', 1);
+		return true;
 	}
 
 

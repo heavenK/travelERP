@@ -901,7 +901,8 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	public function shenheback() {
-		A("Method")->_shenheback();
+		if(A("Method")->_shenheback())
+			$this->ajaxReturn('', '操作成功！', 1);
 	}
 	
 	
