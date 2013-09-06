@@ -1342,6 +1342,7 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
+			A("Method")->_shenheback();//审核回退
 			$processID = 1;
 		}
 		else{
