@@ -2682,7 +2682,7 @@ class MethodAction extends CommonAction{
 //					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
 			}
 			else
-			if($baozhang['islock'] == '已锁定' || $baozhang['status'] == '批准'){
+			if($baozhang['islock'] == '已锁定' || $baozhang['status_shenhe'] == '批准'){
 				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被批准，请审核回退后修改！', 0);
 			}
 		}
