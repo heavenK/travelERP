@@ -2650,7 +2650,6 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	
 	public function dosavebaozhang($type) {
 		if($type == '子团' || $type == '签证'){
 			//判断计调角色
