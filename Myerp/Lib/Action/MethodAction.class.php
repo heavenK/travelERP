@@ -4547,8 +4547,6 @@ class MethodAction extends CommonAction{
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
 					}
-					dump($dataOMlist);
-					
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 					//报账单重置
 					$bzdall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'baozhang'")->findall();
@@ -4715,6 +4713,8 @@ class MethodAction extends CommonAction{
 			if($cp){
 				if($cp['marktype'] == 'xianlu')
 					$omtype = '线路';
+				if($cp['marktype'] == 'zituan')
+					$omtype = '子团';
 				if($cp['marktype'] == 'qianzheng')
 					$omtype = '签证';
 				if($cp['marktype'] == 'DJtuan')
