@@ -1637,7 +1637,7 @@ class MethodAction extends CommonAction{
 		}
 		
 		//附加公司计调
-		$durlist = A("Method")->_checkRolesByUser('计调','组团',1);
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
 		if($durlist){
 			$ComID = $this->_getComIDbyUser();
 			$ViewRoles = D("ViewRoles");
