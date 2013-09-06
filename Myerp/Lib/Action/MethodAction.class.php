@@ -2683,8 +2683,8 @@ class MethodAction extends CommonAction{
 //					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
 			}
 			else
-			if($baozhang['islock'] == '已锁定' ){
-				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被锁定，请审核回退后修改！', 0);
+			if($baozhang['islock'] == '已锁定' || $baozhang['status'] == '批准'){
+				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被批准，请审核回退后修改！', 0);
 			}
 		}
 		else{
@@ -3261,7 +3261,6 @@ class MethodAction extends CommonAction{
 		$xianlu = $this->_checkDataOM($_REQUEST['parentID'],'报账单','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
-			
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
@@ -3305,11 +3304,9 @@ class MethodAction extends CommonAction{
 				}
 				else
 				if($item['type'] != '利润')
-				if($item['status_shenhe'] == '检出' || $item['status_shenhe'] == '批准')
-					$this->ajaxReturn($_REQUEST,'该项目已经审核，请审核回退后修改！', 0);
+					if($item['status_shenhe'] == '检出' || $item['status_shenhe'] == '批准')
+						$this->ajaxReturn($_REQUEST,'该项目已经审核，请审核回退后修改！', 0);
 			}
-				
-				
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
