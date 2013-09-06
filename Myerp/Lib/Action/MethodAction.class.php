@@ -1342,8 +1342,12 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
-			if(A("Method")->_shenheback())//审核回退
+			if(A("Method")->_shenheback() && $process['status'] != '批准')//审核回退
 				$processID = 1;
+			else{
+				cookie('errormessage','错误！产品已被批准，请回退后重新申请。',30);
+				return false;
+			}
 		}
 		else{
 			$process = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
