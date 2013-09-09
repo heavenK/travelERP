@@ -880,5 +880,37 @@ class BudingAction extends Action{
 		echo "结束";
 	}
 	
+	
+	
+	
+	
+	//清除无效审核任务OM
+    public function clearn_shenhetask_om() {
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*1000;
+		$taksall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出'")->limit("$num,1000")->findall();
+		if(count($taksall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taksall as $v){
+			$DataOM->where("`datatype` = '审核任务' AND `dataID` = '$v[systemID]'")->delete();
+		}
+		$url = SITE_INDEX."Buding/clearn_shenhetask_om/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+	}
+	
+	
+	
+	
 }
 ?>
