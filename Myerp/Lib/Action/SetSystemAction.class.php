@@ -420,7 +420,7 @@ class SetSystemAction extends CommonAction{
 					$actiontype = '开放';
 				}
 				if(!$dataOMlist)
-				$dataOMlist = A("Method")->_setDataOMofCompany($_REQUEST['parentID'],$department_type,$role);
+					$dataOMlist = A("Method")->_setDataOMofCompany($_REQUEST['parentID'],$department_type,$role);
 				A("Method")->_createDataOM($data['systemID'],$datatype,$actiontype,$dataOMlist,'DataOMSystem');
 			}
 			if($_REQUEST['tableName'] == 'department'){
@@ -794,9 +794,7 @@ class SetSystemAction extends CommonAction{
 				//订单OM添加
 				$dingdanall = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'dingdan'")->findall();
 				foreach($dingdanall as $dingdan){
-					//开放给自己部门
-					$dataOMlist = A("Method")->_getmyOMlist($username);
-					A("Method")->_createDataOM($dingdan['chanpinID'],'订单','管理',$dataOMlist);
+					A("Method")->_OMRcreate($_REQUEST['chanpinID'],'订单');
 				}
 			}
 			if($cp['marktype'] == 'DJtuan')
