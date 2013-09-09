@@ -896,6 +896,7 @@ class BudingAction extends Action{
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*200;
 		$taksall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出'")->limit("$num,200")->findall();
+		dump($taskall);
 		if(count($taksall)==0){
 			echo "结束";
 			exit;
