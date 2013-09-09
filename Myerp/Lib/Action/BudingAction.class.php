@@ -886,7 +886,6 @@ class BudingAction extends Action{
 	
 	//清除无效审核任务OM
     public function clearn_shenhetask_om() {
-		exit;
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		if(!$_REQUEST['page']){
