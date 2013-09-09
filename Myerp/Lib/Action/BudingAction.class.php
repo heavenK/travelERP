@@ -886,6 +886,7 @@ class BudingAction extends Action{
 	
 	//清除无效审核任务OM
     public function clearn_shenhetask_om() {
+		exit;
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		if(!$_REQUEST['page']){
@@ -895,7 +896,7 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*200;
-		$taskall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出'")->limit("$num,200")->findall();
+		$taskall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出' AND `status_system` != '-1'")->limit("$num,200")->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";
