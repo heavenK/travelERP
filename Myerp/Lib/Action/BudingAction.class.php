@@ -895,13 +895,13 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*200;
-		$taksall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出'")->limit("$num,200")->findall();
+		$taskall = $ViewTaskShenhe->where("`status` != '申请' AND `status` != '待检出'")->limit("$num,200")->findall();
 		dump($taskall);
-		if(count($taksall)==0){
+		if(count($taskall)==0){
 			echo "结束";
 			exit;
 		}
-		foreach($taksall as $v){
+		foreach($taskall as $v){
 			$DataOM->where("`datatype` = '审核任务' AND `dataID` = '$v[systemID]'")->delete();
 		}
 		$url = SITE_INDEX."Buding/clearn_shenhetask_om/page/".($_REQUEST['page']+1);
