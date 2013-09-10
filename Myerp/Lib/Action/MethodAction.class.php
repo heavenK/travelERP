@@ -399,7 +399,7 @@ class MethodAction extends CommonAction{
 			$order = 'chutuanriqi desc';
 		}
 		if($class_name == 'ViewSearch'){
-			if($where){
+//			if($where){
 				if($where['user_name'])
 					$where['user_name'] = array('like','%'.$where['user_name'].'%');
 				if($where['title'])
@@ -415,12 +415,12 @@ class MethodAction extends CommonAction{
 				elseif($where['end_time'])
 					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
 				$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
-			}
-			else{
-				$class_name = 'Chanpin';
-				$where['marktype'] =  array('exp'," = 'zituan' or `marktype` = 'DJtuan'");
-				$order = 'chanpinID desc';
-			}
+//			}
+//			else{
+//				$class_name = 'Chanpin';
+//				$where['marktype'] =  array('exp'," = 'zituan' or `marktype` = 'DJtuan'");
+//				$order = 'chanpinID desc';
+//			}
 			$where['status_system'] =  array('eq',1);//默认
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
