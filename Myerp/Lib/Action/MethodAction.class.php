@@ -2429,6 +2429,7 @@ class MethodAction extends CommonAction{
 		  return false;
 		if($bumenID){//直接开放到部门
 			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
+				dump($bumenID);
 				dump($my_durlist);
 				foreach($my_durlist as $v){
 					if($v['bumenID'] == $bumenID){
