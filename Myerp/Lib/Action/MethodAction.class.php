@@ -2421,21 +2421,21 @@ class MethodAction extends CommonAction{
 	
 	
 	//根据部门角色要求，获得OM列表//定义：一个公司只允许一个行政部门
-     public function _setDataOMlist($role,$type,$username='',$bumenID='') {//前两项必填
+     public function _setDataOMlist($role,$type,$username='',$bumenID='') {//前两项必填,userhas用来指定是否用户拥有的部门职位
 		if(!$username)
 			$username = $this->user['title'];
 		$ComID = $this->_getComIDbyUser($username);//行政公司ID
 		if(!$ComID)
 		  return false;
 		if($bumenID){//直接开放到部门
-			if($this->_checkbumenshuxing($type,'',$username)){
-				$ViewRoles = D("ViewRoles");
-				$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
-				$durlist[0]['bumenID'] = $bumenID;
-				$durlist[0]['rolesID'] = $r_jidiao['systemID'];
+			if(!A("Method")->_checkRolesByUser($role,$type,1)){
+				return false;
 			}
-			else
-			return false;
+			$ViewRoles = D("ViewRoles");
+			$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
+			$durlist_return['bumenID'] = $bumenID;
+			$durlist_return['rolesID'] = $r_jidiao['systemID'];
+			$durlist[0] = $durlist_return;
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
@@ -4601,8 +4601,6 @@ class MethodAction extends CommonAction{
 						}
 						else{
 							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
-							dump($departmentID);
-							dump($dataOMlist);
 							if(!$dataOMlist)				
 								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
 						}
