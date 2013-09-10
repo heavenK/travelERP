@@ -2428,14 +2428,16 @@ class MethodAction extends CommonAction{
 		if(!$ComID)
 		  return false;
 		if($bumenID){//直接开放到部门
-			if(!A("Method")->_checkRolesByUser($role,$type,1)){
-				return false;
+			if($my_durlist = A("Method")->_checkRolesByUser($role,$type,1)){
+				foreach($my_durlist as $v){
+					if($v['bumenID'] == $bumenID){
+						$durlist[0] = $v;
+						break;
+					}
+				}
 			}
-			$ViewRoles = D("ViewRoles");
-			$r_jidiao = $ViewRoles->where("`title` ='$role'")->find();
-			$durlist_return['bumenID'] = $bumenID;
-			$durlist_return['rolesID'] = $r_jidiao['systemID'];
-			$durlist[0] = $durlist_return;
+			else
+			return false;
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
