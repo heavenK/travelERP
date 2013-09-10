@@ -2428,17 +2428,10 @@ class MethodAction extends CommonAction{
 		if(!$ComID)
 		  return false;
 		if($bumenID){//直接开放到部门
-		
-						dump($bumenID);
-		
-			if($my_durlist = $this->_checkRolesByUser($role,$type,1)){
-				
-						dump($my_durlist);
-				
+			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
 				foreach($my_durlist as $v){
 					if($v['bumenID'] == $bumenID){
 						$durlist[0] = $v;
-						dump($durlist[0]);
 						break;
 					}
 				}
