@@ -399,7 +399,7 @@ class MethodAction extends CommonAction{
 			$order = 'chutuanriqi desc';
 		}
 		if($class_name == 'ViewSearch'){
-			if(!$where){
+			if($where){
 				if($where['user_name'])
 					$where['user_name'] = array('like','%'.$where['user_name'].'%');
 				if($where['title'])
