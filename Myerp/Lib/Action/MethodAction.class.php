@@ -2534,6 +2534,9 @@ class MethodAction extends CommonAction{
 			$durlist = $this->_getDURlist_name($user_name);
 		else
 			$durlist = $this->_getDURlist($userID);
+			
+		dump($durlist);	
+			exit;
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
