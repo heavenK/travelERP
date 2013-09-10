@@ -2432,6 +2432,9 @@ class MethodAction extends CommonAction{
 						dump($bumenID);
 		
 			if($my_durlist = $this->_checkRolesByUser($role,$type,1)){
+				
+						dump($my_durlist);
+				
 				foreach($my_durlist as $v){
 					if($v['bumenID'] == $bumenID){
 						$durlist[0] = $v;
