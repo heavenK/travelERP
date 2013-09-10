@@ -399,25 +399,32 @@ class MethodAction extends CommonAction{
 			$order = 'chutuanriqi desc';
 		}
 		if($class_name == 'ViewSearch'){
+			if(!$where){
+				if($where['user_name'])
+					$where['user_name'] = array('like','%'.$where['user_name'].'%');
+				if($where['title'])
+					$where_tem .= "AND (`title_1` like '%".$where['title']."%' OR `title_2` like '%".$where['title']."%')";
+				if($where['tuanhao'])
+					$where_tem .= "AND (`tuanhao_1` like '%".$where['tuanhao']."%' OR `tuanhao_2` like '%".$where['tuanhao']."%')";
+				if($where['chutuanriqi'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				if($where['start_time'] && $where['end_time'])
+					$where_tem .= "AND (  `tuanqi_1` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' OR `tuanqi_2` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' )";
+				elseif($where['start_time'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				elseif($where['end_time'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
+			}
+			else{
+				$class_name = 'Chanpin';
+				$where['marktype'] =  array('exp'," = 'zituan' or `marktype` = 'DJtuan'");
+				$order = 'chanpinID desc';
+			}
 			$where['status_system'] =  array('eq',1);//默认
-			if($where['user_name'])
-				$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			if($where['title'])
-				$where_tem .= "AND (`title_1` like '%".$where['title']."%' OR `title_2` like '%".$where['title']."%')";
-			if($where['tuanhao'])
-				$where_tem .= "AND (`tuanhao_1` like '%".$where['tuanhao']."%' OR `tuanhao_2` like '%".$where['tuanhao']."%')";
-			if($where['chutuanriqi'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
-			if($where['start_time'] && $where['end_time'])
-				$where_tem .= "AND (  `tuanqi_1` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' OR `tuanqi_2` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' )";
-			elseif($where['start_time'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
-			elseif($where['end_time'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
 			$where .= $where_tem;
-			$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
 		}
 		else{
 			$where['status_system'] = 1;
@@ -425,16 +432,20 @@ class MethodAction extends CommonAction{
 			$where = $this->_arraytostr_filter($where);
 		}
 		//获得财务所属公司，过滤出公司拥有部门列表
-		$bumenlist = $this->_getCompanyDepartmentList();
-		foreach($bumenlist as $v){
-			if($wherebumen)
-			$wherebumen .= " OR `departmentID` = '$v[systemID]'";
-			else
-			$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+		if($this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政')){
+			$ComID = $this->_getComIDbyUser($username);
+			$wherebumen =" AND (`companyID` = '$ComID')";
+		}else{
+			$bumenlist = $this->_getCompanyDepartmentList();
+			foreach($bumenlist as $v){
+				if($wherebumen)
+				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
+				else
+				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+			}
+			$wherebumen .= ")";
 		}
-		$wherebumen .= ")";
 		$where .= $wherebumen;
-		//$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);

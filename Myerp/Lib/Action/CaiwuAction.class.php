@@ -505,9 +505,12 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	
+	
 	public function danxiangfuwu() {
 		A("Method")->_danxiangfuwu('财务');
 	}
+	
+	
 	
 	public function tuanbaozhang() {
 		$Chanpin = D("Chanpin");
