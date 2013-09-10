@@ -2429,17 +2429,15 @@ class MethodAction extends CommonAction{
 		  return false;
 		if($bumenID){//直接开放到部门
 			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
-				dump($username);
-				dump($bumenID);
-				dump($my_durlist);
 				foreach($my_durlist as $v){
 					if($v['bumenID'] == $bumenID){
-										dump($v);
-
 						$durlist[0] = $v;
+						$mark_has = 1;
 						break;
 					}
 				}
+				if($mark_has != 1)
+					return false;
 			}
 			else
 			return false;
@@ -2534,9 +2532,6 @@ class MethodAction extends CommonAction{
 			$durlist = $this->_getDURlist_name($user_name);
 		else
 			$durlist = $this->_getDURlist($userID);
-			
-		dump($durlist);	
-			exit;
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
