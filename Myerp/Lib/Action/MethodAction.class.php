@@ -4601,6 +4601,8 @@ class MethodAction extends CommonAction{
 						}
 						else{
 							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
+							dump($departmentID);
+							dump($dataOMlist);
 							if(!$dataOMlist)				
 								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
 						}
