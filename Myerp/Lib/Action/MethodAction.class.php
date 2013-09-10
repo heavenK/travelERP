@@ -4523,7 +4523,7 @@ class MethodAction extends CommonAction{
 		else{
 				$DataOM = D("DataOM");
 				$Chanpin = D("Chanpin");
-				$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype' AND `status` is NULL")->delete();
+				$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
 				//获得产品
 				$d_cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				if(!$departmentID){
