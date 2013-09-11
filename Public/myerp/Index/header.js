@@ -7,6 +7,8 @@ function AutoScroll(obj){
 
 jQuery(document).ready(function(){
 	timer = setInterval('AutoScroll("#alertNewsView")',5000);
+	setTimeout("getNews()",8000);
+	setTimeout("getNewsAll('index.php?s=/Message/getNewsAll')",8000);
 //	getNews();
 //	getNewsAll("index.php?s=/Message/getNewsAll");
 	window.setInterval(getNews,100000);

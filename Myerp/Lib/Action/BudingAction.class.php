@@ -911,6 +911,11 @@ class BudingAction extends Action{
 	}
 	
 	
+	//重置所有产品OM
+    public function reset_all_chanpinOM() {
+	}
+	
+	
 	
 	
 }
