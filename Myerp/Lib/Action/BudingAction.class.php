@@ -40,21 +40,6 @@ class BudingAction extends Action{
     }
 	
 	
-	//线路开放销售补订
-    public function xianluxiaoshoukaifang() {
-		C('TOKEN_ON',false);
-		echo "执行线路开放销售om";
-		$ViewXianlu = D("ViewXianlu");
-		$ViewShoujia = D("ViewShoujia");
-		$all = $ViewXianlu->where("`status` = '报名'")->findall();
-		foreach($all as $v){
-			$shoujia = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->find();
-			$shoujia['shoujia'] = $shoujia;
-			A('Method')->_shoujiaToDataOM($shoujia);
-		}
-		echo "结束";
-    }
-	
 	
 	//审核任务表字段填充，报账标题，子团日期，子团团号，子团标题
     public function shenherenwutianchong() {
@@ -920,8 +905,8 @@ class BudingAction extends Action{
 		}
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*500;
-		$taskall = $Chanpin->limit("$num,500")->findall();
+		$num = ($_REQUEST['page']-1)*100;
+		$taskall = $Chanpin->limit("$num,100")->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";
@@ -937,7 +922,52 @@ class BudingAction extends Action{
 	}
 	
 	
+	//重置所有待审核OM
+    public function reset_all_shenheOM() {
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*100;
+		$taskall = $ViewTaskShenhe->where("`status` = '待检出' AND `status_system` = '1'")->limit("$num,100")->findall();
+		dump($taskall);
+		if(count($taskall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taskall as $v){
+			$process = A("Method")->_checkShenhe($v['datatype'],$v['processID']);
+			A("Method")->_djcOMCreate($v,$process);
+		}
+		exit;
+		$url = SITE_INDEX."Buding/reset_all_shenheOM/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+	}
 	
+	
+	//修复产品销售OM
+    public function reset_all_xiaoshouOM() {
+		C('TOKEN_ON',false);
+		echo "修复产品销售om";
+		$ViewXianlu = D("ViewXianlu");
+		$ViewShoujia = D("ViewShoujia");
+		$all = $ViewXianlu->where("`status` = '报名'")->findall();
+		foreach($all as $v){
+			$shoujia = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->find();
+			$shoujia['shoujia'] = $shoujia;
+			A('Method')->_shoujiaToDataOM($shoujia);
+		}
+		echo "结束";
+    }
+
+
+
 	
 }
 ?>

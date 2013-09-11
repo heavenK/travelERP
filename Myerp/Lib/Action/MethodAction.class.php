@@ -1758,6 +1758,7 @@ class MethodAction extends CommonAction{
 		
 	 }
 
+
 	
 	//获得任务管理角色和部门cookie
      public function _task_cookie_by_dur($dur) {
@@ -4491,7 +4492,7 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	//修复开放om
+	//修复开放om(修复某类型所有)
 	function _djcOMCreateRepair($datatype,$processID){
 		C('TOKEN_ON',false);
 		//修复开放om
@@ -4499,7 +4500,10 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$tsall = $ViewTaskShenhe->where("`datatype` = '$datatype' AND `processID` = '$processID' AND `status` = '待检出' AND `status_system` = 1")->findall();
 		foreach($tsall as $v){
-			$DataOM->where("`dataID` = '$v[systemID]'")->delete();
+			$where_om['dataID'] = $v['systemID'];
+			$where_om['datatype'] = $v['datatype'];
+			$where_om['status'] = array('neq','指定');
+			$DataOM->where($where_om)->delete();
 			$process = $this->_checkShenhe($datatype,$processID);
 			$this->_djcOMCreate($v,$process);
 		}
