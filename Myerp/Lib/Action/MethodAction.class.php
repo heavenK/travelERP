@@ -166,6 +166,10 @@ class MethodAction extends CommonAction{
 		if(!$order)
 			$order = 'time desc';
         $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		
+		dump($chanpin);
+		dump($DataOM);
+		
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
