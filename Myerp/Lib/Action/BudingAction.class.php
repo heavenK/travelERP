@@ -943,7 +943,6 @@ class BudingAction extends Action{
 			$process = A("Method")->_checkShenhe($v['datatype'],$v['processID']);
 			A("Method")->_djcOMCreate($v,$process);
 		}
-		exit;
 		$url = SITE_INDEX."Buding/reset_all_shenheOM/page/".($_REQUEST['page']+1);
 		$this->assign("url",$url);
 		$this->display('Index:forme');
