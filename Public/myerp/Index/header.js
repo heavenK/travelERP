@@ -7,9 +7,9 @@ function AutoScroll(obj){
 
 jQuery(document).ready(function(){
 	timer = setInterval('AutoScroll("#alertNewsView")',5000);
-	getNews();
-	getNewsAll("index.php?s=/Message/getNewsAll");
-	window.setInterval(getNews,50000);
+//	getNews();
+//	getNewsAll("index.php?s=/Message/getNewsAll");
+	window.setInterval(getNews,100000);
 	jQuery("#alertitem").mouseover(function(){
 		clearTimeout(timer);
 	});
@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
 	});
 	
 	//清空占位过期订单
-	window.setInterval(cleardingdan,50000);
+	window.setInterval(cleardingdan,100000);
 	
 	// Dialog
 	jQuery('#dialog').dialog({
