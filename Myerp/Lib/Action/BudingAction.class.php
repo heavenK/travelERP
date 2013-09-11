@@ -42,7 +42,6 @@ class BudingAction extends Action{
 	
 	//线路开放销售补订
     public function xianluxiaoshoukaifang() {
-		exit;
 		C('TOKEN_ON',false);
 		echo "执行线路开放销售om";
 		$ViewXianlu = D("ViewXianlu");
@@ -913,6 +912,28 @@ class BudingAction extends Action{
 	
 	//重置所有产品OM
     public function reset_all_chanpinOM() {
+		$DataOM = D("DataOM");
+		$Chanpin = D("Chanpin");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*500;
+		$taskall = $Chanpin->limit("$num,500")->findall();
+		dump($taskall);
+		if(count($taskall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taskall as $v){
+			A('Method')->_resetOM($v['chanpinID']);
+		}
+		$url = SITE_INDEX."Buding/reset_all_chanpinOM/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
 	}
 	
 	

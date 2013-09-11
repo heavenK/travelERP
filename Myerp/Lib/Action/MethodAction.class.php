@@ -4724,9 +4724,11 @@ class MethodAction extends CommonAction{
 	
 	
 	//报账单同步报账项费用
-     public function _resetOM() {
+     public function _resetOM($chanpinID='') {
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
+		if($chanpinID)
+			$_REQUEST['chanpinID'] = $chanpinID;
 		if($_REQUEST['chanpinID']){
 			$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 			if($cp){
