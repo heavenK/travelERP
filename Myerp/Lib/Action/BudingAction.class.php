@@ -932,8 +932,8 @@ class BudingAction extends Action{
 		}
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*100;
-		$taskall = $ViewTaskShenhe->where("`status` = '待检出' AND `status_system` = '1'")->limit("$num,100")->findall();
+		$num = ($_REQUEST['page']-1)*300;
+		$taskall = $ViewTaskShenhe->where("`status` = '待检出' AND `status_system` = '1'")->limit("$num,300")->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";
