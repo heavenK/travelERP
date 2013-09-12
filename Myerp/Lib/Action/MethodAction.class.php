@@ -2428,17 +2428,10 @@ class MethodAction extends CommonAction{
 		$ComID = $this->_getComIDbyUser($username);//行政公司ID
 		if(!$ComID)
 		  return false;
-		 
-		dump($ComID); 
-		  
 		if($bumenID){//直接开放到部门
 			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
-				
-				dump($my_durlist);
-				
 				foreach($my_durlist as $v){
 					if($v['bumenID'] == $bumenID){
-				dump($v);
 						$durlist[0] = $v;
 						$mark_has = 1;
 						break;
@@ -4558,12 +4551,6 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
 					}
-					
-					dump($user_name);
-					dump($departmentID);
-					dump($dataOMlist);
-					exit;
-					
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 					//子团重置
 					$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
