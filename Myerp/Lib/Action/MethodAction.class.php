@@ -4779,7 +4779,7 @@ class MethodAction extends CommonAction{
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$where['status'] = '待检出';
-		$where['dataID'] = $chanpinID;
+		$where['dataID'] = $_REQUEST['chanpinID'];
 		$task = $ViewTaskShenhe->where($where)->find();
 		$process = $this->_checkShenhe($task['datatype'],$task['processID']);
 		$this->_djcOMCreate($task,$process);
