@@ -4551,6 +4551,9 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
 					}
+					
+					dump($dataOMlist);
+					
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 					//子团重置
 					$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
