@@ -917,6 +917,10 @@ class SetSystemAction extends CommonAction{
     }
 	
 	
+    public function resetOMTask() {
+		if(false !== A('Method')->_resetOM())
+		$this->ajaxReturn('', '成功！', 1);
+	}
 	
 	
 	

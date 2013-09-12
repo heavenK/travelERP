@@ -4727,7 +4727,7 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	//报账单同步报账项费用
+	//重置产品OM
      public function _resetOM($chanpinID='') {
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
@@ -4767,6 +4767,25 @@ class MethodAction extends CommonAction{
 		return true;
 		
 	 }
+	 
+	 
+	//重置待审核OM
+     public function _resetOMTask($chanpinID='') {
+		$Chanpin = D("Chanpin");
+		C('TOKEN_ON',false);
+		if($chanpinID)
+			$_REQUEST['chanpinID'] = $chanpinID;
+			
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$where['status'] = '待检出';
+		$where['dataID'] = $chanpinID;
+		$task = $ViewTaskShenhe->where($where)->find();
+		$process = $this->_checkShenhe($task['datatype'],$task['processID']);
+		$this->_djcOMCreate($task,$process);
+		return true;
+	 }
+	 
 	
 	
 	

@@ -50,6 +50,8 @@
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="javascript:void(0)" id="resetOM_create">重置产品OM</a></td>
           <td width="30%">指定产品ID,产品类型，重置OM</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="javascript:void(0)" id="resetOMTask_create">重置产品待审核OM</a></td>
+          <td width="30%"></td>
         </tr>
       </tbody>
     </table>
@@ -224,6 +226,32 @@ jQuery(document).ready(function(){
 		jQuery('#dialog_resetOM').dialog('open');
 		return false;
 	});
+	
+	
+	// Dialog
+	jQuery('#dialog_resetOMTask').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_resetOMTask','resultdiv_2')){
+						ThinkAjax.sendForm('form_resetOMTask',SITE_INDEX+'SetSystem/resetOMTask','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#resetOMTask_create').click(function(){
+		jQuery('#dialog_resetOMTask').dialog('open');
+		return false;
+	});
+	
+	
+	
+	
 });
 
 var user = [
@@ -334,6 +362,19 @@ function resetchanpinshoujia(){
 
 <div id="dialog_resetOM" title="重置产品OM" style="background:#FFF">
 <form id="form_resetOM" id="form_resetOM" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_resetOMTask" title="重置产品待审核OM" style="background:#FFF">
+<form id="form_resetOMTask" id="form_resetOMTask" method="post" >
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
         <tr>

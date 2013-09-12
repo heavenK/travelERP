@@ -1040,8 +1040,6 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	
-	
-	
     public function chaxunma() {
 		$chanpinID = $_REQUEST['chanpinID'];
 		$Chanpin = D("Chanpin");
