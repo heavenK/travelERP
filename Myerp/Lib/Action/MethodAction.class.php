@@ -4775,7 +4775,6 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		if($chanpinID)
 			$_REQUEST['chanpinID'] = $chanpinID;
-			
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$where['status'] = '待检出';
