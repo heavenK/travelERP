@@ -542,6 +542,10 @@ class MethodAction extends CommonAction{
 			{
 				if($whereitem)
 					$whereitem .= " OR ";
+					
+				if($v[bumenID])	
+					
+					
 				$whereitem .= "(`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
 				$whereitem .= " OR (`DUR` = '$v[bumenID],$v[rolesID],$v[userID]')";//部门，角色，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,$v[userID]')";//部门，用户
@@ -555,7 +559,8 @@ class MethodAction extends CommonAction{
 				$whereitem .= "(`DUR` = ',,$v[userID]' )";//用户
 				
 		//附加公司计调
-		$durlist = A("Method")->_checkRolesByUser('计调','组团',1);
+		//根据公司，做联合体开放产品的行政角色调整
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
 		if($durlist){
 			$ComID = $this->_getComIDbyUser();
 			$ViewRoles = D("ViewRoles");
