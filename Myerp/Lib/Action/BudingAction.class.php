@@ -897,6 +897,7 @@ class BudingAction extends Action{
 	
 	//重置所有产品OM
     public function reset_all_chanpinOM() {
+		exit;
 		$DataOM = D("DataOM");
 		$Chanpin = D("Chanpin");
 		if(!$_REQUEST['page']){
@@ -924,6 +925,7 @@ class BudingAction extends Action{
 	
 	//重置所有待审核OM
     public function reset_all_shenheOM() {
+		exit;
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		if(!$_REQUEST['page']){
@@ -952,6 +954,7 @@ class BudingAction extends Action{
 	
 	//修复产品销售OM
     public function reset_all_xiaoshouOM() {
+		exit;
 		C('TOKEN_ON',false);
 		echo "修复产品销售om";
 		$ViewXianlu = D("ViewXianlu");
@@ -969,7 +972,7 @@ class BudingAction extends Action{
 
 	//重置所有产品OM
     public function reset_1s_chanpinOM() {
-		$DataOM = D("DataOM");
+		exit;
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
 		$taskall = $Chanpin->where("`bumen_copy` = '直营-普兰店营业部' ")->findall();

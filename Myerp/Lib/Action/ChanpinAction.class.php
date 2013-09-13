@@ -86,7 +86,7 @@ class ChanpinAction extends CommonAction{
 				$bzdall = $ViewBaozhang->where("`parentID` = '$z[chanpinID]' AND (`status_system` = '1')")->findall();
 				foreach($bzdall as $b){
 					if($b['status_shenhe'] == '批准'){
-						$this->ajaxReturn($_REQUEST, '部门子团已经报账，禁止修改线路信息！！！', 0);
+						//$this->ajaxReturn($_REQUEST, '部门子团已经报账，禁止修改线路信息！！！', 0);
 					}
 				}
 			}
