@@ -81,12 +81,14 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['xianlu']['guojing'] = $xianlu['xianlu']['guojing'];
 			$zituanlist = $Chanpin->relationGet("zituanlist");
 			$ViewBaozhang = D('ViewBaozhang');
+			if($this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+				break;
 			foreach($zituanlist as $z){
 				//判断子团报账单
 				$bzdall = $ViewBaozhang->where("`parentID` = '$z[chanpinID]' AND (`status_system` = '1')")->findall();
 				foreach($bzdall as $b){
 					if($b['status_shenhe'] == '批准'){
-						//$this->ajaxReturn($_REQUEST, '部门子团已经报账，禁止修改线路信息！！！', 0);
+						$this->ajaxReturn($_REQUEST, '部门子团已经报账，禁止修改线路信息！！！', 0);
 					}
 				}
 			}
@@ -151,7 +153,8 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['dotype'] = '申请';
 			$_REQUEST['datatype'] = '线路';
 			$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
-			A("Method")->_autoshenqing();
+			if(!$this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+				A("Method")->_autoshenqing();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
