@@ -4270,7 +4270,8 @@ class MethodAction extends CommonAction{
 			$DataOM = D("DataOM");
 			$where_om['dataID'] = $v;
 			$where_om['datatype'] = $type;
-			$where_om['status'] = array('neq','指定');
+			//$where_om['status'] = array('neq','指定');
+			$where_om['status'] = array('exp','is empty');
 			$DataOM->where($where_om)->delete();
 			//相应审核任务
 			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
@@ -4507,7 +4508,8 @@ class MethodAction extends CommonAction{
 		foreach($tsall as $v){
 			$where_om['dataID'] = $v['systemID'];
 			$where_om['datatype'] = $v['datatype'];
-			$where_om['status'] = array('neq','指定');
+			//$where_om['status'] = array('neq','指定');
+			$where_om['status'] = array('exp','is empty');
 			$DataOM->where($where_om)->delete();
 			$process = $this->_checkShenhe($datatype,$processID);
 			$this->_djcOMCreate($v,$process);
@@ -4534,7 +4536,8 @@ class MethodAction extends CommonAction{
 				$Chanpin = D("Chanpin");
 				$where_om['dataID'] = $dataID;
 				$where_om['datatype'] = $datatype;
-				$where_om['status'] = array('neq','指定');
+				//$where_om['status'] = array('neq','指定');//不起效
+				$where_om['status'] = array('exp','is empty');
 				$DataOM->where($where_om)->delete();
 				//获得产品
 				$d_cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
@@ -4556,6 +4559,9 @@ class MethodAction extends CommonAction{
 					if(!$dataOMlist){
 						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
 					}
+					
+					dump($dataOMlist);
+					
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 					//子团重置
 					$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
