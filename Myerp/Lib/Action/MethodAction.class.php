@@ -1763,8 +1763,7 @@ class MethodAction extends CommonAction{
 						//根据公司，做联合体开放产品的行政角色调整
 						$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
 						foreach($dataOMlist as $dol){
-							$OM_item = $dol['bumenID'].','.$dol['rolesID'].',';
-							if($OM_item == $user_dur_item){
+							if($dol['DUR'] == $user_dur_item){
 								$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
 								$shenhe['roletitle'] = $roletitle['title'];
 								return $shenhe;
@@ -4656,23 +4655,7 @@ class MethodAction extends CommonAction{
 				if($datatype == '报账项'){
 					if(!$dataOMlist){
 						$cp_bzd = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();//获得报账单
-						if($cp_bzd['parentID']){
-							$cp = $Chanpin->where("`chanpinID` = '$cp_bzd[parentID]'")->find();
-							if($cp['marktype'] == 'zituan'){
-								$role = '计调';
-								$bumentype = '组团';
-							}
-							if($cp['marktype'] == 'DJtuan'){
-								$role = '地接';
-								$bumentype = '地接';
-							}
-							$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
-						}
-						else{
-							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
-							if(!$dataOMlist)				
-								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
-						}
+						$dataOMlist = $this->_getDataOM($d_cp['parentID'],'报账单','管理');
 					}
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
