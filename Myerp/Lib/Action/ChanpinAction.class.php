@@ -81,7 +81,7 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['xianlu']['guojing'] = $xianlu['xianlu']['guojing'];
 			$zituanlist = $Chanpin->relationGet("zituanlist");
 			$ViewBaozhang = D('ViewBaozhang');
-			if($this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+			if(A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
 				break;
 			foreach($zituanlist as $z){
 				//判断子团报账单
@@ -153,7 +153,7 @@ class ChanpinAction extends CommonAction{
 			$_REQUEST['dotype'] = '申请';
 			$_REQUEST['datatype'] = '线路';
 			$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
-			if(!$this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+			if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
 				A("Method")->_autoshenqing();
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}

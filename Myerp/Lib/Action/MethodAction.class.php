@@ -542,11 +542,7 @@ class MethodAction extends CommonAction{
 			{
 				if($whereitem)
 					$whereitem .= " OR ";
-					
-				if($v[bumenID])	
-					
-					
-				$whereitem .= "(`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
+				$whereitem .= " (`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
 				$whereitem .= " OR (`DUR` = '$v[bumenID],$v[rolesID],$v[userID]')";//部门，角色，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,$v[userID]')";//部门，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,')";//部门
@@ -567,10 +563,11 @@ class MethodAction extends CommonAction{
 			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 			$whereitem .= " OR (`DUR` = '$ComID,$r_jidiao[systemID],' )";//公司计调
 		}
-		
 		$where .= $whereitem.")";
 		return $where;
 	}
+	
+	
 	
     //字符串化条件数组
     public function _arraytostr_filter($where) {
@@ -1539,6 +1536,7 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+	 
 	//检查数据审核任务OM
      public function _checkOMTaskShenhe($dataID,$datatype) {
 		 
@@ -1585,6 +1583,7 @@ class MethodAction extends CommonAction{
 			}
 		}
 	 }
+	 
 	 
 	 
 	//检查DataOM
@@ -1750,6 +1749,31 @@ class MethodAction extends CommonAction{
 					return $shenhe;
 				}
 			}
+			
+			//联合体产品，比对公司计调权限。
+			if($processID == 1){	
+				$durlist = A("Method")->_checkRolesByUser('计调','组团',1,$userID);
+				foreach($durlist as $v){
+					//开放给角色，检查部门
+					$UR = $v['rolesID'].',';
+					$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
+					if($shenhe != null){
+						$user_dur_item = $ComID.','.$v['rolesID'].',';
+						//附加公司计调
+						//根据公司，做联合体开放产品的行政角色调整
+						$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+						foreach($dataOMlist as $dol){
+							$OM_item = $dol['bumenID'].','.$dol['rolesID'].',';
+							if($OM_item == $user_dur_item){
+								$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
+								$shenhe['roletitle'] = $roletitle['title'];
+								return $shenhe;
+							}
+						}
+					}
+				}
+			}
+			
 		}
 		else{//获得审核流程
 			//公司范围控制
