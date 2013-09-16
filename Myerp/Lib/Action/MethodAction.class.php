@@ -1751,26 +1751,8 @@ class MethodAction extends CommonAction{
 			}
 			
 			//联合体产品，比对公司计调权限。
-			if($processID == 1){	
-				$durlist = A("Method")->_checkRolesByUser('计调','组团',1,$userID);
-				foreach($durlist as $v){
-					//开放给角色，检查部门
-					$UR = $v['rolesID'].',';
-					$shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '$processID' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
-					if($shenhe != null){
-						$user_dur_item = $ComID.','.$v['rolesID'].',';
-						//附加公司计调
-						//根据公司，做联合体开放产品的行政角色调整
-						$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
-						foreach($dataOMlist as $dol){
-							if($dol['DUR'] == $user_dur_item){
-								$roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
-								$shenhe['roletitle'] = $roletitle['title'];
-								return $shenhe;
-							}
-						}
-					}
-				}
+			if($processID == 1){
+				return $this->_checkLHT_OM($dataID,$datatype,$userID);
 			}
 			
 		}
@@ -1785,6 +1767,38 @@ class MethodAction extends CommonAction{
 		return false;
 		
 	 }
+	 
+	 
+	 
+	 
+	//根据流程，检查该产品是否对公司计调开放
+     public function _checkLHT_OM($dataID,$datatype,$userID='') {
+		  $DataShenhe = D("DataShenhe");
+		  $ViewRoles = D("ViewRoles");
+		  $ComID = $this->_getComIDbyUser('',$userID);
+		  $durlist = A("Method")->_checkRolesByUser('计调','组团',1,$userID);
+		  foreach($durlist as $v){
+			  //开放给角色，检查部门
+			  $UR = $v['rolesID'].',';
+			  $shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '1' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
+			  if($shenhe != null){
+				  $user_dur_item = $ComID.','.$v['rolesID'].',';
+				  //附加公司计调
+				  //根据公司，做联合体开放产品的行政角色调整
+				  $dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+				  foreach($dataOMlist as $dol){
+					  if($dol['DUR'] == $user_dur_item){
+						  $roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
+						  $shenhe['roletitle'] = $roletitle['title'];
+						  return $shenhe;
+					  }
+				  }
+			  }
+		  }
+		  return false;
+	 }
+	 
+	 
 
 
 	
@@ -4492,6 +4506,18 @@ class MethodAction extends CommonAction{
 		//生成待检出OM
 		$DataOM = D("DataOM");
 		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
+		//联合体产品处理，根据申请者部门生成审核OM
+		if($this->_checkLHT_OM($data['dataID'],$data['datatype'])){
+			$i = 0;
+			foreach($to_dataomlist as $tod){
+				$i++;
+			}
+			$durlist = A("Method")->_checkRolesByUser('计调','组团',1);
+			foreach($durlist as $vdul){
+				$to_dataomlist[$i]['DUR'] = $vdul['bumenID'].','.$vdul['roleID'].',';
+				$i++;
+			}
+		}
 		foreach($to_dataomlist as $vo){
 			list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
 			$to_dataom['type'] = '管理';
@@ -4516,6 +4542,8 @@ class MethodAction extends CommonAction{
 				}
 			}
 		}
+		
+		
 		return $userIDlist;
 	}
 	
