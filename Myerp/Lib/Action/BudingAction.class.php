@@ -972,10 +972,9 @@ class BudingAction extends Action{
 
 	//重置所有产品OM
     public function reset_1s_chanpinOM() {
-		exit;
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
-		$taskall = $Chanpin->where("`bumen_copy` = '直营-普兰店营业部' ")->findall();
+		$taskall = $Chanpin->where("`bumen_copy` = '直营-联合路营业部(国内)' ")->findall();
 		foreach($taskall as $v){
 			$v['departmentID'] = 40161;
 			$v['bumen_copy'] = '国内部-组团';
