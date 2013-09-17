@@ -974,7 +974,7 @@ class BudingAction extends Action{
     public function reset_1s_chanpinOM() {
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
-		$taskall = $Chanpin->where("`bumen_copy` = '直营-联合路营业部(国内)' ")->findall();
+		$taskall = $Chanpin->where("`bumen_copy` = '直营-联合路营业部(出境)' ")->findall();
 		foreach($taskall as $v){
 			$v['departmentID'] = 40161;
 			$v['bumen_copy'] = '国内部-组团';
