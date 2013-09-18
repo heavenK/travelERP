@@ -895,9 +895,13 @@ class BudingAction extends Action{
 	}
 	
 	
+	
 	//重置所有产品OM
     public function reset_all_chanpinOM() {
-		exit;
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
 		$DataOM = D("DataOM");
 		$Chanpin = D("Chanpin");
 		if(!$_REQUEST['page']){
@@ -907,7 +911,7 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*100;
-		$taskall = $Chanpin->limit("$num,100")->findall();
+		$taskall = $Chanpin->limit("$num,1000")->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";
@@ -923,9 +927,13 @@ class BudingAction extends Action{
 	}
 	
 	
+	
 	//重置所有待审核OM
     public function reset_all_shenheOM() {
-		exit;
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		if(!$_REQUEST['page']){
@@ -954,7 +962,10 @@ class BudingAction extends Action{
 	
 	//修复产品销售OM
     public function reset_all_xiaoshouOM() {
-		exit;
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
 		C('TOKEN_ON',false);
 		echo "修复产品销售om";
 		$ViewXianlu = D("ViewXianlu");
@@ -972,6 +983,7 @@ class BudingAction extends Action{
 
 	//重置所有产品OM
     public function reset_1s_chanpinOM() {
+		exit;
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
 		$taskall = $Chanpin->where("`bumen_copy` = '加盟-民勇大厦营业部' AND `marktype` = 'xianlu' ")->findall();

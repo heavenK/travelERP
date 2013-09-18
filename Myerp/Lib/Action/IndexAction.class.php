@@ -115,8 +115,22 @@ class IndexAction extends Action{
 	
 	
 	public function FAQ() {
+		$this->_FAQ('FAQ');
+		$this->display('Index:FAQ');
+	}
+	
+	
+	//使用手册
+	public function help() {
+		$this->_FAQ('使用手册');
+		$this->display('Index:help');
+	}
+	
+	
+	//使用手册
+	public function _FAQ($type) {
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
+		$FAQall = $ViewDataDictionary->where("`type` = '$type'")->findall();
 		$i = 0;
 		foreach($FAQall as $v){
 //			$FAQall[$i]['datatext'] = simple_unserialize($v['datatext']);
@@ -124,7 +138,6 @@ class IndexAction extends Action{
 			$i++;
 		}
 		$this->assign("datalist",$FAQall);
-		$this->display('Index:FAQ');
 	}
 	
 	

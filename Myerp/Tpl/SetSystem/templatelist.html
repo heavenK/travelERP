@@ -1124,7 +1124,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       
       
-      <php>if('FAQ' == $nowDir['title']){</php>
+      <php>if('FAQ' == $nowDir['title'] || '使用手册' == $nowDir['title']){</php>
 		<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/ckfinder/ckfinder.js"></script>
 		<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/SetSystem/FAQ.js"></script>
@@ -1162,10 +1162,10 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 					}
 				}
 			});
-			function infoedit(systemID){
+			function infoedit(systemID,type){
 					jQuery.ajax({
 						type:	"POST",
-						url:	"<{:SITE_INDEX}>SetSystem/dataDictionary/type/FAQ/returntype/array/systemID/"+systemID,
+						url:	"<{:SITE_INDEX}>SetSystem/dataDictionary/type/"+type+"/returntype/array/systemID/"+systemID,
 						data:	"",
 						success:function(msg){
 							ThinkAjax.myAjaxResponse(msg,'',arraymessage_after);
@@ -1212,7 +1212,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <td scope="row" align="left" valign="top">
         <input type="button" class="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
-        <input type="button" class="button" value="修改" onClick="infoedit('<{$v[systemID]}>');"/>
+        <input type="button" class="button" value="修改" onClick="infoedit('<{$v[systemID]}>','<{$nowDir[title]}>');"/>
         </td>
       </tr>
       <php>}}</php>
@@ -1314,10 +1314,10 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       
       
       
-      <php>if('FAQ' == $nowDir['title']){</php>
+      <php>if('FAQ' == $nowDir['title'] || '使用手册' == $nowDir['title']){</php>
 <div id="dialog_FAQ" title="FAQ" style="background:#FFF">
 <form id="form_FAQ" id="form_FAQ" method="post" >
-    	<input type="hidden" name="type" value="FAQ" />
+    	<input type="hidden" name="type" value="<{$nowDir['title']}>" />
     	<input type="hidden" name="systemID" id="systemID"/>
       <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
         <tbody>
@@ -1355,7 +1355,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
 
 <script type="text/javascript">
 var editor = CKEDITOR.replace( 'message' );
-CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/myerp/ckfinder/' ) ;
 
 </script> 
       <php>}</php>

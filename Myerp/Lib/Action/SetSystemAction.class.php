@@ -511,7 +511,7 @@ class SetSystemAction extends CommonAction{
 		if($_REQUEST['returntype'] == 'array' ){
 			$where['systemID'] = $_REQUEST['systemID'];
 			$data = $ViewDataDictionary->where($where)->find();
-			if($data['type'] == 'FAQ'){
+			if($data['type'] == 'FAQ' || $data['type'] == '使用手册'){
 				$data['datatext'] = mb_unserialize($data['datatext']);
 			}
 			$this->ajaxReturn($data, '读取成功！', 1);
@@ -564,6 +564,10 @@ class SetSystemAction extends CommonAction{
 		}
 		elseif($where['type'] == 'FAQ'){
 			A("Method")->showDirectory("FAQ");
+			$this->display('SetSystem:templatelist');
+		}
+		elseif($where['type'] == '使用手册'){
+			A("Method")->showDirectory("使用手册");
 			$this->display('SetSystem:templatelist');
 		}
 		elseif($where['type'] == '商户条目'){
