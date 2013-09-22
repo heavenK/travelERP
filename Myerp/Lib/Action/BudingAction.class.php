@@ -737,7 +737,6 @@ class BudingAction extends Action{
 	
 	//重置销售类型chanpintype
 	public function resetshoujiachanpintype(){
-		exit;
 		C('TOKEN_ON',false);
 		$Shoujia = D("Shoujia");
 		$shoujiaall = $Shoujia->findall();
