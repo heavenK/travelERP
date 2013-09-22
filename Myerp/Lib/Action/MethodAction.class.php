@@ -33,9 +33,9 @@ class MethodAction extends CommonAction{
 		}
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
-			if($where['chanpintype'] != ''){
-				$where['chanpintype'] = '签证';
-			}
+//			if($where['chanpintype'] != ''){
+//				$where['chanpintype'] = '';
+//			}
 			$where['xianlu_status'] = '报名';
 			//处理搜索
 			if($where['title']){
