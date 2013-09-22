@@ -112,13 +112,14 @@
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/deletechengben",
-		data:	"chanpinID="+id,
+		data:	"chanpinID="+id+"&xianluID="+chanpinID,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',chengben_del,id);
 		}
 	});
 	
  }
+ 
  
  function chengben_del(data,status,info,type,id)
  {
@@ -225,7 +226,7 @@
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"Chanpin/deleteshoujia",
-		data:	"chanpinID="+id,
+		data:	"chanpinID="+id+"&xianluID="+chanpinID,
 		success:function(msg){
 			ThinkAjax.myAjaxResponse(msg,'resultdiv',shoujia_del,id);
 		}

@@ -214,6 +214,10 @@ function dosearch(str){
           <td valign="top" scope="row"><input id="childxiuzheng" type="text" value="0" check="^\S+$" warning="儿童价格修正不能为空,且不能含有空格" ></td>
         </tr>
         <tr>
+          <td valign="top" scope="row" style="width:80px;"> 折扣修正: </td>
+          <td valign="top" scope="row"><input id="cutxiuzheng" type="text" value="0" check="^\S+$" warning="折扣修正不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
           <td valign="top" scope="row" colspan="2">举例：输入100即再原价格上增加100（-100减100）</td>
         </tr>
       </tbody>
@@ -233,6 +237,7 @@ jQuery(document).ready(function(){
 				if(CheckForm('form_tiaojia','resultdiv_2')){
 					adultxiuzheng = jQuery("#adultxiuzheng").val();
 					childxiuzheng = jQuery("#childxiuzheng").val();
+					cutxiuzheng = jQuery("#cutxiuzheng").val();
 					var checkboxitem = new Array();
 					var i = 0;
 					jQuery(".checkboxitem").each(function(index, element) {
@@ -248,7 +253,7 @@ jQuery(document).ready(function(){
 					jQuery.ajax({
 						type:	"POST",
 						url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia",
-						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng,
+						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cutxiuzheng="+cutxiuzheng,
 						success:function(msg){
 							ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
 						}

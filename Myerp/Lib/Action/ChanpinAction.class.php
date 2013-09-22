@@ -373,7 +373,7 @@ class ChanpinAction extends CommonAction{
 	public function deleteshoujia()
 	{
 		//检查dataOM
-		$xianlu = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'线路','管理');
+		$xianlu = A('Method')->_checkDataOM($_REQUEST['xianluID'],'线路','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 		$chanpinID = $_REQUEST['chanpinID'];
@@ -941,6 +941,7 @@ class ChanpinAction extends CommonAction{
 			$dat['chanpinID'] = $v;
 			$dat['zituan']['adultxiuzheng'] = $_REQUEST['adultxiuzheng'];
 			$dat['zituan']['childxiuzheng'] = $_REQUEST['childxiuzheng'];
+			$dat['zituan']['cutxiuzheng'] = $_REQUEST['cutxiuzheng'];
 			$Chanpin->relation("zituan")->myRcreate($dat);
 		}
 		if($mark == 1)

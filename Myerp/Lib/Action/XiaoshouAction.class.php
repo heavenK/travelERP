@@ -82,6 +82,7 @@ class XiaoshouAction extends Action{
 		//价格计算
 		$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
 		$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
+		$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
 		$this->assign("shoujia",$shoujia['shoujia']);
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
@@ -274,7 +275,7 @@ class XiaoshouAction extends Action{
 			//价格计算
 			$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
 			$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
-			
+			$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
 			if($chanpintype == '子团'){
 				if($zituan['status_baozhang'] == '批准')
 					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
@@ -357,12 +358,12 @@ class XiaoshouAction extends Action{
 			  $ViewZituan = D("ViewZituan");
 			  $zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[parentID]' and `status_system` = '1'")->find();
 			  $this->assign("zituan",$zituan);
-				//计算子团人数
-				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID']);
-				$baomingrenshu = $tuanrenshu['baomingrenshu'];
-				$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
-				$this->assign("shengyurenshu",$shengyurenshu);
-			  
+			  //计算子团人数
+			  $tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID']);
+			  $baomingrenshu = $tuanrenshu['baomingrenshu'];
+			  $shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+			  $this->assign("shengyurenshu",$shengyurenshu);
+			
 			  $this->display('baomingnext');
 		}
 		else{
