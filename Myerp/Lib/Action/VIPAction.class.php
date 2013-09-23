@@ -71,8 +71,12 @@ class VIPAction extends CommonAction{
 				$consume['consume']['transactionNo'] = $v['E'];
 				$consume['consume']['consumeAmount'] = $v['F'];
 				$consume['consume']['consumeTime'] = $v['G'];
+				$consume['consume']['posID'] = $v['H'];
 				//对比
-				$where['transactionNo'] = $consume['consume']['transactionNo'];
+				$where['cardNo'] = $consume['consume']['cardNo'];
+				$where['consumeAmount'] = $consume['consume']['consumeAmount'];
+				$where['consumeTime'] = $consume['consume']['consumeTime'];
+				$where['posID'] = $consume['consume']['posID'];
 				$tc = $ViewVIPConsume->where($where)->find();
 				if($tc)
 					continue;
@@ -130,43 +134,52 @@ class VIPAction extends CommonAction{
 				$member['member']['tel'] = $v['F'];
 				$member['member']['birthday'] = $v['G'];
 				$member['member']['datatext'] = serialize($member['member']);
-				//对比
-				$where['IDtype'] = $member['member']['IDtype'];
-				$where['IDNo'] = $member['member']['IDNo'];
-				$where['bank_type'] = $member['member']['bank_type'];
-				$tc = $ViewVIPMember->where($where)->find();
-				if($tc)
-					continue;
-				if(false === $VIP->relation("member")->myRcreate($member)){
-					$VIP->rollback();
-					A("Method")->ajaxUploadResult($_REQUEST,'解析失败！',0);
-				}
-				else{
+				//对比,姓名电话，卡号姓名，卡号电话，两项匹配确定老用户。
+				$cardNo = $member['member']['cardNo'];
+				$name = $member['member']['name'];
+				$tel = $member['member']['tel'];
+				$where_m = "(`cardNo` = '$cardNo' AND `name` = '$name') OR (`cardNo` = '$cardNo' AND `tel` = '$tel') OR (`name` = '$name' AND `tel` = '$tel')";
+				$tc = $ViewVIPMember->where($where_m)->find();
+				if($tc){
+					$where_m = "`cardNo` = '$cardNo' AND `name` = '$name' AND `tel` != '$tel'";
+					$n_tc = $ViewVIPMember->where($where_m)->find();
+					$tc['cardNo'] = $member['member']['cardNo'];
+					$tc['tel'] = $member['member']['tel'];
+					$ViewVIPMember->save($tc);//更新
+					if($n_tc)//更新电话后下一循环
+						continue;
+					$vipID = $tc['vipID'];
+				}else{
+					if(false === $VIP->relation("member")->myRcreate($member)){
+						$VIP->rollback();
+						A("Method")->ajaxUploadResult($_REQUEST,'解析失败！',0);
+					}
 					$vipID = $VIP->getRelationID();
-					$where_card['parentID'] = $vipID;
-					$where_card['bank_type'] = $member['member']['bank_type'];
-					$where_card['cardNo'] = $member['member']['cardNo'];
-					$tc_c = $ViewVIPCard->where($where_card)->find();
-					if(!$tc_c){
-						$card['parentID'] = $where_card['parentID'];
-						$card['card']['bank_type'] = $where_card['bank_type'];
-						$card['card']['cardNo'] = $where_card['cardNo'];
-						$card['status'] = '当前卡';
-						//重置卡状态
-						unset($where_card['cardNo']);
-						$cardlist = $ViewVIPCard->where($where_card)->findall();;
-						foreach($cardlist as $vol){
-							$recard['vipID'] = $vol['vipID'];
-							$recard['status'] = '失效卡';
-							if(false === $VIP->save($recard)){
-								$VIP->rollback();
-								A("Method")->ajaxUploadResult($_REQUEST,'卡状态重置失败！',0);
-							}
-						}
-						if(false === $VIP->relation("card")->myRcreate($card)){
+				}
+				//更新卡表
+				$where_card['parentID'] = $vipID;
+				$where_card['bank_type'] = $member['member']['bank_type'];
+				$where_card['cardNo'] = $member['member']['cardNo'];
+				$tc_c = $ViewVIPCard->where($where_card)->find();
+				if(!$tc_c){
+					$card['parentID'] = $where_card['parentID'];
+					$card['card']['bank_type'] = $where_card['bank_type'];
+					$card['card']['cardNo'] = $where_card['cardNo'];
+					$card['status'] = '当前卡';
+					//重置卡状态
+					unset($where_card['cardNo']);
+					$cardlist = $ViewVIPCard->where($where_card)->findall();
+					foreach($cardlist as $vol){
+						$recard['vipID'] = $vol['vipID'];
+						$recard['status'] = '失效卡';
+						if(false === $VIP->save($recard)){
 							$VIP->rollback();
-							A("Method")->ajaxUploadResult($_REQUEST,'卡号保存失败！',0);
+							A("Method")->ajaxUploadResult($_REQUEST,'卡状态重置失败！',0);
 						}
+					}
+					if(false === $VIP->relation("card")->myRcreate($card)){
+						$VIP->rollback();
+						A("Method")->ajaxUploadResult($_REQUEST,'卡号保存失败！',0);
 					}
 				}
 			}

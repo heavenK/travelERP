@@ -491,7 +491,7 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查dataOM
-		if($dingdan['shoujiaID']> 0){
+		if($dingdan['shoujiaID']> 0 && $dingdan['status_baozhang'] != '批准'){
 			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 			if(false === $xiaoshou){
 				$this->display('Index:error');

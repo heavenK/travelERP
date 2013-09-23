@@ -737,6 +737,7 @@ class BudingAction extends Action{
 	
 	//重置销售类型chanpintype
 	public function resetshoujiachanpintype(){
+		exit;
 		C('TOKEN_ON',false);
 		$Shoujia = D("Shoujia");
 		$shoujiaall = $Shoujia->findall();
@@ -909,8 +910,8 @@ class BudingAction extends Action{
 		}
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
-		$num = ($_REQUEST['page']-1)*100;
-		$taskall = $Chanpin->limit("$num,1000")->findall();
+		$num = ($_REQUEST['page']-1)*300;
+		$taskall = $Chanpin->limit("$num,300")->order('chanpinID asc')->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";

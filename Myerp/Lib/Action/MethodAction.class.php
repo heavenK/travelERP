@@ -5330,10 +5330,14 @@ class MethodAction extends CommonAction{
 			A("Method")->ajaxUploadResult($_REQUEST,'文件非utf8编码！',0);
 		//上传附件
 		$savepath = './Data/BankFiles/'; 
-		if($type == '消费')
+		if($type == '消费'){
 			$savepath .= 'Consume/'; 
-		if($type == '会员')
+			//必填项
+		}
+		if($type == '会员'){
 			$savepath .= 'Member/'; 
+			
+		}
 		$ViewDepartment = D("ViewDepartment");
 		$ComID = A("Method")->_getComIDbyUser();
 		$company = $ViewDepartment->where("`systemID` = '$ComID'")->find();
