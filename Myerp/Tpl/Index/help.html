@@ -19,7 +19,6 @@
   <div class="line"></div>
 </div>
 <div id="main">
-
   <div id="leftColumn" style="margin-top:0px; width:150px;">
         <div id="navtab_1" class="leftList">
           <h3><span>功能模块</span></h3>
@@ -79,7 +78,12 @@
             <php>}</php>
               </tbody>
             </table>
-            
+            <script>
+				$(window).scroll(function(){
+				$('#backtop').css('top', $(document).scrollTop()+200);
+				});
+			</script>
+            <img onclick="javascript:scroll(0,0)" id="backtop" title="返回顶部" src="<{:__PUBLIC__}>/myerp/images/backtop.jpg" style="position: absolute;right:20px; cursor:pointer"/>
   </div>
   
   

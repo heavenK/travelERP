@@ -539,5 +539,22 @@ class CaiwuAction extends CommonAction{
 			A("Method")->_baozhang($type);
 	}
 	
+	
+	public function hetong() {
+		
+		$this->display('hetong');
+	}
+	
+	
+	public function left_hetong() {
+		
+		$this->display('left_hetong');
+	}
+	
+	
+	
+	
+	
+	
 }
 ?>
