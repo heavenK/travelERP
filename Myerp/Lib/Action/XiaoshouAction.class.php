@@ -220,8 +220,6 @@ class XiaoshouAction extends Action{
 	
 	
     public function _ckeck_baoming() {
-		$Chanpin = D("Chanpin");
-		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
 		//检查数据
 		//owner
 		$ViewUser = D("ViewUser");
@@ -230,17 +228,20 @@ class XiaoshouAction extends Action{
 		//联系人
 		if(!$_REQUEST['lianxiren'] || !$_REQUEST['telnum'])
 			$this->ajaxReturn($_REQUEST,'错误,联系人和电话必须！', 0);
-		//检查子团ID
-		if($chanpintype == '子团' || $cp['marktype'] == 'zituan'){
+		//产品检查
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
+		if($cp['marktype'] == 'zituan'){
+			$chanpintype = '子团';
 			$ViewZituan = D("ViewZituan");
 			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$_REQUEST[zituanID]'")->find();
 			if(false === $zituan || $zituan == '')
 				$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 			$this->assign("zituan",$zituan);
 		}
-		if($chanpintype == '签证'){
+		if($cp['marktype'] == 'qianzheng'){
 			$ViewQianzheng = D("ViewQianzheng");
-			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
 			if(false === $qianzheng || $qianzheng == '')
 				$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 			$this->assign("chanpin",$qianzheng);
@@ -257,7 +258,6 @@ class XiaoshouAction extends Action{
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
 				$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 			}
-			
 			if($chanpintype == '签证'){
 				//检查dataOM
 				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'签证','管理');
@@ -274,7 +274,7 @@ class XiaoshouAction extends Action{
 			}
 			$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 			//子团控制
-			if($zituan){
+			if($chanpintype == '子团'){
 				//价格计算
 				$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
 				$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
