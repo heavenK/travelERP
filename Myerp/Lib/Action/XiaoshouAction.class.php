@@ -304,6 +304,7 @@ class XiaoshouAction extends Action{
 			}
 			
 			dump($shoujia['shoujia']['adultprice']);
+			dump($zituan);
 			dump($zituan['adultxiuzheng']);
 			dump($zituan['cutxiuzheng']);
 			dump($_REQUEST['adultprice']);
