@@ -283,9 +283,9 @@ class XiaoshouAction extends Action{
 					$shoujia['shoujia']['cut'] = 0;
 				if($zituan['status_baozhang'] == '批准')
 					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
-//				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
-//						$this->ajaxReturn($_REQUEST,'请正常报名！', 0);
-//				}
+				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
+						$this->ajaxReturn($_REQUEST,'请正常报名！', 0);
+				}
 				//报名截止
 				if($zituan['status'] == '截止')
 					$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
