@@ -222,6 +222,8 @@ class XiaoshouAction extends Action{
     public function _ckeck_baoming() {
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		dump($_REQUEST);
+		dump($cp);
 		//检查数据
 		//owner
 		$ViewUser = D("ViewUser");
