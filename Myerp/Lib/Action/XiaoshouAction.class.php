@@ -285,8 +285,8 @@ class XiaoshouAction extends Action{
 					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
 				dump($zituan['chutuanriqi']);	
 				dump($zituan['baomingjiezhi']);	
-				dump(time());	
-				dump(strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')));	
+				dump(date('Y/m/d H:i:s',time()));	
+				dump(date('Y/m/d H:i:s',strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少'))));	
 				dump(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')));	
 				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
 						$this->ajaxReturn($_REQUEST,'请正常报名！', 0);
