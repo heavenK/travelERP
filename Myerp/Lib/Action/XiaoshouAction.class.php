@@ -266,13 +266,12 @@ class XiaoshouAction extends Action{
 			}
 		}
 		else{
-			//补订订单
 			if($_REQUEST['shoujiaID'] > 0){
 				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 				if(false === $xiaoshou)
 					$this->ajaxReturn($_REQUEST,'权限错误！', 0);
+				$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 			}
-			$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 			//子团控制
 			if($chanpintype == '子团'){
 				//价格计算
@@ -281,14 +280,24 @@ class XiaoshouAction extends Action{
 				$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
 				if($shoujia['shoujia']['cut'] < 0)//折扣不能为负
 					$shoujia['shoujia']['cut'] = 0;
-				if($zituan['status_baozhang'] == '批准')
-					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
-				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 ){
-						$this->ajaxReturn($_REQUEST,'报名截止已过，请补订订单！', 0);
+				//正常报名检查
+				if($_REQUEST['shoujiaID'] > 0){	
+					if($zituan['status_baozhang'] == '批准')
+						$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
+					if($_REQUEST['shoujiaID'] > 0)	
+						if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 ){
+								$this->ajaxReturn($_REQUEST,'报名截止已过，请补订订单！', 0);
+						}
+					//报名截止
+					if($zituan['status'] == '截止')
+						$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
 				}
-				//报名截止
-				if($zituan['status'] == '截止')
-					$this->ajaxReturn($_REQUEST,'该团期已经截止报名！', 0);
+				else{
+					if($zituan['status'] == '截止' || $zituan['status_baozhang'] == '批准' || time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) > 0 )
+						;
+					else
+						$this->ajaxReturn($_REQUEST,'请正常提交订单！', 0);
+				}
 				//人数及人数检查
 				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID'],$_REQUEST['shoujiaID']);
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
@@ -306,6 +315,7 @@ class XiaoshouAction extends Action{
 				if($shengyurenshu - ($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num']) < 0)
 				$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 			}
+			
 			//价格范围
 			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
