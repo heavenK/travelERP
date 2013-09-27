@@ -220,6 +220,8 @@ class XiaoshouAction extends Action{
 	
 	
     public function _ckeck_baoming() {
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		//检查数据
 		//owner
 		$ViewUser = D("ViewUser");
@@ -229,7 +231,7 @@ class XiaoshouAction extends Action{
 		if(!$_REQUEST['lianxiren'] || !$_REQUEST['telnum'])
 			$this->ajaxReturn($_REQUEST,'错误,联系人和电话必须！', 0);
 		//检查子团ID
-		if($chanpintype == '子团'){
+		if($chanpintype == '子团' || $cp['marktype'] == 'zituan'){
 			$ViewZituan = D("ViewZituan");
 			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$_REQUEST[zituanID]'")->find();
 			if(false === $zituan || $zituan == '')
@@ -243,7 +245,6 @@ class XiaoshouAction extends Action{
 				$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 			$this->assign("chanpin",$qianzheng);
 		}
-		$Chanpin = D("Chanpin");
 		//计调报名，脱离销售
 		if($_REQUEST['backdoor'] == 1){
 			if($chanpintype == '子团'){
@@ -272,11 +273,12 @@ class XiaoshouAction extends Action{
 					$this->ajaxReturn($_REQUEST,'权限错误！', 0);
 			}
 			$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
-			//价格计算
-			$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
-			$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
-			$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
-			if($chanpintype == '子团'){
+			//子团控制
+			if($zituan){
+				//价格计算
+				$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
+				$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
+				$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
 				if($zituan['status_baozhang'] == '批准')
 					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
 				elseif(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
@@ -310,9 +312,9 @@ class XiaoshouAction extends Action{
 			dump($_REQUEST['adultprice']);
 			
 			//价格范围
-			if($shoujia['shoujia']['adultprice'] + $zituan['adultxiuzheng'] + $zituan['cutxiuzheng'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
+			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
-			if($shoujia['shoujia']['childprice'] + $zituan['adultxiuzheng'] + $zituan['cutxiuzheng'] - $shoujia['shoujia']['cut'] > $_REQUEST['childprice'])
+			if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['childprice'])
 				$this->ajaxReturn($_REQUEST,'错误,儿童售价超过可折扣范围！', 0);
 		}
 		//检查人数
