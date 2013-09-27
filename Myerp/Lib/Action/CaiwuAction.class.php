@@ -541,17 +541,37 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function hetong() {
-		
+		A('Method')->unitlist();
 		$this->display('hetong');
 	}
 	
 	
 	public function left_hetong() {
-		
 		$this->display('left_hetong');
 	}
 	
 	
+	public function newhetong() {
+		$this->display('hetong_new');
+	}
+	
+	
+	public function dopost_newhetong() {
+		
+		$hetong['parentID'] = $_REQUEST['expandID'];
+		$hetong['hetong']['user_name'] = $_REQUEST['name'];
+		foreach($_REQUEST['bianhao'] as $v){
+			$hetong['hetong']['bianhao'] = $_REQUEST['name'];
+			
+		}
+		
+		$hetong['hetong'] = $_REQUEST;
+		
+		
+		$Filedada = D("Filedata");
+		
+		$this->ajaxReturn($_REQUEST, '提交成功', 1);
+	}
 	
 	
 	

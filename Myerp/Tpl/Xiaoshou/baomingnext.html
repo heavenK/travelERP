@@ -142,7 +142,7 @@ function save(){
           </select>
           </td>
           <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$" warning="所有人员证件号码不能为空，且不能重复"></td>
-          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>"  ></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空"  ></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
         </tr>
         <php>}</php>

@@ -64,7 +64,6 @@ class ChanpinAction extends CommonAction{
 	}
 	
 	
-	
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['xianlu'] = $_REQUEST;

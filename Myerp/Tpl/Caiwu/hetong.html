@@ -3,7 +3,7 @@
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <div id="main">
 
   <tp:includeCA file="Caiwu:left_hetong" />
@@ -24,7 +24,7 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                    <input type="button" class="button" value=" +新增合同 " id="newhetong">
+                            <input type="button" class="button" value=" +新增合同 " id="newhetong">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$data['page']}>
@@ -66,19 +66,19 @@
 
 
 <div id="dialog_newhetong" title="新增合同" style="background:#FFF">
-<form id="form_buzhang" id="form_buzhang" method="post" >
-<input type="hidden" name="parentID" value="<{$chanpinID}>" />
-<input type="hidden" name="type" value="补账" />
-<input type="hidden" name="renshu" value="0" />
+<form id="form_hetong" id="form_hetong" method="post" action="<{:SITE_INDEX}>Caiwu/newhetong">
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
         <tr>
-          <td valign="top" scope="row" style="width:80px;"> 标题: </td>
-          <td valign="top" scope="row"><input name="title" type="text" style="width:100%" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td valign="top" scope="row" style="width:80px;"> 姓名: </td>
+          <td valign="top" scope="row">
+          <input type="text" name="name" id="name">
+          <input type="hidden" name="expandID" id="expandID">
+          </td>
         </tr>
         <tr>
-          <td valign="top" scope="row" style="width:80px;"> 备注说明: </td>
-          <td valign="top" scope="row"><textarea name="remark" rows="4" style="width:100%"></textarea></td>
+          <td valign="top" scope="row" style="width:80px;"> 份数: </td>
+          <td valign="top" scope="row"><input name="number" type="text" ></td>
         </tr>
       </tbody>
     </table>
@@ -87,15 +87,23 @@
 
 
 <script language="javascript"> 
+
+var userlist = [
+	 <php>foreach($userAll as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+ 
 jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_newhetong').dialog({
 		autoOpen: false,
-		width: 600,
+		width: 300,
 		buttons: {
 			"确认": function() {
-				if(CheckForm('form_qianzheng','resultdiv_2'))
-				ThinkAjax.sendForm('form_qianzheng','<{:SITE_INDEX}>Chanpin/dopost_baozhang/parenttype/子团',save_after,'resultdiv');
+				if(checktitle()){
+					jQuery("#form_hetong").submit();
+				}
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -107,7 +115,37 @@ jQuery(document).ready(function(){
 		jQuery('#dialog_newhetong').dialog('open');
 		return false;
 	});
-	
+	myautocomplete("#name",'用户');
 });
+
+
+function checktitle(){
+	var title = document.getElementById("name").value;
+	datas = userlist;
+	var ishas = 0;
+	for (var i=0;i<datas.length;i++) { 
+		if(title == datas[i]['title']){
+			systemID = datas[i]['systemID'];
+			ishas = 1;
+			break;
+		}
+	} 
+	if(!ishas){
+		scroll(0,0);
+		jQuery("#name").val('');
+		jQuery("#expandID").val('');
+		document.getElementById('resultdiv_2').innerHTML	=	'<div style="color:red">'+title+',不存在,请重新选择！！</div>';
+		jQuery("#resultdiv_2").show("fast"); 
+		this.intval = window.setTimeout(function (){
+			document.getElementById('resultdiv_2').style.display='none';
+			document.getElementById('resultdiv_2').innerHTML='';
+			},3000);
+			return false;
+	}
+	else{
+		jQuery("#expandID").val(systemID);
+		return true;
+	}
+}
 
 </script>
