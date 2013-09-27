@@ -231,6 +231,7 @@ class XiaoshouAction extends Action{
 		//产品检查
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
+		dump($cp);
 		if($cp['marktype'] == 'zituan'){
 			$chanpintype = '子团';
 			$ViewZituan = D("ViewZituan");
