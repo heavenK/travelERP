@@ -279,6 +279,8 @@ class XiaoshouAction extends Action{
 				$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
 				$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
 				$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
+				if($shoujia['shoujia']['cut'] < 0)//折扣不能为负
+					$shoujia['shoujia']['cut'] = 0;
 				if($zituan['status_baozhang'] == '批准')
 					$this->ajaxReturn($_REQUEST,'错误,该团报名已经报账，无法报名！', 0);
 //				if(time()-strtotime(jisuanriqi($zituan['chutuanriqi'],$zituan['baomingjiezhi'],'减少')) < 0 ){
@@ -304,12 +306,6 @@ class XiaoshouAction extends Action{
 				if($shengyurenshu - ($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num']) < 0)
 				$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 			}
-			
-			dump($shoujia['shoujia']['adultprice']);
-			dump($shoujia['shoujia']['cut']);
-			dump($_REQUEST['adultprice']);
-			
-			
 			//价格范围
 			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
