@@ -304,6 +304,12 @@ class XiaoshouAction extends Action{
 				if($shengyurenshu - ($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num']) < 0)
 				$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 			}
+			
+			dump($shoujia['shoujia']['adultprice']);
+			dump($shoujia['shoujia']['cut']);
+			dump($_REQUEST['adultprice']);
+			
+			
 			//价格范围
 			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
