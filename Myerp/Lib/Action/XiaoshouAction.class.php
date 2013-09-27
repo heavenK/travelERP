@@ -231,11 +231,10 @@ class XiaoshouAction extends Action{
 		//产品检查
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
-		dump($cp);
 		if($cp['marktype'] == 'zituan'){
 			$chanpintype = '子团';
 			$ViewZituan = D("ViewZituan");
-			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$_REQUEST[zituanID]'")->find();
+			$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
 			if(false === $zituan || $zituan == '')
 				$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 			$this->assign("zituan",$zituan);
