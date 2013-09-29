@@ -356,7 +356,10 @@ class MethodAction extends CommonAction{
 
     //显示产品列表
     public function data_list_noOM($class_name,$where,$pagenum = 20) {
-		
+		if($class_name == 'ViewHetong'){//合同
+			$where['bianhao'] = array('like','%'.$where['bianhao'].'%');
+			$where['name'] = array('like','%'.$where['name'].'%');
+		}
 		if($class_name == 'ViewXianlu'){
 			$where = $this->_orderXianlu($where,$datatype);
 		}
@@ -427,7 +430,8 @@ class MethodAction extends CommonAction{
 			$where .= $where_tem;
 		}
 		else{
-			$where['status_system'] = 1;
+			if($where['status_system'] != -1)
+				$where['status_system'] = 1;
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
 		}

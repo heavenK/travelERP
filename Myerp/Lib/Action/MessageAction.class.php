@@ -297,6 +297,8 @@ class MessageAction extends Action{
 
 	public function getshenhemessage($pagenum = 10){
 		$where['chanpinID'] = $_REQUEST['chanpinID'];
+		if($_REQUEST['chanpintype'])
+			$where['chanpintype'] = $_REQUEST['chanpintype'];
 		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','dataID');
 		$data = $chanpin_list['chanpin'];
 		$str = '

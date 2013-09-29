@@ -542,6 +542,11 @@ class CaiwuAction extends CommonAction{
 	
 	public function hetong() {
 		A('Method')->unitlist();
+		if($_REQUEST['listtype'] == '删除')
+			$_REQUEST['status_system'] = -1;
+		$chanpin_list = A('Method')->data_list_noOM('ViewHetong',$_REQUEST);
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('hetong');
 	}
 	
@@ -557,20 +562,87 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function dopost_newhetong() {
-		
-		$hetong['parentID'] = $_REQUEST['expandID'];
-		$hetong['hetong']['user_name'] = $_REQUEST['name'];
-		foreach($_REQUEST['bianhao'] as $v){
-			$hetong['hetong']['bianhao'] = $_REQUEST['name'];
-			
-		}
-		
-		$hetong['hetong'] = $_REQUEST;
-		
-		
+		C('TOKEN_ON',false);
 		$Filedada = D("Filedata");
-		
+		$ViewHetong = D("ViewHetong");
+		$hetong['parentID'] = $_REQUEST['expandID'];
+		$hetong['hetong']['name'] = $_REQUEST['name'];
+		foreach($_REQUEST['bianhao'] as $v){
+			if(!$v){
+				$this->ajaxReturn($_REQUEST, '操作失败：数据不全!', 0);
+			}
+			if($has = $ViewHetong->where("`bianhao` = '$v'")->find()){
+				$this->ajaxReturn($_REQUEST, '操作失败：编号'.$v.'合同已存在!', 0);
+			}
+		}
+		foreach($_REQUEST['bianhao'] as $v){
+			$hetong['hetong']['bianhao'] = $v;
+			if(false === $Filedada->relation("hetong")->myRcreate($hetong)){
+				$this->ajaxReturn($_REQUEST, '失败', 0);
+			}
+		}
 		$this->ajaxReturn($_REQUEST, '提交成功', 1);
+	}
+	
+	
+	public function hetongmark() {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$Filedada = D("Filedata");
+		$ViewHetong = D("ViewHetong");
+		foreach($itemlist as $v){
+			$hethong = $ViewHetong->where("`filedataID` = '$v' AND `status_system` = 1")->find();
+			if($hethong){
+				$this->ajaxReturn($_REQUEST, '操作失败，合同已删除或不存在', 0);
+			}
+			$hethong_e['filedataID'] = $hethong['filedataID'];
+			$hethong_e['status'] = $_REQUEST['status'];
+			if($Filedada->save($hethong_e)){
+				//记录
+				$message = '申领人('.$hethong['name'].')编号『'.$v.'』合同已被管理员《'.$this->user['title'].'》标记为“'.$_REQUEST['status']."”".date('Y-m-d H:i:s',time());
+				A("Method")->_setMessageHistory($v,'合同',$message);
+			}
+		}
+		$this->ajaxReturn($_REQUEST, '成功', 1);
+	}
+	
+	
+
+	public function hetongHistory() {
+		$_REQUEST['chanpintype'] = '合同';
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$_REQUEST);
+		if($_REQUEST['returntype'] == 'dialog'){
+			$i = 0;
+			foreach($chanpin_list['chanpin'] as $v){$i++;
+				echo '<em id="em_'.$v['messageID'].'"><lable>'.$i.'.</lable><a target="_blank" onclick="showmessages(\''.$v['url'].'\');">'.$v['message'].'</a><i>'.date("Y-m-d H:i",$v["time"]).'</i></em><br>';
+			}
+		}
+		else{
+			$this->assign("page",$chanpin_list['page']);
+			$this->assign("chanpin_list",$chanpin_list['chanpin']);
+			$this->display('hetongHistory');
+		}
+	}
+	
+	
+	
+	public function hetong_delete() {
+		C('TOKEN_ON',false);
+		$Filedada = D("Filedata");
+		$filedadaID = $_REQUEST['filedataID'];
+		$hethong = $Filedada->where("`filedataID` = '$filedadaID' AND `status` = '准备'")->find();
+		if(!$hethong){
+			$this->ajaxReturn($_REQUEST, '操作失败，合作只有在准备状态下可删除，请重置合同状态后删除！！', 0);
+		}
+		$hethong['filedataID'] = $hethong['filedataID'];
+		$hethong['status_system'] = -1;
+		if($Filedada->save($hethong)){
+			//记录
+			$message = '申领人('.$hethong['name'].')编号『'.$v.'』合同已被管理员《'.$this->user['title'].'》删除到回收站。'.date('Y-m-d H:i:s',time());
+			A("Method")->_setMessageHistory($v,'合同',$message);
+		}
+		$this->ajaxReturn($_REQUEST, '成功', 1);
 	}
 	
 	

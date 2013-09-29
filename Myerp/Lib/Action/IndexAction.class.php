@@ -31,7 +31,7 @@ class IndexAction extends Action{
 		$ViewUser = D("ViewUser");
 		
 		if(cookie('setok') == 'login2')
-			$this->ajaxReturn('', '账户被锁，登录失败，10分钟内无法登陆！', 0);
+			$this->ajaxReturn('', '系统维护中，登录失败，10分钟内无法登陆！', 0);
 		if(cookie('setok') == 'login1')
 			$this->ajaxReturn('', '帐号或密码错误，10分钟内无法登陆！', 0);
 				
@@ -43,7 +43,7 @@ class IndexAction extends Action{
 		if($user) {
 			if ($user["islock"]=='已锁定') {
 				cookie('setok','login1',LOGIN_TIME_FAILE);
-				$this->ajaxReturn('', '账户被锁，登录失败！', 0);
+				$this->ajaxReturn('', '系统维护中，登录失败！', 0);
 			} else {
 				if ($remember=="on") {
 					cookie('user',authcode("$user[title]\t$user[systemID]",'ENCODE'),LOGIN_TIME_REMEMBER);

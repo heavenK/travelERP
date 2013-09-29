@@ -4,6 +4,7 @@
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <div id="main">
 
   <tp:includeCA file="Caiwu:left_hetong" />
@@ -13,7 +14,7 @@
             <div id="resultdiv" class="resultdiv"></div>
             <div id="resultdiv_2" class="resultdiv"></div>
             
-            <include file="Index:search_message" />
+            <include file="Index:search_hetong" />
             
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -25,6 +26,10 @@
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
                             <input type="button" class="button" value=" +新增合同 " id="newhetong">
+                            <input type="button" class="button" value=" 已签 " onclick="hetongmark('已签')">
+                            <input type="button" class="button" value=" 作废 " onclick="hetongmark('作废')">
+                            <input type="button" class="button" value=" 丢失 " onclick="hetongmark('丢失')">
+                            <input type="button" class="button" value=" 重置合同状态 " onclick="hetongmark('准备')">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$data['page']}>
@@ -36,20 +41,29 @@
                 </tr>
                 
                 <tr height="20">
+                  <th scope="col" nowrap="nowrap"><input type="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
                   <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
                   <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 合同编号 </div></th>
                   <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 申领人 </div></th>
-                  <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 时间 </div></th>
                   <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 状态 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 时间 </div></th>
                   <th scope="col" nowrap="nowrap" style="text-align:center; min-width:100px;"><div> 操作 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
                 </tr>
                 
-                <php> $i = -1; foreach($data['list'] as $v){ $i++;</php>
+                <php> $i = -1; foreach($chanpin_list as $v){ $i++;</php>
                 <tr height="40" class="evenListRowS1">
+                <td scope="row" align="left" valign="top"><input value="<{$v['filedataID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
                   <td scope="row" align="left" valign="top"><{$i+1}></td>
-                  <td scope="row" align="center" valign="top"><{$v['filename_upload']}></td>
-                  <td scope="row" align="center" valign="top"><{$v['file_type']}></td>
-                  <td scope="row" align="center" valign="top"><php>echo date('Y-m-d H:i',$v['time'])</php></td>
+                  <td scope="row" align="center" valign="top"><{$v['bianhao']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['name']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['status']}></td>
+                  <td scope="row" align="center" valign="top"><php>echo date('Y-m-d',$v['time'])</php></td>
+                  <td scope="row" align="center" valign="top"><input type="button" class="button" value=" 删除 " onclick="if(window.confirm('是否确认删除“<{$v['bianhao']}>”合同?')==true)hetong_delete('<{$v[filedataID]}>')"></td>
+				
+
+                  
+                <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="get_history_by_chanpintype(<{$v[filedataID]}>,'合同','historydiv',this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
                 </tr>
                 <php> }</php>
                 
@@ -85,8 +99,49 @@
 </form>
 </div>
 
+<div style="position: absolute; display:none" id="historydiv">
+  <table cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table cellspacing="0" cellpadding="0" border="0" width="100%" class="olCgClass">
+            <tbody>
+              <tr>
+                <td width="100%" class="olCgClass"><div style="float:left">审核记录</div>
+                  <div style="float: right"> <a title="关闭" href="javascript:void(0);" onClick="javascript:return div_close('historydiv');"> <img border="0" src="<{:__PUBLIC__}>/myerp/images/close.gif" style="margin-left:2px; margin-right: 2px;"> </a> </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" class="olFgClass">
+            <tbody id="shenhe_box">
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <script language="javascript"> 
+
+function dosearch(str)
+{
+		window.location = SITE_INDEX+'Caiwu/hetong'+str;
+}
+
+
+
+function hetong_delete(filedataID){
+		jQuery.ajax({
+			type:	"POST",
+			url:	"<{:SITE_INDEX}>Caiwu/hetong_delete/filedataID/"+filedataID,
+			data:	"",
+			success:function(msg){
+				ThinkAjax.myAjaxResponse(msg,'resultdiv_2',save_after);
+			}
+		});
+}
+
+
 
 var userlist = [
 	 <php>foreach($userAll as $v){</php>
@@ -148,4 +203,34 @@ function checktitle(){
 	}
 }
 
+
+function hetongmark(mark)
+{
+	ThinkAjax.myloading('resultdiv');
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Caiwu/hetongmark/status/"+mark,
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+}
+function save_after(data,status){
+	if(status == 1){
+		location.reload();
+	}
+}
 </script>

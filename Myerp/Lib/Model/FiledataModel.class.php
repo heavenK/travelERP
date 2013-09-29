@@ -96,7 +96,7 @@ class FiledataModel extends RelationModel {
 	
 	protected $_link = array(
 		//hetong
-		'hetong'=>array('mapping_type'=>HAS_ONE,'class_name'=>'','foreign_key'=>'filedataID'),
+		'hetong'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Hetong','foreign_key'=>'filedataID'),
 	);
 	
 

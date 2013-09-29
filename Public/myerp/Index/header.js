@@ -239,6 +239,22 @@ function shenheshow_doit(chanpinID,obj){
 	jQuery('#shenhediv').css({top:objtop , left:objleft });
 	jQuery('#shenhediv').show();
 }
+
+function get_history_by_chanpintype(chanpinID,chanpintype,divname,obj){
+   if(jQuery("#"+divname).is(":visible")==true){ 
+	  jQuery('#'+divname).hide();
+	  return ;
+   }
+    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID+"/chanpintype/"+chanpintype);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#'+divname).css({top:objtop , left:objleft });
+	jQuery('#'+divname).show();
+}
+
+
+
+
 function getshenhemessage(posturl){
 	jQuery.ajax({
 		type:	"POST",
