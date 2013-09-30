@@ -472,6 +472,9 @@ class ChanpinAction extends CommonAction{
 		$DataCopy = D("DataCopy");
 		$data = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 		$zituan['xianlulist'] = simple_unserialize($data['copy']);
+		
+		dump($zituan['xianlulist']);
+		
 		if(!$zituan['xianlulist']){
 			$ViewXianlu = D("ViewXianlu");
 			$zituan['xianlulist']['xianlu'] = $ViewXianlu->where("`chanpinID` = '$zituan[parentID]'")->find();
