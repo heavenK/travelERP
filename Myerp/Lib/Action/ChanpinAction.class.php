@@ -484,8 +484,8 @@ class ChanpinAction extends CommonAction{
 		if($this->user['title'] == 'aaa'){
 			$Chanpin = D("Chanpin");
 			$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
-//			$zituan['xianlulist']['shoujia'] = $Chanpin->relationGet("shoujialist");
-//			$zituan['xianlulist']['xianlu']['xingcheng'] = $Chanpin->relationGet("xingchenglist");
+			$zituan['xianlulist']['shoujia'] = $Chanpin->relationGet("shoujialist");
+			$zituan['xianlulist']['xianlu']['xingcheng'] = $Chanpin->relationGet("xingchenglist");
 //			dump($zituan);
 		}
 		
