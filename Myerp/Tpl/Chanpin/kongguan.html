@@ -76,7 +76,7 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input type="button" class="button" value=" 调价 " id="tiaojia_create">
+                    <input type="button" class="button" value=" 指定销售调价 " onclick="opendialog_1()">
                     <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
                     <input type="button" class="button" value=" 下架/上架 " onclick="onoffshop()">
                     <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
@@ -202,7 +202,8 @@ function dosearch(str){
 
 
 <div id="dialog_tiaojia" title="产品价格修正" style="background:#FFF">
-<form id="form_tiaojia" id="form_tiaojia" method="post" >
+<form id="form_tiaojia" name="form_tiaojia" method="post" >
+<!--
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>
         <tr>
@@ -222,43 +223,91 @@ function dosearch(str){
         </tr>
       </tbody>
     </table>
+-->    
 </form>
 </div>
 
 
 <script language="javascript"> 
+// Dialog Link
+function opendialog_1(){
+	
+				ThinkAjax.sendForm('form_tiaojia','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',save_after,'resultdiv');
+return;
+	
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('请选择唯一项进行操作！');
+		return;
+	}
+	if(checkboxitem.length > 1){
+		ajaxalert('请选择唯一项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/get_xianlushoujalist",
+		data:	"checkboxitem="+checkboxitem,
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_tiaojia').dialog('open');
+}
+function click_after(data,status)
+{
+	if(status == 1){
+		jQuery("#dialog_tiaojia").html(data);
+	}
+}
+	
 jQuery(document).ready(function(){
+	
 	// Dialog
 	jQuery('#dialog_tiaojia').dialog({
 		autoOpen: false,
-		width: 400,
+		width: 1000,
 		buttons: {
 			"确认": function() {
-				if(CheckForm('form_tiaojia','resultdiv_2')){
-					adultxiuzheng = jQuery("#adultxiuzheng").val();
-					childxiuzheng = jQuery("#childxiuzheng").val();
-					cutxiuzheng = jQuery("#cutxiuzheng").val();
-					var checkboxitem = new Array();
-					var i = 0;
-					jQuery(".checkboxitem").each(function(index, element) {
-						if(jQuery(this).attr("checked")){
-							checkboxitem[i] = jQuery(this).attr('value');
-							i++;
-						}
-					});
-					if(checkboxitem == ''){
-						ajaxalert('至少选择1项进行操作！');
-						return;
+				var checkboxitem = new Array();
+				var i = 0;
+				jQuery(".checkboxitem").each(function(index, element) {
+					if(jQuery(this).attr("checked")){
+						checkboxitem[i] = jQuery(this).attr('value');
+						i++;
 					}
-					jQuery.ajax({
-						type:	"POST",
-						url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia",
-						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cutxiuzheng="+cutxiuzheng,
-						success:function(msg){
-							ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-						}
-					});
+				});
+				if(checkboxitem == ''){
+					ajaxalert('请选择唯一项进行操作！');
+					return;
 				}
+				if(checkboxitem.length > 1){
+					ajaxalert('请选择唯一项进行操作！');
+					return;
+				}
+				ThinkAjax.sendForm('form_tiaojia','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',save_after,'resultdiv');
+				
+//				if(CheckForm('form_tiaojia','resultdiv_2')){
+//					adultxiuzheng = jQuery("#adultxiuzheng").val();
+//					childxiuzheng = jQuery("#childxiuzheng").val();
+//					cutxiuzheng = jQuery("#cutxiuzheng").val();
+//					jQuery.ajax({
+//						type:	"POST",
+//						url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia",
+//						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cutxiuzheng="+cutxiuzheng,
+//						success:function(msg){
+//							ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+//						}
+//					});
+//				}
+
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -266,10 +315,10 @@ jQuery(document).ready(function(){
 		}
 	});
 	// Dialog Link
-	jQuery('#tiaojia_create').click(function(){
-		jQuery('#dialog_tiaojia').dialog('open');
-		return false;
-	});
+//	jQuery('#tiaojia_create').click(function(){
+//		jQuery('#dialog_tiaojia').dialog('open');
+//		return false;
+//	});
 });
 function save_after(data,status){
 	if(status == 1){

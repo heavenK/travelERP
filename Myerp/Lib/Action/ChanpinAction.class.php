@@ -948,6 +948,83 @@ class ChanpinAction extends CommonAction{
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	}
 	
+	//调价修改
+	public function doposttiaojia_2() {
+		C('TOKEN_ON',false);
+		//检查dataOM
+		$xianlu = A('Method')->_checkDataOM($v,'子团');
+		if(false === $xianlu){
+			$mark = 1;
+			continue;
+		}
+		$dat['chanpinID'] = $v;
+		$dat['zituan']['adultxiuzheng'] = $_REQUEST['adultxiuzheng'];
+		$dat['zituan']['childxiuzheng'] = $_REQUEST['childxiuzheng'];
+		$dat['zituan']['cutxiuzheng'] = $_REQUEST['cutxiuzheng'];
+		$Chanpin->relation("zituan")->myRcreate($dat);
+		if($mark == 1)
+			$this->ajaxReturn($_REQUEST,'完成！,一部分团队您没有操作权限！无法进行修改！！', 1);
+		$this->ajaxReturn($_REQUEST,'完成！', 1);
+	}
+	
+	
+	//获得线路指定价格列表，进行调价
+	public function get_xianlushoujalist() {
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		if(count($itemlist) != 1)
+			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			//检查dataOM
+			if(false === A('Method')->_checkDataOM($v,'子团')){
+				$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
+			}
+			$zituan = $Chanpin->where("`chanpinID` = '$v'")->find();
+			$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
+			$shoujia = $Chanpin->relationGet("shoujialist");
+			$shoujia = A("Method")->_fenlei_filter($shoujia);
+			$str_list .= '
+			<input type="hidden" name="parentID" value="'.$v.'"/>';
+			$i=0;
+			foreach($shoujia as $vol){
+				$i++;
+				$str_list .= '
+				<tr class="evenListRowS1">
+				  <td>'.$i.'</td>
+				  <td>'.$vol['title'].'<input type="hidden" name="shoujiaID[]" value="'.$vol['chanpinID'].'"/></td>
+				  <td>'.$vol['opentype'].'</td>
+				  <td><input type="text" name="adultprice[]" /></td>
+				  <td><input type="text" name="childprice[]" /></td>
+				  <td><input type="text" name="chengben[]" /></td>
+				  <td><input type="text" name="cut[]" /></td>
+				  <td><input type="text" name="renshu[]" /></td>
+				</tr>
+				';
+			}
+			
+		}
+		$str = '
+			<table cellpadding="0" cellspacing="0" width="100%" class="list view">
+				<tr height="20">
+				  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 对象 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 对象类型 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 成人价修正 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 儿童价修正 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 成本修正 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 折扣修正 </div></th>
+				  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 人数修正 </div></th>
+				</tr>
+		';
+		$str .= $str_list;
+		$str .= '
+			</table>
+		';
+		$this->ajaxReturn($str, '', 1);
+		
+	}
+	
 	
 	
 	public function customer(){
