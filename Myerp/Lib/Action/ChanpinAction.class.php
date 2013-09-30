@@ -472,13 +472,14 @@ class ChanpinAction extends CommonAction{
 		$DataCopy = D("DataCopy");
 		$data = $DataCopy->where("`dataID` = '$zituan[parentID]' and `datatype` = '线路'")->order("time desc")->find();
 		$zituan['xianlulist'] = simple_unserialize($data['copy']);
-		if(!$zituan['xianlulist']){
+		$zituan['xianlulist']['xianlu']['xianlu_ext'] = simple_unserialize($zituan['xianlulist']['xianlu']['xianlu_ext']);
+		$zituan['xianlulist']['shoujia'] = A("Method")->_fenlei_filter($zituan['xianlulist']['shoujia']);
+		if(!$zituan['xianlulist']['xingcheng']){
 			$ViewXianlu = D("ViewXianlu");
 			$zituan['xianlulist']['xianlu'] = $ViewXianlu->where("`chanpinID` = '$zituan[parentID]'")->find();
 			$zituan['xianlulist']['shoujia'] = $ViewXianlu->relationGet("shoujialist");
+			$zituan['xianlulist']['xingcheng'] = $ViewXianlu->relationGet("xingcheng");
 		}
-		$zituan['xianlulist']['xianlu']['xianlu_ext'] = simple_unserialize($zituan['xianlulist']['xianlu']['xianlu_ext']);
-		$zituan['xianlulist']['shoujia'] = A("Method")->_fenlei_filter($zituan['xianlulist']['shoujia']);
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$title = $_REQUEST['typemark'].'--'.$zituan['title_copy'].'--'.$zituan['chutanriqi'];
