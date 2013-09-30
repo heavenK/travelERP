@@ -231,10 +231,6 @@ function dosearch(str){
 <script language="javascript"> 
 // Dialog Link
 function opendialog_1(){
-	
-				ThinkAjax.sendForm('form_tiaojia','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',save_after,'resultdiv');
-return;
-	
 	var checkboxitem = new Array();
 	var i = 0;
 	jQuery(".checkboxitem").each(function(index, element) {
@@ -269,7 +265,6 @@ function click_after(data,status)
 }
 	
 jQuery(document).ready(function(){
-	
 	// Dialog
 	jQuery('#dialog_tiaojia').dialog({
 		autoOpen: false,
@@ -292,7 +287,16 @@ jQuery(document).ready(function(){
 					ajaxalert('请选择唯一项进行操作！');
 					return;
 				}
-				ThinkAjax.sendForm('form_tiaojia','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',save_after,'resultdiv');
+				jQuery.ajax({
+					type:	"POST",
+					url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia_2",
+					data:	"checkboxitem="+checkboxitem+"&shoujiaID="+shoujiaID+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cut="+cut+"&chengben="+chengben+"&renshu="+renshu,
+					success:function(msg){
+						ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+					}
+				});
+				
+				
 				
 //				if(CheckForm('form_tiaojia','resultdiv_2')){
 //					adultxiuzheng = jQuery("#adultxiuzheng").val();

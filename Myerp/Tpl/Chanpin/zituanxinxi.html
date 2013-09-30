@@ -210,7 +210,9 @@ function doComplete(data,status){
           </tr>
       </tbody>
     </table>
-    <php>$t =-1;foreach($zituan['xianlulist']['xingcheng'] as $xc) {$t++; </php>
+    <php>dump($xingcheng_1);dump($zituan['xianlulist']['xingcheng']);dump($zituan['xianlulist']);
+    
+    $t =-1;foreach($zituan['xianlulist']['xingcheng'] as $xc) {$t++; </php>
     <input type="hidden" name="chanpinID[]" value="<{$xc['chanpinID']}>" />
     <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
       <tbody>

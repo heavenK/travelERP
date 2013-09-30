@@ -948,24 +948,6 @@ class ChanpinAction extends CommonAction{
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	}
 	
-	//调价修改
-	public function doposttiaojia_2() {
-		C('TOKEN_ON',false);
-		//检查dataOM
-		$xianlu = A('Method')->_checkDataOM($v,'子团');
-		if(false === $xianlu){
-			$mark = 1;
-			continue;
-		}
-		$dat['chanpinID'] = $v;
-		$dat['zituan']['adultxiuzheng'] = $_REQUEST['adultxiuzheng'];
-		$dat['zituan']['childxiuzheng'] = $_REQUEST['childxiuzheng'];
-		$dat['zituan']['cutxiuzheng'] = $_REQUEST['cutxiuzheng'];
-		$Chanpin->relation("zituan")->myRcreate($dat);
-		if($mark == 1)
-			$this->ajaxReturn($_REQUEST,'完成！,一部分团队您没有操作权限！无法进行修改！！', 1);
-		$this->ajaxReturn($_REQUEST,'完成！', 1);
-	}
 	
 	
 	//获得线路指定价格列表，进行调价
@@ -1023,6 +1005,37 @@ class ChanpinAction extends CommonAction{
 		';
 		$this->ajaxReturn($str, '', 1);
 		
+	}
+	
+	
+	//调价修改
+	public function doposttiaojia_2() {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			//检查dataOM
+			if(false === A('Method')->_checkDataOM($v,'子团')){
+				$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
+			}
+			
+			
+			
+			
+			
+		}
+		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	}
 	
 	
