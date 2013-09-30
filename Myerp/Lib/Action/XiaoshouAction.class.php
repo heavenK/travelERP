@@ -89,6 +89,7 @@ class XiaoshouAction extends Action{
 		$xianlu = simple_unserialize($xianlu['copy']);
 		$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu']['xianlu_ext']);
 		if(!$xianlu['xingcheng']){
+			$xianlu_2 = $Chanpin->where("`chanpinID` = '$_REQUEST[xianluID]'")->find();
 			$xianlu['xingcheng'] = $Chanpin->relationGet("xingchenglist");
 		}
 		//解析视频
