@@ -480,7 +480,13 @@ class ChanpinAction extends CommonAction{
 			$zituan['xianlulist']['shoujia'] = $ViewXianlu->relationGet("shoujialist");
 			$zituan['xianlulist']['xianlu']['xingcheng'] = $ViewXianlu->relationGet("xingcheng");
 		}
-		dump($zituan);
+		if($this->user['title'] == 'aaa'){
+		
+			$xianlu = $ViewXianlu->where("`chanpinID` = '$zituan[parentID]'")->find();
+			$zituan['xianlulist']['shoujia'] = $ViewXianlu->relationGet("shoujialist");
+			$zituan['xianlulist']['xianlu']['xingcheng'] = $ViewXianlu->relationGet("xingcheng");
+			dump($zituan);
+		}
 		$this->assign("zituan",$zituan);
 		$this->assign("datatitle",' : "'.$zituan['title_copy'].'/团期'.$zituan['chutuanriqi'].'"');
 		$title = $_REQUEST['typemark'].'--'.$zituan['title_copy'].'--'.$zituan['chutanriqi'];
