@@ -476,7 +476,7 @@ class ChanpinAction extends CommonAction{
 		$zituan['xianlulist']['shoujia'] = A("Method")->_fenlei_filter($zituan['xianlulist']['shoujia']);
 		if(!$zituan['xianlulist']['xingcheng']){
 			$ViewXianlu = D("ViewXianlu");
-			$zituan['xianlulist']['xianlu'] = $ViewXianlu->where("`chanpinID` = '$zituan[parentID]'")->find();
+			$xianlu = $ViewXianlu->where("`chanpinID` = '$zituan[parentID]'")->find();
 			$zituan['xianlulist']['shoujia'] = $ViewXianlu->relationGet("shoujialist");
 			$zituan['xianlulist']['xingcheng'] = $ViewXianlu->relationGet("xingcheng");
 		}
