@@ -88,11 +88,9 @@ class XiaoshouAction extends Action{
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
 		$xianlu = simple_unserialize($xianlu['copy']);
 		$xianlu['xianlu_ext'] = simple_unserialize($xianlu['xianlu']['xianlu_ext']);
-		dump($xianlu);
 		if(!$xianlu['xingcheng']){
-			$xianlu['xianlu'] = $Chanpin->relationGet("xingchenglist");
+			$xianlu['xingcheng'] = $Chanpin->relationGet("xingchenglist");
 		}
-		dump($xianlu);
 		//解析视频
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$nameshipin = $xianlu['xianlu']['shipin'];
