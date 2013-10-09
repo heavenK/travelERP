@@ -174,7 +174,7 @@ class ChanpinAction extends CommonAction{
 		foreach($lv_2_list as $lv2){
 			$lv2_t['chanpinID'] = $lv2['chanpinID'];
 			$lv2_t['departmentID'] = $deparmentID;
-			if(false === $Chanpin->save($lv2_t)){
+			if(false === $Chanpin->myCreate($lv2_t)){
 				$this->ajaxReturn($_REQUEST, '错误2！', 0);
 			}
 			//三级产品列表
