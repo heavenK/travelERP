@@ -5414,6 +5414,13 @@ class MethodAction extends CommonAction{
 	}
 	
 	
+	//判断超级管理员
+	public function _is_Super_Admin(){
+		if($this->user['title'] == 'aaa')
+			return true;
+		return false;	
+		
+	}
 	
 	
 	
