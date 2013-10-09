@@ -287,14 +287,17 @@ jQuery(document).ready(function(){
 					ajaxalert('请选择唯一项进行操作！');
 					return;
 				}
-				jQuery.ajax({
-					type:	"POST",
-					url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia_2",
-					data:	"checkboxitem="+checkboxitem+"&shoujiaID="+shoujiaID+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cut="+cut+"&chengben="+chengben+"&renshu="+renshu,
-					success:function(msg){
-						ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-					}
-				});
+				ThinkAjax.sendForm('xiaoshou_xiuzheng','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',tiaojia_after,'resultdiv');
+				
+//				var shoujiaID = jQuery("#shoujiaID").val();
+//				jQuery.ajax({
+//					type:	"POST",
+//					url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia_2",
+//					data:	"checkboxitem="+checkboxitem+"&shoujiaID="+shoujiaID+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cut="+cut+"&chengben="+chengben+"&renshu="+renshu,
+//					success:function(msg){
+//						ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+//					}
+//				});
 				
 				
 				
@@ -324,6 +327,12 @@ jQuery(document).ready(function(){
 //		return false;
 //	});
 });
+function tiaojia_after(data,status){
+	if(status == 1){
+		
+	}
+}
+
 function save_after(data,status){
 	if(status == 1){
 		location.reload();

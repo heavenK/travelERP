@@ -99,6 +99,9 @@ class ChanpinAction extends CommonAction{
 				$this->ajaxReturn('', '没有计调权限！', 0);
 			$_REQUEST['xianlu']['kind'] = $_REQUEST['kind'];
 			$_REQUEST['xianlu']['guojing'] = $_REQUEST['guojing'];
+			//数据处理
+			$_REQUEST['xianlu']['shoujia'] = 100000;//默认
+			$_REQUEST['xianlu']['ertongshoujia'] = 100000;//默认
 		}
 		//检查
 		if(!$_REQUEST['chufashengfen'] || !$_REQUEST['chufachengshi'])
@@ -109,10 +112,7 @@ class ChanpinAction extends CommonAction{
 		if($_REQUEST['xianlu']['guojing'] == "境外")
 		if(!$_REQUEST['mudidi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
-			
 		//数据处理
-		$_REQUEST['xianlu']['shoujia'] = 100000;//默认
-		$_REQUEST['xianlu']['ertongshoujia'] = 100000;//默认
 		if($_REQUEST['xianlu']['guojing'] == "国内")
 		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
@@ -147,6 +147,10 @@ class ChanpinAction extends CommonAction{
 			if($Chanpin->getLastmodel() == 'add'){
 				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'线路');
 			}
+			else{
+				//更新所有子产品部门属性
+				$this->_chanpin_department_reset($_REQUEST['chanpinID'],$_REQUEST['departmentID']);
+			}
 			//自动申请审核
 			$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
 			$_REQUEST['dotype'] = '申请';
@@ -157,6 +161,24 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+	}
+	
+	
+	
+	
+	public function _chanpin_department_reset($parentID,$deparmentID){
+		$Chanpin = D("Chanpin");
+		$lv_2_list = $Chanpin->where("`parentID` = '$parentID'")->findall();
+		foreach($lv_2_list as $lv2){
+			$lv2_t['chanpinID'] = $lv2['chanpinID'];
+			$lv2_t['departmentID'] = $deparmentID;
+			if(false === $Chanpin->save($lv2_t)){
+				$this->ajaxReturn($_REQUEST, '错误2！', 0);
+			}
+			//三级产品列表
+			$this->_chanpin_department_reset($lv2['chanpinID'],$deparmentID);
+		}
+		
 	}
 	
 	
@@ -968,31 +990,57 @@ class ChanpinAction extends CommonAction{
 			if(false === A('Method')->_checkDataOM($v,'子团')){
 				$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
 			}
-			$zituan = $Chanpin->where("`chanpinID` = '$v'")->find();
-			$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
-			$shoujia = $Chanpin->relationGet("shoujialist");
-			$shoujia = A("Method")->_fenlei_filter($shoujia);
-			$str_list .= '
-			<input type="hidden" name="parentID" value="'.$v.'"/>';
-			$i=0;
-			foreach($shoujia as $vol){
-				$i++;
+			$ViewTiaojia = D("ViewTiaojia");
+			$tiaojia_list = $ViewTiaojia->where("`parentID` = '$v' AND `marktype` = 'tiaojia'")->find();
+			if(!$tiaojia_list){
+				$zituan = $Chanpin->where("`chanpinID` = '$v'")->find();
+				$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
+				$shoujia = $Chanpin->relationGet("shoujialist");
+				$shoujia = A("Method")->_fenlei_filter($shoujia);
 				$str_list .= '
-				<tr class="evenListRowS1">
-				  <td>'.$i.'</td>
-				  <td>'.$vol['title'].'<input type="hidden" name="shoujiaID[]" value="'.$vol['chanpinID'].'"/></td>
-				  <td>'.$vol['opentype'].'</td>
-				  <td><input type="text" name="adultprice[]" /></td>
-				  <td><input type="text" name="childprice[]" /></td>
-				  <td><input type="text" name="chengben[]" /></td>
-				  <td><input type="text" name="cut[]" /></td>
-				  <td><input type="text" name="renshu[]" /></td>
-				</tr>
-				';
+				<input type="hidden" name="parentID" value="'.$v.'"/>';
+				$i=0;
+				foreach($shoujia as $vol){
+					$i++;
+					$str_list .= '
+					<tr class="evenListRowS1">
+					  <td>'.$i.'</td>
+					  <td>'.$vol['title'].'<input type="hidden" name="shoujiaID[]" value="'.$vol['chanpinID'].'"/></td>
+					  <td>'.$vol['opentype'].'</td>
+					  <td><input type="text" name="adultprice[]" /></td>
+					  <td><input type="text" name="childprice[]" /></td>
+					  <td><input type="text" name="chengben[]" /></td>
+					  <td><input type="text" name="cut[]" /></td>
+					  <td><input type="text" name="renshu[]" /></td>
+					</tr>
+					';
+				}
+			}else{
+				$ViewShoujia = D("ViewShoujia");
+				$i=0;
+				foreach($tiaojia_list as $vol){
+					$shoujia = $ViewShoujia->where("`chanpinID` = '$vol[shoujiaID]'")->find();
+					$i++;
+					$str_list .= '
+					<tr class="evenListRowS1">
+					  <td>'.$i.'<input type="hidden" name="chanpiniD[]" value="'.$vol['chanpinID'].'"/></td>
+					  <td>'.$shoujia['title'].'</td>
+					  <td>'.$shoujia['opentype'].'</td>
+					  <td><input type="text" name="adultprice[]" value='.$vol['adultprice'].' /></td>
+					  <td><input type="text" name="childprice[]" value='.$vol['childprice'].' /></td>
+					  <td><input type="text" name="chengben[]" value='.$vol['chengben'].' /></td>
+					  <td><input type="text" name="cut[]" value='.$vol['cut'].' /></td>
+					  <td><input type="text" name="renshu[]" value='.$vol['renshu'].' /></td>
+					</tr>
+					';
+				}
 			}
-			
 		}
+		
+		dump($str_list);
+		
 		$str = '
+			<form name="xiaoshou_xiuzheng" id="xiaoshou_xiuzheng" method="post">
 			<table cellpadding="0" cellspacing="0" width="100%" class="list view">
 				<tr height="20">
 				  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
@@ -1008,6 +1056,7 @@ class ChanpinAction extends CommonAction{
 		$str .= $str_list;
 		$str .= '
 			</table>
+			</form>
 		';
 		$this->ajaxReturn($str, '', 1);
 		
@@ -1017,29 +1066,30 @@ class ChanpinAction extends CommonAction{
 	//调价修改
 	public function doposttiaojia_2() {
 		C('TOKEN_ON',false);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-		
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-		
 		$Chanpin = D("Chanpin");
-		foreach($itemlist as $v){
-			//检查dataOM
-			if(false === A('Method')->_checkDataOM($v,'子团')){
-				$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
+		$Tiaojia = D("Tiaojia");
+		//检查dataOM
+		if(false === A('Method')->_checkDataOM($_REQUEST['parentID'],'子团')){
+			$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
+		}
+		$i = 0;
+		foreach($_REQUEST['shoujiaID'] as $v){
+			$tiaojia = '';
+			if($_REQUEST['chanpinID'][$i])
+				$tiaojia['chanpinID'] = $_REQUEST['chanpinID'][$i];
+			else{
+				$tiaojia['parentID'] = $_REQUEST['parentID'];
+				$tiaojia['tiaojia']['shoujiaID'] = $_REQUEST['shoujiaID'][$i];
 			}
-			
-			
-			
-			
-			
+			$tiaojia['tiaojia']['adultprice'] = $_REQUEST['adultprice'][$i];
+			$tiaojia['tiaojia']['childprice'] = $_REQUEST['childprice'][$i];
+			$tiaojia['tiaojia']['chengben'] = $_REQUEST['chengben'][$i];
+			$tiaojia['tiaojia']['cut'] = $_REQUEST['cut'][$i];
+			$tiaojia['tiaojia']['renshu'] = $_REQUEST['renshu'][$i];
+			if(false === $Chanpin->relation("tiaojia")->myRcreate($tiaojia)){
+				$this->ajaxReturn($_REQUEST,'错误！', 0);
+			}
+			$i++;
 		}
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	}
