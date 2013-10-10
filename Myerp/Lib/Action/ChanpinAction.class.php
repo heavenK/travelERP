@@ -995,31 +995,36 @@ class ChanpinAction extends CommonAction{
 			$ViewTiaojia = D("ViewTiaojia");
 			$tiaojia_list = $ViewTiaojia->where("`parentID` = '$v' AND `marktype` = 'tiaojia'")->findall();
 			if(!$tiaojia_list){
-				$zituan = $Chanpin->where("`chanpinID` = '$v'")->find();
+				$ViewZituan = D("ViewZituan");
+				$zituan = $ViewZituan->where("`chanpinID` = '$v'")->find();
 				$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
 				$shoujia = $Chanpin->relationGet("shoujialist");
-				$shoujia = A("Method")->_fenlei_filter($shoujia);
-				$str_list .= '
-				<input type="hidden" name="parentID" value="'.$v.'"/>';
-				
-		dump($shoujia);
-				
-				
-				$i=0;
-				foreach($shoujia as $vol){
-					$i++;
+				if(!$shoujia){
 					$str_list .= '
 					<tr class="evenListRowS1">
-					  <td>'.$i.'</td>
-					  <td>'.$vol['title'].'<input type="hidden" name="shoujiaID[]" value="'.$vol['chanpinID'].'"/></td>
-					  <td>'.$vol['opentype'].'</td>
-					  <td><input type="text" name="adultprice[]" /></td>
-					  <td><input type="text" name="childprice[]" /></td>
-					  <td><input type="text" name="chengben[]" /></td>
-					  <td><input type="text" name="cut[]" /></td>
-					  <td><input type="text" name="renshu[]" /></td>
+					  <td>“'.$zituan['title_copy'].'”线路未添加定销售！</td>
 					</tr>
 					';
+				}else{
+					$shoujia = A("Method")->_fenlei_filter($shoujia);
+					$str_list .= '
+					<input type="hidden" name="parentID" value="'.$v.'"/>';
+					$i=0;
+					foreach($shoujia as $vol){
+						$i++;
+						$str_list .= '
+						<tr class="evenListRowS1">
+						  <td>'.$i.'</td>
+						  <td>'.$vol['title'].'<input type="hidden" name="shoujiaID[]" value="'.$vol['chanpinID'].'"/></td>
+						  <td>'.$vol['opentype'].'</td>
+						  <td><input type="text" name="adultprice[]" /></td>
+						  <td><input type="text" name="childprice[]" /></td>
+						  <td><input type="text" name="chengben[]" /></td>
+						  <td><input type="text" name="cut[]" /></td>
+						  <td><input type="text" name="renshu[]" /></td>
+						</tr>
+						';
+					}
 				}
 			}else{
 				$ViewShoujia = D("ViewShoujia");
@@ -1043,8 +1048,6 @@ class ChanpinAction extends CommonAction{
 				}
 			}
 		}
-		dump($str_list);
-		
 		$str = '
 			<form name="xiaoshou_xiuzheng" id="xiaoshou_xiuzheng" method="post">
 			<table cellpadding="0" cellspacing="0" width="100%" class="list view">
