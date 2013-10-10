@@ -1001,6 +1001,10 @@ class ChanpinAction extends CommonAction{
 				$shoujia = A("Method")->_fenlei_filter($shoujia);
 				$str_list .= '
 				<input type="hidden" name="parentID" value="'.$v.'"/>';
+				
+		dump($shoujia);
+				
+				
 				$i=0;
 				foreach($shoujia as $vol){
 					$i++;
