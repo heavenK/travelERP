@@ -92,7 +92,6 @@
           <th scope="col" nowrap="nowrap" style="min-width:250px;"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 修正值 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 名额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 报名数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 剩余 </div></th>
@@ -115,7 +114,6 @@
         <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>"><{$v['title_copy']}></a></td>
         <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-        <td scope="row" align="left" valign="top"><{$v['adultxiuzheng']}>/<{$v['childxiuzheng']}></td>
         <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
         <td scope="row" align="left" valign="top"><php> echo number_format($v['queren_num'])</php>/<php> echo number_format($v['zhanwei_num'])</php></td>
         <td scope="row" align="left" valign="top"><{$v['shengyu_num']}></td>
@@ -132,8 +130,7 @@
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
-                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input type="button" class="button" value=" 调价 " id="tiaojia_create">
+                  	<td nowrap="nowrap" class="paginationActionButtons"></td>
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -166,65 +163,9 @@ function dosearch(str){
     </tbody>
   </table>
 </div>
-<div id="dateitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="messageitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="themessage"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
 
 
 <div id="dialog_tiaojia" title="产品价格修正" style="background:#FFF">
-<form id="form_tiaojia" name="form_tiaojia" method="post" >
-<!--
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 成人价格修正: </td>
-          <td valign="top" scope="row"><input id="adultxiuzheng" type="text" value="0" check="^\S+$" warning="成人价格修正不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 儿童价格修正: </td>
-          <td valign="top" scope="row"><input id="childxiuzheng" type="text" value="0" check="^\S+$" warning="儿童价格修正不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 折扣修正: </td>
-          <td valign="top" scope="row"><input id="cutxiuzheng" type="text" value="0" check="^\S+$" warning="折扣修正不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" colspan="2">举例：输入100即再原价格上增加100（-100减100）</td>
-        </tr>
-      </tbody>
-    </table>
--->    
-</form>
 </div>
 
 
@@ -288,32 +229,6 @@ jQuery(document).ready(function(){
 					return;
 				}
 				ThinkAjax.sendForm('xiaoshou_xiuzheng','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',tiaojia_after,'resultdiv');
-				
-//				var shoujiaID = jQuery("#shoujiaID").val();
-//				jQuery.ajax({
-//					type:	"POST",
-//					url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia_2",
-//					data:	"checkboxitem="+checkboxitem+"&shoujiaID="+shoujiaID+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cut="+cut+"&chengben="+chengben+"&renshu="+renshu,
-//					success:function(msg){
-//						ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-//					}
-//				});
-				
-				
-				
-//				if(CheckForm('form_tiaojia','resultdiv_2')){
-//					adultxiuzheng = jQuery("#adultxiuzheng").val();
-//					childxiuzheng = jQuery("#childxiuzheng").val();
-//					cutxiuzheng = jQuery("#cutxiuzheng").val();
-//					jQuery.ajax({
-//						type:	"POST",
-//						url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia",
-//						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng+"&cutxiuzheng="+cutxiuzheng,
-//						success:function(msg){
-//							ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-//						}
-//					});
-//				}
 
 			},
 			"取消": function() {
@@ -327,9 +242,10 @@ jQuery(document).ready(function(){
 //		return false;
 //	});
 });
+
 function tiaojia_after(data,status){
 	if(status == 1){
-		
+		jQuery('#dialog_tiaojia').dialog("close");
 	}
 }
 

@@ -41,6 +41,15 @@ function doComplete(data,status){
           <td valign="top" scope="row"> 团队人数: </td>
           <td valign="top" scope="row"><input name="renshu" type="text" value="<php>echo trim($zituan['renshu'])</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
         </tr>
+      </tbody>
+    </table>
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <th align="left" colspan="8"> <h4 style=" color:red">网店销售设置</h4>
+          </th>
+        </tr>
         <tr>
           <td valign="top" scope="row"> 报价修正: </td>
           <td valign="top" scope="row"><span>成人价</span>
@@ -49,7 +58,6 @@ function doComplete(data,status){
             <input style="width:50px; margin:0 4px 0 4px;" name="childxiuzheng" type="text" value="<php>echo trim($zituan['childxiuzheng'])</php>">
             <span>折扣</span>
             <input style="width:50px; margin:0 4px 0 4px;" name="cutxiuzheng" type="text" value="<php>echo trim($zituan['cutxiuzheng'])</php>">
-            
             (举例：加价200元，添入200即可，降价200则添入-200) </td>
             <td valign="top" scope="row"> 二次确认: </td>
             <td valign="top"><input type="checkbox" value="1" name="second_confirm" <php>if($zituan['second_confirm'] == 1){ echo 'checked="checked"';}</php> />(点选确认)<strong style=" color:red">网店预订有效</strong></td>

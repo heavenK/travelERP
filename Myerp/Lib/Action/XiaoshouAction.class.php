@@ -34,15 +34,17 @@ class XiaoshouAction extends Action{
 			//剩余名额
 			$jj = 0;
 			foreach($zituan as $zt){
+				//修正
+				$shoujia = A("Method")->_zhidingxiaoshou_xiuzheng($v['chanpinID'],$zt['chanpinID']);
 				$tuanrenshu = A("Method")->_getzituandingdan($zt['chanpinID'],$v['chanpinID']);
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
 				$baoming_renshu[$zt['chanpinID']] += $tuanrenshu['baomingrenshu'];
 				$zituan[$jj]['shoujia_renshu'] = $tuanrenshu['shoujiarenshu'];
-				if(($zt['renshu'] - $baomingrenshu) < ($v['renshu'] - $shoujia_renshu))
+				if(($zt['renshu'] - $baomingrenshu) < ($shoujia['renshu'] - $shoujia_renshu))
 				$zituan[$jj]['shengyurenshu'] = $zt['renshu'] - $baomingrenshu;
 				else
-				$zituan[$jj]['shengyurenshu'] = $v['renshu'] - $shoujia_renshu;
+				$zituan[$jj]['shengyurenshu'] = $shoujia['renshu'] - $shoujia_renshu;
 				$jj++;
 			}
 			$chanpin_list['chanpin'][$i]['zituan'] = $zituan;
@@ -70,8 +72,6 @@ class XiaoshouAction extends Action{
 				exit;
 			}
 		}
-		$Chanpin = D("Chanpin");
-		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 		$ViewZituan = D("ViewZituan");
 		$zituan = $ViewZituan->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		if(!$zituan){
@@ -79,11 +79,8 @@ class XiaoshouAction extends Action{
 			exit;
 		}
 		$this->assign("zituan",$zituan);
-		//价格计算
-		$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
-		$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
-		$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
-		$this->assign("shoujia",$shoujia['shoujia']);
+		//
+		$Chanpin = D("Chanpin");
 		$DataCopy = D("DataCopy");
 		$xianlu = $DataCopy->where("`dataID` = '$_REQUEST[xianluID]' and `datatype` = '线路'")->order("time desc")->find();
 		$xianlu = simple_unserialize($xianlu['copy']);
@@ -105,14 +102,17 @@ class XiaoshouAction extends Action{
 		$this->assign("shipin",$shipin);
 		$this->assign("tupian",$tupian);
 		$this->assign("xianlu",$xianlu);
+		//价格计算
+		$shoujia = A("Method")->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$_REQUEST['chanpinID']);
+		$this->assign("shoujia",$shoujia);
 		//计算子团人数
 		$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['chanpinID'],$_REQUEST['shoujiaID']);
 		$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 		$baomingrenshu = $tuanrenshu['baomingrenshu'];
-		if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu))
-		$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+		if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['renshu'] - $shoujia_renshu))
+			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 		else
-		$shengyurenshu = $shoujia['shoujia']['renshu'] - $shoujia_renshu;
+			$shengyurenshu = $shoujia['renshu'] - $shoujia_renshu;
 		$this->assign("shengyurenshu",$shengyurenshu);
 		$this->assign("shoujia_renshu",$shoujia_renshu);
 		$this->assign("renshu",$renshu);
@@ -173,9 +173,10 @@ class XiaoshouAction extends Action{
 			}
 		}
 		$Chanpin = D("Chanpin");
-		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
+		$ViewShoujia = D("ViewShoujia");
+		$shoujia = $ViewShoujia->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
 		//价格计算
-		$this->assign("shoujia",$shoujia['shoujia']);
+		$this->assign("shoujia",$shoujia);
 		$DataCopy = D("DataCopy");
 		$qianzheng = $DataCopy->where("`dataID` = '$_REQUEST[chanpinID]' and `datatype` = '签证'")->order("time desc")->find();
 		if(!$qianzheng){
@@ -274,16 +275,12 @@ class XiaoshouAction extends Action{
 				$xiaoshou = A('Method')->_checkDataOM($_REQUEST['shoujiaID'],'售价','开放');
 				if(false === $xiaoshou)
 					$this->ajaxReturn($_REQUEST,'权限错误！', 0);
-				$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]'")->find();
+				$shoujia = A("Method")->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$_REQUEST['parentID']);
 			}
 			//子团控制
 			if($chanpintype == '子团'){
-				//价格计算
-				$shoujia['shoujia']['adultprice'] += $zituan['adultxiuzheng'];
-				$shoujia['shoujia']['childprice'] += $zituan['childxiuzheng'];
-				$shoujia['shoujia']['cut'] += $zituan['cutxiuzheng'];
-				if($shoujia['shoujia']['cut'] < 0)//折扣不能为负
-					$shoujia['shoujia']['cut'] = 0;
+				if($shoujia['cut'] < 0)//折扣不能为负
+					$shoujia['cut'] = 0;
 				//正常报名检查
 				if($_REQUEST['shoujiaID'] > 0){	
 					if($zituan['status_baozhang'] == '批准')
@@ -307,11 +304,11 @@ class XiaoshouAction extends Action{
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
 				if($_REQUEST['shoujiaID'] > 0){
-					if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['shoujia']['renshu'] - $shoujia_renshu)){
+					if(($zituan['renshu'] - $baomingrenshu) < ($shoujia['renshu'] - $shoujia_renshu)){
 						$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 					}
 					else
-					$shengyurenshu = $shoujia['shoujia']['renshu'] - $shoujia_renshu;
+					$shengyurenshu = $shoujia['renshu'] - $shoujia_renshu;
 				}
 				else
 					$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
@@ -321,15 +318,17 @@ class XiaoshouAction extends Action{
 			}
 			
 			//价格范围
-			if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['adultprice'])
+			if($shoujia['adultprice'] - $shoujia['cut'] > $_REQUEST['adultprice'])
 				$this->ajaxReturn($_REQUEST,'错误,成人售价超过可折扣范围！', 0);
-			if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $_REQUEST['childprice'])
+			if($shoujia['childprice'] - $shoujia['cut'] > $_REQUEST['childprice'])
 				$this->ajaxReturn($_REQUEST,'错误,儿童售价超过可折扣范围！', 0);
 		}
 		//检查人数
 		if($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num'] <= 0 )
 			$this->ajaxReturn($_REQUEST,'错误,订单人数必须大于0！', 0);
 	}
+	
+	
 	
 	
     public function baoming() {

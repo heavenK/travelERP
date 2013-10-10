@@ -6,21 +6,21 @@ function AutoScroll(obj){
 }
 
 jQuery(document).ready(function(){
-	timer = setInterval('AutoScroll("#alertNewsView")',5000);
-	setTimeout("getNews()",8000);
-	setTimeout("getNewsAll('index.php?s=/Message/getNewsAll')",8000);
+	timer = setInterval('AutoScroll("#alertNewsView")',10000);
+	setTimeout("getNews()",15000);
+	setTimeout("getNewsAll('index.php?s=/Message/getNewsAll')",15000);
 //	getNews();
 //	getNewsAll("index.php?s=/Message/getNewsAll");
-	window.setInterval(getNews,100000);
+	window.setInterval(getNews,200000);
 	jQuery("#alertitem").mouseover(function(){
 		clearTimeout(timer);
 	});
 	jQuery("#alertitem").mouseout(function () {
-		timer = setInterval('AutoScroll("#alertNewsView")',5000);
+		timer = setInterval('AutoScroll("#alertNewsView")',10000);
 	});
 	
 	//清空占位过期订单
-	window.setInterval(cleardingdan,100000);
+	window.setInterval(cleardingdan,200000);
 	
 	// Dialog
 	jQuery('#dialog').dialog({

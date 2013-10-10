@@ -834,6 +834,18 @@ class MethodAction extends CommonAction{
 
 		
 	//分类解析
+     public function _fenlei_filter_one($dat) {
+		$ViewCategory = D("ViewCategory");
+		$ViewDepartment = D("ViewDepartment");
+		if($dat['opentype'] == '分类')
+			$d = $ViewCategory->where("`systemID` = '$dat[openID]' AND (`status_system` = '1')")->find();
+		if($dat['opentype'] == '部门')
+			$d = $ViewDepartment->where("`systemID` = '$dat[openID]' AND (`status_system` = '1')")->find();
+		$dat['title'] = $d['title'];
+		return $dat;
+	 }
+		
+	//分类解析
      public function _fenlei_filter($dat) {
 		$ViewCategory = D("ViewCategory");
 		$ViewDepartment = D("ViewDepartment");
@@ -5420,6 +5432,21 @@ class MethodAction extends CommonAction{
 			return true;
 		return false;	
 		
+	}
+	
+	
+	//判断超级管理员
+	public function _zhidingxiaoshou_xiuzheng($shoujiaID,$chanpinID){
+		$ViewShoujia = D("ViewShoujia");
+		$shoujia = $ViewShoujia->where("`chanpinID` = '$shoujiaID'")->find();
+		$ViewTiaojia = D("ViewTiaojia");
+		$tiaojia = $ViewTiaojia->where("`parentID` = '$chanpinID' AND `shoujiaID` = '$shoujiaID'")->find();
+		$shoujia['adultprice'] += $tiaojia['adultprice'];
+		$shoujia['childprice'] += $tiaojia['childprice'];
+		$shoujia['cut'] += $tiaojia['cut'];
+		$shoujia['chengben'] += $tiaojia['chengben'];
+		$shoujia['renshu'] += $tiaojia['renshu'];
+		return $shoujia;
 	}
 	
 	

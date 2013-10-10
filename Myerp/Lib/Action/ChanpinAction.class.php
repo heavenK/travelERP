@@ -993,7 +993,7 @@ class ChanpinAction extends CommonAction{
 				$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
 			}
 			$ViewTiaojia = D("ViewTiaojia");
-			$tiaojia_list = $ViewTiaojia->where("`parentID` = '$v' AND `marktype` = 'tiaojia'")->find();
+			$tiaojia_list = $ViewTiaojia->where("`parentID` = '$v' AND `marktype` = 'tiaojia'")->findall();
 			if(!$tiaojia_list){
 				$zituan = $Chanpin->where("`chanpinID` = '$v'")->find();
 				$xianlu = $Chanpin->where("`chanpinID` = '$zituan[parentID]'")->find();
@@ -1022,10 +1022,11 @@ class ChanpinAction extends CommonAction{
 				$i=0;
 				foreach($tiaojia_list as $vol){
 					$shoujia = $ViewShoujia->where("`chanpinID` = '$vol[shoujiaID]'")->find();
+					$shoujia = A("Method")->_fenlei_filter_one($shoujia);
 					$i++;
 					$str_list .= '
 					<tr class="evenListRowS1">
-					  <td>'.$i.'<input type="hidden" name="chanpiniD[]" value="'.$vol['chanpinID'].'"/></td>
+					  <td>'.$i.'<input type="hidden" name="chanpinID[]" value="'.$vol['chanpinID'].'"/></td>
 					  <td>'.$shoujia['title'].'</td>
 					  <td>'.$shoujia['opentype'].'</td>
 					  <td><input type="text" name="adultprice[]" value='.$vol['adultprice'].' /></td>
@@ -1038,8 +1039,6 @@ class ChanpinAction extends CommonAction{
 				}
 			}
 		}
-		
-		dump($str_list);
 		
 		$str = '
 			<form name="xiaoshou_xiuzheng" id="xiaoshou_xiuzheng" method="post">
@@ -1070,18 +1069,26 @@ class ChanpinAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$Tiaojia = D("Tiaojia");
+		$ViewTiaojia = D("ViewTiaojia");
 		//检查dataOM
 		if(false === A('Method')->_checkDataOM($_REQUEST['parentID'],'子团')){
 			$this->ajaxReturn($_REQUEST,'无管理权限！', 0);
 		}
 		$i = 0;
-		foreach($_REQUEST['shoujiaID'] as $v){
+		if($_REQUEST['shoujiaID'])
+			$num = count($_REQUEST['shoujiaID']);
+		if($_REQUEST['chanpinID'])
+			$num = count($_REQUEST['chanpinID']);
+		for($i=0;$i<$num;$i++){	
 			$tiaojia = '';
 			if($_REQUEST['chanpinID'][$i])
 				$tiaojia['chanpinID'] = $_REQUEST['chanpinID'][$i];
 			else{
 				$tiaojia['parentID'] = $_REQUEST['parentID'];
 				$tiaojia['tiaojia']['shoujiaID'] = $_REQUEST['shoujiaID'][$i];
+				$shoujiaID = $tiaojia['tiaojia']['shoujiaID'];
+				if($ViewTiaojia->where("`parentID` = '$tiaojia[parentID]' AND `shoujiaID` = '$shoujiaID'")->find())
+					$this->ajaxReturn($_REQUEST,'错误！', 0);
 			}
 			$tiaojia['tiaojia']['adultprice'] = $_REQUEST['adultprice'][$i];
 			$tiaojia['tiaojia']['childprice'] = $_REQUEST['childprice'][$i];
