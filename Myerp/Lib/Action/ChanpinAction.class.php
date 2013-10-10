@@ -1039,6 +1039,7 @@ class ChanpinAction extends CommonAction{
 				}
 			}
 		}
+		dump($str_list);
 		
 		$str = '
 			<form name="xiaoshou_xiuzheng" id="xiaoshou_xiuzheng" method="post">
