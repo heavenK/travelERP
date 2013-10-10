@@ -1002,7 +1002,7 @@ class ChanpinAction extends CommonAction{
 				if(!$shoujia){
 					$str_list .= '
 					<tr class="evenListRowS1">
-					  <td>“'.$zituan['title_copy'].'”线路未添加定销售！</td>
+					  <td>“'.$zituan['title_copy'].'”线路请添加定销售后调价！</td>
 					</tr>
 					';
 				}else{
