@@ -72,8 +72,12 @@ class MethodClientAction extends CommonAction{
 				$zituan['chanpiniD'] = $v_zt['chanpinID'];	
 				//修改子团状态
 				$zituan['zituan']['status_shop'] = $xianlu['xianlu']['status_shop'];
-				if(false === $Chanpin->relation("zituan")->myRcreate($zituan))
+				if(false === $Chanpin->relation("zituan")->myRcreate($zituan)){
+					dump($v_zt);
+					dump($zituan);
+					dump($Chanpin);
 					$this->ajaxReturn($_REQUEST, '子团更新失败！', 0);	
+				}
 			}
 			if(false !== $Chanpin->relation('xianlu')->myRcreate($xianlu)){
 				//修改服务器子团状态
