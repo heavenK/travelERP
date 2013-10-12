@@ -27,6 +27,31 @@ function onshop(){
 	});
 	
 }
+function onoffshop(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onoffshop/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+	
+}
+
 </script>
 <div id="main">
   <tp:includeCA file="Chanpin:left_fabu:'left_fabu'" />
@@ -44,6 +69,7 @@ function onshop(){
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input type="button" class="button" value=" 复制 " onclick="copytonew()">
                     <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <input type="button" class="button" value=" 下架/上架 " onclick="onoffshop()">
                     <php>if($login_user['user_name'] == 'aaa'){</php>
                     <input type="button" class="button" value=" 重置OM " onclick="resetOM()">
                     <php>}</php>
