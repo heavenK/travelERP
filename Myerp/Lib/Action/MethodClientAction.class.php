@@ -69,13 +69,10 @@ class MethodClientAction extends CommonAction{
 			else
 				$xianlu['xianlu']['status_shop'] = '上架';
 			foreach($xianlu['zituanlist'] as $v_zt){
-				$zituan['chanpiniD'] = $v_zt['chanpinID'];	
+				$zituan['chanpinID'] = $v_zt['chanpinID'];	
 				//修改子团状态
 				$zituan['zituan']['status_shop'] = $xianlu['xianlu']['status_shop'];
 				if(false === $Chanpin->relation("zituan")->myRcreate($zituan)){
-					dump($v_zt);
-					dump($zituan);
-					dump($Chanpin);
 					$this->ajaxReturn($_REQUEST, '子团更新失败！', 0);	
 				}
 			}
