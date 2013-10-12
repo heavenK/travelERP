@@ -1225,8 +1225,11 @@ class ChanpinAction extends CommonAction{
 			$chanp_p = $Chanpin->where("`chanpinID` = '$chanp[parentID]'")->find();
 			if($chanp_p['marktype'] == 'zituan')
 			redirect(SITE_INDEX."Chanpin/zituanbaozhang/baozhangID/".$chanpinID);
-			if($chanp_p['marktype'] == 'DJtuan')
+			elseif($chanp_p['marktype'] == 'DJtuan')
 			redirect(SITE_INDEX."Dijie/zituanbaozhang/baozhangID/".$chanpinID);
+			else{
+				redirect(SITE_INDEX."Chanpin/zituanbaozhang/baozhangID/".$chanpinID);
+			}
 		}
     }
 	
