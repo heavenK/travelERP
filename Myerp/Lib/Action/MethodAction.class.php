@@ -2503,6 +2503,10 @@ class MethodAction extends CommonAction{
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
+			
+			dump($durlist);
+			
+			
 			$durlist = about_unique($durlist);//去除相同项
 		}
 		$i = 0;
@@ -4644,6 +4648,8 @@ class MethodAction extends CommonAction{
 							$bumentype = '组团';
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
+						dump($role);
+						dump($bumentype);
 						dump($dataOMlist);
 					}
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
