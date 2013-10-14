@@ -4644,6 +4644,7 @@ class MethodAction extends CommonAction{
 							$bumentype = '组团';
 						}
 						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
+						dump($dataOMlist);
 					}
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 					//报账单重置
