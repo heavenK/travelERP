@@ -916,7 +916,7 @@ class BudingAction extends Action{
 		$start_time = '2013-8-01';
 		$end_time = '2013-9-01';
 		$where['time'] = array('between',strtotime($start_time).','.strtotime($end_time));	
-		$where['marktype'] = '线路';
+		$where['marktype'] = 'xianlu';
 		$taskall = $Chanpin->where($where)->limit("$num,300")->order('chanpinID asc')->findall();
 		dump($taskall);
 		if(count($taskall)==0){
