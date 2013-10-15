@@ -911,7 +911,13 @@ class BudingAction extends Action{
 		C('TOKEN_ON',false);
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*300;
-		$taskall = $Chanpin->limit("$num,300")->order('chanpinID asc')->findall();
+		
+		//重置8月份数据
+		$start_time = '2013-8-01';
+		$end_time = '2013-9-01';
+		$where['time'] = array('between',strtotime($start_time).','.strtotime($end_time));	
+		$where['marktype'] = '线路';
+		$taskall = $Chanpin->where($where)->limit("$num,300")->order('chanpinID asc')->findall();
 		dump($taskall);
 		if(count($taskall)==0){
 			echo "结束";
