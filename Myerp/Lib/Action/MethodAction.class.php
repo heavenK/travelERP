@@ -275,7 +275,7 @@ class MethodAction extends CommonAction{
 		}
 		if($where['user_name'])
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		if($where['title_copy'])
+		if($where['title'])
 			$where['title_copy'] = array('like','%'.$where['title'].'%');
 		if($where['tuanhao'])
 			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
