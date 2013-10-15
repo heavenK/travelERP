@@ -223,6 +223,8 @@ class MethodAction extends CommonAction{
 			}
 			$where['chutuanriqi'][$i] = 'or';
 		}
+		if($where['chutuanriqi'])
+			$where['chutuanriqi'] = array('like','%'.$where['chutuanriqi'].'%');
 		if($where['user_name'])
 			$where['user_name'] = array('like','%'.$where['user_name'].'%');
 		if($where['title'])
