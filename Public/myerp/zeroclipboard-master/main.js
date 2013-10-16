@@ -8,8 +8,8 @@ clip.on( 'load', function(client) {
 } );
 
 clip.on( 'complete', function(client, args) {
-  this.style.display = "none"; // "this" is the element that was clicked
-  alert("Copied text to clipboard: " + args.text );
+  //this.style.display = "none"; // "this" is the element that was clicked
+  alert("行程已复制到粘贴板上");
 } );
 
 clip.on( 'mouseover', function(client) {
