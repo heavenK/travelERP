@@ -9,6 +9,9 @@ clip.on( 'load', function(client) {
 
 clip.on( 'complete', function(client, args) {
   //this.style.display = "none"; // "this" is the element that was clicked
+  if(args.text == '')
+  alert("请填写行程二");
+  else
   alert("行程已复制到粘贴板上");
 } );
 
