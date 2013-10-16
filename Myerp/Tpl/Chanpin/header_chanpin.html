@@ -39,7 +39,6 @@ function shenhe_after(data,status){
 	}
 }
 
-function showxingcheng_web(){
 	var str = '<ul>';
 	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
 		str += '<li><div class="cty_article_cont_title"><i>第<{$t+1}>天</i><h1><{$xingcheng[$count]['title']}></h1></div><div class="cty_article_cont_infos">'
@@ -62,16 +61,14 @@ function showxingcheng_web(){
 		str += '<div class="cty_article_cont_cont"><{$xingcheng[$count]['content']}></div></li>';
 	<php>$count++;}</php>
 	str += '</ul>';
+
 	var	clip = new ZeroClipboard.Client();
 	clip.setHandCursor(true);
 	clip.glue('copy-button');
 	clip.addEventListener('mouseDown',function() {
 		clip.setText(str);
+		alert('行程已复制到粘贴板');
 	});
-	alert('行程已复制到粘贴板');
-}
-
-
 
 </script>
 
@@ -156,7 +153,7 @@ function showxingcheng_web(){
   <php>}</php>
   <php>if('行程' == $nowDir['title']){</php>
   <input type="button" class="button" value="保存" onClick="save();">
-  <input type="button" class="button" value=" 生成网店行程格式（行程二必填） " id="copy-button" onclick="showxingcheng_web();">
+  <input type="button" class="button" value=" 生成网店行程格式（行程二必填） " id="copy-button" >
   <php>}</php>
 </div>
 
