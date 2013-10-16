@@ -5457,7 +5457,6 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
 		$xingcheng = $Chanpin->relationGet("xingchenglist");
-		dump($xingcheng);
 		if(!$xingcheng)
 			return '';
 		$str = '<ul>';
@@ -5484,6 +5483,7 @@ class MethodAction extends CommonAction{
 			$count++;
 		}
 		$str .= '</ul>';
+		dump($str);
 		return $str;
     }
 	
