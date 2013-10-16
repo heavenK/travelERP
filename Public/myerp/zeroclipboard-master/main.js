@@ -1,6 +1,6 @@
 // main.js
 var clip = new ZeroClipboard( document.getElementById("copy-button"), {
-  moviePath: "ZeroClipboard.swf"
+  moviePath: "<{:__PUBLIC__}>/myerp/zeroclipboard-master/ZeroClipboard.swf"
 } );
 
 clip.on( 'load', function(client) {
