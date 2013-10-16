@@ -5483,7 +5483,6 @@ class MethodAction extends CommonAction{
 			$count++;
 		}
 		$str .= '</ul>';
-		dump($str);
 		return $str;
     }
 	
