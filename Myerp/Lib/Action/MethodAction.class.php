@@ -5457,6 +5457,7 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
 		$xingcheng = $Chanpin->relationGet("xingchenglist");
+		dump($xingcheng);
 		$str = '<ul>';
 		$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; 
 			$str += '<li><div class="cty_article_cont_title"><i>第'.($t+1).'天</i><h1>'.$xingcheng[$count]['title'].'</h1></div><div class="cty_article_cont_infos">';
