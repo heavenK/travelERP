@@ -39,6 +39,7 @@ function shenhe_after(data,status){
 	}
 }
 
+function showxingcheng_web(){
 	var str = '<ul>';
 	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
 		str += '<li><div class="cty_article_cont_title"><i>第<{$t+1}>天</i><h1><{$xingcheng[$count]['title']}></h1></div><div class="cty_article_cont_infos">'
@@ -61,17 +62,17 @@ function shenhe_after(data,status){
 		str += '<div class="cty_article_cont_cont"><{$xingcheng[$count]['content']}></div></li>';
 	<php>$count++;}</php>
 	str += '</ul>';
+}
 
-	var	clip = new ZeroClipboard.Client();
-	clip.setHandCursor(true);
-	clip.glue('copy-button');
-	clip.addEventListener('mouseDown',function() {
-		clip.setText(str);
-		alert('行程已复制到粘贴板');
-	});
+
 
 </script>
-<script src="<{:__PUBLIC__}>/myerp/jquery-1.8.1.min.js"></script>
+
+<!--复制到粘贴板-->
+<script src="<{:__PUBLIC__}>/myerp/zeroclipboard.js"></script>
+<script src="<{:__PUBLIC__}>/myerp/bootstrap.js"></script>
+<!--结束-->
+
 
 <div class="moduleTitle" style="margin-bottom:10px;">
   <h3 style=""><{$navigation}><{$datatitle}></h3>
