@@ -38,6 +38,42 @@ function shenhe_after(data,status){
 		location.reload();
 	}
 }
+
+function showxingcheng_web(){
+	var str = '<ul>';
+	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
+		str += '<li><div class="cty_article_cont_title"><i>第'+<{$t+1}>+'天</i><h1>'+<{$xingcheng[$count]['title']}>+'</h1></div><div class="cty_article_cont_infos">'
+		<php>if(strstr($xingcheng[$count]['chanyin'],'早餐')){</php>
+		str += '<b>早餐：</b>包含';
+		<php>}else{</php>
+		str += '<b>早餐：</b>不含';
+		<php>}</php>
+		<php>if(strstr($xingcheng[$count]['chanyin'],'午餐')){</php>
+		str += '<b>午餐：</b>包含';
+		<php>}else{</php>
+		str += '<b>午餐：</b>不含';
+		<php>}</php>
+		<php>if(strstr($xingcheng[$count]['chanyin'],'晚餐')){</php>
+		str += '<b>晚餐：</b>包含';
+		<php>}else{</php>
+		str += '<b>晚餐：</b>不含';
+		<php>}</php>
+		str += '<b>住宿：</b>'+<{$xingcheng[$count]['place']}>;
+		str += '<div class="cty_article_cont_cont">'+<{$xingcheng[$count]['content']}>+'</div></li>';
+	<php>$count++;}</php>
+	str += '</ul>';
+	
+	var	clip = new ZeroClipboard.Client();
+	clip.setHandCursor(true);
+	clip.glue('copy-button');
+	clip.addEventListener('mouseDown',function() {
+		clip.setText(str);
+	});
+	alert('行程已复制到粘贴板');
+}
+
+
+
 </script>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
@@ -121,6 +157,7 @@ function shenhe_after(data,status){
   <php>}</php>
   <php>if('行程' == $nowDir['title']){</php>
   <input type="button" class="button" value="保存" name="button" onClick="save();">
+  <input type="button" class="button" value=" 生成网店行程格式（行程二必填） " name="button" id="copy-button" onclick="showxingcheng_web();">
   <php>}</php>
 </div>
 

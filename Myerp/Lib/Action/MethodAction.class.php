@@ -3371,7 +3371,7 @@ class MethodAction extends CommonAction{
 				}
 			}
 			else{
-				if($baozhang['status_shenhe'] == '批准' )
+				if($baozhang['status_shenhe'] == '批准' || $baozhang['status_shenhe'] == '检出')
 					$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
 				//判断角色
 				if($this->_checkRolesByUser('财务,财务总监,总经理','行政')){

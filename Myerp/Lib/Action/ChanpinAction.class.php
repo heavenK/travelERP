@@ -2,9 +2,11 @@
 
 class ChanpinAction extends CommonAction{
 	
+	
     public function _myinit() {
 		$this->assign("navposition",'旅游产品');
 	}
+	
 	
     public function index() {
 		A("Method")->showDirectory("线路发布及控管");
@@ -13,6 +15,7 @@ class ChanpinAction extends CommonAction{
 		$this->assign("chanpin_list",$chanpin_list['chanpin']);
 		$this->display('index');
     }
+	
 	
 	public function fabu() {
 		A("Method")->showDirectory("基本信息");
