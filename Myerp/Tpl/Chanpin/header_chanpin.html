@@ -39,7 +39,7 @@ function shenhe_after(data,status){
 	}
 }
 
-function showxingcheng_web(){
+jQuery(function(){
 	var str = '<ul>';
 	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
 		str += '<li><div class="cty_article_cont_title"><i>第<{$t+1}>天</i><h1><{$xingcheng[$count]['title']}></h1></div><div class="cty_article_cont_infos">'
@@ -62,16 +62,12 @@ function showxingcheng_web(){
 		str += '<div class="cty_article_cont_cont"><{$xingcheng[$count]['content']}></div></li>';
 	<php>$count++;}</php>
 	str += '</ul>';
+	jQuery("#fe_text").val(str);
 }
-
-
-
 </script>
-
-<!--复制到粘贴板-->
-<script src="<{:__PUBLIC__}>/myerp/zeroclipboard.js"></script>
-<script src="<{:__PUBLIC__}>/myerp/bootstrap.js"></script>
-<!--结束-->
+<input id="fe_text" type="hidden" >
+<script src="<{:__PUBLIC__}>/myerp/zeroclipboard-master/ZeroClipboard.js"></script>
+<script src="<{:__PUBLIC__}>/myerp/zeroclipboard-master/main.js"></script>
 
 
 <div class="moduleTitle" style="margin-bottom:10px;">
@@ -155,7 +151,7 @@ function showxingcheng_web(){
   <php>}</php>
   <php>if('行程' == $nowDir['title']){</php>
   <input type="button" class="button" value="保存" onClick="save();">
-  <input type="button" class="button" value=" 生成网店行程格式（行程二必填） " id="copy-button" >
+  <input type="button" class="button" value=" 生成网店行程格式（行程二必填） " id="copy-button" data-clipboard-target="fe_text">
   <php>}</php>
 </div>
 
