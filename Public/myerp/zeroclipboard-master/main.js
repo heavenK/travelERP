@@ -1,6 +1,6 @@
 // main.js
 var clip = new ZeroClipboard( document.getElementById("copy-button"), {
-  moviePath: "<{:__PUBLIC__}>/myerp/zeroclipboard-master/ZeroClipboard.swf"
+  moviePath: "ZeroClipboard.swf"
 } );
 
 clip.on( 'load', function(client) {
@@ -8,7 +8,7 @@ clip.on( 'load', function(client) {
 } );
 
 clip.on( 'complete', function(client, args) {
-  //this.style.display = "none"; // "this" is the element that was clicked
+  this.style.display = "none"; // "this" is the element that was clicked
   alert("Copied text to clipboard: " + args.text );
 } );
 
