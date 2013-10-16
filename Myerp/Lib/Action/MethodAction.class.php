@@ -5478,7 +5478,7 @@ class MethodAction extends CommonAction{
 			}else{
 			$str .= '<b>晚餐：</b>不含';
 			}
-			$str .= '<b>住宿：</b>'.$xingcheng[$count]['place'];
+			$str .= '<b>住宿：</b>'.$xingcheng[$count]['place'].'</div>';
 			$str .= '<div class="cty_article_cont_cont">'.$xingcheng[$count]['content'].'</div></li>';
 			$count++;
 		}
