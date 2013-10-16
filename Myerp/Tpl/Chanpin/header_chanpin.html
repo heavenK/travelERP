@@ -40,30 +40,32 @@ function shenhe_after(data,status){
 }
 
 jQuery(function(){
-	var str = '<ul>';
-	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
-		str += '<li><div class="cty_article_cont_title"><i>第<{$t+1}>天</i><h1><{$xingcheng[$count]['title']}></h1></div><div class="cty_article_cont_infos">'
-		<php>if(strstr($xingcheng[$count]['chanyin'],'早餐')){</php>
-		str += '<b>早餐：</b>包含';
-		<php>}else{</php>
-		str += '<b>早餐：</b>不含';
-		<php>}</php>
-		<php>if(strstr($xingcheng[$count]['chanyin'],'午餐')){</php>
-		str += '<b>午餐：</b>包含';
-		<php>}else{</php>
-		str += '<b>午餐：</b>不含';
-		<php>}</php>
-		<php>if(strstr($xingcheng[$count]['chanyin'],'晚餐')){</php>
-		str += '<b>晚餐：</b>包含';
-		<php>}else{</php>
-		str += '<b>晚餐：</b>不含';
-		<php>}</php>
-		str += '<b>住宿：</b><{$xingcheng[$count]['place']}>';
-		str += '<div class="cty_article_cont_cont"><{$xingcheng[$count]['content']}></div></li>';
-	<php>$count++;}</php>
-	str += '</ul>';
+//	var str = '<ul>';
+//	<php>$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; </php>
+//		str += '<li><div class="cty_article_cont_title"><i>第<{$t+1}>天</i><h1><{$xingcheng[$count]['title']}></h1></div><div class="cty_article_cont_infos">'
+//		<php>if(strstr($xingcheng[$count]['chanyin'],'早餐')){</php>
+//		str += '<b>早餐：</b>包含';
+//		<php>}else{</php>
+//		str += '<b>早餐：</b>不含';
+//		<php>}</php>
+//		<php>if(strstr($xingcheng[$count]['chanyin'],'午餐')){</php>
+//		str += '<b>午餐：</b>包含';
+//		<php>}else{</php>
+//		str += '<b>午餐：</b>不含';
+//		<php>}</php>
+//		<php>if(strstr($xingcheng[$count]['chanyin'],'晚餐')){</php>
+//		str += '<b>晚餐：</b>包含';
+//		<php>}else{</php>
+//		str += '<b>晚餐：</b>不含';
+//		<php>}</php>
+//		str += '<b>住宿：</b><{$xingcheng[$count]['place']}>';
+//		str += '<div class="cty_article_cont_cont"><{$xingcheng[$count]['content']}></div></li>';
+//	<php>$count++;}</php>
+//	str += '</ul>';
+
+	var str = '<{$web_xingcheng}>';
 	jQuery("#fe_text").val(str);
-}
+})
 </script>
 <input id="fe_text" type="hidden" >
 <script src="<{:__PUBLIC__}>/myerp/zeroclipboard-master/ZeroClipboard.js"></script>

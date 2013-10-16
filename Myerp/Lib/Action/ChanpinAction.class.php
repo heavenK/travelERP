@@ -237,6 +237,8 @@ class ChanpinAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
 		$xingcheng = $Chanpin->relationGet("xingchenglist");
+		$web_xingcheng = A("Method")->_echo_xingcheng($chanpinID);
+		$this->assign("web_xingcheng",$web_xingcheng);
 		//行程一
 		$ViewXianlu = D("ViewXianlu");
 		$xianlu = $ViewXianlu->where("`chanpinID` = '$chanpinID'")->find();
@@ -1258,6 +1260,38 @@ class ChanpinAction extends CommonAction{
 			A("Method")->_createDataOM($v,$_REQUEST['chanpintype'],'管理',$dataOMlist,'','指定');
 		}
 		$this->ajaxReturn($_REQUEST,'操作完成！', 1);
+    }
+	
+	
+	
+	//编辑行程
+    public function _echo_xingcheng($chanpinID) {
+		$Chanpin = D("Chanpin");
+		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
+		$xingcheng = $Chanpin->relationGet("xingchenglist");
+		$str = '<ul>';
+		$count = 0 ;$t =-1;while ($count < $chanpin['xianlu']['tianshu']) {$t++; 
+			$str += '<li><div class="cty_article_cont_title"><i>第'.($t+1).'天</i><h1>'.$xingcheng[$count]['title'].'</h1></div><div class="cty_article_cont_infos">';
+			if(strstr($xingcheng[$count]['chanyin'],'早餐')){
+			$str += '<b>早餐：</b>包含';
+			}else{
+			$str += '<b>早餐：</b>不含';
+			}
+			if(strstr($xingcheng[$count]['chanyin'],'午餐')){
+			$str += '<b>午餐：</b>包含';
+			}else{
+			$str += '<b>午餐：</b>不含';
+			}
+			if(strstr($xingcheng[$count]['chanyin'],'晚餐')){
+			$str += '<b>晚餐：</b>包含';
+			}else{
+			$str += '<b>晚餐：</b>不含';
+			}
+			$str += '<b>住宿：</b>'.$xingcheng[$count]['place'];
+			$str += '<div class="cty_article_cont_cont">'.$xingcheng[$count]['content'].'</div></li>';
+		$count++;}
+		$str += '</ul>';
+		return $str;
     }
 	
 	
