@@ -475,7 +475,10 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '分类'){
-			$class_name = 'OMViewSystemCategory';
+			//$class_name = 'OMViewSystemCategory';
+			$class_name = 'ViewCategory';
+			$ComID = $this->_getComIDbyUser();
+			$where['companyID'] = $ComID;
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '产品搜索'){
