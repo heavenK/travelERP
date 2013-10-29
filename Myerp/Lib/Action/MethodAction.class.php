@@ -478,6 +478,7 @@ class MethodAction extends CommonAction{
 			//$class_name = 'OMViewSystemCategory';
 			$class_name = 'ViewCategory';
 			$ComID = $this->_getComIDbyUser();
+			dump($ComID);
 			$where['companyID'] = $ComID;
 			$where['datatype'] = $datatype;
 		}
