@@ -478,7 +478,6 @@ class MethodAction extends CommonAction{
 			//$class_name = 'OMViewSystemCategory';
 			$class_name = 'ViewCategory';
 			$ComID = $this->_getComIDbyUser();
-			dump($ComID);
 			$where['companyID'] = $ComID;
 			$where['datatype'] = $datatype;
 		}
@@ -931,8 +930,10 @@ class MethodAction extends CommonAction{
 			$this->assign("categoryAll",$datas1);
 		}
 		else{
-			$category = $this->getDataOMlistSystem("分类",'category','');
-			$this->assign("categoryAll",$category['chanpin']);
+			$category = $this->_getCompanyCategoryList();
+			$this->assign("categoryAll",$category);
+//			$category = $this->getDataOMlistSystem("分类",'category','');
+//			$this->assign("categoryAll",$category['chanpin']);
 		}
 		//部门
 		if($this->user['title'] == 'aaa'){
@@ -986,6 +987,17 @@ class MethodAction extends CommonAction{
 		$ComID = $this->_getComIDbyUser($username);
 		$userall = $ViewUser->where("`companyID` = '$ComID' AND `status_system` = 1")->findall();
 		return $userall;
+	 }
+	
+	
+	 //获得公司及下属用户列表
+     public function _getCompanyCategoryList($username) {
+		$ViewCategory = D("ViewCategory");
+		if(!$username)
+		$username = $this->user['title'];
+		$ComID = $this->_getComIDbyUser($username);
+		$list = $ViewCategory->where("`companyID` = '$ComID' AND `status_system` = 1")->findall();
+		return $list;
 	 }
 	
 	
