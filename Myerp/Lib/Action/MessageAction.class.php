@@ -63,8 +63,10 @@ class MessageAction extends Action{
 			$where['status_system'] = '1';
 //			$ComID = A("Method")->_getComIDbyUser();
 //			$where['parentID'] = $ComID;
-			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
-			$categorylist = $category['chanpin'];
+//			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
+//			$categorylist = $category['chanpin'];
+			$category = $this->_getCompanyCategoryList();
+			$categorylist = $category;
 //			$ViewCategory = D("ViewCategory");
 //			$categorylist = $ViewCategory->where("`islock` = '未锁定'")->findall();
 			$i = 0;
