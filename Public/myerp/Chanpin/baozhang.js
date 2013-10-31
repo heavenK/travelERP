@@ -22,6 +22,7 @@
 	htmlcontent += "<option value=\"签单\">签单</option>";
 	htmlcontent += "<option value=\"对冲\">对冲</option>";
 	htmlcontent += "<option value=\"月结\">月结</option>";
+	htmlcontent += "<option value=\"VIP贵宾卡\">VIP贵宾卡</option>";
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
 	if(type == '结算项目'){
@@ -141,6 +142,7 @@
 		htmlcontent += "<option value=\"签单\">签单</option>";
 		htmlcontent += "<option value=\"对冲\">对冲</option>";
 		htmlcontent += "<option value=\"月结\">月结</option>";
+		htmlcontent += "<option value=\"VIP贵宾卡\">VIP贵宾卡</option>";
 		htmlcontent += "</select>";
 		htmlcontent += "</td>";
 		if(data['type'] == '结算项目'){
