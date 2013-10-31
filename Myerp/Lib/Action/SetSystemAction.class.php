@@ -30,7 +30,7 @@ class SetSystemAction extends CommonAction{
 		$ViewCategory = D("ViewCategory");
 //		$datas = A('Method')->getDataOMlistSystem("分类",'category',$_REQUEST);
 //		$this->assign("datalist",$datas);
-		$category = $this->_getCompanyCategoryList();
+		$category = A('Method')->_getCompanyCategoryList();
 		$this->assign("datalist",$category);
 		//获得公司列表
 		$comall = A('Method')->_getCompanyAll();
