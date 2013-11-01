@@ -64,7 +64,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 锁状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
         </tr>
-      <php>$i = 0; foreach($datalist['chanpin'] as $v){ $i++;</php>
+      <php>$i = 0; foreach($datalist as $v){ $i++;</php>
       <tr height="40" class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top"><{$i}></td>
         <td scope="row" align="left" valign="top"><input type="text" id="title<{$v['systemID']}>" style="width:200px" value="<{$v['title']}>"></td>
