@@ -37,7 +37,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
          ];
         
         jQuery().ready(function() {
-                <php>foreach($datalist[chanpin] as $v){</php>
+                <php>foreach($datalist as $v){</php>
                     myautocomplete("#parentID<{$v[systemID]}>",'部门');
                  <php>}</php>
         });
