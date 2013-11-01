@@ -391,6 +391,7 @@ jQuery(document).ready(function(){
 		async: false,
 		data:	"parentID=202&type=城市",
 		success:	function(msg){
+						jQuery("#chufachengshi_id").empty();
 					  jQuery(msg).appendTo("#chufachengshi_id");
 				  }
 	});
