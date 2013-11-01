@@ -363,7 +363,6 @@ jQuery(document).ready(function(){
 	  
 	  if (!mudidi_arr[0]) {
 		  mudidi_arr[0] = '请选择';
-	  }else{
 		  jQuery("#pos2").attr('disabled','true');
 		  jQuery("#pos3").attr('disabled','true');
 	  }
@@ -390,7 +389,6 @@ jQuery(document).ready(function(){
 	  chufadi_arr = chufadi.split(',');
 	  if (!chufadi_arr[0]) {
 		  chufadi_arr[0] = '请选择';
-	  }else{
 		  jQuery("#chufachengshi_id").attr('disabled','true');
 	  }
 	  jQuery("#chufashengfen_id").find("option:selected").text(chufadi_arr[0]); 
