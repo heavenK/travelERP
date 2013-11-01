@@ -384,6 +384,16 @@ jQuery(document).ready(function(){
 						jQuery(msg).appendTo("#chufashengfen_id");
 					}
 	  });
+	  //已选项默认列表//辽宁
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Message/liandong",
+		async: false,
+		data:	"parentID=202&type=城市",
+		success:	function(msg){
+					  jQuery(msg).appendTo("#chufachengshi_id");
+				  }
+	});
 	  jQuery("#chufashengfen_id").prepend("<option selected='selected' value='0'>请选择</option>");
 	  chufadi = "<{$xianlu[chufadi]}>";
 	  chufadi_arr = chufadi.split(',');
@@ -395,16 +405,6 @@ jQuery(document).ready(function(){
 	  jQuery("#chufachengshi_id").find("option:selected").text(chufadi_arr[1]); 
 	  jQuery("#chufashengfen").val(chufadi_arr[0]);
 	  jQuery("#chufachengshi").val(chufadi_arr[1]);
-	  //已选项默认列表//辽宁
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Message/liandong",
-		async: false,
-		data:	"parentID=202&type=城市",
-		success:	function(msg){
-					  jQuery(msg).appendTo("#chufachengshi_id");
-				  }
-	});
 });
 
 function change_pos(sid){
