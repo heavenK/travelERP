@@ -997,6 +997,11 @@ class MethodAction extends CommonAction{
 		$username = $this->user['title'];
 		$ComID = $this->_getComIDbyUser($username);
 		$list = $ViewCategory->where("`companyID` = '$ComID' AND `status_system` = 1")->findall();
+		
+		dump($list);
+		dump($ViewCategory);
+		
+		
 		return $list;
 	 }
 	
