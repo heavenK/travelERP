@@ -3389,7 +3389,7 @@ class MethodAction extends CommonAction{
 			else{
 				if($baozhang['status_shenhe'] == '批准')
 					$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
-				if($item['status_shenhe'] == '批准' || $item['status_shenhe'] == '检出')
+				if($item['status_shenhe'] == '批准' || $item['status_shenhe'] == '检出' || $item['shenhe_remark'] == '申请报账项审核')
 					$this->ajaxReturn($_REQUEST,'该项目已经批准，请审核回退后修改！', 0);
 				//判断角色
 				if($this->_checkRolesByUser('财务,财务总监,总经理','行政')){
