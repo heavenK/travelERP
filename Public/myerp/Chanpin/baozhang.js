@@ -79,8 +79,12 @@
 
  function save(id,divname,mark,type)
  {
-	scroll(0,0);
-	ThinkAjax.myloading('resultdiv');
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+	});		
+//	scroll(0,0);
+//	ThinkAjax.myloading('resultdiv');
 	act = jQuery("#btsave_"+id).attr("onclick"); 
 	jQuery("#btsave_"+id).attr("onclick","alert('正在执行请稍候...')"); 
 	var it = '';
@@ -108,11 +112,14 @@
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&parentID="+parentID+it,
 		success:function(msg){
 			jQuery("#btsave_"+id).attr("onclick",act); 
-			if(mark)
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname,expandtype);
-			else{
-			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+			if(mark){
+//				ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname,expandtype);
+				ThinkAjax.myAjaxResponse(msg,'',om_save,id,divname,expandtype);
 			}
+			else{
+				ThinkAjax.myAjaxResponse(msg,'');
+			}
+			art.dialog.get('id-demo').content('完成').time(2000);
 		}
 	});
 	

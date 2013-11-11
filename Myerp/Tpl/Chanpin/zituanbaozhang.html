@@ -1,9 +1,14 @@
 <tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/skins/default.css" rel="stylesheet" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/artDialog.min.js"></script>
+
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
+
 var actionmethod = '<{$actionmethod}>';
 var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
@@ -59,7 +64,11 @@ function exports(type)
 }
 
 function doshenhe_baozhangitem(dotype,datatype,dataID,title){
-	ThinkAjax.myloading('resultdiv');
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+	});		
+	//ThinkAjax.myloading('resultdiv');
 	act = jQuery("#btshenhe_"+dataID).attr("onclick"); 
 	jQuery("#btshenhe_"+dataID).attr("onclick","alert('正在执行请稍候...')"); 
 	jQuery.ajax({
@@ -69,7 +78,8 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		success:function(msg){
 			scroll(0,0);
 			jQuery("#btshenhe_"+dataID).attr("onclick","alert("+act+")"); 
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'',shenhe_after);
 		}
 	});
 }
@@ -99,8 +109,10 @@ function add_after(data,status){
 
 function shenhe_after(data,status){
 	if(status == 1){
-		alert(data['status_shenhe']+"操作成功！！");
-		location.reload();
+		//alert(data['status_shenhe']+"操作成功！！");
+		//location.reload();
+		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
+		setTimeout("location.reload()",2000);		
 	}
 }
 
