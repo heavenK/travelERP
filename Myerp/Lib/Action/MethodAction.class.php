@@ -3041,6 +3041,7 @@ class MethodAction extends CommonAction{
 			$status = '申请';
 			else
 			$status = '批准';
+			$_REQUEST['shenhe_remark'] = '申请审核';
 		}
 		else{
 			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
@@ -3052,6 +3053,7 @@ class MethodAction extends CommonAction{
 			$status = '检出';
 			else
 			$status = '批准';
+			$_REQUEST['shenhe_remark'] = $need['remark'];
 		}
 		//报账单特殊设置
 		if($_REQUEST['datatype'] == '报账单'){

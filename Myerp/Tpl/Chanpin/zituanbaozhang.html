@@ -76,10 +76,10 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		url:	SITE_INDEX+"<{$actionmethod}>/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-			scroll(0,0);
+			//scroll(0,0);
 			jQuery("#btshenhe_"+dataID).attr("onclick","alert("+act+")"); 
 			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
-			ThinkAjax.myAjaxResponse(msg,'',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'',shenhe_after,dataID);
 		}
 	});
 }
@@ -107,11 +107,15 @@ function add_after(data,status){
 	}
 }
 
-function shenhe_after(data,status){
+function shenhe_after(data,status,info,type,idname){
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
 		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
+		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
+		if(data['dotype'] == '批准')
+		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
+		if(data['dotype'] == '申请')
 		setTimeout("location.reload()",2000);		
 	}
 }
@@ -496,9 +500,11 @@ jQuery().ready(function() {
           <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
           <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
-          <td scope="row" align="left" valign="top"><strong 
+          <td scope="row" align="left" valign="top"><strong  id="lb_shenhe_remark<{$v['chanpinID']}>"
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
-          ><{$v['shenhe_remark']}></strong></td>
+          >
+          <{$v['shenhe_remark']}>
+          </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
   
@@ -598,9 +604,11 @@ jQuery().ready(function() {
           <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
           <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
-          <td scope="row" align="left" valign="top"><strong 
+          <td scope="row" align="left" valign="top"><strong  id="lb_shenhe_remark<{$v['chanpinID']}>"
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
-          ><{$v['shenhe_remark']}></strong></td>
+          >
+          <{$v['shenhe_remark']}>
+          </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
       <php>

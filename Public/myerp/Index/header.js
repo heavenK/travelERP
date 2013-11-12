@@ -209,6 +209,7 @@ function ajaxalert(title){
 }
 
 function shenhe_back(dataID,datatype,actionmethod){
+	scroll(0,0);
 	if(!actionmethod)
 		actionmethod = 'Chanpin';
 	ThinkAjax.myloading('resultdiv');
