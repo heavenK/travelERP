@@ -130,7 +130,7 @@
 		art.dialog.get('id-demo').content('完成').time(2000);
 	}
 	else{
-		art.dialog.get('id-demo').content(info);
+		art.dialog.get('id-demo').content(info).time(4000);
 	}
  }
  
