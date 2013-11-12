@@ -117,13 +117,24 @@
 				ThinkAjax.myAjaxResponse(msg,'',om_save,id,divname,expandtype);
 			}
 			else{
-				ThinkAjax.myAjaxResponse(msg,'');
+				ThinkAjax.myAjaxResponse(msg,'',save_g_after);
 			}
-			art.dialog.get('id-demo').content('完成').time(2000);
 		}
 	});
 	
  }
+ 
+ 
+ function save_g_after(data,status,info){
+	if(status == 1){
+		art.dialog.get('id-demo').content('完成').time(2000);
+	}
+	else{
+		art.dialog.get('id-demo').content(info);
+	}
+ }
+ 
+ 
  
  function om_save(data,status,info,type,id,divname,other)
  {
@@ -196,7 +207,7 @@
 		if(data['type'] == '支出项目'){
 			myautocomplete("#title"+data['chanpinID'],'商户条目');
 		}
-		
+		art.dialog.get('id-demo').content('完成').time(2000);
 	}
  }
 
