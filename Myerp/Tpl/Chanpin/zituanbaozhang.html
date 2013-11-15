@@ -77,7 +77,7 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
 			//scroll(0,0);
-			jQuery("#btshenhe_"+dataID).attr("onclick","alert("+act+")"); 
+			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
 			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
 			ThinkAjax.myAjaxResponse(msg,'',shenhe_after,dataID);
 		}
