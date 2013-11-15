@@ -8,10 +8,7 @@
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
-art.dialog({
-	id: 'id-demo',
-	title: '操作信息',
-});		
+
 var actionmethod = '<{$actionmethod}>';
 var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
@@ -67,6 +64,10 @@ function exports(type)
 }
 
 function doshenhe_baozhangitem(dotype,datatype,dataID,title){
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+	});		
 	//ThinkAjax.myloading('resultdiv');
 	act = jQuery("#btshenhe_"+dataID).attr("onclick"); 
 	jQuery("#btshenhe_"+dataID).attr("onclick","alert('正在执行请稍候...')"); 
