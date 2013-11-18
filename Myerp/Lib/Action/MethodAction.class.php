@@ -3989,6 +3989,9 @@ class MethodAction extends CommonAction{
 			$role = $this->_checkRolesByUser('前台','行政',1);
 			if(false !== $role)
 				$is_qiantai = 1;
+			$role = $this->_checkRolesByUser('秘书','行政',1);
+			if(false !== $role)
+				$is_qiantai = 1;
 		}
 		$role = $this->_checkRolesByUser('业务','银行',1);
 		if(false !== $role)
