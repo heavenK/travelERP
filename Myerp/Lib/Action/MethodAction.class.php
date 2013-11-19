@@ -4863,10 +4863,12 @@ class MethodAction extends CommonAction{
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan'){
 			$baozhangall = $Chanpin->where("`chanpinID` = '$cp[parentID]' AND `marktype` = 'baozhang'")->findall();
+			dump($baozhangall);
 			foreach($baozhangall as $v){
 				$this->_resetOMTask($v['chanpinID']);
 				$baozhangitemall = $Chanpin->where("`chanpinID` = '$v[parentID]'")->findall();
 				foreach($baozhangitemall as $vol){
+			dump($baozhangitemall);
 					$this->_resetOMTask($vol['chanpinID']);
 				}
 			}
