@@ -4862,13 +4862,11 @@ class MethodAction extends CommonAction{
 		//分类
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan'){
-			$baozhangall = $Chanpin->where("`chanpinID` = '$cp[parentID]' AND `marktype` = 'baozhang'")->findall();
-			dump($baozhangall);
+			$baozhangall = $Chanpin->where("`parentID` = '$cp[chanpinID]' AND `marktype` = 'baozhang'")->findall();
 			foreach($baozhangall as $v){
 				$this->_resetOMTask($v['chanpinID']);
-				$baozhangitemall = $Chanpin->where("`chanpinID` = '$v[parentID]'")->findall();
+				$baozhangitemall = $Chanpin->where("`parentID` = '$v[chanpinID]'")->findall();
 				foreach($baozhangitemall as $vol){
-			dump($baozhangitemall);
 					$this->_resetOMTask($vol['chanpinID']);
 				}
 			}
