@@ -4859,6 +4859,19 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		if($chanpinID)
 			$_REQUEST['chanpinID'] = $chanpinID;
+		//分类
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan'){
+			$baozhangall = $Chanpin->where("`chanpinID` = '$cp[parentID]' AND `marktype` = 'baozhang'")->findall();
+			foreach($baozhangall as $v){
+				$this->_resetOMTask($v['chanpinID']);
+				$baozhangitemall = $Chanpin->where("`chanpinID` = '$v[parentID]'")->findall();
+				foreach($baozhangitemall as $vol){
+					$this->_resetOMTask($vol['chanpinID']);
+				}
+			}
+			return true;
+		}
 		$DataOM = D("DataOM");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$where['status'] = '待检出';

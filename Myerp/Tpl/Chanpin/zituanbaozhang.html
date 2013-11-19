@@ -115,7 +115,7 @@ function shenhe_after(data,status,info,type,idname){
 		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
 		if(data['dotype'] == '批准')
 		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
-		if(data['dotype'] == '申请')
+		if(data['dotype'] == '申请' || data['datatype'] == '报账单')
 		setTimeout("location.reload()",2000);		
 	}
 	else{
