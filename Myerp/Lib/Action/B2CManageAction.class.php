@@ -103,15 +103,8 @@ class B2CManageAction extends CommonAction{
 		$url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
 		$Snoopy->fetchlinks($url);
 		$xmlNo = $_REQUEST['xmlNo'];
-		if(!$xmlNo)
-			$xmlNo = 1;
 		$i = 1;	
 		foreach($Snoopy->results as $v){
-				
-				
-			if($xmlNo == 3)
-			break;
-			
 			if($i == $xmlNo){
 				$this->_xml2chanpin($v,$xmlNo,count($Snoopy->results));
 			}
@@ -132,13 +125,8 @@ class B2CManageAction extends CommonAction{
 		
 		if($xml2array['item'] > 1){
 			$itemNo = $_REQUEST['itemNo'];
-			if(!$itemNo)
-				$itemNo = 1;
 			$i = 1;	
 			foreach($xml2array['item'] as $item){
-				if($itemNo == 2)
-				break;
-				
 				if($i == $itemNo){
 					$itemNo += 1;
 					$this->_xml2chanpin_inter($xml2array,$item,$xmlNo,$itemNo,$xmlcount);
