@@ -1,6 +1,10 @@
 <?php
 
 class ChanpinAction extends CommonAction{
+
+    public function test() {
+		$this->ajaxReturn('', '345', 1);
+	}
 	
 	
     public function _myinit() {
@@ -183,7 +187,6 @@ class ChanpinAction extends CommonAction{
 			//三级产品列表
 			$this->_chanpin_department_reset($lv2['chanpinID'],$deparmentID);
 		}
-		
 	}
 	
 	

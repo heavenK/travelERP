@@ -1,7 +1,41 @@
 <tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/skins/default.css" rel="stylesheet" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/artDialog.min.js"></script>
+
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <script>
+
+function zhongxin_update(url){
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+		content: '开始连接众信服务器...',
+	});
+	if(!url)
+		url = "<{:SITE_INDEX}>B2CManage/zhongXinInterface";
+	jQuery.ajax({
+		type:	"POST",
+		url:	url,
+		data:	"",
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'',update_after);
+		}
+	});
+}
+
+function update_after(data,status,info){
+	if(status == 1){
+		art.dialog.get('id-demo').content(info);
+		if(data){
+			url = data;
+			zhongxin_update(url);
+		}
+	}
+	else
+		art.dialog.get('id-demo').content(info);
+}
 
 function onshop(){
 	ThinkAjax.myloading('resultdiv');
@@ -27,6 +61,7 @@ function onshop(){
 	});
 	
 }
+
 function onoffshop(){
 	var checkboxitem = new Array();
 	var i = 0;
@@ -66,6 +101,17 @@ function onoffshop(){
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons">
+                    <input type="button" class="button" value=" 同步众信线路 " onclick="zhongxin_update()">
+                  </td>
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
                     <input type="button" class="button" value=" 复制 " onclick="copytonew()">
                     <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
@@ -75,6 +121,7 @@ function onoffshop(){
                     <php>}</php>
                     <input type="button" class="button" value=" 删除到回收站 " onclick="deletetohsz()">
                     <input type="button" class="button" value=" 提交到网店 " onclick="onshop()">
+                  </td>  
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -118,7 +165,7 @@ function onoffshop(){
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
-                  <td nowrap="nowrap" class="paginationActionButtons">
+                  <td nowrap="nowrap" class="paginationActionButtons"></td>
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>

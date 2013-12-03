@@ -99,24 +99,23 @@ function shenhe_after(data,status){
   <input type="button" class="button" value="审核记录" style="float:right" id="showshenhe" onclick="shenheshow_doit(<{$chanpinID}>);">
 <!--  
   <input type="button" class="button" value="审核状态重置" style="float:right" id="showshenhe" onclick="dotest()">
--->  
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'线路');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('检出');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('申请');">
-      <php>}}else{</php>
-      <input type="button" class="button" style="float:right" value="审核" onclick="alert('已<{$xianlu['shenhe_remark']}>！')" >
-      <php>}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
-      <input type="button" class="button" style="float:right" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'线路');">
-	  <php>}</php>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
-      
+-->
+  <php>
+  $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'线路');
+  if(false !== $taskom){
+  if(cookie('show_action') == '批准'){
+  </php>
+  <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('检出');">
+  <php>}if(cookie('show_action') == '申请'){
+  </php>
+  <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('申请');">
+  <php>}}else{</php>
+  <input type="button" class="button" style="float:right" value="审核" onclick="alert('已<{$xianlu['shenhe_remark']}>！')" >
+  <php>}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
+  <input type="button" class="button" style="float:right" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'线路');">
+  <php>}</php>
+  <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
+  <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
   
   <php>if('基本信息' == $nowDir['title']){if($kind == '包团' || $xianlu['kind'] == '包团') $kind = '包团';</php>
   <input type="button" class="button" value="保存" onclick="if(CheckForm('form','resultdiv_2')) save('<{$kind}>');">

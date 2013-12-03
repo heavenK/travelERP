@@ -1035,6 +1035,14 @@ class MethodAction extends CommonAction{
 	 }
 	
 	
+	//根据名称获得部门ID等
+     public function _getDepartmentByTitle($title) {
+		$ViewDepartment = D("ViewDepartment");
+		$data = $ViewDepartment->where("`title` = '$title'")->find();
+		return $data;
+	 }
+	
+	
 	//获得用户部门角色列表
      public function _getDURlist($userID,$bumen='',$bumentype='') {
 		if($userID)
@@ -4360,8 +4368,6 @@ class MethodAction extends CommonAction{
 	
 	}
 
-	
-	
 	
 	
 	function _checkshenhe_admin($dataID,$datatype){

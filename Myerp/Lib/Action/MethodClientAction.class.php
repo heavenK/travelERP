@@ -116,13 +116,17 @@ class MethodClientAction extends CommonAction{
 	
 	
 	
-	function _doonshop_xianlu($itemlist){
+	function _doonshop_xianlu($itemlist,$returntype=1){
 		$ViewXianlu = D("ViewXianlu");
 		$Chanpin = D("Chanpin");
 		foreach($itemlist as $v){
 			$xianlu = $ViewXianlu->where("`chanpinID` = '$v'")->find();
-			if($xianlu['status_shenhe'] != '批准')
-				$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
+			if($xianlu['status_shenhe'] != '批准'){
+				if($returntype == 1)
+					$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
+				else
+					return false;
+			}
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
 				//更新产品状态
@@ -140,28 +144,48 @@ class MethodClientAction extends CommonAction{
 				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
 				//生成
 				$getres = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
-				if($getres['error'])
-					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				if($getres['error']){
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					else
+						return false;
+				}
 				else
 					$serverdataID = $getres;
-				if(!intval($serverdataID))
-					$this->ajaxReturn($_REQUEST,'提交失败！', 0);
+				if(!intval($serverdataID)){
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,'提交失败！', 0);
+					else
+						return false;
+				}
 				$xianlu['xianlu']['serverdataID'] = $serverdataID;
 				$xianlu['chanpinID'] = $v;
 				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
-					$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+					else
+						return false;
 				}
 			}
 			else{
 				//更新信息
 				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$v);
 				if($getres['error']){
-					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					else
+						return false;
 				}
-				$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
+				if($returntype == 1)
+					$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
+				else
+					return true;
 			}
 		}
-		$this->ajaxReturn($_REQUEST,'完成！', 1);
+		if($returntype == 1)
+			$this->ajaxReturn($_REQUEST,'完成！', 1);
+		if($returntype == 2)
+			return true;
 	}
 	
 	
