@@ -106,7 +106,13 @@ class B2CManageAction extends CommonAction{
 		if(!$xmlNo)
 			$xmlNo = 1;
 		$i = 1;	
+		
+				
+			dump($Snoopy->results);
+			exit;	
+		
 		foreach($Snoopy->results as $v){
+				
 				
 			if($xmlNo == 3)
 			break;
