@@ -108,7 +108,7 @@ class B2CManageAction extends CommonAction{
 		$i = 1;	
 		
 				$tt = file_get_contents($url);
-			dump($$tt);
+			dump($tt);
 			dump($Snoopy->results);
 			exit;	
 		
