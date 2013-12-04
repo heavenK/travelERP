@@ -131,6 +131,9 @@ class B2CManageAction extends CommonAction{
 				$itemNo = 1;
 			$i = 1;	
 			foreach($xml2array['item'] as $item){
+				if($itemNo == 1){
+					$this->_checksamexianlu($xml2array,$xml2array['item'][29],$xmlNo+1,$itemNo,$xmlcount);
+				}
 				if($i == $itemNo){
 					$itemNo += 1;
 					$this->_xml2chanpin_inter($xml2array,$item,$xmlNo,$itemNo,$xmlcount);
@@ -173,7 +176,6 @@ class B2CManageAction extends CommonAction{
 			$this->_wait4server($url,$msg);
 		}
 		else{
-			dump($Chanpin);
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }
