@@ -264,6 +264,8 @@ class B2CManageAction extends CommonAction{
 		$xianlu['xingchengtese'] = $xingchengtese;
 		$xianlu['cantuanxuzhi'] = '以本团要求为准';
 		$xianlu['kind'] = $item['@attributes']['type'];
+		if(!$xianlu['kind'])
+			$xianlu['kind'] = '无';
 		//其他数据
 		$xianlu['zhongxindatatext']['@attributes'] = $item['@attributes'];
 		$xianlu['zhongxindatatext']['routeDates'] = $item['routeDates'];
