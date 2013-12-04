@@ -989,6 +989,7 @@ class BudingAction extends Action{
 
 	//重置所有产品OM
     public function reset_1s_chanpinOM() {
+		exit;
 		$Chanpin = D("Chanpin");
 		C('TOKEN_ON',false);
 		$chanpinall = $Chanpin->where("`user_name` = '李倩雯' AND `marktype` = 'DJtuan' ")->findall();
