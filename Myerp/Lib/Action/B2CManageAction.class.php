@@ -177,7 +177,12 @@ class B2CManageAction extends CommonAction{
 			$this->_wait4server($url,$msg);
 		}
 		else{
-			dump($Chanpin);
+			//跳转错误
+			$url = SITE_INDEX.'B2CManage/zhongXinInterface/xmlNo/'.$xmlNo.'/itemNo/'.$itemNo;
+			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
+			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
+			$this->_wait4server($url,$msg);
+			
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }
@@ -235,14 +240,16 @@ class B2CManageAction extends CommonAction{
 		$xianlu['ertongshoujia'] = $xianlu['shoujia'];
 		$xianlu['mudidi'] = $item['@attributes']['arrive'];
 		$xianlu['chufadi'] = $item['@attributes']['departure'];
-		if(!$xianlu['chufadi'])
-			$xianlu['chufadi'] = '无';
+//		if(!$xianlu['chufadi'])
+//			$xianlu['chufadi'] = '无';
 		$xianlu['baomingjiezhi'] = 1;
 		$xianlu['quankuanriqi'] = 1;
 		$xianlu['renshu'] = $item['advanceday'];
-		if(!$xianlu['renshu'])
-			$xianlu['renshu'] = 30;
+//		if(!$xianlu['renshu'])
+//			$xianlu['renshu'] = 30;
 		$xianlu['tianshu'] = $item['@attributes']['itineraryDay'];
+//		if(!$xianlu['tianshu'])
+//			$xianlu['tianshu'] = 99;
 		$xianlu['zhuti'] = $item['@attributes']['subject'];
 		//日期
 		$chutuanriqi = '';
@@ -266,8 +273,8 @@ class B2CManageAction extends CommonAction{
 		$xianlu['xingchengtese'] = $xingchengtese;
 		$xianlu['cantuanxuzhi'] = '以本团要求为准';
 		$xianlu['kind'] = $item['@attributes']['type'];
-		if(!$xianlu['kind'])
-			$xianlu['kind'] = '无';
+//		if(!$xianlu['kind'])
+//			$xianlu['kind'] = '无';
 		//其他数据
 		$xianlu['zhongxindatatext']['@attributes'] = $item['@attributes'];
 		$xianlu['zhongxindatatext']['routeDates'] = $item['routeDates'];
