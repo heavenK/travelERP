@@ -173,6 +173,7 @@ class B2CManageAction extends CommonAction{
 			$this->_wait4server($url,$msg);
 		}
 		else{
+			dump($Chanpin);
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }
