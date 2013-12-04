@@ -103,6 +103,8 @@ class B2CManageAction extends CommonAction{
 		$url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
 		$Snoopy->fetchlinks($url);
 		$xmlNo = $_REQUEST['xmlNo'];
+		if(!$xmlNo)
+			$xmlNo = 1;
 		$i = 1;	
 		foreach($Snoopy->results as $v){
 			if($i == $xmlNo){
@@ -122,9 +124,11 @@ class B2CManageAction extends CommonAction{
 //		$xml = simplexml_load_file($url, 'SimpleXMLElement', LIBXML_NOCDATA );//兼容CDATA格式
 //		$xml2array = xmltoarray($xml);
 		$xml2array = xmltoarrayMix($url);
-		
+			
 		if($xml2array['item'] > 1){
 			$itemNo = $_REQUEST['itemNo'];
+			if(!$itemNo)
+				$itemNo = 1;
 			$i = 1;	
 			foreach($xml2array['item'] as $item){
 				if($i == $itemNo){
