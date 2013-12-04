@@ -235,6 +235,8 @@ class B2CManageAction extends CommonAction{
 		$xianlu['ertongshoujia'] = $xianlu['shoujia'];
 		$xianlu['mudidi'] = $item['@attributes']['arrive'];
 		$xianlu['chufadi'] = $item['@attributes']['departure'];
+		if(!$xianlu['chufadi'])
+			$xianlu['chufadi'] = '无';
 		$xianlu['baomingjiezhi'] = 1;
 		$xianlu['quankuanriqi'] = 1;
 		$xianlu['renshu'] = $item['advanceday'];
