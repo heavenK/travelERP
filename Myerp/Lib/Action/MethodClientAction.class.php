@@ -145,6 +145,7 @@ class MethodClientAction extends CommonAction{
 				//生成
 				$getres = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
 				
+				dump(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
 				dump($getres);
 				
 				
