@@ -144,11 +144,6 @@ class MethodClientAction extends CommonAction{
 				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
 				//生成
 				$getres = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
-				
-				dump(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
-				dump($getres);
-				
-				
 				if($getres['error']){
 					if($returntype == 1)
 						$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
@@ -163,9 +158,6 @@ class MethodClientAction extends CommonAction{
 					else
 						return false;
 				}
-				
-				dump($serverdataID);
-				
 				$xianlu['xianlu']['serverdataID'] = $serverdataID;
 				$xianlu['chanpinID'] = $v;
 				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
