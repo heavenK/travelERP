@@ -158,6 +158,7 @@ class B2CManageAction extends CommonAction{
 	//解析xml inter
     public function _xml2chanpin_inter($xml2array,$item,$xmlNo,$itemNo=1,$xmlcount) {
 		//检查线路
+		C('TOKEN_ON',false);
 		$this->_checksamexianlu($xml2array,$item,$xmlNo,$itemNo,$xmlcount);
 		$Chanpin = D("Chanpin");
 		$chanpin = $this->_fill2chanpin($item);
@@ -176,6 +177,7 @@ class B2CManageAction extends CommonAction{
 			$this->_wait4server($url,$msg);
 		}
 		else{
+			dump($Chanpin);
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }
