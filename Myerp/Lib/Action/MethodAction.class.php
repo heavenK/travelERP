@@ -3006,6 +3006,7 @@ class MethodAction extends CommonAction{
 		}
 		else{
 			
+			dump($baozhang);
 			dump('test');
 			exit;
 			$this->display('Chanpin:zituanbaozhang');
