@@ -1581,6 +1581,12 @@ class MethodAction extends CommonAction{
 	 
 	//检查数据审核任务OM
      public function _checkOMTaskShenhe($dataID,$datatype,$no_om=0) {
+		 if($no_om == 1){
+			 
+			return; 
+		 }
+		 
+		 
 		 
 	 	//流程
 		$process = $this->_getTaskDJC($dataID,$datatype);
