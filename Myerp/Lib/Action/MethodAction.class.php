@@ -2923,6 +2923,10 @@ class MethodAction extends CommonAction{
 			$this->assign("markpos",'签证报账单');
 		}
 		
+		dump("test");
+		exit;
+		
+		
 		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
 		$this->assign("baozhang_data",$baozhang);
