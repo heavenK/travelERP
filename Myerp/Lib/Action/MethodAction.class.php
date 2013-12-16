@@ -1580,7 +1580,7 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//检查数据审核任务OM
-     public function _checkOMTaskShenhe($dataID,$datatype) {
+     public function _checkOMTaskShenhe($dataID,$datatype,$no_om=0) {
 		 
 	 	//流程
 		$process = $this->_getTaskDJC($dataID,$datatype);
@@ -1590,7 +1590,10 @@ class MethodAction extends CommonAction{
 				cookie('errormessage','错误！您没有产品审核权限！',30);
 				return false;
 			}
-			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
+			if($no_om == 0)
+				$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
+			else
+				$omdata == true;
 			if(false !== $omdata){
 				if($datatype == '线路')
 				cookie('show_word','批准成团',30);
@@ -1605,25 +1608,28 @@ class MethodAction extends CommonAction{
 			}
 		}
 		else{
-			if(false === $this->_checkShenhe($datatype,1,$this->user['systemID'],$dataID)){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
-				cookie('errormessage','您没有申请审核的权限！',30);
-				return false;
-			}
-			else{
-				
+//			if(false === $this->_checkShenhe($datatype,1,$this->user['systemID'],$dataID)){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+//				cookie('errormessage','您没有申请审核的权限！',30);
+//				return false;
+//			}
+//			else{
 				$Chanpin = D("Chanpin");
 				$data = $Chanpin->where("`chanpinID` = '$dataID'")->find();
 				if(($data['status_shenhe'] != '批准' || ($datatype == '签证' || $datatype == '线路' || $datatype == '地接')) && $data['status'] != '截止'){
-					if($this->_checkShenhe($datatype,2))
-					cookie('show_word','申请审核',30);
+//					if($this->_checkShenhe($datatype,2))
+//						cookie('show_word','申请审核',30);
+//					else
+//						cookie('show_word','批准',30);
+					if($data['status_shenhe'] == '未审核')
+						cookie('show_word','申请审核',30);
 					else
-					cookie('show_word','批准',30);
+						cookie('show_word','批准',30);
 					cookie('show_action','申请',30);
 					return $omdata;
 				}
 				return false;
 			}
-		}
+//		}
 	 }
 	 
 	 
