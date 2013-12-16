@@ -1,3 +1,180 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/skins/default.css" rel="stylesheet" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/artDialog.min.js"></script>
+
+<script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
+<script type="text/javascript">
+
+var actionmethod = '<{$actionmethod}>';
+var SITE_INDEX = '<{:SITE_INDEX}>';
+var parentID = '<{$baozhangID}>';
+function save_baozhang(){
+	if(CheckForm('form1','resultdiv_2'))
+	ThinkAjax.sendForm('form1','<{:SITE_INDEX}><{$actionmethod}>/dopost_baozhang',doComplete,'resultdiv');
+}
+function doComplete(data,status){
+}
+
+function dosetprint(ele,id,p_id)
+{
+	checked = ele.checked;
+	if(checked)
+	value = '不打印';
+	else
+	value = '';
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"<{$actionmethod}>/dopost_baozhangitem/dotype/setprint",
+		data:	"chanpinID="+id+"&is_print="+value+"&parentID="+p_id,
+		success:	function(msg){
+			  ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		  }
+	});
+}
+
+function doeditremark(ele,id,p_id)
+{
+	var remark = jQuery("#remark"+id).val();
+	remark = FixJqText(remark);
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"<{$actionmethod}>/dopost_baozhangitem/dotype/editremark",
+		data:	"chanpinID="+id+"&parentID="+p_id+"&remark="+remark,
+		success:	function(msg){
+			  ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		  }
+	});
+}
+
+function doprint(type){
+	var url = SITE_INDEX+'<{$actionmethod}>/zituanbaozhang/doprint/'+type+'/chanpinID/<{$chanpinID}>/baozhangID/<{$baozhangID}>';
+    //window.open(url,'_blank',"height=500,width=1000,status=yes,toolbar=no,menubar=no,location=no");
+    window.open(url,'_blank');
+}
+
+function exports(type)
+{
+	if(!type)
+	type = 1;
+	window.location.href = SITE_INDEX+'<{$actionmethod}>/zituanbaozhang/export/'+type+'/chanpinID/<{$chanpinID}>/baozhangID/<{$baozhangID}>';
+}
+
+function doshenhe_baozhangitem(dotype,datatype,dataID,title){
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+	});		
+	//ThinkAjax.myloading('resultdiv');
+	act = jQuery("#btshenhe_"+dataID).attr("onclick"); 
+	jQuery("#btshenhe_"+dataID).attr("onclick","alert('正在执行请稍候...')"); 
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"<{$actionmethod}>/doshenhe",
+		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
+		success:function(msg){
+			//scroll(0,0);
+			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
+			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'',shenhe_after,dataID);
+		}
+	});
+}
+
+
+function new_shanghutiaomu(){
+	ThinkAjax.myloading('resultdiv');
+	var title = jQuery("#shanghutiaomu_add").val();
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Index/new_shanghutiaomu",
+		data:	"title="+title,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',add_after);
+		}
+	});
+}
+
+
+function add_after(data,status){
+	if(status == 1){
+		alert("操作成功！！");
+		location.reload();
+	}
+}
+
+function shenhe_after(data,status,info,type,idname){
+	if(status == 1){
+		//alert(data['status_shenhe']+"操作成功！！");
+		//location.reload();
+		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
+		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
+		if(data['dotype'] == '批准')
+		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
+		if(data['dotype'] == '申请' || data['datatype'] == '报账单')
+		setTimeout("location.reload()",2000);		
+	}
+	else{
+		art.dialog.get('id-demo').content(info).time(4000);
+	}
+}
+
+
+function shenhehistory(chanpinID,obj){
+   if(jQuery("#shenhediv").is(":visible")==true){ 
+	  jQuery('#shenhediv').hide();
+	  return ;
+   }
+//    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID);
+    getshenhemessage("index.php?s=/Message/get_BZDshenhemessage/chanpinID/"+chanpinID);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#shenhediv').css({top:objtop , left:objleft });
+	jQuery('#shenhediv').show();
+}
+
+var department = [
+	 <php>foreach($departmentAll as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+var userlist = [
+	 <php>foreach($userAll as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+var shanghutiaomu = [
+	 <php>foreach($shanghutiaomu as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+
+jQuery().ready(function() {
+			//myautocomplete("#shanghutiaomu_add",'商户条目');
+	
+		<php>
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '支出项目') continue;$i++;
+		</php>
+			myautocomplete("#title<{$v[chanpinID]}>",'商户条目');
+		<php>}</php>
+	
+		<php>
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++;
+		if($v[expandtype] == '部门'){
+		</php>
+			myautocomplete("#title<{$v[chanpinID]}>",'部门');
+		 <php>}
+		if($v[expandtype] == '用户'){
+		 </php>
+			myautocomplete("#title<{$v[chanpinID]}>",'用户');
+		 <php>}}</php>
+});
+
+</script>
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> 
