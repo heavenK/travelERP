@@ -597,7 +597,7 @@ jQuery().ready(function() {
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
      
       
-      <php>dump($v['status_shenhe']);dump($v);if($v['status_shenhe'] == '未审核'){</php>
+      <php>if($v['status_shenhe'] == '未审核'){</php>
           <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
       <php>}else{</php>
           <input type="button" class="button" value=" 批准审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
