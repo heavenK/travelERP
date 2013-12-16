@@ -2923,10 +2923,6 @@ class MethodAction extends CommonAction{
 			$this->assign("markpos",'签证报账单');
 		}
 		
-		dump("test");
-		exit;
-		
-		
 		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
 		$this->assign("baozhang",$baozhang);
 		$this->assign("baozhang_data",$baozhang);
@@ -2977,6 +2973,12 @@ class MethodAction extends CommonAction{
 			$this->assign("qianzheng",$qianzheng);
 			$this->assign("datatitle",' : "'.$qianzheng['title'].'"');
 		}
+		
+		dump("test");
+		exit;
+		
+		
+		
 		//签字
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
