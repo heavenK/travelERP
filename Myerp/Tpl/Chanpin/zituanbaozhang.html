@@ -596,33 +596,6 @@ jQuery().ready(function() {
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
      
-<!--      
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}}else{</php>
-      <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
-      <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
-      <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" class="button" value="审核" onclick="alert('<{$alterword}>')" >
-      <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
-	  <php>}else{</php>
-          <php>if($baozhang['status_shenhe'] == '批准'){</php>
-      <input type="button" class="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
-          <php>}elseif($v['status_shenhe'] == '批准'){</php>
-      <input type="button" class="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
-          <php>}else{</php>
-      <input type="button" class="button" value="回退" onclick="alert('已经回退！')" >
-          <php>}</php>
-	  <php>}</php>
--->      
       
       <php>if($v['status_shenhe'] == '未审核'){</php>
           <input type="button" class="button" value=" 批准审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
@@ -729,5 +702,34 @@ jQuery().ready(function() {
     </tbody>
   </table>
 </div>
+
+<!--      
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}}else{</php>
+      <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
+      <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
+      <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
+      <input type="button" class="button" value="审核" onclick="alert('<{$alterword}>')" >
+      <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
+      <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+	  <php>}else{</php>
+          <php>if($baozhang['status_shenhe'] == '批准'){</php>
+      <input type="button" class="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
+          <php>}elseif($v['status_shenhe'] == '批准'){</php>
+      <input type="button" class="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
+          <php>}else{</php>
+      <input type="button" class="button" value="回退" onclick="alert('已经回退！')" >
+          <php>}</php>
+	  <php>}</php>
+-->      
+
 
 <tp:includeCA file="Index:footer" />
