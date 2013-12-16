@@ -2973,16 +2973,17 @@ class MethodAction extends CommonAction{
 			$this->assign("qianzheng",$qianzheng);
 			$this->assign("datatitle",' : "'.$qianzheng['title'].'"');
 		}
+		//签字
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
+		$this->assign("task",$task);
+		
 		
 		dump("test");
 		exit;
 		
 		
 		
-		//签字
-		$ViewTaskShenhe = D("ViewTaskShenhe");
-		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
-		$this->assign("task",$task);
 		//打印
 		if($_REQUEST['doprint'] || $_REQUEST['export']){
 			  if($baozhang['status_shenhe'] == '批准'){
