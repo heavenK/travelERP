@@ -2977,13 +2977,6 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$task = $ViewTaskShenhe->where("`dataID` = '$baozhangID' and `datatype` = '报账单' and `status` != '待检出' and `status_system` = '1'")->order("processID asc ")->findall();
 		$this->assign("task",$task);
-		
-		
-		dump("test");
-		exit;
-		
-		
-		
 		//打印
 		if($_REQUEST['doprint'] || $_REQUEST['export']){
 			  if($baozhang['status_shenhe'] == '批准'){
@@ -3012,6 +3005,15 @@ class MethodAction extends CommonAction{
 			exit;
 		}
 		else{
+			
+		
+		
+		dump("test");
+		exit;
+		
+		
+		
+			
 			$this->display('Chanpin:zituanbaozhang');
 		}
 		
