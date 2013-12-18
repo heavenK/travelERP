@@ -11,7 +11,7 @@ function doshenhe(dotype){
 		url:	SITE_INDEX+"Chanpin/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',chanpinshenhe_after);
 		}
 	});
 }
@@ -25,14 +25,14 @@ function dotest(dotype){
 		url:	SITE_INDEX+"Chanpin/dotest",
 		data:	"chanpinID="+chanpinID+"&datatype="+datatype,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',chanpinshenhe_after);
 		}
 	});
 }
 
 
 
-function shenhe_after(data,status){
+function chanpinshenhe_after(data,status){
 	if(status == 1){
 		alert(data['status_shenhe']+"操作成功！！");
 		location.reload();
