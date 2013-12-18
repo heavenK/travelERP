@@ -118,7 +118,7 @@ function shenhe_after(data,status,info,type,idname){
 		if(data['dotype'] == '申请' || data['datatype'] == '报账单')
 		setTimeout("location.reload()",2000);		
 	}
-	else{
+	if(status == 0){
 		alert(info);
 		//art.dialog.get('id-demo').content(info).time(4000);
 	}
