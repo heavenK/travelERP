@@ -76,7 +76,6 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		url:	SITE_INDEX+"<{$actionmethod}>/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-		alert(msg);
 			//scroll(0,0);
 			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
 			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
@@ -109,7 +108,6 @@ function add_after(data,status){
 }
 
 function shenhe_after(data,status,info,type,idname){
-	alert(status)
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
@@ -120,8 +118,7 @@ function shenhe_after(data,status,info,type,idname){
 		if(data['dotype'] == '申请' || data['datatype'] == '报账单')
 		setTimeout("location.reload()",2000);		
 	}
-	if(status == 0){
-		//alert(info);
+	else{
 		art.dialog.get('id-demo').content(info).time(4000);
 	}
 }
