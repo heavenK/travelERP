@@ -76,6 +76,7 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		url:	SITE_INDEX+"<{$actionmethod}>/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
+		alert(msg);
 			//scroll(0,0);
 			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
 			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
