@@ -111,7 +111,7 @@ function shenhe_after(data,status,info,type,idname){
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
-		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
+		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！!！").time(2000);
 		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
 		if(data['dotype'] == '批准')
 		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
