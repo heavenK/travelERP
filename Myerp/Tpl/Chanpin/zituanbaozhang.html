@@ -78,8 +78,8 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		success:function(msg){
 			//scroll(0,0);
 			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
-			//ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
-			ThinkAjax.myAjaxResponse(msg,'',shenhe_after,dataID);
+			//ThinkAjax.myAjaxResponse(msg,'resultdiv',baozhangshenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'',baozhangshenhe_after,dataID);
 		}
 	});
 }
@@ -107,7 +107,7 @@ function add_after(data,status){
 	}
 }
 
-function shenhe_after(data,status,info,type,idname){
+function baozhangshenhe_after(data,status,info,type,idname){
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
