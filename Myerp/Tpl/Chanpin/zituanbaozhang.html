@@ -108,6 +108,7 @@ function add_after(data,status){
 }
 
 function shenhe_after(data,status,info,type,idname){
+	alert(status)
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
@@ -119,8 +120,8 @@ function shenhe_after(data,status,info,type,idname){
 		setTimeout("location.reload()",2000);		
 	}
 	if(status == 0){
-		alert(info);
-		//art.dialog.get('id-demo').content(info).time(4000);
+		//alert(info);
+		art.dialog.get('id-demo').content(info).time(4000);
 	}
 }
 
