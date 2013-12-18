@@ -3054,7 +3054,7 @@ class MethodAction extends CommonAction{
 		else{
 			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
 			if(false === $need){
-				$this->ajaxReturn($_REQUEST, '您没有操作权限!!!！', 1);
+				$this->ajaxReturn($_REQUEST, '您没有操作权限!!!！', 2);
 			}
 			$processID = $need['processID'];
 			if($this->_checkShenhe($_REQUEST['datatype'],$processID+1))
