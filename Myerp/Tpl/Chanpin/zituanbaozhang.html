@@ -111,7 +111,7 @@ function baozhangshenhe_after(data,status,info,type,idname){
 	if(status == 1){
 		//alert(data['status_shenhe']+"操作成功！！");
 		//location.reload();
-		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！!！").time(2000);
+		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
 		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
 		if(data['dotype'] == '批准')
 		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
@@ -497,6 +497,7 @@ jQuery().ready(function() {
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
               <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
@@ -584,6 +585,7 @@ jQuery().ready(function() {
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
               <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
@@ -667,6 +669,7 @@ jQuery().ready(function() {
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
               <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;"></td>
           <td scope="row" align="left" valign="top"></td>
