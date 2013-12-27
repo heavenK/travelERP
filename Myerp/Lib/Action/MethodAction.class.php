@@ -136,6 +136,10 @@ class MethodAction extends CommonAction{
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
 			
+		
+		dump($where['status_system']);	
+			
+			
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
