@@ -132,8 +132,6 @@ class MethodAction extends CommonAction{
 			}
 			$where['datatype'] = $datatype;
 		}
-		$where = $this->_facade($class_name,$where);//过滤搜索项
-		$where = $this->_openAndManage_filter($where);
 		//查询状态下有效
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
@@ -145,6 +143,8 @@ class MethodAction extends CommonAction{
 			$where['omtype'] = $type;
 		else
 			$where['type'] = $type;
+		$where = $this->_facade($class_name,$where);//过滤搜索项
+		$where = $this->_openAndManage_filter($where);
 //		if($status_system != -1)
 //		$where .= "AND (`status_system` = '1')";
 		$DataOM = D($class_name);
