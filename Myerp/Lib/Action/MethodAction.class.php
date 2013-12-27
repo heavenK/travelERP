@@ -135,6 +135,7 @@ class MethodAction extends CommonAction{
 		//查询状态下有效
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
+			
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
@@ -144,11 +145,7 @@ class MethodAction extends CommonAction{
 		else
 			$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
-		//$where = $this->_openAndManage_filter($where);
-		
-		dump($class_name);
-		dump($where);
-		
+		$where = $this->_openAndManage_filter($where);
 //		if($status_system != -1)
 //		$where .= "AND (`status_system` = '1')";
 		$DataOM = D($class_name);

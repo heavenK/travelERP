@@ -711,6 +711,13 @@ class XiaoshouAction extends Action{
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat)){
 			//相应审核任务
 			A('Method')->_taskshenhe_delete($_REQUEST['dingdanID'],'订单');
+			//开放删除
+			$DataOM = D("DataOM");
+			$where_om['dataID'] = $dingdanID;
+			$where_om['datatype'] = '订单';
+			$where_om['status'] = array('neq','指定');
+			$DataOM->where($where_om)->delete();
+
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
