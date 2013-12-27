@@ -150,6 +150,7 @@ class MethodAction extends CommonAction{
 
 			
 		
+		dump($where);	
 		dump($where['status_system']);	
 			
 			
