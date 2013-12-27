@@ -135,11 +135,6 @@ class MethodAction extends CommonAction{
 		//查询状态下有效
 		if($where['status_system'] != -1)
 			$where['status_system'] =  array('eq',1);//默认
-			
-		
-		dump($where['status_system']);	
-			
-			
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
@@ -152,6 +147,13 @@ class MethodAction extends CommonAction{
 		$where = $this->_openAndManage_filter($where);
 //		if($status_system != -1)
 //		$where .= "AND (`status_system` = '1')";
+
+			
+		
+		dump($where['status_system']);	
+			
+			
+
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
