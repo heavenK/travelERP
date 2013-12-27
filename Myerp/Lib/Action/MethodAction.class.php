@@ -146,6 +146,7 @@ class MethodAction extends CommonAction{
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		//$where = $this->_openAndManage_filter($where);
 		
+		dump($class_name);
 		dump($where);
 		
 //		if($status_system != -1)
