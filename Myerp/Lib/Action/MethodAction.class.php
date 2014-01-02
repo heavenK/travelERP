@@ -2532,20 +2532,26 @@ class MethodAction extends CommonAction{
 		$ComID = $this->_getComIDbyUser($username);//行政公司ID
 		if(!$ComID)
 		  return false;
+		$ViewRoles = D("ViewRoles");
+		$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 		if($bumenID){//直接开放到部门
-			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
-				foreach($my_durlist as $v){
-					if($v['bumenID'] == $bumenID){
-						$durlist[0] = $v;
-						$mark_has = 1;
-						break;
-					}
-				}
-				if($mark_has != 1)
-					return false;
-			}
-			else
-			return false;
+			//用户必须拥有该部门角色
+//			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
+//				foreach($my_durlist as $v){
+//					if($v['bumenID'] == $bumenID){
+//						$durlist[0] = $v;
+//						$mark_has = 1;
+//						break;
+//					}
+//				}
+//				if($mark_has != 1)
+//					return false;
+//			}
+//			else
+//			return false;
+			//不必拥有
+			$durlist[0]['bumenID'] = $bumenID;
+			$durlist[0]['rolesID'] = $r_jidiao['systemID'];
 		}
 		else{//获得角色DUR列表
 			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
@@ -2556,11 +2562,8 @@ class MethodAction extends CommonAction{
 			$dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			$i++;
 		}
-		
 		//判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
 		if($this->_checkbumenshuxing('联合体,办事处','',$username)){
-			$ViewRoles = D("ViewRoles");
-			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 			$dataOMlist[$i]['DUR'] = $ComID.','.$r_jidiao['systemID'].',';//匹配公司计调
 		}
 		else{
