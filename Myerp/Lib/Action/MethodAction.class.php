@@ -1079,8 +1079,11 @@ class MethodAction extends CommonAction{
 		//父级部门获得子级部门列表
 		$data = $this->_get_parent_bumen($data);
 		
-		if($this->user['title'] == '测试用户01')
+		if($this->user['title'] == '测试用户01'){
 			dump($data);
+			
+		exit;	
+		}
 		
 		if($bumentype){//过滤部门类型
 			$bumentypelist = explode(',',$bumentype);
