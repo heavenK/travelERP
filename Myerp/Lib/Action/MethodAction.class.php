@@ -1105,7 +1105,7 @@ class MethodAction extends CommonAction{
 		$n_data = $data;
 		foreach($data as $v){
 			$new_v = $v;
-			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]'")->findall();
+			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `type` != '行政'")->findall();
 			$n_i = count($n_data);
 			foreach($bumenall as $vol){
 				$new_v['bumenID'] = $vol['systemID'];
