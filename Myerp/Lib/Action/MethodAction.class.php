@@ -1071,8 +1071,10 @@ class MethodAction extends CommonAction{
 		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
 		else
 		$data = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
+		$ViewDepartment = D("ViewDepartment");
+		//父级部门获得子级部门列表
+		$data = $this->_get_parent_bumen($data);
 		if($bumentype){//过滤部门类型
-			$ViewDepartment = D("ViewDepartment");
 			$bumentypelist = explode(',',$bumentype);
 			$m = 0;
 			foreach($data as $v){
@@ -1094,6 +1096,24 @@ class MethodAction extends CommonAction{
 			return $data_2;
 		}
 		return $data;
+	 }
+	 
+	 
+	//子方法 
+     public function _get_parent_bumen($data) {
+		$ViewDepartment = D("ViewDepartment");
+		$n_data = $data;
+		foreach($data as $v){
+			$new_v = $v;
+			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]'")->findall();
+			$n_i = count($n_data);
+			foreach($bumenall as $vol){
+				$new_v['bumenID'] = $vol['systemID'];
+				$n_data[$n_i] = $new_v;
+				$n_i++;
+			}
+		}
+		return $n_data;
 	 }
 	 
 	 
@@ -4768,7 +4788,7 @@ class MethodAction extends CommonAction{
 			//公司范围控制
 			$username = $this->user['title'];
 			$ComID = $this->_getComIDbyUser($username);
-			$d = $ViewDepartment->where("`title` = '$bumentitle' AND `parentID` = '$ComID'")->find();
+			$d = $ViewDepartment->where("`title` = '$bumentitle' AND `companyID` = '$ComID'")->find();
 			$all = $ViewSystemDUR->where("`bumenID` = '$d[systemID]'")->findall();
 		}
 		$i = 0;
