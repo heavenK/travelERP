@@ -146,12 +146,6 @@ class MethodAction extends CommonAction{
 			$where['type'] = $type;
 		$where = $this->_facade($class_name,$where);//过滤搜索项
 		$where = $this->_openAndManage_filter($where);
-		
-		if($this->user['title'] == '测试用户01'){
-			dump($where);
-		
-		}
-		
 //		if($status_system != -1)
 //		$where .= "AND (`status_system` = '1')";
 		$DataOM = D($class_name);
