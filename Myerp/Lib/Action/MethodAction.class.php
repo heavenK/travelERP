@@ -1073,7 +1073,7 @@ class MethodAction extends CommonAction{
 		$data = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
 		$ViewDepartment = D("ViewDepartment");
 		//父级部门获得子级部门列表
-		$data = $this->_get_child_bumen($data);
+		//$data = $this->_get_child_bumen($data);
 		if($bumentype){//过滤部门类型
 			$bumentypelist = explode(',',$bumentype);
 			$m = 0;
