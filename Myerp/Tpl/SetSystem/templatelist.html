@@ -923,6 +923,10 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
              <php>foreach($datalist as $v){if(!$v['parentID']){$typearray = explode(',',$v['type']);if(in_array('行政',$typearray)){</php>
                       { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
              <php>}}}</php>
+			 
+             <php>foreach($datalist as $v){if(!$v['status_system'])continue;</php>
+                      { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+             <php>}</php>
          ];
         
         jQuery().ready(function() {
