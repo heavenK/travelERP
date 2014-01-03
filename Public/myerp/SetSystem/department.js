@@ -8,7 +8,7 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"title_t"+i+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" ></form>";
 	htmlcontent += "</td>";
-    htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:80px\" value=\""+parentID+"\" readonly=\"readonly\" ></td>";
+    htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:80px\" value=\""+parentID+"\"></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"组团\" class=\"type_t"+i+"\"/>组团";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"地接\" class=\"type_t"+i+"\"/>地接";

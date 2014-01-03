@@ -926,8 +926,8 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
          ];
         
         jQuery().ready(function() {
-                <php>foreach($datalist as $v){</php>
-                    //myautocomplete("#parentID<{$v[systemID]}>",'部门');
+                <php>foreach($datalist as $v){ if($v['type'] == '行政')continue;</php>
+                    myautocomplete("#parentID<{$v[systemID]}>",'部门');
                  <php>}</php>
         });
 		
@@ -974,7 +974,9 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
       <tr height="40" <php>if($v['islock'] == '已锁定'){</php> style="background-color:#CCCCCC" <php>}</php> class="evenListRowS1" id="itemlist<{$v['systemID']}>">
         <td scope="row" align="left" valign="top" ><{$i}></td>
         <td scope="row" align="left" valign="top"><form id="form<{$v['systemID']}>" ><input type="text" name="title" id="title<{$v['systemID']}>" value="<{$v['title']}>"></form></td>
-        <td scope="row" align="left" valign="top"><input readonly="readonly" type="text" id="parentID<{$v['systemID']}>" style="width:80px" value="<{$v['parentID']}>"></td>
+        
+        
+        <td scope="row" align="left" valign="top"><input type="text" id="parentID<{$v['systemID']}>" style="width:80px" value="<{$v['parentID']}>"></td>
         <td scope="row" align="left" valign="top">
         <ul class="style_ul">
         <php>$typearray = explode(',',$v['type']);</php>
@@ -1041,9 +1043,7 @@ var SITE_INDEX = '<{:SITE_INDEX}>';
         <td scope="row" align="left" valign="top"><{$v['islock']}></td>
         <php>}</php>
         <td scope="row" align="left" valign="top">
-        <php>if(!$parentID){</php>
         <input type="button" class="button" value="部门列表" onClick="showsublist(<{$v[systemID]}>);" />
-        <php>}</php>
         <input type="button" class="button" value="锁定/解锁" onClick="if(window.confirm('要锁定/解锁嗎?')==true)deleteSystemItem(<{$v['systemID']}>,'itemlist')" />
         <input type="button" class="button" value="修改" onClick="if(CheckForm('form<{$v[systemID]}>','resultdiv_2'))save(<{$v['systemID']}>,'itemlist<{$v[systemID]}>');"/>
         </td>

@@ -359,6 +359,10 @@ class SetSystemAction extends CommonAction{
 //				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！！！！！！', 0);
 //			if($_REQUEST['systemID'] == '' && $roles)
 //				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+			//所属部门合法性
+			if($_REQUEST['parentID'] && $_REQUEST['type'] == '行政'){
+				$this->ajaxReturn($_REQUEST, '错误！行政属性部门不可以附属！！', 0);
+			}
 			if(!$_REQUEST['title'])
 				$this->ajaxReturn($_REQUEST, '错误！部门名不能为空！！', 0);
 			$typelist = explode(',',$_REQUEST['type']);
