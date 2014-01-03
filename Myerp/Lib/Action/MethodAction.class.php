@@ -18,7 +18,6 @@ class MethodAction extends CommonAction{
 			$class_name = 'DataOM';
 			$order = 'dataID desc';
 		}
-		
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where = $this->_orderShenheTask($where,$datatype,$relation);
@@ -541,7 +540,7 @@ class MethodAction extends CommonAction{
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
-		$DURlist = $this->_getDURlist($myuserID);
+		$DURlist = $this->_getDURlist($myuserID,'','',1);
 		if($where)
 		$where .= " AND (";
 		else
@@ -1044,28 +1043,28 @@ class MethodAction extends CommonAction{
 	
 	
 	//获得用户部门角色列表
-     public function _getDURlist($userID,$bumen='',$bumentype='') {
+     public function _getDURlist($userID,$bumen='',$bumentype='',$power_right=0) {
 		if($userID)
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
-		return $this->_getDURlist_do($myuserID,$bumen,$bumentype);	
+		return $this->_getDURlist_do($myuserID,$bumen,$bumentype,$power_right);	
 	 }
 	 
 	 
 	 
 	//获得用户部门角色列表
-     public function _getDURlist_name($user_name,$bumen='',$bumentype='') {
+     public function _getDURlist_name($user_name,$bumen='',$bumentype='',$power_right=0) {
 		if(!$user_name)
 			$user_name = $this->user['title'];
 		$ViewUser = D("ViewUser");
 		$user = $ViewUser->where("`title` = '$user_name'")->find();
-		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
+		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype,$power_right);	
 	 }
 	 
 	 
 	 
-     public function _getDURlist_do($myuserID,$bumen,$bumentype) {
+     public function _getDURlist_do($myuserID,$bumen,$bumentype,$power_right) {
 		$ViewSystemDUR = D("ViewSystemDUR");
 		if($bumen)//获得部门关联
 		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
@@ -1073,7 +1072,8 @@ class MethodAction extends CommonAction{
 		$data = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
 		$ViewDepartment = D("ViewDepartment");
 		//父级部门获得子级部门列表
-		//$data = $this->_get_child_bumen($data);
+		if($power_right)
+			$data = $this->_get_child_DUR($data);
 		if($bumentype){//过滤部门类型
 			$bumentypelist = explode(',',$bumentype);
 			$m = 0;
@@ -1100,12 +1100,17 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//子方法 
-     public function _get_child_bumen($data) {
+     public function _get_child_DUR($data) {
 		$ViewDepartment = D("ViewDepartment");
 		$n_data = $data;
 		foreach($data as $v){
+			//过滤行政属性部门
+			$t_b = $ViewDepartment->where("`systemID` = '$v[bumenID]' AND `type` = '行政'")->find();
+			if($t_b)
+				continue;
 			$new_v = $v;
-			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `systemID` <> '$v[bumenID]'")->findall();
+			//$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `systemID` <> '$v[bumenID]'")->findall();
+			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `type` <> '行政'")->findall();
 			$n_i = count($n_data);
 			foreach($bumenall as $vol){
 				$new_v['bumenID'] = $vol['systemID'];
@@ -1658,7 +1663,7 @@ class MethodAction extends CommonAction{
 		if($DURlist == ''){
 			$myuserID = $this->user['systemID'];
 		}
-		$DURlist = $this->_getDURlist($myuserID);
+		$DURlist = $this->_getDURlist($myuserID,'','',1);
 		if($omclass)
 			$DataOM = D($omclass);
 		else
@@ -1782,7 +1787,7 @@ class MethodAction extends CommonAction{
 			if(!$dataID || !$ComID)
 			return false;
 			$myuserID = $userID;
-			$DURlist = $this->_getDURlist($myuserID);
+			$DURlist = $this->_getDURlist($myuserID,'','',1);
 			$ViewRoles = D("ViewRoles");
 			$ViewUser = D("ViewUser");
 			foreach($DURlist as $v){
@@ -2624,7 +2629,7 @@ class MethodAction extends CommonAction{
 	 
 	 //获得OM。自己部门的om
      public function _getmyOMlist($user_name) {
-		 $durlist = $this->_getDURlist_name($user_name);
+		 $durlist = $this->_getDURlist_name($user_name,'','',1);
 		  $i = 0;
 		  foreach($durlist as $v){
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
@@ -2637,9 +2642,9 @@ class MethodAction extends CommonAction{
 	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
      public function _checkRolesByUser($roles,$bumentype,$notmust = '',$userID = '',$user_name = '') {
 		if($user_name)
-			$durlist = $this->_getDURlist_name($user_name);
+			$durlist = $this->_getDURlist_name($user_name,'','',1);
 		else
-			$durlist = $this->_getDURlist($userID);
+			$durlist = $this->_getDURlist($userID,'','',1);
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
