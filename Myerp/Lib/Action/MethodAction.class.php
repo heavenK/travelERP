@@ -1655,8 +1655,9 @@ class MethodAction extends CommonAction{
 	 
 	//检查DataOM
      public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='',$omclass='') {
-		 if($this->user['title'] == 'aaa')
-		 	return true;
+		 
+		if($this->user['title'] == 'aaa')
+		  return true;
 		 
 		if($userID)
 			$myuserID = $userID;

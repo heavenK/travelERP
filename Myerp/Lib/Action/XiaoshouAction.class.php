@@ -502,6 +502,7 @@ class XiaoshouAction extends Action{
 		//检查dataOM
 		$dingdan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'订单','管理');
 		if(false === $dingdan){
+			$this->assign("message",'权限错误');
 			$this->display('Index:error');
 			exit;
 		}
