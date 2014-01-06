@@ -512,6 +512,7 @@ class XiaoshouAction extends Action{
 		if($dingdan['shoujiaID']> 0 && $dingdan['status_baozhang'] != '批准'){
 			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 			if(false === $xiaoshou){
+				$this->assign("message",'权限错误2');
 				$this->display('Index:error');
 				exit;
 			}
