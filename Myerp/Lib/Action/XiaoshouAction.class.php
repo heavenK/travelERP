@@ -508,18 +508,25 @@ class XiaoshouAction extends Action{
 		}
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		if($dingdan['shoujiaID']> 0 ){
+			$ViewShoujia = D("ViewShoujia");
+			$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
+			$this->assign("shoujia",$shoujia);
+		}
 		//检查dataOM
-		if($dingdan['shoujiaID']> 0 && $dingdan['status_baozhang'] != '批准'){
-			$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
-			if(false === $xiaoshou){
-				$this->assign("message",'权限错误2');
-				$this->display('Index:error');
-				exit;
+		$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
+		if(false === $zituanOM){
+			//检查dataOM
+			if($dingdan['status_baozhang'] != '批准'){
+				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
+				if(false === $xiaoshou){
+					$this->assign("message",'权限错误2');
+					$this->display('Index:error');
+					exit;
+				}
 			}
 		}
-		$ViewShoujia = D("ViewShoujia");
-		$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
-		$this->assign("shoujia",$shoujia);
+		
 		//提成操作费
 		$ViewDataDictionary = D("ViewDataDictionary");
 		$dingdan['ticheng'] = $ViewDataDictionary->where("`systemID` = '$dingdan[tichengID]'")->find();
