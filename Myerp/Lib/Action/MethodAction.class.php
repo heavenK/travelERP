@@ -1007,9 +1007,9 @@ class MethodAction extends CommonAction{
 		if($type == '用户'){
 			$i=0;
 			foreach($dat as $v){
-				$department = $ViewDepartment->where("`systemID` = '$v[bumenID]' AND (`status_system` = '1')")->find();
+				$department = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
 				$dat[$i]['department'] = $department;
-				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]' AND (`status_system` = '1')")->find();
+				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
 				$dat[$i]['roles'] = $roles;
 				$i++;
 			}
