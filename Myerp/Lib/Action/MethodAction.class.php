@@ -5366,7 +5366,9 @@ class MethodAction extends CommonAction{
 		foreach($taskall as $v){
 			$d['systemID'] = $v['systemID'];
 			$d['status_system'] = -1;
-			$System->save($d);
+			if(!$System->save($d)){
+				dump($System);	
+			}
 		}
 	}
 	
