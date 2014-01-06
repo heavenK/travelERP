@@ -3478,13 +3478,13 @@ class MethodAction extends CommonAction{
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 			//记录
 			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 			$message = '报账项'.$item['shenhe_remark'];
 			$this->_setMessageHistory($item['chanpinID'],'报账项',$message,$url);
 			//相应审核任务
 			A("Method")->_taskshenhe_delete($_REQUEST['chanpinID'],'报账项');
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
@@ -5367,7 +5367,6 @@ class MethodAction extends CommonAction{
 			$d['systemID'] = $v['systemID'];
 			$d['status_system'] = -1;
 			$System->save($d);
-				dump($System);	
 		}
 	}
 	
