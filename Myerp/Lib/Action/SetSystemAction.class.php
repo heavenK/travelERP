@@ -376,9 +376,9 @@ class SetSystemAction extends CommonAction{
 				//公司，部门排他设置（非行政属性部门必须拥有父部门ID）
 				else{
 					if($v != '行政'){
-						$comp = $ViewDepartment->where("`systemID` = '$_REQUEST[parentID]' and `type` = '行政' and `status_system` = 1")->find();
-						if(!$comp)
-							$this->ajaxReturn($_REQUEST, '属于公司不存在！！', 0);
+//						$comp = $ViewDepartment->where("`systemID` = '$_REQUEST[parentID]' and `type` = '行政' and `status_system` = 1")->find();
+//						if(!$comp)
+//							$this->ajaxReturn($_REQUEST, '属于公司不存在！！', 0);
 						//标记公司ID
 						$data['companyID'] = $_REQUEST['parentID'];
 					}
