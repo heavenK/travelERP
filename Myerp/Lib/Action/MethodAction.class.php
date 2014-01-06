@@ -5363,7 +5363,9 @@ class MethodAction extends CommonAction{
 		$System = D("System");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
-		dump($taskall);
+		dump($dataID);
+		dump($datatype);
+		dump($ViewTaskShenhe);
 		foreach($taskall as $v){
 			$d['systemID'] = $v['systemID'];
 			$d['status_system'] = -1;
