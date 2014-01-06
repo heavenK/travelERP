@@ -3057,9 +3057,8 @@ class MethodAction extends CommonAction{
 		}
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
-			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
 			//相应审核任务
-			A("Method")->_taskshenhe_delete($_REQUEST['chanpinID'],'报账单');
+			A("Method")->_taskshenhe_delete($baozhang['chanpinID'],'报账单');
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
