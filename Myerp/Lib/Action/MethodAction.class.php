@@ -4855,16 +4855,51 @@ class MethodAction extends CommonAction{
 			if($cp){
 				if($cp['marktype'] == 'xianlu')
 					$omtype = '线路';
-				if($cp['marktype'] == 'zituan')
-					$omtype = '子团';
+				if($cp['marktype'] == 'zituan'){
+					//$omtype = '子团';
+					$lvyouchanpin = $cp;
+					$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+					$omtype = '线路';
+					$cp['user_name'] = $lvyouchanpin['user_name'];
+				}
+				if($cp['marktype'] == 'baozhang'){
+					//$omtype = '报账单';
+					$bzd = $cp;
+					$lvyouchanpin = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+					if($lvyouchanpin){
+						if($lvyouchanpin['marktype'] == 'zituan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+							$omtype = '线路';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+						if($lvyouchanpin['marktype'] == 'DJtuan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['chanpinID'];
+							$omtype = '地接';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+					}
+				}
+				if($cp['marktype'] == 'baozhangitem'){
+					$omtype = '报账项';
+					$bzd = $Chanpin->where("`chanpinID` = '$cp[parentID]'")->find();
+					$lvyouchanpin = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+					if($lvyouchanpin){
+						if($lvyouchanpin['marktype'] == 'zituan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+							$omtype = '线路';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+						if($lvyouchanpin['marktype'] == 'DJtuan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['chanpinID'];
+							$omtype = '地接';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+					}
+				}
 				if($cp['marktype'] == 'qianzheng')
 					$omtype = '签证';
 				if($cp['marktype'] == 'DJtuan')
 					$omtype = '地接';
-				if($cp['marktype'] == 'baozhang')
-					$omtype = '报账单';
-				if($cp['marktype'] == 'baozhangitem')
-					$omtype = '报账项';
 				$this->_OMRcreate($_REQUEST['chanpinID'],$omtype,$cp['user_name']);
 			}
 			else
