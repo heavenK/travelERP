@@ -541,6 +541,7 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function hetong() {
+		$this->assign("navposition",'信息');
 		A('Method')->unitlist();
 		if($_REQUEST['listtype'] == '删除')
 			$_REQUEST['status_system'] = -1;
@@ -610,6 +611,7 @@ class CaiwuAction extends CommonAction{
 	
 
 	public function hetongHistory() {
+		$this->assign("navposition",'信息');
 		$_REQUEST['chanpintype'] = '合同';
 		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$_REQUEST);
 		if($_REQUEST['returntype'] == 'dialog'){
