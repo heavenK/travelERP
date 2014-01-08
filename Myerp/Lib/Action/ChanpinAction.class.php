@@ -1037,6 +1037,8 @@ class ChanpinAction extends CommonAction{
 			}else{
 				$ViewShoujia = D("ViewShoujia");
 				$i=0;
+				$str_list .= '
+				<input type="hidden" name="parentID" value="'.$v.'"/>';
 				foreach($tiaojia_list as $vol){
 					$shoujia = $ViewShoujia->where("`chanpinID` = '$vol[shoujiaID]'")->find();
 					$shoujia = A("Method")->_fenlei_filter_one($shoujia);
