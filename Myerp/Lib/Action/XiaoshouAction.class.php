@@ -606,6 +606,9 @@ class XiaoshouAction extends Action{
 				}
 			}
 		}
+		else{
+			$this->ajaxReturn($_REQUEST, '错误，订单已过审核，不许修改！', 0);
+		}
 		
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
