@@ -4728,6 +4728,7 @@ class MethodAction extends CommonAction{
 						$i++;
 					}
 					$dataOMlist[$i]['DUR'] = $departmentID.',,';//开放至部门
+					$dataOMlist[$i+1]['DUR'] = ',,'.$user_name;//开放至个人
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
 				}
 				if($datatype == '报账单'){
