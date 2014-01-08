@@ -592,12 +592,12 @@ class XiaoshouAction extends Action{
 		}
 		
 		$ViewDingdan = D("ViewDingdan");
-		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
 		//检查dataOM
-		$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
-		if(false === $zituanOM){
+		if($dingdan['status_baozhang'] != '批准'){
 			//检查dataOM
-			if($dingdan['status_baozhang'] != '批准'){
+			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
+			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 				if(false === $xiaoshou){
 					$this->assign("message",'权限错误2');
@@ -606,7 +606,6 @@ class XiaoshouAction extends Action{
 				}
 			}
 		}
-		
 		
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
