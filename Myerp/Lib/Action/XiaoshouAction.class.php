@@ -509,8 +509,10 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->relation("zituanlist")->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
 		if($dingdan['shoujiaID']> 0 ){
-			$ViewShoujia = D("ViewShoujia");
-			$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
+//			$ViewShoujia = D("ViewShoujia");
+			//$shoujia = $ViewShoujia->where("`chanpinID` = '$dingdan[shoujiaID]'")->find();
+			//修正
+			$shoujia = A("Method")->_zhidingxiaoshou_xiuzheng($dingdan['shoujiaID'],$dingdan['parentID']);
 			$this->assign("shoujia",$shoujia);
 		}
 		//提成操作费
