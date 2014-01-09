@@ -2188,9 +2188,11 @@ class MethodAction extends CommonAction{
 			}
 		}
 		$Chanpin = D("Chanpin");
-		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]' AND (`status_system` = '1')")->find();
+//		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]' AND (`status_system` = '1')")->find();
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();
+		//修正
+		$shoujia = $this->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$dingdan['parentID']);
 		$DataCD = D("DataCD");
 		$ViewCustomer = D("ViewCustomer");
 		$DataCD->startTrans();
@@ -5544,7 +5546,7 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	//判断超级管理员
+	//价格修正,shoujiaID和子团ID
 	public function _zhidingxiaoshou_xiuzheng($shoujiaID,$chanpinID){
 		$ViewShoujia = D("ViewShoujia");
 		$shoujia = $ViewShoujia->where("`chanpinID` = '$shoujiaID'")->find();
