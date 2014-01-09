@@ -57,9 +57,10 @@ class FiledataModel extends RelationModel {
 		if($departmentID != '')
 			return $departmentID;
 		else{
-			$role = A("Method")->_checkRolesByUser('财务','行政',1);
-			dump($role);
-			return $role[0]['bumenID'];
+			//需求财务权限
+//			$role = A("Method")->_checkRolesByUser('财务','行政',1);
+//			return $role[0]['bumenID'];
+			return NF_getmydepartmentid($chanpinID);
 		}
 	}
 	

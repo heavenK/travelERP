@@ -579,7 +579,6 @@ class CaiwuAction extends CommonAction{
 		foreach($_REQUEST['bianhao'] as $v){
 			$hetong['hetong']['bianhao'] = $v;
 			if(false === $Filedada->relation("hetong")->myRcreate($hetong)){
-				dump($Filedada);
 				$this->ajaxReturn($_REQUEST, '失败', 0);
 			}
 		}
