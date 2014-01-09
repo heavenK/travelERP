@@ -58,6 +58,7 @@ class FiledataModel extends RelationModel {
 			return $departmentID;
 		else{
 			$role = A("Method")->_checkRolesByUser('财务','行政',1);
+			dump($role);
 			return $role[0]['bumenID'];
 		}
 	}
