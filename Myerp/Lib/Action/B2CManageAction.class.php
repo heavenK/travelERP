@@ -194,9 +194,10 @@ class B2CManageAction extends CommonAction{
 		$where['supplier_lineid'] = $item['@attributes']['lineid'];
 		if($ViewXianlu->where($where)->find()){
 			//跳转
+			$t = $itemN - 1;
 			$url = SITE_INDEX.'B2CManage/zhongXinInterface/xmlNo/'.$xmlNo.'/itemNo/'.$itemNo;
 			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
-			$msg .= '已跳过'.$xmlNo.'组第'.($itemNo-1).'条线路!!!';
+			$msg .= '已跳过'.$xmlNo.'组第'.$t.'条线路!!!<br/>';
 			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
 			$this->_wait4server($url,$msg);
 		}
