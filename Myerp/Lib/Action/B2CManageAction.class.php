@@ -213,6 +213,8 @@ class B2CManageAction extends CommonAction{
     public function _fill2chanpin() {
 		$chanpin['user_name'] = '电商采购';
 		$d = A("Method")->_getDepartmentByTitle('电子商务中心');
+		if(!$d)
+			$this->ajaxReturn('', '发生错误!电商部门错误', 0);
 		$chanpin['departmentID'] = $d['systemID'];
 		return $chanpin;
     }
