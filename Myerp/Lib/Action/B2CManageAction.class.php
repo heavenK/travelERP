@@ -245,16 +245,16 @@ class B2CManageAction extends CommonAction{
 		$xianlu['ertongshoujia'] = $xianlu['shoujia'];
 		$xianlu['mudidi'] = $item['@attributes']['arrive'];
 		$xianlu['chufadi'] = $item['@attributes']['departure'];
-//		if(!$xianlu['chufadi'])
-//			$xianlu['chufadi'] = '无';
+		if(!$xianlu['chufadi'])
+			$xianlu['chufadi'] = '无';
 		$xianlu['baomingjiezhi'] = 1;
 		$xianlu['quankuanriqi'] = 1;
 		$xianlu['renshu'] = $item['advanceday'];
-//		if(!$xianlu['renshu'])
-//			$xianlu['renshu'] = 30;
+		if(!$xianlu['renshu'])
+			$xianlu['renshu'] = 30;
 		$xianlu['tianshu'] = $item['@attributes']['itineraryDay'];
-//		if(!$xianlu['tianshu'])
-//			$xianlu['tianshu'] = 99;
+		if(!$xianlu['tianshu'])
+			$xianlu['tianshu'] = 99;
 		$xianlu['zhuti'] = $item['@attributes']['subject'];
 		//日期
 		$chutuanriqi = '';
@@ -278,8 +278,8 @@ class B2CManageAction extends CommonAction{
 		$xianlu['xingchengtese'] = $xingchengtese;
 		$xianlu['cantuanxuzhi'] = '以本团要求为准';
 		$xianlu['kind'] = $item['@attributes']['type'];
-//		if(!$xianlu['kind'])
-//			$xianlu['kind'] = '无';
+		if(!$xianlu['kind'])
+			$xianlu['kind'] = '无';
 		//其他数据
 		$xianlu['zhongxindatatext']['@attributes'] = $item['@attributes'];
 		$xianlu['zhongxindatatext']['routeDates'] = $item['routeDates'];
