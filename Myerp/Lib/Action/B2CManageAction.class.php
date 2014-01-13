@@ -178,11 +178,10 @@ class B2CManageAction extends CommonAction{
 		}
 		else{
 			//跳转错误
-			$url = SITE_INDEX.'B2CManage/zhongXinInterface/xmlNo/'.$xmlNo.'/itemNo/'.$itemNo;
-			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
-			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
-			$this->_wait4server($url,$msg);
-			
+//			$url = SITE_INDEX.'B2CManage/zhongXinInterface/xmlNo/'.$xmlNo.'/itemNo/'.$itemNo;
+//			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
+//			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
+//			$this->_wait4server($url,$msg);
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }
@@ -197,6 +196,7 @@ class B2CManageAction extends CommonAction{
 			//跳转
 			$url = SITE_INDEX.'B2CManage/zhongXinInterface/xmlNo/'.$xmlNo.'/itemNo/'.$itemNo;
 			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
+			$msg .= '已跳过'.$xmlNo.'组第'.($itemNo-1).'条线路!!!';
 			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
 			$this->_wait4server($url,$msg);
 		}
