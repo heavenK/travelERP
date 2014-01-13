@@ -212,7 +212,7 @@ class B2CManageAction extends CommonAction{
 	//填充chanpin
     public function _fill2chanpin() {
 		$chanpin['user_name'] = '电商采购';
-		$d = A("Method")->_getDepartmentByTitle('直营-电子商务营业部');
+		$d = A("Method")->_getDepartmentByTitle('电子商务中心');
 		$chanpin['departmentID'] = $d['systemID'];
 		return $chanpin;
     }
@@ -291,7 +291,7 @@ class B2CManageAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		$dat['parentID'] = $parentID;
 		$dat['user_name'] = '电商采购';
-		$d = A("Method")->_getDepartmentByTitle('直营-电子商务营业部');
+		$d = A("Method")->_getDepartmentByTitle('电子商务中心');
 		$dat['departmentID'] = $d['systemID'];
 		if(count($item['miscellaneous']['itineraryDay'])>1){
 			$i = 0;

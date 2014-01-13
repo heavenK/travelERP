@@ -1257,7 +1257,7 @@ class ChanpinAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
 		//电商部
 		$ViewDepartment = D("ViewDepartment");
-		$dep = $ViewDepartment->where("`title` = '直营-电子商务营业部'")->find();
+		$dep = $ViewDepartment->where("`title` = '电子商务中心'")->find();
 		$ViewRoles = D("ViewRoles");
 		$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
 		$dataOMlist[0]['DUR'] = $dep['systemID'].','.$r_jidiao['systemID'].',';
