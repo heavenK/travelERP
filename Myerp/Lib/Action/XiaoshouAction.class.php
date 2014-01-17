@@ -39,7 +39,7 @@ class XiaoshouAction extends Action{
 				$tuanrenshu = A("Method")->_getzituandingdan($zt['chanpinID'],$v['chanpinID']);
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
-				$baoming_renshu[$zt['chanpinID']] += $tuanrenshu['baomingrenshu'];
+				$baoming_renshu[$zt['chanpinID']] = $tuanrenshu['baomingrenshu'];
 				$zituan[$jj]['shoujia_renshu'] = $tuanrenshu['shoujiarenshu'];
 				if(($zt['renshu'] - $baomingrenshu) < ($shoujia['renshu'] - $shoujia_renshu))
 				$zituan[$jj]['shengyurenshu'] = $zt['renshu'] - $baomingrenshu;
@@ -449,12 +449,11 @@ class XiaoshouAction extends Action{
 			$jiage += $_REQUEST['price'.$i];
 		}
 		$data['dingdan']['jiage'] = $jiage;
-		if($dingdan = A("Method")->_dingdansave_process($data,$this->user['title'])){
-			if($dingdan)
+		$dingdan = A("Method")->_dingdansave_process($data,$this->user['title']);
+		if($dingdan)
 			redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdan['chanpinID']);
-		}
-		justalert(cookie('errormessage'));
-		gethistoryback();
+//		justalert(cookie('errormessage'));
+//		gethistoryback();
 	}
 	
 	

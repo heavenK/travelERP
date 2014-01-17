@@ -182,9 +182,6 @@ class B2CManageAction extends CommonAction{
 //			$msg = '共'.$xmlcount.'组产品,本组'.count($xml2array['item']).'条线路。<br/>';
 //			$msg .= '正在接收第'.$xmlNo.'组第'.$itemNo.'条线路....';
 //			$this->_wait4server($url,$msg);
-			dump($Chanpin);
-			$error_msg = '发生错误!<br>';
-			$error_msg .= '';
 			$this->ajaxReturn($Chanpin, '发生错误!', 0);
 		}
     }

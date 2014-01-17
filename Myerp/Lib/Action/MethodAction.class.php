@@ -4971,12 +4971,63 @@ class MethodAction extends CommonAction{
 	}
 	
 	
+	//检查名单
+	public function _ckeck_customer_list($_REQUEST,$dingdanID) {
+		$Chanpin = D("Chanpin");
+		$ViewDingdan = D("ViewDingdan");
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();
+		//修正
+		$shoujia = $this->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$dingdan['parentID']);
+		$DataCD = D("DataCD");
+		$ViewCustomer = D("ViewCustomer");
+		//清空订单内客户,并重新生成
+		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
+			$cus = '';	
+			$cus['dingdanID'] = $dingdanID;
+			$id = $i+1;
+			if($_REQUEST['tuanyuanID'.$id]){//游客已存在，数据丢失报错
+				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
+				$cus = $DataCD->where("`id` = '$cus[id]'")->find();
+				if(!$cus){
+					$this->ajaxReturn($_REQUEST,'错误，未找到团员ID！', 0);
+				}
+			}
+			else{//游客不存在，数据异常报错
+				$datanum = $DataCD->where("`dingdanID` = '$dingdanID'")->count();
+				if($datanum >= $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num']){
+					$this->ajaxReturn($_REQUEST,'错误，订单团员信息异常！', 0);
+				}
+			}
+			//证件号码池
+			if(in_array($cus['zhengjianhaoma'],$haomalist)){
+				$this->ajaxReturn($_REQUEST,'错误，不允许两个证件号码相同的游客！', 0);
+			}
+			else{
+				$same = $DataCD->where("`dingdanID` = '$dingdanID' and `zhengjianhaoma` = `$cus[zhengjianhaoma]`")->find();
+				if($same){
+					$this->ajaxReturn($_REQUEST,'错误，一个团中，不允许两个证件号码相同的游客！', 0);
+				}
+			}
+			$haomalist[$i] = $cus['zhengjianhaoma'];
+			//价格判断
+			if($cus['manorchild'] == '成人')
+				if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+					$this->ajaxReturn($_REQUEST,'团员'.$cus['name'].'应付超过可折扣范围！', 0);
+				}
+			if($cus['manorchild'] == '儿童')
+				if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+					$this->ajaxReturn($_REQUEST,'团员'.$cus['name'].'应付超过可折扣范围！', 0);
+				}
+		}
+	}
+	
 	
 	
 	//订单存储流程
 	public function _dingdansave_process($data,$username) {
 		$Chanpin = D("Chanpin");
-		$Chanpin->startTrans();
+		//检查名单
+		//$this->_ckeck_customer_list($data,$chanpinID);
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
 			$data['chanpinID'] = $chanpinID;
@@ -4993,15 +5044,12 @@ class MethodAction extends CommonAction{
 						if($zituan['xianlulist']['serverdataID']){
 							$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
 							if($getres['error']){
-								$Chanpin->rollback();
 								return false;
 							}
 						}
 					}
-					$Chanpin->commit();
 				}
 				else{
-					$Chanpin->rollback();
 					return false;
 				}
 			}
