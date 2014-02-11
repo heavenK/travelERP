@@ -1229,6 +1229,7 @@ class ChanpinAction extends CommonAction{
 			redirect(SITE_INDEX."Chanpin/zituanxinxi/chanpinID/".$chanpinID);
 		}
 		if($chanp['marktype'] == 'Djtuan'){
+			echo "DJtuan";
 			redirect(SITE_INDEX."Dijie/fabu/chanpinID/".$chanpinID);
 		}
 		if($chanp['marktype'] == 'baozhang'){

@@ -187,6 +187,25 @@ class IndexAction extends Action{
     }
 	
 	
+    public function test11() {
+		
+		//echo phpinfo();
+		
+		$query = "SELECT * FROM AA_BusObject";
+		$conn=mssql_connect('localhost','sa','123123') or die('数据库连接不上');
+		mssql_select_db('UFDATA_601_2014',$conn);
+		
+		$AdminResult=mssql_query($query);
+		$data = array();
+		while($row = mssql_fetch_array($AdminResult)){
+			$row['cMark'] = iconv('GB2312','UTF-8',$row['cMark']);
+			$data[] = $row;
+		}
+		dump($data);		
+	
+	
+	}
+	
 	
 	
 	
