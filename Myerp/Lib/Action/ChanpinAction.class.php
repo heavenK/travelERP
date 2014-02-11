@@ -1217,9 +1217,11 @@ class ChanpinAction extends CommonAction{
 	
 	
     public function chaxunma() {
+		dump(123);
 		$chanpinID = $_REQUEST['chanpinID'];
 		$Chanpin = D("Chanpin");
 		$chanp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		dump(2222);
 		if(!$chanp)
 		echo "查询码对应的产品不存在！！！";
 		if($chanp['marktype'] == 'xianlu'){
@@ -1232,6 +1234,7 @@ class ChanpinAction extends CommonAction{
 			echo "DJtuan";
 			redirect(SITE_INDEX."Dijie/fabu/chanpinID/".$chanpinID);
 		}
+		dump(5555);
 		if($chanp['marktype'] == 'baozhang'){
 			$chanp_p = $Chanpin->where("`chanpinID` = '$chanp[parentID]'")->find();
 			if($chanp_p['marktype'] == 'zituan')
@@ -1242,6 +1245,7 @@ class ChanpinAction extends CommonAction{
 				redirect(SITE_INDEX."Chanpin/zituanbaozhang/baozhangID/".$chanpinID);
 			}
 		}
+		dump(666);
     }
 	
 	
