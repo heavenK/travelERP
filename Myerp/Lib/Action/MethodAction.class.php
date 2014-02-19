@@ -436,20 +436,26 @@ class MethodAction extends CommonAction{
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
 		}
+		
+/*		
 		//获得财务所属公司，过滤出公司拥有部门列表
 		if($this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政')){
 			$ComID = $this->_getComIDbyUser($username);
 			$wherebumen =" AND (`companyID` = '$ComID')";
 		}else{
-//			$bumenlist = $this->_getCompanyDepartmentList();
-//			foreach($bumenlist as $v){
-//				if($wherebumen)
-//				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
-//				else
-//				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
-//			}
-//			$wherebumen .= ")";
+			$bumenlist = $this->_getCompanyDepartmentList();
+			foreach($bumenlist as $v){
+				if($wherebumen)
+				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
+				else
+				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+			}
+			$wherebumen .= ")";
 		}
+*/		
+		$ComID = $this->_getComIDbyUser($username);
+		$wherebumen =" AND (`companyID` = '$ComID')";
+		
 		$where .= $wherebumen;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
