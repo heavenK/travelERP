@@ -441,14 +441,14 @@ class MethodAction extends CommonAction{
 			$ComID = $this->_getComIDbyUser($username);
 			$wherebumen =" AND (`companyID` = '$ComID')";
 		}else{
-			$bumenlist = $this->_getCompanyDepartmentList();
-			foreach($bumenlist as $v){
-				if($wherebumen)
-				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
-				else
-				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
-			}
-			$wherebumen .= ")";
+//			$bumenlist = $this->_getCompanyDepartmentList();
+//			foreach($bumenlist as $v){
+//				if($wherebumen)
+//				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
+//				else
+//				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+//			}
+//			$wherebumen .= ")";
 		}
 		$where .= $wherebumen;
 		$ViewClass = D($class_name);
