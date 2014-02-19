@@ -4073,31 +4073,20 @@ class MethodAction extends CommonAction{
 			$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
 			$_REQUEST['status_baozhang'] = '未审核';
 		}
-		$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
-		$ViewDingdan = D("ViewDingdan");
-		$ViewBaozhang = D("ViewBaozhang");
-		$DataCD = D("DataCD");
-		$i = 0;
-		foreach($datalist['chanpin'] as $v){
-			//搜索订单
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-			foreach($dingdanall as $vol){
-				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
-				foreach($customerall as $c){
-					if($c['ispay'] == '已付款'){
-						$datalist['chanpin'][$i]['payed'] += $c['price'];
-					}
-					if($c['ispay'] == '未付款'){
-						$datalist['chanpin'][$i]['unpay'] += $c['price'];
-					}
-					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
-				}
-			}
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
-			foreach($dingdanall as $vol){
-				if($vol['status'] == '确认'){
-					$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
-					//团费确认
+		
+		if($dotype == '补订订单'){
+			$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
+		}
+		else{
+			$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
+			$ViewDingdan = D("ViewDingdan");
+			$ViewBaozhang = D("ViewBaozhang");
+			$DataCD = D("DataCD");
+			$i = 0;
+			foreach($datalist['chanpin'] as $v){
+				//搜索订单
+				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+				foreach($dingdanall as $vol){
 					$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
 					foreach($customerall as $c){
 						if($c['ispay'] == '已付款'){
@@ -4109,33 +4098,47 @@ class MethodAction extends CommonAction{
 						$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 					}
 				}
-				if($vol['status'] == '占位'){
-					$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
+				foreach($dingdanall as $vol){
+					if($vol['status'] == '确认'){
+						$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+						//团费确认
+						$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+						foreach($customerall as $c){
+							if($c['ispay'] == '已付款'){
+								$datalist['chanpin'][$i]['payed'] += $c['price'];
+							}
+							if($c['ispay'] == '未付款'){
+								$datalist['chanpin'][$i]['unpay'] += $c['price'];
+							}
+							$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
+						}
+					}
+					if($vol['status'] == '占位'){
+						$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+					}
 				}
-			}
-			$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
-			
-			//报账单
-			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
-			$datalist['chanpin'][$i]['baozhang'] = $bzd;
-			//二次确认订单
-			if($_REQUEST['second_confirm'] == 1){
-				$WEBServiceOrder = D("WEBServiceOrder");
-				$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
-				$yudinglist = '';
-				foreach($orderall as $ord){
-					$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
-					$yudinglist['chengrenshu'] += $ord['chengrenshu'];
-					$yudinglist['ertongshu'] += $ord['ertongshu'];
+				$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
+				
+				//报账单
+				$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+				$datalist['chanpin'][$i]['baozhang'] = $bzd;
+				//二次确认订单
+				if($_REQUEST['second_confirm'] == 1){
+					$WEBServiceOrder = D("WEBServiceOrder");
+					$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
+					$yudinglist = '';
+					foreach($orderall as $ord){
+						$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
+						$yudinglist['chengrenshu'] += $ord['chengrenshu'];
+						$yudinglist['ertongshu'] += $ord['ertongshu'];
+					}
+					$datalist['chanpin'][$i]['orderall'] = $orderall;
+					$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
 				}
-				$datalist['chanpin'][$i]['orderall'] = $orderall;
-				$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
+				
+				$i++;
 			}
-			
-			$i++;
-		}
-		if($dotype == '补订订单'){
-			$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
 		}
 		
 		$this->assign("page",$datalist['page']);
