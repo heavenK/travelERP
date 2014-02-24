@@ -603,9 +603,10 @@ class XiaoshouAction extends Action{
 			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 				if(false === $xiaoshou){
-					$this->ajaxReturn($_REQUEST, "1", 0);
+					
 					$this->assign("message",'权限错误2');
 					$this->display('Index:error');
+					$this->ajaxReturn($_REQUEST, "1", 0);
 					exit;
 				}
 			}
