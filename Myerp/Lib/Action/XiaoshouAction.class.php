@@ -601,16 +601,19 @@ class XiaoshouAction extends Action{
 			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
 			
 			if(false === $zituanOM){
-				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
-				if(false === $xiaoshou){
-					
-					// modify by heavenK 订单修改返回错误，XML无法解析。
-					
-					$this->ajaxReturn($_REQUEST, "您没有管理权限", 0);
-					
-					//$this->assign("message",'权限错误2');
-					//$this->display('Index:error');
-					exit;
+				
+				if($_REQUEST['shoujiaID'])
+				{
+					$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
+					if(false === $xiaoshou){
+						
+						// modify by heavenK 订单修改返回错误，XML无法解析。
+						
+						$this->ajaxReturn($_REQUEST, "您没有管理权限", 0);
+						//$this->assign("message",'权限错误2');
+						//$this->display('Index:error');
+						exit;
+					}
 				}
 			}
 		}
