@@ -588,8 +588,8 @@ class XiaoshouAction extends Action{
 		C('TOKEN_ON',false);
 		//检查dataOM
 		$dingdan = A('Method')->_checkDataOM($_REQUEST['dingdanID'],'订单','管理');
-		//dump($dingdan);
-		//exit;
+		$this->ajaxReturn($_REQUEST, $dingdan, 0);
+		exit;
 		if(false === $dingdan){
 			$this->ajaxReturn($_REQUEST, '错误，无管理权限', 0);
 		}
