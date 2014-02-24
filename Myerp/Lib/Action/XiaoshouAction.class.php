@@ -588,8 +588,7 @@ class XiaoshouAction extends Action{
 		C('TOKEN_ON',false);
 		//检查dataOM
 		$dingdan = A('Method')->_checkDataOM($_REQUEST['dingdanID'],'订单','管理');
-		$this->ajaxReturn($_REQUEST, $dingdan, 0);
-		exit;
+		
 		if(false === $dingdan){
 			$this->ajaxReturn($_REQUEST, '错误，无管理权限', 0);
 		}
@@ -628,6 +627,8 @@ class XiaoshouAction extends Action{
 				}
 			}
 			//生成团员
+			$this->ajaxReturn($_REQUEST, "error", 0);
+			exit;
 			if( false === A("Method")->createCustomer_new($_REQUEST,$_REQUEST['dingdanID']))
 			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
 			else
