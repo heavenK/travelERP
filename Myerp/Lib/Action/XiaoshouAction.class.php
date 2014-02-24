@@ -596,6 +596,7 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
 		//检查dataOM
+		$this->ajaxReturn($_REQUEST, "1", 0);
 		if($dingdan['status_baozhang'] != '批准'){
 			//检查dataOM
 			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
@@ -611,7 +612,7 @@ class XiaoshouAction extends Action{
 		else{
 			$this->ajaxReturn($_REQUEST, '错误，订单已过审核，不许修改！', 0);
 		}
-		$this->ajaxReturn($_REQUEST, "1", 0);
+		
 		
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
