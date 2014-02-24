@@ -602,7 +602,6 @@ class XiaoshouAction extends Action{
 			
 			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
-				$this->ajaxReturn($_REQUEST, "1", 0);
 				if(false === $xiaoshou){
 					$this->assign("message",'权限错误2');
 					$this->display('Index:error');
@@ -613,7 +612,7 @@ class XiaoshouAction extends Action{
 		else{
 			$this->ajaxReturn($_REQUEST, '错误，订单已过审核，不许修改！', 0);
 		}
-		
+		$this->ajaxReturn($_REQUEST, "1", 0);
 		
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
