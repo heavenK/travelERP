@@ -596,11 +596,13 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
 		//检查dataOM
-		$this->ajaxReturn($_REQUEST, "2", 0);
-		exit;
 		if($dingdan['status_baozhang'] != '批准'){
 			//检查dataOM
+			$this->ajaxReturn($_REQUEST, "2", 0);
+			exit;
 			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
+			$this->ajaxReturn($_REQUEST, "1", 0);
+			exit;
 			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 				if(false === $xiaoshou){
@@ -609,20 +611,19 @@ class XiaoshouAction extends Action{
 					exit;
 				}
 			}
+			$this->ajaxReturn($_REQUEST, "3", 0);
+			exit;
 		}
 		else{
 			$this->ajaxReturn($_REQUEST, '错误，订单已过审核，不许修改！', 0);
 		}
-		$this->ajaxReturn($_REQUEST, "1", 0);
-		exit;
+		
 		$dingdanID = $_REQUEST['dingdanID'];
 		$Chanpin = D("Chanpin");
 		$dat = $Chanpin->relation("dingdan")->where("`chanpinID` = '$dingdanID'")->find();
 		if($dat['islock'] == '已锁定'){
 			$this->ajaxReturn($_REQUEST, '错误，订单已被锁定！', 0);
 		}
-		$this->ajaxReturn($_REQUEST, "3", 0);
-		exit;
 		if($_REQUEST['tuanyuanmark'] == 1){
 			if($_REQUEST['daokuanqueren'] == 1){
 				$dat['islock'] = '已锁定';
