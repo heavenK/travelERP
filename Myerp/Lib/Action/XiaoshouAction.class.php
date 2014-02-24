@@ -596,10 +596,10 @@ class XiaoshouAction extends Action{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dingdanID]'")->find();
 		//检查dataOM
-		$this->ajaxReturn($_REQUEST, "1", 0);
 		if($dingdan['status_baozhang'] != '批准'){
 			//检查dataOM
 			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
+			$this->ajaxReturn($_REQUEST, "1", 0);
 			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
 				if(false === $xiaoshou){
