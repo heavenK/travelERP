@@ -599,9 +599,10 @@ class XiaoshouAction extends Action{
 		if($dingdan['status_baozhang'] != '批准'){
 			//检查dataOM
 			$zituanOM = A('Method')->_checkDataOM($dingdan['parentID'],'子团','管理');
-			$this->ajaxReturn($_REQUEST, "1", 0);
+			
 			if(false === $zituanOM){
 				$xiaoshou = A('Method')->_checkDataOM($dingdan['shoujiaID'],'售价');
+				$this->ajaxReturn($_REQUEST, "1", 0);
 				if(false === $xiaoshou){
 					$this->assign("message",'权限错误2');
 					$this->display('Index:error');
