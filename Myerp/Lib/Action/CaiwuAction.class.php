@@ -60,6 +60,7 @@ class CaiwuAction extends CommonAction{
 	
 	public function jixiao_tongji() {
 		A("Method")->showDirectory("统计");
+		$this->assign("navposition",'旅游产品');
 		//订单搜索
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
