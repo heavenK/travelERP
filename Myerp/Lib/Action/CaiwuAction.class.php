@@ -64,12 +64,14 @@ class CaiwuAction extends CommonAction{
 		//订单搜索
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
-			$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			//$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
 		}
 		else{
 			$month = NF_getmonth();
 			$fm_forward_month = $month['forward'];
-			$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			//$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
 			$_REQUEST['start_time'] = $fm_forward_month.'-01';
 			$_REQUEST['end_time'] = date("Y-m").'-01';
 			$this->assign("start_time",$fm_forward_month.'-01');
@@ -83,7 +85,6 @@ class CaiwuAction extends CommonAction{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
 		$tem_d = 0;
-		dump($where);
 		
 		foreach($dingdanall as $v){
 			$tongji['chengrenshu'] += $v['chengrenshu'];
