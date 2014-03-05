@@ -75,7 +75,7 @@ class CaiwuAction extends CommonAction{
 			$_REQUEST['start_time'] = $fm_forward_month.'-01';
 			$_REQUEST['end_time'] = date("Y-m").'-30';
 			$this->assign("start_time",$fm_forward_month.'-01');
-			$this->assign("end_time",date("Y-m").'-01');
+			$this->assign("end_time",date("Y-m").'-30');
 		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
