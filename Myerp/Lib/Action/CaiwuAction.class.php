@@ -71,7 +71,7 @@ class CaiwuAction extends CommonAction{
 			$month = NF_getmonth();
 			$fm_forward_month = $month['forward'];
 			//$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
-			$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
 			$_REQUEST['start_time'] = $fm_forward_month.'-01';
 			$_REQUEST['end_time'] = date("Y-m").'-30';
 			$this->assign("start_time",$fm_forward_month.'-01');
