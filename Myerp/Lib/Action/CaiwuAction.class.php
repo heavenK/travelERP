@@ -83,6 +83,8 @@ class CaiwuAction extends CommonAction{
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
 		$tem_d = 0;
+		dump($dingdanall);
+		
 		foreach($dingdanall as $v){
 			$tongji['chengrenshu'] += $v['chengrenshu'];
 			$tongji['ertongshu'] += $v['ertongshu'];
