@@ -40,6 +40,9 @@ class MethodAction extends CommonAction{
 			if($where['title']){
 				$where['xianlu_title'] = array('like','%'.$where['title'].'%');
 			}
+			if($where['bumen_copy']){
+				$where['bumen_copy'] = $where['bumen_copy'];
+			}
 			if($where['chutuanriqi']){
 				$where['xianlu_chutuanriqi'] = array('like','%'.$where['chutuanriqi'].'%');
 			}
