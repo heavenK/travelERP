@@ -5583,7 +5583,7 @@ class MethodAction extends CommonAction{
 		$i = 0;
 		foreach($chanpinlist as $v){
 			$chanpin_list[$i] = $ViewZituan->where("`chanpinID` = '$v[clientdataID]'")->find();
-			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = 1")->findall();
+			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = ".$second)->findall();
 			$renshu = 0;
 			foreach($chanpin_list[$i]['orderlist'] as $vol){
 				$renshu += $vol['chengrenshu'] + $vol['ertongshu'];
