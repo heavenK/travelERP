@@ -29,8 +29,9 @@ class B2CManageAction extends CommonAction{
 		}
 		else{
 			A("Method")->showDirectory("电商订单管理");
-			$_REQUEST['user_name'] = '电商';
-			A("Xiaoshou")->dingdanlist();
+			A("Method")->_dede_dingdanlist(0);
+			//$_REQUEST['user_name'] = '电商';
+			//A("Xiaoshou")->dingdanlist();
 		}
     }
 	

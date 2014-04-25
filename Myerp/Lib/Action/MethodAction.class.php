@@ -5566,9 +5566,9 @@ class MethodAction extends CommonAction{
 	
 	
 	//商户条目增加
-	public function _dede_dingdanlist(){
+	public function _dede_dingdanlist($second=1){
 		$where['clientdataID'] = array('neq','');
-		$where['second_confirm'] = 1;
+		$where['second_confirm'] = $second;
 		$order = 'time desc';
 		$WEBServiceOrder = D("WEBServiceOrder");
 		$distinctfield = 'clientdataID';
