@@ -65,13 +65,15 @@ class CaiwuAction extends CommonAction{
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
 			//$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
-			$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			if($_GET['show'] != 'all')	$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			else	$where['time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
 		}
 		else{
 			$month = NF_getmonth();
 			$fm_forward_month = $month['forward'];
 			//$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
-			$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
+			if($_GET['show'] != 'all')	$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
+			else	$where['time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
 			$_REQUEST['start_time'] = $fm_forward_month.'-01';
 			$_REQUEST['end_time'] = date("Y-m").'-30';
 			$this->assign("start_time",$fm_forward_month.'-01');
@@ -79,7 +81,7 @@ class CaiwuAction extends CommonAction{
 		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
-		$where['status_shenhe'] = '批准';
+		if($_GET['show'] != 'all')	$where['status_shenhe'] = '批准';
 		$ComID = A("Method")->_getComIDbyUser();
 		$where['companyID'] = $ComID;
 		$ViewDingdan = D("ViewDingdan");
