@@ -33,6 +33,11 @@
                           <input type="text" onfocus="WdatePicker()" class="start_time" value="<{$start_time}>">
                           <span>--</span>
                           <input type="text" onfocus="WdatePicker()" class="end_time" value="<{$end_time}>"></td>
+                         </tr>
+                         <tr>
+                          <td scope="row" nowrap="nowrap"> 显示全部 </td>
+                          <td nowrap="nowrap"><input type="checkbox" class="show_1" name="show" value="all"></td>
+                         </tr>
                       </tbody>
                     </table>
                 </div>
@@ -123,6 +128,8 @@ function _dosearch(sorttabid){
 	str += '/end_time/'+jQuery('.end_time').val();
 	if(jQuery('.type').val())
 	str += '/type/'+jQuery('.type').val();
+	if(jQuery('.show_'+sorttabid).val())
+	str += '/show/'+jQuery('.show_'+sorttabid).val();
 	str += '/sorttabid/'+sorttabid;
 	dosearch(str);
 }
