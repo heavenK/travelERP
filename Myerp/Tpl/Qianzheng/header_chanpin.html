@@ -45,6 +45,13 @@ function shenhe_after(data,status){
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Qianzheng/dingdanlist/chanpinID/<{$chanpinID}>">签证订单</a> </li>
+      
+    <li> <a 
+      <php>if($markpos == '团员名单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/tuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
+      
     <li> <a 
       <php>if($nowDir['title'] == '签证报账列表' || $markpos == '签证报账单'){</php>
       class="current"

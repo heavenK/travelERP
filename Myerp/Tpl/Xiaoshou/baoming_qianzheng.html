@@ -66,6 +66,21 @@ function checktable()
 //			var state=document.getElementById("status");
 //			if(state.value=="占位")
 //				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
+			var adult_nor_price = "<php>echo $shoujia['adultprice'];</php>";
+			var child_nor_price = "<php>echo $shoujia['childprice'];</php>";
+			var cut = "<php>echo $shoujia['cut']</php>";
+			var adultprice = jQuery("#adultprice").val();
+			var childprice = jQuery("#childprice").val();
+			
+			if(adultprice > (adult_nor_price+cut) || adultprice < (adult_nor_price-cut))
+			{
+				ajaxalert("成人价格超标");
+				exit;
+			}
+			if(childprice > (child_nor_price+cut) || childprice < (child_nor_price-cut)){
+				ajaxalert("儿童价格超标");
+				exit;
+			}
 			save();
 		}
 		else

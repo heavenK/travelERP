@@ -289,7 +289,42 @@ class QianzhengAction extends CommonAction{
 	
 	
 	
-	
+	public function tuanyuan() {
+		//检查dataOM
+		$tuan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'签证','管理');
+		if(false === $tuan){
+			$this->display('Index:error');
+			exit;
+		}
+		A("Method")->showDirectory("团员名单");
+		$this->assign("markpos",'团员名单');
+		$chanpinID = $_REQUEST['chanpinID'];
+		$ViewQianzheng = D("ViewQianzheng");
+		$qianzheng = $ViewQianzheng->where("`chanpinID` = '$chanpinID'")->find();
+		$this->assign("qianzheng",$qianzheng);
+		$this->assign("datatitle",' : "'.$qianzheng['title'].'"');
+		$ViewDingdan = D("ViewDingdan");
+		$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->order("time desc")->where("`parentID` = '$_REQUEST[chanpinID]' AND `status_system` = '1' and `status` = '确认'")->findall();
+		$i = 0;
+		$j = 0;
+		foreach($dingdanlist as $v){
+			foreach($v['tuanyuanlist'] as $vol){
+				$cus = simple_unserialize($vol['datatext']);
+				$dingdanlist[$i]['tuanyuanlist'][$j] = array_merge($dingdanlist[$i]['tuanyuanlist'][$j],$cus);
+				$j++;
+			}
+			$i++;
+		}
+		$this->assign("dingdanlist",$dingdanlist);
+		//统计
+		$baomingrenshu = 0;
+		foreach($dingdanlist as $dd){
+			$baomingrenshu += $dd['chengrenshu'] + $dd['ertongshu'] + $dd['lingdui_num'];
+		}
+		$this->assign("dingdan_num",count($dingdanlist));
+		$this->assign("tuanyuan_num",$baomingrenshu);
+		$this->display('tuanyuan');
+	}
 	
 	
 	

@@ -247,6 +247,7 @@ class XiaoshouAction extends Action{
 		if($cp['marktype'] == 'qianzheng'){
 			$ViewQianzheng = D("ViewQianzheng");
 			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[parentID]'")->find();
+			
 			if(false === $qianzheng || $qianzheng == '')
 				$this->ajaxReturn($_REQUEST,'错误,请联系管理员！', 0);
 			$this->assign("chanpin",$qianzheng);
@@ -393,13 +394,41 @@ class XiaoshouAction extends Action{
 				  $data['dingdan']['bumen_copy'] = cookie('_usedbumen');
 			}
 			if($chanpintype == '签证'){
-				  //生成订单
+				  //tuanyuan
+				  for($i=0;$i<$_REQUEST['chengrenshu'];$i++){
+					  $tuanyuan[$i]['manorchild'] = '成人';
+					  $tuanyuan[$i]['price'] = $_REQUEST['adultprice'];
+				  }
+				  for($i;$i<$_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];$i++){
+					  $tuanyuan[$i]['manorchild'] = '儿童';
+					  $tuanyuan[$i]['price'] = $_REQUEST['childprice'];
+				  }
+					
+				
+				  //部门
+				  $ViewDepartment = D("ViewDepartment");
+				  $bumen = $ViewDepartment->where("`systemID` = '$_REQUEST[departmentID]' and `status_system` = '1'")->find();
+				  $this->assign("bumen",$bumen);
+				  $this->assign("tuanyuan",$tuanyuan);
+				  
+				  //签证
+				  $ViewQianzheng = D("ViewQianzheng");
+				  $qianzheng = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[parentID]' and `status_system` = '1'")->find();
+				  $this->assign("qianzheng",$qianzheng);
+				  
+				  
+				  
+				  
 				  $Chanpin = D("Chanpin");
 				  $data = $_REQUEST;
 				  $data['parentID'] = $data['parentID'];
 				  $data['dingdan'] = $data;
 				  $data['dingdan']['jiage'] = $_REQUEST['chengrenshu']*$_REQUEST['adultprice']+$_REQUEST['ertongshu']*$_REQUEST['childprice'];
 				  $data['dingdan']['bumen_copy'] = cookie('_usedbumen');
+				  
+				  
+				  $this->display('baomingnext_qianzheng');
+				  exit;
 			}
 			if($dingdan = A("Method")->_dingdansave_process($data,$this->user['title'])){
 				redirect(SITE_INDEX."Xiaoshou/dingdanxinxi/chanpinID/".$dingdan['chanpinID']);
@@ -423,9 +452,12 @@ class XiaoshouAction extends Action{
 		session('verify',null);
 		$chanpinID = $_REQUEST['parentID'];
 		$this->_ckeck_baoming();
-		if($data['type'] == '签证'){
+		
+		if($_REQUEST['type'] == '签证'){
 			$ViewQianzheng = D("ViewQianzheng");
 			$qianzheng = $ViewQianzheng->where("`chanpinID` = '$chanpinID'")->find();
+			
+			
 			if(false === $qianzheng || $qianzheng == ''){
 				$this->display('Index:error');
 				exit;
@@ -519,7 +551,7 @@ class XiaoshouAction extends Action{
 		$dingdan['ticheng'] = $ViewDataDictionary->where("`systemID` = '$dingdan[tichengID]'")->find();
 		$dingdan['caozuofei'] = $ViewDataDictionary->where("`systemID` = '$dingdan[caozuofeiID]'")->find();
 		$this->assign("dingdan",$dingdan);
-		if($dingdan['type'] != '签证' ){
+		//if($dingdan['type'] != '签证' ){
 			//tuanyuan
 			$tuanyuan = $ViewDingdan->relationGet("tuanyuanlist");
 			$this->assign("tuanyuan_has",1);
@@ -550,7 +582,7 @@ class XiaoshouAction extends Action{
 			$this->assign("remarkall",$remarkall);
 			
 			$this->assign("tuanyuan",$tuanyuan);
-		}
+		//}
 
 		//提成数据操作费
 		$ticheng = $ViewDataDictionary->where("`type` = '提成' AND `status_system` = '1'")->findall();

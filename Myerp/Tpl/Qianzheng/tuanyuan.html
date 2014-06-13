@@ -1,0 +1,97 @@
+<tp:includeCA file="Index:showheader" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
+<div id="main">
+  <div id="content" style="margin-left:5px; padding-left:0px; border-left:none">
+     <tp:includeCA file="Qianzheng:header_chanpin" />
+    
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 订单个数 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 团员人数 </div></th>
+                </tr>
+                <tr height="30" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$dingdan_num}></td>
+                  <td scope="row" align="left" valign="top"><{$tuanyuan_num}></td>
+                </tr>
+              </tbody>
+            </table>
+    
+            <php> foreach($dingdanlist as $v){</php>
+    
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:0px;">
+              <tbody>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div style=" background:#4E8CCF; color:#FFF"> 订单编号：<{$v['chanpinID']}> </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:150px;"><div> <strong style="color:#4E8CCF">订单来源：</strong><{$v['bumen_copy']}>/<{$v['user_name']}> </div></th>
+                  <th scope="col" nowrap="nowrap"><div> <strong style="color:#4E8CCF">成人数/儿童/领队：</strong><{$v['chengrenshu']}>/<{$v['ertongshu']}>/<{$v['lingdui_num']}> </div></th>
+                  <th scope="col" nowrap="nowrap"><div> <strong style="color:#4E8CCF">订单类型：</strong><{$v['type']}> </div></th>
+                  <th scope="col" nowrap="nowrap"><div> <strong style="color:#4E8CCF">团费：</strong><{$v['jiage']}> </div></th>
+                </tr>
+                
+              </tbody>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:20px;">
+              <tbody>
+              
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div> 姓名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="width:100px;"><div> 拼音 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 性别 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团费 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件类型 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件号 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 证件有效期 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 生日 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 户籍地 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 需求 </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 详细资料 </div></th>
+                </tr>
+                <php> foreach($v['tuanyuanlist'] as $vol){</php>
+                <tr style="cursor:pointer" height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$vol['name']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['pinyin']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['sex']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['manorchild']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['price']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjiantype']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjianhaoma']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['zhengjianyouxiaoqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['chushengriqi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['hujidi']}></td>
+                  <td scope="row" align="left" valign="top"><{$vol['remark']}></td>
+                  <td scope="row" align="left" valign="top"><a href="javascript:TravelerDetail(<{$vol['id']}>)">查看</a></td>
+                </tr>
+                <php> }</php>
+                
+                
+                
+              </tbody>
+            </table>
+      
+                <php> }</php>
+      
+  </div>
+  
+</div>
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+
+function showinfo(chanpinID){
+	window.location = '<{:SITE_INDEX}>Xiaoshou/dingdanxinxi/showtype/1/chanpinID/'+chanpinID;
+}
+
+function exports(chanpinID,type)
+{
+	window.location.href = '<{:SITE_INDEX}>Chanpin/_tuanyuan_exports/chanpinID/'+chanpinID+'/type/'+type;
+}
+function TravelerDetail(id)
+{
+    var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+}
+</script>

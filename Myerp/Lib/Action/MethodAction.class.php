@@ -168,6 +168,7 @@ class MethodAction extends CommonAction{
 		if(!$order)
 			$order = 'time desc';
         $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
@@ -1641,6 +1642,7 @@ class MethodAction extends CommonAction{
 		else{
 			if(false === $this->_checkShenhe($datatype,1,$this->user['systemID'],$dataID)){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
+				
 				return false;
 			}
 			else{
@@ -1653,6 +1655,7 @@ class MethodAction extends CommonAction{
 					else
 					cookie('show_word','批准',30);
 					cookie('show_action','申请',30);
+					
 					return $omdata;
 				}
 				return false;
@@ -3990,6 +3993,11 @@ class MethodAction extends CommonAction{
 			$is_jidiao = 1;
 			$is_qiantai = 1;
 		}
+		$role = $this->_checkRolesByUser('计调','办事处',1);
+		if(false !== $role){
+			$is_banshichu = 1;
+			$is_qiantai = 1;
+		}
 		$role = $this->_checkRolesByUser('票务','业务',1);
 		if(false !== $role){
 			$is_jidiao = 1;
@@ -4050,7 +4058,7 @@ class MethodAction extends CommonAction{
 			$is_vip = 1;
 		}
 		
-		
+		$this->assign("is_banshichu",$is_banshichu);
 		$this->assign("is_vip",$is_vip);
 		$this->assign("is_yinghang_yewu",$is_yinghang_yewu);
 		$this->assign("is_qiantai",$is_qiantai);
@@ -5048,8 +5056,10 @@ class MethodAction extends CommonAction{
 			if($data['type'] != '签证')
 				$data['type'] = '子团';
 			//生成团员
-			if($data['type'] == '子团'){
+			if($data['type'] == '子团' || $data['type'] == '签证'){
+				
 				if($this->createCustomer_new($data,$chanpinID)){
+					
 					//更新信息
 					if($data['type'] == '子团'){
 						$zituan = $Chanpin->relation("xianlulist")->where("`chanpinID` = '$data[parentID]'")->find();
@@ -5566,9 +5576,9 @@ class MethodAction extends CommonAction{
 	
 	
 	//商户条目增加
-	public function _dede_dingdanlist(){
+	public function _dede_dingdanlist($second=1){
 		$where['clientdataID'] = array('neq','');
-		$where['second_confirm'] = 1;
+		$where['second_confirm'] = $second;
 		$order = 'time desc';
 		$WEBServiceOrder = D("WEBServiceOrder");
 		$distinctfield = 'clientdataID';
@@ -5583,7 +5593,7 @@ class MethodAction extends CommonAction{
 		$i = 0;
 		foreach($chanpinlist as $v){
 			$chanpin_list[$i] = $ViewZituan->where("`chanpinID` = '$v[clientdataID]'")->find();
-			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = 1")->findall();
+			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = ".$second)->findall();
 			$renshu = 0;
 			foreach($chanpin_list[$i]['orderlist'] as $vol){
 				$renshu += $vol['chengrenshu'] + $vol['ertongshu'];
