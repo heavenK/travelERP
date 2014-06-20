@@ -193,6 +193,17 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px"> 折扣范围:</td>
           <td align="left" style="height: 32px"><php>echo $shoujia['cut']</php>元</td>
         </tr>
+        
+        
+        <tr>
+          <td align="left" style="height: 32px"> 是否开具发票：</td>
+          <td align="left" style="height: 32px"><php>if($dingdan['isbill'])echo "是";else echo "否"; </php></td>
+          <td align="left" style="height: 32px"> 发票抬头：</td>
+          <td align="left" style="height: 32px"><php>echo $dingdan['bill_head']</php></td>
+          <td align="left" style="height: 32px"></td>
+          <td align="left" style="height: 32px"></td>
+        </tr>
+        
         <tr>
           <td align="left" style="height: 32px"> 备注：</td>
           <td align="left" style="height: 32px"  colspan="5"><{$dingdan['remark']}></td>

@@ -94,6 +94,14 @@ function save(){
           <td align="left" style="height: 32px"></td>
         </tr>
         <tr>
+          <td align="left" style="height: 32px"> 是否开具发票：</td>
+          <td align="left" style="height: 32px"><php>if($_REQUEST['isbill'])echo "是";else echo "否"; </php></td>
+          <td align="left" style="height: 32px"> 发票抬头：</td>
+          <td align="left" style="height: 32px"><php>echo $_REQUEST['bill_head']</php></td>
+          <td align="left" style="height: 32px"></td>
+          <td align="left" style="height: 32px"></td>
+        </tr>
+        <tr>
           <td align="left" style="height: 32px"> 备注：</td>
           <td align="left" style="height: 32px"  colspan="5"><php>echo $_REQUEST['remark']</php></td>
         </tr>
