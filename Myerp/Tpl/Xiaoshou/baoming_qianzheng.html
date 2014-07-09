@@ -66,6 +66,21 @@ function checktable()
 //			var state=document.getElementById("status");
 //			if(state.value=="占位")
 //				alert("订单为占位状态，请在48小时内转为确认，否则系统会自动取消该订单！");
+			var adult_nor_price = "<php>echo $shoujia['adultprice'];</php>";
+			var child_nor_price = "<php>echo $shoujia['childprice'];</php>";
+			var cut = "<php>echo $shoujia['cut']</php>";
+			var adultprice = jQuery("#adultprice").val();
+			var childprice = jQuery("#childprice").val();
+			
+			if(adultprice > (adult_nor_price+cut) || adultprice < (adult_nor_price-cut))
+			{
+				ajaxalert("成人价格超标");
+				exit;
+			}
+			if(childprice > (child_nor_price+cut) || childprice < (child_nor_price-cut)){
+				ajaxalert("儿童价格超标");
+				exit;
+			}
 			save();
 		}
 		else
@@ -156,7 +171,7 @@ function ajaxalert(title){
           <tr>
             <td align="left" style="height: 27px; width: 156px;">收客人及所属部门：</td>
             <td align="left" style="height: 32px">
-            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
+            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $login_user['title']</php>">
               <select name="departmentID">
               <php>foreach($bumenfeilei as $v){</php>
                 <option value="<{$v['bumenID']}>"><{$v['title']}></option>
@@ -167,7 +182,7 @@ function ajaxalert(title){
           <td align="left" style="height: 32px"> 提成类型：</td>
           <td align="left" style="height: 32px"><select name="tichengID" id="tichengID">
           		<php>foreach($ticheng as $tiv){</php>
-                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
+                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}></option>
                 <php>}</php>
             </select>（提成依据）</td>
             
@@ -205,10 +220,15 @@ function ajaxalert(title){
           <td align="left" style="height: 32px" colspan="3"><{$qianzheng['remark']}></td>
         </tr>
         <tr>
+          <td align="left" style="height: 32px"> 是否开具发票：</td>
+          <td align="left" style="height: 32px"><input name="isbill" type="checkbox" value="1"></td>
+          <td align="left" style="height: 32px"> 发票抬头：</td>
+          <td align="left" style="height: 32px"><input name="bill_head" type="text" ></td>
+        </tr>
+        <tr>
           <td align="left" style="height: 32px"> 备注：</td>
           <td align="left" style="height: 32px"  colspan="3"><input name="remark" type="text"  style="width:300px;" id="remark" value="<{$remark}>" ></td>
         </tr>
-        
         <tr>
           <td align="left" style="height: 32px" colspan="4"></td>
         </tr>
@@ -231,7 +251,7 @@ function ajaxalert(title){
       <table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
-            <td align="center" colspan="5" style="height: 32px"><input type="button" value="提交" onClick="return checktable();"  class="anu"></td>
+            <td align="center" colspan="5" style="height: 32px"><input type="button" class="button" value="提交" onClick="return checktable();"  class="anu"></td>
           </tr>
         </tbody>
       </table>

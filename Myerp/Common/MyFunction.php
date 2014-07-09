@@ -1,5 +1,48 @@
 ﻿<?php
 
+function xmltoarray($object, &$tmparr=array()) {
+    if (is_object($object)) {
+        $tmparr = get_object_vars($object);
+    }
+    foreach ($tmparr as $k => $v) {
+        if (is_array($v)) {
+            $tmparr[$k] = xmltoarray($v, $tmparr[$k]);
+        } elseif (is_object($v)) {
+            $tmparr[$k] = xmltoarray($v, $tmparr[$k]);
+        } else {
+            $tmparr[$k] = $v;
+        }
+    }
+    return $tmparr;
+}
+	
+//使用类解析
+function xml2array($url) {
+	$xmldom = new DOMDocument('1.0', 'UTF-8');
+	$xmlstr = $xmldom->load($url);
+	$xmlstr = $xmldom->saveXML();
+	import("@.ORG.XML2Array");
+	$array_xml = XML2Array::createArray($xmlstr);
+	return $array_xml;
+}	
+
+//cdata格式附加属性
+function xmltoarrayMix($url) {
+	$xml = simplexml_load_file($url, 'SimpleXMLElement', LIBXML_NOCDATA );//兼容CDATA格式
+	$xml2array = xmltoarray($xml);
+	$xml_2 = simplexml_load_file($url);
+	$xml2array_2 = xmltoarray($xml_2);
+	$i = 0;
+	foreach($xml2array['item'] as $vol){
+		unset($xml2array_2['item'][$i]['@attributes']);
+		$xml2array['item'][$i]['backup2'] = $xml2array_2['item'][$i];
+		$i++;
+	}
+	return $xml2array;
+}	
+
+
+
 function sizecount($filesize) {
 	if($filesize >= 1073741824) {
 		$filesize = round($filesize / 1073741824 * 100) / 100 . ' GB';

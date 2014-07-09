@@ -41,9 +41,9 @@ class MethodClientAction extends CommonAction{
 		$itemlist = explode(',',$itemlist);
 		if(count($itemlist) != 1)
 			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
-//		if($_REQUEST['chanpintype'] == '线路'){
-//			$this->_doonoffshop_xianlu($itemlist);	
-//		}
+		if($_REQUEST['chanpintype'] == '线路'){
+			$this->_doonoffshop_xianlu($itemlist);	
+		}
 		if($_REQUEST['chanpintype'] == '子团'){
 			$this->_doonoffshop_zituan($itemlist);	
 		}
@@ -52,6 +52,41 @@ class MethodClientAction extends CommonAction{
 		}
 		
 	}
+	
+	
+	function _doonoffshop_xianlu($itemlist){
+		$ViewXianlu = D("ViewXianlu");
+		$Chanpin = D("Chanpin");
+		foreach($itemlist as $v){
+			$xianlu = $ViewXianlu->relation("zituanlist")->where("`chanpinID` = '$v'")->find();
+			if($xianlu['status_shenhe'] != '批准')
+				$this->ajaxReturn($_REQUEST,'线路未被审核批准,禁止提交！', 0);
+			if($xianlu['serverdataID']<0 || $xianlu['serverdataID'] == NULL)
+				$this->ajaxReturn($_REQUEST,'线路未被提交到网店！', 0);
+			//修改线路状态
+			if($xianlu['status_shop'] == '上架' || $xianlu['status_shop'] == NULL)
+				$xianlu['xianlu']['status_shop'] = '下架';	
+			else
+				$xianlu['xianlu']['status_shop'] = '上架';
+			foreach($xianlu['zituanlist'] as $v_zt){
+				$zituan['chanpinID'] = $v_zt['chanpinID'];	
+				//修改子团状态
+				$zituan['zituan']['status_shop'] = $xianlu['xianlu']['status_shop'];
+				if(false === $Chanpin->relation("zituan")->myRcreate($zituan)){
+					$this->ajaxReturn($_REQUEST, '子团更新失败！', 0);	
+				}
+			}
+			if(false !== $Chanpin->relation('xianlu')->myRcreate($xianlu)){
+				//修改服务器子团状态
+				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin_status/chanpintype/线路/chanpinID/".$v);
+				if($getres['error']){
+					$this->ajaxReturn($_REQUEST, '服务器更新失败！', 0);
+				}
+			}
+		}
+		$this->ajaxReturn($_REQUEST,'产品'.$xianlu['xianlu']['status_shop'], 1);
+	}
+	
 	
 	
 	function _doonoffshop_zituan($itemlist){
@@ -81,13 +116,17 @@ class MethodClientAction extends CommonAction{
 	
 	
 	
-	function _doonshop_xianlu($itemlist){
+	function _doonshop_xianlu($itemlist,$returntype=1){
 		$ViewXianlu = D("ViewXianlu");
 		$Chanpin = D("Chanpin");
 		foreach($itemlist as $v){
 			$xianlu = $ViewXianlu->where("`chanpinID` = '$v'")->find();
-			if($xianlu['status_shenhe'] != '批准')
-				$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
+			if($xianlu['status_shenhe'] != '批准'){
+				if($returntype == 1)
+					$this->ajaxReturn($_REQUEST,'产品未被审核批准,禁止提交！', 0);
+				else
+					return false;
+			}
 			//链接服务器生成
 			if(!$xianlu['serverdataID']){
 				//更新产品状态
@@ -105,28 +144,48 @@ class MethodClientAction extends CommonAction{
 				A("Method")->_setMessageHistory($v,'线路',$message,$url,'','',$data);
 				//生成
 				$getres = FileGetContents(SERVER_INDEX."Server/dopostchanpin/chanpinID/".$v);
-				if($getres['error'])
-					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+				if($getres['error']){
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					else
+						return false;
+				}
 				else
 					$serverdataID = $getres;
-				if(!intval($serverdataID))
-					$this->ajaxReturn($_REQUEST,'提交失败！', 0);
+				if(!intval($serverdataID)){
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,'提交失败！', 0);
+					else
+						return false;
+				}
 				$xianlu['xianlu']['serverdataID'] = $serverdataID;
 				$xianlu['chanpinID'] = $v;
 				if(false === $Chanpin->relation("xianlu")->myRcreate($xianlu)){
-					$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
+					else
+						return false;
 				}
 			}
 			else{
 				//更新信息
 				$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$v);
 				if($getres['error']){
-					$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					if($returntype == 1)
+						$this->ajaxReturn($_REQUEST,$getres['msg'], 0);
+					else
+						return false;
 				}
-				$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
+				if($returntype == 1)
+					$this->ajaxReturn($_REQUEST,'网店产品更新成功！', 1);
+				else
+					return true;
 			}
 		}
-		$this->ajaxReturn($_REQUEST,'完成！', 1);
+		if($returntype == 1)
+			$this->ajaxReturn($_REQUEST,'完成！', 1);
+		if($returntype == 2)
+			return true;
 	}
 	
 	

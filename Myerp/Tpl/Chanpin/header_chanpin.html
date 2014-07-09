@@ -11,17 +11,36 @@ function doshenhe(dotype){
 		url:	SITE_INDEX+"Chanpin/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',chanpinshenhe_after);
 		}
 	});
 }
-function shenhe_after(data,status){
+
+function dotest(dotype){
+	ThinkAjax.myloading('resultdiv');
+	var dataID = chanpinID;
+	var datatype = '线路';
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Chanpin/dotest",
+		data:	"chanpinID="+chanpinID+"&datatype="+datatype,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',chanpinshenhe_after);
+		}
+	});
+}
+
+
+
+function chanpinshenhe_after(data,status){
 	if(status == 1){
 		alert(data['status_shenhe']+"操作成功！！");
 		location.reload();
 	}
 }
+
 </script>
+<textarea id="fe_text" style="display:none"><{$web_xingcheng}></textarea>
 
 <div class="moduleTitle" style="margin-bottom:10px;">
   <h3 style=""><{$navigation}><{$datatitle}></h3>
@@ -77,31 +96,33 @@ function shenhe_after(data,status){
 <div id="resultdiv" class="resultdiv"></div>
 <div id="resultdiv_2" class="resultdiv"></div>
 <div class="buttons">
-  <input type="button" value="审核记录" name="button" class="button primary" style="float:right" id="showshenhe" onclick="shenheshow_doit(<{$chanpinID}>);">
-  
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'线路');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
-      <php>}}else{</php>
-      <input type="button" style="float:right" value="审核" name="button" onclick="alert('计调未申请审核！！！')" >
-      <php>}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'线路');">
-	  <php>}</php>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
-      <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
-      
+  <input type="button" class="button" value="审核记录" style="float:right" id="showshenhe" onclick="shenheshow_doit(<{$chanpinID}>);">
+<!--  
+  <input type="button" class="button" value="审核状态重置" style="float:right" id="showshenhe" onclick="dotest()">
+-->
+  <php>
+  $taskom = A("Method")->_checkOMTaskShenhe($chanpinID,'线路');
+  if(false !== $taskom){
+  if(cookie('show_action') == '批准'){
+  </php>
+  <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('检出');">
+  <php>}if(cookie('show_action') == '申请'){
+  </php>
+  <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " onclick="doshenhe('申请');">
+  <php>}}else{</php>
+  <input type="button" class="button" style="float:right" value="审核" onclick="alert('已<{$xianlu['shenhe_remark']}>！')" >
+  <php>}if(A("Method")->checkshenheback($chanpinID,'线路')){</php>
+  <input type="button" class="button" style="float:right" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'线路');">
+  <php>}</php>
+  <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
+  <label style="float:right; margin:2px 4px 0 0; font-size:12px">锁状态：<strong><{$tem_cp['islock']}></strong></label>
   
   <php>if('基本信息' == $nowDir['title']){if($kind == '包团' || $xianlu['kind'] == '包团') $kind = '包团';</php>
-  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save('<{$kind}>');">
+  <input type="button" class="button" value="保存" onclick="if(CheckForm('form','resultdiv_2')) save('<{$kind}>');">
   <php>}</php>
   <php>if('行程' == $nowDir['title']){</php>
-  <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <input type="button" class="button" value="保存" onClick="save();">
+  <input type="button" class="button" value=" 生成网店行程格式（行程二必填）" id="copy-button" data-clipboard-target="fe_text">
   <php>}</php>
 </div>
 

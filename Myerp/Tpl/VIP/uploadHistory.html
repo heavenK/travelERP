@@ -1,0 +1,72 @@
+<tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<div id="main">
+
+  <tp:includeCA file="VIP:left:'left'" />
+  
+  <div id="content" style="margin-left:180px;">
+  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
+            
+            <include file="Index:search_message" />
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$data['page']}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:50%; min-width:500px;"><div> 文件名 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:100px;"><div> 类型 </div></th>
+                  <th scope="col" nowrap="nowrap" style="text-align:center; width:20%; min-width:100px;"><div> 时间 </div></th>
+                </tr>
+                
+                <php> $i = -1; foreach($data['list'] as $v){ $i++;</php>
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$i+1}></td>
+                  <td scope="row" align="center" valign="top"><{$v['filename_upload']}></td>
+                  <td scope="row" align="center" valign="top"><{$v['file_type']}></td>
+                  <td scope="row" align="center" valign="top"><php>echo date('Y-m-d H:i',$v['time'])</php></td>
+                </tr>
+                <php> }</php>
+                
+                
+              </tbody>
+            </table>
+            
+  </div>
+  
+  
+</div>
+
+<tp:includeCA file="Index:footer" />
+
+<script language="javascript"> 
+function dosearch(str)
+{
+		window.location = SITE_INDEX+'VIP/uploadhistory'+str;
+}
+</script>
+
+
+

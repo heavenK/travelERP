@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> <include file="Chanpin:left_kongguan" />
   <div id="content" style="margin-left:180px;">
@@ -31,9 +31,9 @@
         <tr style="background:#EBEBED" height="40" class="evenListRowS1">
           <td scope="row" align="left" valign="top"><{$v['title']}></td>
           <td scope="row" align="left" valign="top"><{$v['remark']}></td>
-          <td scope="row" align="left" valign="top"><input type="button" value="分配人员" name="button" class="button primary" onClick="select_tuanyuan('<{$chanpinID}>','<{$v[chanpinID]}>')">
-            <input type="button" value="编辑房间" name="button" class="button primary" onClick="save();">
-            <input type="button" value="删除房间" name="button" class="button primary"></td>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="分配人员" name="button" onClick="select_tuanyuan('<{$chanpinID}>','<{$v[chanpinID]}>')">
+            <input type="button" class="button" value="编辑房间" name="button" onClick="save();">
+            <input type="button" class="button" value="删除房间" name="button"></td>
         </tr>
       </tbody>
     </table>

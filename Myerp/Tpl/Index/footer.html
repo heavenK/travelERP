@@ -24,20 +24,21 @@
   </table>
   </form>
 </div>
+
 <div id="dialog_userinfo" title="个人信息" style="background:#FFF">
   <form id="form_userinfo" id="form_userinfo" method="post" >
   <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
     <tbody>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 联系电话: </td>
-        <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $this->tVar['user']['telnum']</php>" ></td>
+        <td valign="top" scope="row" colspan="3"><input name="telnum" type="text" check="^\S+$" warning="联系电话不能为空,且不能含有空格" value="<php>echo $login_user['telnum']</php>" ></td>
       </tr>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 性别: </td>
         <td valign="top" scope="row"><select name="user_gender">
-            <php>if($this->tVar['user']['user_gender'])</php>
-            <option value="<php>echo $this->tVar['user']['user_gender']</php>">
-            <php>echo $this->tVar['user']['user_gender']</php>
+            <php>if($login_user['user_gender'])</php>
+            <option value="<php>echo $login_user['user_gender']</php>">
+            <php>echo $login_user['user_gender']</php>
             </option>
             <option disabled="disabled">-------------</option>
             <php></php>
@@ -47,7 +48,7 @@
       </tr>
       <tr>
         <td valign="top" scope="row" style="width:80px;"> 电子邮箱地址: </td>
-        <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $this->tVar['user']['mailadres']</php>"></td>
+        <td valign="top" scope="row"><input name="mailadres" type="text" value="<php>echo $login_user['mailadres']</php>"></td>
       </tr>
     </tbody>
   </table>
@@ -115,7 +116,9 @@ em,i{ font-style:normal;}
 <div class="noticebox" style="display:none">
   <div id="newsTitle" class="newsTitle"></div>
   <div id="timeNews" class="timeNews"></div>
-  <div id="noticeoper" class="noticeoper"><input type="button" value=" 清 空 " style="float:right" onclick="if(confirm('确定要清空！！')==true)del_alert(1,'全部');" /></div>
+<!--  
+  <div id="noticeoper" class="noticeoper"><input type="button" class="button" value=" 清 空 " style="float:right" onclick="if(confirm('确定要清空！！')==true)del_alert(1,'全部');" /></div>
+-->  
 </div>
 <script>
 
@@ -142,8 +145,8 @@ jQuery(".timeNews").hover(function(){
 
 
 jQuery(document).ready(function(){
-		getDingdanNotice();
-		window.setInterval(getDingdanNotice,60000);
+		//getDingdanNotice();
+		window.setInterval(getDingdanNotice,100000);
 	
 });
 
@@ -163,6 +166,7 @@ function getDingdanNotice(){
 					  }
 		});
 }
+
 function showmessages(url,id)
 {
 	window.open(url);

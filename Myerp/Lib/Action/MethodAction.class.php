@@ -12,8 +12,12 @@ class MethodAction extends CommonAction{
 	
     //DataOM显示列表
     public function getDataOMlist($datatype,$relation,$where,$type='管理',$pagenum = 20,$ajaxdiv='',$distinctfield='') {
-		if($where['status_system'] != -1)
-			$where['status_system'] =  array('eq',1);//默认
+		
+		//优化查询
+		if(!$where){
+			$class_name = 'DataOM';
+			$order = 'dataID desc';
+		}
 		if($datatype == '审核任务'){
 			$class_name = 'OMViewTaskShenhe';
 			$where = $this->_orderShenheTask($where,$datatype,$relation);
@@ -28,7 +32,6 @@ class MethodAction extends CommonAction{
 		}
 		if($datatype == '售价'){
 			$class_name = 'OMViewShoujia';
-			$where['datatype'] = $datatype;
 			if($where['chanpintype'] == ''){
 				$where['chanpintype'] = '线路';
 			}
@@ -36,6 +39,9 @@ class MethodAction extends CommonAction{
 			//处理搜索
 			if($where['title']){
 				$where['xianlu_title'] = array('like','%'.$where['title'].'%');
+			}
+			if($where['bumen_copy']){
+				$where['bumen_copy'] = $where['bumen_copy'];
 			}
 			if($where['chutuanriqi']){
 				$where['xianlu_chutuanriqi'] = array('like','%'.$where['chutuanriqi'].'%');
@@ -50,64 +56,88 @@ class MethodAction extends CommonAction{
 				}
 				$where['xianlu_chutuanriqi'][$i] = 'or';
 			}
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '线路'){
-			$class_name = 'OMViewXianlu';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewXianlu';
+				$where = $this->_orderXianlu($where,$datatype);
+			}
 			$where['datatype'] = $datatype;
-			$where = $this->_orderXianlu($where,$datatype);
 		}
 		if($datatype == '订单'){
-			$class_name = 'OMViewDingdan';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewDingdan';
+				$where = $this->_orderDingdan($where,$datatype);
+			}
 			$where['datatype'] = $datatype;
-			$where = $this->_orderDingdan($where,$datatype);
 		}
 		if($datatype == '子团'){
-			$class_name = 'OMViewZituan';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewZituan';
+				$order = 'chutuanriqi desc';
+				$where = $this->_orderZituan($where,$datatype);
+			}
 			$where['datatype'] = $datatype;
-			$order = 'chutuanriqi desc';
-			$where = $this->_orderZituan($where,$datatype);
 		}
 		if($datatype == '地接'){
-			$class_name = 'OMViewDJtuan';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewDJtuan';
+				$where = $this->_orderDijie($where,$datatype);
+				$order = 'jietuantime desc';
+			}
 			$where['datatype'] = $datatype;
-			$where = $this->_orderDijie($where,$datatype);
-			$order = 'jietuantime desc';
 		}
 		if($datatype == '报账单'){
-			$class_name = 'OMViewBaozhang';
-			$where['datatype'] = $datatype;
-			$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			$where['title'] = array('like','%'.$where['title'].'%');
-			$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
-			if($where['type'] == '单项服务'){
-				$where['type'] = array('neq','团队报账单');
+			//优化查询
+			if($where){
+				$class_name = 'OMViewBaozhang';
+				if($where['user_name'])
+					$where['user_name'] = array('like','%'.$where['user_name'].'%');
+				if($where['title'])
+					$where['title'] = array('like','%'.$where['title'].'%');
+				if($where['shenhe_remark'])
+					$where['shenhe_remark'] = array('like','%'.$where['shenhe_remark'].'%');
+				if($where['type'] == '单项服务')
+					$where['type'] = array('neq','团队报账单');
 			}
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '消息'){
 			$class_name = 'OMViewInfohistory';
-			$where['datatype'] = $datatype;
 			$where['message'] = array('like','%'.$where['title'].'%');
 			unset($where['title']);
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '公告'){
 			$class_name = 'OMViewInfo';
-			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '排团表'){
 			$class_name = 'OMViewInfo';
-			$where['datatype'] = $datatype;
 			$where['type'] = $datatype;
 			$where['title'] = array('like','%'.$where['title'].'%');
 			$order = 'sortvalue desc,time desc';
+			$where['datatype'] = $datatype;
 		}
 		if($datatype == '签证'){
-			$class_name = 'OMViewQianzheng';
+			//优化查询
+			if($where){
+				$class_name = 'OMViewQianzheng';
+				$where['title'] = array('like','%'.$where['title'].'%');
+			}
 			$where['datatype'] = $datatype;
-			$where['title'] = array('like','%'.$where['title'].'%');
 		}
-		
+		//查询状态下有效
+		if($where['status_system'] != -1)
+			$where['status_system'] =  array('eq',1);//默认
+			
 		if($type == '开放')
 			$type = array(array('eq','管理'),array('eq','开放'), 'or');
 		else
@@ -138,12 +168,14 @@ class MethodAction extends CommonAction{
 		if(!$order)
 			$order = 'time desc';
         $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
 		//关键字高亮
 		return $this->_keyStar($redata,$_REQUEST);
 	}
+	
 	
 	//关键字高亮
     public function _keyStar($redata,$_REQUEST) {
@@ -194,10 +226,16 @@ class MethodAction extends CommonAction{
 			}
 			$where['chutuanriqi'][$i] = 'or';
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
-		$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
+		if($where['chutuanriqi'])
+			$where['chutuanriqi'] = array('like','%'.$where['chutuanriqi'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title'])
+			$where['title'] = array('like','%'.$where['title'].'%');
+		if($where['mudidi'])
+			$where['mudidi'] = array('like','%'.$where['mudidi'].'%');
+		if($where['chufadi'])
+			$where['chufadi'] = array('like','%'.$where['chufadi'].'%');
 		return $where;
 	}
 	
@@ -205,14 +243,22 @@ class MethodAction extends CommonAction{
 	//定制订单搜索条件
     public function _orderDingdan($where,$datatype) {
 		//处理搜索
+		if($where['tuanqi_copy']){
+			if($where['title'])
+				$where['title'] = array(array('like',$where['title']),array('like',$where['tuanqi_copy']));
+			else
+				$where['title'] = $where['tuanqi_copy'];
+		}
+		$where['title'] = array('like','%'.$where['title'].'%');
 		if($where['start_time'] && $where['end_time']){
 			$where['time'] = array('between',"'".strtotime($where['start_time']).",".strtotime($where['end_time'])."'");
 		}
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
-		$where['owner'] = array('like','%'.$where['owner'].'%');
+		if($where['lianxiren'])
+			$where['lianxiren'] = array('like','%'.$where['lianxiren'].'%');
+		if($where['owner'])
+			$where['owner'] = array('like','%'.$where['owner'].'%');
 		if($where['remark'])
-		$where['remark'] = array('like','%'.$where['remark'].'%');
+			$where['remark'] = array('like','%'.$where['remark'].'%');
 		return $where;
 	}
 	
@@ -232,10 +278,14 @@ class MethodAction extends CommonAction{
 		elseif($where['end_time']){
 			$where['chutuanriqi'] = $where['end_time'];
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title_copy'] = array('like','%'.$where['title'].'%');
-		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
-		$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title'])
+			$where['title_copy'] = array('like','%'.$where['title'].'%');
+		if($where['tuanhao'])
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		if($where['kind_copy'])
+			$where['kind_copy'] = array('like','%'.$where['kind_copy'].'%');
 		return $where;
 	}
 	
@@ -251,13 +301,16 @@ class MethodAction extends CommonAction{
 		elseif($where['end_time']){
 			$where['jietuantime'] = $where['end_time'];
 		}
-		$where['user_name'] = array('like','%'.$where['user_name'].'%');
-		$where['title'] = array('like','%'.$where['title'].'%');
-		$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
+		if($where['user_name'])
+			$where['user_name'] = array('like','%'.$where['user_name'].'%');
+		if($where['title'])
+			$where['title'] = array('like','%'.$where['title'].'%');
+		if($where['tuanhao'])
+			$where['tuanhao'] = array('like','%'.$where['tuanhao'].'%');
 		if($where['fromcompany'])
-		$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
+			$where['fromcompany'] = array('like','%'.$where['fromcompany'].'%');
 		if($where['status_baozhang'] && $where['status_baozhang'] != '批准')
-		$where['status_baozhang'] = array('neq','批准');
+			$where['status_baozhang'] = array('neq','批准');
 		return $where;
 	}
 	
@@ -291,20 +344,16 @@ class MethodAction extends CommonAction{
 				unset($where['baozhangtitle_copy']);
 			}
 			if($where['tuantitle_copy'])
-			$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
+				$where['tuantitle_copy'] = array('like','%'.$where['tuantitle_copy'].'%');
 			if($where['tuanhao_copy'])
-			$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
+				$where['tuanhao_copy'] = array('like','%'.$where['tuanhao_copy'].'%');
 			if($where['tuanqi_copy'])
-			$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
+				$where['tuanqi_copy'] = array('like','%'.$where['tuanqi_copy'].'%');
 		}
 		if($relation == 'dingdan')
 			$where['datatype'] = '订单';
 		return $where;
 	}
-	
-	
-	
-	
 
 	
 	
@@ -312,7 +361,10 @@ class MethodAction extends CommonAction{
 
     //显示产品列表
     public function data_list_noOM($class_name,$where,$pagenum = 20) {
-		
+		if($class_name == 'ViewHetong'){//合同
+			$where['bianhao'] = array('like','%'.$where['bianhao'].'%');
+			$where['name'] = array('like','%'.$where['name'].'%');
+		}
 		if($class_name == 'ViewXianlu'){
 			$where = $this->_orderXianlu($where,$datatype);
 		}
@@ -355,42 +407,60 @@ class MethodAction extends CommonAction{
 			$order = 'chutuanriqi desc';
 		}
 		if($class_name == 'ViewSearch'){
+//			if($where){
+				if($where['user_name'])
+					$where['user_name'] = array('like','%'.$where['user_name'].'%');
+				if($where['title'])
+					$where_tem .= "AND (`title_1` like '%".$where['title']."%' OR `title_2` like '%".$where['title']."%')";
+				if($where['tuanhao'])
+					$where_tem .= "AND (`tuanhao_1` like '%".$where['tuanhao']."%' OR `tuanhao_2` like '%".$where['tuanhao']."%')";
+				if($where['chutuanriqi'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				if($where['start_time'] && $where['end_time'])
+					$where_tem .= "AND (  `tuanqi_1` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' OR `tuanqi_2` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' )";
+				elseif($where['start_time'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				elseif($where['end_time'])
+					$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
+				$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
+//			}
+//			else{
+//				$class_name = 'Chanpin';
+//				$where['marktype'] =  array('exp'," = 'zituan' or `marktype` = 'DJtuan'");
+//				$order = 'chanpinID desc';
+//			}
 			$where['status_system'] =  array('eq',1);//默认
-			if($where['user_name'])
-				$where['user_name'] = array('like','%'.$where['user_name'].'%');
-			if($where['title'])
-				$where_tem .= "AND (`title_1` like '%".$where['title']."%' OR `title_2` like '%".$where['title']."%')";
-			if($where['tuanhao'])
-				$where_tem .= "AND (`tuanhao_1` like '%".$where['tuanhao']."%' OR `tuanhao_2` like '%".$where['tuanhao']."%')";
-			if($where['chutuanriqi'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
-			if($where['start_time'] && $where['end_time'])
-				$where_tem .= "AND (  `tuanqi_1` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' OR `tuanqi_2` BETWEEN '".$where['start_time']."' AND '".$where['end_time']."' )";
-			elseif($where['start_time'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
-			elseif($where['end_time'])
-				$where_tem .= "AND (`tuanqi_1` = '".$where['chutuanriqi']."' OR `tuanqi_2` = '".$where['chutuanriqi']."')";
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
 			$where .= $where_tem;
-			$order = 'case when tuanqi_1 is null then tuanqi_2 else tuanqi_1  end desc';
 		}
 		else{
-			$where['status_system'] = 1;
+			if($where['status_system'] != -1)
+				$where['status_system'] = 1;
 			$where = $this->_facade($class_name,$where);//过滤搜索项
 			$where = $this->_arraytostr_filter($where);
 		}
+		
+/*		
 		//获得财务所属公司，过滤出公司拥有部门列表
-		$bumenlist = $this->_getCompanyDepartmentList();
-		foreach($bumenlist as $v){
-			if($wherebumen)
-			$wherebumen .= " OR `departmentID` = '$v[systemID]'";
-			else
-			$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+		if($this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政')){
+			$ComID = $this->_getComIDbyUser($username);
+			$wherebumen =" AND (`companyID` = '$ComID')";
+		}else{
+			$bumenlist = $this->_getCompanyDepartmentList();
+			foreach($bumenlist as $v){
+				if($wherebumen)
+				$wherebumen .= " OR `departmentID` = '$v[systemID]'";
+				else
+				$wherebumen =" AND (`departmentID` = '$v[systemID]'";
+			}
+			$wherebumen .= ")";
 		}
-		$wherebumen .= ")";
+*/		
+		$ComID = $this->_getComIDbyUser($username);
+		$wherebumen =" AND (`companyID` = '$ComID')";
+		
 		$where .= $wherebumen;
-		//$where['status'] = array('neq',-1);;
 		$ViewClass = D($class_name);
         import("@.ORG.Page");
         C('PAGE_NUMBERS',10);
@@ -414,7 +484,10 @@ class MethodAction extends CommonAction{
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '分类'){
-			$class_name = 'OMViewSystemCategory';
+			//$class_name = 'OMViewSystemCategory';
+			$class_name = 'ViewCategory';
+			$ComID = $this->_getComIDbyUser();
+			$where['companyID'] = $ComID;
 			$where['datatype'] = $datatype;
 		}
 		if($datatype == '产品搜索'){
@@ -477,7 +550,7 @@ class MethodAction extends CommonAction{
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
-		$DURlist = $this->_getDURlist($myuserID);
+		$DURlist = $this->_getDURlist($myuserID,'','',1);
 		if($where)
 		$where .= " AND (";
 		else
@@ -487,7 +560,7 @@ class MethodAction extends CommonAction{
 			{
 				if($whereitem)
 					$whereitem .= " OR ";
-				$whereitem .= "(`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
+				$whereitem .= " (`DUR` = '$v[bumenID],$v[rolesID],')";//部门，角色
 				$whereitem .= " OR (`DUR` = '$v[bumenID],$v[rolesID],$v[userID]')";//部门，角色，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,$v[userID]')";//部门，用户
 				$whereitem .= " OR (`DUR` = '$v[bumenID],,')";//部门
@@ -498,9 +571,21 @@ class MethodAction extends CommonAction{
 		}
 		else
 				$whereitem .= "(`DUR` = ',,$v[userID]' )";//用户
+				
+		//附加公司计调
+		//根据公司，做联合体开放产品的行政角色调整
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+		if($durlist){
+			$ComID = $this->_getComIDbyUser();
+			$ViewRoles = D("ViewRoles");
+			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
+			$whereitem .= " OR (`DUR` = '$ComID,$r_jidiao[systemID],' )";//公司计调
+		}
 		$where .= $whereitem.")";
 		return $where;
 	}
+	
+	
 	
     //字符串化条件数组
     public function _arraytostr_filter($where) {
@@ -557,14 +642,16 @@ class MethodAction extends CommonAction{
 				$datazituan['zituan']['baomingjiezhi'] = $chanpin['xianlu']['baomingjiezhi'];
 				$datazituan['zituan']['chutuanriqi'] = $riqi;
 				$datazituan['zituan']['tuanhao'] =  $chanpinID.'/'.$riqi;
+				$datazituan['zituan']['second_confirm'] =  $chanpin['xianlu']['second_confirm'];
 				$datazituan['parentID'] = $chanpinID;
 				$datazituan['user_name'] = $chanpin['user_name'];
 				$datazituan['status'] = '报名';
+				$datazituan['zituan']['second_confirm'] = $chanpin['xianlu']['second_confirm'];
+				$datazituan['zituan']['status_shop'] = $chanpin['xianlu']['status_shop'];
 				if (false !== $Chanpin->relation("zituan")->myRcreate($datazituan)){
 					$zituanID = $Chanpin->getRelationID();
 					//生成OM
-					$dataOMlist = $this->_getDataOM($chanpinID,'线路');
-					$this->_createDataOM($zituanID,'子团','管理',$dataOMlist);
+					$this->_OMRcreate($zituanID,'子团');
 					//线路审核通过,生成默认报账单
 					$td['user_name'] = $chanpin['user_name'];
 					$td['departmentID'] = $chanpin['departmentID'];
@@ -575,8 +662,7 @@ class MethodAction extends CommonAction{
 					$Chanpin->relation("baozhang")->myRcreate($td);
 					$baozhangID = $Chanpin->getRelationID();
 					//生成OM
-					$dataOMlist = $this->_getDataOM($zituanID,'子团');
-					$this->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
+					$this->_OMRcreate($baozhangID,'报账单');
 				}
 			}
 			else{//修改
@@ -762,6 +848,18 @@ class MethodAction extends CommonAction{
 
 		
 	//分类解析
+     public function _fenlei_filter_one($dat) {
+		$ViewCategory = D("ViewCategory");
+		$ViewDepartment = D("ViewDepartment");
+		if($dat['opentype'] == '分类')
+			$d = $ViewCategory->where("`systemID` = '$dat[openID]' AND (`status_system` = '1')")->find();
+		if($dat['opentype'] == '部门')
+			$d = $ViewDepartment->where("`systemID` = '$dat[openID]' AND (`status_system` = '1')")->find();
+		$dat['title'] = $d['title'];
+		return $dat;
+	 }
+		
+	//分类解析
      public function _fenlei_filter($dat) {
 		$ViewCategory = D("ViewCategory");
 		$ViewDepartment = D("ViewDepartment");
@@ -841,8 +939,10 @@ class MethodAction extends CommonAction{
 			$this->assign("categoryAll",$datas1);
 		}
 		else{
-			$category = A('Method')->getDataOMlistSystem("分类",'category','');
-			$this->assign("categoryAll",$category['chanpin']);
+			$category = $this->_getCompanyCategoryList();
+			$this->assign("categoryAll",$category);
+//			$category = $this->getDataOMlistSystem("分类",'category','');
+//			$this->assign("categoryAll",$category['chanpin']);
 		}
 		//部门
 		if($this->user['title'] == 'aaa'){
@@ -871,6 +971,12 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+     public function _shanghutiaomulist() {
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$list = $ViewDataDictionary->where("`status_system` = 1 AND `type` = '商户条目'")->findall();
+		return $list;
+	 }
+	 
 	 //获得公司及下属部门列表
      public function _getCompanyDepartmentList($username) {
 		$ViewDepartment = D("ViewDepartment");
@@ -893,6 +999,17 @@ class MethodAction extends CommonAction{
 	 }
 	
 	
+	 //获得公司及下属用户列表
+     public function _getCompanyCategoryList($username) {
+		$ViewCategory = D("ViewCategory");
+		if(!$username)
+		$username = $this->user['title'];
+		$ComID = $this->_getComIDbyUser($username);
+		$list = $ViewCategory->where("`companyID` = '$ComID' AND `status_system` = 1")->findall();
+		return $list;
+	 }
+	
+	
 	//解析 部门 角色 分类 用户
      public function _facesystem(&$dat,$type) {
 		$ViewDepartment = D("ViewDepartment");
@@ -900,9 +1017,9 @@ class MethodAction extends CommonAction{
 		if($type == '用户'){
 			$i=0;
 			foreach($dat as $v){
-				$department = $ViewDepartment->where("`systemID` = '$v[bumenID]' AND (`status_system` = '1')")->find();
+				$department = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
 				$dat[$i]['department'] = $department;
-				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]' AND (`status_system` = '1')")->find();
+				$roles = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
 				$dat[$i]['roles'] = $roles;
 				$i++;
 			}
@@ -927,39 +1044,54 @@ class MethodAction extends CommonAction{
 	 }
 	
 	
+	//根据名称获得部门ID等
+     public function _getDepartmentByTitle($title) {
+		$ViewDepartment = D("ViewDepartment");
+		$data = $ViewDepartment->where("`title` = '$title'")->find();
+		return $data;
+	 }
+	
+	
 	//获得用户部门角色列表
-     public function _getDURlist($userID,$bumen='',$bumentype='') {
+     public function _getDURlist($userID,$bumen='',$bumentype='',$power_right=0) {
 		if($userID)
 			$myuserID = $userID;
 		else
 			$myuserID = $this->user['systemID'];
-		return $this->_getDURlist_do($myuserID,$bumen,$bumentype);	
+		return $this->_getDURlist_do($myuserID,$bumen,$bumentype,$power_right);	
 	 }
 	 
+	 
+	 
 	//获得用户部门角色列表
-     public function _getDURlist_name($user_name,$bumen='',$bumentype='') {
+     public function _getDURlist_name($user_name,$bumen='',$bumentype='',$power_right=0) {
 		if(!$user_name)
 			$user_name = $this->user['title'];
 		$ViewUser = D("ViewUser");
-		$user = $ViewUser->where("`title` = '$user_name' AND (`status_system` = '1')")->find();
-		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype);	
+		$user = $ViewUser->where("`title` = '$user_name'")->find();
+		return $this->_getDURlist_do($user['systemID'],$bumen,$bumentype,$power_right);	
 	 }
 	 
-     public function _getDURlist_do($myuserID,$bumen,$bumentype) {
+	 
+	 
+     public function _getDURlist_do($myuserID,$bumen,$bumentype,$power_right) {
 		$ViewSystemDUR = D("ViewSystemDUR");
 		if($bumen)//获得部门关联
 		$data = $ViewSystemDUR->relation("bumen")->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
 		else
 		$data = $ViewSystemDUR->where("`userID` = '$myuserID' AND (`status_system` = '1')")->findall();
+		$ViewDepartment = D("ViewDepartment");
+		//父级部门获得子级部门列表
+		if($power_right)
+			$data = $this->_get_child_DUR($data);
 		if($bumentype){//过滤部门类型
-			$ViewDepartment = D("ViewDepartment");
 			$bumentypelist = explode(',',$bumentype);
 			$m = 0;
 			foreach($data as $v){
 				$ok_d = 0;
 				//比对部门类型
-				$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
-				$typelist = explode(',',$bumen['type']);
+				$bumen_t = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
+				$typelist = explode(',',$bumen_t['type']);
 				foreach($typelist as $vaa){
 					if(in_array($vaa,$bumentypelist)){
 						$ok_d = 1;
@@ -975,6 +1107,30 @@ class MethodAction extends CommonAction{
 		}
 		return $data;
 	 }
+	 
+	 
+	//子方法 
+     public function _get_child_DUR($data) {
+		$ViewDepartment = D("ViewDepartment");
+		$n_data = $data;
+		foreach($data as $v){
+			//过滤行政属性部门
+			$t_b = $ViewDepartment->where("`systemID` = '$v[bumenID]' AND `type` = '行政'")->find();
+			if($t_b)
+				continue;
+			$new_v = $v;
+			//$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `systemID` <> '$v[bumenID]'")->findall();
+			$bumenall = $ViewDepartment->where("`parentID` = '$v[bumenID]' AND `type` <> '行政'")->findall();
+			$n_i = count($n_data);
+			foreach($bumenall as $vol){
+				$new_v['bumenID'] = $vol['systemID'];
+				$n_data[$n_i] = $new_v;
+				$n_i++;
+			}
+		}
+		return $n_data;
+	 }
+	 
 	 
 	//获得用户列表
      public function _getUserlist($bumenID,$rolesID) {
@@ -1141,6 +1297,7 @@ class MethodAction extends CommonAction{
 		}
 		$DataShenhe->mycreate($DS);
 	 }
+	 
 	
 
      public function _systemUnitFilter($datalist) {
@@ -1199,10 +1356,8 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
-	//审核任务
-	//生成待检出	
-	//检查审核流程
-     public function _shenheDO($_REQUEST,$need) {
+	 //审核检查商品
+     public function _shenheDO_chanpin_check() {
 		$Chanpin = D("Chanpin");
 		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
 		//订单
@@ -1255,95 +1410,76 @@ class MethodAction extends CommonAction{
 				return false;
 			}
 		}
+	 
+	 }
+	 
+	 
+	 
+	 
+	//审核任务
+	//生成待检出	
+	//检查审核流程
+     public function _shenheDO($need) {
+		 //检查商品
+		if(false === $this->_shenheDO_chanpin_check())
+			return false;
+		$Chanpin = D("Chanpin");
 		$dotype = $_REQUEST['dotype'];
-		$data = $_REQUEST;
-		$data['taskShenhe'] = $_REQUEST;
-		$data['status'] = $_REQUEST['status_shenhe'];
-		$data['user_name'] = $this->user['title'];
 		if($dotype == '申请'){
-			if(false === $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID'])){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
+			unset($_REQUEST['parentID']);//多余字段影响数据
+			$process = $this->_checkShenhe($_REQUEST['datatype'],1,$this->user['systemID'],$_REQUEST['dataID']);
+			if(false === $process){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
 				return false;
 			}
-			$processID = 1;
-			cookie('successmessage','操作成功！',30);
-		}
-		else{
-			$processID = $need['processID'];
-			$data['systemID'] = $need['systemID'];
-			cookie('successmessage','操作成功！',30);
-		}
-		//检查流程状态
-		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID,$need);
-		if(false === $process){
-			cookie('errormessage','错误！该产品流程不存在或已被执行，请勿重复执行！',30);
-			return false;
-		}
-		$data['taskShenhe']['processID'] = $processID;
-		$data['taskShenhe']['remark'] = $process[0]['remark'];
-		$data['taskShenhe']['roles_copy'] = cookie('_task_roles');
-		$data['taskShenhe']['bumen_copy'] = cookie('_task_bumen');
-		if($_REQUEST['datatype'] == '订单'){
-			$ViewDingdan = D("ViewDingdan");
-			$tmdt = $ViewDingdan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['type'];
-		}
-		if($_REQUEST['datatype'] == '线路'){
-			$ViewXianlu = D("ViewXianlu");
-			$tmdt = $ViewXianlu->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['kind'];
-		}
-		if($_REQUEST['datatype'] == '报账项'){
-			$ViewBaozhangitem = D("ViewBaozhangitem");
-			$tmdt = $ViewBaozhangitem->relation("baozhanglist")->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['baozhanglist']['type'];//报账项与报账单类型相同
-		}
-		if($_REQUEST['datatype'] == '报账单'){
-			$ViewBaozhang = D("ViewBaozhang");
-			$tmdt = $ViewBaozhang->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['type'];
-		}
-		if($_REQUEST['datatype'] == '地接'){
-			$ViewDJtuan = D("ViewDJtuan");
-			$tmdt = $ViewDJtuan->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-			$data['taskShenhe']['datakind'] = $tmdt['kind'];
-		}
-		if($_REQUEST['datatype'] == '签证'){
-			$data['taskShenhe']['datakind'] = '签证';
-			$ViewQianzheng = D("ViewQianzheng");
-			$tmdt = $ViewQianzheng->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-		}
-		$data['taskShenhe']['title_copy'] = $tmdt['title'];
-		//搜索字段填充
-		if($data['datatype'] == '报账单' || $data['datatype'] == '报账项'){
-			//$data = $this->_gettaskshenheinfo($data['dataID'],$data['datatype'],$data);
-		}
-		//审核任务
-		$System = D("System");
-		if (false === $System->relation("taskShenhe")->myRcreate($data)){
-			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
-			return false;
-		}
-		else{
-			//锁定产品
-			$Chanpin = D("Chanpin");
-			$dat_t['chanpinID'] = $_REQUEST['dataID'];
-			$dat_t['islock'] = '已锁定';
-			$dat_t['shenhe_remark'] = $data['taskShenhe']['remark'];
-			$dat_t['status_shenhe'] = $data['status'];
-			if (false === $Chanpin->save($dat_t)){
-				cookie('errormessage','错误，操作失败！'.$Chanpin->getError(),30);
+			if(A("Method")->_shenheback() && $process['status'] != '批准')//审核回退
+				$processID = 1;
+			else{
+				cookie('errormessage','错误！产品已被批准，请回退后重新申请。',30);
 				return false;
 			}
 		}
+		else{
+			$process = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
+			if(false === $process){
+				cookie('errormessage','错误！该产品流程不存在或已被执行！',30);
+				return false;
+			}
+			$processID = $need['processID'];
+			$data['systemID'] = $need['systemID'];//审核覆盖
+		}
+		$data['taskShenhe'] = $_REQUEST;
+		$data['status'] = $_REQUEST['status_shenhe'];
+		$data['user_name'] = $this->user['title'];
+		//检查流程状态
+//		$process = $this->_checkDataShenhe($_REQUEST['dataID'],$_REQUEST['datatype'],$data['status'],$processID,$need);
+//		if(false === $process){
+//			cookie('errormessage','错误！该产品流程不存在或已被执行！',30);
+//			return false;
+//		}
+		$data['taskShenhe']['processID'] = $processID;
+		$data['taskShenhe']['remark'] = $process['remark'];
+		$data['taskShenhe']['roles_copy'] = cookie('_task_roles');
+		$data['taskShenhe']['bumen_copy'] = cookie('_task_bumen');
+		//任务搜索字段填充
+		$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$data);
+		//审核任务，申请及检出
+		$System = D("System");
+		$System->startTrans();
+		if(false === $System->relation("taskShenhe")->myRcreate($data)){
+			cookie('errormessage','错误，操作失败！'.$System->getError(),30);
+			return false;
+		}
+		//如果流程只有批准
 		$to_dataID = $System->getRelationID();
 		if($processID == 1 && $data['status'] == '批准'){
 			$md['systemID'] = $to_dataID;
 			$md['parentID'] = $to_dataID;
-			$System->save($md);
+			if(false === $System->save($md))
+				$System->rollback();
 		}
-		//生成待检出
-		$process = $this->_checkShenhe($data['datatype'],$processID+1);
+		//如果多流程
+		$process = $this->_checkShenhe($_REQUEST['datatype'],$processID+1);
 		if($process){
 			$data['status'] = '待检出';
 			if($processID == 1)
@@ -1358,7 +1494,10 @@ class MethodAction extends CommonAction{
 			unset($data['systemID']);
 			unset($data['taskShenhe']['roles_copy']);
 			unset($data['taskShenhe']['bumen_copy']);
+			//生成待检出
 			$userIDlist = $this->_djcCreate($data,$process);
+			if(false === $userIDlist)
+				$System->rollback();
 		}
 		else{
 			foreach($to_dataomlist as $vo){
@@ -1367,9 +1506,30 @@ class MethodAction extends CommonAction{
 				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 			}
 		}
-		
+		$System->commit();
+		//记录
+		if($_REQUEST['datatype'] == '线路')
+			$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '地接')
+			$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '签证')
+			$url = 'index.php?s=/Qianzheng/fabu/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '订单')
+			$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '报账单')
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
+		if($_REQUEST['datatype'] == '报账项'){
+			$ViewBaozhangitem = D("ViewBaozhangitem");
+			$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
+		}
+		$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
+		$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
+		cookie('successmessage','操作成功！',30);
 		return $userIDlist;
-	 }
+	}
+	
+	
 	
 	
 	//获得审核流程
@@ -1378,6 +1538,9 @@ class MethodAction extends CommonAction{
 		$data =  $DataShenhe->where("`datatype` = '$datatype'")->findall();
 		return $data;
 	 }
+	 
+	
+	
 	
 	//获得产品OM
      public function _getOM($dataID,$datatype,$type) {
@@ -1388,11 +1551,25 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//获得DataOM
-     public function _getDataOM($dataID,$datatype,$type = '',$omclass='') {
+     public function _getDataOM($dataID,$datatype='',$type = '',$omclass='') {
 		 if($omclass)
 		$DataOM = D($omclass);
 		 else
 		$DataOM = D("DataOM");
+		if(!$datatype && !$omclass){
+			$Chanpin = D('Chanpin');
+			$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+			if($cp['marktype'] == 'xianlu')
+				$datatype = '线路';
+			if($cp['marktype'] == 'qianzheng')
+				$datatype = '签证';
+			if($cp['marktype'] == 'DJtuan')
+				$datatype = '地接';
+			if($cp['marktype'] == 'baozhang')
+				$datatype = '报账单';
+			if($cp['marktype'] == 'baozhangitem')
+				$datatype = '报账项';
+		}
 		if($type == '')
 		$data = $DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->findall();
 		else
@@ -1422,6 +1599,7 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+	 
 	//根据产品相关DUR获得提示用户列表
      public function _getUserlistByDataOM($dataID,$datatype,$type = '') {
 		$omlist = $this->_getDataOM($dataID,$datatype,$type);
@@ -1435,8 +1613,10 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+	 
 	//检查数据审核任务OM
      public function _checkOMTaskShenhe($dataID,$datatype) {
+		 
 	 	//流程
 		$process = $this->_getTaskDJC($dataID,$datatype);
 		if($process){
@@ -1462,6 +1642,7 @@ class MethodAction extends CommonAction{
 		else{
 			if(false === $this->_checkShenhe($datatype,1,$this->user['systemID'],$dataID)){//检查流程的申请权限！检查某人是否有审核权限！（某人的审核权限建立在产品权限之上）
 				cookie('errormessage','您没有申请审核的权限！',30);
+				
 				return false;
 			}
 			else{
@@ -1474,6 +1655,7 @@ class MethodAction extends CommonAction{
 					else
 					cookie('show_word','批准',30);
 					cookie('show_action','申请',30);
+					
 					return $omdata;
 				}
 				return false;
@@ -1482,14 +1664,19 @@ class MethodAction extends CommonAction{
 	 }
 	 
 	 
+	 
 	//检查DataOM
      public function _checkDataOM($dataID,$datatype,$type,$userID='',$DURlist='',$omclass='') {
+		 
+		if($this->user['title'] == 'aaa')
+		  return true;
+		 
 		if($userID)
 			$myuserID = $userID;
 		if($DURlist == ''){
 			$myuserID = $this->user['systemID'];
 		}
-		$DURlist = $this->_getDURlist($myuserID);
+		$DURlist = $this->_getDURlist($myuserID,'','',1);
 		if($omclass)
 			$DataOM = D($omclass);
 		else
@@ -1547,6 +1734,34 @@ class MethodAction extends CommonAction{
 				return $omdata;
 			}
 		}
+		
+		//附加公司计调
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+		if($durlist){
+			$ComID = $this->_getComIDbyUser();
+			$ViewRoles = D("ViewRoles");
+			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
+			$where['DUR'] = $ComID.','.$r_jidiao['systemID'].',';
+			$OMlist = $DataOM->Distinct(true)->field('dataID')->where($where)->find();
+			
+			if($OMlist){
+				$ViewDepartment = D("ViewDepartment");
+				$bumen = $ViewDepartment->where("`systemID` = '$ComID'")->find();
+				$omdata['roles'] = '计调';
+				$omdata['bumen'] = $bumen['title'];
+				$omdata['bumenID'] = $bumen['systemID'];
+				
+				cookie('_usedbumenID',$bumen['systemID'],30);
+				cookie('_usedrolesID',$r_jidiao['systemID'],30);
+				cookie('_usedbumen',$bumen['title'],30);
+				cookie('_usedroles',$r_jidiao['title'],30);
+				cookie('_usedbumenaddr',$bumen['addr'],30);
+				cookie('_usedbumenfax',$bumen['fax'],30);
+				return $omdata;
+			}
+			
+		}
+		
 		return false;
 	 }
 	 
@@ -1585,7 +1800,7 @@ class MethodAction extends CommonAction{
 			if(!$dataID || !$ComID)
 			return false;
 			$myuserID = $userID;
-			$DURlist = $this->_getDURlist($myuserID);
+			$DURlist = $this->_getDURlist($myuserID,'','',1);
 			$ViewRoles = D("ViewRoles");
 			$ViewUser = D("ViewUser");
 			foreach($DURlist as $v){
@@ -1614,6 +1829,12 @@ class MethodAction extends CommonAction{
 					return $shenhe;
 				}
 			}
+			
+			//联合体产品，比对公司计调权限。
+			if($processID == 1){
+				return $this->_checkLHT_OM($dataID,$datatype,$userID);
+			}
+			
 		}
 		else{//获得审核流程
 			//公司范围控制
@@ -1626,6 +1847,39 @@ class MethodAction extends CommonAction{
 		return false;
 		
 	 }
+	 
+	 
+	 
+	 
+	//根据流程，检查该产品是否对公司计调开放
+     public function _checkLHT_OM($dataID,$datatype,$userID='') {
+		  $DataShenhe = D("DataShenhe");
+		  $ViewRoles = D("ViewRoles");
+		  $ComID = $this->_getComIDbyUser('',$userID);
+		  $durlist = A("Method")->_checkRolesByUser('计调','组团',1,$userID);
+		  foreach($durlist as $v){
+			  //开放给角色，检查部门
+			  $UR = $v['rolesID'].',';
+			  $shenhe = $DataShenhe->where("`datatype` = '$datatype' and `processID` = '1' and `UR` = '$UR' AND `companyID` = '$ComID'")->find();
+			  if($shenhe != null){
+				  $user_dur_item = $ComID.','.$v['rolesID'].',';
+				  //附加公司计调
+				  //根据公司，做联合体开放产品的行政角色调整
+				  $dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
+				  foreach($dataOMlist as $dol){
+					  if($dol['DUR'] == $user_dur_item){
+						  $roletitle = $ViewRoles->where("`systemID` = '$v[rolesID]'")->find();
+						  $shenhe['roletitle'] = $roletitle['title'];
+						  return $shenhe;
+					  }
+				  }
+			  }
+		  }
+		  return false;
+	 }
+	 
+	 
+
 
 	
 	//获得任务管理角色和部门cookie
@@ -1719,46 +1973,47 @@ class MethodAction extends CommonAction{
 			$data['infohistory']['message'] = cookie('_usedbumen').cookie('_usedroles').'"'.$this->user['title'].'":'.$message;
 			$data['infohistory']['usedDUR'] = cookie('_usedbumenID').','.cookie('_usedrolesID').','.$this->user['systemID'];
 		 }
+		$data['parentID'] = $dataID;
 		$data['infohistory']['dataID'] = $dataID;
 		$data['infohistory']['datatype'] = $datatype;
 		$data['infohistory']['url'] = $url;
 		
 		$Message = D("Message");
-		if (false !== $Message->relation("infohistory")->myRcreate($data))
+		if (false !== $Message->relation("infohistory")->myRcreate($data)){
 			$data['messageID'] = $Message->getRelationID();
-		//生成OM
-		if($dataOMlist == '')
-			$dataOMlist = $this->_getDataOM($dataID,$datatype,'管理');
-		$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist,'DataOMMessage');
-		if($userIDlist == ''){
-			$userIDlist = array();
-			foreach($dataOMlist as $vo){
-				//返回需要提示的用户
-				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
-				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+			//生成OM
+			$dataOMlis = $this->_OMRcreate($data['messageID'],'消息');
+			if($userIDlist == ''){
+				$userIDlist = array();
+				foreach($dataOMlist as $vo){
+					//返回需要提示的用户
+					$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+				}
 			}
-		}
-		if($data['usermame'] == '电商'){
-			//开放给电商
-			$dataOMlist = $this->_getmyOMlist('电商');
-			$this->_createDataOM($data['messageID'],'消息','管理',$dataOMlist,'DataOMMessage');
-			foreach($dataOMlist as $vo){
-				//返回需要提示的用户
-				$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
-				$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+			if($data['usermame'] == '电商'){
+				//开放给电商
+				$dataOMlist = $this->_getmyOMlist('电商');
+				$dataOMlis = $this->_OMRcreate($data['messageID'],'消息');
+				foreach($dataOMlist as $vo){
+					//返回需要提示的用户
+					$userIDlist_temp = $this->_getuserlistByDUR($vo['DUR']);	
+					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
+				}
 			}
-			
+			$this->_OMToDataNotice($data['infohistory'],$userIDlist);//同步提示信息
 		}
-		$this->_OMToDataNotice($data['infohistory'],$userIDlist);
 	}
+	
 	
 	
 		 
 	//生成OM
-     public function _createDataOM($dataID,$datatype,$type,$dataOMlist = '',$dataomclass='') {
+     public function _createDataOM($dataID,$datatype,$type,$dataOMlist = '',$dataomclass='',$status='') {
 		$dom['type'] = $type;
 		$dom['datatype'] = $datatype;
 		$dom['dataID'] = $dataID;
+		$dom['status'] = $status;
 		if($dataomclass)
 		$DataOM = D($dataomclass);
 		else
@@ -1825,7 +2080,7 @@ class MethodAction extends CommonAction{
         //设置上传文件大小 
         $upload->maxSize = 3292200; 
         //设置上传文件类型 
-        $upload->allowExts = explode(',', 'jpg,gif,png,jpeg,txt,doc,rar,xls,xlsx'); 
+        $upload->allowExts = explode(',', 'jpg,gif,png,jpeg,txt,doc,rar,xls,xlsx,csv'); 
         //设置附件上传目录 
         $upload->savePath = $savePath; 
         //设置需要生成缩略图，仅对图像文件有效 
@@ -1945,9 +2200,11 @@ class MethodAction extends CommonAction{
 			}
 		}
 		$Chanpin = D("Chanpin");
-		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]' AND (`status_system` = '1')")->find();
+//		$shoujia = $Chanpin->relation("shoujia")->where("`chanpinID` = '$_REQUEST[shoujiaID]' AND (`status_system` = '1')")->find();
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();
+		//修正
+		$shoujia = $this->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$dingdan['parentID']);
 		$DataCD = D("DataCD");
 		$ViewCustomer = D("ViewCustomer");
 		$DataCD->startTrans();
@@ -2287,68 +2544,58 @@ class MethodAction extends CommonAction{
 	
 	
 	
+	
 	//根据部门角色要求，获得OM列表//定义：一个公司只允许一个行政部门
-     public function _setDataOMlist($role,$type,$username='',$guojing='') {
+     public function _setDataOMlist($role,$type,$username='',$bumenID='') {//前两项必填,userhas用来指定是否用户拥有的部门职位
 		if(!$username)
-		  $username = $this->user['title'];
-		$durlist_2 = $this->_checkRolesByUser($role,$type,1,'',$username);//获得角色DUR
+			$username = $this->user['title'];
 		$ComID = $this->_getComIDbyUser($username);//行政公司ID
-		$ViewDepartment = D("ViewDepartment");
-		//判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
-		$istrue = $this->_checkbumenshuxing('联合体,办事处','',$username);
-		if($istrue){
-			//范围控制在公司部门内
-			if(!$ComID)
-			  break;
-			$conditons['parentID'] = array('eq',$ComID);
-			$conditons['type'] = array(array('like','%联合体%'),array('like','%办事处%'), 'or'); 
-			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where($conditons)->findall();
-			$t = 0;
-			foreach($filterlist as $v){
-				$filterlist_2[$t] = $v['systemID'];
-				$t++;
-			}
-			//判断数据类型
-			//范围控制在公司部门内
-			if($guojing)
-				$where = "`type` like '%组团%' AND `type` like '%".$guojing."%' AND `parentID` = '".$ComID."'";
-			else
-				$where = "`type` like '%组团%' AND `parentID` = '".$ComID."'";
-			$bumenlist = $ViewDepartment->Distinct(true)->field('systemID')->where($where)->findall();
-			$ViewRoles = D("ViewRoles");
-			$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
-			$t = 0;
-			foreach($bumenlist as $v){//开放到角色，计调
-				if(!in_array($v['systemID'],$filterlist_2)){
-					$needlist[$t]['bumenID'] = $v['systemID'];
-					$needlist[$t]['rolesID'] = $r_jidiao['systemID'];
-					$t++;
-				}
-			}
-			foreach($durlist_2 as $v){
-				 $needlist[$t]['bumenID'] = $v['bumenID'];
-				 $needlist[$t]['rolesID'] = $v['rolesID'];
-				 $t++;
-			}
-			$durlist_1 = about_unique($needlist);
+		if(!$ComID)
+		  return false;
+		$ViewRoles = D("ViewRoles");
+		$r_jidiao = $ViewRoles->where("`title` ='计调'")->find();
+		if($bumenID){//直接开放到部门
+			//用户必须拥有该部门角色
+//			if($my_durlist = $this->_checkRolesByUser($role,$type,1,'',$username)){
+//				foreach($my_durlist as $v){
+//					if($v['bumenID'] == $bumenID){
+//						$durlist[0] = $v;
+//						$mark_has = 1;
+//						break;
+//					}
+//				}
+//				if($mark_has != 1)
+//					return false;
+//			}
+//			else
+//			return false;
+			//不必拥有
+			$durlist[0]['bumenID'] = $bumenID;
+			$durlist[0]['rolesID'] = $r_jidiao['systemID'];
 		}
-		if($durlist_1)
-			$durlist = $durlist_1;
-		else
-			$durlist = $durlist_2;
-		//附加开放给部门角色
+		else{//获得角色DUR列表
+			$durlist = $this->_checkRolesByUser($role,$type,1,'',$username);
+			$durlist = about_unique($durlist);//去除相同项
+		}
 		$i = 0;
 		foreach($durlist as $v){
 			$dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
 			$i++;
 		}
-		//附加开放到行政属性部门
-		//范围控制在公司部门内
-		$dataOMlist[$i]['DUR'] = $ComID.',,';
+		//判断用户部门联合体属性，如果真，开放产品到非联合体属性的组团部门
+		if($this->_checkbumenshuxing('联合体,办事处','',$username)){
+			$dataOMlist[$i]['DUR'] = $ComID.','.$r_jidiao['systemID'].',';//匹配公司计调
+		}
+		else{
+			$dataOMlist[$i]['DUR'] = $ComID.',,';//匹配公司行政需求
+		}
 		//aaa特权
-		$dataOMlist = $this->_setDataOMtoAAA($dataOMlist);
+		//$dataOMlist = $this->_setDataOMtoAAA($dataOMlist);
 		return $dataOMlist;
 	 }
+	 
+	 
+	 
 	 
 	 
 	 //获得OM. 获得网管所属部门列表
@@ -2366,7 +2613,7 @@ class MethodAction extends CommonAction{
 			$ViewRoles = D("ViewRoles");
 			$roleinfo = $ViewRoles->where("`title` = '$role'")->find();
 		}
-		$datas = A('Method')->_getDepartmentList($where);
+		$datas = $this->_getDepartmentList($where);
 		$i = 0;
 		foreach($datas as $v){
 			if($v['parentID'] == $companyID){
@@ -2397,7 +2644,7 @@ class MethodAction extends CommonAction{
 	 
 	 //获得OM。自己部门的om
      public function _getmyOMlist($user_name) {
-		 $durlist = $this->_getDURlist_name($user_name);
+		 $durlist = $this->_getDURlist_name($user_name,'','',1);
 		  $i = 0;
 		  foreach($durlist as $v){
 			  $dataOMlist[$i]['DUR'] = $v['bumenID'].','.$v['rolesID'].',';
@@ -2410,9 +2657,9 @@ class MethodAction extends CommonAction{
 	//检查获得用户拥有角色，及部门类型//行政有特殊权限！！！！！！！！！！！！！！
      public function _checkRolesByUser($roles,$bumentype,$notmust = '',$userID = '',$user_name = '') {
 		if($user_name)
-			$durlist = $this->_getDURlist_name($user_name);
+			$durlist = $this->_getDURlist_name($user_name,'','',1);
 		else
-			$durlist = $this->_getDURlist($userID);
+			$durlist = $this->_getDURlist($userID,'','',1);
 		$ViewRoles = D("ViewRoles");
 		$ViewDepartment = D("ViewDepartment");
 		$roleslist = explode(',',$roles);
@@ -2458,28 +2705,43 @@ class MethodAction extends CommonAction{
 	 
 	 
 	//检查联合体，办事处属性
-     public function _checkbumenshuxing($bumentype,$userID = '',$user_name = '') {
-		 if($user_name)
-		$durlist = $this->_getDURlist_name($user_name);
-		else
-		$durlist = $this->_getDURlist($userID);
+     public function _checkbumenshuxing($bumentype,$userID = '',$user_name = '',$bumenID='') {
 		$ViewDepartment = D("ViewDepartment");
 		$bumentypelist = explode(',',$bumentype);
-		$m = 0;
-		foreach($durlist as $v){
-			$ok_d = 0;
-			//比对部门类型
-			$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
-			$typelist = explode(',',$bumen['type']);
-			foreach($typelist as $vaa){
-				if(in_array($vaa,$bumentypelist)){
-					$ok_d = 1;
-					break;	
+		 if($bumenID){
+				$bumen = $ViewDepartment->where("`systemID` = '$bumenID' and `status_system` = '1'")->find();
+				$typelist = explode(',',$bumen['type']);
+				foreach($typelist as $vaa){
+					if(in_array($vaa,$bumentypelist)){
+						$ok_d = 1;
+						break;	
+					}
 				}
-			}
-			if($ok_d == 1){
-				$dur[$m] =  $v;
-				$m++;
+				if($ok_d == 1){
+					$dur[0] =  $v;
+				}
+		 }
+		 else{
+			if($user_name)
+			$durlist = $this->_getDURlist_name($user_name);
+			else
+			$durlist = $this->_getDURlist($userID);
+			$m = 0;
+			foreach($durlist as $v){
+				$ok_d = 0;
+				//比对部门类型
+				$bumen = $ViewDepartment->where("`systemID` = '$v[bumenID]' and `status_system` = '1'")->find();
+				$typelist = explode(',',$bumen['type']);
+				foreach($typelist as $vaa){
+					if(in_array($vaa,$bumentypelist)){
+						$ok_d = 1;
+						break;	
+					}
+				}
+				if($ok_d == 1){
+					$dur[$m] =  $v;
+					$m++;
+				}
 			}
 		}
 		if($dur) return $dur;
@@ -2532,7 +2794,6 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	
 	public function dosavebaozhang($type) {
 		if($type == '子团' || $type == '签证'){
 			//判断计调角色
@@ -2554,9 +2815,10 @@ class MethodAction extends CommonAction{
 		$Chanpin = D("Chanpin");
 		if($data['chanpinID']){
 			$baozhang = $Chanpin->where("`chanpinID` = '$data[chanpinID]'")->find();
+			$parentID = $baozhang['parentID'];
 			//检查OM
-			$xianlu = $this->_checkDataOM($_REQUEST['chanpinID'],'报账单','管理');
-			if(false === $xianlu)
+			$bzd = $this->_checkDataOM($_REQUEST['chanpinID'],'报账单','管理');
+			if(false === $bzd)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！！！', 0);
 			//判断角色
 			if($this->_checkRolesByUser('财务,财务总监,总经理','行政')){
@@ -2564,16 +2826,17 @@ class MethodAction extends CommonAction{
 //					$this->ajaxReturn($_REQUEST,'错误，该报账单已经批准，请审核回退后修改！', 0);
 			}
 			else
-			if($baozhang['islock'] == '已锁定' ){
-				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被锁定，请审核回退后修改！', 0);
+			if($baozhang['islock'] == '已锁定' || $baozhang['status_shenhe'] == '批准'){
+				$this->ajaxReturn($_REQUEST, '错误！该报账单已经被批准，请审核回退后修改！', 0);
 			}
 		}
 		else{
 			//检查OM
 			if($_REQUEST['parentID']){
-				$xianlu = $this->_checkDataOM($_REQUEST['parentID'],$_REQUEST['parenttype'],'管理');
-				if(false === $xianlu)
-				$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
+				$parentID = $_REQUEST['parentID'];
+				$bzd = $this->_checkDataOM($_REQUEST['parentID'],$_REQUEST['parenttype'],'管理');
+				if(false === $bzd)
+					$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
 				$cpdata = $Chanpin->where("`chanpinID` = '$data[parentID]'")->find();
 				$data['departmentID'] = $cpdata['departmentID'];
 			}
@@ -2583,8 +2846,7 @@ class MethodAction extends CommonAction{
 			$chanpinID = $Chanpin->getRelationID();
 			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				$dataOMlist = $this->_setDataOMlist($omrole,$omtype);
-				$this->_createDataOM($chanpinID,'报账单','管理',$dataOMlist);
+					$this->_OMRcreate($chanpinID,'报账单');
 			}
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
@@ -2677,6 +2939,10 @@ class MethodAction extends CommonAction{
 	
 	
 	public function _baozhang($type) {
+		//商户条目
+		$list = A('Method')->_shanghutiaomulist();
+		$this->assign("shanghutiaomu",$list);
+		
 		if($_REQUEST['type'] == '团队报账单'){
 			$this->assign("markpos",'团队报账单');
 			$chanpinID = $_REQUEST['chanpinID'];
@@ -2806,15 +3072,14 @@ class MethodAction extends CommonAction{
 		}
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
-			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($baozhang['chanpinID'],'报账单');
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 		
 	}
-	
-	
 	
 	
 	
@@ -2826,6 +3091,7 @@ class MethodAction extends CommonAction{
 			$status = '申请';
 			else
 			$status = '批准';
+			$_REQUEST['shenhe_remark'] = '申请审核';
 		}
 		else{
 			$need = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype'],1);//检查待审核任务存在
@@ -2837,6 +3103,7 @@ class MethodAction extends CommonAction{
 			$status = '检出';
 			else
 			$status = '批准';
+			$_REQUEST['shenhe_remark'] = $need['remark'];
 		}
 		//报账单特殊设置
 		if($_REQUEST['datatype'] == '报账单'){
@@ -2848,19 +3115,59 @@ class MethodAction extends CommonAction{
 		//检查流程权限及状态
 		//生成审核任务
 		//生成待检出	
-		$userIDlist = $this->_shenheDO($_REQUEST,$need);
+		$userIDlist = $this->_shenheDO($need);
 		if (false !== $userIDlist){
-			$Chanpin = D("Chanpin");
-			$editdat['chanpinID'] = $_REQUEST['dataID'];
-			if($status == '批准'){
-				//生成备份
-				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$need['parentID']);
-				$editdat['shenhe_time'] = time();
+			$this->_doshehe_after();
+		}
+		else
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+	}
+	
+	
+	
+	
+	//审核功能
+	public function _check_chanpin_doshehe($chanpinID,$datatype) {
+		$Chanpin = D("Chanpin");	
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if(false === $cp)
+			return false;
+		if($cp['status_shenhe'] != '批准'){
+			$task = $this->_get_chanpin_taskshenhe($chanpinID,$datatype);//获得产品审核状态
+			if($task['remark'] != $cp['shenhe_remark']){
+				$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+				$_REQUEST['dataID'] = $cp['chanpinID'];
+				$_REQUEST['datatype'] = $datatype;
+				$detail_cp = $Chanpin->relationGet($cp['marktype']);	
+				$_REQUEST['title'] = $detail_cp['title'];
+				$this->_doshehe_after();
 			}
-			if($_REQUEST['datatype'] == '线路'){
+		}
+	}
+	
+	
+	
+	//审核功能,更新产品属性
+	public function _doshehe_after() {
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$process = $this->_get_chanpin_taskshenhe($_REQUEST['dataID'],$_REQUEST['datatype']);//获得产品审核状态
+		if(false === $process)
+			$this->ajaxReturn($_REQUEST,'产品审核状态获取失败', 0);
+		$status = $process['status'];
+		$editdat['chanpinID'] = $_REQUEST['dataID'];
+		$editdat['status_shenhe'] = $status;
+		//同步产品数据
+		$cp_up['chanpinID'] = $_REQUEST['dataID'];
+		$cp_up['shenhe_remark'] = $process['remark'];
+		if(false === $Chanpin->save($cp_up)){
+			cookie('errormessage','错误，产品同步失败！'.$Chanpin->getError(),30);
+			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		}
+		if($_REQUEST['datatype'] == '线路'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
-				  	$Chanpin->save($editdat);
+					$Chanpin->save($editdat);
 					//线路审核通过,生成子团
 					$this->shengchengzituan($_REQUEST['dataID']);
 					//同步售价表线路状态
@@ -2884,13 +3191,11 @@ class MethodAction extends CommonAction{
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID']);
 				}
-				$Chanpin->save($editdat);
-				$url = 'index.php?s=/Chanpin/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '签证'){
+		}
+		if($_REQUEST['datatype'] == '签证'){
 				if($status == '批准'){
 					$editdat['status'] = '报名';
-				  	$Chanpin->save($editdat);
+					$Chanpin->save($editdat);
 					//同步售价表线路状态
 					$this->_tongbushoujia($_REQUEST['dataID'],'签证');
 					//销售开放重置1
@@ -2907,20 +3212,16 @@ class MethodAction extends CommonAction{
 						}
 					}
 				}
-				$Chanpin->save($editdat);
-				$url = 'index.php?s=/Qianzheng/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '订单'){
+		}
+		if($_REQUEST['datatype'] == '订单'){
 				if($status == '批准'){
 					//填入客户表
 					$this->_customerbuild($_REQUEST['dataID']);
 				}
-				$url = 'index.php?s=/Xiaoshou/dingdanxinxi/chanpinID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '报账项'){
+		}
+		if($_REQUEST['datatype'] == '报账项'){
 				$ViewBaozhangitem = D("ViewBaozhangitem");
 				$item = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
-				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 				//报账单经理临时签字
 				if($status == '检出'){
 					//检查经理权限
@@ -2947,8 +3248,11 @@ class MethodAction extends CommonAction{
 				$baozhang = $ViewBaozhang->where("`chanpinID` = '$item[parentID]' AND `status_system` = '1'")->find();
 				$djcdata['datatext_copy'] = serialize($baozhang);
 				$TaskShenhe->save($djcdata);
-			}
-			if($_REQUEST['datatype'] == '报账单'){
+				//特殊处理报账单报账项审核状态
+				if($process['processID'] > 2)
+					$editdat['status_shenhe'] = '批准';
+		}
+		if($_REQUEST['datatype'] == '报账单'){
 				//报账单同步报账项费用
 				$this->_updatebaozhangdata($editdat['chanpinID']);
 				//父产品锁定截止
@@ -2963,7 +3267,7 @@ class MethodAction extends CommonAction{
 						$zituan = $Chanpin->relationGet("zituan");
 						if(strtotime($zituan['chutuanriqi']) < time()){
 							$pdat['status'] = '截止';
-							$this->_updatexianlu('',$cpd['chanpinID']);
+							$this->_updatexianlu_status('',$cpd['chanpinID']);//更新线路状态
 						}
 					}
 					if($cpd['marktype'] == 'DJtuan'){
@@ -2997,9 +3301,11 @@ class MethodAction extends CommonAction{
 					}
 					$Chanpin->relation($cpd['marktype'])->myRcreate($pdat);	
 				}
-				$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$_REQUEST['dataID'];
-			}
-			if($_REQUEST['datatype'] == '地接'){
+				//特殊处理报账单报账项审核状态
+				if($process['processID'] > 2)
+					$editdat['status_shenhe'] = '批准';
+		}
+		if($_REQUEST['datatype'] == '地接'){
 				if($status == '批准'){
 					$editdat['status'] = '在线';
 					//生成默认团队报账单
@@ -3015,32 +3321,64 @@ class MethodAction extends CommonAction{
 						$Chanpin->relation("baozhang")->myRcreate($td);
 						$baozhangID = $Chanpin->getRelationID();
 						//生成OM
-						$dataOMlist = $this->_getDataOM($_REQUEST['dataID'],'地接');
-						$this->_createDataOM($baozhangID,'报账单','管理',$dataOMlist);
+						$this->_OMRcreate($baozhangID,'报账单');
 					}
 				}
-				$url = 'index.php?s=/Dijie/fabu/chanpinID/'.$_REQUEST['dataID'];
-			}
-			//保存信息
-			$Chanpin->save($editdat);
-			//记录
-			$Chanpin = D("Chanpin");
-			$message = $_REQUEST['datatype'].'审核'.$status.'『'.$_REQUEST['title'].'』 。';
-			$this->_setMessageHistory($_REQUEST['dataID'],$_REQUEST['datatype'],$message,$url);
-			
-			if($_REQUEST['datatype'] == '报账项' || $_REQUEST['datatype'] == '报账单'){
-				//任务搜索字段填充
-				$djc = $this->_getTaskDJC($_REQUEST['dataID'],$_REQUEST['datatype']);//检查待审核任务存在
-				$data = $this->_gettaskshenheinfo($_REQUEST['dataID'],$_REQUEST['datatype'],$djc);
-				$System = D("System");
-				$System->relation("taskShenhe")->myRcreate($data);
-			}
-			
-			$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 		}
-		else
-			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		//保存信息
+		if($status == '批准'){
+				//生成备份
+				$this->makefiledatacopy($_REQUEST['dataID'],$_REQUEST['datatype'],$process['parentID']);
+				$editdat['shenhe_time'] = time();
+				//清除无用OM
+				$this->_OMRcreate($_REQUEST['dataID'],$_REQUEST['datatype']);
+				//清除销售OM
+				if($_REQUEST['datatype'] == '报账单'){
+					$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[dataID]'")->find();
+					$cpd = $Chanpin->where("`chanpinID` = '$baozhang[parentID]' AND `marktype` = 'zituan'")->find();
+					if($cpd){
+						$zituanlist = $Chanpin->relationGet('zituanlist');
+						$c_is_true = 1;
+						//每个团都报账
+						foreach($zituanlist as $zl_c){
+							if($zl_c['status_baozhang'] != '批准')
+								$c_is_true = 0;
+						}
+						if($c_is_true){
+							$this->_clean_shoujia_om($cpd['parentID']);
+						}
+					}
+				}
+		}
+		$Chanpin->save($editdat);
+		$this->ajaxReturn($_REQUEST, cookie('successmessage'), 1);
 	}
+	
+	
+	
+	//清除销售OM
+	public function _clean_shoujia_om($xianluID){
+		$Chanpin = D("Chanpin");
+		$DataOM = D("DataOM");
+		$cpd_xl = $Chanpin->relation('shoujialist')->where("`chanpinID` = '$xianluID'")->find();
+		foreach($cpd_xl['shoujialist'] as $sl){
+			$DataOM->where("`dataID` = '$sl[chanpinID]' AND `datatype` = '售价'")->delete();	
+		}
+	}
+	
+	
+	
+	//获得当前产品审核状态
+    public function _get_chanpin_taskshenhe($chanpinID,$datatype) {
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$where['dataID'] = $chanpinID;
+		$where['datatype'] = $datatype;
+		$where['status'] = array('neq','待检出');
+		$where['status_system'] = 1;
+		$task = $ViewTaskShenhe->where($where)->order("systemID desc")->find();
+		return $task;
+	}
+	
 	
 	
 	
@@ -3067,7 +3405,6 @@ class MethodAction extends CommonAction{
 		$xianlu = $this->_checkDataOM($_REQUEST['parentID'],'报账单','管理');
 		if(false === $xianlu)
 			$this->ajaxReturn($_REQUEST,'错误，无管理权限！', 0);
-			
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
@@ -3102,8 +3439,10 @@ class MethodAction extends CommonAction{
 				}
 			}
 			else{
-				if($baozhang['status_shenhe'] == '批准' )
+				if($baozhang['status_shenhe'] == '批准')
 					$this->ajaxReturn($_REQUEST,'报账单已经批准，请审核回退报账单后修改！', 0);
+				if($item['status_shenhe'] == '批准' || $item['status_shenhe'] == '检出' || $item['shenhe_remark'] == '申请报账项审核')
+					$this->ajaxReturn($_REQUEST,'该项目已经批准，请审核回退后修改！', 0);
 				//判断角色
 				if($this->_checkRolesByUser('财务,财务总监,总经理','行政')){
 					if($item['status_shenhe'] == '批准' )
@@ -3111,19 +3450,15 @@ class MethodAction extends CommonAction{
 				}
 				else
 				if($item['type'] != '利润')
-				if($item['status_shenhe'] == '检出' || $item['status_shenhe'] == '批准')
-					$this->ajaxReturn($_REQUEST,'该项目已经审核，请审核回退后修改！', 0);
+					if($item['status_shenhe'] == '检出' || $item['status_shenhe'] == '批准')
+						$this->ajaxReturn($_REQUEST,'该项目已经审核，请审核回退后修改！', 0);
 			}
-				
-				
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			//生成OM
 			if($Chanpin->getLastmodel() == 'add'){
-				//$dataOMlist = $this->_setDataOMlist($omrole,$omtype);
-				$dataOMlist = $this->_getDataOM($_REQUEST['parentID'],'报账单');
-				$this->_createDataOM($_REQUEST['chanpinID'],'报账项','管理',$dataOMlist);
+				//生成OM
+				$this->_OMRcreate($_REQUEST['chanpinID'],'报账项');
 				//自动申请审核
 				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
 				$_REQUEST['dotype'] = '申请';
@@ -3156,12 +3491,13 @@ class MethodAction extends CommonAction{
 		}
 		$data['status_system'] = -1;
 		if (false !== $Chanpin->save($data)){
-			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 			//记录
 			$url = 'index.php?s=/Chanpin/zituanbaozhang/baozhangID/'.$item['parentID'];
 			$message = '报账项'.$item['shenhe_remark'];
 			$this->_setMessageHistory($item['chanpinID'],'报账项',$message,$url);
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($item['chanpinID'],'报账项');
+			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
@@ -3174,8 +3510,9 @@ class MethodAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$dataID = $_REQUEST['dataID'];
 		$datatype = $_REQUEST['datatype'];
-		if(false === $this->_checkshenhe_admin($dataID,$datatype))
-			$this->ajaxReturn($_REQUEST, cookie('errormessage'), 0);
+		if(false === $this->_checkshenhe_admin($dataID,$datatype)){
+			return false;
+		}
 		$Chanpin = D("Chanpin");
 		$cpin = $Chanpin->where("`chanpinID` = '$dataID' AND (`status_system` = '1')")->find();
 		$chanp['chanpinID'] = $cpin['chanpinID'];
@@ -3280,13 +3617,31 @@ class MethodAction extends CommonAction{
 				$Chanpin->where("`parentID` = '$dataID' and `marktype` = 'shoujia'")->save($data);
 			}
 		}
-		
-		$this->ajaxReturn('', '操作成功！', 1);
+		return true;
 	}
 
 
 
 	public function _xiangmu($type) {
+		//屏蔽项目页
+		$chanpinID = $_REQUEST['chanpinID'];
+		if($_REQUEST['baozhangID']){
+			$baozhangID = $_REQUEST['baozhangID'];
+			$ViewBaozhang = D("ViewBaozhang");
+			$baozhang = $ViewBaozhang->where("`chanpinID` = '$baozhangID'")->find();
+			$chanpinID = $baozhang['parentID'];
+			if($baozhang['type'] != '团队报账单'){
+				redirect(SITE_INDEX.'Chanpin/zituanbaozhang/baozhangID/'.$baozhangID);
+			}
+		}
+		$Chanpin = D("Chanpin");
+		$cp = $Chanpin->where("`chanpinID` = '$chanpinID'")->find();
+		if($cp['marktype'] == 'zituan')
+			redirect(SITE_INDEX.'Chanpin/zituanbaozhang/type/团队报账单/chanpinID/'.$chanpinID);
+		if($cp['marktype'] == 'DJtuan')
+			redirect(SITE_INDEX.'Dijie/djtuanbaozhang/type/团队报账单/chanpinID/'.$chanpinID);
+		exit;
+		//end
 		$this->assign("markpos",'应收及应付');
 		$chanpinID = $_REQUEST['chanpinID'];
 		if($_REQUEST['baozhangID']){
@@ -3443,7 +3798,6 @@ class MethodAction extends CommonAction{
 	}
 	
 	
-	
 	public function _shenhe($showtype = '') {
 		
 		if($_REQUEST['type'] == '团队收支项'){
@@ -3461,13 +3815,6 @@ class MethodAction extends CommonAction{
 		}elseif($_REQUEST['type'] == '订单') {
 			$relation = 'dingdan';
 			$this->assign("markpos",'订单');
-			//ticheng
-			$i = 0;
-			$ViewDataDictionary = D("ViewDataDictionary");
-			foreach($datalist['chanpin'] as $v){
-				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-				$i++;
-			}
 		}
 		else{
 			if($showtype == '地接' || $_REQUEST['type'] == '地接产品'){
@@ -3485,6 +3832,17 @@ class MethodAction extends CommonAction{
 		}
 		
 		$datalist = $this->getDataOMlist('审核任务',$relation,$_REQUEST);
+		
+		if($_REQUEST['type'] == '订单') {
+			//提成操作费
+			$i = 0;
+			$ViewDataDictionary = D("ViewDataDictionary");
+			foreach($datalist['chanpin'] as $v){
+				$datalist['chanpin'][$i]['ticheng'] = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
+				$datalist['chanpin'][$i]['caozuofei'] = $ViewDataDictionary->where("`systemID` = '$v[caozuofeiID]'")->find();
+				$i++;
+			}
+		}
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		return $datalist;
@@ -3535,7 +3893,7 @@ class MethodAction extends CommonAction{
 			$category = $ViewCategory->where("`systemID` = '$systemID'")->find();
 			$where['companyID'] = $category['parentID'];
 		}
-		$datas = A('Method')->_getDepartmentList($where);
+		$datas = $this->_getDepartmentList($where);
 		$this->assign("departmentAll",$datas);
 		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
 		$datas2['category'] = $System->relationGet("category");
@@ -3559,7 +3917,7 @@ class MethodAction extends CommonAction{
 		$Chanpin->startTrans();
 		foreach($itemlist as $v){
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
@@ -3569,6 +3927,8 @@ class MethodAction extends CommonAction{
 				$ViewXianlu = D("ViewXianlu");
 				$xianlu = $ViewXianlu->where("`chanpinID` = $v")->find();
 				unset($xianlu['ispub']);
+				unset($xianlu['serverdataID']);
+				unset($xianlu['status_shop']);
 				$xianlu['chutuanriqi'] = 0;
 				$xianlu['title'] = $xianlu['title'].'【复制生成请修改】';
 				$data['xianlu'] = $xianlu;
@@ -3616,44 +3976,93 @@ class MethodAction extends CommonAction{
 		}
 		$Chanpin->commit();
 		//开放
-		if($type == '线路'){
-			$dataOMlist = $this->_setDataOMlist('计调','组团');
-			$this->_createDataOM($chanpinID,'线路','管理',$dataOMlist);
-		}
-		if($type == '地接'){
-			$dataOMlist = $this->_setDataOMlist('地接','地接');
-			$this->_createDataOM($chanpinID,'地接','管理',$dataOMlist);
-		}
+		$this->_OMRcreate($chanpinID,$type);
 		if($mark == 1)
 			$this->ajaxReturn($_REQUEST,'完成！,一部分线路您没有操作权限！无法进行修改！！', 1);
 		$this->ajaxReturn($_REQUEST,'完成！', 1);
 	
 	}
 	
+	
+	
+	
 	//获得用户权限标记
 	public function _getuser_roleright(){
-		$role = $this->_checkRolesByUser('计调','组团');
-		if(false !== $role)
+		$role = $this->_checkRolesByUser('计调','组团',1);
+		if(false !== $role){
 			$is_jidiao = 1;
-		$role = $this->_checkRolesByUser('票务','业务');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('计调','办事处',1);
+		if(false !== $role){
+			$is_banshichu = 1;
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('票务','业务',1);
+		if(false !== $role){
 			$is_jidiao = 1;
-		$role = $this->_checkRolesByUser('地接','地接');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('地接','地接',1);
+		if(false !== $role){
 			$is_dijie = 1;
-		$role = $this->_checkRolesByUser('财务','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('财务','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('财务总监','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('财务总监','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('总经理','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('总经理','行政',1);
+		if(false !== $role){
 			$is_caiwu = 1;
-		$role = $this->_checkRolesByUser('网管','行政');
-		if(false !== $role)
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('网管','行政',1);
+		if(false !== $role){
 			$is_wangguan = 1;
+			$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('网店计调','组团',1);
+		if(false !== $role){
+			$is_webjidiao = 1;
+			$is_qiantai = 1;
+		}
+		if($is_qiantai != 1){
+			$role = $this->_checkRolesByUser('前台','销售（加盟）',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+			$role = $this->_checkRolesByUser('前台','销售（直营）',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+			$role = $this->_checkRolesByUser('前台','行政',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+			$role = $this->_checkRolesByUser('秘书','行政',1);
+			if(false !== $role)
+				$is_qiantai = 1;
+		}
+		$role = $this->_checkRolesByUser('业务','银行',1);
+		if(false !== $role)
+			$is_yinghang_yewu = 1;
+		elseif($this->user['title'] == 'aaa'){
+			$is_yinghang_yewu = 1;
+		}
 		
+		if($this->user['title'] == '吴爽' || $this->user['title'] == 'aaa'){
+			$is_vip = 1;
+		}
+		
+		$this->assign("is_banshichu",$is_banshichu);
+		$this->assign("is_vip",$is_vip);
+		$this->assign("is_yinghang_yewu",$is_yinghang_yewu);
+		$this->assign("is_qiantai",$is_qiantai);
+		$this->assign("is_webjidiao",$is_webjidiao);
 		$this->assign("is_caiwu",$is_caiwu);
 		$this->assign("is_dijie",$is_dijie);
 		$this->assign("is_jidiao",$is_jidiao);
@@ -3681,31 +4090,20 @@ class MethodAction extends CommonAction{
 			$_REQUEST['status'] = array(array('eq','报名'),array('eq','截止'), 'or');
 			$_REQUEST['status_baozhang'] = '未审核';
 		}
-		$datalist = A('Method')->getDataOMlist('子团','zituan',$_REQUEST);
-		$ViewDingdan = D("ViewDingdan");
-		$ViewBaozhang = D("ViewBaozhang");
-		$DataCD = D("DataCD");
-		$i = 0;
-		foreach($datalist['chanpin'] as $v){
-			//搜索订单
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-			foreach($dingdanall as $vol){
-				$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
-				foreach($customerall as $c){
-					if($c['ispay'] == '已付款'){
-						$datalist['chanpin'][$i]['payed'] += $c['price'];
-					}
-					if($c['ispay'] == '未付款'){
-						$datalist['chanpin'][$i]['unpay'] += $c['price'];
-					}
-					$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
-				}
-			}
-			$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
-			foreach($dingdanall as $vol){
-				if($vol['status'] == '确认'){
-					$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
-					//团费确认
+		
+		if($dotype == '补订订单'){
+			$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
+		}
+		else{
+			$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
+			$ViewDingdan = D("ViewDingdan");
+			$ViewBaozhang = D("ViewBaozhang");
+			$DataCD = D("DataCD");
+			$i = 0;
+			foreach($datalist['chanpin'] as $v){
+				//搜索订单
+				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+				foreach($dingdanall as $vol){
 					$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
 					foreach($customerall as $c){
 						if($c['ispay'] == '已付款'){
@@ -3717,28 +4115,58 @@ class MethodAction extends CommonAction{
 						$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 					}
 				}
-				if($vol['status'] == '占位'){
-					$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
+				foreach($dingdanall as $vol){
+					if($vol['status'] == '确认'){
+						$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+						//团费确认
+						$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+						foreach($customerall as $c){
+							if($c['ispay'] == '已付款'){
+								$datalist['chanpin'][$i]['payed'] += $c['price'];
+							}
+							if($c['ispay'] == '未付款'){
+								$datalist['chanpin'][$i]['unpay'] += $c['price'];
+							}
+							$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
+						}
+					}
+					if($vol['status'] == '占位'){
+						$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+					}
 				}
+				$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
+				
+				//报账单
+				$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+				$datalist['chanpin'][$i]['baozhang'] = $bzd;
+				//二次确认订单
+				if($_REQUEST['second_confirm'] == 1){
+					$WEBServiceOrder = D("WEBServiceOrder");
+					$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
+					$yudinglist = '';
+					foreach($orderall as $ord){
+						$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
+						$yudinglist['chengrenshu'] += $ord['chengrenshu'];
+						$yudinglist['ertongshu'] += $ord['ertongshu'];
+					}
+					$datalist['chanpin'][$i]['orderall'] = $orderall;
+					$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
+				}
+				
+				$i++;
 			}
-			$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
-			
-			//报账单
-			$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
-			$datalist['chanpin'][$i]['baozhang'] = $bzd;
-			
-			$i++;
-		}
-		
-		if($dotype == '补订订单'){
-			$datalist = A('Method')->data_list_noOM('ViewZituan',$_REQUEST);
 		}
 		
 		$this->assign("page",$datalist['page']);
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		if($dotype == '产品搜索'){
 			$this->showDirectory("子团产品");
-			$this->display('Chanpin:kongguan');
+			if($_REQUEST['webpage'] == 1){
+				$this->display('B2CManage:kongguan');
+			}
+			else
+				$this->display('Chanpin:kongguan');
 		}
 		if($dotype == '补订订单'){
 			$this->showDirectory("补订订单");
@@ -3759,7 +4187,7 @@ class MethodAction extends CommonAction{
 		if($chanpintype == '线路'){
 			if($roletype == '计调'){
 				//检查dataOM
-				$xiaoshou = A('Method')->_checkDataOM($chanpinID,'子团','管理');
+				$xiaoshou = $this->_checkDataOM($chanpinID,'子团','管理');
 				if(false === $xiaoshou){
 					$this->display('Index:error');
 					exit;
@@ -3788,7 +4216,7 @@ class MethodAction extends CommonAction{
 			if($roletype == '计调'){
 				$chanpinID = $_REQUEST['chanpinID'];
 				//检查dataOM
-				$xiaoshou = A('Method')->_checkDataOM($chanpinID,'签证','管理');
+				$xiaoshou = $this->_checkDataOM($chanpinID,'签证','管理');
 				if(false === $xiaoshou){
 					$this->display('Index:error');
 					exit;
@@ -3813,7 +4241,7 @@ class MethodAction extends CommonAction{
 			$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
 			$this->assign("shengyurenshu",$shengyurenshu);
 			//清空占位过期订单
-			A('Method')->_cleardingdan();
+			$this->_cleardingdan();
 		}
 		$this->assign("chanpin",$chanpin);
 		//提成数据
@@ -3843,25 +4271,48 @@ class MethodAction extends CommonAction{
     public function _gettaskshenheinfo($dataID,$datatype,$data) {
 		$ViewBaozhang = D("ViewBaozhang");
 		$ViewBaozhangitem = D("ViewBaozhangitem");
+		$ViewDingdan = D("ViewDingdan");
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$ViewZituan = D("ViewZituan");
 		$ViewDJtuan = D("ViewDJtuan");
+		$ViewXianlu = D("ViewXianlu");
+		$ViewQianzheng = D("ViewQianzheng");
 		$System = D("System");
 		$Chanpin = D("Chanpin");
-			if($datatype == '报账项'){
-				$cp = $ViewBaozhangitem->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['datatext_copy'] = serialize($cp);
-				$cp = $Chanpin->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
-				$zituanID = $cp['baozhanglist']['parentID'];
-			}
-			if($datatype == '报账单'){
-				$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
-				$data['taskShenhe']['datatext_copy'] = serialize($cp);
-				$cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
-				$zituanID = $cp['parentID'];
-			}
-			//获得团
+		if($datatype == '报账项'){
+			$cp = $ViewBaozhangitem->relation("baozhanglist")->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$data['taskShenhe']['baozhangtitle_copy'] = $cp['baozhanglist']['title'];
+			$zituanID = $cp['baozhanglist']['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['baozhanglist']['type'];//报账项与报账单类型相同
+		}
+		if($datatype == '报账单'){
+			$cp = $ViewBaozhang->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$zituanID = $cp['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['type'];
+		}
+		if($datatype == '订单'){
+			$cp = $ViewDingdan->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datatext_copy'] = serialize($cp);
+			$zituanID = $cp['parentID'];
+			$data['taskShenhe']['datakind'] = $cp['type'];
+		}
+		if($datatype == '线路'){
+			$cp = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = $cp['kind'];
+		}
+		if($datatype == '地接'){
+			$cp = $ViewDJtuan->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = $cp['kind'];
+		}
+		if($datatype == '签证'){
+			$cp = $ViewQianzheng->where("`chanpinID` = '$dataID'")->find();
+			$data['taskShenhe']['datakind'] = '签证';
+		}
+		$data['taskShenhe']['title_copy'] = $cp['title'];
+		//获得团
+		if($zituanID){
 			$cp = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
 			if($cp['marktype'] == 'zituan'){
 				$zituan = $ViewZituan->where("`chanpinID` = '$cp[chanpinID]'")->find();
@@ -3876,8 +4327,12 @@ class MethodAction extends CommonAction{
 				$data['taskShenhe']['tuanqi_copy'] = $djtuan['jietuantime'];
 				$data['taskShenhe']['tuanhao_copy'] = $djtuan['tuanhao'];
 			}
-			return $data;
+		}
+		return $data;
 	}
+	
+	
+	
 	
 	//获得用户信息
     public function _getuserinfo($username) {
@@ -3902,7 +4357,7 @@ class MethodAction extends CommonAction{
 		$Chanpin->startTrans();
 		foreach($itemlist as $v){
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
@@ -3949,13 +4404,19 @@ class MethodAction extends CommonAction{
 			}
 			
 			$Chanpin->commit();
+			//删除OM
+			$DataOM = D("DataOM");
+			$where_om['dataID'] = $v;
+			$where_om['datatype'] = $type;
+			$where_om['status'] = array('neq','指定');
+			$DataOM->where($where_om)->delete();
+			//相应审核任务
+			A("Method")->_taskshenhe_delete($data['chanpinID'],$type);
 		}
 		$this->ajaxReturn($_REQUEST,'操作成功！', 1);
 	
 	}
 
-	
-	
 	
 	
 	function _checkshenhe_admin($dataID,$datatype){
@@ -4024,7 +4485,7 @@ class MethodAction extends CommonAction{
 			$chanp = $Chanpin->where("`chanpinID` = '$v'")->find();
 			
 			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($v,$type);
+			$xianlu = $this->_checkDataOM($v,$type);
 			if(false === $xianlu){
 				$mark = 1;
 				continue;
@@ -4033,11 +4494,22 @@ class MethodAction extends CommonAction{
 				$data['chanpinID'] = $v;
 				if($chanp['status'] == '报名')
 					$data['status'] = '截止';
-				if($chanp['status'] == '截止')
-					$data['status'] = '报名';
+				if($chanp['status'] == '截止'){
+					$xianlu = $Chanpin->relation("zituanlist")->where("`chanpinID` = '$v'")->find();
+					$mark = 0;
+					foreach($xianlu['zituanlist'] as $v){
+						if($v['status'] != '截止'){
+							$mark = 1;
+						}
+					}
+					if($mark == 1)
+						$data['status'] = '报名';
+					else
+						$this->ajaxReturn($_REQUEST,'线路所有子团截止，无法再报名！', 0);
+				}
 				if(false === $Chanpin->mycreate($data)){
 					$Chanpin->rollback();
-					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
+					$this->ajaxReturn($_REQUEST,'错误！', 0);
 				}
 				else{//同步更新售价
 					$shoujialist = $Chanpin->relationGet("shoujialist");
@@ -4045,11 +4517,17 @@ class MethodAction extends CommonAction{
 						$shoujia_data['chanpinID'] = $s['chanpinID'];
 						$shoujia_data['shoujia']['xianlu_status'] = $data['status'];
 						$Chanpin->relation("shoujia")->myRcreate($shoujia_data);
-						
+					}
+					//处理销售OM
+					if($chanp['status'] == '报名'){
+						$this->_updatexianlu_status($xianluID);
+					}
+					if($chanp['status'] == '截止'){
+						//清除销售OM
+						$this->_clean_shoujia_om($xianluID);
 					}
 				}
 			}
-			
 			if($type == '地接'){
 				$data['chanpinID'] = $v;
 				if($chanp['status'] == '在线')
@@ -4072,7 +4550,7 @@ class MethodAction extends CommonAction{
 					$this->ajaxReturn($_REQUEST,'错误！！！??', 0);
 				}
 				else{
-					$this->_updatexianlu('',$chanp['chanpinID']);
+					$this->_updatexianlu_status('',$chanp['chanpinID']);
 				}
 			}
 			
@@ -4107,11 +4585,17 @@ class MethodAction extends CommonAction{
 	function _djcCreate($data,$process){//任务数据,下一流程
 		C('TOKEN_ON',false);
 		$System = D("System");
-		$System->relation("taskShenhe")->myRcreate($data);
-		$data['systemID'] = $System->getRelationID();
+		if(false === $System->relation("taskShenhe")->myRcreate($data)){
+			cookie('errormessage','生成待审核失败！',30);
+			return false;
+		}
 		//生成待检出OM
+		$data['systemID'] = $System->getRelationID();
+		$data['dataID'] = $data['taskShenhe']['dataID'];
+		$data['datatype'] = $data['taskShenhe']['datatype'];
 		return $this->_djcOMCreate($data,$process);
 	}
+	
 	
 	
 	
@@ -4121,6 +4605,18 @@ class MethodAction extends CommonAction{
 		//生成待检出OM
 		$DataOM = D("DataOM");
 		$to_dataomlist = $this->_getDataOM($data['dataID'],$data['datatype'],'管理');
+		//联合体产品处理，根据申请者部门生成审核OM
+		if($this->_checkLHT_OM($data['dataID'],$data['datatype'])){
+			$i = 0;
+			foreach($to_dataomlist as $tod){
+				$i++;
+			}
+			$durlist = A("Method")->_checkRolesByUser('计调','组团',1);
+			foreach($durlist as $vdul){
+				$to_dataomlist[$i]['DUR'] = $vdul['bumenID'].','.$vdul['roleID'].',';
+				$i++;
+			}
+		}
 		foreach($to_dataomlist as $vo){
 			list($om_bumen,$om_roles,$om_user) = split(',',$vo['DUR']);
 			$to_dataom['type'] = '管理';
@@ -4138,18 +4634,20 @@ class MethodAction extends CommonAction{
 				$tmp_d = $DataOM->where("`DUR`= '$to_dataom[DUR]' and `dataID` = '$to_dataom[dataID]' and `datatype` = '$to_dataom[datatype]'")->find();
 				if(!$tmp_d){
 					if(false === $DataOM->mycreate($to_dataom))
-						dump($DataOM);
+						return false;
 					//返回需要提示的用户
 					$userIDlist_temp = $this->_getuserlistByDUR($to_dataom['DUR']);	
 					$userIDlist = NF_combin_unique($userIDlist,$userIDlist_temp);
 				}
 			}
 		}
+		
+		
 		return $userIDlist;
 	}
 	
 	
-	//修复开放om
+	//修复开放om(修复某类型所有)
 	function _djcOMCreateRepair($datatype,$processID){
 		C('TOKEN_ON',false);
 		//修复开放om
@@ -4157,51 +4655,158 @@ class MethodAction extends CommonAction{
 		$ViewTaskShenhe = D("ViewTaskShenhe");
 		$tsall = $ViewTaskShenhe->where("`datatype` = '$datatype' AND `processID` = '$processID' AND `status` = '待检出' AND `status_system` = 1")->findall();
 		foreach($tsall as $v){
-			$DataOM->where("`dataID` = '$v[systemID]'")->delete();
+			$where_om['dataID'] = $v['systemID'];
+			$where_om['datatype'] = $v['datatype'];
+			$where_om['status'] = array('neq','指定');
+			$DataOM->where($where_om)->delete();
 			$process = $this->_checkShenhe($datatype,$processID);
 			$this->_djcOMCreate($v,$process);
 		}
 	}
 	
+	
 	//删除OM并重新生成
-	function _OMRcreate($dataID,$datatype,$user_name,$dataOMlist){
+	function _OMRcreate($dataID,$datatype,$user_name,$dataOMlist,$departmentID){
 		C('TOKEN_ON',false);
 		//修复开放om
-		$DataOM = D("DataOM");
-		$Chanpin = D("Chanpin");
-		$ViewXianlu = D("ViewXianlu");
-		$DataOM->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
-		if($datatype == '线路' || $datatype == '子团'){
-			if(!$dataOMlist){
-				if($datatype == '线路'){
-					$xl = $ViewXianlu->where("`chanpinID` = '$dataID'")->find();
-					$guojing = $xl['guojing'];
+		if($datatype == '消息'){
+				$DataOMMessage = D("DataOMMessage");
+				$DataOMMessage->where("`dataID` = '$dataID' and `datatype` = '$datatype'")->delete();
+				if(!$dataOMlist){
+					$Message = D("Message");
+					$msg = $Message->where("`messageID` = '$dataID'")->find();
+					$dataOMlist = $this->_getDataOM($msg['parentID'],'','管理');
 				}
-				$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$guojing);
-			}
-			$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
-			if($datatype == '线路'){
+				$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist,'DataOMMessage');
+		}
+		else{
+				$DataOM = D("DataOM");
 				$Chanpin = D("Chanpin");
-				$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
-				foreach($zituanall as $v){
-					$this->_OMRcreate($v['chanpinID'],'子团',$user_name,$dataOMlist);
-					$bzdall = $Chanpin->where("`parentID` = '$v[chanpinID]' and `marktype` = 'baozhang'")->findall();
+				$where_om['dataID'] = $dataID;
+				$where_om['datatype'] = $datatype;
+				$where_om['status'] = array('neq','指定');
+				$DataOM->where($where_om)->delete();
+				//获得产品
+				$d_cp = $Chanpin->where("`chanpinID` = '$dataID'")->find();
+				if(!$departmentID){
+					$departmentID = $d_cp['departmentID'];//默认部门
+				}
+				if(!$user_name){
+					$user_name = $d_cp['user_name'];//产品拥有者
+				}
+				if($datatype == '线路'){
+					//修复产品部门
+					if($d_cp['bumen_copy'] == '总经理' || $d_cp['bumen_copy'] == '大连古莲国际旅行社'){
+						$d_list = $this->_getDURlist_name($user_name,'','组团');	
+						//随即第一个
+						$d_cp['departmentID'] = $d_list[0]['bumenID'];	
+						if(false !== $Chanpin->mycreate($d_cp))
+							$departmentID = $d_cp['departmentID'];
+					}
+					if(!$dataOMlist){
+						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
+					}
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					//子团重置
+					$zituanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'zituan'")->findall();
+					foreach($zituanall as $v){
+						$this->_OMRcreate($v['chanpinID'],'子团',$user_name,$dataOMlist);
+					}
+				}
+				if($datatype == '地接' || $datatype == '子团' || $datatype == '签证'){
+					if(!$dataOMlist){
+						if($datatype == '地接'){
+							$role = '地接';
+							$bumentype = '地接';
+						}
+						if($datatype == '子团' || $datatype == '签证'){
+							$role = '计调';
+							$bumentype = '组团';
+						}
+						$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
+					}
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					//报账单重置
+					$bzdall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'baozhang'")->findall();
 					foreach($bzdall as $vol){
 						$this->_OMRcreate($vol['chanpinID'],'报账单',$user_name,$dataOMlist);
 					}
+					//重置订单
+					if($datatype == '子团' || $datatype == '签证'){
+						$dingdanall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'dingdan'")->findall();
+						foreach($dingdanall as $vd){
+							$this->_OMRcreate($vd['chanpinID'],'订单',$user_name,$dataOMlist);
+						}
+					}
 				}
-			}
-		}
-		if($datatype == '地接'){
-				if(!$dataOMlist)
-				$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name);
-			$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
-		}
-		if($datatype == '报账单' || $datatype == '报账项'){
-				if($dataOMlist)
+				if($datatype == '订单'){
+					if(!$dataOMlist){
+						$cp = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();
+						$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$cp['departmentID']);//user_name需要指定，必须为团拥有者
+					}
+					//处理订单//订单比较特殊
+					$i=0;
+					foreach($dataOMlist as $vd){
+						$i++;
+					}
+					
+					$dataOMlist[$i]['DUR'] = $d_cp['departmentID'].',,';//开放至部门
+					$dingdan_user = $this->_getuserinfo($d_cp['user_name']);
+					$dataOMlist[$i+1]['DUR'] = ',,'.$dingdan_user['systemID'];//开放至个人
 					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+				}
+				if($datatype == '报账单'){
+					if(!$dataOMlist){
+						$cp = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();
+						if($cp){
+							if($cp['marktype'] == 'zituan'){
+								$role = '计调';
+								$bumentype = '组团';
+							}
+							if($cp['marktype'] == 'DJtuan'){
+								$role = '地接';
+								$bumentype = '地接';
+							}
+							$dataOMlist = $this->_setDataOMlist($role,$bumentype,$user_name,$departmentID);
+						}
+						else{
+							$dataOMlist = $this->_setDataOMlist('计调','组团',$user_name,$departmentID);
+							if(!$dataOMlist)				
+								$dataOMlist = $this->_setDataOMlist('地接','地接',$user_name,$departmentID);
+						}
+					}
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+					//报账项重置
+					$bzditemall = $Chanpin->where("`parentID` = '$dataID' and `marktype` = 'baozhangitem'")->findall();
+					foreach($bzditemall as $volitem){
+						$this->_OMRcreate($volitem['chanpinID'],'报账项',$user_name,$dataOMlist);
+					}
+				}
+				if($datatype == '报账项'){
+					if(!$dataOMlist){
+						$cp_bzd = $Chanpin->where("`chanpinID` = '$d_cp[parentID]'")->find();//获得报账单
+						$dataOMlist = $this->_getDataOM($d_cp['parentID'],'报账单','管理');
+					}
+					$this->_createDataOM($dataID,$datatype,'管理',$dataOMlist);
+				}
+				
+				//清除无用OM
+				$process = $this->_get_chanpin_taskshenhe($dataID,$datatype);//获得产品审核状态
+				$need = $this->_getTaskDJC($dataID,$datatype);//检查待审核任务存在
+				if($process['status'] == '批准' && $need == false){
+					$ViewTaskShenhe = D("ViewTaskShenhe");
+					$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
+					$DataOM = D("DataOM");
+					foreach($taskall as $v){
+						$DataOM->where("`dataID` = '$v[systemID]' AND `datatype` = '审核任务'")->delete();	
+					}
+				}
 		}
+		
+		return $dataOMlist;
 	}
+	
+	
 	
 	
 	//获得部门用户列表
@@ -4215,7 +4820,7 @@ class MethodAction extends CommonAction{
 			//公司范围控制
 			$username = $this->user['title'];
 			$ComID = $this->_getComIDbyUser($username);
-			$d = $ViewDepartment->where("`title` = '$bumentitle' AND `parentID` = '$ComID'")->find();
+			$d = $ViewDepartment->where("`title` = '$bumentitle' AND `companyID` = '$ComID'")->find();
 			$all = $ViewSystemDUR->where("`bumenID` = '$d[systemID]'")->findall();
 		}
 		$i = 0;
@@ -4264,21 +4869,114 @@ class MethodAction extends CommonAction{
 	
 	
 	
-	//报账单同步报账项费用
-     public function _resetOM() {
-		C('TOKEN_ON',false);
-		$itemlist = $_REQUEST['checkboxitem'];
-		$itemlist = explode(',',$itemlist);
-//		if(count($itemlist) > 1)
-//			$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+	//重置产品OM
+     public function _resetOM($chanpinID='') {
 		$Chanpin = D("Chanpin");
-		foreach($itemlist as $v){
-			$cp = $Chanpin->where("`chanpinID` = '$v'")->find();
-			$this->_OMRcreate($v,'线路',$cp['user_name']);
+		C('TOKEN_ON',false);
+		if($chanpinID)
+			$_REQUEST['chanpinID'] = $chanpinID;
+		if($_REQUEST['chanpinID']){
+			$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+			if($cp){
+				if($cp['marktype'] == 'xianlu')
+					$omtype = '线路';
+				if($cp['marktype'] == 'zituan'){
+					//$omtype = '子团';
+					$lvyouchanpin = $cp;
+					$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+					$omtype = '线路';
+					$cp['user_name'] = $lvyouchanpin['user_name'];
+				}
+				if($cp['marktype'] == 'baozhang'){
+					//$omtype = '报账单';
+					$bzd = $cp;
+					$lvyouchanpin = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+					if($lvyouchanpin){
+						if($lvyouchanpin['marktype'] == 'zituan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+							$omtype = '线路';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+						if($lvyouchanpin['marktype'] == 'DJtuan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['chanpinID'];
+							$omtype = '地接';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+					}
+				}
+				if($cp['marktype'] == 'baozhangitem'){
+					$omtype = '报账项';
+					$bzd = $Chanpin->where("`chanpinID` = '$cp[parentID]'")->find();
+					$lvyouchanpin = $Chanpin->where("`chanpinID` = '$bzd[parentID]'")->find();
+					if($lvyouchanpin){
+						if($lvyouchanpin['marktype'] == 'zituan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['parentID'];
+							$omtype = '线路';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+						if($lvyouchanpin['marktype'] == 'DJtuan'){
+							$_REQUEST['chanpinID'] = $lvyouchanpin['chanpinID'];
+							$omtype = '地接';
+							$cp['user_name'] = $lvyouchanpin['user_name'];
+						}
+					}
+				}
+				if($cp['marktype'] == 'qianzheng')
+					$omtype = '签证';
+				if($cp['marktype'] == 'DJtuan')
+					$omtype = '地接';
+				$this->_OMRcreate($_REQUEST['chanpinID'],$omtype,$cp['user_name']);
+			}
+			else
+				return false;
+		}
+		else{
+			$itemlist = $_REQUEST['checkboxitem'];
+			$itemlist = explode(',',$itemlist);
+//			if(count($itemlist) > 1)
+//				$this->ajaxReturn($_REQUEST,'错误！请选择唯一一个进行操作！！', 0);
+			foreach($itemlist as $v){
+				$cp = $Chanpin->where("`chanpinID` = '$v'")->find();
+				if($cp)
+				$this->_OMRcreate($v,'线路',$cp['user_name']);
+			}
 		}
 		return true;
 		
 	 }
+	 
+	 
+	//重置待审核OM
+     public function _resetOMTask($chanpinID='') {
+		$Chanpin = D("Chanpin");
+		C('TOKEN_ON',false);
+		if($chanpinID)
+			$_REQUEST['chanpinID'] = $chanpinID;
+		//分类
+		$cp = $Chanpin->where("`chanpinID` = '$_REQUEST[chanpinID]'")->find();
+		if($cp['marktype'] == 'zituan' || $cp['marktype'] == 'DJtuan'){
+			$baozhangall = $Chanpin->where("`parentID` = '$cp[chanpinID]' AND `marktype` = 'baozhang'")->findall();
+			foreach($baozhangall as $v){
+				$this->_resetOMTask($v['chanpinID']);
+				$baozhangitemall = $Chanpin->where("`parentID` = '$v[chanpinID]'")->findall();
+				foreach($baozhangitemall as $vol){
+					$this->_resetOMTask($vol['chanpinID']);
+				}
+			}
+			return true;
+		}
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$where['status'] = '待检出';
+		$where['dataID'] = $_REQUEST['chanpinID'];
+		$task = $ViewTaskShenhe->where($where)->find();
+		$process = $this->_checkShenhe($task['datatype'],$task['processID']);
+		$this->_djcOMCreate($task,$process);
+		return true;
+	 }
+	 
+	
+	
 	
 	//侧导航部门提取
 	public function _nav_leftdatas() {
@@ -4293,25 +4991,90 @@ class MethodAction extends CommonAction{
 	}
 	
 	
+	//检查名单
+	public function _ckeck_customer_list($_REQUEST,$dingdanID) {
+		$Chanpin = D("Chanpin");
+		$ViewDingdan = D("ViewDingdan");
+		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();
+		//修正
+		$shoujia = $this->_zhidingxiaoshou_xiuzheng($_REQUEST['shoujiaID'],$dingdan['parentID']);
+		$DataCD = D("DataCD");
+		$ViewCustomer = D("ViewCustomer");
+		//清空订单内客户,并重新生成
+		for($i = 0; $i < $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num'];$i++){
+			$cus = '';	
+			$cus['dingdanID'] = $dingdanID;
+			$id = $i+1;
+			if($_REQUEST['tuanyuanID'.$id]){//游客已存在，数据丢失报错
+				$cus['id'] = $_REQUEST['tuanyuanID'.$id];
+				$cus = $DataCD->where("`id` = '$cus[id]'")->find();
+				if(!$cus){
+					$this->ajaxReturn($_REQUEST,'错误，未找到团员ID！', 0);
+				}
+			}
+			else{//游客不存在，数据异常报错
+				$datanum = $DataCD->where("`dingdanID` = '$dingdanID'")->count();
+				if($datanum >= $dingdan['chengrenshu'] + $dingdan['ertongshu'] + $dingdan['lingdui_num']){
+					$this->ajaxReturn($_REQUEST,'错误，订单团员信息异常！', 0);
+				}
+			}
+			//证件号码池
+			if(in_array($cus['zhengjianhaoma'],$haomalist)){
+				$this->ajaxReturn($_REQUEST,'错误，不允许两个证件号码相同的游客！', 0);
+			}
+			else{
+				$same = $DataCD->where("`dingdanID` = '$dingdanID' and `zhengjianhaoma` = `$cus[zhengjianhaoma]`")->find();
+				if($same){
+					$this->ajaxReturn($_REQUEST,'错误，一个团中，不允许两个证件号码相同的游客！', 0);
+				}
+			}
+			$haomalist[$i] = $cus['zhengjianhaoma'];
+			//价格判断
+			if($cus['manorchild'] == '成人')
+				if($shoujia['shoujia']['adultprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+					$this->ajaxReturn($_REQUEST,'团员'.$cus['name'].'应付超过可折扣范围！', 0);
+				}
+			if($cus['manorchild'] == '儿童')
+				if($shoujia['shoujia']['childprice'] - $shoujia['shoujia']['cut'] > $cus['price']){
+					$this->ajaxReturn($_REQUEST,'团员'.$cus['name'].'应付超过可折扣范围！', 0);
+				}
+		}
+	}
+	
 	
 	
 	//订单存储流程
 	public function _dingdansave_process($data,$username) {
 		$Chanpin = D("Chanpin");
+		//检查名单
+		//$this->_ckeck_customer_list($data,$chanpinID);
 		if (false !== $Chanpin->relation("dingdan")->myRcreate($data)){
 			$chanpinID = $Chanpin->getRelationID();
 			$data['chanpinID'] = $chanpinID;
 			//生成OM
+			$this->_OMRcreate($chanpinID,'订单');
 			if($data['type'] != '签证')
 				$data['type'] = '子团';
-			$dataOMlist = $this->_getDataOM($data['parentID'],$data['type'],'管理');
-			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
-			//开放给自己部门
-			$dataOMlist = $this->_getmyOMlist($username);
-			$this->_createDataOM($chanpinID,'订单','管理',$dataOMlist);
 			//生成团员
-			if($data['status'] == '确认' && $data['type'] != '签证')
-				$this->createCustomer_new($data,$chanpinID);
+			if($data['type'] == '子团' || $data['type'] == '签证'){
+				
+				if($this->createCustomer_new($data,$chanpinID)){
+					
+					//更新信息
+					if($data['type'] == '子团'){
+						$zituan = $Chanpin->relation("xianlulist")->where("`chanpinID` = '$data[parentID]'")->find();
+						if($zituan['xianlulist']['serverdataID']){
+							$getres = FileGetContents(SERVER_INDEX."Server/updatechanpin/chanpinID/".$zituan['parentID']);
+							if($getres['error']){
+								return false;
+							}
+						}
+					}
+				}
+				else{
+					return false;
+				}
+			}
 			if($data['user_mame'] == '电商' || $data['dingdan']['owner'] == '电商'){
 				//生成提醒消息
 				$message = '《'.$data['dingdan']['lianxiren'].'》'.'预订了：'.'『'.$data['dingdan']['title'].'』 。';
@@ -4321,8 +5084,9 @@ class MethodAction extends CommonAction{
 			}
 			return $data;
 		}
-		else
+		else{
 			return false;
+		}
 	}
 	
 	
@@ -4349,10 +5113,12 @@ class MethodAction extends CommonAction{
 		}
 		$this->showDirectory("统计");
 		//搜索
-		if($_REQUEST['title'])
-			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
 		if($_REQUEST['listtype'] == '员工'){
 			$where['user_name'] = array('like','%'.$_REQUEST['title'].'%');
+		}
+		else{
+//			$where['title'] = array('like','%'.$_REQUEST['title'].'%');
+			$bumen_where['title'] = array('like','%'.$_REQUEST['title'].'%');
 		}
 		$where['status_system'] = 1;
 		
@@ -4383,7 +5149,9 @@ class MethodAction extends CommonAction{
 		$role = $this->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政');
 		$ComID = $this->_getComIDbyUser();
 		if($role){
-			$unitdata = $ViewDepartment->where("`parentID` = '$ComID' AND `type` like '%组团%'")->findall();
+			$bumen_where['parentID'] = $ComID;
+			$bumen_where['type'] = array('like','%组团%');
+			$unitdata = $ViewDepartment->where($bumen_where)->findall();
 		}
 		else{
 			$role = $this->_checkRolesByUser('经理','组团');
@@ -4394,7 +5162,8 @@ class MethodAction extends CommonAction{
 			}
 			$i = 0;
 			foreach($role as $v){
-				$unitdata[$i] = $ViewDepartment->where("`systemID` = '$v[bumenID]'")->find();
+				$bumen_where['parentID'] = $v['bumenID'];
+				$unitdata[$i] = $ViewDepartment->where($bumen_where)->find();
 				$i++;
 			}
 			$unitdata = about_unique($unitdata);
@@ -4402,11 +5171,14 @@ class MethodAction extends CommonAction{
 		//部门列表
 		if($_REQUEST["departmentID"]){
 			foreach($unitdata as $b){
-				if($b['systemID'] == $_REQUEST["departmentID"])
-				$newdata[0] = $b;
+				if($b['systemID'] == $_REQUEST["departmentID"]){
+					$newdata[0] = $b;
+					break;
+				}
 			}
 			$unitdata = $newdata;
 		}
+		
 		//end
 		//总体统计。
 		$ViewZituan = D($ModelName);
@@ -4499,14 +5271,15 @@ class MethodAction extends CommonAction{
 			//搜索用户
 			if($_REQUEST['title']){
 				foreach($unitdata as $tt){
-					if($tt['title'] == $_REQUEST['title']){
-						$unitdata = null;
-						$unitdata[0] = $tt;
+					if($tt['user_name'] == $_REQUEST['title']){
+						$unitdata_tem[0] = $tt;
 						break;
 					}
 				}
+				$unitdata = $unitdata_tem;
 			}
 		}
+		
 		//end人员统计
 		$i = 0;
 		foreach($unitdata as $v){
@@ -4670,7 +5443,7 @@ class MethodAction extends CommonAction{
 	
 	
 	//线路状态更新
-	public function _updatexianlu($xianluID='',$zituanID=''){
+	public function _updatexianlu_status($xianluID='',$zituanID=''){
 		$Chanpin = D("Chanpin");
 		if(!$xianluID){
 			$zituan = $Chanpin->where("`chanpinID` = '$zituanID'")->find();
@@ -4686,10 +5459,211 @@ class MethodAction extends CommonAction{
 		if($mark == 0){
 			$xianlu['status'] = '截止';
 			$xianlu = $Chanpin->save($xianlu);
+			//清除销售OM
+			$this->_clean_shoujia_om($xianluID);
+		}
+		return $xianlu['status'];
+	}
+	
+	
+	
+	//线路状态更新
+	public function _taskshenhe_delete($dataID,$datatype){
+		$System = D("System");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$taskall = $ViewTaskShenhe->where("`dataID` = '$dataID' AND `datatype` = '$datatype'")->findall();
+		foreach($taskall as $v){
+			$d['systemID'] = $v['systemID'];
+			$d['status_system'] = -1;
+			$System->save($d);
 		}
 	}
 	
 	
+	
+	//商户条目增加
+	public function _new_shanghutiaomu(){
+		//权限判断
+		$durlist = A("Method")->_checkRolesByUser('计调,经理','组团');
+		if(false === $durlist){
+			$durlist = A("Method")->_checkRolesByUser('地接,经理','地接');
+			if(false === $durlist)
+				$this->ajaxReturn('', '失败！需求经理级别以上权限！', 0);
+		}
+		C('TOKEN_ON',false);
+		$System = D("System");
+		$ViewDataDictionary = D("ViewDataDictionary");
+		$_REQUEST['title'] = $_REQUEST['title'];
+		$_REQUEST['companyID'] = $this->_getComIDbyUser();
+		$_REQUEST['type'] = '商户条目';
+		$data = $_REQUEST;
+		$data['datadictionary'] = $_REQUEST;
+		$data['datadictionary']['datatext'] = serialize($_REQUEST);
+		$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
+		if($roles && ($_REQUEST['companyID'] == $roles['companyID'])){
+			$this->ajaxReturn('', '新增失败：条目重复！', 0);
+		}
+		if($_REQUEST['title'] == ''){
+			$this->ajaxReturn('', '新增失败：内容为空！', 0);
+		}
+		if (false === $System->relation('datadictionary')->myRcreate($data)){
+			$this->ajaxReturn('', '失败！', 0);
+		}
+		else{
+			$this->ajaxReturn('', '成功！', 1);
+		}
+	}
+	
+	
+	
+	//商户条目增加
+	public function _check_bankfile($type){
+		Vendor ( 'Excel.PHPExcel' );
+		$inputFileType = 'CSV';
+		$inputFileName = $_FILES['attachment']['name'];
+		$inputFile = $_FILES["attachment"]["tmp_name"];
+        if ($inputFileName == '')
+			A("Method")->ajaxUploadResult($_REQUEST,'文件未选择！',0);
+        if (pathinfo($inputFileName,PATHINFO_EXTENSION) != 'csv')
+			A("Method")->ajaxUploadResult($_REQUEST,'文件类型错误！',0);
+		if(false === NF_is_file_encode_utf8($inputFile))
+			A("Method")->ajaxUploadResult($_REQUEST,'文件非utf8编码！',0);
+		//上传附件
+		$savepath = './Data/BankFiles/'; 
+		if($type == '消费'){
+			$savepath .= 'Consume/'; 
+			//必填项
+		}
+		if($type == '会员'){
+			$savepath .= 'Member/'; 
+			
+		}
+		$ViewDepartment = D("ViewDepartment");
+		$ComID = A("Method")->_getComIDbyUser();
+		$company = $ViewDepartment->where("`systemID` = '$ComID'")->find();
+		if($company['title'] == '中国银行')
+			$savepath .= 'BankOfChina/';
+		elseif($company['title'] == '中国农业银行')
+			$savepath .= 'ABChina/';
+		else
+			A("Method")->ajaxUploadResult($_REQUEST,'银行配置错误！',0);
+		//文件
+		copy($_FILES["attachment"]["tmp_name"],$savepath.$inputFileName);
+		if($filepath = A("Method")->_upload($savepath)){
+			try {
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objPHPExcel = $objReader->load($savepath.$inputFileName);
+				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+			} catch (Exception $e) {
+				A("Method")->ajaxUploadResult($_REQUEST,'文件打开失败',0);
+			}	
+			//操作记录
+			$VIP = D("VIP");
+			$record['record']['filename_upload'] = $inputFileName;
+			$record['record']['filename_record'] = $filepath;
+			$record['record']['bank_type'] = $company['title'];
+			$record['record']['file_type'] = $type;
+			if(false === $VIP->relation("record")->myRcreate($record)){
+				A("Method")->ajaxUploadResult($_REQUEST,'备份失败！',0);
+			}
+			return $sheetData;
+		}
+		unlink($savepath.$inputFileName);
+		A("Method")->ajaxUploadResult($_REQUEST,'上传失败！',0);
+	}
+	
+	
+	
+	
+	//商户条目增加
+	public function _dede_dingdanlist($second=1){
+		$where['clientdataID'] = array('neq','');
+		$where['second_confirm'] = $second;
+		$order = 'time desc';
+		$WEBServiceOrder = D("WEBServiceOrder");
+		$distinctfield = 'clientdataID';
+        import("@.ORG.Page");
+        C('PAGE_NUMBERS',10);
+		$tempcount = $WEBServiceOrder->Distinct(true)->field($distinctfield)->where($where)->findall();
+		$count = count($tempcount);
+		$p= new Page($count,20);
+		$page = $p->show();
+        $chanpinlist = $WEBServiceOrder->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		$ViewZituan = D("ViewZituan");
+		$i = 0;
+		foreach($chanpinlist as $v){
+			$chanpin_list[$i] = $ViewZituan->where("`chanpinID` = '$v[clientdataID]'")->find();
+			$chanpin_list[$i]['orderlist'] = $WEBServiceOrder->where("`clientdataID` = '$v[clientdataID]' AND `second_confirm` = ".$second)->findall();
+			$renshu = 0;
+			foreach($chanpin_list[$i]['orderlist'] as $vol){
+				$renshu += $vol['chengrenshu'] + $vol['ertongshu'];
+			}
+			$chanpin_list[$i]['yudinglist']['renshu'] = $renshu;
+			$i++;
+		}
+		$this->assign("page",$page);
+		$this->assign("chanpin_list",$chanpin_list);
+		$this->display('B2CManage:kongguan');
+	}
+	
+	
+	//判断超级管理员
+	public function _is_Super_Admin(){
+		if($this->user['title'] == 'aaa')
+			return true;
+		return false;	
+		
+	}
+	
+	
+	//价格修正,shoujiaID和子团ID
+	public function _zhidingxiaoshou_xiuzheng($shoujiaID,$chanpinID){
+		$ViewShoujia = D("ViewShoujia");
+		$shoujia = $ViewShoujia->where("`chanpinID` = '$shoujiaID'")->find();
+		$ViewTiaojia = D("ViewTiaojia");
+		$tiaojia = $ViewTiaojia->where("`parentID` = '$chanpinID' AND `shoujiaID` = '$shoujiaID'")->find();
+		$shoujia['adultprice'] += $tiaojia['adultprice'];
+		$shoujia['childprice'] += $tiaojia['childprice'];
+		$shoujia['cut'] += $tiaojia['cut'];
+		$shoujia['chengben'] += $tiaojia['chengben'];
+		$shoujia['renshu'] += $tiaojia['renshu'];
+		return $shoujia;
+	}
+	
+	
+	//编辑行程
+    public function _echo_xingcheng($chanpinID) {
+		$Chanpin = D("Chanpin");
+		$chanpin = $Chanpin->relation('xianlu')->where("`chanpinID` = '$chanpinID'")->find();
+		$xingcheng = $Chanpin->relationGet("xingchenglist");
+		if(!$xingcheng)
+			return '';
+		$str = '<ul>';
+		$count = 0 ;$t =-1;
+		while ($count < $chanpin['xianlu']['tianshu']) {$t++; 
+			$str .= '<li><div class="cty_article_cont_title"><i>第'.($t+1).'天</i><h1>'.$xingcheng[$count]['title'].'</h1></div><div class="cty_article_cont_infos">';
+			if(strstr($xingcheng[$count]['chanyin'],'早餐')){
+			$str .= '<b>早餐：</b>包含';
+			}else{
+			$str .= '<b>早餐：</b>不含';
+			}
+			if(strstr($xingcheng[$count]['chanyin'],'午餐')){
+			$str .= '<b>午餐：</b>包含';
+			}else{
+			$str .= '<b>午餐：</b>不含';
+			}
+			if(strstr($xingcheng[$count]['chanyin'],'晚餐')){
+			$str .= '<b>晚餐：</b>包含';
+			}else{
+			$str .= '<b>晚餐：</b>不含';
+			}
+			$str .= '<b>住宿：</b>'.$xingcheng[$count]['place'].'</div>';
+			$str .= '<div class="cty_article_cont_cont">'.$xingcheng[$count]['content'].'</div></li>';
+			$count++;
+		}
+		$str .= '</ul>';
+		return $str;
+    }
 	
 	
 	

@@ -1,9 +1,14 @@
 <tp:includeCA file="Index:showheader" />
+
+<link href="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/skins/default.css" rel="stylesheet" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/artDialog-5.0.4/artDialog.min.js"></script>
+
 <script type='text/javascript' src='<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.js'></script>
 <link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-autocomplete/jquery.autocomplete.css" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/baozhang.js"></script>
 <script type="text/javascript">
+
 var actionmethod = '<{$actionmethod}>';
 var SITE_INDEX = '<{:SITE_INDEX}>';
 var parentID = '<{$baozhangID}>';
@@ -59,7 +64,11 @@ function exports(type)
 }
 
 function doshenhe_baozhangitem(dotype,datatype,dataID,title){
-	ThinkAjax.myloading('resultdiv');
+	art.dialog({
+		id: 'id-demo',
+		title: '操作信息',
+	});		
+	//ThinkAjax.myloading('resultdiv');
 	act = jQuery("#btshenhe_"+dataID).attr("onclick"); 
 	jQuery("#btshenhe_"+dataID).attr("onclick","alert('正在执行请稍候...')"); 
 	jQuery.ajax({
@@ -67,18 +76,50 @@ function doshenhe_baozhangitem(dotype,datatype,dataID,title){
 		url:	SITE_INDEX+"<{$actionmethod}>/doshenhe",
 		data:	"dataID="+dataID+"&dotype="+dotype+"&datatype="+datatype+"&title="+title,
 		success:function(msg){
-			scroll(0,0);
-			jQuery("#btshenhe_"+dataID).attr("onclick","alert("+act+")"); 
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',shenhe_after);
+			//scroll(0,0);
+			jQuery("#btshenhe_"+dataID).attr("onclick",""+act+""); 
+			//ThinkAjax.myAjaxResponse(msg,'resultdiv',baozhangshenhe_after);
+			ThinkAjax.myAjaxResponse(msg,'',baozhangshenhe_after,dataID);
 		}
 	});
 }
 
 
-function shenhe_after(data,status){
+function new_shanghutiaomu(){
+	ThinkAjax.myloading('resultdiv');
+	var title = jQuery("#shanghutiaomu_add").val();
+	jQuery.ajax({
+		type:	"POST",
+		url:	SITE_INDEX+"Index/new_shanghutiaomu",
+		data:	"title="+title,
+		success:function(msg){
+			scroll(0,0);
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',add_after);
+		}
+	});
+}
+
+
+function add_after(data,status){
 	if(status == 1){
-		alert(data['status_shenhe']+"操作成功！！");
+		alert("操作成功！！！");
 		location.reload();
+	}
+}
+
+function baozhangshenhe_after(data,status,info,type,idname){
+	if(status == 1){
+		//alert(data['status_shenhe']+"操作成功！！");
+		//location.reload();
+		art.dialog.get('id-demo').content(data['status_shenhe']+"操作成功！！").time(2000);
+		jQuery('#lb_shenhe_remark'+idname).html(data['shenhe_remark']);
+		if(data['dotype'] == '批准')
+		jQuery('#lb_shenhe_remark'+idname).css("color","black"); 
+		if(data['dotype'] == '申请' || data['datatype'] == '报账单')
+		setTimeout("location.reload()",2000);		
+	}
+	else{
+		art.dialog.get('id-demo').content(info).time(4000);
 	}
 }
 
@@ -106,8 +147,21 @@ var userlist = [
 			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
 	 <php>}</php>
  ];
+var shanghutiaomu = [
+	 <php>foreach($shanghutiaomu as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
 
 jQuery().ready(function() {
+			//myautocomplete("#shanghutiaomu_add",'商户条目');
+	
+		<php>
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '支出项目') continue;$i++;
+		</php>
+			myautocomplete("#title<{$v[chanpinID]}>",'商户条目');
+		<php>}</php>
+	
 		<php>
 		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '利润') continue;$i++;
 		if($v[expandtype] == '部门'){
@@ -406,7 +460,7 @@ jQuery().ready(function() {
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF;"><strong>应收费用</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增 " onclick="insertItem('yingshou_list','结算项目');"></td>
+                      <input type="button" class="button" value=" 新增 " onclick="insertItem('yingshou_list','结算项目');"></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -428,7 +482,7 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -442,43 +496,30 @@ jQuery().ready(function() {
               <option value="签单">签单</option>
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
+              <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>">
-          <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
+          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
+          <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
-          <td scope="row" align="left" valign="top"><strong 
+          <td scope="row" align="left" valign="top"><strong  id="lb_shenhe_remark<{$v['chanpinID']}>"
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
-          ><{$v['shenhe_remark']}></strong></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+          >
+          <{$v['shenhe_remark']}>
+          </strong></td>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
   
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}}else{</php>
-      <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
-      <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
-      <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" onclick="alert('<{$alterword}>')" >
-      <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
-	  <php>}else{</php>
-          <php>if($baozhang['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
-          <php>}elseif($v['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
-          <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('已经回退！')" >
+      <php>if($v['status_shenhe'] == '未审核'){</php>
+          <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}else{</php>
+          <php>if($v['status_shenhe'] != '批准'){</php>
+              <input type="button" class="button" value=" 批准 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
           <php>}</php>
-	  <php>}</php>
+          <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+      <php>}</php>
       
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
@@ -494,11 +535,15 @@ jQuery().ready(function() {
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingfu_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="2"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="10"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应付费用</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
+                      <input type="button" class="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
+                    <td nowrap="nowrap" class="paginationActionButtons">
+                    <strong>新增商户条目</strong>&nbsp;
+                    <input type="text" style="width:200px;" id="shanghutiaomu_add" />
+                      <input type="button" class="button" value=" 确认 " onclick="new_shanghutiaomu()"></td>
                   </tr>
                 </tbody>
               </table>
@@ -521,7 +566,11 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top">
+          <input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          <input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" check="^\S+$" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -535,42 +584,31 @@ jQuery().ready(function() {
               <option value="签单">签单</option>
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
+              <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
           <td scope="row" align="left" valign="top"><input type="text" name="renshu" style="width:80px;" id="renshu<{$v['chanpinID']}>" value="<php>if($v['renshu']) echo $v['renshu']; else echo 0;</php>" check="^\S+$" warning="人数不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>">
-          <input class="button" type="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
+          <input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;">
+          <input type="button" class="button" value="修改备注"  style="margin-top:0px;" onclick="javascript:doeditremark(this,<{$v['chanpinID']}>,<{$v[parentID]}>);"/>
           </td>
-          <td scope="row" align="left" valign="top"><strong 
+          <td scope="row" align="left" valign="top"><strong  id="lb_shenhe_remark<{$v['chanpinID']}>"
           <PHP>if($v['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
-          ><{$v['shenhe_remark']}></strong></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
-      <php>
-      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
-      if(false !== $taskom){
-      if(cookie('show_action') == '批准'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}if(cookie('show_action') == '申请'){
-      </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
-      <php>}}else{</php>
-      <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
-      <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
-      <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" onclick="alert('<{$alterword}>')" >
-      <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
-	  <php>}else{</php>
-          <php>if($baozhang['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
-          <php>}elseif($v['status_shenhe'] == '批准'){</php>
-      <input type="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
-          <php>}else{</php>
-      <input type="button" value="回退" onclick="alert('已经回退！')" >
+          >
+          <{$v['shenhe_remark']}>
+          </strong></td>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+     
+      
+      <php>if($v['status_shenhe'] == '未审核'){</php>
+          <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}else{</php>
+          <php>if($v['status_shenhe'] != '批准'){</php>
+              <input type="button" class="button" value=" 批准 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
           <php>}</php>
-	  <php>}</php>
+          <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+      <php>}</php>
       
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
@@ -590,8 +628,8 @@ jQuery().ready(function() {
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>利润项</strong>&nbsp;
-                      <input class="button" type="button" value=" 新增部门利润 " onclick="insertItem('lirun_list','利润','部门');">
-                      <input class="button" type="button" value=" 新增员工利润 " onclick="insertItem('lirun_list','利润','用户');"></td>
+                      <input type="button" class="button" value=" 新增部门利润 " onclick="insertItem('lirun_list','利润','部门');">
+                      <input type="button" class="button" value=" 新增员工利润 " onclick="insertItem('lirun_list','利润','用户');"></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -613,7 +651,7 @@ jQuery().ready(function() {
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="title" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
+          <input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
           <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
           <input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
           </td>
@@ -630,11 +668,13 @@ jQuery().ready(function() {
               <option value="签单">签单</option>
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
+              <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>"></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="remark" id="remark<{$v['chanpinID']}>" value="<{$v['remark']}>" style="width:200px;"></td>
           <td scope="row" align="left" valign="top"></td>
-          <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input class="button" type="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+          <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
           <td scope="row" align="left" valign="top"><input type="checkbox" 
             <php>if($v['is_print'] =='不打印'){</php>
             checked="checked"
@@ -669,5 +709,34 @@ jQuery().ready(function() {
     </tbody>
   </table>
 </div>
+
+<!--      
+      <php>
+      $taskom = A("Method")->_checkOMTaskShenhe($v['chanpinID'],'报账项');
+      if(false !== $taskom){
+      if(cookie('show_action') == '批准'){
+      </php>
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('检出','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}if(cookie('show_action') == '申请'){
+      </php>
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
+      <php>}}else{</php>
+      <php>if(count(explode('未审核',$v['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
+      <php>if(count(explode('申请',$v['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
+      <php>if(count(explode('财务',$v['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
+      <input type="button" class="button" value="审核" onclick="alert('<{$alterword}>')" >
+      <php>}if(A("Method")->checkshenheback($v['chanpinID'],'报账项')){</php>
+      <input type="button" class="button" value=" 审核回退 " onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$v['chanpinID']}>,'报账项','<{$actionmethod}>');">
+	  <php>}else{</php>
+          <php>if($baozhang['status_shenhe'] == '批准'){</php>
+      <input type="button" class="button" value="回退" onclick="alert('报账单已经审核，无法回退报账项！')" >
+          <php>}elseif($v['status_shenhe'] == '批准'){</php>
+      <input type="button" class="button" value="回退" onclick="alert('该项目已被批准，只有最后批准人允许回退！！！')" >
+          <php>}else{</php>
+      <input type="button" class="button" value="回退" onclick="alert('已经回退！')" >
+          <php>}</php>
+	  <php>}</php>
+-->      
+
 
 <tp:includeCA file="Index:footer" />

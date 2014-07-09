@@ -8,6 +8,13 @@ class CaiwuAction extends CommonAction{
 	
 	
 	public function shenhe() {
+		if($_REQUEST['type'] == '收支项')
+			A("Method")->showDirectory("收支项审核");
+		if($_REQUEST['type'] == '报账单')
+			A("Method")->showDirectory("报账单审核");
+		if($_REQUEST['type'] == '订单'){
+			A("Method")->showDirectory("订单审核");
+		}
 		if(!$_REQUEST['datakind']){
 			$this->assign("datakind",'全部');
 		}
@@ -15,7 +22,6 @@ class CaiwuAction extends CommonAction{
 		$i = 0;
 		$ViewBaozhang = D("ViewBaozhang");
 		foreach($datalist['chanpin'] as $v){
-			
 			//项目信息
 			$datalist['chanpin'][$i]['datatext_copy'] = $dat = simple_unserialize($v['datatext_copy']);
 			$bzd = $ViewBaozhang->where("`chanpinID` = '$dat[chanpinID]'")->find();
@@ -31,12 +37,6 @@ class CaiwuAction extends CommonAction{
 			}
 			$i++;
 		}
-		if($_REQUEST['type'] == '收支项')
-		A("Method")->showDirectory("收支项审核");
-		if($_REQUEST['type'] == '报账单')
-		A("Method")->showDirectory("报账单审核");
-		if($_REQUEST['type'] == '订单')
-		A("Method")->showDirectory("订单审核");
 		$this->assign("chanpin_list",$datalist['chanpin']);
 		$this->display('shenhe');
 	}
@@ -60,39 +60,49 @@ class CaiwuAction extends CommonAction{
 	
 	public function jixiao_tongji() {
 		A("Method")->showDirectory("统计");
+		$this->assign("navposition",'旅游产品');
 		//订单搜索
 		$where['status_system'] = 1;
 		if($_REQUEST['start_time'] && $_REQUEST['end_time']){
-			$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			//$where['baozhang_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			if($_GET['show'] != 'all')	$where['shenhe_time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
+			else	$where['time'] = array('between',strtotime($_REQUEST['start_time']).','.strtotime($_REQUEST['end_time']));	
 		}
 		else{
 			$month = NF_getmonth();
 			$fm_forward_month = $month['forward'];
-			$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			//$where['baozhang_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-01'));	
+			if($_GET['show'] != 'all')	$where['shenhe_time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
+			else	$where['time'] = array('between',strtotime($fm_forward_month.'-01').','.strtotime(date("Y-m").'-30'));	
 			$_REQUEST['start_time'] = $fm_forward_month.'-01';
-			$_REQUEST['end_time'] = date("Y-m").'-01';
+			$_REQUEST['end_time'] = date("Y-m").'-30';
 			$this->assign("start_time",$fm_forward_month.'-01');
-			$this->assign("end_time",date("Y-m").'-01');
+			$this->assign("end_time",date("Y-m").'-30');
 		}
 		$ViewDataDictionary = D("ViewDataDictionary");
 		//订单列表
-		$where['status_shenhe'] = '批准';
+		if($_GET['show'] != 'all')	$where['status_shenhe'] = '批准';
 		$ComID = A("Method")->_getComIDbyUser();
 		$where['companyID'] = $ComID;
 		$ViewDingdan = D("ViewDingdan");
 		$dingdanall = $ViewDingdan->where($where)->findall();
+		$tem_d = 0;
+		
 		foreach($dingdanall as $v){
 			$tongji['chengrenshu'] += $v['chengrenshu'];
 			$tongji['ertongshu'] += $v['ertongshu'];
 			$tongji['zongrenshu'] += $v['chengrenshu']+$v['ertongshu'];
-			//收客提成
+			//收客提成操作费
 			$ticheng = $ViewDataDictionary->where("`systemID` = '$v[tichengID]'")->find();
-			$tongji['ticheng'] += $v['jiage'] * (int)$ticheng['description'] / 100 ;
+			$caozuofei = $ViewDataDictionary->where("`systemID` = '$v[caozuofeiID]'")->find();
+			$tongji['ticheng'] += (int)$ticheng['description'] ;
+			$tongji['tuandui_ticheng'] += $v['tuandui_ticheng'] ;
+			$tongji['caozuofei'] += (int)$caozuofei['description'] ;
+			$dingdanall[$tem_d]['ticheng'] = $ticheng;
+			$dingdanall[$tem_d]['caozuofei'] = $caozuofei;
+			$tem_d ++;
 		}
-		//操作费
-		$tongji['caozuofei'] = $tongji['zongrenshu'] * 2 ;
 		$this->assign("tongji",$tongji);
-		
 		//用户列表
 		if($_REQUEST["title"])
 		$where_unit['title'] = $_REQUEST["title"];
@@ -140,7 +150,7 @@ class CaiwuAction extends CommonAction{
 				//操作数
 				if($ok_caozuo){
 					$vol['jixiaotype'] = '操作';
-					$vol['caozuo_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * 2;
+					$vol['caozuo_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * (int)$vol['caozuofei']['description'];
 					$unitdata[$i]['dingdan_caozuo'][$m] = $vol;
 					$unitdata[$i]['caozuo_shu'] += $vol['chengrenshu']+$vol['ertongshu'];
 					$unitdata[$i]['caozuo_chengren'] += $vol['chengrenshu'];
@@ -162,27 +172,20 @@ class CaiwuAction extends CommonAction{
 					$vol['jixiaotype'] .= '/收客';
 					else
 					$vol['jixiaotype'] = '收客';
-					$ticheng = $ViewDataDictionary->where("`systemID` = '$vol[tichengID]'")->find();
-					$vol['ticheng'] = $ticheng;
-					$vol['shouke_price'] = $vol['jiage'] * (int)$ticheng['description'] / 100 ;
+					
+					$vol['shouke_price'] = ($vol['chengrenshu']+$vol['ertongshu']) * (int)$vol['ticheng']['description'];
 					$unitdata[$i]['dingdan_shouke'][$n] = $vol;
 					$unitdata[$i]['shouke_shu'] += $vol['chengrenshu']+$vol['ertongshu'];
 					$unitdata[$i]['shouke_chengren'] += $vol['chengrenshu'];
 					$unitdata[$i]['shouke_ertong'] += $vol['ertongshu'];
 					$unitdata[$i]['shouke_price'] += $vol['shouke_price'];
-					if($vol['title'] == '直客'){
-						$unitdata[$i]['zhike_num'] += $vol['chengrenshu']+$vol['ertongshu'];
-					}
-					if($vol['title'] == '散客'){
-						$unitdata[$i]['sanke_num'] += $vol['chengrenshu']+$vol['ertongshu'];
-					}
+					$unitdata[$i]['tuandui_ticheng'] += $vol['tuandui_ticheng'];
 					$n++;
 				}
 				if($ok_shouke || $ok_caozuo){
 					$unitdata[$i]['dingdan'][$k] = $vol;
 					$k++;
 				}
-				
 				$t++;
 			}
 			//搜索单人	
@@ -221,6 +224,7 @@ class CaiwuAction extends CommonAction{
 						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 售价 </div></th>
 						  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型</div></th>
 						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 收客提成 </div></th>
+						  <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 团队提成 </div></th>
 						</tr>
 				';
 				$i = 0;
@@ -234,8 +238,9 @@ class CaiwuAction extends CommonAction{
 					  <td>'.$v['type'].'</td>
 					  <td>'.$v['chengrenshu'].'/'.$v['ertongshu'].'/'.$v['lingdui_num'].'</td>
 					  <td>'.$v['jiage'].'</td>
-					  <td>'.$v['ticheng']['title'].'/'.$v['ticheng']['description'].'%</td>
+					  <td>'.$v['ticheng']['title'].'/'.$v['ticheng']['description'].'</td>
 					  <td>'.$v['shouke_price'].'</td>
+					  <td>'.$v['tuandui_ticheng'].'</td>
 					</tr>
 					';
 				}
@@ -506,9 +511,12 @@ class CaiwuAction extends CommonAction{
 	}
 	
 	
+	
 	public function danxiangfuwu() {
 		A("Method")->_danxiangfuwu('财务');
 	}
+	
+	
 	
 	public function tuanbaozhang() {
 		$Chanpin = D("Chanpin");
@@ -536,6 +544,117 @@ class CaiwuAction extends CommonAction{
 		else
 			A("Method")->_baozhang($type);
 	}
+	
+	
+	public function hetong() {
+		$this->assign("navposition",'信息');
+		A('Method')->unitlist();
+		if($_REQUEST['listtype'] == '删除')
+			$_REQUEST['status_system'] = -1;
+		$chanpin_list = A('Method')->data_list_noOM('ViewHetong',$_REQUEST);
+		$this->assign("page",$chanpin_list['page']);
+		$this->assign("chanpin_list",$chanpin_list['chanpin']);
+		$this->display('hetong');
+	}
+	
+	
+	public function left_hetong() {
+		$this->display('left_hetong');
+	}
+	
+	
+	public function newhetong() {
+		$this->display('hetong_new');
+	}
+	
+	
+	public function dopost_newhetong() {
+		C('TOKEN_ON',false);
+		$Filedada = D("Filedata");
+		$ViewHetong = D("ViewHetong");
+		$hetong['parentID'] = $_REQUEST['expandID'];
+		$hetong['hetong']['name'] = $_REQUEST['name'];
+		foreach($_REQUEST['bianhao'] as $v){
+			if(!$v){
+				$this->ajaxReturn($_REQUEST, '操作失败：数据不全!', 0);
+			}
+			if($has = $ViewHetong->where("`bianhao` = '$v'")->find()){
+				$this->ajaxReturn($_REQUEST, '操作失败：编号'.$v.'合同已存在!', 0);
+			}
+		}
+		foreach($_REQUEST['bianhao'] as $v){
+			$hetong['hetong']['bianhao'] = $v;
+			if(false === $Filedada->relation("hetong")->myRcreate($hetong)){
+				$this->ajaxReturn($_REQUEST, '失败', 0);
+			}
+		}
+		$this->ajaxReturn($_REQUEST, '提交成功', 1);
+	}
+	
+	
+	public function hetongmark() {
+		C('TOKEN_ON',false);
+		$itemlist = $_REQUEST['checkboxitem'];
+		$itemlist = explode(',',$itemlist);
+		$Filedada = D("Filedata");
+		$ViewHetong = D("ViewHetong");
+		foreach($itemlist as $v){
+			$hethong = $ViewHetong->where("`filedataID` = '$v' AND `status_system` = 1")->find();
+			if($hethong){
+				$this->ajaxReturn($_REQUEST, '操作失败，合同已删除或不存在', 0);
+			}
+			$hethong_e['filedataID'] = $hethong['filedataID'];
+			$hethong_e['status'] = $_REQUEST['status'];
+			if($Filedada->save($hethong_e)){
+				//记录
+				$message = '申领人('.$hethong['name'].')编号『'.$v.'』合同已被管理员《'.$this->user['title'].'》标记为“'.$_REQUEST['status']."”".date('Y-m-d H:i:s',time());
+				A("Method")->_setMessageHistory($v,'合同',$message);
+			}
+		}
+		$this->ajaxReturn($_REQUEST, '成功', 1);
+	}
+	
+	
+
+	public function hetongHistory() {
+		$this->assign("navposition",'信息');
+		$_REQUEST['chanpintype'] = '合同';
+		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$_REQUEST);
+		if($_REQUEST['returntype'] == 'dialog'){
+			$i = 0;
+			foreach($chanpin_list['chanpin'] as $v){$i++;
+				echo '<em id="em_'.$v['messageID'].'"><lable>'.$i.'.</lable><a target="_blank" onclick="showmessages(\''.$v['url'].'\');">'.$v['message'].'</a><i>'.date("Y-m-d H:i",$v["time"]).'</i></em><br>';
+			}
+		}
+		else{
+			$this->assign("page",$chanpin_list['page']);
+			$this->assign("chanpin_list",$chanpin_list['chanpin']);
+			$this->display('hetongHistory');
+		}
+	}
+	
+	
+	
+	public function hetong_delete() {
+		C('TOKEN_ON',false);
+		$Filedada = D("Filedata");
+		$filedadaID = $_REQUEST['filedataID'];
+		$hethong = $Filedada->where("`filedataID` = '$filedadaID' AND `status` = '准备'")->find();
+		if(!$hethong){
+			$this->ajaxReturn($_REQUEST, '操作失败，合作只有在准备状态下可删除，请重置合同状态后删除！！', 0);
+		}
+		$hethong['filedataID'] = $hethong['filedataID'];
+		$hethong['status_system'] = -1;
+		if($Filedada->save($hethong)){
+			//记录
+			$message = '申领人('.$hethong['name'].')编号『'.$v.'』合同已被管理员《'.$this->user['title'].'》删除到回收站。'.date('Y-m-d H:i:s',time());
+			A("Method")->_setMessageHistory($v,'合同',$message);
+		}
+		$this->ajaxReturn($_REQUEST, '成功', 1);
+	}
+	
+	
+	
 	
 }
 ?>

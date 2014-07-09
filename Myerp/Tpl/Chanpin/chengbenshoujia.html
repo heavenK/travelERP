@@ -46,7 +46,7 @@ return '指定销售没有添加，将不会门市销售！！！';
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><strong>成本项目</strong>&nbsp;
-                    <input class="button" type="button" value="新增" onclick="insertchengben();" /></td>
+                    <input type="button" class="button" value="新增" onclick="insertchengben();" /></td>
                 </tr>
               </tbody>
             </table></td>
@@ -86,8 +86,8 @@ return '指定销售没有添加，将不会门市销售！！！';
             <option value="成人">成人</option>
             <option value="儿童">儿童</option>
           </select></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletechengben(<{$v['chanpinID']}>)" />
-          <input class="button" type="button" value="修改" onClick="addchengben(<{$v['chanpinID']}>)" /></td>
+        <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deletechengben(<{$v['chanpinID']}>)" />
+          <input type="button" class="button" value="修改" onClick="addchengben(<{$v['chanpinID']}>)" /></td>
       </tr>
       <php>}</php>
         </tbody>
@@ -127,7 +127,7 @@ return '指定销售没有添加，将不会门市销售！！！';
                 </tr>
                 <tr>
                   <td nowrap="nowrap">
-                    <input style="margin-top:-2px;" class="button" type="button" value=" 保存 " onclick="saveshoujia()"/></td>
+                    <input type="button" class="button" style="margin-top:-2px;" value=" 保存 " onclick="saveshoujia()"/></td>
                 </tr>
               </tbody>
             </table></td>
@@ -157,8 +157,8 @@ return '指定销售没有添加，将不会门市销售！！！';
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><strong>指定销售</strong>&nbsp;
-                    <input class="button" type="button" value="新增分类" onclick="insertshoujia('分类');" />
-                    <input class="button" type="button" value="+部门" onclick="insertshoujia('部门');" /></td>
+                    <input type="button" class="button" value="新增分类" onclick="insertshoujia('分类');" />
+                    <input type="button" class="button" value="+部门" onclick="insertshoujia('部门');" /></td>
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons"></td>
                 </tr>
               </tbody>
@@ -198,8 +198,8 @@ return '指定销售没有添加，将不会门市销售！！！';
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="chengben" id="chengben<{$v['chanpinID']}>" value="<{$v['chengben']}>" ></td>
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="cut" id="cut<{$v['chanpinID']}>" value="<{$v['cut']}>" ></td>
         <td scope="row" align="left" valign="top"><input style="width:80px;" type="text" name="renshu" id="renshu<{$v['chanpinID']}>" value="<{$v['renshu']}>" ></td>
-        <td scope="row" align="left" valign="top"><input class="button" type="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteshoujia(<{$v['chanpinID']}>)" />
-          <input class="button" type="button" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'<{$v['opentype']}>'))addshoujia(<{$v['chanpinID']}>,'<{$v['opentype']}>')" /></td>
+        <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteshoujia(<{$v['chanpinID']}>)" />
+          <input type="button" class="button" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'<{$v['opentype']}>'))addshoujia(<{$v['chanpinID']}>,'<{$v['opentype']}>')" /></td>
       </tr>
       <php>}</php>
         </tbody>

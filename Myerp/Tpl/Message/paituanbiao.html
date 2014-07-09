@@ -2,7 +2,7 @@
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <div id="main">
   <tp:includeCA file="Message:left_kongguan" />
@@ -23,7 +23,7 @@
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
 <php>if($is_fabu){</php>      
-                            <input class="button" type="button" value=" 发布 " onclick="opendialog_1()">
+                            <input type="button" class="button" value=" 发布 " onclick="opendialog_1()">
 <php>}</php>
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
@@ -47,11 +47,11 @@
                   <td scope="row" align="center" valign="top"><{$v['title']}></td>
                   <td scope="row" align="center" valign="top">
 <php>if($is_fabu){</php>      
-                        <input class="button" type="button" value=" 删除 " onclick="infodelete('<{$v[messageID]}>')">
-                        <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
+                        <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('是否确认删除“<{$v['title']}>”排团表?')==true)infodelete('<{$v[messageID]}>')">
+                        <input type="button" class="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
 <php>}</php>
                         <PHP>if($v['url_file']){</PHP>
-                        <input class="button" type="button" value=" 下载 " onclick="download('<{$v[url_file]}>')">
+                        <input type="button" class="button" value=" 下载 " onclick="download('<{$v[url_file]}>')">
                         <PHP>}</PHP>
                   </td>
                 </tr>

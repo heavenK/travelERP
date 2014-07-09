@@ -6,19 +6,21 @@ function AutoScroll(obj){
 }
 
 jQuery(document).ready(function(){
-	timer = setInterval('AutoScroll("#alertNewsView")',5000);
-	getNews();
-	getNewsAll("index.php?s=/Message/getNewsAll");
-	window.setInterval(getNews,50000);
+	timer = setInterval('AutoScroll("#alertNewsView")',10000);
+	setTimeout("getNews()",15000);
+	setTimeout("getNewsAll('index.php?s=/Message/getNewsAll')",15000);
+//	getNews();
+//	getNewsAll("index.php?s=/Message/getNewsAll");
+	window.setInterval(getNews,200000);
 	jQuery("#alertitem").mouseover(function(){
 		clearTimeout(timer);
 	});
 	jQuery("#alertitem").mouseout(function () {
-		timer = setInterval('AutoScroll("#alertNewsView")',5000);
+		timer = setInterval('AutoScroll("#alertNewsView")',10000);
 	});
 	
 	//清空占位过期订单
-	window.setInterval(cleardingdan,50000);
+	window.setInterval(cleardingdan,200000);
 	
 	// Dialog
 	jQuery('#dialog').dialog({
@@ -207,6 +209,7 @@ function ajaxalert(title){
 }
 
 function shenhe_back(dataID,datatype,actionmethod){
+	scroll(0,0);
 	if(!actionmethod)
 		actionmethod = 'Chanpin';
 	ThinkAjax.myloading('resultdiv');
@@ -237,6 +240,22 @@ function shenheshow_doit(chanpinID,obj){
 	jQuery('#shenhediv').css({top:objtop , left:objleft });
 	jQuery('#shenhediv').show();
 }
+
+function get_history_by_chanpintype(chanpinID,chanpintype,divname,obj){
+   if(jQuery("#"+divname).is(":visible")==true){ 
+	  jQuery('#'+divname).hide();
+	  return ;
+   }
+    getshenhemessage("index.php?s=/Message/getshenhemessage/chanpinID/"+chanpinID+"/chanpintype/"+chanpintype);
+	objleft = getPosLeft(obj) - 370;
+	objtop = getPosTop(obj) + 20;
+	jQuery('#'+divname).css({top:objtop , left:objleft });
+	jQuery('#'+divname).show();
+}
+
+
+
+
 function getshenhemessage(posturl){
 	jQuery.ajax({
 		type:	"POST",

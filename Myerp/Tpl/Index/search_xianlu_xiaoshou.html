@@ -33,11 +33,13 @@
                           <td scope="row" nowrap="nowrap"> 团期 </td>
                           <td nowrap="nowrap">
                           <input type="text" onfocus="WdatePicker()" class="chutuanriqi" value="<{$chutuanriqi}>" >
+                          <td scope="row" nowrap="nowrap"> 单位 </td>
+                          <td nowrap="nowrap"><input type="text" class="danwei" value="<{$danwei}>"></td>
                       </tbody>
                     </table>
                 </div>
-              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
-              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+              <input type="button" class="button" title="查找" value=" 查找 " onclick="_dosearch(1);">&nbsp;
+              <input type="button" class="button" title="清除" value=" 清除 " onclick="clearsearch();">
         </div>
         
         <div class="search_form" id="searchdiv_2" style="<PHP>if($sorttabid != 2){</PHP>display:none; <PHP>}</PHP>margin-bottom:0px;">
@@ -56,8 +58,8 @@
                       </tbody>
                     </table>
                 </div>
-              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(2);">&nbsp;
-              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+              <input type="button" class="button" title="查找" value=" 查找 " onclick="_dosearch(2);">&nbsp;
+              <input type="button" class="button" title="清除" value=" 清除 " onclick="clearsearch();">
         </div>
         <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
         <div style="margin-top:10px;">
@@ -130,7 +132,7 @@ function showsearch(s)
 function clearsearch(){
 		jQuery('.title_1').val('');
 		jQuery('.title_2').val('');
-		jQuery('.chufariqi').val('');
+		jQuery('.chutuanriqi').val('');
 		jQuery('.start_time').val('');
 		jQuery('.end_time').val('');
 }
@@ -139,12 +141,14 @@ function _dosearch(sorttabid){
 	var str ='';
 	if(jQuery('.title_'+sorttabid).val())
 	str += '/title/'+jQuery('.title_'+sorttabid).val();
-	if(jQuery('.chufariqi').val())
-	str += '/chufariqi/'+jQuery('.chufariqi').val();
+	if(jQuery('.chutuanriqi').val())
+	str += '/chutuanriqi/'+jQuery('.chutuanriqi').val();
 	if(jQuery('.start_time').val())
 	str += '/start_time/'+jQuery('.start_time').val();
 	if(jQuery('.end_time').val())
 	str += '/end_time/'+jQuery('.end_time').val();
+	if(jQuery('.danwei').val())
+	str += '/bumen_copy/'+jQuery('.danwei').val();
 	dosearch(str);
 }
 </script>

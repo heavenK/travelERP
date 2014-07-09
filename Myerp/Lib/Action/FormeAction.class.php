@@ -528,7 +528,7 @@ class FormeAction extends Action{
 				{
 					$c['parentID'] = $parentID;
 					$c['department'] = $c;
-					if($v['title'] == '直营-普兰店营业部' || $v['title'] == '直营-金州营业部' || $v['title'] == '直营-瓦房店营业部'||$v['title'] == '直营-人民路旗舰店'||$v['title'] == '直营-联合路营业部'||$v['title'] == '直营-电子商务营业部'){
+					if($v['title'] == '直营-普兰店营业部' || $v['title'] == '直营-金州营业部' || $v['title'] == '直营-瓦房店营业部'||$v['title'] == '直营-人民路旗舰店'||$v['title'] == '直营-联合路营业部'||$v['title'] == '电子商务中心'){
 					$c['department']['type'] = '销售（直营）';
 					}
 					if($v['title'] == '加盟-二七营业部' || $v['title'] == '加盟-开发区营业部' || $v['title'] == '加盟-劳动公园营业部'){
@@ -2382,7 +2382,7 @@ class FormeAction extends Action{
 		$data['user_name'] = '张文';
 		$Chanpin->where("`user_name` = 'zhangwen'")->save($data);
 		$data = '';
-		$data['bumen_copy'] = '直营-电子商务营业部';
+		$data['bumen_copy'] = '电子商务中心';
 		$Chanpin->where("`bumen_copy` = '技术支持'")->save($data);
 		echo "结束";
 		return true;

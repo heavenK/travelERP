@@ -154,12 +154,12 @@ function ajaxalert(title){
           <td align="left" style="height: 32px"> 提成类型：</td>
           <td align="left" style="height: 32px"><select name="tichengID" id="tichengID">
           		<php>foreach($ticheng as $tiv){</php>
-                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}>%</option>
+                <option value="<{$tiv['systemID']}>"><{$tiv['title']}>:<{$tiv['description']}></option>
                 <php>}</php>
             </select>（提成依据）</td>
             <td align="left" style="height: 27px; width: 156px;">收客人及所属部门：</td>
             <td align="left" style="height: 32px">
-            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $this->tVar['user']['title']</php>">
+            	<input type="text" style="width:50px;" name="owner" id="owner" value="<php>echo $login_user['title']</php>">
               <select name="departmentID">
               <php>foreach($bumenfeilei as $v){</php>
                 <option value="<{$v['bumenID']}>"><{$v['title']}></option>
@@ -227,7 +227,7 @@ function ajaxalert(title){
       <table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
-            <td align="center" colspan="5" style="height: 32px"><input type="button" value="提交" onClick="return checktable();"  class="anu"></td>
+            <td align="center" colspan="5" style="height: 32px"><input type="button" class="button" value="提交" onClick="return checktable();"  class="anu"></td>
           </tr>
         </tbody>
       </table>

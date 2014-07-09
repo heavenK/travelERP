@@ -2,7 +2,8 @@
 
 <div id="main">
   <div id="content" style="margin-left:0;">
-  
+            <div id="resultdiv" class="resultdiv"></div>
+            <div id="resultdiv_2" class="resultdiv"></div>
       <php>if( $nowDir['title'] == '用户' || $nowDir['title'] == '系统管理'){</php>
     <table cellspacing="0" cellpadding="0" width="100%" class="h3Row" style="margin-top:0px;">
       <tbody>
@@ -43,6 +44,14 @@
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="<{:SITE_INDEX}>SetSystem/">数据开放权限查询</a></td>
           <td width="30%">数据开放权限查询</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="shenhe_create">产品审核重置</a></td>
+          <td width="30%">检查产品审核状态，重置产品属性。</td>
+        </tr>
+        <tr>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="javascript:void(0)" id="resetOM_create">重置产品OM</a></td>
+          <td width="30%">指定产品ID,重置OM(报账及子团统一重置线路或地接团)</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Administration.gif">&nbsp;<a href="javascript:void(0)" id="resetOMTask_create">重置产品待审核OM</a></td>
+          <td width="30%">指定产品ID,重置该产品待审核OM</td>
         </tr>
       </tbody>
     </table>
@@ -104,19 +113,19 @@
       <php>}</php>
       </tbody>
     </table>
-            <div id="resultdiv" class="resultdiv"></div>
-            <div id="resultdiv_2" class="resultdiv"></div>
     <table class="other view">
       <tbody>
         <tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/Backups.gif">&nbsp;<a href="javascript:void(0)" id="pingyi_create">产品平移</a></td>
           <td width="30%">产品平移</td>
-          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM()">联合体OM重置</a></td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM('联合体')">联合体OM重置</a></td>
           <td width="30%">联合体OM重置</td>
         </tr>
         </tr>
           <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认？')==true)resetchanpinshoujia()">产品开放到部门</a></td>
           <td width="30%">产品开放到部门</td>
+          <td width="20%" scope="row"><img border="0" width="16" height="16" align="absmiddle" src="<{:__PUBLIC__}>/myerp/images/icon_email_check.gif">&nbsp;<a href="#" onclick="if(window.confirm('确认重置？')==true)resetOM('全部')">全部产品OM重置</a></td>
+          <td width="30%">联合体OM重置</td>
         </tr>
       </tbody>
     </table>
@@ -176,6 +185,73 @@ jQuery(document).ready(function(){
 		jQuery('#dialog_pingyi').dialog('open');
 		return false;
 	});
+	// Dialog
+	jQuery('#dialog_shenhe').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_shenhe','resultdiv_2')){
+						ThinkAjax.sendForm('form_shenhe',SITE_INDEX+'SetSystem/chanpin_resetbyshenhetask','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#shenhe_create').click(function(){
+		jQuery('#shenhe_title').html("产品审核重置"); 
+		jQuery('#dialog_shenhe').dialog('open');
+		return false;
+	});
+	// Dialog
+	jQuery('#dialog_resetOM').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_resetOM','resultdiv_2')){
+						ThinkAjax.sendForm('form_resetOM',SITE_INDEX+'Chanpin/resetOM','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#resetOM_create').click(function(){
+		jQuery('#dialog_resetOM').dialog('open');
+		return false;
+	});
+	
+	
+	// Dialog
+	jQuery('#dialog_resetOMTask').dialog({
+		autoOpen: false,
+		width: 300,
+		buttons: {
+			"确认": function() {
+				if(CheckForm('form_resetOMTask','resultdiv_2')){
+						ThinkAjax.sendForm('form_resetOMTask',SITE_INDEX+'SetSystem/resetOMTask','','resultdiv');
+				}
+			},
+			"取消": function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
+	// Dialog Link
+	jQuery('#resetOMTask_create').click(function(){
+		jQuery('#dialog_resetOMTask').dialog('open');
+		return false;
+	});
+	
+	
+	
+	
 });
 
 var user = [
@@ -218,8 +294,8 @@ function myautocomplete(target,parenttype){
 		})
 }
 
-function resetOM(){
-	var url = SITE_INDEX+'SetSystem/resetOM/page/1/page_2/1';
+function resetOM(type){
+	var url = SITE_INDEX+'SetSystem/resetOM/type/'+type+'/page/1/page_2/1';
     window.open(url,'_blank');
 }
 
@@ -253,3 +329,60 @@ function resetchanpinshoujia(){
     </table>
 </form>
 </div>
+
+<div id="dialog_shenhe" title="" style="background:#FFF">
+<form id="form_shenhe" id="form_shenhe" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px; color:blue" id="shenhe_title">  </td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品类型: </td>
+          <td valign="top" scope="row">
+          <select name="datatype" id="chanpin_type">
+          	<option value="线路">线路</option>
+          	<option value="子团">子团</option>
+          	<option value="报账单">报账单</option>
+          	<option value="报账项">报账项</option>
+          	<option value="签证">签证</option>
+          	<option value="地接">地接</option>
+          	<option value="订单">订单</option>
+          </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_resetOM" title="重置产品OM" style="background:#FFF">
+<form id="form_resetOM" id="form_resetOM" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<div id="dialog_resetOMTask" title="重置产品待审核OM" style="background:#FFF">
+<form id="form_resetOMTask" id="form_resetOMTask" method="post" >
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
+      <tbody>
+        <tr>
+          <td valign="top" scope="row" style="width:80px;"> 产品ID: </td>
+          <td valign="top" scope="row"><input name="chanpinID" type="text" id="chanpinID_shenhe" check="^\S+$" warning="产品ID不能为空,且不能含有空格" ></td>
+        </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+

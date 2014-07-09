@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> <include file="Chanpin:left_kongguan" />
   <div id="content" style="margin-left:180px;">
@@ -34,29 +34,29 @@
             <PHP>if($vol['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
             ><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="修改" name="button" onClick="showinfo(<{$vol['chanpinID']}>);">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($vol['chanpinID'],'报账项');
       if(false !== $taskom){
       	if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
       <php>}}else{</php>
       <php>if(count(explode('未审核',$vol['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$vol['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$vol['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($vol['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
+      <input type="button" class="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] != '申请'){</php>
-      <input type="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >
+      <input type="button" class="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >
           <php>}else{</php>
-      <input type="button" value="回退" name="button" onclick="alert('您没有权限执行该操作！')" >
+      <input type="button" class="button" value="回退" name="button" onclick="alert('您没有权限执行该操作！')" >
           <php>}</php>
 	  <php>}</php>
             </td>
@@ -95,30 +95,30 @@
             <PHP>if($vol['status_shenhe'] != '批准'){</PHP>style="color:red"<PHP>}</PHP>
             ><{$vol['shenhe_remark']}></strong></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="修改" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>);">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="修改" name="button" onClick="showinfo(<{$vol['chanpinID']}>);">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vol['chanpinID']}>);" >
               
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($vol['chanpinID'],'报账项');
       if(false !== $taskom){
       	if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
+      <input type="button" class="button" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账项',<{$vol['chanpinID']}>,'<{$vol['title']}>');">
       <php>}}else{</php>
       <php>if(count(explode('未审核',$vol['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$vol['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$vol['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
-      <input type="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($vol['chanpinID'],'报账项')){</php>
-      <input type="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
+      <input type="button" class="button" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$vol['chanpinID']}>,'报账项');">
 	  <php>}else{</php>
           <php>if($baozhang['status_shenhe'] != '申请'){</php>
-      <input type="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >
+      <input type="button" class="button" value="回退" name="button" onclick="alert('报账单已经审核，无法回退报账项！')" >
           <php>}else{</php>
-      <input type="button" value="回退" name="button" onclick="alert('您没有权限执行该操作！')" >
+      <input type="button" class="button" value="回退" name="button" onclick="alert('您没有权限执行该操作！')" >
           <php>}</php>
 	  <php>}</php>
             </td>
@@ -164,6 +164,8 @@
               <option value="签单">签单</option>
               <option value="对冲">对冲</option>
               <option value="月结">月结</option>
+              <option value="VIP贵宾卡">VIP贵宾卡</option>
+              <option value="抵值券">抵值券</option>
             </select></td>
         </tr>
         <tr>

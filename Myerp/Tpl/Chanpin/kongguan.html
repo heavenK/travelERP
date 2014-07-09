@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -76,10 +76,10 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 调价 " id="tiaojia_create">
-                    <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
-                    <input class="button" type="button" value=" 下架/上架 " onclick="onoffshop()">
-                    <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
+                    <input type="button" class="button" value=" 指定销售调价 " onclick="opendialog_1()">
+                    <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <input type="button" class="button" value=" 下架/上架 " onclick="onoffshop()">
+                    <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -89,14 +89,13 @@
           <th scope="col" nowrap="nowrap"><input type="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:120px;"><div> 团号 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:300px; width:30%;"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:250px;"><div> 产品名称 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作人 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 修正值 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 名额 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 确认/占位 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 剩余 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 状态 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 名额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 报名数 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 剩余 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 网店状态 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 收入款 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 支出款 </div></th>
@@ -115,7 +114,6 @@
         <td scope="row" align="left" valign="top"><a target="_blank" href="<{:SITE_INDEX}>Chanpin/zituanxinxi/chanpinID/<{$v['chanpinID']}>"><{$v['title_copy']}></a></td>
         <td scope="row" align="left" valign="top"><{$v['chutuanriqi']}></td>
         <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-        <td scope="row" align="left" valign="top"><{$v['adultxiuzheng']}>/<{$v['childxiuzheng']}></td>
         <td scope="row" align="left" valign="top"><{$v['renshu']}></td>
         <td scope="row" align="left" valign="top"><php> echo number_format($v['queren_num'])</php>/<php> echo number_format($v['zhanwei_num'])</php></td>
         <td scope="row" align="left" valign="top"><{$v['shengyu_num']}></td>
@@ -132,8 +130,7 @@
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
-                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 调价 " id="tiaojia_create">
+                  	<td nowrap="nowrap" class="paginationActionButtons"></td>
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -166,94 +163,73 @@ function dosearch(str){
     </tbody>
   </table>
 </div>
-<div id="dateitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="messageitem" style=" display:none; position:absolute;">
-  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
-    <tbody>
-      <tr>
-        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
-            <tbody>
-              <tr>
-                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="themessage"> </div></td>
-              </tr>
-            </tbody>
-          </table></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
 
 
 <div id="dialog_tiaojia" title="产品价格修正" style="background:#FFF">
-<form id="form_tiaojia" id="form_tiaojia" method="post" >
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="edit view">
-      <tbody>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 成人价格修正: </td>
-          <td valign="top" scope="row"><input id="adultxiuzheng" type="text" value="0" check="^\S+$" warning="成人价格修正不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" style="width:80px;"> 儿童价格修正: </td>
-          <td valign="top" scope="row"><input id="childxiuzheng" type="text" value="0" check="^\S+$" warning="儿童价格修正不能为空,且不能含有空格" ></td>
-        </tr>
-        <tr>
-          <td valign="top" scope="row" colspan="2">举例：输入100即再原价格上增加100（-100减100）</td>
-        </tr>
-      </tbody>
-    </table>
-</form>
 </div>
 
 
 <script language="javascript"> 
+// Dialog Link
+function opendialog_1(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('请选择唯一项进行操作！');
+		return;
+	}
+	if(checkboxitem.length > 1){
+		ajaxalert('请选择唯一项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/get_xianlushoujalist",
+		data:	"checkboxitem="+checkboxitem,
+		success:	function(msg){
+				ThinkAjax.myAjaxResponse(msg,'',click_after);
+		}
+	});
+	jQuery('#dialog_tiaojia').dialog('open');
+}
+function click_after(data,status)
+{
+	if(status == 1){
+		jQuery("#dialog_tiaojia").html(data);
+	}
+}
+	
 jQuery(document).ready(function(){
 	// Dialog
 	jQuery('#dialog_tiaojia').dialog({
 		autoOpen: false,
-		width: 400,
+		width: 1000,
 		buttons: {
 			"确认": function() {
-				if(CheckForm('form_tiaojia','resultdiv_2')){
-					adultxiuzheng = jQuery("#adultxiuzheng").val();
-					childxiuzheng = jQuery("#childxiuzheng").val();
-					var checkboxitem = new Array();
-					var i = 0;
-					jQuery(".checkboxitem").each(function(index, element) {
-						if(jQuery(this).attr("checked")){
-							checkboxitem[i] = jQuery(this).attr('value');
-							i++;
-						}
-					});
-					if(checkboxitem == ''){
-						ajaxalert('至少选择1项进行操作！');
-						return;
+				var checkboxitem = new Array();
+				var i = 0;
+				jQuery(".checkboxitem").each(function(index, element) {
+					if(jQuery(this).attr("checked")){
+						checkboxitem[i] = jQuery(this).attr('value');
+						i++;
 					}
-					jQuery.ajax({
-						type:	"POST",
-						url:	"<{:SITE_INDEX}>Chanpin/doposttiaojia",
-						data:	"checkboxitem="+checkboxitem+"&adultxiuzheng="+adultxiuzheng+"&childxiuzheng="+childxiuzheng,
-						success:function(msg){
-							ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-						}
-					});
+				});
+				if(checkboxitem == ''){
+					ajaxalert('请选择唯一项进行操作！');
+					return;
 				}
+				if(checkboxitem.length > 1){
+					ajaxalert('请选择唯一项进行操作！');
+					return;
+				}
+				ThinkAjax.sendForm('xiaoshou_xiuzheng','<{:SITE_INDEX}>Chanpin/doposttiaojia_2',tiaojia_after,'resultdiv');
+
 			},
 			"取消": function() {
 				jQuery(this).dialog("close");
@@ -261,11 +237,18 @@ jQuery(document).ready(function(){
 		}
 	});
 	// Dialog Link
-	jQuery('#tiaojia_create').click(function(){
-		jQuery('#dialog_tiaojia').dialog('open');
-		return false;
-	});
+//	jQuery('#tiaojia_create').click(function(){
+//		jQuery('#dialog_tiaojia').dialog('open');
+//		return false;
+//	});
 });
+
+function tiaojia_after(data,status){
+	if(status == 1){
+		jQuery('#dialog_tiaojia').dialog("close");
+	}
+}
+
 function save_after(data,status){
 	if(status == 1){
 		location.reload();
@@ -342,9 +325,6 @@ function onoffshop(){
 	
 	
 }
-
-
-
 </script> 
 
 

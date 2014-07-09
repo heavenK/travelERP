@@ -32,6 +32,7 @@
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Chanpin/zituantuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
+<!--      
     <li> <a 
       <php>if($markpos == '分房安排'){</php>
       class="current"
@@ -47,16 +48,19 @@
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Chanpin/zituanplan/marktype/出团通知/chanpinID/<{$chanpinID}>">出团通知</a> </li>
+-->      
     <li> <a 
       <php>if($markpos == '单项服务及补账' || $markpos == '单项服务'){</php>
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Chanpin/zituandanxiangfuwu/chanpinID/<{$chanpinID}>">单项服务及补账</a> </li>
+<!--      
     <li> <a 
       <php>if($markpos == '应收及应付'){</php>
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Chanpin/zituanxiangmu/chanpinID/<{$chanpinID}>">应收及应付</a> </li>
+-->      
     <li> <a 
       <php>if($markpos == '团队报账单'){</php>
       class="current"
@@ -69,36 +73,36 @@
 <div id="resultdiv_2" class="resultdiv"></div>
 <div class="buttons">
   <php>if('基本信息' == $markpos){</php>
-  <input type="button" value="保存" name="button" class="button primary" onClick="save();">
+  <input type="button" class="button" value="保存" name="button" onClick="save();">
   <php>}</php>
   <php>if('子团订单' == $markpos){</php>
-  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming(<{$chanpinID}>);">
+  <input type="button" class="button" value="添加订单" name="button" onClick="baoming(<{$chanpinID}>);">
   <php>}</php>
   <php>if('团员名单' == $markpos){</php>
-  <input type="button" value="导出Word（旅游局格式）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式1');">
-  <input type="button" value="导出Word（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式2');">
-  <input type="button" value="导出Excel（普通）" name="button" class="button primary" onClick="exports('<{$chanpinID}>','格式3');">
+  <input type="button" class="button" value="导出Word（旅游局格式）" name="button" onClick="exports('<{$chanpinID}>','格式1');">
+  <input type="button" class="button" value="导出Word（普通）" name="button" onClick="exports('<{$chanpinID}>','格式2');">
+  <input type="button" class="button" value="导出Excel（普通）" name="button" onClick="exports('<{$chanpinID}>','格式3');">
   <php>}</php>
   <php>if('分房安排' == $markpos){</php>
-  <input type="button" value="创建房间" name="button" class="button primary" id="room_create">
-  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+  <input type="button" class="button" value="创建房间" name="button" id="room_create">
+  <input type="button" class="button" value="导出Word（普通）" name="button" onclick="exports('<{$chanpinID}>')">
   <php>}</php>
   <php>if('接待计划' == $markpos || '出团通知' == $markpos){</php>
-  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save()">
-  <input type="button" value=" 发布 " name="button" class="button primary" onclick="dofabu('<{$chanpinID}>')">
-  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports('<{$chanpinID}>')">
+  <input type="button" class="button" value=" 保存 " name="button" onclick="save()">
+  <input type="button" class="button" value=" 发布 " name="button" onclick="dofabu('<{$chanpinID}>')">
+  <input type="button" class="button" value="导出Word（普通）" name="button" onclick="exports('<{$chanpinID}>')">
   <php>}</php>
   <php>if('单项服务及补账' == $markpos){</php>
-  <input type="button" value=" 添加签证结算报告 " name="button" class="button primary" id="qianzheng_create">
-  <input type="button" value=" +交通结算报告 " name="button" class="button primary" id="jiaotong_create">
-  <input type="button" value=" +订房结算报告 " name="button" class="button primary" id="dingfang_create">
-  <input type="button" value=" 添加补账 " name="button" class="button primary" id="buzhang_create">
+  <input type="button" class="button" value=" 添加签证结算报告 " name="button" id="qianzheng_create">
+  <input type="button" class="button" value=" +交通结算报告 " name="button" id="jiaotong_create">
+  <input type="button" class="button" value=" +订房结算报告 " name="button" id="dingfang_create">
+  <input type="button" class="button" value=" 添加补账 " name="button" id="buzhang_create">
   <php>}</php>
   <php>if('单项服务' == $markpos || '团队报账单' == $markpos){</php>
-  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
-  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
-  <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
-  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+  <input type="button" class="button" value=" 保存 " name="button" onclick="save_baozhang();">
+  <input type="button" class="button" value="导出Word（普通）" name="button" onclick="exports()">
+  <input type="button" class="button" value=" 计调打印 " name="button" onclick="doprint('计调打印');">
+  <input type="button" class="button" value=" 打印 " name="button" onclick="doprint('打印');">
       <php>
       if('单项服务' == $markpos || '团队报账单' == $markpos)
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
@@ -107,29 +111,29 @@
       if(A("Method")->check_baozhangitemstatus($baozhangID))
       	$bzdalter = '部分报账项未审核！！是否继续？？';
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="<PHP>if($bzdalter){</PHP>if(window.confirm('部分报账项目未审核！！是否继续？？')==true)<PHP>}</PHP>doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="<PHP>if($bzdalter){</PHP>if(window.confirm('部分报账项目未审核！！是否继续？？')==true)<PHP>}</PHP>doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}}else{</php>
       <php>if(count(explode('审核回退',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
-      <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(tod_oprompt('请输入ok进行回退！！')==true)shenhe_back(<{$baozhangID}>,'报账单');">
+      <input type="button" class="button" style="float:right" value=" 审核回退 " name="button" onclick="if(tod_oprompt('请输入ok进行回退！！')==true)shenhe_back(<{$baozhangID}>,'报账单');">
 	  <php>}</php>
-      <input type="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
+      <input type="button" class="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
       
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px">| 锁状态：<strong><{$tem_cp['islock']}></strong></label>
       
   <php>}</php>
   <php>if('应收及应付' == $markpos){</php>
-  <input type="button" value=" 添加应收项目 " name="button" class="button primary" id="yingshuo_create">
-  <input type="button" value=" +应付项目 " name="button" class="button primary" id="yingfu_create">
+  <input type="button" class="button" value=" 添加应收项目 " name="button" id="yingshuo_create">
+  <input type="button" class="button" value=" +应付项目 " name="button" id="yingfu_create">
   <php>}</php>
       
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 状态：<strong><PHP>echo $zituan['status'];</PHP></strong></label>

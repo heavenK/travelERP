@@ -1,6 +1,6 @@
 <tp:includeCA file="Index:showheader" />
 
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -29,13 +29,14 @@
              
             <php>if($systemID || $title){</php>
             <php>}else{</php>
-            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none;">
               <tbody>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 开始时间 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 截止时间 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 参团人数：成人/儿童/全部 </div></th>
                   <th scope="col" nowrap="nowrap"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap"><div> 团队提成（元） </div></th>
                   <th scope="col" nowrap="nowrap"><div> 操作费（元） </div></th>
                 </tr>
                 <tr height="40" class="evenListRowS1">
@@ -43,12 +44,13 @@
                   <td scope="row" align="left" valign="top"><{$end_time}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['chengrenshu'])</php>/<php> echo number_format($tongji['ertongshu'])</php>/<php> echo number_format($tongji['zongrenshu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['ticheng'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($tongji['tuandui_ticheng'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($tongji['caozuofei'])</php></td>
                 </tr>
               </tbody>
             </table>
             <php>}</php>
-            截止11月份之前的数据未做统计（ps：<strong style="color:red">订单审核后才会被当作有效数据</strong>）
+            <div style=" margin-top:10px;">根据订单统计（ps：<strong style="color:red">订单审核后才会被当作有效数据,以审核时间为搜索时间</strong>）</div>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
                 <tr class="pagination">
@@ -57,8 +59,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -76,9 +78,8 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 时间范围 </div></th>
 			<php> }</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客：成人/儿童/全部 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 直客/散客 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 新客户/老客户 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团队提成（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作：成人/儿童/全部  </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元）</div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
@@ -91,14 +92,13 @@
                   <td scope="row" align="left" valign="top"><{$start_time}>至<{$end_time}></td>
 			<php> }</php>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_chengren'])</php>/<php> echo number_format($v['shouke_ertong'])</php>/<php> echo number_format($v['shouke_shu'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['zhike_num'])</php>/<php> echo number_format($v['sanke_num'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
-                  <td scope="row" align="left" valign="top"><php> echo number_format($v['xinkehu'])</php>/<php> echo number_format($v['laokehu'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['tuandui_ticheng'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_1();">
-                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setuser('<{$v[title]}>');opendialog_2();">
+                      <input type="button" class="button" value="收客明细" name="button" onclick="setuser('<{$v[title]}>');opendialog_1();">
+                      <input type="button" class="button" value="操作明细" name="button" onclick="setuser('<{$v[title]}>');opendialog_2();">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -113,6 +113,7 @@
 			<php> }</php>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客：成人/儿童/全部 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团队提成（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作：成人/儿童/全部  </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元）</div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:160px;"><div> 操作 </div></th>
@@ -126,11 +127,12 @@
 			<php> }</php>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_chengren'])</php>/<php> echo number_format($v['shouke_ertong'])</php>/<php> echo number_format($v['shouke_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['tuandui_ticheng'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_chengren'])</php>/<php> echo number_format($v['caozuo_ertong'])</php>/<php> echo number_format($v['caozuo_shu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="收客明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_1_1();">
-                      <input type="button" value="操作明细" name="button" class="button primary" onclick="setbumen('<{$v[systemID]}>');opendialog_2_2();">
+                      <input type="button" class="button" value="收客明细" name="button" onclick="setbumen('<{$v[systemID]}>');opendialog_1_1();">
+                      <input type="button" class="button" value="操作明细" name="button" onclick="setbumen('<{$v[systemID]}>');opendialog_2_2();">
                   </td>
                 </tr>
                 <php> }}</php>
@@ -165,9 +167,9 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 订单类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 成人/儿童/领队 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 售价（元） </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
-                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费提成 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成标准 </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团队提成（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元） </div></th>
                 </tr>
                 <php> $i = -1; foreach($unitdata[0]['dingdan'] as $v){ $i++;</php>
@@ -179,9 +181,9 @@
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['chengrenshu'])</php>/<php> echo number_format($v['ertongshu'])</php>/<php> echo number_format($v['lingdui_num'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['jiage'])</php></td>
-                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['ticheng']['description']}>%</td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>:<{$v['ticheng']['description']}>元</td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
-                  <td scope="row" align="left" valign="top">2元/人</td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['tuandui_ticheng'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                 </tr>
                 <php> }</php>
@@ -219,6 +221,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 售价（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 提成类型 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 收客提成（元） </div></th>
+                  <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团队提成（元） </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费提成 </div></th>
                   <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作费（元） </div></th>
                 </tr>
@@ -231,8 +234,9 @@
                   <td scope="row" align="left" valign="top"><{$v['type']}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['chengrenshu'])</php>/<php> echo number_format($v['ertongshu'])</php>/<php> echo number_format($v['lingdui_num'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['jiage'])</php></td>
-                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['ticheng']['description']}>%</td>
+                  <td scope="row" align="left" valign="top"><{$v['ticheng']['title']}>/<{$v['ticheng']['description']}></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['shouke_price'])</php></td>
+                  <td scope="row" align="left" valign="top"><php> echo number_format($v['tuandui_ticheng'])</php></td>
                   <td scope="row" align="left" valign="top">2元/人</td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['caozuo_price'])</php></td>
                 </tr>

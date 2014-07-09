@@ -4,7 +4,7 @@
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <div id="main">
   <tp:includeCA file="Message:left_kongguan" />
   <div id="content" style="margin-left:180px;">
@@ -24,7 +24,7 @@
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
 <php>if($is_fabu){</php>      
-                            <input class="button" type="button" value=" 发布 " onclick="opendialog_1()">
+                            <input type="button" class="button" value=" 发布 " onclick="opendialog_1()">
 <php>}</php>
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
@@ -50,8 +50,8 @@
                   <td scope="row" align="center" valign="top"><php>echo date('Y/m/d H:i',$v['time'])</php></td>
                   <td scope="row" align="center" valign="top">
 <php>if($is_fabu){</php>      
-                        <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('要刪除嗎?')==true)infodelete('<{$v[messageID]}>')">
-                        <input class="button" type="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
+                        <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('是否确认删除“<{$v['title']}>”公告?')==true)infodelete('<{$v[messageID]}>')">
+                        <input type="button" class="button" value=" 编辑 " onclick="infoedit('<{$v[messageID]}>')">
 <php>}</php>
                   </td>
                 </tr>
@@ -126,7 +126,7 @@
 </div>
 <script type="text/javascript">
 var editor = CKEDITOR.replace( 'message' );
-CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/myerp/ckfinder/' ) ;
 
 function toselect(obj,classname){ 
 	if(jQuery(obj).attr('checked') == 'checked')

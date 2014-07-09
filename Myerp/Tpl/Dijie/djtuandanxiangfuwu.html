@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/WdatePicker.css" rel="stylesheet" type="text/css">
 <div id="main"> 
   <tp:includeCA file="Dijie:left_chanpin" />
@@ -32,8 +32,8 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['hoteltelnum']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'订房');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'订房');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>
@@ -64,8 +64,8 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['hangbanhao']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'交通');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'交通');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>
@@ -94,8 +94,8 @@
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'餐饮');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'餐饮');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>
@@ -125,8 +125,8 @@
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'门票');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'门票');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>
@@ -155,8 +155,8 @@
             <td scope="row" align="left" valign="top"><{$vol['renshu']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'导游');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'导游');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>
@@ -185,8 +185,8 @@
             <td scope="row" align="left" valign="top"><{$vol['shenhe_remark']}></td>
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'补账');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'补账');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
             </td>
           </tr>
         <php>}</php>

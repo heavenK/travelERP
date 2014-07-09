@@ -1,7 +1,7 @@
 <tp:includeCA file="Index:showheader" />
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -17,9 +17,9 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
-                    <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
-                    <input class="button" type="button" value=" 截止/在线 " onclick="jiezhiorbaoming()">
+                    <input type="button" class="button" value=" 复制 " onclick="copytonew()">
+                    <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
+                    <input type="button" class="button" value=" 截止/在线 " onclick="jiezhiorbaoming()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -67,8 +67,8 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
-                    <input class="button" type="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
+                    <input type="button" class="button" value=" 复制 " onclick="copytonew()">
+                    <input type="button" class="button" value=" 删除 " onclick="if(window.confirm('确认删除？')==true)to_delete()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>

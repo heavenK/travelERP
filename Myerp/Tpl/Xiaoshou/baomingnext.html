@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><{$zituan['xianlulist']['title']}></title>
-<script type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <link type="text/css" href="<{:__PUBLIC__}>/gulianstyle/admintemp/ks.css" rel="stylesheet" />
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 <style>
@@ -59,13 +59,13 @@ function save(){
           <td align="left" style="height: 32px"> 出团日期：</td>
           <td align="left" style="height: 32px"><{$zituan['chutuanriqi']}></td>
           <td align="left" style="height: 32px;"> 剩余名额：</td>
-          <td align="left" style="height: 32px; "><span id="lbSyno"><{$shengyu}></span></td>
+          <td align="left" style="height: 32px; "><span id="lbSyno"><{$shengyurenshu}></span></td>
         </tr>
         <tr>
-          <td align="left" style="height: 32px;">收客人及所属部门：</td>
-          <td align="left" style="height: 32px"><php>echo $_REQUEST['owner']</php>/<php>echo $bumen['title']</php></td>
-          <td align="left" style="height: 32px"> 可选大客户：</td>
-          <td align="left" style="height: 32px"><php>echo $_REQUEST['bigmanID']</php></td>
+          <td align="left" style="height: 32px;">收客人：</td>
+          <td align="left" style="height: 32px"><php>echo $_REQUEST['owner']</php></td>
+          <td align="left" style="height: 32px;">所属部门：</td>
+          <td align="left" style="height: 32px"><php>echo $bumen['title']</php></td>
           <td align="left" style="height: 32px"> 订单类型：</td>
           <td align="left" style="height: 32px"><php>echo $_REQUEST['type']</php></td>
         </tr>
@@ -94,6 +94,14 @@ function save(){
           <td align="left" style="height: 32px"></td>
         </tr>
         <tr>
+          <td align="left" style="height: 32px"> 是否开具发票：</td>
+          <td align="left" style="height: 32px"><php>if($_REQUEST['isbill'])echo "是";else echo "否"; </php></td>
+          <td align="left" style="height: 32px"> 发票抬头：</td>
+          <td align="left" style="height: 32px"><php>echo $_REQUEST['bill_head']</php></td>
+          <td align="left" style="height: 32px"></td>
+          <td align="left" style="height: 32px"></td>
+        </tr>
+        <tr>
           <td align="left" style="height: 32px"> 备注：</td>
           <td align="left" style="height: 32px"  colspan="5"><php>echo $_REQUEST['remark']</php></td>
         </tr>
@@ -115,7 +123,7 @@ function save(){
           <td align="left" style="height: 32px"> 姓名： </td>
           <td align="left" style="height: 32px"> 类型： </td>
           <td align="left" style="height: 32px"> 性别： </td>
-          <td align="left" style="height: 32px"> 联系电话： </td>
+          <td align="left" style="height: 32px"> 手机： </td>
           <td align="left" style="height: 32px"> 证件类型： </td>
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 应付： </td>
@@ -133,7 +141,7 @@ function save(){
           <option value="女">女</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" warning="所有人员电话号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" check="^1[3458]\d{9}$" warning="所有人员电话号码不能为空,且必须为手机号"></td>
           <td align="left" style="height: 32px">
           <select name="zhengjiantype<{$i}>">
           <option value="身份证">身份证</option>
@@ -141,8 +149,8 @@ function save(){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text"></td>
-          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" ></td>
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$" warning="所有人员证件号码不能为空，且不能重复"></td>
+          <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空"  ></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text"></td>
         </tr>
         <php>}</php>
@@ -154,8 +162,8 @@ function save(){
           <td align="left" style="height: 32px"> 拼音： </td>
           <td align="left" style="height: 32px"> 类型： </td>
           <td align="left" style="height: 32px"> 性别： </td>
+          <td align="left" style="height: 32px"> 手机： </td>
           <td align="left" style="height: 32px"> 证件类型： </td>
-          <td align="left" style="height: 32px"> 联系电话： </td>
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 生日： </td>
           <td align="left" style="height: 32px"> 户籍地： </td>
@@ -176,7 +184,7 @@ function save(){
           <option value="女">女</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" warning="所有人员电话号码不能为空,且不能含有空格"></td>
+          <td align="left" style="height: 32px"><input name="telnum<{$i}>" type="text" check="^1[3458]\d{9}$" warning="所有人员电话号码不能为空,且必须为手机号"></td>
           <td align="left" style="height: 32px">
           <select name="zhengjiantype<{$i}>">
           <option value="身份证">身份证</option>
@@ -184,7 +192,10 @@ function save(){
           <option value="通行证">通行证</option>
           </select>
           </td>
-          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text"></td>
+<!--          
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" check="^\S+$" warning="所有人员证件号码不能为空，且不能重复"></td>
+-->          
+          <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" ></td>
           <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"></td>
           <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text"></td>
           <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()"></td>
@@ -213,7 +224,7 @@ function save(){
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
-          <td align="center" colspan="5" style="height: 32px"><input type="button" value="保 存" id="Button1" class="anu" onClick="if(CheckForm('form1','resultdiv_2'))save()" /></td>
+          <td align="center" colspan="5" style="height: 32px"><input type="button" class="button" value="保 存" id="Button1" class="anu" onClick="if(CheckForm('form1','resultdiv_2'))save()" /></td>
         </tr>
       </tbody>
     </table>

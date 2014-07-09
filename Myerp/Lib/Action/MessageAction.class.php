@@ -63,8 +63,10 @@ class MessageAction extends Action{
 			$where['status_system'] = '1';
 //			$ComID = A("Method")->_getComIDbyUser();
 //			$where['parentID'] = $ComID;
-			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
-			$categorylist = $category['chanpin'];
+//			$category = A('Method')->getDataOMlistSystem("分类",'category',$where);
+//			$categorylist = $category['chanpin'];
+			$category = A('Method')->_getCompanyCategoryList();
+			$categorylist = $category;
 //			$ViewCategory = D("ViewCategory");
 //			$categorylist = $ViewCategory->where("`islock` = '未锁定'")->findall();
 			$i = 0;
@@ -297,6 +299,8 @@ class MessageAction extends Action{
 
 	public function getshenhemessage($pagenum = 10){
 		$where['chanpinID'] = $_REQUEST['chanpinID'];
+		if($_REQUEST['chanpintype'])
+			$where['chanpintype'] = $_REQUEST['chanpintype'];
 		$chanpin_list = A('Method')->getDataOMlist('消息','infohistory',$where,'开放',10,'getshenhemessage','dataID');
 		$data = $chanpin_list['chanpin'];
 		$str = '
@@ -380,8 +384,14 @@ class MessageAction extends Action{
 
 
 	public function gexingdingzhilist(){
+		if($_REQUEST['user_name'] == '电商'){
+			$this->assign("navposition",'电商管理');
+			A("Method")->showDirectory("电商定制信息");
+		}
+		else{
+			A("Method")->showDirectory('电商个性定制信息');
+		}
 		$pagenum = 10;
-		A("Method")->showDirectory('电商个性定制信息');
 		$WEBServiceGexingdingzhi = D("WEBServiceGexingdingzhi");
         import("@.ORG.OldPage");
         C('PAGE_NUMBERS',10);
@@ -398,7 +408,7 @@ class MessageAction extends Action{
 		$redata['chanpin'] = $data;
 		$this->assign("page",$redata['page']);
 		$this->assign("chanpin_list",$redata['chanpin']);
-		$this->display('gexingdingzhilist');
+		$this->display('Message:gexingdingzhilist');
 	}
 
 

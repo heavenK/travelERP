@@ -1,6 +1,6 @@
 <tp:includeCA file="Index:showheader" />
 
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -28,7 +28,7 @@
     </div>
             
             <php>if(!$systemID){</php>
-            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none; margin-bottom:10px;">
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view list_new" style="border-bottom:none;">
               <tbody>
                 <tr height="20">
                   <th scope="col" nowrap="nowrap"><div> 开始时间 </div></th>
@@ -51,9 +51,7 @@
               </tbody>
             </table>
             <php>}</php>
-    
-            根据报账单统计（ps：<strong style="color:red">报账单只有被财务总监审核后才被当作有效数据，时间以审核时间为依据。</strong>）
-            
+            <div style=" margin-top:10px;">根据报账单统计（ps：<strong style="color:red">报账单只有被财务总监审核后才被当作有效数据，时间以审核时间为依据。</strong>）</div>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
                 <tr class="pagination">
@@ -62,8 +60,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -101,9 +99,9 @@
                   <td scope="row" align="left" valign="top"><{$v['maolilv']}></td>
                   <td scope="row" align="left" valign="top">
                   <php>if($listtype == '员工'){</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_2('<{$v[title]}>');">
                   <php>}else{</php>
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_1('<{$v[systemID]}>');">
                   <php>}</php>
                   </td>
                 </tr>

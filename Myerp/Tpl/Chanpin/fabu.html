@@ -31,19 +31,10 @@
                   <php>if($xianlu['bumen_copy']){</php>
                     <option value="<{$xianlu['departmentID']}>"><{$xianlu['bumen_copy']}></option>
                     <option disabled="disabled">-----------</option>
-                  <php>}</php>
-                  
-              <php>if($xianlu['kind'] == '包团' || $kind == '包团'){</php>
-                  <php>foreach($bumenall as $v){</php>
-                    <option value="<{$v['systemID']}>"><{$v['title']}></option>
-                  <php>}</php>
-              <php>}else{</php>
-                  <php>foreach($bumenfeilei as $v){</php>
-                    <option value="<{$v['bumenID']}>"><{$v['title']}></option>
-                  <php>}</php>
-              <php>}</php>
-                  
-                  </select>
+                    <php>}foreach($bumenfeilei as $v){</php>
+                      <option value="<{$v['bumenID']}>"><{$v['title']}></option>
+                    <php>}</php>
+                 </select>
               
             </td>
             <td valign="top" scope="row"> 报名截止: </td>
@@ -102,6 +93,12 @@
             <td valign="top" scope="row"> 行程天数: </td>
             <td valign="top"><input type="text" id="tianshu" name="tianshu" style="width:50px; margin:0 4px 0 4px;" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" value="<{$xianlu['tianshu']}>" check="^\S+$" warning="行程天数不能为空,且不能含有空格" >
               <span>天</span></td>
+          </tr>
+          <tr>
+            <td valign="top" scope="row"> 二次确认: </td>
+            <td valign="top"><input type="checkbox" value="1" name="second_confirm" <php>if($xianlu['second_confirm'] == 1){ echo 'checked="checked"';}</php> />(点选确认)<strong style=" color:red">网店预订有效</strong></td>
+            <td valign="top" scope="row"></td>
+            <td valign="top"></td>
           </tr>
         </tbody>
       </table>
@@ -187,10 +184,10 @@
                 <option value="<{$theme['title']}>"><{$theme['title']}></option>
                 <php>}</php>
               </select>
-              <input id="addTheme" type="button" name="adds_theme" value="添加" onclick="add_theme()" class="button" style="margin: 0 0 2px 4px;"/>
+              <input type="button" class="button" id="addTheme" name="adds_theme" value="添加" onclick="add_theme()" style="margin: 0 0 2px 4px;"/>
               <input type="text" id="zhutititle" name="zhutititle" style="width:100px; display:none;"/>
               <input type="text" id="zhutitype" name="zhutitype" value="产品主题" style="width:100px; display:none;"/>
-              <input type="button" id="submitTheme" onclick="submit_theme()" value="确定" style="display:none;margin: 0 0 2px 4px;" /></td>
+              <input type="button" class="button" id="submitTheme" onclick="submit_theme()" value="确定" style="display:none;margin: 0 0 2px 4px;" /></td>
             <td valign="top" scope="row" style="min-width:100px;"> 导游服务: </td>
             <td valign="top"><php>if($xianlu['quanpei']){ </php>
               <input id="daoyoufuwu[]" type="checkbox" name="daoyoufuwu[]" value="全陪" checked="checked">
@@ -209,12 +206,12 @@
             <td valign="top" scope="row"> 视频: </td>
             <td valign="top"><input readonly name="shipin" type="text" id="shipin" value="<{$xianlu['shipin']}>" onclick="showdiv_2('shipin')" style="width:200px;">
               <input type="hidden" id="Videos_id" />
-              <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('shipin')" id="selectshipin"/></td>
+              <input type="button" class="button" value="选择" style="margin: 0 0 2px 4px;" onclick="showdiv_2('shipin')" id="selectshipin"/></td>
             <td valign="top" scope="row"> 图片: </td>
             <td valign="top"><input readonly name="tupian" type="text" id="tupian" value="<{$xianlu['tupian']}>" onclick="showdiv_2('tupian')" style="width:200px;">
               <input type="hidden" id="Images_id" />
-              <input type="button" value="选择" class="button" style="margin: 0 0 2px 4px;" onclick="showdiv_2('tupian')" id="selecttupian"/>
-              <input type="button" value="清空" class="button" style="margin: 0 0 2px 4px;" onclick="clearinput('tupian')" id="selecttupian"/></td>
+              <input type="button" class="button" value="选择" style="margin: 0 0 2px 4px;" onclick="showdiv_2('tupian')" id="selecttupian"/>
+              <input type="button" class="button" value="清空" style="margin: 0 0 2px 4px;" onclick="clearinput('tupian')" id="selecttupian"/></td>
           </tr>
         </tbody>
       </table>
@@ -233,7 +230,7 @@
             <td valign="top" colspan="3"><textarea name="xingchengtese" id="xingchengtese"><{$xianlu['xingchengtese']}></textarea>
               <script type="text/javascript">
           var editor = CKEDITOR.replace( 'xingchengtese' );
-          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/myerp/ckfinder/' ) ;
           </script></td>
           </tr>
           <tr>
@@ -241,7 +238,7 @@
             <td valign="top" colspan="3"><textarea name="cantuanxuzhi" id="cantuanxuzhi"><{$xianlu['cantuanxuzhi']}></textarea>
               <script type="text/javascript">
           var editor = CKEDITOR.replace( 'cantuanxuzhi' );
-          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/gulianstyle/ckfinder/' ) ;
+          CKFinder.setupCKEditor( editor, '<{:__PUBLIC__}>/myerp/ckfinder/' ) ;
           </script></td>
           </tr>
         </tbody>
@@ -366,7 +363,6 @@ jQuery(document).ready(function(){
 	  
 	  if (!mudidi_arr[0]) {
 		  mudidi_arr[0] = '请选择';
-	  }else{
 		  jQuery("#pos2").attr('disabled','true');
 		  jQuery("#pos3").attr('disabled','true');
 	  }
@@ -388,19 +384,28 @@ jQuery(document).ready(function(){
 						jQuery(msg).appendTo("#chufashengfen_id");
 					}
 	  });
+	  //已选项默认列表//辽宁
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Message/liandong",
+		async: false,
+		data:	"parentID=202&type=城市",
+		success:	function(msg){
+						jQuery("#chufachengshi_id").empty();
+					  jQuery(msg).appendTo("#chufachengshi_id");
+				  }
+	});
 	  jQuery("#chufashengfen_id").prepend("<option selected='selected' value='0'>请选择</option>");
 	  chufadi = "<{$xianlu[chufadi]}>";
 	  chufadi_arr = chufadi.split(',');
 	  if (!chufadi_arr[0]) {
 		  chufadi_arr[0] = '请选择';
-	  }else{
 		  jQuery("#chufachengshi_id").attr('disabled','true');
 	  }
 	  jQuery("#chufashengfen_id").find("option:selected").text(chufadi_arr[0]); 
 	  jQuery("#chufachengshi_id").find("option:selected").text(chufadi_arr[1]); 
 	  jQuery("#chufashengfen").val(chufadi_arr[0]);
 	  jQuery("#chufachengshi").val(chufadi_arr[1]);
-	  
 });
 
 function change_pos(sid){

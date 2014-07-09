@@ -45,6 +45,13 @@ function shenhe_after(data,status){
       class="current"
       <php>}</php>
       href="<{:SITE_INDEX}>Qianzheng/dingdanlist/chanpinID/<{$chanpinID}>">签证订单</a> </li>
+      
+    <li> <a 
+      <php>if($markpos == '团员名单'){</php>
+      class="current"
+      <php>}</php>
+      href="<{:SITE_INDEX}>Qianzheng/tuanyuan/chanpinID/<{$chanpinID}>">团员名单</a> </li>
+      
     <li> <a 
       <php>if($nowDir['title'] == '签证报账列表' || $markpos == '签证报账单'){</php>
       class="current"
@@ -74,15 +81,15 @@ function shenhe_after(data,status){
 <div class="buttons">
   
   <php>if('签证信息' == $nowDir['title']){;</php>
-  <input type="button" value="保存" name="button" class="button primary" onclick="if(CheckForm('form','resultdiv_2')) save();">
+  <input type="button" class="button" value="保存" name="button" onclick="if(CheckForm('form','resultdiv_2')) save();">
   <php>}</php>
   
   <php>if('签证订单' == $nowDir['title']){</php>
-  <input type="button" value="添加订单" name="button" class="button primary" onClick="baoming(<{$chanpinID}>);">
+  <input type="button" class="button" value="添加订单" name="button" onClick="baoming(<{$chanpinID}>);">
   <php>}</php>
   
   <php>if('签证报账列表' == $nowDir['title']){</php>
-  <input type="button" value="创建报账单 " name="button" class="button primary" id="qianzheng_create">
+  <input type="button" class="button" value="创建报账单 " name="button" id="qianzheng_create">
   <php>}</php>
   
   
@@ -92,23 +99,23 @@ function shenhe_after(data,status){
       if(false !== $taskom){
       if(cookie('show_action') == '批准'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('检出');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe('申请');">
       <php>}}else{</php>
-      <input type="button" style="float:right" value="审核" name="button" onclick="alert('已批准！！！')" >
+      <input type="button" class="button" style="float:right" value="审核" name="button" onclick="alert('已批准！！！')" >
       <php>}if(A("Method")->checkshenheback($chanpinID,'签证')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'签证','Dijie');">
+      <input type="button" class="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$chanpinID}>,'签证','Dijie');">
 	  <php>}</php>
   <php>}</php>
   
   
   <php>if('签证报账单' == $nowDir['title']){</php>
-  <input type="button" value=" 保存 " name="button" class="button primary" onclick="save_baozhang();">
-  <input type="button" value="导出Word（普通）" name="button" class="button primary" onclick="exports()">
-  <input type="button" value=" 计调打印 " name="button" class="button primary" onclick="doprint('计调打印');">
-  <input type="button" value=" 打印 " name="button" class="button primary" onclick="doprint('打印');">
+  <input type="button" class="button" value=" 保存 " name="button" onclick="save_baozhang();">
+  <input type="button" class="button" value="导出Word（普通）" name="button" onclick="exports()">
+  <input type="button" class="button" value=" 计调打印 " name="button" onclick="doprint('计调打印');">
+  <input type="button" class="button" value=" 打印 " name="button" onclick="doprint('打印');">
   
       <php>
       $taskom = A("Method")->_checkOMTaskShenhe($baozhangID,'报账单');
@@ -117,21 +124,21 @@ function shenhe_after(data,status){
       if(A("Method")->check_baozhangitemstatus($baozhangID))
       	$bzdalter = '部分报账项未审核！！是否继续？？';
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('检出','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}if(cookie('show_action') == '申请'){
       </php>
-      <input type="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
+      <input type="button" class="button" style="float:right" value=" <php>echo cookie('show_word');</php> " name="button" onclick="doshenhe_baozhangitem('申请','报账单',<{$baozhangID}>,'<{$baozhang[title]}>');">
       <php>}}else{</php>
       <php>if(count(explode('审核回退',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('未审核',$baozhang['shenhe_remark'])) > 1) $alterword = '计调未申请审核！！！';</php>
       <php>if(count(explode('申请',$baozhang['shenhe_remark'])) > 1) $alterword = '经理未审核！！！';</php>
       <php>if(count(explode('财务',$baozhang['shenhe_remark'])) > 1) $alterword = '财务已审核通过！！！';</php>
       <php>if(count(explode('财务总监审核',$baozhang['shenhe_remark'])) > 1) $alterword = '财务总监审核已审核通过！！！';</php>
-      <input type="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
+      <input type="button" class="button" style="float:right" value="审核" name="button" onclick="alert('<{$alterword}>')" >
       <php>}if(A("Method")->checkshenheback($baozhangID,'报账单')){</php>
-      <input type="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$baozhangID}>,'报账单','Dijie');">
+      <input type="button" class="button" style="float:right" value=" 审核回退 " name="button" onclick="if(window.confirm('审核回退？')==true)shenhe_back(<{$baozhangID}>,'报账单','Dijie');">
 	  <php>}</php>
-      <input type="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
+      <input type="button" class="button" style="float:right" value=" 记录 " name="button" onclick="shenhehistory(<{$baozhang['chanpinID']}>,this);">
       
   <php>}</php>
       <label style="float:right; margin:2px 4px 0 0; font-size:12px"> | 审核流程：<strong><{$tem_cp['shenhe_remark']}></strong></label>

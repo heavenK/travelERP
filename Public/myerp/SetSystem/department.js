@@ -8,7 +8,7 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<form id='form_t"+i+"' ><input type=\"text\" id=\"title_t"+i+"\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" ></form>";
 	htmlcontent += "</td>";
-    htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:80px\" value=\""+parentID+"\" readonly=\"readonly\" ></td>";
+    htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:80px\" value=\""+parentID+"\"></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"组团\" class=\"type_t"+i+"\"/>组团";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"地接\" class=\"type_t"+i+"\"/>地接";
@@ -19,6 +19,7 @@
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"行政\" class=\"type_t"+i+"\"/>行政";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"国内\" class=\"type_t"+i+"\"/>国内";
     htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"境外\" class=\"type_t"+i+"\"/>境外";
+    htmlcontent += "<input type=\"checkbox\" name=\"type[]\" value=\"银行\" class=\"type_t"+i+"\"/>银行";
 	htmlcontent += "</td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"lianxiren_t"+i+"\" style=\"width:80px\" ></td>";
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"officetel_t"+i+"\" style=\"width:80px\" ></td>";

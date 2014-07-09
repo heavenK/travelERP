@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<link rel="shortcut icon" type="image/x-icon" href="<{:__PUBLIC__}>/myerp/images/sugar_icon.ico" media="screen" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>使用手册</title>
+<script language="javascript" src="<{:__PUBLIC__}>/myerp/jquery-1.7.2.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/style (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/yui (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/deprecated (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
+</head>
+<body>
+<div id="header">
+  <div id="companyLogo" style="padding:4px 15px 10px;"> <img src="<{:__PUBLIC__}>/myerp/images/company_logo.png" width="212" height="40" alt="Company Logo" border="0"> </div>
+  <div class="clear"></div>
+  <div class="line"></div>
+</div>
+<div id="main">
+  <div id="leftColumn" style="margin-top:0px; width:150px;">
+        <div id="navtab_1" class="leftList">
+          <h3><span>功能模块</span></h3>
+          <ul id="ul_shortcuts">
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">销售</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '销售'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">旅游产品</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '旅游产品'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">签证产品</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '签证产品'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">地接产品</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '地接产品'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">财务管理</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '财务管理'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">系统管理</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '系统管理'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">电商管理</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '电商管理'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">会员管理</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '会员管理'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+            <li> <a href="javascript:void(0)">&nbsp;<strong><span style="color:#333">信息</span></strong></a> </li>
+            <php>foreach($datalist as $v){if($v['datatext']['category'] == '信息'){</php>
+            <li> <a href="#<{$v['systemID']}>">&nbsp;<span>|---<{$v['title']}></span></a> </li>
+            <php>}}</php>
+          </ul>
+        </div>
+  </div>
+
+  <div id="content" style="margin-left:180px;">
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="">
+              <tbody>
+            <php>$i=0;foreach($datalist as $v){$i++;</php>
+                <tr height="20">
+                  <th scope="col" nowrap="nowrap"><a name="<{$v['systemID']}>"></a><div> <{$i}>.<{$v['title']}> </div></th>
+                </tr>
+                
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><{$v['datatext']['message']}></td>
+                </tr>
+            <php>}</php>
+              </tbody>
+            </table>
+            <script>
+				$(window).scroll(function(){
+				$('#backtop').css('top', $(document).scrollTop()+200);
+				});
+			</script>
+            <img onclick="javascript:scroll(0,0)" id="backtop" title="返回顶部" src="<{:__PUBLIC__}>/myerp/images/backtop.jpg" style="position: absolute;right:20px; cursor:pointer"/>
+  </div>
+  
+  
+  
+</div>
+
+
+
+

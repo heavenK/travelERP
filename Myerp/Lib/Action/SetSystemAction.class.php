@@ -28,9 +28,10 @@ class SetSystemAction extends CommonAction{
 	public function category(){
 		A("Method")->showDirectory("分类");
 		$ViewCategory = D("ViewCategory");
-//		$datas = $ViewCategory->findall();
-		$datas = A('Method')->getDataOMlistSystem("分类",'category',$_REQUEST);
-		$this->assign("datalist",$datas);
+//		$datas = A('Method')->getDataOMlistSystem("分类",'category',$_REQUEST);
+//		$this->assign("datalist",$datas);
+		$category = A('Method')->_getCompanyCategoryList();
+		$this->assign("datalist",$category);
 		//获得公司列表
 		$comall = A('Method')->_getCompanyAll();
 		$this->assign("comall",$comall);
@@ -70,8 +71,6 @@ class SetSystemAction extends CommonAction{
 			}
 			//指定销售处理
 			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
-			//信息公告处理
-//			A('Method')->_dc_reset_to_shoujia_om($_REQUEST);
 			$this->ajaxReturn($_REQUEST, '保存成功！', 1);
 		}
 		else{
@@ -360,6 +359,10 @@ class SetSystemAction extends CommonAction{
 //				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！！！！！！', 0);
 //			if($_REQUEST['systemID'] == '' && $roles)
 //				$this->ajaxReturn($_REQUEST, '错误！部门名已在系统中存在！！', 0);
+			//所属部门合法性
+			if($_REQUEST['parentID'] && $_REQUEST['type'] == '行政'){
+				$this->ajaxReturn($_REQUEST, '错误！行政属性部门不可以附属！！', 0);
+			}
 			if(!$_REQUEST['title'])
 				$this->ajaxReturn($_REQUEST, '错误！部门名不能为空！！', 0);
 			$typelist = explode(',',$_REQUEST['type']);
@@ -373,9 +376,9 @@ class SetSystemAction extends CommonAction{
 				//公司，部门排他设置（非行政属性部门必须拥有父部门ID）
 				else{
 					if($v != '行政'){
-						$comp = $ViewDepartment->where("`systemID` = '$_REQUEST[parentID]' and `type` = '行政' and `status_system` = 1")->find();
-						if(!$comp)
-							$this->ajaxReturn($_REQUEST, '属于公司不存在！！', 0);
+//						$comp = $ViewDepartment->where("`systemID` = '$_REQUEST[parentID]' and `type` = '行政' and `status_system` = 1")->find();
+//						if(!$comp)
+//							$this->ajaxReturn($_REQUEST, '属于公司不存在！！', 0);
 						//标记公司ID
 						$data['companyID'] = $_REQUEST['parentID'];
 					}
@@ -398,7 +401,7 @@ class SetSystemAction extends CommonAction{
 			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
 			if($_REQUEST['systemID'] && $roles && ($_REQUEST['systemID'] != $roles['systemID']))
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
-			if($_REQUEST['systemID'] == '' && $roles)
+			if($_REQUEST['systemID'] == '' && $roles && ($_REQUEST['companyID'] == $roles['companyID']))
 				$this->ajaxReturn($_REQUEST, '错误！数据名已在系统中存在！！', 0);
 		}
 		if (false !== $System->relation($_REQUEST['tableName'])->myRcreate($data)){
@@ -422,7 +425,7 @@ class SetSystemAction extends CommonAction{
 					$actiontype = '开放';
 				}
 				if(!$dataOMlist)
-				$dataOMlist = A("Method")->_setDataOMofCompany($_REQUEST['parentID'],$department_type,$role);
+					$dataOMlist = A("Method")->_setDataOMofCompany($_REQUEST['parentID'],$department_type,$role);
 				A("Method")->_createDataOM($data['systemID'],$datatype,$actiontype,$dataOMlist,'DataOMSystem');
 			}
 			if($_REQUEST['tableName'] == 'department'){
@@ -513,7 +516,7 @@ class SetSystemAction extends CommonAction{
 		if($_REQUEST['returntype'] == 'array' ){
 			$where['systemID'] = $_REQUEST['systemID'];
 			$data = $ViewDataDictionary->where($where)->find();
-			if($data['type'] == 'FAQ'){
+			if($data['type'] == 'FAQ' || $data['type'] == '使用手册'){
 				$data['datatext'] = mb_unserialize($data['datatext']);
 			}
 			$this->ajaxReturn($data, '读取成功！', 1);
@@ -560,8 +563,23 @@ class SetSystemAction extends CommonAction{
 			A("Method")->showDirectory("提成");
 			$this->display('SetSystem:templatelist');
 		}
+		elseif($where['type'] == '操作费'){
+			A("Method")->showDirectory("操作费");
+			$this->display('SetSystem:templatelist');
+		}
 		elseif($where['type'] == 'FAQ'){
 			A("Method")->showDirectory("FAQ");
+			$this->display('SetSystem:templatelist');
+		}
+		elseif($where['type'] == '使用手册'){
+			A("Method")->showDirectory("使用手册");
+			$this->display('SetSystem:templatelist');
+		}
+		elseif($where['type'] == '商户条目'){
+			//获得公司列表
+			$comall = A('Method')->_getCompanyAll();
+			$this->assign("comall",$comall);
+			A("Method")->showDirectory("商户条目");
 			$this->display('SetSystem:templatelist');
 		}
 		else
@@ -785,9 +803,7 @@ class SetSystemAction extends CommonAction{
 				//订单OM添加
 				$dingdanall = $Chanpin->where("`parentID` = '$chanpinID' and `marktype` = 'dingdan'")->findall();
 				foreach($dingdanall as $dingdan){
-					//开放给自己部门
-					$dataOMlist = A("Method")->_getmyOMlist($username);
-					A("Method")->_createDataOM($dingdan['chanpinID'],'订单','管理',$dataOMlist);
+					A("Method")->_OMRcreate($_REQUEST['chanpinID'],'订单');
 				}
 			}
 			if($cp['marktype'] == 'DJtuan')
@@ -818,33 +834,46 @@ class SetSystemAction extends CommonAction{
 	//重置联合体线路om
 	public function resetOM(){
 		C('TOKEN_ON',false);
-		echo "重置联合体线路om<br>";
+		echo "重置".$_REQUEST['type']."线路om<br>";
 		if(!$_REQUEST['page']){
 			dump('无page参数');
 			exit;
 		}
 		echo "执行page=".$_REQUEST['page'].'<br>';
 		$num = ($_REQUEST['page']-1)*1;
-		$num_2 = ($_REQUEST['page_2']-1)*100;
+		$num_2 = ($_REQUEST['page_2']-1)*10;
 		$Chanpin = D("Chanpin");
 		$ViewDepartment = D("ViewDepartment");
-		$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->order("systemID desc")->findall();
+		if($_REQUEST['type'] == '联合体')
+			$filterlist = $ViewDepartment->Distinct(true)->field('systemID')->where("`type` like '%联合体%' or `type` like '%办事处%'")->limit("$num,1")->findall();
+		if($_REQUEST['type'] == '全部'){
+//			$filterlist = $ViewDepartment->limit("$num,1")->findall();
+			$filterlist = $ViewDepartment->limit("$num,1")->where("`systemID` = '40159'")->findall();
+			if($_REQUEST['page'] > 2)
+			exit;
+		}
 		dump($filterlist);
 		if($filterlist == null){
 			exit;
 		}
 		else{
 			$systemID = $filterlist[0]['systemID'];
-			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,100")->findall();
+//			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and `marktype` = 'xianlu'")->limit("$num_2,10")->findall();
+			$xianluall = $Chanpin->where("`departmentID` = '$systemID' and (`marktype` = 'xianlu' OR `marktype` = 'qianzheng' OR `marktype` = 'DJtuan')")->limit("$num_2,10")->findall();
 			dump($xianluall);
-			if($xianluall == null){
-				$url = SITE_INDEX."SetSystem/resetOM/page/".($_REQUEST['page']+1)."/page_2/1";
-			}
+			if($xianluall == null)
+				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".($_REQUEST['page']+1)."/page_2/1";
 			else
-				$url = SITE_INDEX."SetSystem/resetOM/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
+				$url = SITE_INDEX."SetSystem/resetOM/type/".$_REQUEST['type']."/page/".$_REQUEST['page']."/page_2/".($_REQUEST['page_2']+1);
 			foreach($xianluall as $vol){
+				if($vol['marktype'] == 'xianlu')
+					$omtype = '线路';
+				if($vol['marktype'] == 'qianzheng')
+					$omtype = '签证';
+				if($vol['marktype'] == 'DJtuan')
+					$omtype = '地接';
 				$cp = $Chanpin->where("`chanpinID` = '$vol[chanpinID]'")->find();
-				A("Method")->_OMRcreate($vol['chanpinID'],'线路',$cp['user_name']);
+				A("Method")->_OMRcreate($vol['chanpinID'],$omtype,$cp['user_name']);
 			}
 		}
 		$this->assign("url",$url);
@@ -889,7 +918,18 @@ class SetSystemAction extends CommonAction{
 	}
 	
 	
+    public function chanpin_resetbyshenhetask() {
+		if(false === A('Method')->_check_chanpin_doshehe($_REQUEST['chanpinID'],$_REQUEST['datatype']))
+			$this->ajaxReturn('', '失败！', 0);
+		else
+			$this->ajaxReturn('', '完成！', 1);
+    }
 	
+	
+    public function resetOMTask() {
+		if(false !== A('Method')->_resetOMTask())
+		$this->ajaxReturn('', '成功！', 1);
+	}
 	
 	
 	

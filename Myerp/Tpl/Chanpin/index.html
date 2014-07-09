@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <script>
 
@@ -27,6 +27,36 @@ function onshop(){
 	});
 	
 }
+
+
+function optoB2Cdepart(){
+	ThinkAjax.myloading('resultdiv');
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/optoB2Cdepart/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+}
+
+
+
+
 </script>
 <div id="main">
   <tp:includeCA file="Chanpin:left_fabu:'left_fabu'" />
@@ -42,13 +72,15 @@ function onshop(){
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 复制 " onclick="copytonew()">
-                    <input class="button" type="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
-                    <php>if($this->tVar['user']['user_name'] == 'aaa'){</php>
-                    <input class="button" type="button" value=" 重置OM " onclick="resetOM()">
+                    <input type="button" class="button" value=" 复制 " onclick="copytonew()">
+                    <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
+                    <input type="button" class="button" value=" 下架/上架 " onclick="onoffshop()">
+                    <php>if($login_user['user_name'] == 'aaa'){</php>
+                    <input type="button" class="button" value=" 重置OM " onclick="resetOM()">
                     <php>}</php>
-                    <input class="button" type="button" value=" 删除到回收站 " onclick="deletetohsz()">
-                    <input class="button" type="button" value=" 提交到网店 " onclick="onshop()">
+                    <input type="button" class="button" value=" 删除到回收站 " onclick="deletetohsz()">
+                    <input type="button" class="button" value=" 开放到电商部 " onclick="optoB2Cdepart()">
+                    <input type="button" class="button" value=" 提交到网店 " onclick="onshop()">
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -216,7 +248,30 @@ function resetOM(){
 	});
 }
 
-
+function onoffshop(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onoffshop/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+	
+}
 </script>
 
 <div style="position: absolute; display:none" id="shenhediv">

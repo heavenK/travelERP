@@ -40,22 +40,6 @@ class BudingAction extends Action{
     }
 	
 	
-	//线路开放销售补订
-    public function xianluxiaoshoukaifang() {
-		exit;
-		C('TOKEN_ON',false);
-		echo "执行线路开放销售om";
-		$ViewXianlu = D("ViewXianlu");
-		$ViewShoujia = D("ViewShoujia");
-		$all = $ViewXianlu->where("`status` = '报名'")->findall();
-		foreach($all as $v){
-			$shoujia = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->find();
-			$shoujia['shoujia'] = $shoujia;
-			A('Method')->_shoujiaToDataOM($shoujia);
-		}
-		echo "结束";
-    }
-	
 	
 	//审核任务表字段填充，报账标题，子团日期，子团团号，子团标题
     public function shenherenwutianchong() {
@@ -778,7 +762,7 @@ class BudingAction extends Action{
 		$ViewXianlu = D("ViewXianlu");
 		$all = $ViewXianlu->where("`status` != '截止'")->findall();
 		foreach($all as $v){
-			A('Method')->_updatexianlu($v['chanpinID']);
+			A('Method')->_updatexianlu_status($v['chanpinID']);
 		}
 		echo "结束";
     }
@@ -786,9 +770,244 @@ class BudingAction extends Action{
 	
 	
 	
+	//审核任务根据产品重置
+    public function taskshenhelistreset() {
+		exit;
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		$Chanpin = D("Chanpin");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		$System = D("System");
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*800;
+		$all = $Chanpin->where("`marktype` = 'xianlu' or `marktype` = 'zituan' or `marktype` = 'DJtuan' or `marktype` = 'baozhang' or `marktype` = 'baozhangitem'")->limit("$num,800")->findall();
+		if(count($all)==0){
+			exit;
+		}
+		foreach($all as $v){
+			if($v['status_system'] == -1){
+			dump("正在执行".$_REQUEST['page'].'页'.$v['chanpinID'].'<br>');
+				
+				if($v['marktype'] == 'xianlu')
+					$datatype = '线路';
+				if($v['marktype'] == 'zituan')
+					$datatype = '子团';
+				if($v['marktype'] == 'DJtuan')
+					$datatype = '地接';
+				if($v['marktype'] == 'baozhang')
+					$datatype = '报账单';
+				if($v['marktype'] == 'baozhangitem')
+					$datatype = '报账项';
+				//相应审核任务
+				A("Method")->_taskshenhe_delete($v['chanpinID'],$datatype);
+			}
+			
+		}
+		$url = SITE_INDEX."Buding/taskshenhelistreset/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+    }
+	
+	//商户条目输入
+    public function shanghutiaomu() {
+		exit;
+		Vendor ( 'Excel.PHPExcel' );
+		$inputFileName = 'list.xls';
+		$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		$System = D("System");
+		$ViewDataDictionary = D("ViewDataDictionary");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num_cur = ($_REQUEST['page']-1)*100+1;
+		$num_limit = $num_cur + 100;
+		for($num_cur;$num_cur<=$num_limit;$num_cur++){
+			$val = $sheetData[$num_cur];
+			if(!$val['A']){
+				dump('循环'.$num_cur);
+				echo "结束";
+				exit;
+			}
+			if($num_cur == $num_limit){
+				$url = SITE_INDEX."Buding/shanghutiaomu/page/".($_REQUEST['page']+1);
+				$this->assign("url",$url);
+				$this->display('Index:forme');
+				exit;
+			}
+			$_REQUEST['title'] = $val['A'];
+			$_REQUEST['companyID'] = 40150;
+			$_REQUEST['type'] = '商户条目';
+			$data = $_REQUEST;
+			$data['datadictionary'] = $_REQUEST;
+			$data['datadictionary']['datatext'] = serialize($_REQUEST);
+			$roles = $ViewDataDictionary->where("`title` = '$_REQUEST[title]'")->find();
+			if($roles && ($_REQUEST['companyID'] == $roles['companyID'])){
+				dump('跳过'.$num_cur);
+				continue;
+			}
+			if (false === $System->relation('datadictionary')->myRcreate($data)){
+				dump('保存失败');
+				dump($System);
+			}
+			else{
+				dump('成功执行'.$num_cur);
+			}
+		}
+		echo "结束";
+	}
 	
 	
 	
+	
+	
+	//清除无效审核任务OM
+    public function clearn_shenhetask_om() {
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*500;
+		$taskall = $ViewTaskShenhe->where("(`status` != '申请' AND `status` != '待检出') OR `status_system` = '-1'")->limit("$num,500")->findall();
+		dump($taskall);
+		if(count($taskall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taskall as $v){
+			$DataOM->where("`datatype` = '审核任务' AND `dataID` = '$v[systemID]'")->delete();
+		}
+		$url = SITE_INDEX."Buding/clearn_shenhetask_om/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+	}
+	
+	
+	
+	//重置所有产品OM
+    public function reset_all_chanpinOM() {
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
+		$DataOM = D("DataOM");
+		$Chanpin = D("Chanpin");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*300;
+		
+		//重置8月份数据
+		$start_time = '2013-8-01';
+		$end_time = '2013-9-01';
+		$where['time'] = array('between',strtotime($start_time).','.strtotime($end_time));	
+		$where['marktype'] = 'xianlu';
+		$taskall = $Chanpin->where($where)->limit("$num,300")->order('chanpinID asc')->findall();
+		dump($taskall);
+		if(count($taskall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taskall as $v){
+			A('Method')->_resetOM($v['chanpinID']);
+		}
+		$url = SITE_INDEX."Buding/reset_all_chanpinOM/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+	}
+	
+	
+	
+	//重置所有待审核OM
+    public function reset_all_shenheOM() {
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
+		$DataOM = D("DataOM");
+		$ViewTaskShenhe = D("ViewTaskShenhe");
+		if(!$_REQUEST['page']){
+			dump('无page参数');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "执行page=".$_REQUEST['page'].'<br>';
+		$num = ($_REQUEST['page']-1)*300;
+		$taskall = $ViewTaskShenhe->where("`status` = '待检出' AND `status_system` = '1'")->limit("$num,300")->findall();
+		dump($taskall);
+		if(count($taskall)==0){
+			echo "结束";
+			exit;
+		}
+		foreach($taskall as $v){
+			$process = A("Method")->_checkShenhe($v['datatype'],$v['processID']);
+			A("Method")->_djcOMCreate($v,$process);
+		}
+		$url = SITE_INDEX."Buding/reset_all_shenheOM/page/".($_REQUEST['page']+1);
+		$this->assign("url",$url);
+		$this->display('Index:forme');
+		echo "结束";
+	}
+	
+	
+	//修复产品销售OM
+    public function reset_all_xiaoshouOM() {
+		if($_REQUEST['page'] > 1){
+			dump('结束');
+			exit;
+		}
+		C('TOKEN_ON',false);
+		echo "修复产品销售om";
+		$ViewXianlu = D("ViewXianlu");
+		$ViewShoujia = D("ViewShoujia");
+		$all = $ViewXianlu->where("`status` = '报名'")->findall();
+		foreach($all as $v){
+			$shoujia = $ViewShoujia->where("`parentID` = '$v[chanpinID]'")->find();
+			$shoujia['shoujia'] = $shoujia;
+			A('Method')->_shoujiaToDataOM($shoujia);
+		}
+		echo "结束";
+    }
+
+
+
+	//重置所有产品OM
+    public function reset_1s_chanpinOM() {
+		exit;
+		$Chanpin = D("Chanpin");
+		C('TOKEN_ON',false);
+		$chanpinall = $Chanpin->where("`user_name` = '李倩雯' AND `marktype` = 'DJtuan' ")->findall();
+		foreach($chanpinall as $v){
+			A('Method')->_resetOM($v['chanpinID']);
+		}
+		echo "结束";
+	}
+
+
+
+
+
+
+
+
+
+
 	
 }
 ?>

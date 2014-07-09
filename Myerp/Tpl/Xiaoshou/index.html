@@ -3,7 +3,7 @@
 
 <link href="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <script src="<{:__PUBLIC__}>/gulianstyle/styles/jquery.autocomplete.min.js" language="javascript"></script>
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 <style>
 .mytem td { border:none}
@@ -74,10 +74,15 @@
                   <php>}</php>
                   href="<{:SITE_INDEX}>Xiaoshou/index/xianlu_kind/东南亚">东南亚</a> </li>
                 <li> <a 
-                  <php>if($markpos == '欧美岛'){</php>
+                  <php>if($markpos == '欧美'){</php>
                   class="current"
                   <php>}</php>
-                  href="<{:SITE_INDEX}>Xiaoshou/index/xianlu_kind/欧美岛">欧美岛</a> </li>
+                  href="<{:SITE_INDEX}>Xiaoshou/index/xianlu_kind/欧美">欧美</a> </li>
+				<li> <a 
+                  <php>if($markpos == '海岛'){</php>
+                  class="current"
+                  <php>}</php>
+                  href="<{:SITE_INDEX}>Xiaoshou/index/xianlu_kind/海岛">海岛</a> </li>
               </ul>
             </div>
             
@@ -105,7 +110,7 @@
                   <th scope="col" nowrap="nowrap" style="min-width:50px;"><div> 单位 </div></th>
                 </tr>
                 
-                <php>$i = 0;foreach($chanpin_list as $v){$i++;</php>
+                <php>$i = 0;foreach($chanpin_list as $v){$i++; </php>
                 <tr height="40" class="evenListRowS1">
                   <td valign="top" align="left" scope="row"><{$i}></td>
                   <td valign="top" align="center" scope="row"><strong style="color:blue"><{$v['xianlu_title']}></strong></td>
@@ -121,8 +126,8 @@
                       <tbody>
                         <tr>
                           <td valign="top" align="left" style="vertical-align:top;" width="10" >
-                          <input class="button" type="button" value=" 展开 " onclick="opendatelist(<{$i}>)" id="buttomopen<{$i}>" style="float:left">
-                          <input class="button" type="button" value=" 收起 " onclick="closedatelist(<{$i}>)" id="buttomclose<{$i}>" style="display:none; float:left; ">
+                          <input type="button" class="button" value=" 展开 " onclick="opendatelist(<{$i}>)" id="buttomopen<{$i}>" style="float:left">
+                          <input type="button" class="button" value=" 收起 " onclick="closedatelist(<{$i}>)" id="buttomclose<{$i}>" style="display:none; float:left; ">
                           </td>
                           <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td<{$i}>">
                             <php>foreach($v['zituan'] as $vol){</php>

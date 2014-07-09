@@ -1,5 +1,5 @@
 <tp:includeCA file="Index:showheader" />
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/<{$actionmethod}>/xianlu.js"></script>
 
 <div id="main">
@@ -15,8 +15,6 @@
 <tp:includeCA file="Caiwu:left_fabu:'left_fabu','单项服务'" />
   <div id="content" style="margin-left:180px;">
 <php>}</php>
-
-
 
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
@@ -79,14 +77,14 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 添加签证结算报告 " id="qianzheng_create">
-                    <input class="button" type="button" value=" +办证 " id="banzheng_create">
-                    <input class="button" type="button" value=" +交通 " id="jiaotong_create">
-                    <input class="button" type="button" value=" +订房 " id="dingfang_create">
-                    <input class="button" type="button" value=" +订餐 " id="dingcan_create">
-                    <input class="button" type="button" value=" +门票 " id="menpiao_create">
-                    <input class="button" type="button" value=" +导游 " id="daoyou_create">
-                    <input class="button" type="button" value=" +补账 " id="buzhang_create">
+                    <input type="button" class="button" value=" 添加签证结算报告 " id="qianzheng_create">
+                    <input type="button" class="button" value=" +办证 " id="banzheng_create">
+                    <input type="button" class="button" value=" +交通 " id="jiaotong_create">
+                    <input type="button" class="button" value=" +订房 " id="dingfang_create">
+                    <input type="button" class="button" value=" +订餐 " id="dingcan_create">
+                    <input type="button" class="button" value=" +门票 " id="menpiao_create">
+                    <input type="button" class="button" value=" +导游 " id="daoyou_create">
+                    <input type="button" class="button" value=" +补账 " id="buzhang_create">
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -116,8 +114,11 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$vol['time'])</php></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -145,8 +146,11 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$vol['time'])</php></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -176,8 +180,11 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$vol['time'])</php></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -207,8 +214,11 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$vol['time'])</php></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -235,8 +245,11 @@
             <td scope="row" align="left" valign="top"><{$vol['datatext']['remark']}></td>
             <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$vol['time'])</php></td>
             <td scope="row" align="left" valign="top">
-              <input type="button" value="查看" name="button" class="button primary" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
-              <input type="button" value="删除" name="button" class="button primary" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo(<{$vol['chanpinID']}>,'签证');">
+              <input type="button" class="button" value="删除" name="button" onClick="if(window.confirm('要刪除嗎?')==true)deletebaozhang(<{$vol['chanpinID']}>);" >
+              <php>if($login_user['title'] == 'aaa')</php>
+              <input type="button" class="button" value="重置OM" name="button" onClick="if(window.confirm('确认重置OM?')==true)resetOM(<{$vol['chanpinID']}>);">
+              <php></php>
             </td>
           </tr>
       <php> }}</php>
@@ -246,14 +259,14 @@
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input class="button" type="button" value=" 添加签证结算报告 " id="qianzheng_create">
-                    <input class="button" type="button" value=" +办证 " id="banzheng_create">
-                    <input class="button" type="button" value=" +交通 " id="jiaotong_create">
-                    <input class="button" type="button" value=" +订房 " id="dingfang_create">
-                    <input class="button" type="button" value=" +订餐 " id="dingcan_create">
-                    <input class="button" type="button" value=" +门票 " id="menpiao_create">
-                    <input class="button" type="button" value=" +导游 " id="daoyou_create">
-                    <input class="button" type="button" value=" +补账 " id="buzhang_create">
+                    <input type="button" class="button" value=" 添加签证结算报告 " id="qianzheng_create">
+                    <input type="button" class="button" value=" +办证 " id="banzheng_create">
+                    <input type="button" class="button" value=" +交通 " id="jiaotong_create">
+                    <input type="button" class="button" value=" +订房 " id="dingfang_create">
+                    <input type="button" class="button" value=" +订餐 " id="dingcan_create">
+                    <input type="button" class="button" value=" +门票 " id="menpiao_create">
+                    <input type="button" class="button" value=" +导游 " id="daoyou_create">
+                    <input type="button" class="button" value=" +补账 " id="buzhang_create">
 					<td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -870,6 +883,19 @@ function del_after(data,status){
 		location.reload();
 	}
 }
+
+function resetOM(chanpinID){
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Chanpin/resetOM/chanpinID/"+chanpinID,
+		data:	"",
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv');
+		}
+	});
+}
+
+
 </script> 
 
 

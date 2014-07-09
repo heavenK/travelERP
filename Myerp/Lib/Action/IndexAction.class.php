@@ -11,6 +11,9 @@ class IndexAction extends Action{
 	
     private function toadmin() {
 		if($this->user){
+			$role = A("Method")->_checkRolesByUser('业务','银行',1);
+			if($role)
+				redirect(SITE_INDEX."VIP/bankFileUpload");
 			redirect(SITE_INDEX."Message/index/datatype/公告");
 		}
     }
@@ -28,7 +31,7 @@ class IndexAction extends Action{
 		$ViewUser = D("ViewUser");
 		
 		if(cookie('setok') == 'login2')
-			$this->ajaxReturn('', '账户被锁，登录失败，10分钟内无法登陆！', 0);
+			$this->ajaxReturn('', '系统维护中，登录失败，10分钟内无法登陆！', 0);
 		if(cookie('setok') == 'login1')
 			$this->ajaxReturn('', '帐号或密码错误，10分钟内无法登陆！', 0);
 				
@@ -40,7 +43,7 @@ class IndexAction extends Action{
 		if($user) {
 			if ($user["islock"]=='已锁定') {
 				cookie('setok','login1',LOGIN_TIME_FAILE);
-				$this->ajaxReturn('', '账户被锁，登录失败！', 0);
+				$this->ajaxReturn('', '系统维护中，登录失败！', 0);
 			} else {
 				if ($remember=="on") {
 					cookie('user',authcode("$user[title]\t$user[systemID]",'ENCODE'),LOGIN_TIME_REMEMBER);
@@ -112,8 +115,22 @@ class IndexAction extends Action{
 	
 	
 	public function FAQ() {
+		$this->_FAQ('FAQ');
+		$this->display('Index:FAQ');
+	}
+	
+	
+	//使用手册
+	public function help() {
+		$this->_FAQ('使用手册');
+		$this->display('Index:help');
+	}
+	
+	
+	//使用手册
+	public function _FAQ($type) {
 		$ViewDataDictionary = D("ViewDataDictionary");
-		$FAQall = $ViewDataDictionary->where("`type` = 'FAQ'")->findall();
+		$FAQall = $ViewDataDictionary->where("`type` = '$type'")->findall();
 		$i = 0;
 		foreach($FAQall as $v){
 //			$FAQall[$i]['datatext'] = simple_unserialize($v['datatext']);
@@ -121,7 +138,6 @@ class IndexAction extends Action{
 			$i++;
 		}
 		$this->assign("datalist",$FAQall);
-		$this->display('Index:FAQ');
 	}
 	
 	
@@ -162,6 +178,32 @@ class IndexAction extends Action{
 			else
 			$this->ajaxReturn($_REQUEST, '错误！！', 0);
 		}
+	}
+	
+	
+	
+    public function new_shanghutiaomu() {
+		A("Method")->_new_shanghutiaomu();
+    }
+	
+	
+    public function test11() {
+		
+		//echo phpinfo();
+		
+		$query = "SELECT * FROM AA_BusObject";
+		$conn=mssql_connect('localhost','sa','123123') or die('数据库连接不上');
+		mssql_select_db('UFDATA_601_2014',$conn);
+		
+		$AdminResult=mssql_query($query);
+		$data = array();
+		while($row = mssql_fetch_array($AdminResult)){
+			$row['cMark'] = iconv('GB2312','UTF-8',$row['cMark']);
+			$data[] = $row;
+		}
+		dump($data);		
+	
+	
 	}
 	
 	

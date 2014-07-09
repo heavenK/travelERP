@@ -21,6 +21,7 @@
 <load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
 <link type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
+
 <script>
 
 var SITE_INDEX = '<{:SITE_INDEX}>';
@@ -36,6 +37,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
 .font2 {
 	color:black;
 }
+#content{overflow:auto;"}
 </style>
 </head>
 
@@ -47,24 +49,27 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="javascript:void(0)" id="userinfo_create">用户信息</a> </li>
       <li> <span>|</span> <a href="javascript:void(0)" id="password_create">修改密码</a> </li>
       <li> <span>|</span> <a target="_blank" href="<{:SITE_INDEX}>Index/FAQ">FAQ</a> </li>
+      <li> <span>|</span> <a target="_blank" href="<{:SITE_INDEX}>Index/help">使用手册</a> </li>
     </ul>
   </div>
   <div id="welcome" style="border:none; padding:18px 0 0 10px;"> 欢迎, <strong>
-    <php> echo $this->tVar['user']['title'];</php>
+    <php> echo $login_user['title'];</php>
     </strong> [ <a href="javascript:logout()" class="utilsLink">注销</a> ] </div>
   <div id="search" style="padding:18px 0 0 10px; border:none "> <img id="unified_search_advanced_img" src="<{:__PUBLIC__}>/myerp/images/searchMore.gif" alt="查找">&nbsp;
-    <input type="text" id="query_string" value="请输入查询码" class="font1" onblur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onfocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
+    <input type="text" id="query_string" value="请输入查询码" class="font1" onBlur="if(this.value==''){this.value='请输入查询码';this.className='font1'}" onFocus="if(this.value==this.defaultValue){this.value='';this.className='font2'}">
     &nbsp;
-    <input style="margin-top:-2px;" type="submit" class="button" value="查找" onclick="headsearch()">
+    <input style="margin-top:-2px;" type="submit" class="button" value="查找" onClick="headsearch()">
   </div>
   <div class="clear"></div>
   <div id="moduleList">
     <ul>
+      <php>if($is_qiantai){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '销售'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Xiaoshou/index" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
       <php>}else{</php>
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Xiaoshou/index" id="grouptab_3">&nbsp;销售&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
       <php>}</php>
       <php>if($is_jidiao || $is_caiwu){</php>
       <li class="noBorder">&nbsp;</li>
@@ -106,6 +111,26 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理" id="grouptab_2">&nbsp;系统管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
       <php>}</php>
+      
+      
+      <php>if($is_webjidiao){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '电商管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>B2CManage" id="grouptab_7">&nbsp;电商管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>B2CManage" id="grouptab_7">&nbsp;电商管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
+      
+      <php>if($is_vip){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '会员管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>VIP" id="grouptab_8">&nbsp;会员管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>VIP" id="grouptab_8">&nbsp;会员管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
+      
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '信息'){</php>
       <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Message/index/datatype/公告" id="grouptab_4">&nbsp;信息&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
@@ -138,6 +163,8 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
           <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/欧美岛/guojing/境外">欧美岛 </a> </li>
           <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/俄罗斯/guojing/境外">俄罗斯 </a> </li>
           <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/越柬/guojing/境外">越柬 </a> </li>
+          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/澳洲/guojing/境外">澳洲 </a> </li>
+          <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/中东非/guojing/境外">中东非 </a> </li>
           <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/自由人/guojing/境外">境外自由人 </a> </li>
           <li> <a href="<{:SITE_INDEX}>Chanpin/fabu/kind/包团/guojing/境外">境外包团 </a> </li>
         </ul>
@@ -148,6 +175,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Chanpin/danxiangfuwu">单项服务及补账</a> </li>
       <li> <a href="<{:SITE_INDEX}>Xiaoshou/dingdanlist">订单控管</a> </li>
       <li> <a href="<{:SITE_INDEX}>Chanpin/customer">游客管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/jixiao_tongji/type/员工">统计(绩效)</a> </li>
     </ul>
     </span> <span id="moduleLink_1" 
     
@@ -158,9 +186,9 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
-      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">收支管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报账管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单">提成管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/收支项">收支项审核</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/报账单">报账单审核</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/shenhe/type/订单">订单审核</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/zituanlist/dotype/团费确认">团费确认</a> </li>
       <li class="subTabMore"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch">组团地接产品>></a>
         <ul class="cssmenu">
@@ -171,6 +199,7 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Caiwu/danxiangfuwu">单项服务</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/jixiao_tongji/type/员工">统计(绩效)</a> </li>
       <li> <a href="<{:SITE_INDEX}>Caiwu/yingshou_tongji">统计(营收)</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/hetong">合同管理</a> </li>
     </ul>
     </span> <span id="moduleLink_2" 
     
@@ -181,13 +210,12 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
-      <php>if($this->tVar['user']['title'] == 'aaa'){</php>
+      <php>if($login_user['title'] == 'aaa'){</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/用户">用户</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统工具">系统工具</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/系统设置">系统设置</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/产品平移">产品平移</a> </li>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Client/bankOfChinaFileUpload">积分上传与管理</a> </li>
       <php>}else{</php>
       <li> <a href="<{:SITE_INDEX}>SetSystem/index/type/设置与管理">设置与管理</a> </li>
       <php>}</php>
@@ -215,11 +243,16 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <php>}</php>
     >
     <ul>
+      <php>if($is_yinghang_yewu){</php>
+      <li> <a href="<{:SITE_INDEX}>VIP/bankFileUpload">消费记录上传</a> </li>
+      <li> <a href="<{:SITE_INDEX}>VIP/uploadHistory">上传记录查询</a> </li>
+      <li> <a href="<{:SITE_INDEX}>VIP/memberFileUpload">会员清单上传</a> </li>
+      <php>}if($is_qiantai){</php>
       <li> <a href="<{:SITE_INDEX}>Message/index/datatype/公告">公告</a> </li>
       <li> <a href="<{:SITE_INDEX}>Message/index/datatype/排团表">排团表</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Xiaoshou/dingdanlist/user_name/电商">电商订单管理</a> </li>
-      <li> <a href="<{:SITE_INDEX}>Message/gexingdingzhilist">电商个性定制信息</a> </li>
       <li> <a href="<{:SITE_INDEX}>Message/infohistory">系统提示</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Caiwu/hetong">合同管理</a> </li>
+      <php>}</php>
     </ul>
     </span> <span id="moduleLink_5" 
     
@@ -244,7 +277,6 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     </span> <span id="moduleLink_6" 
     
     
-    
     <php>if($navposition == '签证产品'){</php>
     class="selected"
     <php>}</php>
@@ -258,7 +290,36 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <a href="<{:SITE_INDEX}>Qianzheng/shenhe">签证产品审核</a> </li>
       <li> <a href="<{:SITE_INDEX}>Qianzheng/tongji">签证产品统计</a> </li>
     </ul>
+    </span> <span id="moduleLink_7" 
+    
+    
+    <php>if($navposition == '电商管理'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/index">网店线路管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/zituanlist">网店子团控管</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/zituanlist/second_confirm/1">二次确认子团管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/dingdanlist">电商订单管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/dingdanlist/second_confirm/1">二次确认订单管理</a> </li>
+      <li> <a href="<{:SITE_INDEX}>B2CManage/dingzhixinxi">电商定制信息</a> </li>
+    </ul>
+    
+    
+    </span> <span id="moduleLink_8" 
+    
+    
+    <php>if($navposition == '会员管理'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li> <a href="<{:SITE_INDEX}>VIP/index">会员列表</a> </li>
+    </ul>
     </span> </div>
+    
+    
   <div class="clear"></div>
   <div class="line"></div>
   <div class="headerList" id="alertNewsView" style="height:18px; overflow:hidden"> <b style="white-space:nowrap;float:left;">即时消息:&nbsp;&nbsp;</b> <span style="float:left; width:70%" id="alertitem"> </span> <b style="white-space:nowrap;float:right;"> <a href="#" id="dialog_link" class="ui-state-default ui-corner-all" style="padding:0px;">

@@ -8,7 +8,7 @@ class ViewXianluModel extends RelationModel {
 		//xianlu
 		'zituanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_zituan','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		'shoujialist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_shoujia','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
-		'xingcheng'=>array('mapping_type'=>HAS_MANY,'class_name'=>'Xingcheng','foreign_key'=>'chanpinID'),
+		'xingchenglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_xingcheng','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		'chengben'=>array('mapping_type'=>HAS_MANY,'class_name'=>'Chengben','foreign_key'=>'chanpinID'),
 		//zituan
 		'xianlulist'=>array('mapping_type'=>BELONGS_TO,'class_name'=>'Xianlu','true_class_name'=>'myerpview_chanpin_xianlu','foreign_key'=>'chanpinID','parent_key'=>'parentID'),

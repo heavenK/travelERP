@@ -1,6 +1,6 @@
 <tp:includeCA file="Index:showheader" />
 
-<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/gulianstyle/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
 
 <div id="main">
@@ -55,7 +55,8 @@
             </table>
             <php>}</php>
     
-            <strong style="color:red">报账数据采用全部数据（未审核及已审核）,并只包含子团数据，不包含单项服务</strong>
+            <strong style="color:red">报账数据采用全部数据（未审核及已审核）,并只包含子团数据，不包含单项服务</strong><br />
+            <strong style="color:red">员工统计时，查询属于该部门的产品，提取发布人做为部门员工名单。</strong>
 	<php>if(!$listtype){</php>
             <table cellpadding="0" cellspacing="0" width="100%" class="list view">
               <tbody>
@@ -65,8 +66,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -107,7 +108,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_1('<{$v[systemID]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_1('<{$v[systemID]}>');">
                   </td>
                 </tr>
                 <php> }</php>
@@ -193,8 +194,8 @@
                       <tbody>
                         <tr>
                           <td nowrap="nowrap" class="paginationActionButtons">
-                            <input class="button" type="button" value=" 导出 " onclick="exports()">
-                            <input class="button" type="button" value=" 打印 " onclick="doprint()">
+                            <input type="button" class="button" value=" 导出 " onclick="exports()">
+                            <input type="button" class="button" value=" 打印 " onclick="doprint()">
                           </td>
                           <td nowrap="nowrap" align="right" class="paginationChangeButtons">
                           	<{$page}>
@@ -229,7 +230,7 @@
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top"><php> echo number_format($v['yingshou'] - $v['yingfu'])</php></td>
                   <td scope="row" align="left" valign="top">
-                      <input type="button" value="报账明细" name="button" class="button primary" onclick="opendialog_2('<{$v[title]}>');">
+                      <input type="button" class="button" value="报账明细" name="button" onclick="opendialog_2('<{$v[title]}>');">
                   </td>
                 </tr>
                 <php> }</php>

@@ -69,7 +69,7 @@ class ChanpinModel extends RelationModel {
 			$dt = $this->where("`chanpinID` = '$chanpinID'")->find();
 			return $dt['bumen_copy'];
 		}
-		return NF_getbumen_title($departmentID);
+		return NULL;
 	}
 	
 	protected function set_user_name($user_name) {
@@ -107,6 +107,7 @@ class ChanpinModel extends RelationModel {
 		'dingdanlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_dingdan','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		'fenfanglist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_chanpin_fenfang','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		'tdbzdlist'=>array('mapping_type'=>HAS_ONE,'class_name'=>'ViewBaozhang','foreign_key'=>'parentID','condition'=>"`status_system` = '1' and `type` = '团队报账单'"),
+		'tiaojialist'=>array('mapping_type'=>HAS_ONE,'class_name'=>'ViewTiaojia','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		//shoujia
 		'shoujia'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Shoujia','foreign_key'=>'chanpinID'),
 		//chengbenlist
@@ -130,6 +131,8 @@ class ChanpinModel extends RelationModel {
 		'DJtuan'=>array('mapping_type'=>HAS_ONE,'class_name'=>'DJtuan','foreign_key'=>'chanpinID'),
 		//qianzheng
 		'qianzheng'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Qianzheng','foreign_key'=>'chanpinID'),
+		//tiaojia
+		'tiaojia'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Tiaojia','foreign_key'=>'chanpinID'),
 	);
 	
 

@@ -24,12 +24,20 @@ class ClientAction extends Action{
 			echo serialize($returndata);
 			exit;
 		}
+		else{
+			$i = 0;
+			foreach($xianlu['zituanlist'] as $v){
+				//计算子团人数
+				$tongji = A("Method")->_getzituandingdan($v['chanpinID']);
+				$xianlu['zituanlist'][$i]['renshu'] = $xianlu['zituanlist'][$i]['renshu']-$tongji['querenrenshu']-$tongji['zhanweirenshu'];
+				$i++;
+			}
+		}
 		$xianlu['xingchenglist'] = $ViewXianlu->relationGet("xingchenglist");
 		$xianlu['shoujialist'] = $ViewXianlu->relationGet("shoujialist");
 		$xianlu['chengbenlist'] = $ViewXianlu->relationGet("chengbenlist");
 		$data = serialize($xianlu);
 		echo $data;
-		
     }
 	
 	
@@ -130,7 +138,7 @@ class ClientAction extends Action{
 		$dingdan['dingdan']['telnum'] = $order['lxr_telnum'];
 		//$dingdan['dingdan']['lxr_email'] = $order['lxr_email'];
 		//数据填充
-		$dingdan['dingdan']['tichengID'] = '43428';
+		//$dingdan['dingdan']['tichengID'] = '43428';
 		$dingdan['dingdan']['lingdui_num'] = 0;
 		$dingdan['dingdan']['owner'] = '电商';
 		//$dingdan['dingdan']['fuzebumenID'] = '40174';
@@ -165,30 +173,6 @@ class ClientAction extends Action{
 			exit;
 		}
 	}
-	
-	
-	//获得记录
-    public function bankOfChinaFileUpload() {
-		
-       $allUidArr=array();
-		$uids_path='README.txt';
-		if(!file_exists($uids_path)){
-			dump('break');
-			break;
-		}
-		$uidArr=file($uids_path,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		$allUidArr=$allUidArr + array_fill_keys($uidArr,$i);
-				
-		dump($allUidArr['1234']);
-		dump($allUidArr);
-		
-		$this->display('Index:bankofchinafileupload');
-		
-    }
-	
-	
-	
-	
 	
 	
 	

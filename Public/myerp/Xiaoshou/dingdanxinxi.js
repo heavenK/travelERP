@@ -3,6 +3,7 @@ function save(){
 	scroll(0,0);
 	ThinkAjax.sendForm('form1',SITE_INDEX+'Xiaoshou/dopostdingdanxinxi/',doComplete,'resultdiv');
 }
+
 function doComplete(data,status){
 	if(status == 1){
 		jQuery(window).unbind('beforeunload');

@@ -27,20 +27,20 @@
                       <tbody>
                         <tr>
                           <td scope="row" nowrap="nowrap"> 团名： </td>
-                          <td nowrap="nowrap"><input type="text" class="baozhangtitle_copy" value="<{$baozhangtitle_copy}>"></td>
+                          <td nowrap="nowrap"><input type="text" class="title" value="<{$title}>"></td>
                           <td scope="row" nowrap="nowrap"> 团期： </td>
                           <td nowrap="nowrap"><input type="text" class="tuanqi_copy" value="<{$tuanqi_copy}>" onfocus="WdatePicker()"></td>
                           <td scope="row" nowrap="nowrap"> 团号： </td>
                           <td nowrap="nowrap"><input type="text" class="tuanhao_copy" value="<{$tuanhao_copy}>"></td>
                           <td scope="row" nowrap="nowrap"> 报账项标题： </td>
-                          <td nowrap="nowrap"><input type="text" class="title" value="<{$title}>"></td>
+                          <td nowrap="nowrap"><input type="text" class="baozhangtitle_copy" value="<{$baozhangtitle_copy}>"></td>
                           <td scope="row" nowrap="nowrap"> 申请人： </td>
                           <td nowrap="nowrap"><input type="text" class="user_name" value="<{$user_name}>"></td>
                       </tbody>
                     </table>
                 </div>
-              <input title="查找" class="button" type="button" value=" 查找 " onclick="_dosearch(1);">&nbsp;
-              <input title="清除" class="button" type="button" value=" 清除 " onclick="clearsearch();">
+              <input type="button" class="button" title="查找" value=" 查找 " onclick="_dosearch(1);">&nbsp;
+              <input type="button" class="button" title="清除" value=" 清除 " onclick="clearsearch();">
         </div>
         
         <php>unset($_REQUEST['_URL_']);if($_REQUEST){ </php>
