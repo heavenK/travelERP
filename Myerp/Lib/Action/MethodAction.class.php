@@ -1442,7 +1442,7 @@ class MethodAction extends CommonAction{
 		if($process){
 			$need = $this->_getTaskDJC($dataID,$datatype,1);//检查待审核任务存在
 			if(false === $need){
-				cookie('errormessage','错误！您没有产品审核权限！',30);
+				cookie('errormessage','错误！您没有产品审核权限1！',30);
 				return false;
 			}
 			$omdata = $this->_checkDataOM($process['dataID'],$process['datatype'],'管理');
@@ -1455,7 +1455,7 @@ class MethodAction extends CommonAction{
 				return $omdata;
 			}
 			else{
-				cookie('errormessage','错误！您没有产品审核权限！',30);
+				cookie('errormessage','错误！您没有产品审核权限2！',30);
 				return false;
 			}
 		}
