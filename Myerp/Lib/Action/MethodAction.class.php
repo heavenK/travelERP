@@ -1904,6 +1904,7 @@ class MethodAction extends CommonAction{
 			$where['status_system'] = 1;
 			$where = $this->_openAndManage_filter($where);
 			$need = $OMViewTaskShenhe->where($where)->find();
+			if($_GET['test']) dump($where);
 			if($_GET['test']) dump($need);
 			if($need){
 				$this->_task_cookie_by_dur($need['DUR']);
