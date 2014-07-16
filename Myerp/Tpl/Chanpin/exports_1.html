@@ -16,6 +16,45 @@
 </table>
 <br>
 <br>
+<php>if($zituan['guojing_copy'] == '境外'){</php>
+<table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>姓名</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>英文</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>性别</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>户籍地</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>身份</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件类型</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>证件号</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>签发日</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>有效期</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>联系电话</strong></td>
+      <td height="27" align="center" bgcolor="#ff8d00"><strong>备注</strong></td>
+      <td align="center" bgcolor="#ff8d00"><strong>订单来源</strong></td>
+    </tr>
+      <php>
+  foreach($tuanyuan as $dingdan){
+    </php>
+  
+  <tr>
+    <td class="xxxx" height="27" align="center"><{$dingdan['name']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['pinyin']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['sex']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['hujidi']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['manorchild']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['zhengjiantype']}> </td>
+    <td class="xxxx" height="27" align="center">&nbsp;<{$dingdan['zhengjianhaoma']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['zhengjianqianfariqi']}> </td>
+    <td class="xxxx" height="27" align="center"><{$dingdan['zhengjianyouxiaoqi']}> </td>
+    <td align="center" height="27" class="xxxx"><{$dingdan['telnum']}> </td>
+    <td align="center" height="27" class="xxxx"><{$dingdan['remark']}> </td>
+    <td align="center" height="27" class="xxxx"><{$dingdan['bumen']}> </td>
+  </tr>
+  <php>}</php>
+    </tbody>
+</table>
+<php>}elese{</php>
 <table class="zsj" width="100%" border="1" cellspacing="0" cellpadding="0">
   <tbody>
     <tr>
@@ -45,3 +84,4 @@
   <php>}</php>
     </tbody>
 </table>
+<php>}</php>

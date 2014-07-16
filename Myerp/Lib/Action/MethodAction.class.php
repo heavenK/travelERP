@@ -2246,20 +2246,24 @@ class MethodAction extends CommonAction{
 			$cus['pinyin'] = $_REQUEST['pinyin'.$id];
 			$cus['chushengriqi'] = $_REQUEST['chushengriqi'.$id];
 			$cus['hujidi'] = $_REQUEST['hujidi'.$id];
+			$cus['zhengjianqianfariqi'] = $_REQUEST['zhengjianqianfariqi'.$id];
 			$cus['zhengjianyouxiaoqi'] = $_REQUEST['zhengjianyouxiaoqi'.$id];
 			$cus['pay_method'] = $_REQUEST['pay_method'.$id];
 			$cus['is_leader'] = $_REQUEST['is_leader'.$id];
 			//序列化
 			if($cus['zhengjiantype'] == '身份证'){
 				$cus['sfz_haoma'] = $cus['zhengjianhaoma'];
+				$cus['sfz_qianfariqi'] = $cus['zhengjianqianfariqi'];
 				$cus['sfz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if($cus['zhengjiantype'] == '护照'){
 				$cus['hz_haoma'] = $cus['zhengjianhaoma'];
+				$cus['hz_qianfariqi'] = $cus['zhengjianqianfariqi'];
 				$cus['hz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if($cus['zhengjiantype'] == '通行证'){
 				$cus['txz_haoma'] = $cus['zhengjianhaoma'];
+				$cus['txz_qianfariqi'] = $cus['zhengjianqianfariqi'];
 				$cus['txz_youxiaoqi'] = $cus['zhengjianyouxiaoqi'];
 			}
 			if(!$cus['datatext'])//第一次执行
@@ -2397,7 +2401,13 @@ class MethodAction extends CommonAction{
 		foreach($dingdanlist as $v){
 			foreach($v['tuanyuanlist'] as $vol){
 				$tuanyuan[$i] = $vol;
+				
+				$cus = simple_unserialize($vol['datatext']);
+				$tuanyuan[$i] = array_merge($tuanyuan[$i],$cus);
+				
 				$tuanyuan[$i]['bumen'] = $v['bumen_copy'].'-'.$v['user_name'];
+				
+				
 				$i++;
 			}
 		}
@@ -2405,6 +2415,7 @@ class MethodAction extends CommonAction{
 		$tuanhao = $zituan['tuanhao'];
 		$tianshu = $zituan['xianlulist']['tianshu'];
 		$chutuanriqi = $zituan['chutuanriqi'];
+		$this->assign('zituan',$zituan);
 		$this->assign('mingcheng',$mingcheng);
 		$this->assign('tuanhao',$tuanhao);
 		$this->assign('tianshu',$tianshu);

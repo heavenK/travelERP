@@ -390,6 +390,7 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px"> 证件号码： </td>
           <td align="left" style="height: 32px"> 生日： </td>
           <td align="left" style="height: 32px"> 户籍地： </td>
+          <td align="left" style="height: 32px"> 证件签发日： </td>
           <td align="left" style="height: 32px"> 证件有效期： </td>
           <td align="left" style="height: 32px"> 应付： </td>
           <td align="left" style="height: 32px; min-width:80px;"> 备注： </td>
@@ -430,6 +431,7 @@ function quxiao_after(data,status){
           <td align="left" style="height: 32px"><input name="zhengjianhaoma<{$i}>" type="text" value="<{$vo['zhengjianhaoma']}>"></td>
           <td align="left" style="height: 32px"><input name="chushengriqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['chushengriqi']}>"></td>
           <td align="left" style="height: 32px"><input name="hujidi<{$i}>" type="text" value="<{$vo['datatext']['hujidi']}>" ></td>
+          <td align="left" style="height: 32px"><input name="zhengjianqianfariqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['zhengjianqianfariqi']}>"></td>
           <td align="left" style="height: 32px"><input name="zhengjianyouxiaoqi<{$i}>" type="text" class="Wdate" onfocus="WdatePicker()" value="<{$vo['datatext']['zhengjianyouxiaoqi']}>"></td>
           <td align="left" style="height: 32px"><input name="price<{$i}>" type="text" value="<{$vo['price']}>" check="^\S+$" warning="价格不能为空,且不能含有空格"></td>
           <td align="left" style="height: 32px"><input name="remark<{$i}>" type="text" value="<{$vo['remark']}>"></td>
