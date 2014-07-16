@@ -2990,7 +2990,7 @@ class MethodAction extends CommonAction{
 		//检查dataOM
 		$tuan = $this->_checkDataOM($baozhang['chanpinID'],'报账单','管理');
 		if(false === $tuan){
-			$this->assign("message",'报账单数据异常！');
+			$this->assign("message",'您没有管理权限！');
 			$this->display('Index:error');
 			exit;
 		}
