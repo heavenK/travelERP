@@ -2402,8 +2402,8 @@ class MethodAction extends CommonAction{
 			foreach($v['tuanyuanlist'] as $vol){
 				$tuanyuan[$i] = $vol;
 				
-				//$cus = simple_unserialize($vol['datatext']);
-				//$tuanyuan[$i] = array_merge($tuanyuan[$i],$cus);
+				$cus = simple_unserialize($vol['datatext']);
+				$tuanyuan[$i] = array_merge($tuanyuan[$i],$cus);
 				
 				$tuanyuan[$i]['bumen'] = $v['bumen_copy'].'-'.$v['user_name'];
 				
