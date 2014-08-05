@@ -2272,7 +2272,7 @@ class MethodAction extends CommonAction{
 			if(false !== $durlist){
 				$cus['ispay'] = $_REQUEST['ispay'.$id];
 			}
-			//证件号码池
+			/*//证件号码池
 			if(in_array($cus['zhengjianhaoma'],$haomalist)){
 				cookie('errormessage','错误，不允许两个证件号码相同的游客！',30);
 				$DataCD->rollback();
@@ -2286,7 +2286,7 @@ class MethodAction extends CommonAction{
 					return false;
 				}
 				
-			}
+			}*/
 			//查找老客户
 			$haomalist[$i] = $cus['zhengjianhaoma'];
 			if($cus['zhengjiantype'] == '身份证')
