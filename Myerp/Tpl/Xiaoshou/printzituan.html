@@ -61,8 +61,8 @@ td {
       <tr>
         <td width="210" align="left"><img src="<{:__PUBLIC__}>/gulianstyle/images/dlgllogo.jpg" width="210" height="50" /></td>
         <td width="480" align="center"><span class="gl_td_line">联系人：<php>echo $login_user['title']</php>&nbsp;&nbsp; 联系电话：<php>echo $login_user['telnum']</php> <br />  
-          公司地址：大连市中山路3号
-          传真：0411-82828287 </span></td>
+          公司地址：<{$company_info['addr']}>
+          传真：<{$company_info['fax']}> </span></td>
       </tr>
     </thead>
   </table>
@@ -153,8 +153,8 @@ td {
       <tr>
         <td width="239" align="center"><img src="<{:__PUBLIC__}>/gulianstyle/images/logo_p.gif" width="239" height="34" border="0" /></td>
         <td width="480" align="center"><span class="gl_td_line">联系人：<php>echo $login_user['title']</php>&nbsp;&nbsp; 联系电话：<php>echo $login_user['telnum']</php> <br />  
-          公司地址：大连市中山路3号
-          传真：0411-82828287   </span></td>
+          公司地址：<{$company_info['addr']}>
+          传真：<{$company_info['fax']}>   </span></td>
       </tr>
       <tr>
         <td colspan="2" align="center" class="gl_td_line">&nbsp;</td>
