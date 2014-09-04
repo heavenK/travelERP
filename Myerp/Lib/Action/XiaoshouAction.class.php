@@ -145,6 +145,16 @@ class XiaoshouAction extends Action{
 		$xingcheng_1 = $datatext['xingcheng'];
 		$this->assign("xingcheng_1",$xingcheng_1);
 		//显示
+		if($_REQUEST['doprint'] == '打印'){
+			$company_d = M("Myerp_system_department");
+			$company_info = $company_d->where("systemID=".$this->user['companyID'])->find();
+			//dump($this->user);
+			
+			$shop_info_list = D('ViewDepartment')->where("parentID=".$this->user['companyID']." AND type LIKE '%销售%' AND islock='未锁定'")->select();
+		
+			$this->assign("shop_info_list",$shop_info_list);
+			$this->assign("company_info",$company_info);
+		}
 		if($_REQUEST['doprint'] == '打印')
 		$this->display('printzituan');
 		else
