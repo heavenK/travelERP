@@ -60,7 +60,7 @@ class IndexAction extends Action{
 		}
 		
 		A("Method")->_opentoRBAC($user);
-				
+		
 		$this->ajaxReturn('', '登录成功，跳转中。。。！', 1);
 		
     }
