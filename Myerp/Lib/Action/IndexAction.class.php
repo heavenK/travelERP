@@ -3,8 +3,6 @@
 class IndexAction extends Action{
 	
     public function index() {
-		cookie('ttt','abc');
-		dump(cookie('ttt'));
 		$this->assign("datatitle","欢迎使用GULIANERP系统");
 		$this->toadmin();
 		$this->display('login');
