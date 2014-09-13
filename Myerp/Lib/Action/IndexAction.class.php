@@ -10,6 +10,8 @@ class IndexAction extends Action{
     }
 	
     private function toadmin() {
+		dump($this->user);
+		dump($this);
 		if($this->user){
 			$role = A("Method")->_checkRolesByUser('业务','银行',1);
 			if($role)
