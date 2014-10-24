@@ -4874,10 +4874,19 @@ class MethodAction extends CommonAction{
 				  $jisuan +=$va['value'];
 			  if($va['type'] == '支出项目')
 				  $zhichu +=$va['value'];
+			  if($va['type'] == '已收项目')
+				  $yishou +=$va['value'];
+			  if($va['type'] == '已付项目')
+				  $yifu +=$va['value'];
+			  if($va['type'] == '预收项目')
+				  $yushou +=$va['value'];
 		  }
 		  $editdat['chanpinID'] = $baozhangID;
 		  $editdat['baozhang']['yingshou_copy'] = $jisuan;
 		  $editdat['baozhang']['yingfu_copy'] = $zhichu;
+		  $editdat['baozhang']['yishou_copy'] = $yishou;
+		  $editdat['baozhang']['yifu_copy'] = $yifu;
+		  $editdat['baozhang']['yushou_copy'] = $yushou;
 		  $Chanpin->relation("baozhang")->myRcreate($editdat);
 	 }
 	

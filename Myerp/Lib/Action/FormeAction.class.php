@@ -819,6 +819,12 @@ class FormeAction extends Action{
 					$bzd["baozhang"]['yingshou_copy'] += $v['price'];
 					if($v['type'] == '支出项目')
 					$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+					if($v['type'] == '已收项目')
+					$bzd["baozhang"]['yishou_copy'] += $v['price'];
+					if($v['type'] == '已付项目')
+					$bzd["baozhang"]['yifu_copy'] += $v['price'];
+					if($v['type'] == '预收项目')
+					$bzd["baozhang"]['yushou_copy'] += $v['price'];
 				}
 			}
 			$bzd["baozhang"]['datatext'] = serialize($bzd["baozhang"]['datatext']);
@@ -933,6 +939,12 @@ class FormeAction extends Action{
 					$bzd["baozhang"]['yingshou_copy'] += $v['price'];
 					if($v['type'] == '支出项目')
 					$bzd["baozhang"]['yingfu_copy'] += $v['price'];
+					if($v['type'] == '已收项目')
+					$bzd["baozhang"]['yishou_copy'] += $v['price'];
+					if($v['type'] == '已付项目')
+					$bzd["baozhang"]['yifu_copy'] += $v['price'];
+					if($v['type'] == '预收项目')
+					$bzd["baozhang"]['yushou_copy'] += $v['price'];
 				}
 			}
 			$bzd["baozhang"]['datatext'] = serialize($bzd["baozhang"]['datatext']);
