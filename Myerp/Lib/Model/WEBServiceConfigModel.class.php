@@ -1,6 +1,6 @@
 <?php
 class WEBServiceConfigModel extends RelationModel {
-	protected $connection="mysql://root:@localhost:3306/gulianlvyou";
+	protected $connection="mysql://root:@127.0.0.1:3306/gulianlvyou";
 //	protected $connection = array(
 //        'DB_TYPE'=>'mysql',
 //        'DB_HOST'=>'localhost',
