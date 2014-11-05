@@ -26,17 +26,22 @@
 	htmlcontent += "<option value=\"抵值券\">抵值券</option>";
 	htmlcontent += "</select>";
 	htmlcontent += "</td>";
-	if(type == '结算项目'){
+	if(type == '结算项目' || type == '已收项目' || type == '已付项目' || type == '预收项目' || type == '预付项目' || type == '支出项目'){
+		var today = new Date();
+		var t = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
+		
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
 		htmlcontent += "</td>";
-	}
-	else if(type == '支出项目'){
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-		htmlcontent += "<input type=\"text\" id=\"renshu_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\"0\" >";
+		htmlcontent += "<input type=\"text\" id=\"paytime_t"+i+"\" style=\"width:80px;\" value=\""+ t +"\"  onfocus=\"WdatePicker()\">";
 		htmlcontent += "</td>";
-		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
-		htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
+		
+		if(type == '支出项目'){
+			htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
+			htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
+		}
+		
 	}
 	else{
 		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
@@ -52,6 +57,18 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
 	if(type == '结算项目'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else if(type == '已收项目'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else if(type == '已付项目'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else if(type == '预收项目'){
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+	}
+	else if(type == '预付项目'){
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '支出项目'){
@@ -100,6 +117,7 @@
 	var value = jQuery("#value"+mark+id).val();
 	var method = jQuery("#method"+mark+id).val();
 	var renshu = jQuery("#renshu"+mark+id).val();
+	var paytime = jQuery("#paytime"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
 	var expandID = jQuery("#expandID"+mark+id).val();
 	var expandtype = jQuery("#expandtype"+mark+id).val();
@@ -110,7 +128,7 @@
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+actionmethod+"/dopost_baozhangitem",
-		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&parentID="+parentID+it,
+		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&paytime="+paytime+"&parentID="+parentID+it,
 		success:function(msg){
 			jQuery("#btsave_"+id).attr("onclick",act); 
 			if(mark){
@@ -165,6 +183,26 @@
 		htmlcontent += "</select>";
 		htmlcontent += "</td>";
 		if(data['type'] == '结算项目'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+		}
+		else if(data['type'] == '已收项目'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+		}
+		else if(data['type'] == '已付项目'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+		}
+		else if(data['type'] == '预收项目'){
+			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
+			htmlcontent += "</td>";
+		}
+		else if(data['type'] == '预付项目'){
 			htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 			htmlcontent += "<input type=\"text\" id=\"renshu"+data['chanpinID']+"\" style=\"width:80px;\" check='^\\S+$' warning=\"人数不能为空,且不能含有空格\" value=\""+data['renshu']+"\">";
 			htmlcontent += "</td>";
