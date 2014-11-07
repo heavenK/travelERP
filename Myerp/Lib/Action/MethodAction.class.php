@@ -3520,6 +3520,61 @@ class MethodAction extends CommonAction{
 			$this->ajaxReturn($_REQUEST, $Chanpin->getError(), 0);
 	}
 	
+		public function _dosavebaozhangitem_auto($type) {
+		
+		if($type == '子团'){
+			//判断计调角色
+			$omrole = '计调';
+			$omtype = '组团';
+		}
+		
+		$Chanpin = D("Chanpin");
+		$ViewBaozhangitem = D("ViewBaozhangitem");
+		
+		$baozhang = $Chanpin->where("`parentID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
+		if(!$baozhang)
+			return false;
+
+		$renshu = 0;
+		for($i = 0;$i<$_REQUEST['chengrenshu']+$_REQUEST['ertongshu'];$i++){
+			$jiage += $_REQUEST['price'.$i];
+			$renshu++;
+		}
+		
+		if($_REQUEST['jiage']) $jiage = $_REQUEST['jiage'];
+		
+		$_REQUEST['title'] = '团队订单';
+
+		$datas = array(
+			'parentID'	=>	$baozhang['chanpinID'],
+			'title'		=>	'团队订单',
+			'value'		=>	$jiage,
+			'type'		=>	'结算项目',
+			'paytime'	=>	time(),
+			'method'	=>	'现金',
+			'renshu'	=>	$renshu,
+			
+		);
+
+
+		$data = $datas;
+		$data['deparmentID'] = $baozhang['deparmentID'];
+		$data['baozhangitem'] = $datas;
+
+		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
+			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+			if($Chanpin->getLastmodel() == 'add'){
+				//生成OM
+				$this->_OMRcreate($_REQUEST['chanpinID'],'报账项');
+				//自动申请审核
+				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
+				$_REQUEST['dotype'] = '申请';
+				$_REQUEST['datatype'] = '报账项';
+				$_REQUEST['title'] = $_REQUEST['title'];
+				$this->_autoshenqing();
+			}
+		}
+	}
 	
 	
 	public function _deleteBaozhangitem() {

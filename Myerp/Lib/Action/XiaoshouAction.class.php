@@ -707,6 +707,12 @@ class XiaoshouAction extends Action{
 		$dat['dingdan']['lxr_email'] = $_REQUEST['lxr_email'];
 		$dat['status'] = $_REQUEST['status'];
 		if( false !== $Chanpin->relation("dingdan")->myRcreate($dat)){
+				
+			
+			if($_REQUEST['type'] == 'all') {
+				$_REQUEST = $dingdan;
+				A('Method')->_dosavebaozhangitem_auto($data['type']);
+			}
 //			if($_REQUEST['status'] == '确认'){
 //				$_REQUEST['dataID'] = $dingdanID;
 //				$_REQUEST['datatype'] = '订单';
