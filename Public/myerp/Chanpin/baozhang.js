@@ -4,7 +4,12 @@
  {
 	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"itemlist_t"+i+"\">";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
+	
+	if(type == '已收项目' || type == '已付项目'){
+		var flag  = type;
+	}
+	
+	htmlcontent += "<td scope=\"row\" align=\"right\" valign=\"top\">"+flag+"</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
 	htmlcontent += "</td>";
@@ -36,6 +41,10 @@
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "<input type=\"text\" id=\"paytime_t"+i+"\" style=\"width:80px;\" value=\""+ t +"\"  onfocus=\"WdatePicker()\">";
 		htmlcontent += "</td>";
+		
+		if(type == '已收项目' || type == '已付项目'){
+			htmlcontent += "<input type=\"hidden\" id=\"pid_t"+i+"\" value=\""+other+"\">";
+		}
 		
 		if(type == '支出项目'){
 			htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
@@ -79,7 +88,8 @@
 	}
     htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"></td>";
 	htmlcontent += "</tr>";
-	jQuery("#"+divname).append(htmlcontent);
+	if(type == '已付项目' || type == '已收项目')	jQuery("#"+divname).after(htmlcontent);
+	else	jQuery("#"+divname).append(htmlcontent);
 	if(type == '利润'){
 		if(other == '部门')
 		myautocomplete("#title_t"+i,'部门');
@@ -119,10 +129,13 @@
 	var renshu = jQuery("#renshu"+mark+id).val();
 	var paytime = jQuery("#paytime"+mark+id).val();
 	var remark = jQuery("#remark"+mark+id).val();
+	var pid = jQuery("#pid"+mark+id).val();
 	var expandID = jQuery("#expandID"+mark+id).val();
 	var expandtype = jQuery("#expandtype"+mark+id).val();
 	if(expandID)
 		it += "&expandID="+expandID+"&expandtype="+expandtype
+	if(pid)
+		it += "&pid="+pid;
 	title = FixJqText(title);
 	remark = FixJqText(remark);
 	jQuery.ajax({
@@ -130,10 +143,11 @@
 		url:	SITE_INDEX+actionmethod+"/dopost_baozhangitem",
 		data:	"type="+type+"&title="+title+"&method="+method+"&remark="+remark+"&value="+value+"&renshu="+renshu+"&paytime="+paytime+"&parentID="+parentID+it,
 		success:function(msg){
-			jQuery("#btsave_"+id).attr("onclick",act); 
+			jQuery("#btsave_"+id).attr("onclick",act);
 			if(mark){
 //				ThinkAjax.myAjaxResponse(msg,'resultdiv',om_save,id,divname,expandtype);
 				ThinkAjax.myAjaxResponse(msg,'',om_save,id,divname,expandtype);
+				
 			}
 			else{
 				ThinkAjax.myAjaxResponse(msg,'',save_g_after);
@@ -247,6 +261,9 @@
 			myautocomplete("#title"+data['chanpinID'],'商户条目');
 		}
 		art.dialog.get('id-demo').content('完成').time(2000);
+	}
+	else{
+		art.dialog.get('id-demo').content(info).time(4000);
 	}
  }
 

@@ -2980,8 +2980,18 @@ class MethodAction extends CommonAction{
 		}
 		
 		$baozhang['datatext'] = simple_unserialize($baozhang['datatext']);
+		
+		$baozhangitemlist = array();
+		foreach($baozhang['baozhangitemlist'] as $key=>$val){
+			if(!$val['pid']) continue;
+			
+			$baozhangitemlist[$val['pid']][] = $val;
+			
+		}
+		
 		$this->assign("baozhang",$baozhang);
 		$this->assign("baozhang_data",$baozhang);
+		$this->assign("baozhangitemlist",$baozhangitemlist);
 		if(!$baozhang){
 			$this->assign("message",'报账单数据异常，未找到相关数据！');
 			$this->display('Index:error');
@@ -3441,6 +3451,29 @@ class MethodAction extends CommonAction{
 			if(!$_REQUEST['title'])
 				$this->ajaxReturn($_REQUEST,'标题不能为空,且不能含有空格！', 0);
 			$_REQUEST['paytime'] = strtotime($_REQUEST['paytime']);
+			
+			
+			if($_REQUEST['pid']){
+				$piditem = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[pid]'")->find();
+				
+				if($piditem){
+					$subitem = $ViewBaozhangitem->where("`status_system`=1 AND `pid` = '$_REQUEST[pid]'")->select();
+					$sum_money = $_REQUEST['value'];
+					foreach($subitem as $key=>$val){
+						
+						if($val['chanpinID'] == $_REQUEST['chanpinID']) continue;
+						
+						$sum_money += $val['value'];
+					}
+					
+					if($sum_money > $piditem['value'])	$this->ajaxReturn($_REQUEST,'您的实际总金额超过了预计金额！', 0);
+					
+				}else{
+					$this->ajaxReturn($_REQUEST,'错误，不存在目标应收或应付！', 0);
+				}
+			}
+			
+			
 			$data = $_REQUEST;
 			$data['deparmentID'] = $baozhang['deparmentID'];
 			$data['baozhangitem'] = $_REQUEST;
