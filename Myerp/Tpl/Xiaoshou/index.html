@@ -136,7 +136,7 @@
                           </td>
                           <td valign="top" align="left" colspan="10" class="sall_td" style=" height:37px; overflow:hidden; width:100%; float:left " id="sall_td<{$i}>">
                             <php>foreach($v['zituan'] as $vol){</php>
-                                <a <php>if($vol['chutuanriqi'] < date('Y-m-d')){</php> style="background:#CDCDCD"<php>}</php> target="_blank" href="<{:SITE_INDEX}>Xiaoshou/zituan/chanpinID/<{$vol['chanpinID']}>/xianluID/<{$vol['parentID']}>/shoujiaID/<{$v['dataID']}>" ><{$vol['chutuanriqi']}><br /> 报名:<{$baoming_renshu[$vol['chanpinID']]}>人 剩余:<{$vol['shengyurenshu']}></a>
+                                <a <php>if($vol['chutuanriqi'] < date('Y-m-d' || (time()-strtotime(jisuanriqi($vol['chutuanriqi'],$vol['baomingjiezhi'],'减少')) <= 0 ))){</php> style="background:#CDCDCD"<php>}</php> target="_blank" href="<{:SITE_INDEX}>Xiaoshou/zituan/chanpinID/<{$vol['chanpinID']}>/xianluID/<{$vol['parentID']}>/shoujiaID/<{$v['dataID']}>" ><{$vol['chutuanriqi']}><br /> 报名:<{$baoming_renshu[$vol['chanpinID']]}>人 剩余:<{$vol['shengyurenshu']}></a>
                             <php>}</php>
                           </td>
                         </tr>  
