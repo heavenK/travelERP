@@ -65,8 +65,14 @@ class PHPExcelAction extends Action {
                 //$dat['yk'] = number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);
                 $list['datalist'][] = $dat;
         }
-        dump($list);
-        $this->wirteToExcel($list,$filename);
+        //dump($list);
+        //$this->wirteToExcel($list,$filename);
+
+        //导出Excel必备头
+        header("Content-type:application/vnd.ms-excel");
+        header("Content-Disposition:attachment;filename=" . $title . ".xls");
+        $this->display("Chanpin:exports_1");
+
 
     }
 
