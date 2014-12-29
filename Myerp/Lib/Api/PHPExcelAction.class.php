@@ -88,14 +88,14 @@ class PHPExcelAction extends Action {
 		$keylist = $data['key'];
 		$datalist = $data['datalist'];
         foreach($keylist as $v){
-            $objPHPExcel->setActiveSheetIndex(0)->setAutoSize(true)->setCellValue($k.$n, $v);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($k.$n, $v);
             $k++;
         }
        $n = '2';
        foreach($datalist as $vol){
             $k = 'A';
            foreach($vol as $val){
-               $objPHPExcel->setActiveSheetIndex(0)->setAutoSize(true)->setCellValue($k.$n, $val);
+               $objPHPExcel->setActiveSheetIndex(0)->setCellValue($k.$n, $val);
                $k++;
            }
            $n++;
