@@ -103,7 +103,7 @@ dump(55555555);
            }
            $n++;
        }
-
+dump(6666);
         // Rename worksheet
         $objPHPExcel->getActiveSheet()->setTitle('Simple');
         
@@ -114,6 +114,10 @@ dump(55555555);
 //		$callStartTime = microtime(true);
 //		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //		$objWriter->save($file_path);
+dump(77777);
+dump(PHPExcel_IOFactory);
+
+
 
         // Save Excel 2007 file
         $callStartTime = microtime(true);
