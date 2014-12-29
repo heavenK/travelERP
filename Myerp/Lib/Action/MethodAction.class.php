@@ -178,7 +178,21 @@ class MethodAction extends CommonAction{
 	
 	
 	//关键字高亮
-    public function _keyStar($redata,$_REQUEST) {
+    public function _keyStar($redata,$_REQUEST_temp) {
+
+		foreach($_REQUEST_temp as $key_t => $val_t){
+    		$i = 0;
+    		foreach($_REQUEST as $key => $val){
+    			if($key_t == $key){
+    				$i++;
+    				continue;
+    			}
+    			$_REQUEST_temp[] = $_REQUEST[$i];
+    			$i++;
+    		}
+    	}
+		$_REQUEST = $_REQUEST_temp;
+    	
 		$i = 0;
 		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
 			  foreach($redata['chanpin'] as $v){
