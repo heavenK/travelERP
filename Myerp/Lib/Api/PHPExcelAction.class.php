@@ -74,8 +74,11 @@ class PHPExcelAction extends Action {
 
 
     public function wirteToExcel($data,$filename='') {
-
+dump(4444444444);
         import('Lib.ORG.PHPExcel.Classes.PHPExcel',APP_PATH,'.php');
+
+dump(55555555);
+
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
         
