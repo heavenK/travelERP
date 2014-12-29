@@ -23,7 +23,9 @@ class PHPExcelAction extends Action {
         $where = A("Method")->_facade($class_name,$where);//过滤搜索项
         //$chanpin = D($class_name)->relation($relation)->where($where)->order($order)->select();
         $chanpin = D($class_name)->where($where)->order($order)->select();
+        dump(123123123);
         dump($chanpin);
+        exit;
         return  $chanpin;
     }
 
