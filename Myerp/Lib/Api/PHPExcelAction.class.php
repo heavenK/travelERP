@@ -26,7 +26,7 @@ class PHPExcelAction extends Action {
         //$chanpin = D("ViewZituan")->limit(2)->select();
         //dump($chanpin);
         //dump(D($class_name));
-        //dump($chanpin);
+        dump($chanpin);
         //dump(D($class_name));
         //exit;
         return  $chanpin;
