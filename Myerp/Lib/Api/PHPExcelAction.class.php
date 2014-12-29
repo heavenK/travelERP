@@ -116,6 +116,7 @@ dump(6666);
 //		$objWriter->save($file_path);
 dump(77777);
 dump(PHPExcel_IOFactory);
+dump($objWriter);
 
 
 
