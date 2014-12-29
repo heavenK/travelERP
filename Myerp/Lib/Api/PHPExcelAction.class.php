@@ -65,7 +65,7 @@ class PHPExcelAction extends Action {
                 //$dat['yk'] = number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);
                 $list['datalist'][] = $dat;
         }
-
+        dump($list);
         $this->wirteToExcel($list,$filename);
 
     }
@@ -116,7 +116,7 @@ class PHPExcelAction extends Action {
         $callStartTime = microtime(true);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($filename);
-
+dump(111111111);
         header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
 
 
