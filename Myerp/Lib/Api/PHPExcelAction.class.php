@@ -11,9 +11,6 @@ class PHPExcelAction extends Action {
 
 
     public function get_bzd_info($datatype,$relation,$where) {
-
-dump(12313);
-exit;
         if($datatype == '子团'){
             //优化查询
             if($where){
