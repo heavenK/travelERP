@@ -26,9 +26,9 @@ class PHPExcelAction extends Action {
         //$chanpin = D("ViewZituan")->limit(2)->select();
         //dump($chanpin);
         //dump(D($class_name));
-        //dump($chanpin);
+        dump($chanpin);
         // dump(D($class_name));
-        // exit;
+        exit;
         $this->bzd_exl($chanpin);
 
         //return  $chanpin;
@@ -120,7 +120,7 @@ class PHPExcelAction extends Action {
         $callStartTime = microtime(true);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($filename);
-        
+
         header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
 
 
