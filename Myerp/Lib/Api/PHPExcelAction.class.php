@@ -26,10 +26,12 @@ class PHPExcelAction extends Action {
         //$chanpin = D("ViewZituan")->limit(2)->select();
         //dump($chanpin);
         //dump(D($class_name));
-        dump($chanpin);
-        //dump(D($class_name));
-        //exit;
-        return  $chanpin;
+        //dump($chanpin);
+        // dump(D($class_name));
+        // exit;
+        $this->bzd_exl($chanpin);
+
+        //return  $chanpin;
     }
 
 
@@ -65,10 +67,124 @@ class PHPExcelAction extends Action {
                 //$dat['yk'] = number_format($v[baozhang]['yingshou_copy']-$v[baozhang]['yingfu_copy']);
                 $list['datalist'][] = $dat;
         }
-        dump($list);
-        $this->wirteToExcel($list,$filename);
+        
+        $this->wirteToExcel_2($list,$filename);
+
 
     }
+
+
+
+    public function wirteToExcel_2($data,$filename='') {
+        Vendor ( 'Excel.PHPExcel' );
+
+
+        // Create new PHPExcel object
+        $objPHPExcel = new PHPExcel();
+        
+        // Set document properties
+        $objPHPExcel->getProperties()->setCreator("neconano");
+        
+        // Add some data
+        $n = 1;
+        $k = 'A';
+        $keylist = $data['key'];
+        $datalist = $data['datalist'];
+        foreach($keylist as $v){
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($k.$n, $v);
+            $k++;
+        }
+       $n = '2';
+       foreach($datalist as $vol){
+            $k = 'A';
+           foreach($vol as $val){
+               $objPHPExcel->setActiveSheetIndex(0)->setCellValue($k.$n, $val);
+               $k++;
+           }
+           $n++;
+       }
+        // Rename worksheet
+        $objPHPExcel->getActiveSheet()->setTitle('Simple');
+        
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        // Save Excel 2007 file
+//      $callStartTime = microtime(true);
+//      $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+//      $objWriter->save($file_path);
+
+
+
+        // Save Excel 2007 file
+        $callStartTime = microtime(true);
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save($filename);
+        
+        header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+        * 导出数据为excel表格
+        *@param $data    一个二维数组,结构如同从数据库查出来的数组
+        *@param $title   excel的第一行标题,一个数组,如果为空则没有标题
+        *@param $filename 下载的文件名
+        *@examlpe 
+        $stu = M ('User');
+        $arr = $stu -> select();
+        exportexcel($arr,array('id','账户','密码','昵称'),'文件名!');
+    */
+    public function exportexcel($datalist=array(),$filename='report'){
+
+        header("Content-type:application/octet-stream");
+        header("Accept-Ranges:bytes");
+        header("Content-type:application/vnd.ms-excel");  
+        header("Content-Disposition:attachment;filename=".$filename.".xls");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $data = $datalist['datalist'];
+        $title = $datalist['key'];
+
+        //导出xls 开始
+        if (!empty($title)){
+            foreach ($title as $k => $v) {
+                $title[$k]=iconv("UTF-8", "GB2312",$v);
+                //$title[$k]=iconv("GB2312", "UTF-8",$v);
+            }
+            $title= implode("\t", $title);
+            echo "$title\n";
+        }
+        if (!empty($data)){
+            foreach($data as $key=>$val){
+                foreach ($val as $ck => $cv) {
+                    $data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
+                    //$data[$key][$ck]=iconv("GB2312", "UTF-8", $cv);
+                }
+                $data[$key]=implode("\t", $data[$key]);
+                
+            }
+            echo implode("\n",$data);
+        }
+    }
+
+
+
+
 
 
 
