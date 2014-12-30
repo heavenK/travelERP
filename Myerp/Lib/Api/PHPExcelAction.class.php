@@ -114,11 +114,15 @@ class PHPExcelAction extends Action {
 
 
         // Save Excel 2007 file
-/*        $callStartTime = microtime(true);
+        $callStartTime = microtime(true);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($filename);
-*/
-        header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
+
+dump(PHPExcel_IOFactory);
+dump($objWriter);
+
+
+        //header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
 
 
     }
