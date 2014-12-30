@@ -28,7 +28,6 @@ class PHPExcelAction extends Action {
         //dump(D($class_name));
         dump($chanpin);
         // dump(D($class_name));
-        exit;
         $this->bzd_exl($chanpin);
 
         //return  $chanpin;
@@ -77,8 +76,6 @@ class PHPExcelAction extends Action {
 
     public function wirteToExcel_2($data,$filename='') {
         Vendor ( 'Excel.PHPExcel' );
-dump(3333);
-        exit;
 
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
