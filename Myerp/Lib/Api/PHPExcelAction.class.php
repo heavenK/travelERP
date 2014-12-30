@@ -74,7 +74,11 @@ class PHPExcelAction extends Action {
 
 
 
+
+
+
     public function wirteToExcel_2($data,$filename='') {
+        
         Vendor ( 'Excel.PHPExcel' );
 
         // Create new PHPExcel object
@@ -107,21 +111,21 @@ class PHPExcelAction extends Action {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $objPHPExcel->setActiveSheetIndex(0);
 
-        // Save Excel 2007 file
-//      $callStartTime = microtime(true);
-//      $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//      $objWriter->save($file_path);
+        // Redirect output to a client’s web browser (Excel5)
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="01simple.xls"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
 
-dump(1111);
-dump(PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'));
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
 
-        // Save Excel 2007 file
-        $callStartTime = microtime(true);
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save($filename);
-        
-dump($objWriter);
-
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
 
         //header ("Location: "."http://".$_SERVER['HTTP_HOST'].'/'.$filename);
 
