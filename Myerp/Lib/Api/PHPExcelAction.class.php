@@ -112,13 +112,14 @@ class PHPExcelAction extends Action {
 //      $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //      $objWriter->save($file_path);
 
+dump(1111);
+dump(PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'));
 
         // Save Excel 2007 file
         $callStartTime = microtime(true);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($filename);
-
-dump(PHPExcel_IOFactory);
+        
 dump($objWriter);
 
 
