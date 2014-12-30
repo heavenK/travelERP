@@ -13,6 +13,8 @@ class PHPExcelAction extends Action {
             if($where){
                 $class_name = 'ViewZituan';
                 $order = 'chutuanriqi desc';
+                // 搜索处理
+                $where['title_copy'] = $where['title'];
                 $where = A("Method")->_orderZituan($where,$datatype);
             }
             $where['datatype'] = $datatype;
@@ -20,6 +22,7 @@ class PHPExcelAction extends Action {
         $where = A("Method")->_facade($class_name,$where);//过滤搜索项
         //$chanpin = D($class_name)->relation($relation)->where($where)->order($order)->select();
         $chanpin = D($class_name)->where($where)->order($order)->limit(1000)->select();
+
         //dump($chanpin);
         $this->bzd_exl($chanpin);
     }
