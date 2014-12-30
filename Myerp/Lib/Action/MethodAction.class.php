@@ -3483,7 +3483,7 @@ class MethodAction extends CommonAction{
 		else{
 			if(!$_REQUEST['title'])
 				$this->ajaxReturn($_REQUEST,'标题不能为空,且不能含有空格！', 0);
-			$_REQUEST['paytime'] = strtotime($_REQUEST['paytime']);
+			if($_REQUEST['paytime'])	$_REQUEST['paytime'] = strtotime($_REQUEST['paytime']);
 			
 			
 			if($_REQUEST['pid']){
