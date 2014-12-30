@@ -153,22 +153,26 @@ class MethodAction extends CommonAction{
 		$DataOM = D($class_name);
 		if(!$distinctfield)
 		$distinctfield = 'dataID';
-		if($ajaxdiv)
-        import("@.ORG.OldPage");
-		else
-        import("@.ORG.Page");
-        C('PAGE_NUMBERS',10);
-		$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
-		$count = count($tempcount);
-		$p= new Page($count,$pagenum);
-		if($ajaxdiv)
-		$page = $p->show_ajax($ajaxdiv);
-		else
-		$page = $p->show();
-		if(!$order)
-			$order = 'time desc';
-        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
-		
+		/*查找全部*/
+		if($pagenum == 0){
+	        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->order($order)->select();
+		}else{
+			if($ajaxdiv)
+	        import("@.ORG.OldPage");
+			else
+	        import("@.ORG.Page");
+	        C('PAGE_NUMBERS',10);
+			$tempcount = $DataOM->Distinct(true)->field($distinctfield)->where($where)->findall();
+			$count = count($tempcount);
+			$p= new Page($count,$pagenum);
+			if($ajaxdiv)
+			$page = $p->show_ajax($ajaxdiv);
+			else
+			$page = $p->show();
+			if(!$order)
+				$order = 'time desc';
+	        $chanpin = $DataOM->relation($relation)->Distinct(true)->field($distinctfield)->where($where)->limit($p->firstRow.','.$p->listRows)->order($order)->select();
+		}
 		$chanpin = $this->_getRelation_select_after($chanpin,$relation);
 		$redata['page'] = $page;
 		$redata['chanpin'] = $chanpin;
@@ -178,7 +182,21 @@ class MethodAction extends CommonAction{
 	
 	
 	//关键字高亮
-    public function _keyStar($redata,$_REQUEST) {
+    public function _keyStar($redata,$_REQUEST_temp) {
+
+		foreach($_REQUEST_temp as $key_t => $val_t){
+    		$i = 0;
+    		foreach($_REQUEST as $key => $val){
+    			if($key_t == $key){
+    				$i++;
+    				continue;
+    			}
+    			$_REQUEST_temp[] = $_REQUEST[$i];
+    			$i++;
+    		}
+    	}
+		$_REQUEST = $_REQUEST_temp;
+		
 		$i = 0;
 		if($_REQUEST['title'] || $_REQUEST['tuanhao']){
 			  foreach($redata['chanpin'] as $v){
@@ -264,6 +282,8 @@ class MethodAction extends CommonAction{
 	
 	//定制子团搜索条件
     public function _orderZituan($where,$datatype) {
+		if(!is_array($where))
+    		return false;
 		//处理搜索
 		if($where['bzd_status'] == '未报账')
 			$where['status_baozhang'] = array('neq','批准');
@@ -2186,7 +2206,20 @@ class MethodAction extends CommonAction{
 	 
 	 
 	 //生成团员
-     public function createCustomer_new($_REQUEST,$dingdanID) {
+     public function createCustomer_new($_REQUEST_temp,$dingdanID) {
+     	
+     	foreach($_REQUEST_temp as $key_t => $val_t){
+     		$i = 0;
+     		foreach($_REQUEST as $key => $val){
+     			if($key_t == $key){
+     				$i++;
+     				continue;
+     			}
+     			$_REQUEST_temp[] = $_REQUEST[$i];
+     			$i++;
+     		}
+     	}
+     	$_REQUEST = $_REQUEST_temp;
 		//检查dataOM
 		$omdingdan = $this->_checkDataOM($dingdanID,'订单');
 		if(false === $omdingdan){
@@ -4194,35 +4227,27 @@ class MethodAction extends CommonAction{
 			$_REQUEST['status_baozhang'] = '未审核';
 		}
 		
-		if($dotype == '补订订单'){
-			$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
+		/*导出到exl*/
+		if($_GET['returnType'] == 'excel' || $_GET['returnType'] == 'exl'){
+			$datalist = A2("PHPExcel","Api")->get_bzd_info('子团','zituan',$_REQUEST);
+			//A2("PHPExcel","Api")->bzd_exl($datalist);
+			exit;
 		}
-		else{
-			$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
-			$ViewDingdan = D("ViewDingdan");
-			$ViewBaozhang = D("ViewBaozhang");
-			$DataCD = D("DataCD");
-			$i = 0;
-			foreach($datalist['chanpin'] as $v){
-				//搜索订单
-				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
-				foreach($dingdanall as $vol){
-					$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
-					foreach($customerall as $c){
-						if($c['ispay'] == '已付款'){
-							$datalist['chanpin'][$i]['payed'] += $c['price'];
-						}
-						if($c['ispay'] == '未付款'){
-							$datalist['chanpin'][$i]['unpay'] += $c['price'];
-						}
-						$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
-					}
-				}
-				$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
-				foreach($dingdanall as $vol){
-					if($vol['status'] == '确认'){
-						$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
-						//团费确认
+		else
+		{
+			if($dotype == '补订订单'){
+				$datalist = $this->data_list_noOM('ViewZituan',$_REQUEST);
+			}
+			else{
+				$datalist = $this->getDataOMlist('子团','zituan',$_REQUEST);
+				$ViewDingdan = D("ViewDingdan");
+				$ViewBaozhang = D("ViewBaozhang");
+				$DataCD = D("DataCD");
+				$i = 0;
+				foreach($datalist['chanpin'] as $v){
+					//搜索订单
+					$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' AND `status` = '确认'")->findall();
+					foreach($dingdanall as $vol){
 						$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
 						foreach($customerall as $c){
 							if($c['ispay'] == '已付款'){
@@ -4234,30 +4259,47 @@ class MethodAction extends CommonAction{
 							$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
 						}
 					}
-					if($vol['status'] == '占位'){
-						$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+					$dingdanall = $ViewDingdan->where("`parentID` = '$v[chanpinID]' and `status_system` = 1")->findall();
+					foreach($dingdanall as $vol){
+						if($vol['status'] == '确认'){
+							$datalist['chanpin'][$i]['queren_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+							//团费确认
+							$customerall = $DataCD->where("`dingdanID` = '$vol[chanpinID]'")->findall();
+							foreach($customerall as $c){
+								if($c['ispay'] == '已付款'){
+									$datalist['chanpin'][$i]['payed'] += $c['price'];
+								}
+								if($c['ispay'] == '未付款'){
+									$datalist['chanpin'][$i]['unpay'] += $c['price'];
+								}
+								$datalist['chanpin'][$i]['tuanfei'] += $c['price'];
+							}
+						}
+						if($vol['status'] == '占位'){
+							$datalist['chanpin'][$i]['zhanwei_num'] += $vol['chengrenshu'] + $vol['ertongshu'];
+						}
 					}
-				}
-				$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
-				
-				//报账单
-				$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
-				$datalist['chanpin'][$i]['baozhang'] = $bzd;
-				//二次确认订单
-				if($_REQUEST['second_confirm'] == 1){
-					$WEBServiceOrder = D("WEBServiceOrder");
-					$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
-					$yudinglist = '';
-					foreach($orderall as $ord){
-						$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
-						$yudinglist['chengrenshu'] += $ord['chengrenshu'];
-						$yudinglist['ertongshu'] += $ord['ertongshu'];
+					$datalist['chanpin'][$i]['shengyu_num'] = $v['renshu'] - $datalist['chanpin'][$i]['queren_num'] - $datalist['chanpin'][$i]['zhanwei_num'];
+					
+					//报账单
+					$bzd = $ViewBaozhang->where("`parentID` = '$v[chanpinID]'")->find();
+					$datalist['chanpin'][$i]['baozhang'] = $bzd;
+					//二次确认订单
+					if($_REQUEST['second_confirm'] == 1){
+						$WEBServiceOrder = D("WEBServiceOrder");
+						$orderall = $WEBServiceOrder->where("`clientdataID` = '$v[chanpinID]'")->findall();
+						$yudinglist = '';
+						foreach($orderall as $ord){
+							$yudinglist['renshu'] += $ord['chengrenshu']+$ord['ertongshu'];
+							$yudinglist['chengrenshu'] += $ord['chengrenshu'];
+							$yudinglist['ertongshu'] += $ord['ertongshu'];
+						}
+						$datalist['chanpin'][$i]['orderall'] = $orderall;
+						$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
 					}
-					$datalist['chanpin'][$i]['orderall'] = $orderall;
-					$datalist['chanpin'][$i]['yudinglist'] = $yudinglist;
+					
+					$i++;
 				}
-				
-				$i++;
 			}
 		}
 		
@@ -5104,7 +5146,20 @@ class MethodAction extends CommonAction{
 	
 	
 	//检查名单
-	public function _ckeck_customer_list($_REQUEST,$dingdanID) {
+	public function _ckeck_customer_list($_REQUEST_temp,$dingdanID) {
+		
+		foreach($_REQUEST_temp as $key_t => $val_t){
+			$i = 0;
+			foreach($_REQUEST as $key => $val){
+				if($key_t == $key){
+					$i++;
+					continue;
+				}
+				$_REQUEST_temp[] = $_REQUEST[$i];
+				$i++;
+			}
+		}
+		$_REQUEST = $_REQUEST_temp;
 		$Chanpin = D("Chanpin");
 		$ViewDingdan = D("ViewDingdan");
 		$dingdan = $ViewDingdan->where("`chanpinID` = '$dingdanID' AND (`status_system` = '1')")->find();

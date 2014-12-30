@@ -1,4 +1,26 @@
 <?php
+
+
+function A2($name,$layer='Action') {
+	static $_action = array();
+	if(isset($_action[$name]))
+		return $_action[$name];
+	if(strpos($name,'://')) {// 指定项目
+		$name   =  str_replace('://','/'.$layer.'/',$name);
+	}else{
+		$name   =  '@/'.$layer.'/'.$name;
+	}
+	import($name.'Action');
+	$class   =   basename($name.'Action');
+	if(class_exists($class,false)) {
+		$action = new $class();
+		$_action[$name]  =  $action;
+		return $action;
+	}else {	
+		return false;
+	}
+}
+
 /***********************************************************
     [EasyTalk] (C)2009 - 2011 nextsns.com
     This is NOT a freeware, use is subject to license terms
