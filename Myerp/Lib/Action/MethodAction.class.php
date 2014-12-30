@@ -4228,7 +4228,7 @@ class MethodAction extends CommonAction{
 		}
 		
 		/*导出到exl*/
-		if($_GET['returnType'] == 'excel'){
+		if($_GET['returnType'] == 'excel' || $_GET['returnType'] == 'exl'){
 			$datalist = A2("PHPExcel","Api")->get_bzd_info('子团','zituan',$_REQUEST);
 			//A2("PHPExcel","Api")->bzd_exl($datalist);
 			exit;
