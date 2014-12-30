@@ -77,7 +77,8 @@ class PHPExcelAction extends Action {
 
     public function wirteToExcel_2($data,$filename='') {
         Vendor ( 'Excel.PHPExcel' );
-
+dump(3333);
+        exit;
 
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
