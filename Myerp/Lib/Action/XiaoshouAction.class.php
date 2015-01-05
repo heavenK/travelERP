@@ -333,6 +333,7 @@ class XiaoshouAction extends Action{
 			if($shoujia['childprice'] - $shoujia['cut'] > $_REQUEST['childprice'])
 				$this->ajaxReturn($_REQUEST,'错误,儿童售价超过可折扣范围！', 0);
 		}
+		$this->ajaxReturn($_REQUEST,$shengyurenshu, 0);
 		//检查人数
 		if($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num'] <= 0 )
 			$this->ajaxReturn($_REQUEST,'错误,订单人数必须大于0！', 0);
@@ -356,7 +357,6 @@ class XiaoshouAction extends Action{
 			$chanpintype = $_REQUEST['chanpintype'];
 		$this->_ckeck_baoming($chanpintype);
 		
-		$this->ajaxReturn($_REQUEST,'asdf', 0);
 		//ajax测试
 		if($_REQUEST['ajaxtest'] == 1)
 			$this->ajaxReturn($_REQUEST,'成功！', 1);
