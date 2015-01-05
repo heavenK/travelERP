@@ -310,7 +310,9 @@ class XiaoshouAction extends Action{
 					else
 						$this->ajaxReturn($_REQUEST,'请正常提交订单！', 0);
 				}
-				//人数及人数检查
+				
+				
+				
 				$tuanrenshu = A("Method")->_getzituandingdan($_REQUEST['parentID'],$_REQUEST['shoujiaID']);
 				$shoujia_renshu = $tuanrenshu['shoujiarenshu'];
 				$baomingrenshu = $tuanrenshu['baomingrenshu'];
@@ -323,7 +325,9 @@ class XiaoshouAction extends Action{
 				}
 				else
 					$shengyurenshu = $zituan['renshu'] - $baomingrenshu;
+				$this->ajaxReturn($_REQUEST,$shengyurenshu, 0);
 					
+				
 				if($shengyurenshu - ($_REQUEST['chengrenshu'] + $_REQUEST['ertongshu'] + $_REQUEST['lingdui_num']) < 0)
 				$this->ajaxReturn($_REQUEST,'错误,订单人数超出剩余，请联系计调！', 0);
 			}
