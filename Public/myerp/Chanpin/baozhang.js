@@ -7,6 +7,8 @@
 	
 	if(type == '已收项目' || type == '已付项目'){
 		var flag  = type;
+	}else{
+		var flag = '';
 	}
 	
 	htmlcontent += "<td scope=\"row\" align=\"right\" valign=\"top\">"+flag+"</td>";
