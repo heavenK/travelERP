@@ -1,0 +1,168 @@
+<tp:includeCA file="Index:showheader" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+
+<div id="main">
+  <div id="content" style="margin-left:0;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    <include file="Index:search_baobiao" />
+    
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+      <tbody>
+        <tr class="pagination">
+          <td colspan="11">
+          <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+        </tr>
+        <php>if($type == '往来'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px;"><div> 往来单位 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应收期初 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 本期应收 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 本期已收 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 应收余额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 应付期初 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 本期应付 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 本期已付 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应付余额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 应收-应付 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $v){ $i++;
+        </php>
+      <tr height="40" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><{$i+1}></td>
+        <td scope="row" align="left" valign="top">
+        <{$v['title']}>
+        </td>
+        <td scope="row" align="left" valign="top">
+		<{$v['qichuyingshou']|default=0}>
+        </td>
+        <td scope="row" align="left" valign="top">
+        <{$v['yingshou']|default=0}>
+        </td>
+        <td scope="row" align="left" valign="top"><{$v['yishou']|default=0}></td>
+        <td scope="row" align="left" valign="top">
+        <{$v['qichuyingshou']+$v['yingshou']-$v[yishou]}>
+        </td>
+        <td scope="row" align="left" valign="top"><{$v['qichuyingfu']|default=0}></td>
+        <td scope="row" align="left" valign="top"><{$v['yingfu']|default=0}></td>
+        <td scope="row" align="left" valign="top"><{$v['yifu']|default=0}></td>
+        <td scope="row" align="left" valign="top"><{$v['qichuyingfu']+$v['yingfu']-$v[yifu]}></td>
+        <td scope="row" align="left" valign="top"><{$v['qichuyingshou']+$v['yingshou']-$v[yishou] - ($v['qichuyingfu']+$v['yingfu']-$v[yifu])}></td>
+      </tr>
+      <php> }</php>
+      <php>}</php>
+      
+      <php>if($type == '应收' || $type == '应付'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 团号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 标题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}> </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php> </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 余额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $key => $v){ $i++;
+        </php>
+      <tr height="40" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><{$i+1}></td>
+        <td scope="row" align="left" valign="top">
+        <{$v['tuanhao']}>
+        </td>
+        <td scope="row" align="left" valign="top">
+		<{$v['title_copy']}>
+        </td>
+        <td scope="row" align="left" valign="top">
+        <{$v['chutuanriqi']}>
+        </td>
+        <td scope="row" align="left" valign="top"><php>if($type=='应收') echo $v['yingshou'] ? $v['yingshou']:0; else echo $v['yingfu'] ? $v['yingfu']:0;</php></td>
+        <td scope="row" align="left" valign="top">
+        <php>if($type=='应收') echo $v['yishou'] ? $v['yishou']:0; else echo $v['yifu'] ? $v['yifu']:0;</php>
+        </td>
+        <td scope="row" align="left" valign="top">
+        <php>if($type=='应收') echo $v['yingshou'] - $v['yishou']; else echo $v['yingfu'] - $v['yifu'];</php>
+        </td>
+        <td scope="row" align="left" valign="top">
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo_item(<{$key}>);">
+                  </td>
+      </tr>
+      <php> }</php>
+      <php>}</php>
+      
+      
+      <php>if($type == '收款' || $type == '付款'){</php>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 往来单位 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>金额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>方式 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> <{$type}>日期 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 备注 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 操作 </div></th>
+        </tr>
+          <php>
+      $i = -1; foreach($chanpin_list as $v){ $i++;
+        </php>
+      <tr height="40" class="evenListRowS1">
+        <td scope="row" align="left" valign="top"><{$i+1}></td>
+        <td scope="row" align="left" valign="top">
+        <{$v['title']}>
+        </td>
+        <td scope="row" align="left" valign="top">
+		<{$v['value']|default=0}>
+        </td>
+        <td scope="row" align="left" valign="top">
+        <{$v['method']}>
+        </td>
+        <td scope="row" align="left" valign="top"><php>echo date('Y-m-d',$v['paytime'])</php></td>
+        <td scope="row" align="left" valign="top">
+        <{$v['remark']}>
+        </td>
+        <td scope="row" align="left" valign="top">
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo_item(<{$v['parentID']}>);">
+                  </td>
+      </tr>
+      <php> }</php>
+      <php>}</php>
+      
+        <tr class="pagination">
+          <td colspan="11">
+          <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+        </tr>
+        </tbody>
+      
+    </table>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />
+<script language="javascript"> 
+function showinfo_item(baozhangID){
+	window.open('<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/'+baozhangID);
+}
+function dosearch(str){
+		window.location = SITE_INDEX+'Baobiao/index/type/<{$type}>'+str;
+}
+</script>
+
+
+
+

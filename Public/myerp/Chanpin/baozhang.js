@@ -48,10 +48,10 @@
 			htmlcontent += "<input type=\"hidden\" id=\"pid_t"+i+"\" value=\""+other+"\">";
 		}
 		
-		if(type == '支出项目'){
-			htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
-			htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
-		}
+
+		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
+		htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
+
 		
 	}
 	else{
@@ -68,19 +68,19 @@
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input class=\"button\" type=\"button\" value=\"删除\" onclick=\"deleteSystemItem("+i+",'itemlist_t','temp');\" />";
 	if(type == '结算项目'){
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '已收项目'){
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '已付项目'){
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '预收项目'){
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '预付项目'){
-		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
+		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
 	}
 	else if(type == '支出项目'){
 		htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" id=\"btsave_"+i+"\" onClick=\"if(checktitle("+i+",'_t'))if(CheckForm('form_yingshou','resultdiv_2'))save("+i+",'itemlist_t','_t','"+type+"');\" /></td>";
@@ -98,7 +98,7 @@
 		if(other == '用户')
 		myautocomplete("#title_t"+i,'用户');
 	}
-	if(type == '支出项目'){
+	else{
 		myautocomplete("#title_t"+i,'商户条目');
 	}
 	
@@ -140,6 +140,7 @@
 		it += "&pid="+pid;
 	title = FixJqText(title);
 	remark = FixJqText(remark);
+
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+actionmethod+"/dopost_baozhangitem",

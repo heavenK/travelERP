@@ -103,6 +103,14 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
       <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Caiwu/tuansearch" id="grouptab_1">&nbsp;财务管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
       <php>}</php>
       <php>}</php>
+      <php>if($is_caiwu){</php>
+      <li class="noBorder">&nbsp;</li>
+      <php>if($navposition == '报表管理'){</php>
+      <li> <span class="currentTabLeft">&nbsp;</span><span class="currentTab"> <a href="<{:SITE_INDEX}>Baobiao/tuansearch" id="grouptab_9">&nbsp;报表管理&nbsp;</a> </span><span class="currentTabRight">&nbsp;</span> </li>
+      <php>}else{</php>
+      <li> <span class="notCurrentTabLeft">&nbsp;</span><span class="notCurrentTab"> <a href="<{:SITE_INDEX}>Baobiao/tuansearch" id="grouptab_9">&nbsp;报表管理&nbsp;</a> </span><span class="notCurrentTabRight">&nbsp;</span> </li>
+      <php>}</php>
+      <php>}</php>
       <php>if($is_wangguan){</php>
       <li class="noBorder">&nbsp;</li>
       <php>if($navposition == '系统管理'){</php>
@@ -317,7 +325,22 @@ var SITE_PUBLIC = '<{:__PUBLIC__}>';
     <ul>
       <li> <a href="<{:SITE_INDEX}>VIP/index">会员列表</a> </li>
     </ul>
-    </span> </div>
+    </span> <span id="moduleLink_9" 
+    
+    
+    
+    <php>if($navposition == '报表管理'){</php>
+    class="selected"
+    <php>}</php>
+    >
+    <ul>
+      <li> <a href="<{:SITE_INDEX}>Baobiao/index/type/往来">往来单位收支报表</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Baobiao/index/type/应收">团队应收报表</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Baobiao/index/type/应付">团队应付报表</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Baobiao/index/type/收款">收款明细报表</a> </li>
+      <li> <a href="<{:SITE_INDEX}>Baobiao/index/type/付款">付款明细报表</a> </li>
+    </ul>
+    </span></div>
     
     
   <div class="clear"></div>

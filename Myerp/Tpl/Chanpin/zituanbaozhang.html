@@ -157,7 +157,7 @@ jQuery().ready(function() {
 			//myautocomplete("#shanghutiaomu_add",'商户条目');
 	
 		<php>
-		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] != '支出项目') continue;$i++;
+		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;$i++;
 		</php>
 			myautocomplete("#title<{$v[chanpinID]}>",'商户条目');
 		<php>}</php>
@@ -452,6 +452,9 @@ jQuery().ready(function() {
       </table>
     </form>
     <form id="form_yingshou" name="form_yingshou" >
+    <strong>新增往来单位</strong>&nbsp;
+                    <input type="text" style="width:200px;" id="shanghutiaomu_add" />
+                      <input type="button" class="button" value=" 确认 " onclick="new_shanghutiaomu()">
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yushou_list">
         <tbody>
           <tr class="pagination">
@@ -466,7 +469,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -482,7 +485,10 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -511,7 +517,7 @@ jQuery().ready(function() {
           <{$v['shenhe_remark']}>
           </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
   
       <php>if($v['status_shenhe'] == '未审核'){</php>
           <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
@@ -547,7 +553,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -563,7 +569,10 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -592,7 +601,7 @@ jQuery().ready(function() {
           <{$v['shenhe_remark']}>
           </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
   
       <php>if($v['status_shenhe'] == '未审核'){</php>
           <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$v['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$v['chanpinID']}>,'<{$v['title']}>');">
@@ -629,7 +638,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -645,7 +654,10 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
               <option value="<{$v['method']}>"><{$v['method']}></option>
@@ -674,7 +686,7 @@ jQuery().ready(function() {
           <{$v['shenhe_remark']}>
           </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
-            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
+            <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
             <input type="button" class="button" value="+已收" onClick="insertItem('itemlist<{$v[chanpinID]}>','已收项目',<{$v['chanpinID']}>);"/>
             
   
@@ -699,7 +711,10 @@ jQuery().ready(function() {
           </php>
         	<tr height="30" class="evenListRowS1" id="itemlist<{$vo['chanpinID']}>">
               <td scope="row" align="right" valign="top">已收项目</td>
-              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+              <input type="hidden" id="expandID<{$vo['chanpinID']}>" value="<{$vo['expandID']}>">
+          	<input type="hidden" id="expandtype<{$vo['chanpinID']}>" value="<{$vo['expandtype']}>">
+              </td>
               <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$vo['chanpinID']}>" value="<{$vo['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
               <td scope="row" align="left" valign="top"><select id="method<{$vo['chanpinID']}>">
                   <option value="<{$vo['method']}>"><{$vo['method']}></option>
@@ -728,7 +743,7 @@ jQuery().ready(function() {
               <{$vo['shenhe_remark']}>
               </strong></td>
               <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vo['chanpinID']}>,'itemlist')" />
-                <input type="button" class="button" id="btsave_<{$vo['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$vo['chanpinID']}>,'itemlist');"/>
+                <input type="button" class="button" id="btsave_<{$vo['chanpinID']}>" value="修改" onClick="if(checktitle(<{$vo['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$vo['chanpinID']}>,'itemlist');"/>
       
           <php>if($vo['status_shenhe'] == '未审核'){</php>
               <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$vo['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$vo['chanpinID']}>,'<{$vo['title']}>');">
@@ -757,15 +772,12 @@ jQuery().ready(function() {
       <table cellpadding="0" cellspacing="0" width="100%" class="list view" id="yingfu_list">
         <tbody>
           <tr class="pagination">
-            <td colspan="10"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+            <td colspan="3"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
                 <tbody>
                   <tr>
                     <td nowrap="nowrap" class="paginationActionButtons" style=" background:#4E8CCF; color:#FFF"><strong>应付费用</strong>&nbsp;
                       <input type="button" class="button" value=" 新增 " onclick="insertItem('yingfu_list','支出项目');"></td>
-                    <td nowrap="nowrap" class="paginationActionButtons">
-                    <strong>新增商户条目</strong>&nbsp;
-                    <input type="text" style="width:200px;" id="shanghutiaomu_add" />
-                      <input type="button" class="button" value=" 确认 " onclick="new_shanghutiaomu()"></td>
+                 
                   </tr>
                 </tbody>
               </table>
@@ -773,7 +785,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -849,7 +861,10 @@ jQuery().ready(function() {
          
         	<tr height="30" class="evenListRowS1" id="itemlist<{$vo['chanpinID']}>">
               <td scope="row" align="right" valign="top">已付项目</td>
-              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>"  check="^\S+$" warning="标题不能为空,且不能含有空格" ></td>
+              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>"  check="^\S+$" warning="标题不能为空,且不能含有空格" >
+              <input type="hidden" id="expandID<{$vo['chanpinID']}>" value="<{$vo['expandID']}>">
+          	<input type="hidden" id="expandtype<{$vo['chanpinID']}>" value="<{$vo['expandtype']}>">
+              </td>
               <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$vo['chanpinID']}>" value="<{$vo['value']}>"  check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
               <td scope="row" align="left" valign="top"><select id="method<{$vo['chanpinID']}>">
                   <option value="<{$vo['method']}>"><{$vo['method']}></option>
@@ -878,7 +893,7 @@ jQuery().ready(function() {
               <{$vo['shenhe_remark']}>
               </strong></td>
               <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$vo['chanpinID']}>,'itemlist')" />
-                <input type="button" class="button" id="btsave_<{$vo['chanpinID']}>" value="修改" onClick="if(CheckForm('form_yingshou','resultdiv_2'))save(<{$vo['chanpinID']}>,'itemlist');"/>
+                <input type="button" class="button" id="btsave_<{$vo['chanpinID']}>" value="修改" onClick="if(checktitle(<{$vo['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$vo['chanpinID']}>,'itemlist');"/>
       
           <php>if($vo['status_shenhe'] == '未审核'){</php>
               <input type="button" class="button" value=" 申请审核 " id="btshenhe_<{$vo['chanpinID']}>" onclick="doshenhe_baozhangitem('申请','报账项',<{$vo['chanpinID']}>,'<{$vo['title']}>');">
@@ -919,7 +934,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>
