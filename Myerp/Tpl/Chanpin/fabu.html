@@ -59,7 +59,7 @@
             <td valign="top" style="min-width:350px;"><select class="button">
                 <option value="国内">国内</option>
               </select>
-              <select name="daqu_id" id="pos1" onchange="change_pos('1')" class="button">
+              <!--<select name="daqu_id" id="pos1" onchange="change_pos('1')" class="button">
                 <option value="0">请选择</option>
               </select>
               <select name="shengfen_id" id="pos2" onchange="change_pos('2')" class="button">
@@ -70,7 +70,9 @@
               </select>
               <input type="hidden" name="daqu" id="pos_name1"/>
               <input type="hidden" name="shengfen" id="pos_name2"/>
-              <input type="hidden" name="chengshi" id="pos_name3"/></td>
+              <input type="hidden" name="chengshi" id="pos_name3"/>-->
+              <input style="width:120px; " name="mudidi" type="text" id="mudidi" value="<php>echo trim($xianlu['mudidi'])</php>"  check="^\S+$" warning="目的地不能为空,且不能含有空格">
+              </td>
             <php>}else{</php> 
             <td valign="top" style="min-width:350px;">
             <select class="button">

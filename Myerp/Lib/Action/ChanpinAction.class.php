@@ -114,14 +114,16 @@ class ChanpinAction extends CommonAction{
 		if(!$_REQUEST['chufashengfen'] || !$_REQUEST['chufachengshi'])
 			$this->ajaxReturn($_REQUEST,'错误,出发地不能为空！', 0);
 		if($_REQUEST['xianlu']['guojing'] == "国内")
-		if(!$_REQUEST['daqu'] || !$_REQUEST['shengfen'] || !$_REQUEST['chengshi'])
+		if(!$_REQUEST['mudidi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
+		/*if(!$_REQUEST['daqu'] || !$_REQUEST['shengfen'] || !$_REQUEST['chengshi'])
+			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);*/
 		if($_REQUEST['xianlu']['guojing'] == "境外")
 		if(!$_REQUEST['mudidi'])
 			$this->ajaxReturn($_REQUEST,'错误,目的地不能为空！', 0);
 		//数据处理
-		if($_REQUEST['xianlu']['guojing'] == "国内")
-		$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
+		//if($_REQUEST['xianlu']['guojing'] == "国内")
+		//$_REQUEST['xianlu']['mudidi'] = $_REQUEST['daqu'].','.$_REQUEST['shengfen'].','.$_REQUEST['chengshi'];
 		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
 		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
 		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
