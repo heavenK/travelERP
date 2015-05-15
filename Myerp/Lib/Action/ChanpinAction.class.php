@@ -270,6 +270,7 @@ class ChanpinAction extends CommonAction{
 			$dat['chanpinID'] = $_REQUEST['chanpinID'][$t];
 			$dat['parentID'] = $_REQUEST['parentID'];
 			$dat['xingcheng']['place'] = $_REQUEST['place'][$t];
+			$dat['xingcheng']['title'] = $_REQUEST['title'][$t];
 			$dat['xingcheng']['tools'] = serialize($_REQUEST['tools'.$t]);
 			$dat['xingcheng']['chanyin'] = serialize($_REQUEST['chanyin'.$t]);
 			$dat['xingcheng']['content'] = $_REQUEST['content'][$t];
