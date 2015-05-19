@@ -671,6 +671,61 @@ class ChanpinAction extends CommonAction{
 	
 	
 	
+	public function _tuanyuan_send() {
+
+		//检查dataOM
+		$tuan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'子团','管理');
+		if(false === $tuan){
+			$this->display('Index:error');
+			exit;
+		}
+		$chanpinID = $_REQUEST['chanpinID'];
+		$ViewZituan = D("ViewZituan");
+		$zituan = $ViewZituan->relation("xianlulist")->where("`chanpinID` = '$chanpinID' AND (`status_system` = '1')")->find();
+		$mingcheng = $zituan['xianlulist']['title'];
+		$tuanhao = $zituan['tuanhao'];
+		$tianshu = $zituan['xianlulist']['tianshu'];
+		$chutuanriqi = $zituan['chutuanriqi'];
+		$this->assign("mingcheng",$mingcheng);
+		$this->assign("chanpinID",$chanpinID);
+		if($_REQUEST['dopost']){
+			
+			
+			
+			$ViewDingdan = D("ViewDingdan");
+			$dingdanlist = $ViewDingdan->relation("tuanyuanlist")->where("`parentID` = '$chanpinID' AND (`status_system` = '1')")->findall();
+			$i = 0;
+			foreach($dingdanlist as $v){
+				foreach($v['tuanyuanlist'] as $vol){
+					$tuanyuan[$i] = $vol;
+					
+					if($vol['telnum']>= 13000000000 and $vol['telnum']<=19000000000)	$tuanyuan_tel[] = $vol['telnum'];
+					
+					$i++;
+				}
+			}
+			
+			if($tuanyuan_tel) $tuanyuan_tel_str = implode(',',$tuanyuan_tel);
+
+			$sms_content = '感谢您参加我社组织的'.$mingcheng.'，请于'.$_REQUEST['chufashijian'].'在'.$_REQUEST['jihedidian'].'集合。送团人'.$_REQUEST['songtuanren'].' '.$_REQUEST['songtuanrendihua'].'，举'.$_REQUEST['qizhi'].'旗帜。【古莲旅游】';
+			
+			if($tuanyuan_tel_str) {
+				sendSms($tuanyuan_tel_str,$sms_content);
+				$this->ajaxReturn($_REQUEST, "发送成功!", 1);
+			}
+			else $this->ajaxReturn($_REQUEST, "没有可发送的用户电话!", 0);
+			
+		}else{
+			
+			$this->display('send_sms');	
+		}
+		//sendSms($_REQUEST['telnum'],$sms_content);
+		
+		
+		
+	}
+	
+	
 	public function _tuanyuan_exports() {
 		//检查dataOM
 		$tuan = A('Method')->_checkDataOM($_REQUEST['chanpinID'],'子团','管理');

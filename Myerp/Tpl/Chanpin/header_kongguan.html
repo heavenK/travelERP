@@ -82,6 +82,7 @@
   <input type="button" class="button" value="导出Word（旅游局格式）" name="button" onClick="exports('<{$chanpinID}>','格式1');">
   <input type="button" class="button" value="导出Word（普通）" name="button" onClick="exports('<{$chanpinID}>','格式2');">
   <input type="button" class="button" value="导出Excel（普通）" name="button" onClick="exports('<{$chanpinID}>','格式3');">
+  <input type="button" class="button" value="发送出团通知" name="button" onClick="send_sms('<{$chanpinID}>');">
   <php>}</php>
   <php>if('分房安排' == $markpos){</php>
   <input type="button" class="button" value="创建房间" name="button" id="room_create">

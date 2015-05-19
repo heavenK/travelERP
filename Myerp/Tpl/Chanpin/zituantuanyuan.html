@@ -122,6 +122,15 @@ function exports(chanpinID,type)
 {
 	window.location.href = '<{:SITE_INDEX}>Chanpin/_tuanyuan_exports/chanpinID/'+chanpinID+'/type/'+type;
 }
+/*function send_sms(chanpinID)
+{
+	window.location.href = '<{:SITE_INDEX}>Chanpin/_tuanyuan_send/chanpinID/'+chanpinID;
+}*/
+function send_sms(id)
+{
+    var url='<{:SITE_INDEX}>Chanpin/_tuanyuan_send/chanpinID/'+chanpinID;
+    window.open(url,'newwin','width=900,height=700,left=240,status=no,resizable=yes,scrollbars=yes');
+}
 function TravelerDetail(id)
 {
     var url=SITE_INDEX+"Xiaoshou/tuanyuanxinxi/id/"+id;
