@@ -69,7 +69,9 @@
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 标题 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 出团日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}> </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php> </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php>人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 余额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
         </tr>
@@ -88,8 +90,12 @@
         <{$v['chutuanriqi']}>
         </td>
         <td scope="row" align="left" valign="top"><php>if($type=='应收') echo $v['yingshou'] ? $v['yingshou']:0; else echo $v['yingfu'] ? $v['yingfu']:0;</php></td>
+        <td scope="row" align="left" valign="top"><php>if($type=='应收') echo $v['yingshourenshu'] ? $v['yingshourenshu']:0; else echo $v['yingfurenshu'] ? $v['yingfurenshu']:0;</php></td>
         <td scope="row" align="left" valign="top">
         <php>if($type=='应收') echo $v['yishou'] ? $v['yishou']:0; else echo $v['yifu'] ? $v['yifu']:0;</php>
+        </td>
+        <td scope="row" align="left" valign="top">
+        <php>if($type=='应收') echo $v['yishourenshu'] ? $v['yishourenshu']:0; else echo $v['yifurenshu'] ? $v['yifurenshu']:0;</php>
         </td>
         <td scope="row" align="left" valign="top">
         <php>if($type=='应收') echo $v['yingshou'] - $v['yishou']; else echo $v['yingfu'] - $v['yifu'];</php>
@@ -107,6 +113,7 @@
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:100px;"><div> 往来单位 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>金额 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>方式 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> <{$type}>日期 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 备注 </div></th>
@@ -122,6 +129,9 @@
         </td>
         <td scope="row" align="left" valign="top">
 		<{$v['value']|default=0}>
+        </td>
+        <td scope="row" align="left" valign="top">
+		<{$v['renshu']|default=0}>
         </td>
         <td scope="row" align="left" valign="top">
         <{$v['method']}>

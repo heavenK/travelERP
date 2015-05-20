@@ -100,16 +100,21 @@ class BaobiaoAction extends CommonAction{
 			foreach($baozhangitemlist as $val){
 				if($val['type'] == '结算项目') {
 					$chanpin[$val['parentID']]['yingshou'] += $val['value'];
+					$chanpin[$val['parentID']]['yingshourenshu'] += $val['renshu'];
 				}
 				else if($val['type'] == '支出项目') {
 					$chanpin[$val['parentID']]['yingfu'] += $val['value'];
+					$chanpin[$val['parentID']]['yingfurenshu'] += $val['renshu'];
 				}
 				else if($val['type'] == '已收项目') {
 					$chanpin[$val['parentID']]['yishou'] += $val['value'];
+					$chanpin[$val['parentID']]['yishourenshu'] += $val['renshu'];
 				}
 				else if($val['type'] == '已付项目') {
 					$chanpin[$val['parentID']]['yifu'] += $val['value'];
+					$chanpin[$val['parentID']]['yifurenshu'] += $val['renshu'];
 				}
+				
 			}
 			
 			
