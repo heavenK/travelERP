@@ -79,6 +79,10 @@ jQuery().ready(function() {
  }
  
  function savemoney(chanpinID){
+	 if(!chanpinID) {
+		alert("保存项目后方能选择团队！");
+		exit;	
+	}
 	art.dialog({
 		id: 'id-demo',
 		title: '操作信息',
@@ -256,6 +260,11 @@ function checktitle(expandtype){
 
 
 function showdiv(chanpinID){
+	if(!chanpinID) {
+		alert("保存项目后方能选择团队！");
+		exit;	
+	}
+	
    if(jQuery("#divselect").is(":visible")==true){ 
 	  jQuery("#divselect").hide();
 	  return ;
