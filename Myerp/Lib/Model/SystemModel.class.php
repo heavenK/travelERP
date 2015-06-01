@@ -88,6 +88,7 @@ class SystemModel extends RelationModel {
 		'category'=>array('mapping_type'=>HAS_ONE,'class_name'=>'Category','foreign_key'=>'systemID'),
 		'categoryOMlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_system_om','foreign_key'=>'dataID','condition'=>"`status_system` = '1'"),
 		'systemDClist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_system_dc','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
+		'systemDDlist'=>array('mapping_type'=>HAS_MANY,'class_name'=>'myerpview_system_datadictionary','foreign_key'=>'parentID','condition'=>"`status_system` = '1'"),
 		//systemDC
 		'systemDC'=>array('mapping_type'=>HAS_ONE,'class_name'=>'SystemDC','foreign_key'=>'systemID'),
 		//systemOM

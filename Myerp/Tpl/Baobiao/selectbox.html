@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>团队选择</title>
+
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/style (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/yui (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/deprecated (2).css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/colors.sugar.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/fonts.normal.css">
+<link rel="stylesheet" type="text/css" href="<{:__PUBLIC__}>/myerp/css/gaopeng.css">
+
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1_yui.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/sugar_grp1.js"></script>
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/js/style.js"></script>
+<script language="javascript" src="<{:__PUBLIC__}>/myerp/jquery-1.7.2.min.js" ></script>
+<script language="javascript" src="<{:__PUBLIC__}>/myerp/chanpin/aboutsearch.js" ></script>
+
+<load href="__PUBLIC__/myerp/Thinkjs/Base.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/prototype.js" />
+<load href="__PUBLIC__/myerp/ThinkAjax_GP.js" />
+<load href="__PUBLIC__/myerp/Thinkjs/Form/CheckForm_GP.js" />
+<link type="text/css" href="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="<{:__PUBLIC__}>/myerp/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
+
+<script>
+SITE_INDEX = '<{:SITE_INDEX}>';
+jQuery(document).ready(function(){
+	
+	var chanpinIDs = jQuery("#chanpinIDs",window.parent.document).val();
+	var obj2 = chanpinIDs.split("--");    
+	for (i = 0; i < obj2.length; i++){
+		 obj2[i]=obj2[i].replace('-',""); 
+		 jQuery("#"+obj2[i]).attr('checked','checked');
+	}
+	
+	
+	jQuery('#dialogpic').dialog({
+		autoOpen: false,
+		width: 500,
+	});
+});
+</script>
+</head>
+<body>
+<input type="hidden" id="own" value="<{$own}>" />
+<div style="overflow-x:hidden;">
+            <div class="moduleTitle" style="margin-bottom:10px;">
+              <h2 style="margin-top:10px;"><{$datatitle}></h2>
+              <div style="float:left; margin-left:50px; margin-top:6px;">
+                  <span id="show_link_insideview"  <php>if(!cookie('closesearch')) echo 'style="display:none"';</php>> 
+                  <a href="javascript:void(0);" onclick="showmysearchdiv(1)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_collapsed.png"></a> 
+                  </span> 
+                  <span id="hide_link_insideview"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php>> 
+                  <a href="javascript:void(0);" onclick="showmysearchdiv(2)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_expanded.png"></a> 
+                  </span> 
+              </div>
+              <span style="margin-top:10px;">
+              <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0);" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
+              </span>
+            </div>
+            
+            <div id="mysearchdiv"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php> >
+                <ul id="searchTabs" class="tablist">
+                  <li style="margin-right:1px;">
+                      <a id="searchtab_1" class="current" href="javascript:selectTabCSS('Calls|basic_search');" onclick="showsearch(1)">基本查找</a>
+                  </li>
+                </ul>
+                <div class="search_form" id="searchdiv_1" style="margin-bottom:0px;">
+                      <div class="edit view search ">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                              <tbody>
+                                <tr>
+                                  <td scope="row" nowrap="nowrap"> 名称 </td>
+                                  <td nowrap="nowrap"><input type="text" name="title" id="title"></td>
+                                  <td scope="row" nowrap="nowrap">  </td>
+                                  <td nowrap="nowrap"></td>
+                                  <td scope="row" nowrap="nowrap">  </td>
+                                  <td nowrap="nowrap">
+                              </tbody>
+                            </table>
+                        </div>
+                      <input type="button" class="button" title="查找" value=" 查找 " onclick="dosearch();">
+                </div>
+            </div>
+            
+            <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+              <tbody>
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          	<a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                            <input type="button" class="button" id="send" onclick="sendValue();" value="确认推送"/>
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+                
+              <tr height="20">
+                <th scope="col" > 序号</th>
+                <th scope="col" ><div> 费用日期 </div></th>
+                <th scope="col" ><div> 团队名称 </div></th>
+                <th scope="col"><div> 分类/往来单位 </div></th>
+                <th scope="col" ><div> <{$table_expect}>金额 </div></th>
+                <th scope="col" ><div> <{$table_real}>金额 </div></th>
+                <th scope="col" ><div> 待结 </div></th>
+                <th scope="col" ><div> 人数 </div></th>
+                <th scope="col" ><div> 备注 </div></th>
+                <th scope="col" ><div> 操作 </div></th>
+              </tr>
+              <php>$i=0;foreach($chanpin as $v){ </php>
+                <tr height="40" class="evenListRowS1">
+                  <td scope="row" align="left" valign="top"><input id="<{$v[chanpinID]}>" type="checkbox" name="checkboxs" value="<{$v[chanpinID]}>"></td>
+                  <td scope="row" align="left" id="time<{$v[chanpinID]}>" valign="top"><{$v[time]|date="Y-m-d",###}></td>
+                  <td scope="row" align="left" id="tuanhao<{$v[chanpinID]}>" valign="top"><{$bzd[$v[parentID]]}></td>
+                  <td scope="row" align="left" id="title<{$v[chanpinID]}>" valign="top"><{$v[categoryname]}>/<{$v[title]}></td>
+                  <td scope="row" align="left" id="expect<{$v[chanpinID]}>" valign="top" style="color:blue;"><{$v[value]}></td>
+                  <td scope="row" align="left" id="real<{$v[chanpinID]}>" valign="top" style="color:red;"><{$money[$v[chanpinID]]|default=0}></td>
+                  <td scope="row" align="left" id="daijie<{$v[chanpinID]}>" valign="top" style="color:green;"><{$v[value]-$money[$v[chanpinID]]}></td>
+                  <td scope="row" align="left" id="renshu<{$v[chanpinID]}>" valign="top"><{$v[renshu]}></td>
+                  <td scope="row" align="left" id="remark<{$v[chanpinID]}>" valign="top"><{$v[remark]}></td>
+                  <td scope="row" align="left" valign="top"><a href="javascript:void(0)" onclick="showinfo_item('<{$v[parentID]}>');" >查看</a></td>
+                </tr>
+              <php>$i++;}</php>
+              
+              
+                <tr class="pagination">
+                  <td colspan="11">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+                      <tbody>
+                        <tr>
+                          <td nowrap="nowrap" class="paginationActionButtons">
+                          	<a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                            <input type="button" class="button" id="send" onclick="sendValue();" value="确认推送"/>
+                          </td>
+                          <td nowrap="nowrap" align="right" class="paginationChangeButtons">
+                          	<{$page}>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                </tr>
+              
+              </tbody>
+            </table>
+</div>
+</body>
+</html>
+<script language="javascript">
+
+	
+	function sendValue(){
+		var pid = jQuery("#ids",window.parent.document).val();
+		var chanpinIDs = jQuery("#chanpinIDs",window.parent.document).val();
+		
+		jQuery("input[name='checkboxs']:checked").each(function(i){
+			
+			var id = jQuery(this).val();
+			
+			if(chanpinIDs.indexOf(id)>0) return true;
+			chanpinIDs += "-"+id+"-";
+			var str = '<tr height="40" class="evenListRowS1">';
+			str += '<td scope="row" align="left" valign="top">'+(++pid)+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#time"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#tuanhao"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#title"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#expect"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#real"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#daijie"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top"><input type="text" name="money" title="'+id+'" value="" check="^\S+$" warning="金额不能为空,且不能含有空格"></td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#renshu"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top">'+jQuery("#remark"+id).text()+'</td>';
+			str += '<td scope="row" align="left" valign="top"><a href="javascript:void(0)" onclick="showinfo_item(\'<{$v[parentID]}>\');" >查看</a></td>';
+			str += "</tr>";
+			jQuery("#ids",window.parent.document).val(pid);
+			jQuery("#chanpinIDs",window.parent.document).val(chanpinIDs);
+			jQuery("#yingshou_list",window.parent.document).append(str);
+		})
+
+		jQuery("#divselect",window.parent.document).hide();
+		
+	}
+	
+	function dosearch()
+	{
+		var title = jQuery("#title").val();
+		window.location = SITE_INDEX+'Baobiao/selectbox/title/'+title;
+	}
+	function showinfo_item(chanpinID){
+		window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+chanpinID);
+	}
+      
+</script>
+
+<div id="dialogpic" title="提示消息" style="background:#FFF">
+<img id="picimg" />
+</div>

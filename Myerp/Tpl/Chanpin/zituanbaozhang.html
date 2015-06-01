@@ -153,6 +153,12 @@ var shanghutiaomu = [
 	 <php>}</php>
  ];
 
+var category = [
+	 <php>foreach($categorylist as $v){</php>
+			  { title: "<{$v[title]}>", systemID: "<{$v['systemID']}>" },
+	 <php>}</php>
+ ];
+
 jQuery().ready(function() {
 			//myautocomplete("#shanghutiaomu_add",'商户条目');
 	
@@ -160,6 +166,7 @@ jQuery().ready(function() {
 		foreach($baozhang['baozhangitemlist'] as $v){if($v['type'] == '利润') continue;$i++;
 		</php>
 			myautocomplete("#title<{$v[chanpinID]}>",'商户条目');
+			myautocomplete("#categoryname<{$v[chanpinID]}>",'分类');
 		<php>}</php>
 	
 		<php>
@@ -469,7 +476,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类/往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -485,9 +492,12 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <td scope="row" align="left" valign="top">
+          <input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
           <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
           	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
           </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
@@ -553,7 +563,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类/往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -569,9 +579,11 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <td scope="row" align="left" valign="top"><input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
           <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
           	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
           </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
@@ -638,7 +650,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类/往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -654,9 +666,11 @@ jQuery().ready(function() {
         
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
-          <td scope="row" align="left" valign="top"><input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <td scope="row" align="left" valign="top"><input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
           <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
           	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
           </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" value="<{$v['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
@@ -687,7 +701,7 @@ jQuery().ready(function() {
           </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
-            <input type="button" class="button" value="+已收" onClick="insertItem('itemlist<{$v[chanpinID]}>','已收项目',<{$v['chanpinID']}>);"/>
+           
             
   
       <php>if($v['status_shenhe'] == '未审核'){</php>
@@ -711,9 +725,14 @@ jQuery().ready(function() {
           </php>
         	<tr height="30" class="evenListRowS1" id="itemlist<{$vo['chanpinID']}>">
               <td scope="row" align="right" valign="top">已收项目</td>
-              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
-              <input type="hidden" id="expandID<{$vo['chanpinID']}>" value="<{$vo['expandID']}>">
-          	<input type="hidden" id="expandtype<{$vo['chanpinID']}>" value="<{$vo['expandtype']}>">
+              <td scope="row" align="left" valign="top">
+              <input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
+              
+              
               </td>
               <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$vo['chanpinID']}>" value="<{$vo['value']}>" check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
               <td scope="row" align="left" valign="top"><select id="method<{$vo['chanpinID']}>">
@@ -785,7 +804,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 分类/往来单位 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 人数 </div></th>
@@ -802,9 +821,11 @@ jQuery().ready(function() {
         <tr height="30" class="evenListRowS1" id="itemlist<{$v['chanpinID']}>">
           <td scope="row" align="left" valign="top"><{$i}></td>
           <td scope="row" align="left" valign="top">
-          <input type="text" name="title" style="width:200px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check='^\S+$' warning="标题不能为空,且不能含有空格" >
+          <input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
           <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
-          <input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
           </td>
           <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$v['chanpinID']}>" check="^\S+$" value="<{$v['value']}>" warning="金额不能为空,且不能含有空格" ></td>
           <td scope="row" align="left" valign="top"><select id="method<{$v['chanpinID']}>">
@@ -835,7 +856,6 @@ jQuery().ready(function() {
           </strong></td>
           <td scope="row" align="left" valign="top"><input type="button" class="button" value="删除" onClick="if(window.confirm('要刪除嗎?')==true)deleteSystemItem(<{$v['chanpinID']}>,'itemlist')" />
             <input type="button" class="button" id="btsave_<{$v['chanpinID']}>" value="修改" onClick="if(checktitle(<{$v['chanpinID']}>,'','商户条目'))if(CheckForm('form_yingshou','resultdiv_2'))save(<{$v['chanpinID']}>,'itemlist');"/>
-             <input type="button" class="button" value="+已付" onClick="insertItem('itemlist<{$v[chanpinID]}>','已付项目',<{$v['chanpinID']}>);"/>
      
       
       <php>if($v['status_shenhe'] == '未审核'){</php>
@@ -861,9 +881,12 @@ jQuery().ready(function() {
          
         	<tr height="30" class="evenListRowS1" id="itemlist<{$vo['chanpinID']}>">
               <td scope="row" align="right" valign="top">已付项目</td>
-              <td scope="row" align="left" valign="top"><input type="hidden" id="pid<{$vo['chanpinID']}>" name="pid" value="<{$vo['pid']}>"><input type="text" name="title" style="width:200px;" id="title<{$vo['chanpinID']}>" value="<{$vo['title']}>"  check="^\S+$" warning="标题不能为空,且不能含有空格" >
-              <input type="hidden" id="expandID<{$vo['chanpinID']}>" value="<{$vo['expandID']}>">
-          	<input type="hidden" id="expandtype<{$vo['chanpinID']}>" value="<{$vo['expandtype']}>">
+              <td scope="row" align="left" valign="top">
+              <input type="text" name="categoryname" style="width:120px;" id="categoryname<{$v['chanpinID']}>" value="<{$v['categoryname']}>">&nbsp;/&nbsp;
+          <input type="text" name="title" style="width:150px;" id="title<{$v['chanpinID']}>" value="<{$v['title']}>" check="^\S+$" warning="标题不能为空,且不能含有空格" >
+          <input type="hidden" id="expandID<{$v['chanpinID']}>" value="<{$v['expandID']}>">
+          	<input type="hidden" id="expandtype<{$v['chanpinID']}>" value="<{$v['expandtype']}>">
+           <input type="hidden" id="categoryID<{$v['chanpinID']}>" value="<{$v['categoryID']}>">
               </td>
               <td scope="row" align="left" valign="top"><input type="text" name="value" style="width:80px;" id="value<{$vo['chanpinID']}>" value="<{$vo['value']}>"  check="^\S+$" warning="金额不能为空,且不能含有空格" ></td>
               <td scope="row" align="left" valign="top"><select id="method<{$vo['chanpinID']}>">
@@ -934,7 +957,7 @@ jQuery().ready(function() {
           </tr>
           <tr height="20">
             <th scope="col" nowrap="nowrap"> 序号</th>
-            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 往来单位 </div></th>
+            <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 标题 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 金额 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 方式 </div></th>
             <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 备注说明 </div></th>

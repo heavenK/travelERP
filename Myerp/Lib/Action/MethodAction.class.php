@@ -2989,6 +2989,12 @@ class MethodAction extends CommonAction{
 		$list = A('Method')->_shanghutiaomulist();
 		$this->assign("shanghutiaomu",$list);
 		
+		$ViewCategory = D("ViewCategory");
+		$username = $this->user['title'];
+		$ComID = $this->_getComIDbyUser($username);
+		$categorylist = $ViewCategory->where("`companyID` = '$ComID' AND `status_system` = 1 AND type = '往来'")->findall();
+		$this->assign("categorylist",$categorylist);
+		
 		if($_REQUEST['type'] == '团队报账单'){
 			$this->assign("markpos",'团队报账单');
 			$chanpinID = $_REQUEST['chanpinID'];
@@ -3470,7 +3476,7 @@ class MethodAction extends CommonAction{
 			$_REQUEST['parentID'] = $item['parentID'];
 		$baozhang = $Chanpin->where("`chanpinID` = '$_REQUEST[parentID]' and `marktype` = 'baozhang'")->find();
 		if(!$baozhang)
-			$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
+			if($_REQUEST['type'] != '已收项目' && $_REQUEST['type'] != '已付项目')	$this->ajaxReturn($_REQUEST,'错误，报账单不存在！', 0);
 			
 		if($_REQUEST['dotype'] == 'editremark'){//单纯修改备注
 			$data['chanpinID'] = $_REQUEST['chanpinID'];
@@ -3487,7 +3493,7 @@ class MethodAction extends CommonAction{
 			else $_REQUEST['paytime'] = time();
 			
 			
-			if($_REQUEST['pid']){
+			/*if($_REQUEST['pid']){
 				$piditem = $ViewBaozhangitem->where("`chanpinID` = '$_REQUEST[pid]'")->find();
 				
 				if($piditem){
@@ -3505,7 +3511,7 @@ class MethodAction extends CommonAction{
 				}else{
 					$this->ajaxReturn($_REQUEST,'错误，不存在目标应收或应付！', 0);
 				}
-			}
+			}*/
 			
 			
 			$data = $_REQUEST;
@@ -3538,7 +3544,7 @@ class MethodAction extends CommonAction{
 		}
 		if (false !== $Chanpin->relation('baozhangitem')->myRcreate($data)){
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			if($Chanpin->getLastmodel() == 'add'){
+			if($Chanpin->getLastmodel() == 'add' && $_REQUEST['type'] != '已收项目' && $_REQUEST['type'] != '已付项目'){
 				//生成OM
 				$this->_OMRcreate($_REQUEST['chanpinID'],'报账项');
 				//自动申请审核
@@ -4030,11 +4036,19 @@ class MethodAction extends CommonAction{
 			$category = $ViewCategory->where("`systemID` = '$systemID'")->find();
 			$where['companyID'] = $category['parentID'];
 		}
+		
 		$datas = $this->_getDepartmentList($where);
 		$this->assign("departmentAll",$datas);
+		
 		$datas2 = $System->relation("systemDClist")->where("`systemID` = '$systemID'")->find();
+		
 		$datas2['category'] = $System->relationGet("category");
-		$Department = D("Department");
+		
+		if($category['type'] != '往来')
+			$Department = D("Department");
+		else
+			$Department = D("SystemDataDictionary");
+			
 		$i = 0;
 		foreach($datas2['systemDClist'] as $v){
 			$datas2['systemDClist'][$i]['department'] = $Department->where("`systemID` = '$v[dataID]'")->find();

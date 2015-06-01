@@ -1,6 +1,6 @@
 ﻿
  var i=0;
- function insertdepartment()
+ function insertdepartment(type)
  {
 	i++;	 
 	var htmlcontent = "<tr height=\"30\" class=\"evenListRowS1\" id=\"departmentrow_t"+i+"\">";
@@ -14,7 +14,8 @@
     htmlcontent += "<input class=\"button\" type=\"button\" value=\"确认\" onClick=\"if(checktitle("+i+",'_t'))addSystemDC("+i+",'_t');\" /></td>";
 	htmlcontent += "</tr>";
 	jQuery("#itemlist_box").append(htmlcontent);
-	myautocomplete("#_t"+i,'部门');
+	if(type != '往来') type == '部门';
+	myautocomplete("#_t"+i,type);
 	
  }
 
@@ -98,6 +99,9 @@
 		datas = user;
 		if(parenttype == '角色')
 		datas = roles;
+		
+		if(parenttype == '往来')
+		datas = wanglai;
 	
 		jQuery(target).unautocomplete().autocomplete(datas, {
 		   max: 50,    //列表里的条目数

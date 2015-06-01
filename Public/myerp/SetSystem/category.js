@@ -9,7 +9,7 @@
 	htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID_t"+i+"\" style=\"width:200px;\" ></td>";
-	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
+	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><select id=\"type_t"+i+"\" style=\"width:100px\"><option value=\"部门\">部门</option><option value=\"往来\">往来</option></select>";
 	htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "</td>";
@@ -33,6 +33,7 @@
 	}
 	var title = jQuery("#title"+mark+id).val();
 	var parentID = jQuery("#parentID"+mark+id).val();
+	var categorytype = jQuery("#type"+mark+id).val();
 	jQuery.ajax({
 		type:	"POST",
 		url:	SITE_INDEX+"SetSystem/dopostSystemHas/tableName/category",
@@ -53,7 +54,7 @@
 		htmlcontent += "<input type=\"text\" id=\"title"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['title']+"\">";
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\"><input type=\"text\" id=\"parentID"+data['systemID']+"\" style=\"width:200px;\" value=\""+data['parentID']+"\"></form></td>";
-		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">"+categorytype;
+		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">"+data['type'];
 		htmlcontent += "</td>";
 		htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 		htmlcontent += "</td>";

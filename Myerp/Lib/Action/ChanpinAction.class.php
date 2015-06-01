@@ -984,6 +984,7 @@ class ChanpinAction extends CommonAction{
 	public function dopost_baozhangitem() {
 		A("Method")->_dosavebaozhangitem('子团');
 	}
+	
 		
 	public function deleteBaozhangitem() {
 		A("Method")->_deleteBaozhangitem();

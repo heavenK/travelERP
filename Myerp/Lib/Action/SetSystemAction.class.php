@@ -53,6 +53,10 @@ class SetSystemAction extends CommonAction{
 		A("Method")->showDirectory("项目管理");
 		$systemID = $_REQUEST['systemID'];
 		$datalist = A("Method")->_getsystemDC($systemID);
+		
+		$wanglailist = A("Method")->_shanghutiaomulist();
+		$this->assign("wanglailist",$wanglailist);
+
 		$this->assign("systemDClist",$datalist['systemDClist']);
 		$this->assign("category",$datalist);
 		$this->assign("datatitle",' : "'.$datalist['category']['title'].'"');

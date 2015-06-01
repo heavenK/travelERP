@@ -13,8 +13,9 @@
 	
 	htmlcontent += "<td scope=\"row\" align=\"right\" valign=\"top\">"+flag+"</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
-	htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
-	htmlcontent += "</td>";
+	if(type == '结算项目' || type == '已收项目' || type == '已付项目' || type == '预收项目' || type == '预付项目' || type == '支出项目')   htmlcontent += "<input type=\"text\" id=\"categoryname_t"+i+"\" style=\"width:200px;\">&nbsp;/&nbsp;<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
+	else   htmlcontent += "<input type=\"text\" id=\"title_t"+i+"\" style=\"width:200px;\" check='^\\S+$' warning=\"标题不能为空,且不能含有空格\" >";
+    htmlcontent += "</td>";
 	htmlcontent += "<td scope=\"row\" align=\"left\" valign=\"top\">";
 	htmlcontent += "<input type=\"text\" id=\"value_t"+i+"\" style=\"width:80px;\" check='^\\S+$' warning=\"金额不能为空,且不能含有空格\" >";
 	htmlcontent += "</td>";
@@ -51,6 +52,7 @@
 
 		htmlcontent += "<input type=\"hidden\" id=\"expandID_t"+i+"\">";
 		htmlcontent += "<input type=\"hidden\" id=\"expandtype_t"+i+"\" value='商户条目'>";
+        htmlcontent += "<input type=\"hidden\" id=\"categoryID_t"+i+"\">";        
 
 		
 	}
@@ -100,6 +102,7 @@
 	}
 	else{
 		myautocomplete("#title_t"+i,'商户条目');
+        myautocomplete("#categoryname_t"+i,'分类');        
 	}
 	
 	
@@ -134,8 +137,10 @@
 	var pid = jQuery("#pid"+mark+id).val();
 	var expandID = jQuery("#expandID"+mark+id).val();
 	var expandtype = jQuery("#expandtype"+mark+id).val();
+	var categoryID = jQuery("#categoryID"+mark+id).val();
+	var categoryname = jQuery("#categoryname"+mark+id).val();
 	if(expandID)
-		it += "&expandID="+expandID+"&expandtype="+expandtype
+		it += "&expandID="+expandID+"&expandtype="+expandtype+"&categoryID="+categoryID+"&categoryname="+categoryname;
 	if(pid)
 		it += "&pid="+pid;
 	title = FixJqText(title);
@@ -305,6 +310,8 @@
 		datas = userlist;
 		if(parenttype == '商户条目')
 		datas = shanghutiaomu;
+		if(parenttype == '分类')
+		datas = category;
 		jQuery(target).unautocomplete().autocomplete(datas, {
 		   max: 50,    //列表里的条目数
 		   minChars: 0,    //自动完成激活之前填入的最小字符

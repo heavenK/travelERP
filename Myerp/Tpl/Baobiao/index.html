@@ -15,6 +15,7 @@
           <table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
+                  <td nowrap="nowrap"><php>if($type == '收款' || $type == '付款'){</php> <input type="button" class="button" title="添加" value=" 添加 " onclick="add_baobiao();"><php>}</php></td>
                   <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
                 </tr>
               </tbody>
@@ -71,7 +72,7 @@
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}> </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <{$type}>人数 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php> </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php>人数 </div></th>
+          <!--<th scope="col" nowrap="nowrap" style="min-width:80px;"><div> <php>if($type=='应收') echo "已收"; else echo "已付";</php>人数 </div></th>-->
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 余额 </div></th>
           <th scope="col" nowrap="nowrap" style="min-width:80px;"><div> 操作 </div></th>
         </tr>
@@ -94,9 +95,9 @@
         <td scope="row" align="left" valign="top">
         <php>if($type=='应收') echo $v['yishou'] ? $v['yishou']:0; else echo $v['yifu'] ? $v['yifu']:0;</php>
         </td>
-        <td scope="row" align="left" valign="top">
+        <!--<td scope="row" align="left" valign="top">
         <php>if($type=='应收') echo $v['yishourenshu'] ? $v['yishourenshu']:0; else echo $v['yifurenshu'] ? $v['yifurenshu']:0;</php>
-        </td>
+        </td>-->
         <td scope="row" align="left" valign="top">
         <php>if($type=='应收') echo $v['yingshou'] - $v['yishou']; else echo $v['yingfu'] - $v['yifu'];</php>
         </td>
@@ -141,7 +142,7 @@
         <{$v['remark']}>
         </td>
         <td scope="row" align="left" valign="top">
-              <input type="button" class="button" value="查看" name="button" onClick="showinfo_item(<{$v['parentID']}>);">
+              <input type="button" class="button" value="查看" name="button" onClick="showinfo_real_item(<{$v['chanpinID']}>);">
                   </td>
       </tr>
       <php> }</php>
@@ -165,11 +166,18 @@
 </div>
 <tp:includeCA file="Index:footer" />
 <script language="javascript"> 
-function showinfo_item(baozhangID){
-	window.open('<{:SITE_INDEX}>Chanpin/zituanxiangmu/baozhangID/'+baozhangID);
+function showinfo_real_item(chanpinID){
+	window.open('<{:SITE_INDEX}>Baobiao/add/chanpinID/'+chanpinID);
+}
+function showinfo_item(chanpinID){
+	window.open('<{:SITE_INDEX}>Chanpin/zituanbaozhang/baozhangID/'+chanpinID);
 }
 function dosearch(str){
 		window.location = SITE_INDEX+'Baobiao/index/type/<{$type}>'+str;
+}
+
+function add_baobiao(){
+		window.location = SITE_INDEX+'Baobiao/add/type/<{$type}>';
 }
 </script>
 
