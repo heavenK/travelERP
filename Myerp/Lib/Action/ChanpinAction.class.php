@@ -266,6 +266,7 @@ class ChanpinAction extends CommonAction{
 		C('TOKEN_ON',false);
 		$Chanpin = D("Chanpin");
 		for($t = 0; $t < $_REQUEST['tianshu']; $t++){
+			$dat = '';
 			if($_REQUEST['chanpinID'][$t])
 			$dat['chanpinID'] = $_REQUEST['chanpinID'][$t];
 			$dat['parentID'] = $_REQUEST['parentID'];
