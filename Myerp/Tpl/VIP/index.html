@@ -1,55 +1,22 @@
 <tp:includeCA file="Index:showheader" />
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
-<script>
 
-function onshop(){
-	ThinkAjax.myloading('resultdiv');
-	var checkboxitem = new Array();
-	var i = 0;
-	jQuery(".checkboxitem").each(function(index, element) {
-		if(jQuery(this).attr("checked")){
-			checkboxitem[i] = jQuery(this).attr('value');
-			i++;
-		}
-	});
-	if(checkboxitem == ''){
-		ajaxalert('至少选择1项进行操作！');
-		return;
-	}
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Client/onshop/chanpintype/线路",
-		data:	"checkboxitem="+checkboxitem,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-		}
-	});
-	
-}
-</script>
 <div id="main">
   <tp:includeCA file="Chanpin:left_fabu:'left_fabu'" />
   <div id="content" style="margin-left:180px;">
     <div id="resultdiv" class="resultdiv"></div>
     <div id="resultdiv_2" class="resultdiv"></div>
     
-    <include file="Index:search_xianlu" />
+    <include file="Index:search_user" />
     <table cellpadding="0" cellspacing="0" width="100%" class="list view">
       <tbody>
         <tr class="pagination">
           <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
               <tbody>
                 <tr>
-                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
-                    <input type="button" class="button" value=" 复制 " onclick="copytonew()">
-                    <input type="button" class="button" value=" 截止/报名 " onclick="jiezhiorbaoming()">
-                    <php>if($login_user['user_name'] == 'aaa'){</php>
-                    <input type="button" class="button" value=" 重置OM " onclick="resetOM()">
-                    <php>}</php>
-                    <input type="button" class="button" value=" 删除到回收站 " onclick="deletetohsz()">
-                    <input type="button" class="button" value=" 提交到网店 " onclick="onshop()">
-                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                    <td nowrap="nowrap" class="paginationActionButtons"></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$data['page']}></td>
                 </tr>
               </tbody>
             </table></td>
@@ -57,34 +24,24 @@ function onshop(){
         <tr height="20">
           <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
           <th scope="col" nowrap="nowrap"><div> 序号 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 发布人 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 单位 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 分类 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:30px;"><div> 状态 </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 网店提交/线路ID </div></th>
-          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 锁定 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 创建时间 </div></th>
-          <th scope="col" nowrap="nowrap"><div> 轨迹 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 姓名 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 电话号码 </div></th>
+          <th scope="col" nowrap="nowrap" ><div> 证件类型 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 证件号码 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 类型 </div></th>
         </tr>
           <php>
-      $i = -1; foreach($chanpin_list as $v){ $i++;
+      $i = -1; foreach($data['list'] as $v){ $i++;
         </php>
       
       <tr height="40" class="evenListRowS1">
         <td scope="row" align="left" valign="top"><input value="<{$v['chanpinID']}>" id="chanpinitem<{$i}>" type="checkbox" name="itemlist[]" class="checkboxitem"></td>
         <td scope="row" align="left" valign="top"><{$i+1}></td>
-        <td scope="row" align="left" valign="top"><a href="<{:SITE_INDEX}>Chanpin/fabu/chanpinID/<{$v['chanpinID']}>"><{$v['title']}></a></td>
-        <td scope="row" align="center" valign="top"><img name="aa" onclick="showdate('<php>echo Fi_ConvertChars($v[chutuanriqi])</php>');showbox(this,'dateitem')" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
-        <td scope="row" align="left" valign="top"><{$v['user_name']}></td>
-        <td scope="row" align="left" valign="top"><{$v['bumen_copy']}></td>
-        <td scope="row" align="left" valign="top"><{$v['guojing']}>/<{$v['kind']}></td>
-        <td scope="row" align="left" valign="top"><{$v['status']}></td>
-        <td scope="row" align="left" valign="top"><php>if($v['serverdataID']) echo '已提交/'.$v['serverdataID']; else echo 'NO';</php></td>
-        <td scope="row" align="left" valign="top"><{$v['islock']}></td>
-        <td scope="row" align="left" valign="top"><php>echo date('Y/m/d',$v['time']);</php></td>
-        <td scope="row" align="center" valign="top"><img id="showshenhe" onclick="shenheshow_doit(<{$v['chanpinID']}>,this);" src="<{:__PUBLIC__}>/myerp/images/info_inline.gif" width="16" height="16" border="0" /></td>
+        <td scope="row" align="left" valign="top"><{$v['name']}></td>
+        <td scope="row" align="left" valign="top"><{$v['telnum']}></td>
+        <td scope="row" align="left" valign="top"><{$v['zhengjiantype']}></td>
+        <td scope="row" align="left" valign="top"><{$v['zhengjianhaoma']}></td>
+        <td scope="row" align="left" valign="top"><{$v['manorchild']}></td>
       </tr>
       <php> }</php>
       
@@ -93,7 +50,7 @@ function onshop(){
               <tbody>
                 <tr>
                   <td nowrap="nowrap" class="paginationActionButtons">
-                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$page}></td>
+                  <td nowrap="nowrap" align="right" class="paginationChangeButtons" style="color:#090"><{$data['page']}></td>
                 </tr>
               </tbody>
             </table></td>
@@ -104,119 +61,11 @@ function onshop(){
   </div>
 </div>
 <tp:includeCA file="Index:footer" />
-<script language="javascript"> 
-
+<script>
 function dosearch(str)
 {
-		window.location = SITE_INDEX+'Chanpin/index'+str;
+    window.location = SITE_INDEX+'VIP/index'+str;
 }
-
-
-function jiezhiorbaoming()
-{
-	var checkboxitem = new Array();
-	var i = 0;
-	jQuery(".checkboxitem").each(function(index, element) {
-		if(jQuery(this).attr("checked")){
-			checkboxitem[i] = jQuery(this).attr('value');
-			i++;
-		}
-	});
-	if(checkboxitem == ''){
-		ajaxalert('至少选择1项进行操作！');
-		return;
-	}
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/jiezhiorbaoming",
-		data:	"checkboxitem="+checkboxitem,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-		}
-	});
-}
-
-function copytonew()
-{
-	var checkboxitem = new Array();
-	var i = 0;
-	jQuery(".checkboxitem").each(function(index, element) {
-		if(jQuery(this).attr("checked")){
-			checkboxitem[i] = jQuery(this).attr('value');
-			i++;
-		}
-	});
-	if(checkboxitem == ''){
-		ajaxalert('至少选择1项进行操作！');
-		return;
-	}
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/copytonew",
-		data:	"checkboxitem="+checkboxitem,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-		}
-	});
-}
-
-function deletetohsz()
-{
-	var checkboxitem = new Array();
-	var i = 0;
-	jQuery(".checkboxitem").each(function(index, element) {
-		if(jQuery(this).attr("checked")){
-			checkboxitem[i] = jQuery(this).attr('value');
-			i++;
-		}
-	});
-	if(checkboxitem == ''){
-		ajaxalert('至少选择1项进行操作！');
-		return;
-	}
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/deletechanpin",
-		data:	"checkboxitem="+checkboxitem+"&typevalue=线路",
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-		}
-	});
-}
-
-
-
-
-function save_after(data,status){
-	if(status == 1){
-		location.reload();
-	}
-}
-
-function resetOM(){
-	var checkboxitem = new Array();
-	var i = 0;
-	jQuery(".checkboxitem").each(function(index, element) {
-		if(jQuery(this).attr("checked")){
-			checkboxitem[i] = jQuery(this).attr('value');
-			i++;
-		}
-	});
-	if(checkboxitem == ''){
-		ajaxalert('至少选择1项进行操作！');
-		return;
-	}
-	jQuery.ajax({
-		type:	"POST",
-		url:	"<{:SITE_INDEX}>Chanpin/resetOM",
-		data:	"checkboxitem="+checkboxitem,
-		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
-		}
-	});
-}
-
-
 </script>
 
 <div style="position: absolute; display:none" id="shenhediv">

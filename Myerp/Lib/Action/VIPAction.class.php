@@ -18,6 +18,23 @@ class VIPAction extends CommonAction{
 	
     public function index() {
 		A("Method")->showDirectory("会员列表");
+                
+                $where['telnum'] = array('gt',0);
+                if($_GET['title']) $where['name'] = array('LIKE','%'.$_GET['title'].'%');
+                
+                $Datacd = D("Datacd");
+                import("@.ORG.Page");
+                C('PAGE_NUMBERS',50);
+		$count = $Datacd->where($where)->count();
+		$pagenum = 50;
+		$p= new Page($count,$pagenum);
+		$page = $p->show();
+                $list = $Datacd->where($where)->limit($p->firstRow.','.$p->listRows)->select();
+		$data['list'] = $list;
+		$data['page'] = $page;
+		$this->assign("data",$data);
+                
+                
 		$this->display('index');
     }
 	
@@ -191,8 +208,7 @@ class VIPAction extends CommonAction{
 		
 	}
 		
-		
-		
+
 		
 		
 		
