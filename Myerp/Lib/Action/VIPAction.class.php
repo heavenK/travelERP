@@ -22,7 +22,7 @@ class VIPAction extends CommonAction{
                 $where['telnum'] = array('gt',0);
                 if($_GET['title']) $where['name'] = array('LIKE','%'.$_GET['title'].'%');
                 
-                $Datacd = D("Datacd");
+                $Datacd = D("Myerp_datacd");
                 import("@.ORG.Page");
                 C('PAGE_NUMBERS',50);
 		$count = $Datacd->where($where)->count();
