@@ -33,9 +33,6 @@ class VIPAction extends CommonAction{
 		$data['list'] = $list;
 		$data['page'] = $page;
 		$this->assign("data",$data);
-                dump($where);
-                dump($data);
-                dump($Datacd);
                 
 		$this->display('index');
     }
