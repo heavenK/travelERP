@@ -71,11 +71,13 @@ function onshop(){
 
 function dosearch(str) { //国内长线所有线路获取
 
+	var page = arguments[1] ? arguments[1] : 1;
+
 	  if(jQuery('.tid').val() == '2' ||jQuery('.tid').val() == '2' || jQuery('.tid').val() == '4')
 		  var postData = {
 			  tid: jQuery('.tid').val(),
 			  where: str,
-			  page: 1,
+			  page: page,
 			  rows: 20,
 			  allowUser: 'DL20150707dlgulian'
 		  };
@@ -83,7 +85,7 @@ function dosearch(str) { //国内长线所有线路获取
 	  if(jQuery('.tid').val() == '100')
 		  var postData = {
 			  where: str,
-			  page: 1,
+			  page: page,
 			  rows: 20,
 			  allowUser: 'DL20150707dlgulian'
 		  };
@@ -92,7 +94,7 @@ function dosearch(str) { //国内长线所有线路获取
 		  var postData = {
 			  x: 'x',
 			  where: str,
-			  page: 1,
+			  page: page,
 			  rows: 20,
 			  allowUser: 'DL20150707dlgulian'
 		  };
@@ -105,7 +107,7 @@ function dosearch(str) { //国内长线所有线路获取
 		  cache: false,
 		  success: function (data) {
 			  if(data.rows.length>0){ //判断是否有数据回传
-			  	
+			  	jQuery("#getmore").remove();
 			  	for(var i=0; i<data.rows.length; i++){
 			  
 			  		html += '<tr height="40" class="evenListRowS1">';
@@ -118,8 +120,10 @@ function dosearch(str) { //国内长线所有线路获取
 					html += '<td scope="row" align="left" valign="top">'+data.rows[i].AdultPrice+'</td>';
 					html += '<td scope="row" align="left" valign="top">'+data.rows[i].ChildPrice+'</td>';
 					html += '<td scope="row" align="left" valign="top">'+data.rows[i].AreaId+'</td>';
+					html += '</tr>';
 				}
-				
+				page++;
+				html += '<tr id="getmore"><td scope="row" align="center" valign="top"><a href="###" onclick="dosearch(\''+str+'\','+page+');">加载下一页</a></td></tr>';
 				jQuery("#datalist").append(html);
 			  }
 			  else{
