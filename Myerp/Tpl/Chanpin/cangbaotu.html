@@ -1,0 +1,192 @@
+<tp:includeCA file="Index:showheader" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<script>
+
+function onshop(){
+	ThinkAjax.myloading('resultdiv');
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onshop/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+}
+</script>
+<div id="main">
+  <div id="content" style="margin-left:0;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    
+    <include file="Index:search_ajax" />
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+      <tbody id="datalist">
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input type="button" class="button" value=" 收录到ERP " onclick="onoffshop()">
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
+          <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 出团日期 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 天数 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 剩余位置 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 成人价格 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 儿童价格 </div></th>
+          <th scope="col" nowrap="nowrap"><div> 区域 </div></th>
+        </tr>
+      
+      
+      
+        </tbody>
+      
+    </table>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />
+<script language="javascript"> 
+
+
+function dosearch(str) { //国内长线所有线路获取
+
+	  if(jQuery('.tid').val() == '2' ||jQuery('.tid').val() == '2' || jQuery('.tid').val() == '4')
+		  var postData = {
+			  tid: jQuery('.tid').val(),
+			  where: str,
+			  page: 1,
+			  rows: 20,
+			  allowUser: 'DL20150707dlgulian'
+		  };
+	  
+	  if(jQuery('.tid').val() == '100')
+		  var postData = {
+			  where: str,
+			  page: 1,
+			  rows: 20,
+			  allowUser: 'DL20150707dlgulian'
+		  };
+
+	  if(jQuery('.tid').val() == 'x')
+		  var postData = {
+			  x: 'x',
+			  where: str,
+			  page: 1,
+			  rows: 20,
+			  allowUser: 'DL20150707dlgulian'
+		  };
+	  var html = '';
+	  jQuery.ajax({
+		  type: "GET",
+		  url: "http://api.zycbt.com/api/PathApi",
+		  data: postData,
+		  dataType: 'json',
+		  cache: false,
+		  success: function (data) {
+			  if(data.rows.length>0){ //判断是否有数据回传
+			  	
+			  	for(var i=0; i<data.rows.length; i++){
+			  
+			  		html += '<tr height="40" class="evenListRowS1">';
+        			html += '<td scope="row" align="left" valign="top"><input value="'+data.rows[i].TourId+'" type="checkbox" name="itemlist[]" class="checkboxitem"></td>';
+        			html += '<td scope="row" align="left" valign="top">'+data.rows[i].TourId+'</td>';
+        			html += '<td scope="row" align="left" valign="top">'+data.rows[i].RouteName+'</td>';
+        			html += '<td scope="row" align="left" valign="top">'+data.rows[i].LeaveDate+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data.rows[i].TourDays+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data.rows[i].PlanPeopleNumber+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data.rows[i].AdultPrice+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data.rows[i].ChildPrice+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data.rows[i].AreaId+'</td>';
+				}
+				
+				jQuery("#datalist").append(html);
+			  }
+			  else{
+				  //没有数据回传
+			  }
+		  }
+	  });
+}
+
+
+
+function onoffshop(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onoffshop/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+	
+}
+</script>
+
+
+
+<div id="selectitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass"> <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a> <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a> </div></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="dateitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -21,6 +21,15 @@ class ChanpinAction extends CommonAction{
     }
 	
 	
+	public function cangbaotu() {
+		$d = D("Myerp_cbt_area");
+		$area = $d->select();
+		//dump($d);
+		$this->assign("area",$area);
+		$this->display('cangbaotu');
+    }
+	
+	
 	public function fabu() {
 		A("Method")->showDirectory("基本信息");
 		$chanpinID = $_REQUEST["chanpinID"];
