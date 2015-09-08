@@ -29,6 +29,171 @@ class ChanpinAction extends CommonAction{
 		$this->display('cangbaotu');
     }
 	
+	function std_class_object_to_array($stdclassobject)
+	{
+		$_array = is_object($stdclassobject) ? get_object_vars($stdclassobject) : $stdclassobject;
+	
+		foreach ($_array as $key => $value) {
+			$value = (is_array($value) || is_object($value)) ? $this->std_class_object_to_array($value) : $value;
+			$array[$key] = $value;
+		}
+	
+		return $array;
+	}
+	
+	public function saveCbt(){
+		
+		$datalist = explode(',',$_REQUEST['checkboxitem']);
+		
+		foreach($datalist as $val ){
+			$url = "http://api.zycbt.com/api/PathApi?tourId=".$val."&allowUser=DL20150707dlgulian";
+			$post_data = array (
+				"tourId" => $tourid,
+				"allowUser" => "DL20150707dlgulian"
+			);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+			$output = curl_exec($ch);
+			curl_close($ch);
+			
+			$data = json_decode($output);
+			
+			$data = $this->std_class_object_to_array($data);
+			$post_data = $data['info'][0];
+			if($_REQUEST['tid'] == 2){
+				$guojing = '国内';	
+				$kind= '长线游';
+			}
+			if($_REQUEST['tid'] == 3){
+				$guojing = '国内';	
+				$kind='自由人';
+			}
+			if($_REQUEST['tid'] == 4){
+				$guojing = '境外';
+				$kind='';	
+				
+			}
+			$chutuanriqi = explode("T",$post_data['LeaveDate']);
+			
+			$xianlu_data = array(
+				'guojing'	=>	$guojing,
+				'kind'		=>	$kind,
+				'xianlutype'	=> '',
+				'ajax'			=>	'1',
+				'title'		=>	$post_data['RouteName'],
+				'baomingjiezhi'	=>	$post_data['TingShouTianShu'],
+				'chufashengfen'	=>	'辽宁',
+				'chufachengshi'	=>	'大连',
+				'mudidi'		=>	'未知',
+				'renshu'		=>	$post_data['PlanPeopleNumber'],
+				'tianshu'		=>	$post_data['TourDays'],
+				'zhutititle'	=>	'',
+				'zhutitype'		=>	'产品主题',
+				'shipin'	=>	'',
+				'tupian'	=>	'',
+				'__hash__'	=>	time(),
+				'chutuanriqi'	=>	$chutuanriqi[0],
+				'xingchengtese'	=>	str_replace('$','<br>',$post_data['MiaoShu']),
+				'cantuanxuzhi'	=>	'',
+				'chufashengfen_id'	=>	'',
+				'chufachengshi_id'	=>	'202001',
+				'zhuti'	=>	'',
+				'shoujia'		=>	$post_data['AdultPrice'],
+				'ertongshoujia'		=>	$post_data['ChildPrice'],
+				'xingchengxiangxi'	=>	$post_data['PlanList'],
+				'departmentID'	=>	40174
+				);
+			
+			$_REQUEST = $xianlu_data;
+			
+			$this->dopostsave();
+		}
+		
+	}
+	
+	public function dopostsave(){
+		$Chanpin = D("Chanpin");
+		$_REQUEST['xianlu'] = $_REQUEST;
+	
+		//判断计调角色,返回用户DUR
+		$durlist = A("Method")->_checkRolesByUser('计调','组团');
+	
+		//数据处理
+		$_REQUEST['xianlu']['chufadi'] = $_REQUEST['chufashengfen'].','.$_REQUEST['chufachengshi'];
+		$_REQUEST['xianlu']['daoyoufuwu'] = $_REQUEST['daoyoufuwu'][0].','.$_REQUEST['daoyoufuwu'][1];
+		$_REQUEST['xianlu']['ischild'] = $_REQUEST['ischild'] ? 1 : 0;
+		if($_REQUEST['xianlu']['guojing'] == "境外" && $_REQUEST['xianlu']['kind'] != "包团"){
+			$xianlu_ext['feiyongyes'] = $_REQUEST['feiyongyes'];
+			$xianlu_ext['feiyongno'] = $_REQUEST['feiyongno'];
+			$xianlu_ext['qianzhengxinxi'] = $_REQUEST['qianzhengxinxi'];
+			$xianlu_ext['kexuanzifei'] = $_REQUEST['kexuanzifei'];
+			$xianlu_ext['gouwuxinxi'] = $_REQUEST['gouwuxinxi'];
+			$xianlu_ext['yudingtiaokuan'] = $_REQUEST['yudingtiaokuan'];
+			$xianlu_ext['chuxingjingshi'] = $_REQUEST['chuxingjingshi'];
+			$_REQUEST['xianlu']['xianlu_ext'] = serialize($xianlu_ext);
+		}
+		if(!$_REQUEST['second_confirm']){
+			$_REQUEST['xianlu']['second_confirm'] = 0;
+		}
+		//end
+		
+		//var_dump($_REQUEST);exit;
+		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
+			
+			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
+			//生成OM
+			if($Chanpin->getLastmodel() == 'add'){
+				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'线路');
+			}
+			else{
+				//更新所有子产品部门属性
+				$this->_chanpin_department_reset($_REQUEST['chanpinID'],$_REQUEST['departmentID']);
+			}
+			if(false === A("Method")->_is_Super_Admin()){
+				//自动申请审核
+				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
+				$_REQUEST['dotype'] = '申请';
+				$_REQUEST['datatype'] = '线路';
+				$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
+				if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+					A("Method")->_autoshenqing();
+			}
+			
+			$tianshu = $_REQUEST['tianshu'];
+			$xiangxi = $_REQUEST['xingchengxiangxi'];
+			$chanpinID = $_REQUEST['chanpinID'] ;
+			unset($_REQUEST);
+			
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($chanpinID,'线路','管理');
+			
+			$Chanpin = D("Chanpin");
+			for($t = 0; $t < $tianshu; $t++){
+				$dat = '';
+				$tool = explode('|',$xiangxi[$t]['Interval']);
+				$tools[] = $tool[1];
+				if(stristr($xiangxi[$t]['Dinner'],'2')) $food[] ='早餐';
+				if(stristr($xiangxi[$t]['Dinner'],'3')) $food[] ='午餐';
+				if(stristr($xiangxi[$t]['Dinner'],'4')) $food[] ='晚餐';
+				$dat['parentID'] = $chanpinID;
+				$dat['xingcheng']['place'] = $xiangxi[$t]['Hotel'];
+				$dat['xingcheng']['title'] = $tool[0];
+				$dat['xingcheng']['tools'] = serialize($tools);
+				$dat['xingcheng']['chanyin'] = serialize($food);
+				$dat['xingcheng']['content'] = str_replace('$','<br>',$xiangxi[$t]['Plan']);
+				$Chanpin->relation('xingcheng')->myRcreate($dat);
+			}
+			//更新行程一到线路
+			$ViewXianlu = D("ViewXianlu");
+			$xianlu = $ViewXianlu->where("`chanpinID` = '$chanpinID'")->find();
+			$daat['chanpinID'] = $xianlu['chanpinID'];
+			$daat['xianlu']['datatext'] = simple_unserialize($xianlu['datatext']);
+			$daat['xianlu']['datatext']['xingcheng'] = $_REQUEST['xingcheng'];
+			$daat['xianlu']['datatext'] = serialize($daat['xianlu']['datatext']);
+			$Chanpin->relation('xianlu')->myRcreate($daat);
+		}
+	}
 	
 	public function fabu() {
 		A("Method")->showDirectory("基本信息");
@@ -83,6 +248,7 @@ class ChanpinAction extends CommonAction{
 	public function dopostfabu() {
 		$Chanpin = D("Chanpin");
 		$_REQUEST['xianlu'] = $_REQUEST;
+		
 		if(!$_REQUEST['departmentID'])
 			A("Method")->ajaxUploadResult($_REQUEST,'您没有权限发布线路类产品！',0);
 		//修改已有
@@ -267,7 +433,7 @@ class ChanpinAction extends CommonAction{
 	
 	
 	public function dopostxingcheng()
-	{
+	{	
 		//检查dataOM
 		$xianlu = A('Method')->_checkDataOM($_REQUEST['parentID'],'线路','管理');
 		if(false === $xianlu)

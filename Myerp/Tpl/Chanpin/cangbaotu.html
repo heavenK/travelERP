@@ -73,7 +73,7 @@ function dosearch(str) { //国内长线所有线路获取
 
 	var page = arguments[1] ? arguments[1] : 1;
 
-	  if(jQuery('.tid').val() == '2' ||jQuery('.tid').val() == '2' || jQuery('.tid').val() == '4')
+	  if(jQuery('.tid').val() == '2' ||jQuery('.tid').val() == '3' || jQuery('.tid').val() == '4')
 		  var postData = {
 			  tid: jQuery('.tid').val(),
 			  where: str,
@@ -113,7 +113,7 @@ function dosearch(str) { //国内长线所有线路获取
 			  		html += '<tr height="40" class="evenListRowS1">';
         			html += '<td scope="row" align="left" valign="top"><input value="'+data.rows[i].TourId+'" type="checkbox" name="itemlist[]" class="checkboxitem"></td>';
         			html += '<td scope="row" align="left" valign="top">'+data.rows[i].TourId+'</td>';
-        			html += '<td scope="row" align="left" valign="top">'+data.rows[i].RouteName+'</td>';
+        			html += '<td scope="row" align="left" valign="top"><a href="###" onclick="showmore(\''+data.rows[i].TourId+'\');">'+data.rows[i].RouteName+'</a></td>';
         			html += '<td scope="row" align="left" valign="top">'+data.rows[i].LeaveDate+'</td>';
 					html += '<td scope="row" align="left" valign="top">'+data.rows[i].TourDays+'</td>';
 					html += '<td scope="row" align="left" valign="top">'+data.rows[i].PlanPeopleNumber+'</td>';
@@ -127,12 +127,71 @@ function dosearch(str) { //国内长线所有线路获取
 				jQuery("#datalist").append(html);
 			  }
 			  else{
+				  jQuery("#getmore").remove();
+				  html = '<tr id="getmore"><td scope="row" align="center" valign="top">没有了！</td></tr>';
+				  jQuery("#datalist").append(html);
 				  //没有数据回传
 			  }
 		  }
 	  });
 }
 
+function showmore(tourid){
+	var str = '';
+            var postData = {
+                tourId: tourid,
+                allowUser: 'DL20150707dlgulian'
+            };
+            jQuery.ajax({
+                type: "GET",
+                url: "http://api.zycbt.com/api/PathApi",
+                data: postData,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+					if(data.info){ //判断是否有数据回传
+					//其他调用请看excel文件 页面格式自行生成即可
+							str +=  '成人价格：' + data.info[0].AdultPrice + '\r\n';
+							str += '线路区域编号：	' + data.info[0].AdultPrice + '\r\n';
+							str += '儿童价格：	' + data.info[0].ChildPrice + '\r\n';
+							str += '集合方式：	' + data.info[0].Gather + '\r\n';
+							str += '集合地点：	' + data.info[0].GatheringPlace + '\r\n';
+							str += '集合时间：	' + data.info[0].GatheringTime + '\r\n';
+							str += '出团日期：	' + data.info[0].LeaveDate + '\r\n';
+							str += '出发交通：	' + data.info[0].Ltraffic + '\r\n';
+							str += '线路描述：	' + data.info[0].MiaoShu + '\r\n';
+							str += '剩余位置【人数】：	' + data.info[0].PlanPeopleNumber + '\r\n';
+							str += '回团日期：	' + data.info[0].Rdate + '\r\n';
+							str += '线路名称：	' + data.info[0].RouteName + '\r\n';
+							str += '线路状态 0正常 1特价 2预售 3热卖 4主推 5新品：	' + data.info[0].RouteStatus + '\r\n';
+							str += '返程交通：	' + data.info[0].Rtraffic + '\r\n';
+							str += '停收天数：' + data.info[0].TingShouTianShu + '	\r\n';
+							str += '团号：	' + data.info[0].TourCode + '\r\n';
+							str += '游玩天数【行程天数】：	' + data.info[0].TourDays + '\r\n';
+							str += '团队编号：	' + data.info[0].TourId + '\r\n';
+							str += '详细：\r\n';
+							
+							var plan;
+							var plan_str;
+							for(var i=0; i<data.info[0].PlanList.length; i++){
+								plan = data.info[0].PlanList[i];
+								
+								plan_str += 'Dinner：2 3 4 对应早餐、中餐、晚餐 :'+plan.Dinner+'\r\n';
+								plan_str += 'Hotel：住宿 :'+plan.Hotel+'\r\n';
+								plan_str += 'Interval：行程当天到达目的地:'+plan.Interval+'\r\n';
+								plan_str += 'Plan：行程当天出发目的地及交通工具用“|”分隔:'+plan.Plan+'\r\n';
+								plan_str += 'Vehicle：具体行程 注：如有“$”是为换行标识 请注意替换:'+plan.Vehicle+'\r\n';
+								
+							}
+							
+							alert(str+plan_str);
+						}
+						else{
+							//没有数据回传
+						}
+                }
+            });
+}
 
 
 function onoffshop(){
@@ -148,12 +207,15 @@ function onoffshop(){
 		ajaxalert('至少选择1项进行操作！');
 		return;
 	}
+	if(jQuery('.tid').val() == '2' ||jQuery('.tid').val() == '3' || jQuery('.tid').val() == '4')
+		  var tid=jQuery('.tid').val();
+	else  var tid = 2;
 	jQuery.ajax({
 		type:	"POST",
-		url:	"<{:SITE_INDEX}>Client/onoffshop/chanpintype/线路",
-		data:	"checkboxitem="+checkboxitem,
+		url:	"<{:SITE_INDEX}>Chanpin/saveCbt",
+		data:	"checkboxitem="+checkboxitem+"&tid="+tid,
 		success:function(msg){
-			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+			alert(msg+"条收录成功");
 		}
 	});
 	
