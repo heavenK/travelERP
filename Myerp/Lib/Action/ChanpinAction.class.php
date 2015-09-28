@@ -142,31 +142,10 @@ class ChanpinAction extends CommonAction{
 		if (false !== $Chanpin->relation("xianlu")->myRcreate($_REQUEST)){
 			
 			$_REQUEST['chanpinID'] = $Chanpin->getRelationID();
-			//生成OM
-			if($Chanpin->getLastmodel() == 'add'){
-				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'线路');
-			}
-			else{
-				//更新所有子产品部门属性
-				$this->_chanpin_department_reset($_REQUEST['chanpinID'],$_REQUEST['departmentID']);
-			}
-			if(false === A("Method")->_is_Super_Admin()){
-				//自动申请审核
-				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
-				$_REQUEST['dotype'] = '申请';
-				$_REQUEST['datatype'] = '线路';
-				$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
-				if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
-					A("Method")->_autoshenqing();
-			}
 			
 			$tianshu = $_REQUEST['tianshu'];
 			$xiangxi = $_REQUEST['xingchengxiangxi'];
 			$chanpinID = $_REQUEST['chanpinID'] ;
-			unset($_REQUEST);
-			
-			//检查dataOM
-			$xianlu = A('Method')->_checkDataOM($chanpinID,'线路','管理');
 			
 			$Chanpin = D("Chanpin");
 			for($t = 0; $t < $tianshu; $t++){
@@ -192,6 +171,33 @@ class ChanpinAction extends CommonAction{
 			$daat['xianlu']['datatext']['xingcheng'] = $_REQUEST['xingcheng'];
 			$daat['xianlu']['datatext'] = serialize($daat['xianlu']['datatext']);
 			$Chanpin->relation('xianlu')->myRcreate($daat);
+			
+			
+			//生成OM
+			if($Chanpin->getLastmodel() == 'add'){
+				A("Method")->_OMRcreate($_REQUEST['chanpinID'],'线路');
+			}
+			else{
+				//更新所有子产品部门属性
+				$this->_chanpin_department_reset($_REQUEST['chanpinID'],$_REQUEST['departmentID']);
+			}
+			if(false === A("Method")->_is_Super_Admin()){
+				//自动申请审核
+				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
+				$_REQUEST['dotype'] = '申请';
+				$_REQUEST['datatype'] = '线路';
+				$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
+				if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+					A("Method")->_autoshenqing();
+			}
+			
+			
+			unset($_REQUEST);
+			
+			//检查dataOM
+			$xianlu = A('Method')->_checkDataOM($chanpinID,'线路','管理');
+			
+			
 		}
 	}
 	
