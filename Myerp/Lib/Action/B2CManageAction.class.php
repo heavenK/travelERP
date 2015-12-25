@@ -99,21 +99,74 @@ class B2CManageAction extends CommonAction{
 	
 	//获得众信数据
     public function zhongXinInterface() {
+        C('TOKEN_ON',false);
         import("@.ORG.Snoopy");
-		$Snoopy = new Snoopy();
-		$url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
-		$Snoopy->fetchlinks($url);
+        $Snoopy = new Snoopy();
+        //$url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
+        $url = 'http://zhike.utourworld.com/InternationLine/TourXML/index.html';
+        $Snoopy->fetchlinks($url);
+        
+        if($_REQUEST['dis']){
+            
+            $this->assign("groups",$Snoopy->results);
+            $this->display('Chanpin:zhongxin');
+            exit;
+        }
+        
+        if($_REQUEST['save']){
+            $res  = $Snoopy->results;
+            $xml2array = xmltoarrayMix($res[$_REQUEST['tid']]);
+            $datalist = explode(',',$_REQUEST['checkboxitem']);
+            
+            $i = 0;
+            foreach($datalist as $val ){
+                
+                $item = $xml2array['item'][$val];
+                $Chanpin = D("Chanpin");
+                $chanpin = $this->_fill2chanpin($item);
+                
+                $chanpin['xianlu'] = $this->_fill2xianlu($item);
+                if (false !== $Chanpin->relation('xianlu')->myRcreate($chanpin)){
+                    $chanpinID = $Chanpin->getRelationID();
+                    $chanpin['xingcheng'] = $this->_fill2xingcheng($item,$chanpinID);
+                    //生成OM
+                    A("Method")->_OMRcreate($chanpinID,'线路');
+                    //批准成团
+                    $this->_shenhepizhun($chanpinID);
+                    $i++;
+                }else{
+                    print_r($Chanpin);
+                }
+            }
+            
+            echo $i;
+            exit;
+        }
+        
+		
 		$xmlNo = $_REQUEST['xmlNo'];
 		if(!$xmlNo)
 			$xmlNo = 1;
-		$i = 1;	
-		foreach($Snoopy->results as $v){
-			if($i == $xmlNo){
-				$this->_xml2chanpin($v,$xmlNo,count($Snoopy->results));
-			}
-			$i++;	
+		if(!$_GET['need']){
+    		$i = 1;	
+    		foreach($Snoopy->results as $v){
+    			if($i == $xmlNo){
+    				$this->_xml2chanpin($v,$xmlNo,count($Snoopy->results));
+    			}
+    			$i++;	
+    		}
+    		$this->ajaxReturn('', '成功！执行结束', 1);
+		}else{
+		    $res  = $Snoopy->results;
+		    
+    		$xml2array = xmltoarrayMix($res[$_REQUEST['key']]);
+    		foreach($xml2array['item'] as $v){
+    		    $xianlu[] = $this->_fill2xianlu($v);
+    		}
+    		
+            echo json_encode($xianlu);
+            exit;
 		}
-		$this->ajaxReturn('', '成功！执行结束', 1);
     }
 	
 	
@@ -125,7 +178,6 @@ class B2CManageAction extends CommonAction{
 //		$xml = simplexml_load_file($url, 'SimpleXMLElement', LIBXML_NOCDATA );//兼容CDATA格式
 //		$xml2array = xmltoarray($xml);
 		$xml2array = xmltoarrayMix($url);
-			
 		if($xml2array['item'] > 1){
 			$itemNo = $_REQUEST['itemNo'];
 			if(!$itemNo)
@@ -215,7 +267,7 @@ class B2CManageAction extends CommonAction{
 		$chanpin['user_name'] = '电商采购';
 		$d = A("Method")->_getDepartmentByTitle('电子商务中心');
 		if(!$d)
-			$this->ajaxReturn('', '发生错误!电商部门错误', 0);
+			$this->ajaxReturn('', '发生错误!电商部门错误1', 0);
 		$chanpin['departmentID'] = $d['systemID'];
 		return $chanpin;
     }

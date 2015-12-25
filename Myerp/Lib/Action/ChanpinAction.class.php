@@ -150,15 +150,15 @@ class ChanpinAction extends CommonAction{
 				//更新所有子产品部门属性
 				$this->_chanpin_department_reset($_REQUEST['chanpinID'],$_REQUEST['departmentID']);
 			}
-			if(false === A("Method")->_is_Super_Admin()){
+			/*if(false === A("Method")->_is_Super_Admin()){
 				//自动申请审核
 				$_REQUEST['dataID'] = $_REQUEST['chanpinID'];
 				$_REQUEST['dotype'] = '申请';
 				$_REQUEST['datatype'] = '线路';
 				$_REQUEST['title'] = $_REQUEST['xianlu']['title'];
-				if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监','行政'))
+				if(!A("Method")->_checkRolesByUser('网管,总经理,出纳,会计,财务,财务总监,计调','行政'))
 					A("Method")->_autoshenqing();
-			}
+			}*/
 			
 			$tianshu = $_REQUEST['tianshu'];
 			$xiangxi = $_REQUEST['xingchengxiangxi'];

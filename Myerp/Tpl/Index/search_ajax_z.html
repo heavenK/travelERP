@@ -1,0 +1,64 @@
+    <div class="moduleTitle" style="margin-bottom:10px;">
+      <h2 style="margin-top:10px;"><{$navigation}><{$datatitle}></h2>
+      <div style="float:left; margin-left:50px; margin-top:6px;">
+          <span id="show_link_insideview"  <php>if(!cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(1)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_collapsed.png"></a> 
+          </span> 
+          <span id="hide_link_insideview"  <php>if(cookie('closesearch')) echo 'style="display:none"';</php>> 
+          <a href="javascript:void(0);" onclick="showmysearchdiv(2)"><img border="0" src="<{:__PUBLIC__}>/myerp/images/insideview_expanded.png"></a> 
+          </span> 
+      </div>
+      <span style="margin-top:10px;">
+      <img src="<{:__PUBLIC__}>/myerp/images/help.gif" alt="帮助"></a> <a href="javascript:void(0)" onclick="alert('暂无');" class="utilsLink"> 帮助 </a>
+      </span>
+    </div>
+    
+    <div id="mysearchdiv" >
+        <ul id="searchTabs" class="tablist">
+          <li>
+              <a id="searchtab_2" class="current">获取线路</a>
+          </li>
+        </ul>
+        
+        <div class="search_form" id="searchdiv_2" >
+              <div class="edit view search ">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+                        <tr>
+                          <td scope="row" nowrap="nowrap"> 组群 </td>
+                          <td nowrap="nowrap">
+                            <select class="groupid">
+                                <foreach name="groups" item="vo" key="k">
+                                <option value="<{$k}>">第<{$k+1}>组</option>
+                                </foreach>
+                            </select>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+              <input type="button" class="button" title="获取" value=" 获取 " onclick="_dosearch(2);">&nbsp;
+              <input type="button" class="button" title="清除" value=" 清除 " onclick="clearsearch();">
+        </div>
+        
+    </div>
+
+
+<script>
+
+function _dosearch(sorttabid){
+	
+	var where = '';
+    var groupid='';
+
+	if(jQuery('.groupid').val())
+		groupid = jQuery('.groupid').val();
+	else {
+		alert("暂无数据！");
+		return ;
+	}
+	
+	dosearch(groupid);
+}
+</script>
+

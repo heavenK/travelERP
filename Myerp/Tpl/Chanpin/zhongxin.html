@@ -1,0 +1,188 @@
+<tp:includeCA file="Index:showheader" />
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<{:__PUBLIC__}>/myerp/Chanpin/xianlu.js"></script>
+<script>
+
+function onshop(){
+	ThinkAjax.myloading('resultdiv');
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>Client/onshop/chanpintype/线路",
+		data:	"checkboxitem="+checkboxitem,
+		success:function(msg){
+			ThinkAjax.myAjaxResponse(msg,'resultdiv',save_after);
+		}
+	});
+	
+}
+</script>
+<div id="main">
+  <div id="content" style="margin-left:0;">
+    <div id="resultdiv" class="resultdiv"></div>
+    <div id="resultdiv_2" class="resultdiv"></div>
+    
+    <include file="Index:search_ajax_z" />
+    <table cellpadding="0" cellspacing="0" width="100%" class="list view">
+      
+        <tr class="pagination">
+          <td colspan="11"><table cellpadding="0" cellspacing="0" width="100%" class="paginationTable">
+              <tbody>
+                <tr>
+                  <td nowrap="nowrap" class="paginationActionButtons"><a id="select_link" href="javascript:void(0)" onclick="showbox(this,'selectitem')">选择&nbsp;<img src="<{:__PUBLIC__}>/myerp/images/MoreDetail.png" ></a>&nbsp;
+                    <input type="button" class="button" value=" 收录到ERP " onclick="onoffshop()">
+                </tr>
+              </tbody>
+            </table></td>
+        </tr>
+        <tr height="20">
+          <th scope="col" nowrap="nowrap"><input type="checkbox" class="checkbox" value="" id="checkboxall" onclick="myCheckBoxSelect(this)"></th>
+          <th scope="col" nowrap="nowrap"><div> 编号 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 产品名称 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:200px; width:30%"><div> 主题 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 天数 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:60px;"><div> 剩余位置 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 成人价格 </div></th>
+          <th scope="col" nowrap="nowrap" style="min-width:40px;"><div> 儿童价格 </div></th>
+        </tr>
+      <tbody id="datalist">
+      
+      
+      </tbody>
+      
+    </table>
+  </div>
+</div>
+<tp:includeCA file="Index:footer" />
+<script language="javascript"> 
+var cur_data = '';
+
+function dosearch(str) { //国内长线所有线路获取
+	
+		
+	
+	  var html = '';
+	  jQuery.ajax({
+		  type: "GET",
+		  url: "/index.php?s=/B2CManage/zhongXinInterface/need/1/key/"+str,
+		  dataType: 'json',
+		  cache: false,
+		  success: function (data) {
+			  if(data.length>0){ //判断是否有数据回传
+				  cur_data = data;
+			  	for(var i=0; i<data.length; i++){
+			  
+			  		html += '<tr height="40" class="evenListRowS1">';
+        			html += '<td scope="row" align="left" valign="top"><input value="'+i+'" type="checkbox" name="itemlist[]" class="checkboxitem"></td>';
+        			html += '<td scope="row" align="left" valign="top">'+data[i].zhongxindatatext['@attributes'].lineid+'</td>';
+        			html += '<td scope="row" align="left" valign="top"><a href="###" onclick="showmore(\''+i+'\');">'+data[i].title+'</a></td>';
+        			html += '<td scope="row" align="left" valign="top" style="width:30%">'+data[i].zhuti+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data[i].tianshu+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data[i].renshu+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data[i].shoujia+'</td>';
+					html += '<td scope="row" align="left" valign="top">'+data[i].ertongshoujia+'</td>';
+					html += '</tr>';
+				}
+			    html += '<input type="hidden" id="groupids" name="groupid" value="'+str+'">';
+				jQuery("#datalist").html(html);
+			  }
+			  else{
+				  html = '<tr id="getmore"><td scope="row" align="center" valign="top">没有了！</td></tr>';
+				  jQuery("#datalist").html(html);
+				  //没有数据回传
+			  }
+		  }
+	  });
+}
+
+function showmore(i){
+var data = cur_data;
+var str = '';
+							str +=  '成人价格：' + data[i].shoujia + '\r\n';
+							str += '儿童价格：	' + data[i].ertongshoujia + '\r\n';
+							str += '出团日期：	' + data[i].chutuanriqi + '\r\n';
+							
+							str += '剩余位置【人数】：	' + data[i].renshu + '\r\n';
+							str += '线路名称：	' + data[i].title + '\r\n';
+							str += '游玩天数【行程天数】：	' + data[i].tianshu + '\r\n';
+							str += '目的地：	' + data[i].mudidi + '\r\n';
+							str += '线路描述：	' + data[i].xingchengtese + '\r\n';
+							
+							
+							
+							alert(str);
+
+}
+
+
+function onoffshop(){
+	var checkboxitem = new Array();
+	var i = 0;
+	jQuery(".checkboxitem").each(function(index, element) {
+		if(jQuery(this).attr("checked")){
+			checkboxitem[i] = jQuery(this).attr('value');
+			i++;
+		}
+	});
+	if(checkboxitem == ''){
+		ajaxalert('至少选择1项进行操作！');
+		return;
+	}
+	var gid=jQuery('#groupids').val();
+	jQuery.ajax({
+		type:	"POST",
+		url:	"<{:SITE_INDEX}>B2CManage/zhongXinInterface",
+		data:	"save=1&checkboxitem="+checkboxitem+"&tid="+gid,
+		success:function(msg){
+			alert(msg+"条收录成功");
+		}
+	});
+	
+	
+}
+</script>
+
+
+
+<div id="selectitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass"> <a href="javascript:void(0)" onclick="myCheckBoxSelect()" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">选择全部</a> <a href="javascript:void(0)" onclick="myCheckBoxSelect('o','false')" onMouseOut="unhiliteItem(this);" onMouseOver="hiliteItem(this,'yes');" class="menuItem" style="width: 150px">取消选择</a> </div></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="dateitem" style=" display:none; position:absolute;">
+  <table width="150" cellspacing="0" cellpadding="1" border="0" class="olBgClass">
+    <tbody>
+      <tr>
+        <td><table width="100%" cellspacing="0" cellpadding="2" border="0" class="olOptionsFgClass">
+            <tbody>
+              <tr>
+                <td valign="top" class="olOptionsFgClass"><div class="olFontClass" id="thedate"> </div></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
