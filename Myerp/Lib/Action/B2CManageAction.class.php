@@ -102,8 +102,8 @@ class B2CManageAction extends CommonAction{
         C('TOKEN_ON',false);
         import("@.ORG.Snoopy");
         $Snoopy = new Snoopy();
-        //$url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
-        $url = 'http://zhike.utourworld.com/InternationLine/TourXML/index.html';
+        $url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
+        //$url = 'http://zhike.utourworld.com/InternationLine/TourXML/index.html';
         $Snoopy->fetchlinks($url);
         
         if($_REQUEST['dis']){
