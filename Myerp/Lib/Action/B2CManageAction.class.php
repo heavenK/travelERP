@@ -132,7 +132,7 @@ class B2CManageAction extends CommonAction{
                     //生成OM
                     A("Method")->_OMRcreate($chanpinID,'线路');
                     //批准成团
-                    $this->_shenhepizhun($chanpinID);
+                    //$this->_shenhepizhun($chanpinID);
                     $i++;
                 }else{
                     print_r($Chanpin);
