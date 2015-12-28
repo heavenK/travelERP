@@ -103,7 +103,7 @@ class B2CManageAction extends CommonAction{
         import("@.ORG.Snoopy");
         $Snoopy = new Snoopy();
         $url = 'http://erp.utourworld.com/api/team/teamInterfaceUrl.asp';
-        //$url = 'http://zhike.utourworld.com/InternationLine/TourXML/index.html';
+        //$url = 'http://zhike.utourworld.com//TourXML/index.html';
         $Snoopy->fetchlinks($url);
         
         if($_REQUEST['dis']){
@@ -264,12 +264,12 @@ class B2CManageAction extends CommonAction{
 	
 	//填充chanpin
     public function _fill2chanpin() {
-		$chanpin['user_name'] = '电商采购';
-		$d = A("Method")->_getDepartmentByTitle('电子商务中心');
-		if(!$d)
-			$this->ajaxReturn('', '发生错误!电商部门错误1', 0);
-		$chanpin['departmentID'] = $d['systemID'];
-		return $chanpin;
+		//$chanpin['user_name'] = '电商采购';
+		//$d = A("Method")->_getDepartmentByTitle('电子商务中心');
+		//if(!$d)
+		//	$this->ajaxReturn('', '发生错误!电商部门错误', 0);
+		//$chanpin['departmentID'] = $d['systemID'];
+		//return $chanpin;
     }
 	
 	
